@@ -91,7 +91,7 @@ public class DatabaseConfiguration {
         PoolProperties pp=new PoolProperties();
         pp.setJmxEnabled(false);
         pp.setDefaultTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
-        pp.setInitialSize(100);
+        pp.setInitialSize(20);
         pp.setMaxWait(60000);
 
         DataSource dataSource = new DataSource(pp);

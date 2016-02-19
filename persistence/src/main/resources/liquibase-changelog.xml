@@ -13,50 +13,20 @@
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
 
-	<changeSet id="add-default-group" author="mpostelnicu">
-		<preConditions onFail="CONTINUE">
-			<tableExists tableName="CATEGORY" />
+	<changeSet author="sdimunzio" id="sequences">
+
+        <preConditions onFail="CONTINUE">
+            <dbms type="postgresql"></dbms>
+			<sequenceExists catalogName="public" sequenceName="idGenerator" />
 		</preConditions>
-		<insert tableName="CATEGORY">
-			<column name="LABEL" value="group1" />
-			<column name="DTYPE" value="Group" />
-		</insert>
+		<createSequence catalogName="public"
+						incrementBy="1"
+						maxValue="1000"
+						minValue="1"
+						schemaName="public"
+						sequenceName="idGenerator"
+						startValue="5"/>
 	</changeSet>
 
-	<changeSet id="add-default-roles" author="mpostelnicu">
-		<preConditions onFail="CONTINUE">
-			<tableExists tableName="ROLE" />
-		</preConditions>
-		<insert tableName="ROLE">
-			<column name="AUTHORITY" value="ROLE_USER" />
-		</insert>
-		<insert tableName="ROLE">
-			<column name="AUTHORITY" value="ROLE_ADMIN" />
-		</insert>
-		<insert tableName="ROLE">
-			<column name="AUTHORITY" value="ROLE_EDITOR" />
-		</insert>
-		<insert tableName="ROLE">
-			<column name="AUTHORITY" value="ROLE_VALIDATOR" />
-		</insert>
-	</changeSet>
-
-    <changeSet id="7" author="mpostelnicu">
-        <preConditions onFail="CONTINUE">
-            <tableExists tableName="PERSON_ROLES" />
-            <tableExists tableName="ROLE" />
-            <tableExists tableName="PERSON" />
-        </preConditions>
-        <sqlFile path="Person.sql"/>
-    </changeSet>
-
-    <changeSet id="8" author="mpostelnicu">
-        <preConditions onFail="CONTINUE">
-            <tableExists tableName="PERSON_ROLES" />
-            <tableExists tableName="ROLE" />
-            <tableExists tableName="PERSON" />
-        </preConditions>
-        <sqlFile path="Person_roles.sql"/>
-    </changeSet>
 
 </databaseChangeLog>
