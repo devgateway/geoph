@@ -28,6 +28,7 @@ import org.apache.tomcat.jdbc.pool.DataSource;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
 import org.devgateway.geoph.persistence.dao.AuditorAwareImpl;
 import org.postgresql.Driver;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
@@ -47,6 +48,15 @@ import org.springframework.mock.jndi.SimpleNamingContextBuilder;
 public class DatabaseConfiguration {
 
     protected static Logger logger = Logger.getLogger(DatabaseConfiguration.class);
+
+    @Value("#{environment['database.url']}")
+    private String databaseUrl;
+
+    @Value("#{environment['database.username']}")
+    private String databaseUsername;
+
+    @Value("#{environment['database.password']}")
+    private String databasePassword;
 
     /**
      * This bean creates the JNDI tree and registers the
@@ -97,9 +107,9 @@ public class DatabaseConfiguration {
         DataSource dataSource = new DataSource(pp);
 
         dataSource.setDriverClassName(Driver.class.getName());
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/geoph");
-        dataSource.setUsername("postgres");
-        dataSource.setPassword("admin");
+        dataSource.setUrl(databaseUrl);
+        dataSource.setUsername(databaseUsername);
+        dataSource.setPassword(databasePassword);
         return dataSource;
     }
 

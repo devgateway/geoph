@@ -6,6 +6,8 @@ import org.springframework.context.ApplicationContext;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 
 import java.util.Arrays;
 
@@ -17,9 +19,10 @@ import java.util.Arrays;
 
 @Import({
         PersistenceApplication.class
-
 })
-
+@PropertySources({
+        @PropertySource("file:${CONF_DIR}/geoph.properties")
+})
 public class Deployer {
     public static void main(String[] args) {
         ApplicationContext ctx = SpringApplication.run(Deployer.class, args);
