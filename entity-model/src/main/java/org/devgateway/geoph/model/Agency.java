@@ -1,7 +1,17 @@
 package org.devgateway.geoph.model;
 
+import org.devgateway.geoph.persistence.dao.GenericPersistable;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import javax.persistence.Entity;
+import java.io.Serializable;
+
 /**
  * Created by Sebastian Dimunzio on 2/26/2016.
  */
-public class Agency {
+
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Entity
+public class Agency extends GenericPersistable implements Serializable {
 }
