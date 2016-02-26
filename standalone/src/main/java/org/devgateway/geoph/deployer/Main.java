@@ -12,6 +12,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -23,7 +24,9 @@ import java.util.Arrays;
 
 @SpringBootApplication
 
-@PropertySource("classpath:/org/devgateway/geoph/deployer/application.properties")
+@PropertySources({
+        @PropertySource("file:${CONF_PATH}/application.properties")
+})
 @ComponentScan("org.devgateway.geoph")
 /*
 @Import({

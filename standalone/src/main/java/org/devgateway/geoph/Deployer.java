@@ -21,7 +21,6 @@ import java.util.Arrays;
 @Import({
         PersistenceApplication.class
 })
-
 public class Deployer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Deployer.class);
