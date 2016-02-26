@@ -17,14 +17,14 @@
 
         <preConditions onFail="CONTINUE">
             <dbms type="postgresql"></dbms>
-			<sequenceExists catalogName="public" sequenceName="idGenerator" />
+			<sequenceExists catalogName="public" sequenceName="UNIQUE_ID_GENERATOR"/>
 		</preConditions>
 		<createSequence catalogName="public"
 						incrementBy="1"
 						maxValue="1000"
 						minValue="1"
 						schemaName="public"
-						sequenceName="idGenerator"
+						sequenceName="UNIQUE_ID_GENERATOR"
 						startValue="5"/>
 	</changeSet>
 

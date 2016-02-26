@@ -30,7 +30,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication
 @EnableJpaRepositories(basePackageClasses = RoleRepository.class)
 @EnableTransactionManagement
-@EntityScan(basePackageClasses = GenericPersistable.class)
+@EntityScan("org.devgateway.geoph")
 @PropertySource("classpath:/org/devgateway/geoph/persistence/application.properties")
 @ComponentScan("org.devgateway.geoph")
 public class PersistenceApplication {
