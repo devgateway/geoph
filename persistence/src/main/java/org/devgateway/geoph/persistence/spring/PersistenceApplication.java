@@ -11,8 +11,6 @@
  *******************************************************************************/
 package org.devgateway.geoph.persistence.spring;
 
-import org.devgateway.geoph.persistence.dao.GenericPersistable;
-import org.devgateway.geoph.persistence.dao.GenericPersistable;
 import org.devgateway.geoph.persistence.repository.RoleRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

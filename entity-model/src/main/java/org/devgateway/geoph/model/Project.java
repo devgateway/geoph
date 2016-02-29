@@ -1,6 +1,6 @@
 package org.devgateway.geoph.model;
 
-import org.devgateway.geoph.persistence.dao.GenericPersistable;
+import org.devgateway.geoph.dao.GenericPersistable;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -15,6 +15,13 @@ import java.io.Serializable;
 @Entity
 public class Project extends GenericPersistable implements Serializable {
 
-    String title;
+    private String title;
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 }

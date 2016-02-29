@@ -12,7 +12,7 @@
 /**
  * 
  */
-package org.devgateway.geoph.persistence.dao;
+package org.devgateway.geoph.dao;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
