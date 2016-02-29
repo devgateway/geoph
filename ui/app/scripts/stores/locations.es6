@@ -3,7 +3,6 @@ import * as Actions from '../actions/Actions.es6';
 import Constants from '../constants/Contants.es6';
 import {List,Map,Record} from 'immutable';
 import {StoreMixins} from '../mixins/StoreMixins.es6';
-import SingleProjectStore from './Project.es6';
 
 
 const initialData  = {
@@ -20,7 +19,6 @@ const LocationsStore = createStore({
 
 	init() {
 		this.data=initialData;
-		this.listenTo(SingleProjectStore, this.updateCountryISO);
 		this.listenTo(Actions.get(Constants.ACTION_SEARCH_LOCATIONS), 'search');
 		this.listenTo(Actions.get(Constants.ACTION_SEARCH_LOCATIONS).completed, 'done');
 		this.listenTo(Actions.get(Constants.ACTION_SEARCH_LOCATIONS).failed, 'failed');

@@ -18,7 +18,8 @@ import { render } from 'react-dom';
 
 /*Layout elements*/
 import Header  from './components/Header.jsx';
-import ProjectList  from './components/project/ProjectList.jsx';
+import Footer  from './components/Footer.jsx';
+import SlideMenu  from './components/SlideOutMenu.jsx';
 import Map from  './components/map/Map.jsx';
 
 import i18next from 'i18next';
@@ -33,8 +34,11 @@ import Setting from './util/Settings.es6';
    render() {
     return (
       <div className="app">
-      <Header/>
-      {this.props.children}
+        <Header/>
+        <SlideMenu id="leftMenu"/>
+        <SlideMenu id="rigthMenu" right={true}/>
+        <Map/>
+        <Footer/>
       </div>
       )
   }
@@ -63,17 +67,12 @@ AjaxUtil.get('conf/settings.json').then((conf)=>{
 
     render((
       <Router history={hashHistory} >
+        
+        <Route path="/" component={App}>
+          <Route path="/map" component={Map}/>
+        </Route>
 
-      <Route path="/" component={ProjectList}>
-      <IndexRoute component={ProjectList} />
-      </Route>
-
-      <Route path="/map" component={App}>
-      <Route path="/map/:projectID" component={Map}/>
-      </Route>
-
-      <Route path="*" component={NoMatch}/>
-
+        <Route path="*" component={NoMatch}/>
       </Router>
       ), document.getElementById('root'))
 

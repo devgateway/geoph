@@ -65,7 +65,7 @@ $gray:rgb(243,243,243);
 @import 'project-info.scss';
 @import 'search.scss';
 @import "data-entry.scss";
-
+@import "slideMenu.scss";
 @import "callouts.scss";
 @import "intro.scss";
 @import "minimap.scss";
@@ -163,8 +163,7 @@ h4{
 	border-radius: 30%;
 
 	>div {
-		height:100%;	
-
+		height:86%;	
 	}
 }
 

@@ -1,11 +1,8 @@
 import {createActions, createAction} from 'reflux'
 
 import Constants from '../constants/Contants.es6'
-import Geonames from '../util/gazetteers/Geonames.es6'
 import AjaxUtil from '../util/AjaxUtil.es6'
 import APIClient from '../util/APIClient.es6'
-
-import ShapesMapping from '../util/ShapesMapping.es6'
 
 let actionsDef = {}
 
@@ -71,34 +68,6 @@ let get = (name) => {
 	return actions[name]
 }
 
-
-/*Ajax calls for async actions */
-actions[Constants.ACTION_SEARCH_LOCATIONS].listen(function(options) {
-	new Geonames(options)
-		.find().then((results) => actions[Constants.ACTION_SEARCH_LOCATIONS].completed(results))
-		.catch((message) => actions[Constants.ACTION_SEARCH_LOCATIONS].failed(message));
-})
-
-actions[Constants.ACTION_SEARCH_LOCATION_BY_GEONAMEID].listen(function(options) {
-	new Geonames(options)
-		.findByGeonameID().then((results) => actions[Constants.ACTION_SEARCH_LOCATION_BY_GEONAMEID].completed(results))
-		.catch((message) => actions[Constants.ACTION_SEARCH_LOCATION_BY_GEONAMEID].failed(message));
-})
-
-actions[Constants.ACTION_UPDATE_ADM_FROM_GEONAMES].listen(function(options) {
-	new Geonames(options)
-		.findByGeonameID().then((results) => actions[Constants.ACTION_UPDATE_ADM_FROM_GEONAMES].completed(results))
-		.catch((message) => actions[Constants.ACTION_UPDATE_ADM_FROM_GEONAMES].failed(message));
-})
-
-
-/*Ajax calls for async actions */
-actions[Constants.ACTION_LOAD_SHAPE].listen(function(iso) {
-	
-	ShapesMapping.getGeoJsonShape(iso).then((results) => actions[Constants.ACTION_LOAD_SHAPE].completed(results, iso))
-		.catch((message) => actions[Constants.ACTION_LOAD_SHAPE].failed(message));
-})
-
 /* Load  projects asynchronously */
 actions[Constants.ACTION_FIND_PROJECTS].listen(function(params) {
 	APIClient.getProjectList(params)
@@ -116,11 +85,6 @@ actions[Constants.ACTION_SAVE_PROJECT].listen(function(project) {
 	APIClient.saveProject(project)
 		.then((results) => actions[Constants.ACTION_SAVE_PROJECT].completed(results))
 		.catch((message) => actions[Constants.ACTION_SAVE_PROJECT].failed(message));
-})
-
-actions[Constants.ACTION_LOAD_COUNTRY_LAYER_LIST].listen(function() {
-	ShapesMapping.getShapeList().then((results) => actions[Constants.ACTION_LOAD_COUNTRY_LAYER_LIST].completed(results))
-		.catch((message) => actions[Constants.ACTION_LOAD_COUNTRY_LAYER_LIST].failed(message));
 })
 
 export {

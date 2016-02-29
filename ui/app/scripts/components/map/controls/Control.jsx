@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import ShapesMapping from '../../../util/ShapesMapping.es6';
-import CountryLayersStore from '../../../stores/CountryLayersStore.es6';
 import  * as Actions from '../../../actions/Actions.es6'
 import Constants from '../../../constants/Contants.es6';
 
