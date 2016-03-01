@@ -15,10 +15,6 @@ import {
 from '../mixins/StoreMixins.es6';
 
 import LocationsGeoJson from './LocationsGeo.es6';
-import CountryGeo from './CountryGeo.es6';
-import ProjectStore from './Project.es6';
-import ProjectGeo from './ProjectGeo.es6';
-
 
 /*This store should be renamed to geocoding and should actually manage the state of teh coding data  whic*/
 const PopUpStore = createStore({
@@ -52,12 +48,7 @@ const PopUpStore = createStore({
 
 	init() {
 
-		this.listenTo(ProjectStore, this.onProjectUpdate);
-		
-		this.listenTo(ProjectGeo, this.updateGeocodingLayer);
 		this.listenTo(LocationsGeoJson, this.updateGazetteerLayer);
-
-		this.listenTo(CountryGeo, this.updateCountry);
 		this.listenTo(Actions.get(Constants.ACTION_POPUP_INFO), 'updatePopupInfo');
 		this.listenTo(Actions.get(Constants.ACTION_OPEN_DATAENTRY_POPUP), 'closeInfoWindow');
 		this.listenTo(Actions.get(Constants.ACTION_SET_ACTIVE_LOCATION), 'setActiveLocation');
@@ -94,50 +85,13 @@ const PopUpStore = createStore({
 		this.setData(newState);
 	},
 
-	updateCountry(data) {
-		var newState = Object.assign({}, this.get())
-		newState.layers.countries = data.countries;
-		this.setData(newState);
-	},
-
-	onProjectUpdate(project) {
-		var newState = Object.assign({}, this.get())
-		newState.project = project;
-		this.setData(newState);
-	},
-
+	
 	closeInfoWindow(params) {
 		this.setData(Object.assign({}, this.get(), {
 			popup: {
 				'open': false
 			}
 		}));
-	},
-
-	updateGazetteerLayer(data) {
-		var newState = Object.assign({}, this.get())
-		newState.layers.locations = data;
-
-		Object.assign(newState, {
-			popup: {
-				'open': false
-			}
-		});
-
-		this.setData(newState);
-	},
-
-
-	updateGeocodingLayer(data) {
-		var newState = Object.assign({}, this.get())
-		newState.layers.geocoding = data;
-
-		Object.assign(newState, {
-			popup: {
-				'open': false
-			}
-		});
-		this.setData(newState);
 	},
 
 	updatePopupInfo(properties) {
