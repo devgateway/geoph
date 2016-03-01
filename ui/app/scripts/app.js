@@ -1,26 +1,20 @@
 /*webpack require directives*/
 
-window._setting_instance=null;
-
 require('bootstrap/dist/css/bootstrap.css');
 require('font-awesome/css/font-awesome.css');
 require('intro.js/introjs.css');
-
 require('babel-polyfill');
-
 require('../stylesheets/main.scss');
 
 import React from 'react';
-import  Settings from  './util/Settings.es6';
 import { Router, Route ,Redirect,IndexRoute ,hashHistory} from 'react-router';
-
 import { render } from 'react-dom';
 
 /*Layout elements*/
 import Header  from './components/Header.jsx';
-import Footer  from './components/Footer.jsx';
-import SlideMenu  from './components/SlideOutMenu.jsx';
-import Map from  './components/map/Map.jsx';
+import Footer  from './components/Header.jsx';
+
+import Landing  from './components/Landing';
 
 import i18next from 'i18next';
 import XHR from 'i18next-xhr-backend';
@@ -34,11 +28,9 @@ import Setting from './util/Settings.es6';
    render() {
     return (
       <div className="app">
-        <Header/>
-        <SlideMenu id="leftMenu"/>
-        <SlideMenu id="rigthMenu" right={true}/>
-        <Map/>
-        <Footer/>
+       <Header/>
+         {this.props.children}
+       <Footer/>
       </div>
       )
   }
@@ -67,12 +59,12 @@ AjaxUtil.get('conf/settings.json').then((conf)=>{
 
     render((
       <Router history={hashHistory} >
-        
-        <Route path="/" component={App}>
-          <Route path="/map" component={Map}/>
-        </Route>
 
-        <Route path="*" component={NoMatch}/>
+        <Route path="/" component={App}>
+          <IndexRoute component={Landing} />
+        </Route>
+      <Route path="*" component={NoMatch}/>
+
       </Router>
       ), document.getElementById('root'))
 

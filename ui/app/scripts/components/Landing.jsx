@@ -7,12 +7,10 @@ export default class Header extends React.Component {
     super();
   }
 
-
-
   render() {
     return (
-      <div className="header">
-        Header
+      <div className="root">
+        Main Page
       </div>
       )
   }
