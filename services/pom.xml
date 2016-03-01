@@ -11,5 +11,13 @@
 
     <artifactId>services</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.devgateway.geoph</groupId>
+            <artifactId>persistence</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
 
 </project>
