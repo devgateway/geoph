@@ -10,10 +10,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/devgateway/open-aid-geocoder"
+    "url": "https://github.com/devgateway/geoph"
   },
   "keywords": [
-    "geocoding",
+    "redux",
     "react",
     "webpack",
     "babel",
@@ -63,10 +63,13 @@
     "axios": "^0.9.1",
     "bootstrap": "^3.3.6",
     "font-awesome": "^4.5.0",
+    "gulp-util": "^3.0.7",
     "i18next": "^2.2.0",
     "i18next-xhr-backend": "^0.3.0",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
-    "react-router": "^2.0.0"
+    "react-redux": "^4.4.0",
+    "react-router": "^2.0.0",
+    "redux": "^3.3.1"
   }
 }

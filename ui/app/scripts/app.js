@@ -12,7 +12,7 @@ import { render } from 'react-dom';
 
 /*Layout elements*/
 import Header  from './components/Header.jsx';
-import Footer  from './components/Header.jsx';
+import Footer  from './components/Footer.jsx';
 
 import Landing  from './components/Landing';
 
@@ -21,17 +21,25 @@ import XHR from 'i18next-xhr-backend';
 
 import AjaxUtil from './util/AjaxUtil.es6';
 import Setting from './util/Settings.es6';
+
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+import geophApp from './reducers'
+
+let store = createStore(geophApp)
+
 /**
  * Root view
  */
  class App extends React.Component {
    render() {
+    console.log('Render App')
     return (
       <div className="app">
-       <Header/>
-         {this.props.children}
-       <Footer/>
-      </div>
+         <Header/>
+           {this.props.children}
+         <Footer/>
+        </div>
       )
   }
 }
@@ -58,7 +66,8 @@ AjaxUtil.get('conf/settings.json').then((conf)=>{
     //if a locale was loaded 
 
     render((
-      <Router history={hashHistory} >
+      <Provider store={store}>
+        <Router history={hashHistory} >
 
         <Route path="/" component={App}>
           <IndexRoute component={Landing} />
@@ -66,6 +75,7 @@ AjaxUtil.get('conf/settings.json').then((conf)=>{
       <Route path="*" component={NoMatch}/>
 
       </Router>
+      </Provider>
       ), document.getElementById('root'))
 
 
