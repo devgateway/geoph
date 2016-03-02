@@ -16,7 +16,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
-import org.devgateway.geoph.dao.GenericPersistable;
+import org.devgateway.geoph.model.GenericPersistable;
 import org.devgateway.geoph.persistence.dao.Labelable;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;

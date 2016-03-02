@@ -1,6 +1,5 @@
 package org.devgateway.geoph.model;
 
-import org.devgateway.geoph.dao.GenericPersistable;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
