@@ -1,9 +1,9 @@
 package org.devgateway.geoph.persistence;
 
 import org.devgateway.geoph.model.Agency;
-import org.devgateway.geoph.model.FundingSource;
+import org.devgateway.geoph.model.FundingType;
 import org.devgateway.geoph.persistence.repository.AgencyRepository;
-import org.devgateway.geoph.persistence.repository.FundingSourceRepository;
+import org.devgateway.geoph.persistence.repository.FundingTypeRepository;
 import org.devgateway.geoph.services.FilterService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +25,7 @@ public class FilterServiceImpl implements FilterService {
     AgencyRepository agencyRepository;
 
     @Autowired
-    FundingSourceRepository fundingSourceRepository;
+    FundingTypeRepository fundingTypeRepository;
 
     @Override
     public Page<Agency> findAllAgencies(Pageable pageable) {
@@ -34,8 +34,8 @@ public class FilterServiceImpl implements FilterService {
     }
 
     @Override
-    public Page<FundingSource> findAllFundingSources(Pageable pageable) {
+    public Page<FundingType> findAllFundingTypes(Pageable pageable) {
         LOGGER.debug("Getting all funding sources");
-        return fundingSourceRepository.findAll(pageable);
+        return fundingTypeRepository.findAll(pageable);
     }
 }

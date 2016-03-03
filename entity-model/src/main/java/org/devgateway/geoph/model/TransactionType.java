@@ -11,8 +11,8 @@ import java.io.Serializable;
  *         created on mar 01 2016.
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@Entity(name = "grant_type")
-public class GrantType extends GenericPersistable implements Serializable {
+@Entity(name = "transaction_type")
+public class TransactionType extends GenericPersistable implements Serializable {
 
     private String name;
 

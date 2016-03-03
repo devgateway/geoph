@@ -57,6 +57,12 @@ public class Project extends GenericPersistable implements Serializable {
     @Column(name = "period_end")
     private Date periodEnd;
 
+    @ManyToOne(cascade=CascadeType.ALL)
+    private TransactionType grantType;
+
+    @ManyToOne(cascade=CascadeType.ALL)
+    private Classification grantClassification;
+
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "project_location", joinColumns = {
             @JoinColumn(name = "project_id", nullable = false, updatable = false) },
@@ -181,6 +187,22 @@ public class Project extends GenericPersistable implements Serializable {
 
     public void setPeriodEnd(Date periodEnd) {
         this.periodEnd = periodEnd;
+    }
+
+    public TransactionType getGrantType() {
+        return grantType;
+    }
+
+    public void setGrantType(TransactionType grantType) {
+        this.grantType = grantType;
+    }
+
+    public Classification getGrantClassification() {
+        return grantClassification;
+    }
+
+    public void setGrantClassification(Classification grantClassification) {
+        this.grantClassification = grantClassification;
     }
 
     public Set<Location> getLocations() {

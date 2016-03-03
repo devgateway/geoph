@@ -1,0 +1,20 @@
+INSERT INTO IMPLEMENTING_AGENCY_TYPE
+( TYPE_ID, NAME )
+VALUES
+( 'GFI', 'Government Financing Institution' );
+INSERT INTO IMPLEMENTING_AGENCY_TYPE
+( TYPE_ID, NAME )
+VALUES
+( 'GOCC', 'Government Owned and Controlled Corporations' );
+INSERT INTO IMPLEMENTING_AGENCY_TYPE
+( TYPE_ID, NAME )
+VALUES
+( 'LGU', 'Local Government Unit' );
+INSERT INTO IMPLEMENTING_AGENCY_TYPE
+( TYPE_ID, NAME )
+VALUES
+( 'NGA', 'National Government Agency' );
+INSERT INTO IMPLEMENTING_AGENCY_TYPE
+( TYPE_ID, NAME )
+VALUES
+( 'PRIVATE', 'Private Company' );

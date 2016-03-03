@@ -25,6 +25,12 @@ public class Transaction extends GenericPersistable implements Serializable {
 
     private Date date;
 
+    @ManyToOne(cascade= CascadeType.ALL)
+    private FundingType fundingType;
+
+    @ManyToOne(cascade= CascadeType.ALL)
+    private TransactionType transactionType;
+
     public Project getProject() {
         return project;
     }
@@ -47,5 +53,21 @@ public class Transaction extends GenericPersistable implements Serializable {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public FundingType getFundingType() {
+        return fundingType;
+    }
+
+    public void setFundingType(FundingType fundingType) {
+        this.fundingType = fundingType;
+    }
+
+    public TransactionType getTransactionType() {
+        return transactionType;
+    }
+
+    public void setTransactionType(TransactionType transactionType) {
+        this.transactionType = transactionType;
     }
 }

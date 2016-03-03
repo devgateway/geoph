@@ -1,0 +1,16 @@
+INSERT INTO STATUS
+( STATUS_ID, NAME )
+VALUES
+( 'OL', 'Ongoing' );
+INSERT INTO STATUS
+( STATUS_ID, NAME )
+VALUES
+( 'CL', 'Closed' );
+INSERT INTO STATUS
+( STATUS_ID, NAME )
+VALUES
+( 'NEL', 'Newly Effective' );
+INSERT INTO STATUS
+( STATUS_ID, NAME )
+VALUES
+( 'NSL', 'Newly Signed' );

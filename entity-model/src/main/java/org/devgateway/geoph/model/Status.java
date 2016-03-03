@@ -3,6 +3,7 @@ package org.devgateway.geoph.model;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.io.Serializable;
 
@@ -14,7 +15,18 @@ import java.io.Serializable;
 @Entity
 public class Status extends GenericPersistable implements Serializable {
 
+    @Column(name = "status_id")
+    private String statusId;
+
     private String name;
+
+    public String getStatusId() {
+        return statusId;
+    }
+
+    public void setStatusId(String statusId) {
+        this.statusId = statusId;
+    }
 
     public String getName() {
         return name;

@@ -3,28 +3,20 @@ package org.devgateway.geoph.model;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import java.io.Serializable;
 
 /**
  * @author dbianco
- *         created on mar 01 2016.
+ *         created on mar 02 2016.
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
-public class Currency extends GenericPersistable implements Serializable {
-
-    private String name;
+@DiscriminatorValue(value="funding_agency")
+public class FundingAgency extends Agency implements Serializable {
 
     private String code;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getCode() {
         return code;

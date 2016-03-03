@@ -20,7 +20,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
  */
 
 @RestController
-@RequestMapping(value = "/filter", produces = "application/json", consumes = "application/json")
+@RequestMapping(value = "/filters", produces = "application/json", consumes = "application/json")
 public class FilterController {
 
     private final FilterService service;
