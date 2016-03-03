@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var babel = require('gulp-babel');
 var express = require('express'),
 path = require('path'),
+ghPages = require('gulp-gh-pages'),
 app = express();
 
 gulp.task('react', function () {
@@ -22,6 +23,15 @@ gulp.task('watch',["server"], function(){
     'src/*.jsx', 'src/**/*.jsx', 'src/**/**/*.jsx',
     'src/*.js', 'src/**/*.js', 'src/**/**/*.js'
   ], ['react']);
+});
+
+
+/**
+ * Publish dist folder into gh_pages branch
+ */
+ gulp.task('gh_pages', ["react"], function() {
+  return gulp.src(['./dist/**/*','./index.html'])
+  .pipe(ghPages());
 });
 
 
