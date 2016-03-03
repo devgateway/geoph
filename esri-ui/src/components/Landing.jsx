@@ -10,7 +10,10 @@ export default class Header extends React.Component {
   render() {
     return (
       <div className="root">
-        Landing Page <Link to="map">Go to map </Link> 
+      <ul>
+       <li><Link to="map2d">2d Map </Link></li> 
+        <li><Link to="map3d">3d Map </Link> </li>
+      </ul>
       </div>
       )
   }

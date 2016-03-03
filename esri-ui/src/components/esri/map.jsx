@@ -8,13 +8,12 @@ const map = new Map({ basemap: 'streets'});
 const MapComponent = React.createClass({
 
  componentWillMount() {
-  this.map=new Map(this.props);
+  this.element=new Map(this.props);
 },
 
 render: function() {
 
-  const map= this.map;    
-  const children = map ? React.Children.map(this.props.children, child => {return child ? React.cloneElement(child, {map}) : null;}) : null;
+  const children = this.element ? React.Children.map(this.props.children, child => {return child ? React.cloneElement(child, {map:this.element}) : null;}) : null;
   return (
     <div className={this.props.className} style={this.props.style}>
       {children}
