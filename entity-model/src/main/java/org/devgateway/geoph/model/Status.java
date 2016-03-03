@@ -20,6 +20,14 @@ public class Status extends GenericPersistable implements Serializable {
 
     private String name;
 
+    public Status() {
+    }
+
+    public Status(String statusId, String name) {
+        this.statusId = statusId;
+        this.name = name;
+    }
+
     public String getStatusId() {
         return statusId;
     }

@@ -22,6 +22,14 @@ public class Agency extends GenericPersistable implements Serializable {
     @Column(name = "agency_id")
     private String agencyId;
 
+    public Agency() {
+    }
+
+    public Agency(String name, String agencyId) {
+        this.name = name;
+        this.agencyId = agencyId;
+    }
+
     public String getName() {
         return name;
     }

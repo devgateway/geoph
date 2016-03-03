@@ -18,6 +18,14 @@ public class FundingAgency extends Agency implements Serializable {
 
     private String code;
 
+    public FundingAgency() {
+    }
+
+    public FundingAgency(String name, String agencyId, String code) {
+        super(name, agencyId);
+        this.code = code;
+    }
+
     public String getCode() {
         return code;
     }

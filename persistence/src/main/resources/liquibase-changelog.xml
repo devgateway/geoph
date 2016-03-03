@@ -40,7 +40,7 @@
         </preConditions>
         <sqlFile path="Currency.sql"/>
     </changeSet>
-    <changeSet id="3" author="dbianco">
+    <!--changeSet id="3" author="dbianco">
         <preConditions onFail="CONTINUE">
             <tableExists tableName="FUNDING_TYPE" />
         </preConditions>
@@ -63,6 +63,6 @@
             <tableExists tableName="IMPLEMENTING_AGENCY_TYPE" />
         </preConditions>
         <sqlFile path="ImplementingAgencyType.sql"/>
-    </changeSet>
+    </changeSet-->
 
 </databaseChangeLog>

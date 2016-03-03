@@ -16,6 +16,13 @@ public class TransactionType extends GenericPersistable implements Serializable 
 
     private String name;
 
+    public TransactionType() {
+    }
+
+    public TransactionType(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }

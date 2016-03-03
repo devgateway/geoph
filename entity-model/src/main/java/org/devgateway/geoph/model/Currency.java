@@ -18,6 +18,15 @@ public class Currency extends GenericPersistable implements Serializable {
 
     private String code;
 
+    public Currency(){
+
+    }
+
+    public Currency(String name, String code) {
+        this.name = name;
+        this.code = code;
+    }
+
     public String getName() {
         return name;
     }

@@ -12,7 +12,7 @@ import java.io.Serializable;
  *         created on mar 02 2016.
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@Entity
+@Entity(name = "implementing_agency_type")
 public class ImplementingAgencyType extends GenericPersistable implements Serializable {
 
     @Column(name = "type_id")
@@ -20,6 +20,14 @@ public class ImplementingAgencyType extends GenericPersistable implements Serial
 
     @Column(name = "type_name")
     private String typeName;
+
+    public ImplementingAgencyType() {
+    }
+
+    public ImplementingAgencyType(String typeId, String typeName) {
+        this.typeId = typeId;
+        this.typeName = typeName;
+    }
 
     public String getTypeId() {
         return typeId;

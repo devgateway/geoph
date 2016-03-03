@@ -18,8 +18,16 @@ import java.io.Serializable;
 @DiscriminatorValue(value="implementing_agency")
 public class ImplementingAgency extends Agency implements Serializable {
 
-    @ManyToOne(cascade= CascadeType.ALL)
+    @ManyToOne(cascade= CascadeType.MERGE)
     private ImplementingAgencyType implementingAgencyType;
+
+    public ImplementingAgency() {
+    }
+
+    public ImplementingAgency(String name, String agencyId, ImplementingAgencyType implementingAgencyType) {
+        super(name, agencyId);
+        this.implementingAgencyType = implementingAgencyType;
+    }
 
     public ImplementingAgencyType getImplementingAgencyType() {
         return implementingAgencyType;

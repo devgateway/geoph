@@ -16,6 +16,13 @@ public class FundingType extends GenericPersistable implements Serializable {
 
     private String name;
 
+    public FundingType() {
+    }
+
+    public FundingType(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }
