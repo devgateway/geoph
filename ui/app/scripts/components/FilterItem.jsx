@@ -10,9 +10,8 @@ export default class FilterItem extends React.Component {
   	render() {
     	return (
 	        <div>
-	        	<input type="checkbox" checked={this.props.selected} onChange={this.handleChange.bind(this)}>
+	        	<input type="checkbox" checked={this.props.selected} onChange={this.handleChange.bind(this)} />
 	        		{this.props.name}
-	        	</input>
 	        </div>
       	);
   	}

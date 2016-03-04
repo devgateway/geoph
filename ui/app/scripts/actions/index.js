@@ -60,7 +60,8 @@ export const fetchFilterListIfNeeded = (filterType) => {
 export const selectFilterItem = (filterItem) => {
   return {
     type: Constants.SELECT_FILTER_ITEM,
-    filterItem //it should be {filterType, id, selected}
+    filterType: filterItem.filterType,
+    item: filterItem.item //it should be {id, selected}
   }
 }
 

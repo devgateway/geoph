@@ -19,7 +19,7 @@ export default class FilterList extends React.Component {
     	return (
 	        <div>
 	        	<ul>
-		        	{this.props.filter.items? this.props.filter.items.map(item => 
+		        	{(this.props.filter && this.props.filter.items) ? this.props.filter.items.map(item => 
 			          <li key={item.id}>
 			          	<FilterItem {...item} onItemChange={this.handleItemSelectionChange.bind(this)}/>
 			          </li>
