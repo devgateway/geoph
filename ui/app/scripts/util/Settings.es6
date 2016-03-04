@@ -1,4 +1,4 @@
-import Constants from '../constants/Contants.es6'
+import Constants from '../constants/constants.es6'
 
 
 
