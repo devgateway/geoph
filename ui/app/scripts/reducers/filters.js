@@ -24,7 +24,6 @@ const filter = (state = {
         isFetching: true,
       })
     case Constants.RECEIVE_FILTER_LIST:
-    	debugger
       return Object.assign({}, state, {
         isFetching: false,
         items: action.items,
@@ -33,7 +32,11 @@ const filter = (state = {
 
     case Constants.SELECT_FILTER_ITEM:
     case Constants.SELECT_ALL_FILTER_LIST:
-      	return state.items.map(i => filterItem(i, action));
+    	return Object.assign({}, state, {
+	        isFetching: false,
+	        items: state.items.map(i => filterItem(i, action)),
+	        lastUpdated: action.receivedAt
+	    })
     default:
       return state
   }
@@ -44,15 +47,15 @@ const filterItem = (state = {
 }, action) => {
   switch (action.type) {
     case Constants.SELECT_FILTER_ITEM:
-    	if (state.id !== action.id) {
+    	if (state.id !== action.item.id) {
 	        return state
 	    }
 	    return Object.assign({}, state, {
-	        selected: action.selected
+	        selected: action.item.selected
 	    })
     case Constants.SELECT_ALL_FILTER_LIST:
       	return Object.assign({}, state, {
-	        selected: action.selected
+	        selected: action.item.selected
 	    })
     default:
       return state
