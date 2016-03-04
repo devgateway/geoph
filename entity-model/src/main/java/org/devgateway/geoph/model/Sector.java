@@ -3,11 +3,10 @@ package org.devgateway.geoph.model;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -28,8 +27,8 @@ public class Sector extends GenericPersistable implements Serializable {
 
     private int type;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "sectors")
-    private Set<Project> projects;
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Sector> items = new ArrayList<>();
 
     public Sector() {
     }
@@ -41,11 +40,12 @@ public class Sector extends GenericPersistable implements Serializable {
         this.type = type;
     }
 
-    public Sector(String name, long parentId, int type, Set<Project> projects) {
-        this.name = name;
-        this.parentId = parentId;
-        this.type = type;
-        this.projects = projects;
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getName() {
@@ -72,11 +72,11 @@ public class Sector extends GenericPersistable implements Serializable {
         this.type = type;
     }
 
-    public Set<Project> getProjects() {
-        return projects;
+    public List<Sector> getItems() {
+        return items;
     }
 
-    public void setProjects(Set<Project> projects) {
-        this.projects = projects;
+    public void setItems(List<Sector> items) {
+        this.items = items;
     }
 }

@@ -2,6 +2,7 @@ package org.devgateway.geoph.response;
 
 import org.springframework.data.domain.Page;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -16,36 +17,29 @@ public class GenericResponse {
 
     private String group;
 
-    private String index;
+    private int index;
 
-    private Set itemsSet;
+    private List items;
 
-    private Page itemsPage;
+    private int count;
 
     public GenericResponse() {
     }
 
-    public GenericResponse(String description, String param, String group, String index) {
+    public GenericResponse(String description, String param, String group, int index) {
         this.description = description;
         this.param = param;
         this.group = group;
         this.index = index;
     }
 
-    public GenericResponse(String description, String param, String group, String index, Set itemsSet) {
+    public GenericResponse(String description, String param, String group, int index, List items, int count) {
         this.description = description;
         this.param = param;
         this.group = group;
         this.index = index;
-        this.itemsSet = itemsSet;
-    }
-
-    public GenericResponse(String description, String param, String group, String index, Page itemsPage) {
-        this.description = description;
-        this.param = param;
-        this.group = group;
-        this.index = index;
-        this.itemsPage = itemsPage;
+        this.items = items;
+        this.count = count;
     }
 
     public String getDescription() {
@@ -72,27 +66,27 @@ public class GenericResponse {
         this.group = group;
     }
 
-    public String getIndex() {
+    public int getIndex() {
         return index;
     }
 
-    public void setIndex(String index) {
+    public void setIndex(int index) {
         this.index = index;
     }
 
-    public Set getItemsSet() {
-        return itemsSet;
+    public List getItems() {
+        return items;
     }
 
-    public void setItemsSet(Set itemsSet) {
-        this.itemsSet = itemsSet;
+    public void setItems(List items) {
+        this.items = items;
     }
 
-    public Page getItemsPage() {
-        return itemsPage;
+    public int getCount() {
+        return count;
     }
 
-    public void setItemsPage(Page itemsPage) {
-        this.itemsPage = itemsPage;
+    public void setCount(int count) {
+        this.count = count;
     }
 }

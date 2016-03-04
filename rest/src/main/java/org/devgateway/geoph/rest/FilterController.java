@@ -1,7 +1,6 @@
 package org.devgateway.geoph.rest;
 
-import org.devgateway.geoph.model.Agency;
-import org.devgateway.geoph.model.ImplementingAgency;
+import org.devgateway.geoph.model.*;
 import org.devgateway.geoph.response.GenericResponse;
 import org.devgateway.geoph.services.FilterService;
 import org.slf4j.Logger;
@@ -37,18 +36,69 @@ public class FilterController {
         this.service = service;
     }
 
-    @RequestMapping(value = "/impagency", method = GET)
+    @RequestMapping(value = "/impAgency", method = GET)
     //@Secured("ROLE_READ")
-    public GenericResponse getAllImpAgencies(@PageableDefault(page = 0, size = 20, sort = "id")
-                                                  final Pageable pageable) {
-        LOGGER.debug("getAllImpAgencies");
-        List<ImplementingAgency> agencies = service.findAllImpAgencies();
+    public GenericResponse findAllImpAgencies() {
+        LOGGER.debug("findAllImpAgencies");
+        List<ImplementingAgency> impAgencies = service.findAllImpAgencies();
         GenericResponse resp = new GenericResponse(
                 "Implementing Agencies",
                 "ia",
                 "IMPLEMENTING_AGENCY_SECTION",
-                "1",
-                new HashSet<>(agencies)
+                1,
+                impAgencies,
+                impAgencies.size()
+        );
+
+        return resp;
+    }
+
+    @RequestMapping(value = "/fundingAgency", method = GET)
+    //@Secured("ROLE_READ")
+    public GenericResponse findAllFundingAgencies() {
+        LOGGER.debug("findAllFundingAgencies");
+        List<FundingAgency> fundingAgencies = service.findAllFundingAgencies();
+        GenericResponse resp = new GenericResponse(
+                "Funding Agencies",
+                "fa",
+                "FUNDING_ORG_SECTION",
+                1,
+                fundingAgencies,
+                fundingAgencies.size()
+        );
+
+        return resp;
+    }
+
+    @RequestMapping(value = "/flowType", method = GET)
+    //@Secured("ROLE_READ")
+    public GenericResponse findAllFlowTypes() {
+        LOGGER.debug("findAllFlowTypes");
+        List<FlowType> flowTypes = service.findAllFlowTypes();
+        GenericResponse resp = new GenericResponse(
+                "Flow Types",
+                "ft",
+                "FLOW_TYPE_SECTION",
+                1,
+                flowTypes,
+                flowTypes.size()
+        );
+
+        return resp;
+    }
+
+    @RequestMapping(value = "/sectors", method = GET)
+    //@Secured("ROLE_READ")
+    public GenericResponse findAllSectors() {
+        LOGGER.debug("findAllSectors");
+        List<Sector> sectors = service.findAllSectors();
+        GenericResponse resp = new GenericResponse(
+                "Sectors",
+                "st",
+                "SECTORS_SECTION",
+                1,
+                sectors,
+                sectors.size()
         );
 
         return resp;

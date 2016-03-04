@@ -10,8 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 /**
  * @author dbianco
@@ -110,73 +112,87 @@ public class BootMetadata {
         sectorRepository.save(new Sector("SRD", "Social Reform and Community Development", null, 1));
 
         Sector s1 = sectorRepository.findByCode("AARNR");
-        sectorRepository.save(new Sector("AAR", "Agriculture and Agrarian Reform", s1.getId(), 2));
-        sectorRepository.save(new Sector("ENR", "Environment and Natural Resources", s1.getId(), 2));
-        sectorRepository.save(new Sector("IRR", "Irrigation", s1.getId(), 2));
+        s1.getItems().add(sectorRepository.save(new Sector("AAR", "Agriculture and Agrarian Reform", s1.getId(), 2)));
+        s1.getItems().add(sectorRepository.save(new Sector("ENR", "Environment and Natural Resources", s1.getId(), 2)));
+        s1.getItems().add(sectorRepository.save(new Sector("IRR", "Irrigation", s1.getId(), 2)));
+        sectorRepository.save(s1);
 
         s1 = sectorRepository.findByCode("GID");
-        sectorRepository.save(new Sector("AG", "Administrative Governance", s1.getId(), 2));
-        sectorRepository.save(new Sector("EG", "Economic Governance", s1.getId(), 2));
-        sectorRepository.save(new Sector("PG", "Political Governance", s1.getId(), 2));
+        s1.getItems().add(sectorRepository.save(new Sector("AG", "Administrative Governance", s1.getId(), 2)));
+        s1.getItems().add(sectorRepository.save(new Sector("EG", "Economic Governance", s1.getId(), 2)));
+        s1.getItems().add(sectorRepository.save(new Sector("PG", "Political Governance", s1.getId(), 2)));
+        sectorRepository.save(s1);
 
         s1 = sectorRepository.findByCode("INF");
-        sectorRepository.save(new Sector("TRAN", "Transportation", s1.getId(), 2));
-        sectorRepository.save(new Sector("WR", "Water Resources", s1.getId(), 2));
-        sectorRepository.save(new Sector("EPE", "Energy, Power and Electrification", s1.getId(), 2));
+        s1.getItems().add(sectorRepository.save(new Sector("TRAN", "Transportation", s1.getId(), 2)));
+        s1.getItems().add(sectorRepository.save(new Sector("WR", "Water Resources", s1.getId(), 2)));
+        s1.getItems().add(sectorRepository.save(new Sector("EPE", "Energy, Power and Electrification", s1.getId(), 2)));
+        sectorRepository.save(s1);
 
-        sectorRepository.save(new Sector("IST", "Industry, Trade and Tourism",
-                sectorRepository.findByCode("IS").getId(), 2));
+        s1 = sectorRepository.findByCode("IS");
+        s1.getItems().add(sectorRepository.save(new Sector("IST", "Industry, Trade and Tourism", s1.getId(), 2)));
+        sectorRepository.save(s1);
 
         s1 = sectorRepository.findByCode("SRD");
-        sectorRepository.save(new Sector("SWCD", "Social Welfare and Community Development", s1.getId(), 2));
-        sectorRepository.save(new Sector("HPN", "Health, Population and Nutrition", s1.getId(), 2));
-        sectorRepository.save(new Sector("SUD", "Shelter and Urban Development", s1.getId(), 2));
+        s1.getItems().add(sectorRepository.save(new Sector("SWCD", "Social Welfare and Community Development", s1.getId(), 2)));
+        s1.getItems().add(sectorRepository.save(new Sector("HPN", "Health, Population and Nutrition", s1.getId(), 2)));
+        s1.getItems().add(sectorRepository.save(new Sector("SUD", "Shelter and Urban Development", s1.getId(), 2)));
+        sectorRepository.save(s1);
 
         s1 = sectorRepository.findByCode("AAR");
-        sectorRepository.save(new Sector("IRRZ", "Irrigation", s1.getId(), 3));
-        sectorRepository.save(new Sector("AGRZ", "Agrarian Reform", s1.getId(), 3));
+        s1.getItems().add(sectorRepository.save(new Sector("IRRZ", "Irrigation", s1.getId(), 3)));
+        s1.getItems().add(sectorRepository.save(new Sector("AGRZ", "Agrarian Reform", s1.getId(), 3)));
+        sectorRepository.save(s1);
 
         s1 = sectorRepository.findByCode("ENR");
-        sectorRepository.save(new Sector("ENVZ", "Environment", s1.getId(), 3));
-        sectorRepository.save(new Sector("FORZ", "Forestry", s1.getId(), 3));
-        sectorRepository.save(new Sector("LANZ", "Land", s1.getId(), 3));
+        s1.getItems().add(sectorRepository.save(new Sector("ENVZ", "Environment", s1.getId(), 3)));
+        s1.getItems().add(sectorRepository.save(new Sector("FORZ", "Forestry", s1.getId(), 3)));
+        s1.getItems().add(sectorRepository.save(new Sector("LANZ", "Land", s1.getId(), 3)));
+        sectorRepository.save(s1);
 
-        sectorRepository.save(new Sector("GESZ", "General Social",
-                sectorRepository.findByCode("EG").getId(), 3));
+        s1 = sectorRepository.findByCode("EG");
+        s1.getItems().add(sectorRepository.save(new Sector("GESZ", "General Social",s1.getId(), 3)));
+        sectorRepository.save(s1);
 
-        sectorRepository.save(new Sector("DIMZ", "Disaster Mitigation",
-                sectorRepository.findByCode("PG").getId(), 3));
+        s1 = sectorRepository.findByCode("PG");
+        s1.getItems().add(sectorRepository.save(new Sector("DIMZ", "Disaster Mitigation",s1.getId(), 3)));
+        sectorRepository.save(s1);
 
         s1 = sectorRepository.findByCode("TRAN");
-        sectorRepository.save(new Sector("RABZ", "Roads and Bridges", s1.getId(), 3));
-        sectorRepository.save(new Sector("AAAZ", "Airport and Airnavigation", s1.getId(), 3));
-        sectorRepository.save(new Sector("RAIZ", "Rails", s1.getId(), 3));
-        sectorRepository.save(new Sector("PORZ", "Ports", s1.getId(), 3));
+        s1.getItems().add(sectorRepository.save(new Sector("RABZ", "Roads and Bridges", s1.getId(), 3)));
+        s1.getItems().add(sectorRepository.save(new Sector("AAAZ", "Airport and Airnavigation", s1.getId(), 3)));
+        s1.getItems().add(sectorRepository.save(new Sector("RAIZ", "Rails", s1.getId(), 3)));
+        s1.getItems().add(sectorRepository.save(new Sector("PORZ", "Ports", s1.getId(), 3)));
+        sectorRepository.save(s1);
 
         s1 = sectorRepository.findByCode("WR");
-        sectorRepository.save(new Sector("FLCZ", "Flood Control", s1.getId(), 3));
-        sectorRepository.save(new Sector("WSSZ", "Water Supply, Sewerage and Sanitation", s1.getId(), 3));
+        s1.getItems().add(sectorRepository.save(new Sector("FLCZ", "Flood Control", s1.getId(), 3)));
+        s1.getItems().add(sectorRepository.save(new Sector("WSSZ", "Water Supply, Sewerage and Sanitation", s1.getId(), 3)));
+        sectorRepository.save(s1);
 
         s1 = sectorRepository.findByCode("EPE");
-        sectorRepository.save(new Sector("PGTZ", "Power Generation and Transmission", s1.getId(), 3));
-        sectorRepository.save(new Sector("GEDZ", "Geothermal Exploration and Development", s1.getId(), 3));
+        s1.getItems().add(sectorRepository.save(new Sector("PGTZ", "Power Generation and Transmission", s1.getId(), 3)));
+        s1.getItems().add(sectorRepository.save(new Sector("GEDZ", "Geothermal Exploration and Development", s1.getId(), 3)));
+        sectorRepository.save(s1);
 
-        sectorRepository.save(new Sector("RELZ", "Relending",
-                sectorRepository.findByCode("IS").getId(), 3));
+        s1 = sectorRepository.findByCode("IS");
+        s1.getItems().add(sectorRepository.save(new Sector("RELZ", "Relending", s1.getId(), 3)));
+        sectorRepository.save(s1);
 
-        sectorRepository.save(new Sector("SOIZ", "Social Infrastructure",
-                sectorRepository.findByCode("SUD").getId(), 3));
+        s1 = sectorRepository.findByCode("SUD");
+        s1.getItems().add(sectorRepository.save(new Sector("SOIZ", "Social Infrastructure", s1.getId(), 3)));
+        sectorRepository.save(s1);
 
         locationRepository.deleteAll();
         locationRepository.save(new Location("Region I - Ilocos", null, 1, "1", 16.9087797110D, 120.4868698D));
 
         Location l1 = locationRepository.findByCode("1");
-        locationRepository.save(new Location("Ilocos Norte", l1.getId(), 2, "128", 18.1998273575D, 120.7309813D));
-        locationRepository.save(new Location("Ilocos Sur", l1.getId(), 2, "129", 17.2212386812D, 120.5516706D));
-        locationRepository.save(new Location("La Union", l1.getId(), 2, "133", 16.5810538295D,	120.4277635D));
+        locationRepository.save(new Location("Ilocos Norte", 1L, 1, "128", 18.1998273575D, 120.7309813D));
+        locationRepository.save(new Location("Ilocos Sur", 1L, 1, "129", 17.2212386812D, 120.5516706D));
+        locationRepository.save(new Location("La Union", 1L, 1, "133", 16.5810538295D,	120.4277635D));
 
         l1 = locationRepository.findByCode("128");
-        locationRepository.save(new Location("Adams", l1.getId(), 3, "12801", 18.4498697122D, 120.9212904D));
+        locationRepository.save(new Location("Adams", 1L, 1, "12801", 18.4498697122D, 120.9212904D));
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
         projectRepository.deleteAll();
