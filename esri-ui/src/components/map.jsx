@@ -30,6 +30,13 @@ const point2 = new Point({
   latitude: 45.73
 });
 
+const point3 = new Point({
+  longitude: -38.97,
+  latitude: 45.73
+});
+
+
+
 
 const markerSymbol = new SimpleMarkerSymbol({
   color: [226, 119, 40],
@@ -62,26 +69,22 @@ render(){
 }
 },
 
+
 render3d() {
 
  return (
   <div>
   <a href="javascript:void()" onClick={this.toggle}>Toggle view</a>
   <div id="map3d">
-
-  <Map className="map"  basemap="streets">
-  <GraphicsLayer>
-  <Graphic geometry={point} symbol={markerSymbol}/>
-  <Graphic geometry={point1} symbol={markerSymbol}/>
-  <Graphic geometry={point2} symbol={markerSymbol}/>
-  </GraphicsLayer>
-
-  <SceneView center={[-48, 19]} zoom={3}>
-  <BaseMapToggle/>
-  <Zoom/>
-  </SceneView>
-
-  </Map>
+      <Map className="map"  basemap="streets">
+        <GraphicsLayer>
+          <Graphic geometry={point} symbol={markerSymbol}/>
+          <Graphic geometry={point1} symbol={markerSymbol}/>
+          <Graphic geometry={point2} symbol={markerSymbol}/>
+          <Graphic geometry={point3} symbol={markerSymbol}/>
+        </GraphicsLayer>
+        <SceneView center={[-48, 19]} zoom={3}></SceneView>
+     </Map>
   </div>
   </div>
   )
@@ -94,15 +97,12 @@ render2d() {
   <a href="javascript:void()" onClick={this.toggle}>Toggle view</a>
   <Map className="map"  basemap="streets">
   <GraphicsLayer>
-  <Graphic geometry={point} symbol={markerSymbol}/>
-  <Graphic geometry={point1} symbol={markerSymbol}/>
-  <Graphic geometry={point2} symbol={markerSymbol}/>
+    <Graphic geometry={point} symbol={markerSymbol}/>
+    <Graphic geometry={point1} symbol={markerSymbol}/>
+    <Graphic geometry={point2} symbol={markerSymbol}/>
   </GraphicsLayer>
 
-  <MapView center={[-48, 19]} zoom={3}>
-  <BaseMapToggle/>
-  <Zoom/>
-  </MapView>
+  <MapView center={[-48, 19]} zoom={3}></MapView>
 
   </Map>
   </div>

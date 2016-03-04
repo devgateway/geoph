@@ -4,8 +4,8 @@ import { render } from 'react/react-dom';
 import Landing from 'app/components/Landing';
 import Header from 'app/components/Header'
 import Footer from 'app/components/Footer'
-import Map2d from 'app/components/map2d';
-import Map3d from 'app/components/map3d';
+import Map from 'app/components/map';
+
 /*Layout elements*/
 
 /**
@@ -38,8 +38,8 @@ class NoMatch extends React.Component{
 
         <Route path="/" component={App}>
           <IndexRoute component={Landing} />
-            <Route path="map2d" component={Map2d}/>
-            <Route path="map3d" component={Map3d}/>
+            <Route path="map" component={Map}/>
+            
         </Route>
       <Route path="*" component={NoMatch}/>
 

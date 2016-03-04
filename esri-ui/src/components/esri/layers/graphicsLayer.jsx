@@ -3,10 +3,6 @@ import ReactDOM from 'react/react-dom';
 import GraphicsLayer from 'esri/layers/GraphicsLayer';
 import Graphic from "esri/Graphic";
 
-
-import domReady from "dojo/domReady!";
-
-
 const graphicsLayer = React.createClass({
 
 	componentWillMount() {
@@ -30,7 +26,7 @@ const graphicsLayer = React.createClass({
 	},
 
 	render() {
-		debugger;
+		
 		return this.renderChildrenWithProps({layer:this.element});
 	}
 
