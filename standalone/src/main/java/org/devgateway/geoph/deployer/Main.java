@@ -1,17 +1,13 @@
 package org.devgateway.geoph.deployer;
-import org.devgateway.geoph.persistence.dao.GenericPersistable;
-import org.devgateway.geoph.persistence.repository.RoleRepository;
-import org.devgateway.geoph.persistence.spring.PersistenceApplication;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.ApplicationContext;
 
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.context.annotation.PropertySources;
 
 import java.util.Arrays;
 
@@ -21,24 +17,24 @@ import java.util.Arrays;
 
 @SpringBootApplication
 
-@PropertySource("classpath:/org/devgateway/geoph/deployer/application.properties")
+@PropertySources({
+        @PropertySource("file:${CONF_PATH}/application.properties")
+})
 @ComponentScan("org.devgateway.geoph")
-/*
-@Import({
-        PersistenceApplication.class
-
-})*/
-
 public class Main {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
+
     public static void main(String[] args) {
         ApplicationContext ctx = SpringApplication.run(Main.class, args);
 
-        System.out.println("Let's inspect the beans provided by Spring Boot:");
+        LOGGER.info("Let's inspect the beans provided by Spring Boot:");
 
         String[] beanNames = ctx.getBeanDefinitionNames();
         Arrays.sort(beanNames);
         for (String beanName : beanNames) {
             System.out.println(beanName);
+           
         }
     }
 }

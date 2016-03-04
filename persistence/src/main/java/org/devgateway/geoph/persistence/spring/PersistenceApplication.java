@@ -11,15 +11,11 @@
  *******************************************************************************/
 package org.devgateway.geoph.persistence.spring;
 
-import org.devgateway.geoph.persistence.dao.GenericPersistable;
-import org.devgateway.geoph.persistence.dao.GenericPersistable;
-import org.devgateway.geoph.persistence.repository.RoleRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
@@ -28,9 +24,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  *
  */
 @SpringBootApplication
-@EnableJpaRepositories(basePackageClasses = RoleRepository.class)
 @EnableTransactionManagement
-@EntityScan(basePackageClasses = GenericPersistable.class)
+@EntityScan("org.devgateway.geoph")
 @PropertySource("classpath:/org/devgateway/geoph/persistence/application.properties")
 @ComponentScan("org.devgateway.geoph")
 public class PersistenceApplication {

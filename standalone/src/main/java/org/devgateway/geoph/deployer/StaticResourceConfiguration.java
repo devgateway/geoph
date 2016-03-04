@@ -1,4 +1,6 @@
 package org.devgateway.geoph.deployer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -10,8 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  */
 @Configuration
 public class StaticResourceConfiguration extends WebMvcConfigurerAdapter {
-
-    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(StaticResourceConfiguration.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(StaticResourceConfiguration.class);
 
     @Value("${static.path}")
     private String staticPath;
@@ -20,7 +21,7 @@ public class StaticResourceConfiguration extends WebMvcConfigurerAdapter {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
         if(staticPath != null) {
-            LOG.info("Serving static content from " + staticPath);
+            LOGGER.info("Serving static content from " + staticPath);
             registry.addResourceHandler("/**").addResourceLocations("file:" + staticPath);
         }
     }

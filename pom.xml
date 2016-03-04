@@ -26,6 +26,7 @@
         <module>war</module>
         <module>services</module>
         <module>ui</module>
+        <module>entity-model</module>
     </modules>
 
 

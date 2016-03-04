@@ -9,15 +9,19 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>services</artifactId>
+    <artifactId>entity-model</artifactId>
 
     <dependencies>
         <dependency>
-            <groupId>org.devgateway.geoph</groupId>
-            <artifactId>persistence</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hibernate.core.version}</version>
         </dependency>
     </dependencies>
-
 
 </project>
