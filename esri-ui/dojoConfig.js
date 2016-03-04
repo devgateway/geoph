@@ -10,7 +10,7 @@ window.dojoConfig = {
     main: 'react'
   }, {
     name: 'app',
-    location: locationPath + 'dist',
+    location: locationPath + 'app',
     main: 'main'
   },
 

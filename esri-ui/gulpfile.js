@@ -4,8 +4,10 @@ var express = require('express'),
 path = require('path'),
 ghPages = require('gulp-gh-pages'),
 app = express();
+var clean = require('gulp-clean');
 
-gulp.task('react', function () {
+
+gulp.task('react',['copy'], function () {
   return gulp.src([
     'src/*.jsx', 'src/**/*.jsx', 'src/**/**/*.jsx',
     'src/*.js', 'src/**/*.js', 'src/**/**/*.js'
@@ -15,11 +17,14 @@ gulp.task('react', function () {
     presets: ['es2015', 'react','stage-0','stage-1','stage-2','stage-3'],
     plugins: ['transform-es2015-modules-amd']
   }))
-  .pipe(gulp.dest('dist'));
+  .pipe(gulp.dest('dist/app'));
 });
+
+
 
 gulp.task('watch',["server"], function(){
   gulp.watch([
+    '*.html','*.js',
     'src/*.jsx', 'src/**/*.jsx', 'src/**/**/*.jsx',
     'src/*.js', 'src/**/*.js', 'src/**/**/*.js'
   ], ['react']);
@@ -29,8 +34,8 @@ gulp.task('watch',["server"], function(){
 /**
  * Publish dist folder into gh_pages branch
  */
- gulp.task('gh_pages', ["react"], function() {
-  return gulp.src(['./dist/**/*','./index.html'])
+ gulp.task('deploy', ["react"], function() {
+  return gulp.src('./dist/**/*')
   .pipe(ghPages());
 });
 
@@ -38,13 +43,14 @@ gulp.task('watch',["server"], function(){
 /**
  * Start dev web server
  */
- gulp.task("server", function(callback) {
+ gulp.task("server",['react'], function(callback) {
 
-  var publicPath = path.resolve(__dirname);
+  var publicPath = path.join(path.resolve(__dirname),'dist');
+  console.log(publicPath);
   app.use(express.static(publicPath));
 
   app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname , 'index.html'));
+    res.sendFile(path.join(publicPath , 'index.html'));
   });
 
   app.listen(8085, 'localhost', function(err) {
@@ -56,6 +62,20 @@ gulp.task('watch',["server"], function(){
   });
 
 });
+
+
+gulp.task("copy",['clean'],function(callback){
+ return gulp.src([
+    './index.html','./dojoConfig.js','*bower_components/**/*','*css/**/*'
+  ]).pipe(gulp.dest('dist'))
+});
+
+
+gulp.task('clean', function () {
+  return gulp.src('dist', {read: false})
+    .pipe(clean());
+});
+
 
 
 gulp.task('default', ['react']);

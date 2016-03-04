@@ -19,7 +19,6 @@
   "dependencies": {
     "react": "~0.14.7",
     "bootstrap": "~3.3.6",
-    "react-bootstrap": "~0.28.3",
     "react-router": "~2.0.0"
   }
 }
