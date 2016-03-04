@@ -84,19 +84,9 @@ define(['exports', 'react', 'react-router'], function (exports, _react, _reactRo
               null,
               _react2.default.createElement(
                 _reactRouter.Link,
-                { to: 'map2d' },
-                '2d Map '
+                { to: 'map' },
+                'Go to map'
               )
-            ),
-            _react2.default.createElement(
-              'li',
-              null,
-              _react2.default.createElement(
-                _reactRouter.Link,
-                { to: 'map3d' },
-                '3d Map '
-              ),
-              ' '
             )
           )
         );
@@ -108,4 +98,4 @@ define(['exports', 'react', 'react-router'], function (exports, _react, _reactRo
 
   exports.default = Header;
 });
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImNvbXBvbmVudHNcXExhbmRpbmcuanN4Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztNQUdxQjs7O0FBRW5CLGFBRm1CLE1BRW5CLEdBQWM7NEJBRkssUUFFTDs7b0VBRkssb0JBRUw7S0FBZDs7aUJBRm1COzsrQkFNVjtBQUNQLGVBQ0U7O1lBQUssV0FBVSxNQUFWLEVBQUw7VUFDQTs7O1lBQ0M7OztjQUFJOztrQkFBTSxJQUFHLE9BQUgsRUFBTjs7ZUFBSjthQUREO1lBRUU7OztjQUFJOztrQkFBTSxJQUFHLE9BQUgsRUFBTjs7ZUFBSjs7YUFGRjtXQURBO1NBREYsQ0FETzs7OztXQU5VO0lBQWUsZ0JBQU0sU0FBTjs7b0JBQWYiLCJmaWxlIjoiY29tcG9uZW50c1xcTGFuZGluZy5qc3giLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnO1xyXG5pbXBvcnQgeyBMaW5rICB9IGZyb20gJ3JlYWN0LXJvdXRlcic7XHJcblxyXG5leHBvcnQgZGVmYXVsdCBjbGFzcyBIZWFkZXIgZXh0ZW5kcyBSZWFjdC5Db21wb25lbnQge1xyXG5cclxuICBjb25zdHJ1Y3RvcigpIHtcclxuICAgIHN1cGVyKCk7XHJcbiAgfVxyXG5cclxuICByZW5kZXIoKSB7XHJcbiAgICByZXR1cm4gKFxyXG4gICAgICA8ZGl2IGNsYXNzTmFtZT1cInJvb3RcIj5cclxuICAgICAgPHVsPlxyXG4gICAgICAgPGxpPjxMaW5rIHRvPVwibWFwMmRcIj4yZCBNYXAgPC9MaW5rPjwvbGk+IFxyXG4gICAgICAgIDxsaT48TGluayB0bz1cIm1hcDNkXCI+M2QgTWFwIDwvTGluaz4gPC9saT5cclxuICAgICAgPC91bD5cclxuICAgICAgPC9kaXY+XHJcbiAgICAgIClcclxuICB9XHJcbn1cclxuIl19
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImNvbXBvbmVudHNcXExhbmRpbmcuanN4Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztNQUdxQjs7O0FBRW5CLGFBRm1CLE1BRW5CLEdBQWM7NEJBRkssUUFFTDs7b0VBRkssb0JBRUw7S0FBZDs7aUJBRm1COzsrQkFNVjtBQUNQLGVBQ0U7O1lBQUssV0FBVSxNQUFWLEVBQUw7VUFDQTs7O1lBQ0M7OztjQUFJOztrQkFBTSxJQUFHLEtBQUgsRUFBTjs7ZUFBSjthQUREO1dBREE7U0FERixDQURPOzs7O1dBTlU7SUFBZSxnQkFBTSxTQUFOOztvQkFBZiIsImZpbGUiOiJjb21wb25lbnRzXFxMYW5kaW5nLmpzeCIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBSZWFjdCBmcm9tICdyZWFjdCc7XHJcbmltcG9ydCB7IExpbmsgIH0gZnJvbSAncmVhY3Qtcm91dGVyJztcclxuXHJcbmV4cG9ydCBkZWZhdWx0IGNsYXNzIEhlYWRlciBleHRlbmRzIFJlYWN0LkNvbXBvbmVudCB7XHJcblxyXG4gIGNvbnN0cnVjdG9yKCkge1xyXG4gICAgc3VwZXIoKTtcclxuICB9XHJcblxyXG4gIHJlbmRlcigpIHtcclxuICAgIHJldHVybiAoXHJcbiAgICAgIDxkaXYgY2xhc3NOYW1lPVwicm9vdFwiPlxyXG4gICAgICA8dWw+XHJcbiAgICAgICA8bGk+PExpbmsgdG89XCJtYXBcIj5HbyB0byBtYXA8L0xpbms+PC9saT4gXHJcbiAgICAgICA8L3VsPlxyXG4gICAgICA8L2Rpdj5cclxuICAgICAgKVxyXG4gIH1cclxufVxyXG4iXX0=
