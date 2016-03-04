@@ -1,9 +1,10 @@
 package org.devgateway.geoph.persistence;
 
-import org.devgateway.geoph.model.Agency;
-import org.devgateway.geoph.model.FundingType;
+import org.devgateway.geoph.model.FlowType;
+import org.devgateway.geoph.model.ImplementingAgency;
 import org.devgateway.geoph.persistence.repository.AgencyRepository;
-import org.devgateway.geoph.persistence.repository.FundingTypeRepository;
+import org.devgateway.geoph.persistence.repository.FlowTypeRepository;
+import org.devgateway.geoph.persistence.repository.ImplementingAgencyRepository;
 import org.devgateway.geoph.services.FilterService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,20 +25,20 @@ public class FilterServiceImpl implements FilterService {
     private static final Logger LOGGER = LoggerFactory.getLogger(FilterServiceImpl.class);
 
     @Autowired
-    AgencyRepository agencyRepository;
+    ImplementingAgencyRepository impAgencyRepository;
 
     @Autowired
-    FundingTypeRepository fundingTypeRepository;
+    FlowTypeRepository flowTypeRepository;
 
     @Override
-    public List<Agency> findAllImpAgencies() {
-        LOGGER.debug("Getting all agencies");
-        return agencyRepository.findAllImpAgencies();
+    public List<ImplementingAgency> findAllImpAgencies() {
+        LOGGER.debug("Getting all implementing agencies");
+        return impAgencyRepository.findAll();
     }
 
     @Override
-    public Page<FundingType> findAllFundingTypes(Pageable pageable) {
+    public List<FlowType> findAllFlowTypes() {
         LOGGER.debug("Getting all funding sources");
-        return fundingTypeRepository.findAll(pageable);
+        return flowTypeRepository.findAll();
     }
 }

@@ -19,15 +19,14 @@ public class Agency extends GenericPersistable implements Serializable {
 
     private String name;
 
-    @Column(name = "agency_id")
-    private String agencyId;
+    private String code;
 
     public Agency() {
     }
 
-    public Agency(String name, String agencyId) {
+    public Agency(String name, String code) {
         this.name = name;
-        this.agencyId = agencyId;
+        this.code = code;
     }
 
     public String getName() {
@@ -38,12 +37,12 @@ public class Agency extends GenericPersistable implements Serializable {
         this.name = name;
     }
 
-    public String getAgencyId() {
-        return agencyId;
+    public String getCode() {
+        return code;
     }
 
-    public void setAgencyId(String agencyId) {
-        this.agencyId = agencyId;
+    public void setCode(String code) {
+        this.code = code;
     }
 
 }

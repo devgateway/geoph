@@ -19,7 +19,6 @@ public class Currency extends GenericPersistable implements Serializable {
     private String code;
 
     public Currency(){
-
     }
 
     public Currency(String name, String code) {

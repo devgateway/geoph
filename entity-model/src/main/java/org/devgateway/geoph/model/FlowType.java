@@ -11,15 +11,15 @@ import java.io.Serializable;
  *         created on mar 01 2016.
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@Entity(name = "funding_type")
-public class FundingType extends GenericPersistable implements Serializable {
+@Entity(name = "flow_type")
+public class FlowType extends GenericPersistable implements Serializable {
 
     private String name;
 
-    public FundingType() {
+    public FlowType() {
     }
 
-    public FundingType(String name) {
+    public FlowType(String name) {
         this.name = name;
     }
 

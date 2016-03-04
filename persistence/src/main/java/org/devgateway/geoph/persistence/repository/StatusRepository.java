@@ -13,6 +13,6 @@ public interface StatusRepository extends JpaRepository<Status, Long> {
     @Query("select a from Status a where a.name = ?1")
     Status findByName(String name);
 
-    @Query("select a from Status a where a.statusId = ?1")
-    Status findByStatusId(String statusId);
+    @Query("select a from Status a where a.code = ?1")
+    Status findByCode(String code);
 }

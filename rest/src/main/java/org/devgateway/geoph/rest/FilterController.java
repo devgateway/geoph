@@ -1,6 +1,7 @@
 package org.devgateway.geoph.rest;
 
 import org.devgateway.geoph.model.Agency;
+import org.devgateway.geoph.model.ImplementingAgency;
 import org.devgateway.geoph.response.GenericResponse;
 import org.devgateway.geoph.services.FilterService;
 import org.slf4j.Logger;
@@ -41,7 +42,7 @@ public class FilterController {
     public GenericResponse getAllImpAgencies(@PageableDefault(page = 0, size = 20, sort = "id")
                                                   final Pageable pageable) {
         LOGGER.debug("getAllImpAgencies");
-        List<Agency> agencies = service.findAllImpAgencies();
+        List<ImplementingAgency> agencies = service.findAllImpAgencies();
         GenericResponse resp = new GenericResponse(
                 "Implementing Agencies",
                 "ia",

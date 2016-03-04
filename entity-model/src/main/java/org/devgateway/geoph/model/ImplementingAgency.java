@@ -19,21 +19,21 @@ import java.io.Serializable;
 public class ImplementingAgency extends Agency implements Serializable {
 
     @ManyToOne(cascade= CascadeType.MERGE)
-    private ImplementingAgencyType implementingAgencyType;
+    private ImplementingAgencyType type;
 
     public ImplementingAgency() {
     }
 
-    public ImplementingAgency(String name, String agencyId, ImplementingAgencyType implementingAgencyType) {
-        super(name, agencyId);
-        this.implementingAgencyType = implementingAgencyType;
+    public ImplementingAgency(String name, String code, ImplementingAgencyType type) {
+        super(name, code);
+        this.type = type;
     }
 
-    public ImplementingAgencyType getImplementingAgencyType() {
-        return implementingAgencyType;
+    public ImplementingAgencyType getType() {
+        return type;
     }
 
-    public void setImplementingAgencyType(ImplementingAgencyType implementingAgencyType) {
-        this.implementingAgencyType = implementingAgencyType;
+    public void setType(ImplementingAgencyType type) {
+        this.type = type;
     }
 }

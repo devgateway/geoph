@@ -10,6 +10,6 @@ import org.springframework.data.jpa.repository.Query;
  */
 public interface SectorRepository extends JpaRepository<Sector, Long> {
 
-    @Query("select a from Sector a where a.sectorId = ?1")
-    Sector findBySectorId(String name);
+    @Query("select a from Sector a where a.code = ?1")
+    Sector findByCode(String code);
 }

@@ -17,12 +17,9 @@ import java.util.List;
 public interface AgencyRepository extends JpaRepository<Agency, Long> {
 
     @Query("select a from Agency a where a.name = ?1")
-    Agency findByName(String name);
+    List<Agency> findByName(String name);
 
-    @Query("select a from Agency a where a.agencyId = ?1")
-    Agency findByAgencyId(String agencyId);
-
-    @Query(nativeQuery = true, value = "select * from Agency a where a.discriminator = 'implementing_agency'")
-    List<Agency> findAllImpAgencies();
+    @Query("select a from Agency a where a.code = ?1")
+    Agency findByCode(String code);
 
 }

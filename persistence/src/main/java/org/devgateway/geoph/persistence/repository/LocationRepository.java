@@ -10,6 +10,6 @@ import org.springframework.data.jpa.repository.Query;
  */
 public interface LocationRepository extends JpaRepository<Location, Long> {
 
-    @Query("select a from Location a where a.uacs = ?1")
-    Location findByUacs(String uacs);
+    @Query("select a from Location a where a.code = ?1")
+    Location findByCode(String code);
 }

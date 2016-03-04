@@ -14,6 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface ImplementingAgencyTypeRepository extends JpaRepository<ImplementingAgencyType, Long> {
 
-    @Query("select a from implementing_agency_type a where a.typeId = ?1")
-    ImplementingAgencyType findByTypeId(String typeId);
+    @Query("select a from implementing_agency_type a where a.code = ?1")
+    ImplementingAgencyType findByCode(String code);
 }

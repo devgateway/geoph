@@ -25,7 +25,7 @@ public class Location extends GenericPersistable implements Serializable {
 
     private int type;
 
-    private String uacs;
+    private String code;
 
     private Double latitude;
 
@@ -37,21 +37,21 @@ public class Location extends GenericPersistable implements Serializable {
     public Location() {
     }
 
-    public Location(String name, Long parentId, int type, String uacs, Double latitude, Double longitude) {
+    public Location(String name, Long parentId, int type, String code, Double latitude, Double longitude) {
         this.name = name;
         this.parentId = parentId;
         this.type = type;
-        this.uacs = uacs;
+        this.code = code;
         this.latitude = latitude;
         this.longitude = longitude;
     }
 
-    public Location(String name, Long parentId, int type, String uacs, Double latitude,
+    public Location(String name, Long parentId, int type, String code, Double latitude,
                     Double longitude, Set<Project> projects) {
         this.name = name;
         this.parentId = parentId;
         this.type = type;
-        this.uacs = uacs;
+        this.code = code;
         this.latitude = latitude;
         this.longitude = longitude;
         this.projects = projects;
@@ -105,11 +105,11 @@ public class Location extends GenericPersistable implements Serializable {
         this.longitude = longitude;
     }
 
-    public String getUacs() {
-        return uacs;
+    public String getCode() {
+        return code;
     }
 
-    public void setUacs(String uacs) {
-        this.uacs = uacs;
+    public void setCode(String code) {
+        this.code = code;
     }
 }

@@ -1,19 +1,21 @@
 package org.devgateway.geoph.persistence.repository;
 
-import org.devgateway.geoph.model.FundingType;
+import org.devgateway.geoph.model.FlowType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * @author dbianco
  *         created on mar 01 2016.
  */
 @Transactional
-public interface FundingTypeRepository extends JpaRepository<FundingType, Long> {
+public interface FlowTypeRepository extends JpaRepository<FlowType, Long> {
 
-    @Query("select a from funding_type a where a.name = ?1")
-    Page<FundingType> findByName(String name, Pageable pageable);
+    @Query("select a from flow_type a where a.name = ?1")
+    List<FlowType> findByName(String name);
 }

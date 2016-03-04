@@ -1,10 +1,10 @@
 package org.devgateway.geoph.persistence.repository;
 
 import org.devgateway.geoph.model.Classification;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
 
 /**
  * @author dbianco
@@ -13,5 +13,5 @@ import org.springframework.data.jpa.repository.Query;
 public interface ClassificationRepository extends JpaRepository<Classification, Long> {
 
     @Query("select a from Classification a where a.name = ?1")
-    Classification findByName(String name);
+    List<Classification> findByName(String name);
 }

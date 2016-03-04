@@ -18,8 +18,8 @@ import java.util.Set;
 @Entity
 public class Sector extends GenericPersistable implements Serializable {
 
-    @Column(name = "sector_id")
-    private String sectorId;
+    @Column(name = "code")
+    private String code;
 
     private String name;
 
@@ -34,8 +34,8 @@ public class Sector extends GenericPersistable implements Serializable {
     public Sector() {
     }
 
-    public Sector(String sectorId, String name, Long parentId, int type) {
-        this.sectorId = sectorId;
+    public Sector(String code, String name, Long parentId, int type) {
+        this.code = code;
         this.name = name;
         this.parentId = parentId;
         this.type = type;

@@ -1,7 +1,7 @@
 package org.devgateway.geoph.services;
 
-import org.devgateway.geoph.model.Agency;
-import org.devgateway.geoph.model.FundingType;
+import org.devgateway.geoph.model.FlowType;
+import org.devgateway.geoph.model.ImplementingAgency;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface FilterService {
 
-    List<Agency> findAllImpAgencies();
+    List<ImplementingAgency> findAllImpAgencies();
 
-    Page<FundingType> findAllFundingTypes(Pageable pageable);
+    List<FlowType> findAllFlowTypes();
 }

@@ -15,33 +15,33 @@ import java.io.Serializable;
 @Entity(name = "implementing_agency_type")
 public class ImplementingAgencyType extends GenericPersistable implements Serializable {
 
-    @Column(name = "type_id")
-    private String typeId;
+    @Column(name = "code")
+    private String code;
 
-    @Column(name = "type_name")
-    private String typeName;
+    @Column(name = "name")
+    private String name;
 
     public ImplementingAgencyType() {
     }
 
-    public ImplementingAgencyType(String typeId, String typeName) {
-        this.typeId = typeId;
-        this.typeName = typeName;
+    public ImplementingAgencyType(String code, String name) {
+        this.code = code;
+        this.name = name;
     }
 
-    public String getTypeId() {
-        return typeId;
+    public String getCode() {
+        return code;
     }
 
-    public void setTypeId(String typeId) {
-        this.typeId = typeId;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public String getTypeName() {
-        return typeName;
+    public String getName() {
+        return name;
     }
 
-    public void setTypeName(String typeName) {
-        this.typeName = typeName;
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -15,25 +15,25 @@ import java.io.Serializable;
 @Entity
 public class Status extends GenericPersistable implements Serializable {
 
-    @Column(name = "status_id")
-    private String statusId;
+    @Column(name = "code")
+    private String code;
 
     private String name;
 
     public Status() {
     }
 
-    public Status(String statusId, String name) {
-        this.statusId = statusId;
+    public Status(String code, String name) {
+        this.code = code;
         this.name = name;
     }
 
-    public String getStatusId() {
-        return statusId;
+    public String getCode() {
+        return code;
     }
 
-    public void setStatusId(String statusId) {
-        this.statusId = statusId;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getName() {
