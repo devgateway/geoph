@@ -21,19 +21,19 @@ public class Project extends GenericPersistable implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
     private Set<Transaction> transactions;
 
-    @ManyToOne(cascade= CascadeType.ALL)
+    @ManyToOne(cascade= CascadeType.MERGE)
     private Agency implementingAgency;
 
     @Column(name = "implementing_agency_office")
     private String implementingAgencyOffice;
 
-    @ManyToOne(cascade= CascadeType.ALL)
+    @ManyToOne(cascade= CascadeType.MERGE)
     private Agency executingAgency;
 
-    @ManyToOne(cascade= CascadeType.ALL)
+    @ManyToOne(cascade= CascadeType.MERGE)
     private Agency fundingAgency;
 
-    @ManyToOne(cascade= CascadeType.ALL)
+    @ManyToOne(cascade= CascadeType.MERGE)
     private Currency originalCurrency;
 
     @Column(name = "total_project_amount")
@@ -48,7 +48,7 @@ public class Project extends GenericPersistable implements Serializable {
     @Column(name = "revised_closing_date")
     private Date revisedClosingDate;
 
-    @ManyToOne(cascade= CascadeType.ALL)
+    @ManyToOne(cascade= CascadeType.MERGE)
     private Status status;
 
     @Column(name = "period_start")
@@ -57,25 +57,79 @@ public class Project extends GenericPersistable implements Serializable {
     @Column(name = "period_end")
     private Date periodEnd;
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(cascade=CascadeType.MERGE)
     private TransactionType grantType;
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(cascade=CascadeType.MERGE)
     private Classification grantClassification;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable(name = "project_location", joinColumns = {
             @JoinColumn(name = "project_id", nullable = false, updatable = false) },
             inverseJoinColumns = { @JoinColumn(name = "location_id",
                     nullable = false, updatable = false) })
     private Set<Location> locations;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable(name = "project_sector", joinColumns = {
             @JoinColumn(name = "project_id", nullable = false, updatable = false) },
             inverseJoinColumns = { @JoinColumn(name = "sector_id",
                     nullable = false, updatable = false) })
     private Set<Sector> sectors;
+
+    public Project() {
+    }
+
+    public Project(String title, Agency implementingAgency, String implementingAgencyOffice,
+                   Agency executingAgency, Agency fundingAgency, Currency originalCurrency,
+                   double totalProjectAmount, Date startDate, Date closingDate,
+                   Date revisedClosingDate, Status status, Date periodStart, Date periodEnd,
+                   TransactionType grantType, Classification grantClassification, Set<Location> locations,
+                   Set<Sector> sectors) {
+        this.title = title;
+        this.implementingAgency = implementingAgency;
+        this.implementingAgencyOffice = implementingAgencyOffice;
+        this.executingAgency = executingAgency;
+        this.fundingAgency = fundingAgency;
+        this.originalCurrency = originalCurrency;
+        this.totalProjectAmount = totalProjectAmount;
+        this.startDate = startDate;
+        this.closingDate = closingDate;
+        this.revisedClosingDate = revisedClosingDate;
+        this.status = status;
+        this.periodStart = periodStart;
+        this.periodEnd = periodEnd;
+        this.grantType = grantType;
+        this.grantClassification = grantClassification;
+        this.locations = locations;
+        this.sectors = sectors;
+    }
+
+    public Project(String title, Set<Transaction> transactions, Agency implementingAgency,
+                   String implementingAgencyOffice, Agency executingAgency, Agency fundingAgency,
+                   Currency originalCurrency, double totalProjectAmount, Date startDate,
+                   Date closingDate, Date revisedClosingDate, Status status, Date periodStart,
+                   Date periodEnd, TransactionType grantType, Classification grantClassification,
+                   Set<Location> locations, Set<Sector> sectors) {
+        this.title = title;
+        this.transactions = transactions;
+        this.implementingAgency = implementingAgency;
+        this.implementingAgencyOffice = implementingAgencyOffice;
+        this.executingAgency = executingAgency;
+        this.fundingAgency = fundingAgency;
+        this.originalCurrency = originalCurrency;
+        this.totalProjectAmount = totalProjectAmount;
+        this.startDate = startDate;
+        this.closingDate = closingDate;
+        this.revisedClosingDate = revisedClosingDate;
+        this.status = status;
+        this.periodStart = periodStart;
+        this.periodEnd = periodEnd;
+        this.grantType = grantType;
+        this.grantClassification = grantClassification;
+        this.locations = locations;
+        this.sectors = sectors;
+    }
 
     public String getTitle() {
         return title;

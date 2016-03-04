@@ -16,6 +16,13 @@ public class Classification extends GenericPersistable implements Serializable {
 
     private String name;
 
+    public Classification() {
+    }
+
+    public Classification(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }

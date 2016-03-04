@@ -21,12 +21,41 @@ public class Location extends GenericPersistable implements Serializable {
     private String name;
 
     @Column(name = "parent_id")
-    private long parentId;
+    private Long parentId;
 
     private int type;
 
+    private String uacs;
+
+    private Double latitude;
+
+    private Double longitude;
+
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "locations")
     private Set<Project> projects;
+
+    public Location() {
+    }
+
+    public Location(String name, Long parentId, int type, String uacs, Double latitude, Double longitude) {
+        this.name = name;
+        this.parentId = parentId;
+        this.type = type;
+        this.uacs = uacs;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
+    public Location(String name, Long parentId, int type, String uacs, Double latitude,
+                    Double longitude, Set<Project> projects) {
+        this.name = name;
+        this.parentId = parentId;
+        this.type = type;
+        this.uacs = uacs;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.projects = projects;
+    }
 
     public String getName() {
         return name;
@@ -36,11 +65,11 @@ public class Location extends GenericPersistable implements Serializable {
         this.name = name;
     }
 
-    public long getParentId() {
+    public Long getParentId() {
         return parentId;
     }
 
-    public void setParentId(long parentId) {
+    public void setParentId(Long parentId) {
         this.parentId = parentId;
     }
 
@@ -60,4 +89,27 @@ public class Location extends GenericPersistable implements Serializable {
         this.projects = projects;
     }
 
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getUacs() {
+        return uacs;
+    }
+
+    public void setUacs(String uacs) {
+        this.uacs = uacs;
+    }
 }

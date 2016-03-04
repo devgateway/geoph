@@ -18,15 +18,35 @@ import java.util.Set;
 @Entity
 public class Sector extends GenericPersistable implements Serializable {
 
+    @Column(name = "sector_id")
+    private String sectorId;
+
     private String name;
 
     @Column(name = "parent_id")
-    private long parentId;
+    private Long parentId;
 
     private int type;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "sectors")
     private Set<Project> projects;
+
+    public Sector() {
+    }
+
+    public Sector(String sectorId, String name, Long parentId, int type) {
+        this.sectorId = sectorId;
+        this.name = name;
+        this.parentId = parentId;
+        this.type = type;
+    }
+
+    public Sector(String name, long parentId, int type, Set<Project> projects) {
+        this.name = name;
+        this.parentId = parentId;
+        this.type = type;
+        this.projects = projects;
+    }
 
     public String getName() {
         return name;
@@ -36,11 +56,11 @@ public class Sector extends GenericPersistable implements Serializable {
         this.name = name;
     }
 
-    public long getParentId() {
+    public Long getParentId() {
         return parentId;
     }
 
-    public void setParentId(long parentId) {
+    public void setParentId(Long parentId) {
         this.parentId = parentId;
     }
 

@@ -5,6 +5,8 @@ import org.devgateway.geoph.model.FundingType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 
 /**
  * @author dbianco
@@ -12,7 +14,7 @@ import org.springframework.data.domain.Pageable;
  */
 public interface FilterService {
 
-    Page<Agency> findAllAgencies(Pageable pageable);
+    List<Agency> findAllImpAgencies();
 
     Page<FundingType> findAllFundingTypes(Pageable pageable);
 }
