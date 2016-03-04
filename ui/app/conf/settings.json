@@ -10,10 +10,17 @@
 					"production": "http://geocoding.dgstg.org"
 				},
 
-				"PROJECT_LIST_END_POINT": "projects",
+				"FILTER_ENDPOINTS": {
+					"development": 
+						{
+							"s3": "http://api.aiddata.org/data/sectors/3"
+						},
+					"production": 
+						{
+							"s3": "http://api.aiddata.org/data/sectors/3"
+						}
 
-				"PROJECT_END_POINT": "project"
-
+				}
 			},
 
 			"I18N": {

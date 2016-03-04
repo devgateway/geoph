@@ -7,14 +7,7 @@ require('babel-polyfill');
 require('../stylesheets/main.scss');
 
 import React from 'react';
-import { Router, Route ,Redirect,IndexRoute ,hashHistory} from 'react-router';
 import { render } from 'react-dom';
-
-/*Layout elements*/
-import Header  from './components/Header.jsx';
-import Footer  from './components/Footer.jsx';
-
-import Landing  from './components/Landing';
 
 import i18next from 'i18next';
 import XHR from 'i18next-xhr-backend';
@@ -23,38 +16,13 @@ import AjaxUtil from './util/AjaxUtil.es6';
 import Setting from './util/Settings.es6';
 
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
-import geophApp from './reducers'
+import { Router, useRouterHistory } from 'react-router';
+import { createHashHistory } from 'history';
+import configureStore from './store/configureStore';
+import routes from './routes';
 
-let store = createStore(geophApp)
-
-/**
- * Root view
- */
- class App extends React.Component {
-   render() {
-    console.log('Render App')
-    return (
-      <div className="app">
-         <Header/>
-           {this.props.children}
-         <Footer/>
-        </div>
-      )
-  }
-}
-
-
-/*
-Not found view
-*/
-class NoMatch extends React.Component{
-	render(){
-		return <h1>Not found</h1>
-	}
-}
-
-
+const history = useRouterHistory(createHashHistory)({ queryKey: false });
+const store = configureStore({}, history);
 
 AjaxUtil.get('conf/settings.json').then((conf)=>{
   
@@ -67,18 +35,9 @@ AjaxUtil.get('conf/settings.json').then((conf)=>{
 
     render((
       <Provider store={store}>
-        <Router history={hashHistory} >
-
-        <Route path="/" component={App}>
-          <IndexRoute component={Landing} />
-        </Route>
-      <Route path="*" component={NoMatch}/>
-
-      </Router>
+        <Router history={history} routes={routes} />
       </Provider>
       ), document.getElementById('root'))
-
-
   });
 
 })
