@@ -13,8 +13,8 @@ import { render } from 'react-dom';
 /*Layout elements*/
 import Header  from './components/Header.jsx';
 import Footer  from './components/Header.jsx';
-
-import Landing  from './components/Landing';
+import Landing  from './components/Landing.jsx';
+import MapView  from './components/MapView.jsx';
 
 import i18next from 'i18next';
 import XHR from 'i18next-xhr-backend';
@@ -50,6 +50,7 @@ class NoMatch extends React.Component{
 
 AjaxUtil.get('conf/settings.json').then((conf)=>{
   
+  debugger
   let settings=new Setting();
   settings.initialize(conf.data);
   const options = settings.get('I18N', 'OPTIONS');
@@ -62,6 +63,7 @@ AjaxUtil.get('conf/settings.json').then((conf)=>{
 
         <Route path="/" component={App}>
           <IndexRoute component={Landing} />
+          <Route path="map" component={MapView}/>
         </Route>
       <Route path="*" component={NoMatch}/>
 
