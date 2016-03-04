@@ -7,9 +7,10 @@ module.exports = {
   devtool: "source-map", // or "inline-source-map"
   entry: [
     'webpack-hot-middleware/client',
-    './app/scripts/app'
+    './app/scripts/app.js'
   ],
   output: {
+    libraryTarget: 'umd',
     path: path.join(__dirname,'tmp'),
     filename: 'bundle.js',
   },

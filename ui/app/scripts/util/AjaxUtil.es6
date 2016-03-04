@@ -1,5 +1,6 @@
 import Axios from 'axios';
-
+//TODO: Complete with POST and DELTE methods 
+//TODO : Security Integration
 export default class AjaxUtil {
 	static get(url, params = {}) {
 		return new Promise(

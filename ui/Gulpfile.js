@@ -7,7 +7,7 @@ path = require('path'),
 express = require('express'),
 webpack = require('webpack'),
 config = require('./webpack.config.dev'),
-nodemon = require('nodemon'),
+
 open = require('gulp-open'),
 server_port = 3000,
 app = express(),
@@ -99,7 +99,7 @@ gulp.task("deploy", ["gh_pages"]);
 /**
  * open development url
  */
- gulp.task('open-dev', ['server', 'start-api'], function() {
+ gulp.task('open-dev', ['server'], function() {
   gulp.src(__filename)
   .pipe(open({
     uri: 'http://localhost:' + server_port
@@ -115,19 +115,6 @@ gulp.task("deploy", ["gh_pages"]);
   return process.env.NODE_ENV = 'production';
 });
 
-
-/**
- * Start Mock API
- */
- gulp.task('start-api', function() {
-  nodemon({
-    script: './api/server.js',
-    ext: 'js html',
-    env: {
-      'NODE_ENV': 'development'
-    }
-  })
-})
 
 
  gulp.task('lint', function () {
