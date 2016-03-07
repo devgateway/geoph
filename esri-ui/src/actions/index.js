@@ -1,7 +1,7 @@
-import Constants from 'app/constants/constants.es6';
+import Constants from '../constants/constants.es6';
 import i18next from 'i18next';
 import fetch from 'isomorphic-fetch';
-import Settings from 'app/util/Settings.es6';
+import Settings from '../util/Settings.es6';
 
 let settings=Settings.getInstace();
 
