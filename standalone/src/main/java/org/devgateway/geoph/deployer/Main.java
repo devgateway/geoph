@@ -16,7 +16,6 @@ import java.util.Arrays;
  */
 
 @SpringBootApplication
-
 @PropertySources({
         @PropertySource("file:${CONF_PATH}/application.properties")
 })

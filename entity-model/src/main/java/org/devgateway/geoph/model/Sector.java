@@ -22,9 +22,6 @@ public class Sector extends GenericPersistable implements Serializable {
 
     private String name;
 
-    @Column(name = "parent_id")
-    private Long parentId;
-
     private int type;
 
     @OneToMany(fetch = FetchType.EAGER)
@@ -33,10 +30,9 @@ public class Sector extends GenericPersistable implements Serializable {
     public Sector() {
     }
 
-    public Sector(String code, String name, Long parentId, int type) {
+    public Sector(String code, String name, int type) {
         this.code = code;
         this.name = name;
-        this.parentId = parentId;
         this.type = type;
     }
 
@@ -54,14 +50,6 @@ public class Sector extends GenericPersistable implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Long getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
     }
 
     public int getType() {

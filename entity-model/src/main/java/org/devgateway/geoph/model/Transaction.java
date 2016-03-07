@@ -25,11 +25,22 @@ public class Transaction extends GenericPersistable implements Serializable {
 
     private Date date;
 
-    @ManyToOne(cascade= CascadeType.ALL)
+    @ManyToOne(cascade= CascadeType.MERGE)
     private FlowType flowType;
 
-    @ManyToOne(cascade= CascadeType.ALL)
+    @ManyToOne(cascade= CascadeType.MERGE)
     private TransactionType transactionType;
+
+    public Transaction() {
+    }
+
+    public Transaction(Project project, double amount, Date date, FlowType flowType, TransactionType transactionType) {
+        this.project = project;
+        this.amount = amount;
+        this.date = date;
+        this.flowType = flowType;
+        this.transactionType = transactionType;
+    }
 
     public Project getProject() {
         return project;

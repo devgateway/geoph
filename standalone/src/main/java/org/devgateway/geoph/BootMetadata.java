@@ -5,15 +5,18 @@ import org.devgateway.geoph.persistence.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
+import javax.sql.DataSource;
+import javax.transaction.Transactional;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 
 /**
  * @author dbianco
@@ -35,7 +38,7 @@ public class BootMetadata {
     CurrencyRepository currencyRepository;
 
     @Autowired
-    FlowTypeRepository fundingTypeRepository;
+    FlowTypeRepository flowTypeRepository;
 
     @Autowired
     StatusRepository statusRepository;
@@ -58,8 +61,15 @@ public class BootMetadata {
     @Autowired
     TransactionRepository transactionRepository;
 
+    @Autowired
+    DataSource dataSource;
+
 
     protected void boot() {
+
+        runScript(
+                "/sql/basic-data/locations.sql",
+                "/sql/basic-data/location_items.sql");
 
         iatRepository.deleteAll();
         iatRepository.save(new ImplementingAgencyType("GFI", "Government Financing Institution"));
@@ -85,10 +95,10 @@ public class BootMetadata {
         currencyRepository.save(new Currency("Euro", "EUR"));
         currencyRepository.save(new Currency("Japanese yen", "JPY"));
 
-        fundingTypeRepository.deleteAll();
-        fundingTypeRepository.save(new FlowType("Loan"));
-        fundingTypeRepository.save(new FlowType("Grant"));
-        fundingTypeRepository.save(new FlowType("PMC"));
+        flowTypeRepository.deleteAll();
+        flowTypeRepository.save(new FlowType("Loan"));
+        flowTypeRepository.save(new FlowType("Grant"));
+        flowTypeRepository.save(new FlowType("PMC"));
 
         statusRepository.deleteAll();
         statusRepository.save(new Status("OL", "Ongoing"));
@@ -105,99 +115,92 @@ public class BootMetadata {
         classificationRepository.save(new Classification("GOP-implemented"));
 
         sectorRepository.deleteAll();
-        sectorRepository.save(new Sector("AARNR", "Agriculture, Natural Resources and Agrarian Reform", null, 1));
-        sectorRepository.save(new Sector("GID", "Governance and Institutions Development", null, 1));
-        sectorRepository.save(new Sector("INF", "Infrastructure", null, 1));
-        sectorRepository.save(new Sector("IS", "Industry, Trade and Tourism", null, 1));
-        sectorRepository.save(new Sector("SRD", "Social Reform and Community Development", null, 1));
+        sectorRepository.save(new Sector("AARNR", "Agriculture, Natural Resources and Agrarian Reform", 1));
+        sectorRepository.save(new Sector("GID", "Governance and Institutions Development", 1));
+        sectorRepository.save(new Sector("INF", "Infrastructure", 1));
+        sectorRepository.save(new Sector("IS", "Industry, Trade and Tourism", 1));
+        sectorRepository.save(new Sector("SRD", "Social Reform and Community Development", 1));
 
         Sector s1 = sectorRepository.findByCode("AARNR");
-        s1.getItems().add(sectorRepository.save(new Sector("AAR", "Agriculture and Agrarian Reform", s1.getId(), 2)));
-        s1.getItems().add(sectorRepository.save(new Sector("ENR", "Environment and Natural Resources", s1.getId(), 2)));
-        s1.getItems().add(sectorRepository.save(new Sector("IRR", "Irrigation", s1.getId(), 2)));
+        s1.getItems().add(sectorRepository.save(new Sector("AAR", "Agriculture and Agrarian Reform", 2)));
+        s1.getItems().add(sectorRepository.save(new Sector("ENR", "Environment and Natural Resources", 2)));
+        s1.getItems().add(sectorRepository.save(new Sector("IRR", "Irrigation", 2)));
         sectorRepository.save(s1);
 
         s1 = sectorRepository.findByCode("GID");
-        s1.getItems().add(sectorRepository.save(new Sector("AG", "Administrative Governance", s1.getId(), 2)));
-        s1.getItems().add(sectorRepository.save(new Sector("EG", "Economic Governance", s1.getId(), 2)));
-        s1.getItems().add(sectorRepository.save(new Sector("PG", "Political Governance", s1.getId(), 2)));
+        s1.getItems().add(sectorRepository.save(new Sector("AG", "Administrative Governance", 2)));
+        s1.getItems().add(sectorRepository.save(new Sector("EG", "Economic Governance", 2)));
+        s1.getItems().add(sectorRepository.save(new Sector("PG", "Political Governance", 2)));
         sectorRepository.save(s1);
 
         s1 = sectorRepository.findByCode("INF");
-        s1.getItems().add(sectorRepository.save(new Sector("TRAN", "Transportation", s1.getId(), 2)));
-        s1.getItems().add(sectorRepository.save(new Sector("WR", "Water Resources", s1.getId(), 2)));
-        s1.getItems().add(sectorRepository.save(new Sector("EPE", "Energy, Power and Electrification", s1.getId(), 2)));
+        s1.getItems().add(sectorRepository.save(new Sector("TRAN", "Transportation", 2)));
+        s1.getItems().add(sectorRepository.save(new Sector("WR", "Water Resources", 2)));
+        s1.getItems().add(sectorRepository.save(new Sector("EPE", "Energy, Power and Electrification", 2)));
         sectorRepository.save(s1);
 
         s1 = sectorRepository.findByCode("IS");
-        s1.getItems().add(sectorRepository.save(new Sector("IST", "Industry, Trade and Tourism", s1.getId(), 2)));
+        s1.getItems().add(sectorRepository.save(new Sector("IST", "Industry, Trade and Tourism", 2)));
         sectorRepository.save(s1);
 
         s1 = sectorRepository.findByCode("SRD");
-        s1.getItems().add(sectorRepository.save(new Sector("SWCD", "Social Welfare and Community Development", s1.getId(), 2)));
-        s1.getItems().add(sectorRepository.save(new Sector("HPN", "Health, Population and Nutrition", s1.getId(), 2)));
-        s1.getItems().add(sectorRepository.save(new Sector("SUD", "Shelter and Urban Development", s1.getId(), 2)));
+        s1.getItems().add(sectorRepository.save(new Sector("SWCD", "Social Welfare and Community Development", 2)));
+        s1.getItems().add(sectorRepository.save(new Sector("HPN", "Health, Population and Nutrition", 2)));
+        s1.getItems().add(sectorRepository.save(new Sector("SUD", "Shelter and Urban Development", 2)));
         sectorRepository.save(s1);
 
         s1 = sectorRepository.findByCode("AAR");
-        s1.getItems().add(sectorRepository.save(new Sector("IRRZ", "Irrigation", s1.getId(), 3)));
-        s1.getItems().add(sectorRepository.save(new Sector("AGRZ", "Agrarian Reform", s1.getId(), 3)));
+        s1.getItems().add(sectorRepository.save(new Sector("IRRZ", "Irrigation", 3)));
+        s1.getItems().add(sectorRepository.save(new Sector("AGRZ", "Agrarian Reform", 3)));
         sectorRepository.save(s1);
 
         s1 = sectorRepository.findByCode("ENR");
-        s1.getItems().add(sectorRepository.save(new Sector("ENVZ", "Environment", s1.getId(), 3)));
-        s1.getItems().add(sectorRepository.save(new Sector("FORZ", "Forestry", s1.getId(), 3)));
-        s1.getItems().add(sectorRepository.save(new Sector("LANZ", "Land", s1.getId(), 3)));
+        s1.getItems().add(sectorRepository.save(new Sector("ENVZ", "Environment", 3)));
+        s1.getItems().add(sectorRepository.save(new Sector("FORZ", "Forestry", 3)));
+        s1.getItems().add(sectorRepository.save(new Sector("LANZ", "Land", 3)));
         sectorRepository.save(s1);
 
         s1 = sectorRepository.findByCode("EG");
-        s1.getItems().add(sectorRepository.save(new Sector("GESZ", "General Social",s1.getId(), 3)));
+        s1.getItems().add(sectorRepository.save(new Sector("GESZ", "General Social", 3)));
         sectorRepository.save(s1);
 
         s1 = sectorRepository.findByCode("PG");
-        s1.getItems().add(sectorRepository.save(new Sector("DIMZ", "Disaster Mitigation",s1.getId(), 3)));
+        s1.getItems().add(sectorRepository.save(new Sector("DIMZ", "Disaster Mitigation", 3)));
         sectorRepository.save(s1);
 
         s1 = sectorRepository.findByCode("TRAN");
-        s1.getItems().add(sectorRepository.save(new Sector("RABZ", "Roads and Bridges", s1.getId(), 3)));
-        s1.getItems().add(sectorRepository.save(new Sector("AAAZ", "Airport and Airnavigation", s1.getId(), 3)));
-        s1.getItems().add(sectorRepository.save(new Sector("RAIZ", "Rails", s1.getId(), 3)));
-        s1.getItems().add(sectorRepository.save(new Sector("PORZ", "Ports", s1.getId(), 3)));
+        s1.getItems().add(sectorRepository.save(new Sector("RABZ", "Roads and Bridges", 3)));
+        s1.getItems().add(sectorRepository.save(new Sector("AAAZ", "Airport and Airnavigation", 3)));
+        s1.getItems().add(sectorRepository.save(new Sector("RAIZ", "Rails", 3)));
+        s1.getItems().add(sectorRepository.save(new Sector("PORZ", "Ports", 3)));
         sectorRepository.save(s1);
 
         s1 = sectorRepository.findByCode("WR");
-        s1.getItems().add(sectorRepository.save(new Sector("FLCZ", "Flood Control", s1.getId(), 3)));
-        s1.getItems().add(sectorRepository.save(new Sector("WSSZ", "Water Supply, Sewerage and Sanitation", s1.getId(), 3)));
+        s1.getItems().add(sectorRepository.save(new Sector("FLCZ", "Flood Control", 3)));
+        s1.getItems().add(sectorRepository.save(new Sector("WSSZ", "Water Supply, Sewerage and Sanitation", 3)));
         sectorRepository.save(s1);
 
         s1 = sectorRepository.findByCode("EPE");
-        s1.getItems().add(sectorRepository.save(new Sector("PGTZ", "Power Generation and Transmission", s1.getId(), 3)));
-        s1.getItems().add(sectorRepository.save(new Sector("GEDZ", "Geothermal Exploration and Development", s1.getId(), 3)));
+        s1.getItems().add(sectorRepository.save(new Sector("PGTZ", "Power Generation and Transmission", 3)));
+        s1.getItems().add(sectorRepository.save(new Sector("GEDZ", "Geothermal Exploration and Development", 3)));
         sectorRepository.save(s1);
 
         s1 = sectorRepository.findByCode("IS");
-        s1.getItems().add(sectorRepository.save(new Sector("RELZ", "Relending", s1.getId(), 3)));
+        s1.getItems().add(sectorRepository.save(new Sector("RELZ", "Relending", 3)));
         sectorRepository.save(s1);
 
         s1 = sectorRepository.findByCode("SUD");
-        s1.getItems().add(sectorRepository.save(new Sector("SOIZ", "Social Infrastructure", s1.getId(), 3)));
+        s1.getItems().add(sectorRepository.save(new Sector("SOIZ", "Social Infrastructure", 3)));
         sectorRepository.save(s1);
 
-        locationRepository.deleteAll();
-        locationRepository.save(new Location("Region I - Ilocos", null, 1, "1", 16.9087797110D, 120.4868698D));
-
-        Location l1 = locationRepository.findByCode("1");
-        locationRepository.save(new Location("Ilocos Norte", 1L, 1, "128", 18.1998273575D, 120.7309813D));
-        locationRepository.save(new Location("Ilocos Sur", 1L, 1, "129", 17.2212386812D, 120.5516706D));
-        locationRepository.save(new Location("La Union", 1L, 1, "133", 16.5810538295D,	120.4277635D));
-
-        l1 = locationRepository.findByCode("128");
-        locationRepository.save(new Location("Adams", 1L, 1, "12801", 18.4498697122D, 120.9212904D));
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
         projectRepository.deleteAll();
+        transactionRepository.deleteAll();
+        TransactionType targetTrxType = trxTypeRepository.findByName("Target");
+        FlowType grantFlowType = flowTypeRepository.findByName("Grant").get(0);
         try {
-            projectRepository.save(new Project(
+            Project p1 = projectRepository.save(new Project(
                     "The Project for the Bridge Construction for Expanded Agrarian Reform Communities Development, Phase 2（Umiray Bridge)",
                     agencyRepository.findByCode("DA"),
                     "",
@@ -211,12 +214,34 @@ public class BootMetadata {
                     statusRepository.findByCode("CL"),
                     sdf.parse("4/5/2012"),
                     sdf.parse("31/7/2015"),
-                    trxTypeRepository.findByName("Target"),
+                    targetTrxType,
                     classificationRepository.findByName("GOP-implemented").get(0),
                     new HashSet<Location>(Arrays.asList(locationRepository.findByCode("12801"))),
                     new HashSet<Sector>(Arrays.asList(sectorRepository.findByCode("AGRZ")))));
+
+            transactionRepository.save(new Grant(p1, 7390000D, sdf.parse("30/6/2014"),
+                    grantFlowType,
+                    targetTrxType));
+            transactionRepository.save(new Grant(p1, 4560000D, sdf.parse("30/12/2014"),
+                    grantFlowType,
+                    targetTrxType));
+
         } catch (ParseException e) {
             LOGGER.error(e.getMessage());
+        }
+    }
+
+    private void runScript(String... scriptList) {
+        ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
+        populator.setContinueOnError(false);
+        populator.setIgnoreFailedDrops(false);
+        for(String script: scriptList) {
+            populator.addScript(new ClassPathResource(script));
+        }
+
+        try {
+            populator.populate(dataSource.getConnection());
+        } catch (SQLException ignored) {
         }
     }
 }

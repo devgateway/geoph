@@ -1,13 +1,7 @@
 package org.devgateway.geoph.persistence;
 
-import org.devgateway.geoph.model.FlowType;
-import org.devgateway.geoph.model.FundingAgency;
-import org.devgateway.geoph.model.ImplementingAgency;
-import org.devgateway.geoph.model.Sector;
-import org.devgateway.geoph.persistence.repository.FlowTypeRepository;
-import org.devgateway.geoph.persistence.repository.FundingAgencyRepository;
-import org.devgateway.geoph.persistence.repository.ImplementingAgencyRepository;
-import org.devgateway.geoph.persistence.repository.SectorRepository;
+import org.devgateway.geoph.model.*;
+import org.devgateway.geoph.persistence.repository.*;
 import org.devgateway.geoph.services.FilterService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,6 +31,9 @@ public class FilterServiceImpl implements FilterService {
     @Autowired
     SectorRepository sectorRepository;
 
+    @Autowired
+    LocationRepository locationRepository;
+
     @Override
     public List<ImplementingAgency> findAllImpAgencies() {
         LOGGER.debug("Getting all implementing agencies");
@@ -59,5 +56,16 @@ public class FilterServiceImpl implements FilterService {
     public List<Sector> findAllSectors() {
         LOGGER.debug("Getting all sectors");
         return sectorRepository.findAll();
+    }
+
+    @Override
+    public List<Location> findLocationsByType(int type) {
+        LOGGER.debug("Getting all locations of type: {}", type);
+        return locationRepository.findLocationsByType(type);
+    }
+
+    public List<Location> findLocationsByParentId(long parentId){
+        LOGGER.debug("Getting all children locations for parentId {}", parentId);
+        return locationRepository.findLocationsByParentId(parentId);
     }
 }

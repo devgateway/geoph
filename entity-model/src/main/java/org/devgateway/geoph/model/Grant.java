@@ -5,6 +5,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author dbianco
@@ -14,5 +15,12 @@ import java.io.Serializable;
 @Entity
 @DiscriminatorValue(value="grant")
 public class Grant extends Transaction implements Serializable {
+
+    public Grant() {
+    }
+
+    public Grant(Project project, double amount, Date date, FlowType flowType, TransactionType transactionType) {
+        super(project, amount, date, flowType, transactionType);
+    }
 
 }
