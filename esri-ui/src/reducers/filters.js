@@ -1,4 +1,4 @@
-import Constants from 'app/constants/constants.es6';
+import Constants from 'app/constants/constants';
 
 const filters = (state = {}, action) => {
 	switch (action.type) {

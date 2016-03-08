@@ -1,6 +1,6 @@
 
 import { connect } from 'react-redux';
-import Message from 'app/components/Message.jsx';
+import Message from 'app/components/Message';
 import i18next from 'i18next';
 
 const mapStateToProps = (state, ownProps) => {

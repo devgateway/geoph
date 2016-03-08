@@ -1,8 +1,8 @@
 
 import { connect } from 'react-redux'
-import { fetchFilterListIfNeeded, selectAllFilterList, selectFilterItem } from 'app/actions/index.js'
+import { fetchFilterListIfNeeded, selectAllFilterList, selectFilterItem } from 'app/actions/index'
 import FilterList from 'app/components/FilterList'
-import Constants from 'app/constants/constants.es6';
+import Constants from 'app/constants/constants';
 
 const mapStateToProps = (state, ownProps) => {
   debugger;

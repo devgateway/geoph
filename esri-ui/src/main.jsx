@@ -1,3 +1,4 @@
+//import es6Promise from 'es6-promise';
 import React from 'react';
 import { render } from 'react/react-dom';
 import Landing from 'app/components/Landing';
@@ -21,9 +22,21 @@ const history = useRouterHistory(createHashHistory)({ queryKey: false });
 const store = configureStore({}, history);
 
 
-render((
+AjaxUtil.get('/settings.json').then((conf)=>{
+  
+  let settings=new Setting();
+  settings.initialize(conf.data);
+  const options = settings.get('I18N', 'OPTIONS');
+
+  i18next.use(XHR).init(options, (err, t) => {
+    //if a locale was loaded 
+
+    render((
       <Provider store={store}>
         <Router history={history} routes={routes} />
       </Provider>
       ), document.getElementById('root'))
+  });
+
+})
 

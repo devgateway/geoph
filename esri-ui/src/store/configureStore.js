@@ -2,7 +2,7 @@ import { applyMiddleware, compose, createStore } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 //import createLogger from 'redux-logger';
 //import { syncHistory } from 'redux-simple-router';
-import rootReducer from 'app/reducers/index.js';
+import rootReducer from 'app/reducers/index';
 
 export default function configureStore(initialState, browserHistory) {
   /*const routerMiddleware = syncHistory(browserHistory);

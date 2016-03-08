@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link  } from 'react-router';
-import Header  from 'app/components/Header.jsx';
-import Footer  from 'app/components/Footer.jsx';
+import Header  from 'app/components/Header';
+import Footer  from 'app/components/Footer';
 import Landing  from 'app/components/Landing';
-import FilterListContainer from 'app/containers/FilterListContainer.jsx';
+import FilterListContainer from 'app/containers/FilterListContainer';
 
 export default class App extends React.Component {
 

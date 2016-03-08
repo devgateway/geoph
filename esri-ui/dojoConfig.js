@@ -45,12 +45,6 @@ window.dojoConfig = {
   },
 
   {
-    name: 'axios',
-    location: locationPath + 'bower_components/axios/dist/',
-    main: 'axios.min'
-  },
-
-  {
     name: 'i18next',
     location: locationPath + 'bower_components/i18next/',
     main: 'i18next.min'
@@ -60,6 +54,24 @@ window.dojoConfig = {
     name: 'i18next-xhr-backend',
     location: locationPath + 'bower_components/i18next-xhr-backend/',
     main: 'i18nextXHRBackend.min'
+  },
+
+  {
+    name: 'axios',
+    location: locationPath + 'bower_components/axios/dist',
+    main: 'axios.min'
+  },
+
+  {
+    name: 'babel-polyfill',
+    location: locationPath + 'bower_components/babel-polyfill',
+    main: 'browser-polyfill'
+  },
+
+  {
+    name: 'es6-promise',
+    location: locationPath + 'bower_components/es6-promise',
+    main: 'es6-promise.min'
   },
 
   ]

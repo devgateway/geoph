@@ -1,5 +1,5 @@
 import React from 'react';
-import {Translate} from '../containers/LangMessage.jsx';
+import {Translate} from '../containers/LangMessage';
 
 export default class LangSwitcher extends React.Component {
 

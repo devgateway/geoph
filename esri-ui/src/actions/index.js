@@ -1,7 +1,7 @@
-import Constants from '../constants/constants.es6';
+import Constants from 'app/constants/constants';
 import i18next from 'i18next';
-import fetch from 'isomorphic-fetch';
-import Settings from '../util/Settings.es6';
+import AjaxUtil from 'app/util/AjaxUtil';
+import Settings from 'app/util/Settings';
 
 let settings=Settings.getInstace();
 
@@ -32,9 +32,8 @@ export const receiveFilterList = (filterType, json) => {
 export const fetchFilterList = (filterType) => {
   return dispatch => {
     dispatch(requestFilterList(filterType))
-    return fetch(settings.get('API','FILTER_ENDPOINTS')[filterType])
-      .then(req => req.json())
-      .then(json => dispatch(receiveFilterList(filterType, json)))
+    return AjaxUtil.get(settings.get('API','FILTER_ENDPOINTS')[filterType])
+      .then(req => dispatch(receiveFilterList(filterType, req.data)))
   }
 }
 

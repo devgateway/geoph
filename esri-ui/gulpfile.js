@@ -10,7 +10,8 @@ var clean = require('gulp-clean');
 gulp.task('react',['copy'], function () {
   return gulp.src([
     'src/*.jsx', 'src/**/*.jsx', 'src/**/**/*.jsx',
-    'src/*.js', 'src/**/*.js', 'src/**/**/*.js'
+    'src/*.js', 'src/**/*.js', 'src/**/**/*.js',
+    'src/*.es6', 'src/**/*.es6', 'src/**/**/*.es6'
   ])
   .pipe(babel({
     sourceMaps: 'inline',
@@ -66,7 +67,7 @@ gulp.task('watch',["server"], function(){
 
 gulp.task("copy",['clean'],function(callback){
  return gulp.src([
-    './index.html','./dojoConfig.js','*bower_components/**/*','*css/**/*'
+    './index.html','./dojoConfig.js','*bower_components/**/*','*css/**/*', 'conf/settings.json'
   ]).pipe(gulp.dest('dist'))
 });
 
