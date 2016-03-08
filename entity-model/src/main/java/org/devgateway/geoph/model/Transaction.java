@@ -1,5 +1,6 @@
 package org.devgateway.geoph.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -18,6 +19,7 @@ import java.util.Date;
 @DiscriminatorValue(value="transaction")
 public class Transaction extends GenericPersistable implements Serializable {
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     private Project project;
 
