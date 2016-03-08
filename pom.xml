@@ -25,7 +25,6 @@
         <module>standalone</module>
         <module>war</module>
         <module>services</module>
-        <module>ui</module>
         <module>entity-model</module>
     </modules>
 
@@ -79,6 +78,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
