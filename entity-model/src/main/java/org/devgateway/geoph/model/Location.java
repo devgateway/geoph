@@ -1,13 +1,15 @@
 package org.devgateway.geoph.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -20,9 +22,6 @@ public class Location extends GenericPersistable implements Serializable {
 
     private String name;
 
-    @Column(name = "parent_id")
-    private Long parentId;
-
     private int type;
 
     private String code;
@@ -31,30 +30,34 @@ public class Location extends GenericPersistable implements Serializable {
 
     private Double longitude;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "locations")
-    private Set<Project> projects;
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Location> items = new ArrayList<>();
 
     public Location() {
     }
 
-    public Location(String name, Long parentId, int type, String code, Double latitude, Double longitude) {
+    public Location(String name, int type, String code, Double latitude, Double longitude) {
         this.name = name;
-        this.parentId = parentId;
         this.type = type;
         this.code = code;
         this.latitude = latitude;
         this.longitude = longitude;
     }
 
-    public Location(String name, Long parentId, int type, String code, Double latitude,
-                    Double longitude, Set<Project> projects) {
+    public Location(String name, int type, String code, Double latitude,
+                    Double longitude, List<Location> items) {
         this.name = name;
-        this.parentId = parentId;
         this.type = type;
         this.code = code;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.projects = projects;
+        this.items = items;
+    }
+
+    @JsonIgnore
+    public boolean isNew(){
+        return false;
     }
 
     public String getName() {
@@ -65,12 +68,12 @@ public class Location extends GenericPersistable implements Serializable {
         this.name = name;
     }
 
-    public Long getParentId() {
-        return parentId;
+    public List<Location> getItems() {
+        return items;
     }
 
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
+    public void setItems(List<Location> items) {
+        this.items = items;
     }
 
     public int getType() {
@@ -79,14 +82,6 @@ public class Location extends GenericPersistable implements Serializable {
 
     public void setType(int type) {
         this.type = type;
-    }
-
-    public Set<Project> getProjects() {
-        return projects;
-    }
-
-    public void setProjects(Set<Project> projects) {
-        this.projects = projects;
     }
 
     public Double getLatitude() {
