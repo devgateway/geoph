@@ -1,4 +1,5 @@
 //import es6Promise from 'es6-promise';
+import babelPolyfill from 'babel-polyfill';
 import React from 'react';
 import { render } from 'react/react-dom';
 import Landing from 'app/components/Landing';
@@ -11,15 +12,17 @@ import Redux from 'redux';
 import i18next from 'i18next';
 import XHR from 'i18next-xhr-backend';
 import { Provider } from 'react-redux'
-import { Router, useRouterHistory } from 'react-router';
+import { Router, useRouterHistory, browserHistory } from 'react-router';
 import { createHashHistory } from 'history';
 import configureStore from 'app/store/configureStore';
 import routes from 'app/routes';
 import AjaxUtil from 'app/util/AjaxUtil';
 import Setting from 'app/util/Settings';
 
-const history = useRouterHistory(createHashHistory)({ queryKey: false });
-const store = configureStore({}, history);
+import syncHistoryWithStore from 'app/react-redux-router/sync';
+
+const store = configureStore({}, browserHistory);
+const history = syncHistoryWithStore(browserHistory, store);
 
 
 AjaxUtil.get('/settings.json').then((conf)=>{

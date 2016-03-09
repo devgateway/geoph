@@ -74,6 +74,12 @@ window.dojoConfig = {
     main: 'es6-promise.min'
   },
 
+  {
+    name: 'react-redux-router',
+    location: locationPath + 'app/react-redux-router-AMD',
+    main: 'react-redux-router'
+  },
+
   ]
 
 

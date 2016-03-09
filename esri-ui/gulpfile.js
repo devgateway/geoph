@@ -67,7 +67,7 @@ gulp.task('watch',["server"], function(){
 
 gulp.task("copy",['clean'],function(callback){
  return gulp.src([
-    './index.html','./dojoConfig.js','*bower_components/**/*','*css/**/*', 'conf/settings.json'
+    './index.html','./dojoConfig.js','*bower_components/**/*','*css/**/*', 'conf/settings.json', '*locales/**/*'
   ]).pipe(gulp.dest('dist'))
 });
 
