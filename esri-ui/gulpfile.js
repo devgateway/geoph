@@ -38,9 +38,11 @@ gulp.task('react', function () {
 });
 
 
-gulp.task('build',['react','ext','copy']function(){
-  console.log('Building...')
+
+gulp.task('build',['copy','react','ext'],function(){
+  console.log('Building...');
 });
+
 
 gulp.task('watch',["server"], function(){
   gulp.watch([
@@ -63,7 +65,7 @@ gulp.task('watch',["server"], function(){
 /**
  * Start dev web server
  */
- gulp.task("server", function(callback) {
+ gulp.task("server",['build'], function(callback) {
 
   var publicPath = path.join(path.resolve(__dirname),'dist');
   console.log(publicPath);
@@ -84,7 +86,7 @@ gulp.task('watch',["server"], function(){
 });
 
 
-gulp.task("copy",['clean'],function(callback){
+gulp.task("copy",function(callback){
  return gulp.src([
     './index.html','./dojoConfig.js','*bower_components/**/*','*css/**/*', 'conf/settings.json', '*locales/**/*'
   ]).pipe(gulp.dest('dist'))
@@ -98,4 +100,4 @@ gulp.task('clean', function () {
 
 
 
-gulp.task('default', ['react']);
+gulp.task('default', ['build']);

@@ -82,7 +82,7 @@ window.dojoConfig = {
 
   {
     name: 'react-redux-router',
-    location: locationPath + 'dist/react-redux-router',
+    location: locationPath + 'ext/react-redux-router',
     main: 'index'
   },
 

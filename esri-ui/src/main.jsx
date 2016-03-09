@@ -12,14 +12,16 @@ import Redux from 'redux';
 import i18next from 'i18next';
 import XHR from 'i18next-xhr-backend';
 import { Provider } from 'react-redux'
+
 import { Router, useRouterHistory, browserHistory } from 'react-router';
+
 import { createHashHistory } from 'history';
 import configureStore from 'app/store/configureStore';
 import routes from 'app/routes';
 import AjaxUtil from 'app/util/AjaxUtil';
 import Setting from 'app/util/Settings';
 
-import syncHistoryWithStore from 'app/react-redux-router/sync';
+import syncHistoryWithStore from 'react-redux-router/sync';
 
 const store = configureStore({}, browserHistory);
 const history = syncHistoryWithStore(browserHistory, store);
@@ -32,8 +34,6 @@ AjaxUtil.get('/settings.json').then((conf)=>{
   const options = settings.get('I18N', 'OPTIONS');
 
   i18next.use(XHR).init(options, (err, t) => {
-    //if a locale was loaded 
-
     render((
       <Provider store={store}>
         <Router history={history} routes={routes} />
