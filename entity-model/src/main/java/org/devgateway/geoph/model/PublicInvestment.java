@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author dbianco
@@ -19,6 +20,14 @@ public class PublicInvestment extends Transaction implements Serializable {
 
     @Column(name="funding_support")
     private double fundingSupport;
+
+    public PublicInvestment() {
+    }
+
+    public PublicInvestment(Project project, double amount, Date date, FlowType flowType, TransactionType transactionType, double fundingSupport) {
+        super(project, amount, date, flowType, transactionType);
+        this.fundingSupport = fundingSupport;
+    }
 
     public double getFundingSupport() {
         return fundingSupport;

@@ -15,6 +15,6 @@ public interface CurrencyRepository extends JpaRepository<Currency, Long> {
     @Query("select a from Currency a where a.name = ?1")
     List<Currency> findByName(String name);
 
-    @Query("select a from Agency a where a.code = ?1")
+    @Query("select a from Currency a where a.code = ?1")
     Currency findByCode(String code);
 }
