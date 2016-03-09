@@ -7,10 +7,27 @@ app = express();
 var clean = require('gulp-clean');
 
 
-gulp.task('react',['copy'], function () {
+gulp.task('ext', function () {
+  return gulp.src([
+    'ext/*.jsx', 'ext/**/*.jsx', 'ext/**/**/*.jsx',
+    'ext/*.js', 'ext/**/*.js', 'ext/**/**/*.js',
+    'ext/*.es6', 'ext/**/*.es6', 'ext/**/**/*.es6'
+  ])
+  .pipe(babel({
+    sourceMaps: 'inline',
+    presets: ['es2015', 'react','stage-0','stage-1','stage-2','stage-3'],
+    plugins: ['transform-es2015-modules-amd']
+  }))
+  .pipe(gulp.dest('dist/ext'));
+});
+
+
+
+gulp.task('react', function () {
   return gulp.src([
     'src/*.jsx', 'src/**/*.jsx', 'src/**/**/*.jsx',
-    'src/*.js', 'src/**/*.js', 'src/**/**/*.js'
+    'src/*.js', 'src/**/*.js', 'src/**/**/*.js',
+    'src/*.es6', 'src/**/*.es6', 'src/**/**/*.es6'
   ])
   .pipe(babel({
     sourceMaps: 'inline',
@@ -20,6 +37,11 @@ gulp.task('react',['copy'], function () {
   .pipe(gulp.dest('dist/app'));
 });
 
+
+
+gulp.task('build',['copy','react','ext'],function(){
+  console.log('Building...');
+});
 
 
 gulp.task('watch',["server"], function(){
@@ -34,7 +56,7 @@ gulp.task('watch',["server"], function(){
 /**
  * Publish dist folder into gh_pages branch
  */
- gulp.task('deploy', ["react"], function() {
+ gulp.task('deploy', function() {
   return gulp.src('./dist/**/*')
   .pipe(ghPages());
 });
@@ -43,7 +65,7 @@ gulp.task('watch',["server"], function(){
 /**
  * Start dev web server
  */
- gulp.task("server",['react'], function(callback) {
+ gulp.task("server",['build'], function(callback) {
 
   var publicPath = path.join(path.resolve(__dirname),'dist');
   console.log(publicPath);
@@ -64,9 +86,9 @@ gulp.task('watch',["server"], function(){
 });
 
 
-gulp.task("copy",['clean'],function(callback){
+gulp.task("copy",function(callback){
  return gulp.src([
-    './index.html','./dojoConfig.js','*bower_components/**/*','*css/**/*'
+    './index.html','./dojoConfig.js','*bower_components/**/*','*css/**/*', 'conf/settings.json', '*locales/**/*'
   ]).pipe(gulp.dest('dist'))
 });
 
@@ -78,4 +100,4 @@ gulp.task('clean', function () {
 
 
 
-gulp.task('default', ['react']);
+gulp.task('default', ['build']);

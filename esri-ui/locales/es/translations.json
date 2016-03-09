@@ -1,0 +1,12 @@
+{	
+	"general":{
+		"hello": "Hola! Esto es una prueba..."
+	},
+
+	"header": {
+		"language": {
+			"english": "Inglés",
+			"spanish": "Español"
+		}
+	}
+}

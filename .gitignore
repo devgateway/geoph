@@ -1,9 +1,2 @@
-/**/target/
-/.classpath
-/**/*.log
 .idea/
-/**/*.iml
 *.iml
-/**/bower_components/
-/**/dist/
-/**/node_modules
