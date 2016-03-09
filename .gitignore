@@ -1,8 +1,2 @@
-/target/
-/.classpath
-/.settings/
-/.iml/
-*.iml
-/**.idea/**
 .idea/
-logs
+*.iml
