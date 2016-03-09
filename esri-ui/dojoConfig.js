@@ -4,17 +4,23 @@ window.dojoConfig = {
   async: true,
   parseOnLoad: true,
   deps: ['app/main'],
-  packages: [{
-    name: 'react',
-    location: locationPath + 'bower_components/react/',
-    main: 'react'
-  }, {
+
+  packages: [
+
+  {
     name: 'app',
     location: locationPath + 'app',
     main: 'main'
   },
 
+ 
   {
+    name: 'react',
+    location: locationPath + 'bower_components/react/',
+    main: 'react'
+  }, 
+  
+   {
     name: 'react-router',
     location:'https://npmcdn.com/react-router/umd/',
     main: 'ReactRouter.min'
@@ -76,8 +82,8 @@ window.dojoConfig = {
 
   {
     name: 'react-redux-router',
-    location: locationPath + 'app/react-redux-router-AMD',
-    main: 'react-redux-router'
+    location: locationPath + 'dist/react-redux-router',
+    main: 'index'
   },
 
   ]

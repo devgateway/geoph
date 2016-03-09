@@ -7,7 +7,23 @@ app = express();
 var clean = require('gulp-clean');
 
 
-gulp.task('react',['copy'], function () {
+gulp.task('ext', function () {
+  return gulp.src([
+    'ext/*.jsx', 'ext/**/*.jsx', 'ext/**/**/*.jsx',
+    'ext/*.js', 'ext/**/*.js', 'ext/**/**/*.js',
+    'ext/*.es6', 'ext/**/*.es6', 'ext/**/**/*.es6'
+  ])
+  .pipe(babel({
+    sourceMaps: 'inline',
+    presets: ['es2015', 'react','stage-0','stage-1','stage-2','stage-3'],
+    plugins: ['transform-es2015-modules-amd']
+  }))
+  .pipe(gulp.dest('dist/ext'));
+});
+
+
+
+gulp.task('react', function () {
   return gulp.src([
     'src/*.jsx', 'src/**/*.jsx', 'src/**/**/*.jsx',
     'src/*.js', 'src/**/*.js', 'src/**/**/*.js',
@@ -22,6 +38,9 @@ gulp.task('react',['copy'], function () {
 });
 
 
+gulp.task('build',['react','ext','copy']function(){
+  console.log('Building...')
+});
 
 gulp.task('watch',["server"], function(){
   gulp.watch([
@@ -35,7 +54,7 @@ gulp.task('watch',["server"], function(){
 /**
  * Publish dist folder into gh_pages branch
  */
- gulp.task('deploy', ["react"], function() {
+ gulp.task('deploy', function() {
   return gulp.src('./dist/**/*')
   .pipe(ghPages());
 });
@@ -44,7 +63,7 @@ gulp.task('watch',["server"], function(){
 /**
  * Start dev web server
  */
- gulp.task("server",['react'], function(callback) {
+ gulp.task("server", function(callback) {
 
   var publicPath = path.join(path.resolve(__dirname),'dist');
   console.log(publicPath);
