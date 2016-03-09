@@ -6,4 +6,4 @@ export {
   push, replace, go, goBack, goForward,
   routerActions
 } from './actions'
-export routerMiddleware from '/middleware'
+export routerMiddleware from './middleware'
