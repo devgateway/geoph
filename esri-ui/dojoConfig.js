@@ -16,67 +16,61 @@ window.dojoConfig = {
  
   {
     name: 'react',
-    location: locationPath + 'bower_components/react/',
+    location: locationPath + 'lib/react/',
     main: 'react'
   }, 
   
    {
     name: 'react-router',
-    location:'https://npmcdn.com/react-router/umd/',
-    main: 'ReactRouter.min'
+    location:locationPath + 'lib/ReactRouter.min',
+    main: 'index'
   },
 
   {
     name: 'redux',
-    location:'https://cdnjs.cloudflare.com/ajax/libs/redux/3.3.1/',
-    main: 'redux.min'
+   location:locationPath + 'lib/redux.min',
+    main: 'index'
   },
 
   {
     name: 'react-redux',
-    location:'https://cdnjs.cloudflare.com/ajax/libs/react-redux/4.4.0/',
-    main: 'react-redux.min'
+    location:locationPath + 'lib/react-redux.min',
+    main: 'index'
   },
 
   {
     name: 'redux-thunk',
-    location:'https://npmcdn.com/redux-thunk@2.0.1/dist/',
-    main: 'redux-thunk.min'
-  },
-
-  {
-    name: 'history',
-    location:'https://npmcdn.com/history/umd/',
-    main: 'History.min'
+    location:locationPath + 'lib/redux-thunk',
+    main: 'index'
   },
 
   {
     name: 'i18next',
-    location: locationPath + 'bower_components/i18next/',
-    main: 'i18next.min'
+    location: locationPath + 'lib/i18next/bin',
+    main: 'index'
   },
 
   {
     name: 'i18next-xhr-backend',
-    location: locationPath + 'bower_components/i18next-xhr-backend/',
-    main: 'i18nextXHRBackend.min'
+    location: locationPath + 'lib/i18next-xhr-backend/bin',
+    main: 'index'
   },
 
   {
     name: 'axios',
-    location: locationPath + 'bower_components/axios/dist',
-    main: 'axios.min'
+    location: locationPath + 'lib/axios/dist',
+    main: 'axios'
   },
 
   {
     name: 'babel-polyfill',
-    location: locationPath + 'bower_components/babel-polyfill',
+    location: locationPath + 'lib/babel-polyfill',
     main: 'browser-polyfill'
   },
 
   {
     name: 'es6-promise',
-    location: locationPath + 'bower_components/es6-promise',
+    location: locationPath + 'lib/es6-promise',
     main: 'es6-promise.min'
   },
 
