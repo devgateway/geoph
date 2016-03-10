@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link  } from 'react-router';
-
+import {LangSwitcher} from 'app/components/lan/LanContainer'
 export default class Header extends React.Component {
 
   constructor() {
@@ -12,7 +12,7 @@ export default class Header extends React.Component {
   render() {
     return (
       <div className="header">
-        Footer
+        <LangSwitcher/>
       </div>
       )
   }
