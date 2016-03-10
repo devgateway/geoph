@@ -12,7 +12,7 @@ export default class Landing extends React.Component {
     return (
       <div className="landing">
       <div className="map">
-       <Map2d/>
+      
       </div>
       <div className="panel">
       </div>

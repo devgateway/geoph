@@ -14,8 +14,7 @@ var sass = require('gulp-sass');
 gulp.task('bower',['clean'], function() {
   return gulp.src(mainBowerFiles(), {
       base: 'bower_components'
-    })
-    .pipe(gulp.dest('dist/lib'));
+    }).pipe(gulp.dest('dist/lib'));
 });
 
 
@@ -29,7 +28,7 @@ gulp.task('sass',['clean'], function () {
 gulp.task('ext',['clean'], function() {
   return gulp.src([
       'ext/*.jsx', 'ext/**/*.jsx', 'ext/**/**/*.jsx',
-      'ext/*.js', 'ext/**/*.js', 'ext/**/**/*.js',
+      ' /*.js', 'ext/**/*.js', 'ext/**/**/*.js',
       'ext/*.es6', 'ext/**/*.es6', 'ext/**/**/*.es6'
     ])
     .pipe(babel({
@@ -64,7 +63,7 @@ gulp.task('build', ['clean','react', 'ext', 'bower','sass','copy'], function() {
 });
 
 
-gulp.task('watch', ['clean'], function() {
+gulp.task('watch', ['clean','build','server'], function() {
   gulp.watch([
     './index.html', '*.js', 'scss/*.*',
     'src/*.jsx', 'src/**/*.jsx', 'src/**/**/*.jsx',
@@ -114,6 +113,9 @@ gulp.task('copy',['clean'], function(callback) {
 
 
 gulp.task('clean', function() {
+  return gulp.src([
+    'dist'
+  ]).pipe(clean())
 
 });
 
