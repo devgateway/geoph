@@ -1,13 +1,13 @@
 {	
-	"welcome":"Hola",
+	"welcome": "Este es un mensaje de bienvenida",
 	"general":{
 		"hello": "Hello! This is a test..."
 	},
 
 	"header": {
 		"language": {
-			"english": "English",
-			"spanish": "Spanish"
+			"english": "Inglés",
+			"spanish": "Español"
 		}
 	}
 }

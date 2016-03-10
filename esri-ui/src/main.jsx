@@ -15,7 +15,7 @@ import {syncHistoryWithStore} from 'react-redux-router';
 import routes from 'app/routes';
 
 import AjaxUtil from 'app/util/AjaxUtil';
-import Setting from 'app/util/Settings';
+import Setting from 'app/util/settings';
 
 
 const store = configureStore({}, browserHistory);

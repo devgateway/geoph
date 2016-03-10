@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link  } from 'react-router';
-import {Message} from 'app/components/lan/LanContainer';
+import {Message} from 'app/components/lan/container';
 
 export default class Landing extends React.Component {
 
