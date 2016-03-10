@@ -16,7 +16,7 @@ window.dojoConfig = {
  
   {
     name: 'react',
-    location: locationPath + 'bower_components/react/',
+    location: locationPath + 'lib/react/',
     main: 'react'
   }, 
   

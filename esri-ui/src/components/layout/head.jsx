@@ -12,6 +12,8 @@ export default class Header extends React.Component {
   render() {
     return (
       <div className="header">
+              <Message k='welcome'>Welcome to this application</Message>
+
         <LangSwitcher/>
       </div>
       )

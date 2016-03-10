@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link  } from 'react-router';
 import {Message} from 'app/components/lan/LanContainer';
-
+import Map2d from 'app/components/map2d'
 export default class Landing extends React.Component {
 
   constructor() {
@@ -12,7 +12,7 @@ export default class Landing extends React.Component {
     return (
       <div className="landing">
       <div className="map">
-        <Message k='welcome'>Welcome to this application</Message>
+       <Map2d/>
       </div>
       <div className="panel">
       </div>

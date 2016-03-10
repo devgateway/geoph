@@ -1,78 +1,98 @@
 var gulp = require('gulp');
 var babel = require('gulp-babel');
 var express = require('express'),
+  mainBowerFiles = require('main-bower-files');
+var less =require('gulp-less');
+
 path = require('path'),
 ghPages = require('gulp-gh-pages'),
 app = express();
 var clean = require('gulp-clean');
+var sass = require('gulp-sass');
 
 
-gulp.task('ext', function () {
+gulp.task('bower',['clean'], function() {
+  return gulp.src(mainBowerFiles(), {
+      base: 'bower_components'
+    })
+    .pipe(gulp.dest('dist/lib'));
+});
+
+
+gulp.task('sass',['clean'], function () {
+  return gulp.src('./scss/**/*.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('dist/css'));
+});
+
+
+gulp.task('ext',['clean'], function() {
   return gulp.src([
-    'ext/*.jsx', 'ext/**/*.jsx', 'ext/**/**/*.jsx',
-    'ext/*.js', 'ext/**/*.js', 'ext/**/**/*.js',
-    'ext/*.es6', 'ext/**/*.es6', 'ext/**/**/*.es6'
-  ])
-  .pipe(babel({
-    sourceMaps: 'inline',
-    presets: ['es2015', 'react','stage-0','stage-1','stage-2','stage-3'],
-    plugins: ['transform-es2015-modules-amd']
-  }))
-  .pipe(gulp.dest('dist/ext'));
+      'ext/*.jsx', 'ext/**/*.jsx', 'ext/**/**/*.jsx',
+      'ext/*.js', 'ext/**/*.js', 'ext/**/**/*.js',
+      'ext/*.es6', 'ext/**/*.es6', 'ext/**/**/*.es6'
+    ])
+    .pipe(babel({
+      sourceMaps: 'inline',
+      presets: ['es2015', 'react', 'stage-0', 'stage-1', 'stage-2', 'stage-3'],
+      plugins: ['transform-es2015-modules-amd']
+    }))
+    .pipe(gulp.dest('dist/ext'));
 });
 
 
 
-gulp.task('react', function () {
+gulp.task('react',['clean'], function() {
   return gulp.src([
-    'src/*.jsx', 'src/**/*.jsx', 'src/**/**/*.jsx',
-    'src/*.js', 'src/**/*.js', 'src/**/**/*.js',
-    'src/*.es6', 'src/**/*.es6', 'src/**/**/*.es6'
-  ])
-  .pipe(babel({
-    sourceMaps: 'inline',
-    presets: ['es2015', 'react','stage-0','stage-1','stage-2','stage-3'],
-    plugins: ['transform-es2015-modules-amd']
-  }))
-  .pipe(gulp.dest('dist/app'));
+      'src/*.jsx', 'src/**/*.jsx', 'src/**/**/*.jsx',
+      'src/*.js', 'src/**/*.js', 'src/**/**/*.js',
+      'src/*.es6', 'src/**/*.es6', 'src/**/**/*.es6'
+    ])
+    .pipe(babel({
+      sourceMaps: 'inline',
+      presets: ['es2015', 'react', 'stage-0', 'stage-1', 'stage-2', 'stage-3'],
+      plugins: ['transform-es2015-modules-amd']
+    }))
+    .pipe(gulp.dest('dist/app'));
 });
 
 
 
-gulp.task('build',['clean','copy','react','ext','server'],function(){
-  console.log('Building...');
+gulp.task('build', ['clean','react', 'ext', 'bower','sass','copy'], function() {
+   console.log("all done")
+  
 });
 
 
-gulp.task('watch',["build"], function(){
+gulp.task('watch', ['clean'], function() {
   gulp.watch([
-    '*.html','*.js', 'css/*.css',
+    './index.html', '*.js', 'scss/*.*',
     'src/*.jsx', 'src/**/*.jsx', 'src/**/**/*.jsx',
     'src/*.js', 'src/**/*.js', 'src/**/**/*.js'
-  ], ['react']);
+  ], ['build']);
 });
 
 
 /**
  * Publish dist folder into gh_pages branch
  */
- gulp.task('deploy', function() {
+gulp.task('deploy', function() {
   return gulp.src('./dist/**/*')
-  .pipe(ghPages());
+    .pipe(ghPages());
 });
 
 
 /**
  * Start dev web server
  */
- gulp.task("server", function(callback) {
+gulp.task('server', function(callback) {
 
-  var publicPath = path.join(path.resolve(__dirname),'dist');
+  var publicPath = path.join(path.resolve(__dirname), 'dist');
   console.log(publicPath);
   app.use(express.static(publicPath));
 
   app.get('/', function(req, res) {
-    res.sendFile(path.join(publicPath , 'index.html'));
+    res.sendFile(path.join(publicPath, 'index.html'));
   });
 
   app.listen(8085, 'localhost', function(err) {
@@ -86,16 +106,15 @@ gulp.task('watch',["build"], function(){
 });
 
 
-gulp.task("copy",function(callback){
- return gulp.src([
-    './index.html','./dojoConfig.js','*bower_components/**/*','*css/**/*', 'conf/settings.json', '*locales/**/*'
+gulp.task('copy',['clean'], function(callback) {
+  return gulp.src([
+    './index.html', './dojoConfig.js', 'conf/settings.json', '*locales/**/*'
   ]).pipe(gulp.dest('dist'))
 });
 
 
-gulp.task('clean', function () {
-  return gulp.src('dist', {read: true})
-    .pipe(clean());
+gulp.task('clean', function() {
+
 });
 
 
