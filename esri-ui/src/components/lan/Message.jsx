@@ -3,7 +3,6 @@ import i18next from 'i18next';
 
 export default class Message extends React.Component {
 	render(){
-		debugger;
 		const e=i18next;
 		console.log(e.t(this.props.k,this.props.lan));
 		return <span className={this.props.className}>
