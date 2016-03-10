@@ -1,13 +1,13 @@
 import Constants from 'app/constants/constants';
-import i18next from 'i18next';
+
 import AjaxUtil from 'app/util/AjaxUtil';
 import Settings from 'app/util/Settings';
 
 let settings=Settings.getInstace();
 
+
 export const setLanguage = (lang) => {
-  debugger;
-  i18next.changeLanguage(lang);
+
   return {
     type: Constants.SET_APP_LANGUAGE,
     lang 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link  } from 'react-router';
 import {Message} from 'app/components/lan/LanContainer';
+
 export default class Landing extends React.Component {
 
   constructor() {
@@ -9,7 +10,7 @@ export default class Landing extends React.Component {
 
   render() {
     return (
-      <div className="root">
+      <div className="map">
         <Message k='welcome'>Welcome to this application</Message>
       </div>
       )

@@ -39,14 +39,14 @@ gulp.task('react', function () {
 
 
 
-gulp.task('build',['copy','react','ext'],function(){
+gulp.task('build',['clean','copy','react','ext','server'],function(){
   console.log('Building...');
 });
 
 
-gulp.task('watch',["server"], function(){
+gulp.task('watch',["build"], function(){
   gulp.watch([
-    '*.html','*.js',
+    '*.html','*.js', 'css/*.css',
     'src/*.jsx', 'src/**/*.jsx', 'src/**/**/*.jsx',
     'src/*.js', 'src/**/*.js', 'src/**/**/*.js'
   ], ['react']);
@@ -65,7 +65,7 @@ gulp.task('watch',["server"], function(){
 /**
  * Start dev web server
  */
- gulp.task("server",['build'], function(callback) {
+ gulp.task("server", function(callback) {
 
   var publicPath = path.join(path.resolve(__dirname),'dist');
   console.log(publicPath);
@@ -94,10 +94,10 @@ gulp.task("copy",function(callback){
 
 
 gulp.task('clean', function () {
-  return gulp.src('dist', {read: false})
+  return gulp.src('dist', {read: true})
     .pipe(clean());
 });
 
 
 
-gulp.task('default', ['build','watch']);
+gulp.task('default', ['watch']);
