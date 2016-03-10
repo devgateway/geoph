@@ -1,12 +1,13 @@
-import Constants from 'app/constants/constants.es6';
-import i18next from 'i18next';
-import fetch from 'isomorphic-fetch';
-import Settings from 'app/util/Settings.es6';
+import Constants from 'app/constants/constants';
+
+import AjaxUtil from 'app/util/AjaxUtil';
+import Settings from 'app/util/Settings';
 
 let settings=Settings.getInstace();
 
+
 export const setLanguage = (lang) => {
-  i18next.changeLanguage(lang);
+
   return {
     type: Constants.SET_APP_LANGUAGE,
     lang 
@@ -32,9 +33,8 @@ export const receiveFilterList = (filterType, json) => {
 export const fetchFilterList = (filterType) => {
   return dispatch => {
     dispatch(requestFilterList(filterType))
-    return fetch(settings.get('API','FILTER_ENDPOINTS')[filterType])
-      .then(req => req.json())
-      .then(json => dispatch(receiveFilterList(filterType, json)))
+    return AjaxUtil.get(settings.get('API','FILTER_ENDPOINTS')[filterType])
+      .then(req => dispatch(receiveFilterList(filterType, req.data)))
   }
 }
 

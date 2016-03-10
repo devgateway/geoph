@@ -1,48 +1,40 @@
+//import es6Promise from 'es6-promise';
+import babelPolyfill from 'babel-polyfill';
+
 import React from 'react';
-import { Router, Route ,Redirect,IndexRoute ,hashHistory} from 'react-router';
 import { render } from 'react/react-dom';
-import Landing from 'app/components/Landing';
-import Header from 'app/components/Header'
-import Footer from 'app/components/Footer'
-import Map2d from 'app/components/map2d';
-import Map3d from 'app/components/map3d';
-/*Layout elements*/
 
-/**
- * Root view
- */
- class App extends React.Component {
-   render() {
-    return (
-      <div className="app">
-       <Header/>
-         {this.props.children}
-       <Footer/>
-      </div>
-      )
-  }
-}
+import i18next from 'i18next';
+import XHR from 'i18next-xhr-backend';
+
+import { Provider } from 'react-redux'
+import configureStore from 'app/store/configureStore';
+
+import { Router,browserHistory } from 'react-router';
+import {syncHistoryWithStore} from 'react-redux-router';
+import routes from 'app/routes';
+
+import AjaxUtil from 'app/util/AjaxUtil';
+import Setting from 'app/util/settings';
 
 
-/*
-Not found view
-*/
-class NoMatch extends React.Component{
-  render(){
-    return <h1>Not found</h1>
-  }
-}
+const store = configureStore({}, browserHistory);
+const history = syncHistoryWithStore(browserHistory, store);
 
- render((
-      <Router history={hashHistory} >
 
-        <Route path="/" component={App}>
-          <IndexRoute component={Landing} />
-            <Route path="map2d" component={Map2d}/>
-            <Route path="map3d" component={Map3d}/>
-        </Route>
-      <Route path="*" component={NoMatch}/>
+AjaxUtil.get('/settings.json').then((conf)=>{
+  
+  let settings=new Setting();
+  settings.initialize(conf.data);
+  const options = settings.get('I18N', 'OPTIONS');
 
-      </Router>
+  i18next.use(XHR).init(options, (err, t) => {
+    render((
+      <Provider store={store}>
+        <Router history={history} routes={routes} />
+      </Provider>
       ), document.getElementById('root'))
+  });
+
+})
 

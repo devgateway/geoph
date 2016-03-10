@@ -1,0 +1,13 @@
+{	
+	"welcome": "This is a welcome message!!",
+	"general":{
+		"hello": "Hello! This is a test..."
+	},
+
+	"header": {
+		"language": {
+			"english": "English",
+			"spanish": "Spanish"
+		}
+	}
+}

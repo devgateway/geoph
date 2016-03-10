@@ -30,7 +30,6 @@ const graphicsLayer = React.createClass({
 	},
 
 	render() {
-		debugger;
 		return this.renderChildrenWithProps({layer:this.element});
 	}
 

@@ -34,7 +34,7 @@ public class FilterController {
     }
 
     @RequestMapping(value = "/impAgency", method = GET)
-    //@Secured("ROLE_READ")
+    //@Secured( "ROLE_READ")
     public GenericResponse findAllImpAgencies() {
         LOGGER.debug("findAllImpAgencies");
         List<ImplementingAgency> impAgencies = service.findAllImpAgencies();
