@@ -10,8 +10,12 @@ export default class Landing extends React.Component {
 
   render() {
     return (
+      <div className="landing">
       <div className="map">
         <Message k='welcome'>Welcome to this application</Message>
+      </div>
+      <div className="panel">
+      </div>
       </div>
       )
   }
