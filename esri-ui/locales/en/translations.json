@@ -1,4 +1,5 @@
 {	
+	"welcome":"This is a welcome message!!",
 	"general":{
 		"hello": "Hello! This is a test..."
 	},

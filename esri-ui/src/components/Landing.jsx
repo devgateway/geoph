@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link  } from 'react-router';
-
-export default class Header extends React.Component {
+import {Message} from 'app/components/lan/LanContainer';
+export default class Landing extends React.Component {
 
   constructor() {
     super();
@@ -10,10 +10,7 @@ export default class Header extends React.Component {
   render() {
     return (
       <div className="root">
-      <ul>
-       <li><Link to="map2d">2d Map </Link></li> 
-        <li><Link to="map3d">3d Map </Link> </li>
-      </ul>
+        <Message k='welcome'>Welcome to this application</Message>
       </div>
       )
   }

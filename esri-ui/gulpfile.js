@@ -100,4 +100,4 @@ gulp.task('clean', function () {
 
 
 
-gulp.task('default', ['build']);
+gulp.task('default', ['build','watch']);
