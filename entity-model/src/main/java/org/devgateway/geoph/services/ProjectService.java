@@ -14,5 +14,5 @@ public interface ProjectService {
 
     Page<Project> findAllProjects(Pageable pageable);
 
-    Page<Project> findProjectsByParams(String params, Pageable pageable);
+    Page<Project> findProjectsByParams(Map<String, String[]> params, Pageable pageable);
 }

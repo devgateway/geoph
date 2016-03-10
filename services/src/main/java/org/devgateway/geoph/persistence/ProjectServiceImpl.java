@@ -30,8 +30,7 @@ public class ProjectServiceImpl implements ProjectService {
         return projectRepository.findAll(pageable);
     }
 
-    public Page<Project> findProjectsByParams(String params, Pageable pageable){
-        Map<String,String[]> paramsMap = FilterParser.paramsParse(params);
-        return projectRepository.findProjectsByParams(paramsMap, pageable);
+    public Page<Project> findProjectsByParams(Map<String, String[]> params, Pageable pageable){
+        return projectRepository.findProjectsByParams(params, pageable);
     }
 }

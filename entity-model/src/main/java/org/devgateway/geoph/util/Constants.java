@@ -6,6 +6,7 @@ package org.devgateway.geoph.util;
  */
 public class Constants {
 
+    public static final String PARAM_SEPARATOR = ",";
     public static final String FILTER_SECTOR = "st";
     public static final String FILTER_LOCATION = "lo";
 

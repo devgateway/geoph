@@ -76,11 +76,6 @@ public class DefaultProjectRepository implements ProjectRepository {
 
         List<Project> projectList = query.getResultList();
 
-        /*List<Project> projectList = em.createQuery(criteria)
-                .setFirstResult(pageable.getOffset())
-                .setMaxResults(pageable.getPageNumber())
-                .getResultList();*/
-
         return new PageImpl<Project>(projectList, pageable, 0);
     }
 

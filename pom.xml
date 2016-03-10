@@ -19,6 +19,7 @@
         <hibernate.core.version>4.3.11.Final</hibernate.core.version>
         <hibernate.jpamodelgen.version>4.3.1.Final</hibernate.jpamodelgen.version>
         <derby.version>10.12.1.1</derby.version>
+        <commons-lang.version>3.4</commons-lang.version>
     </properties>
 
     <modules>
@@ -45,6 +46,11 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
