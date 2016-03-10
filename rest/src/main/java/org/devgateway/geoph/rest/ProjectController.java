@@ -11,7 +11,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
@@ -37,6 +36,14 @@ public class ProjectController {
     public Page<Project> findAllProjects(@PageableDefault(page = 0, size = 20, sort = "id") final Pageable pageable) {
         LOGGER.debug("findAllProjects");
         return service.findAllProjects(pageable);
+    }
+
+
+    @RequestMapping(value = "/test", method = GET)
+    //@Secured("ROLE_READ")
+    public Page<Project> findProjectsByParams(@PageableDefault(page = 0, size = 20, sort = "id") final Pageable pageable) {
+        LOGGER.debug("findProjectsByParams");
+        return service.findProjectsByParams("st=35,19&lo=230", pageable);
     }
 
 }
