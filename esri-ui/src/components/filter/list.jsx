@@ -1,5 +1,5 @@
 import React from 'react';
-import FilterItem from './FilterItem';
+import FilterItem from 'app/components/filter/item';
 
 export default class FilterList extends React.Component {
 

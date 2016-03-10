@@ -1,14 +1,8 @@
-import {
-	connect
-}
-from 'react-redux';
+import { connect } from 'react-redux';
 import Constants from 'app/constants/constants';
-import {
-	setLanguage
-}
-from 'app/actions/index'
-import MessageComponent from 'app/components/lan/Message';
-import LangSwitcherComponent from 'app/components/lan/LangSwitcher';
+import { setLanguage } from 'app/actions/index'
+import MessageComponent from 'app/components/lan/message';
+import LangSwitcherComponent from 'app/components/lan/switcher';
 
 /*Pass stat to properties Message */
 const Message = connect((state, props) => {
