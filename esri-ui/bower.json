@@ -24,11 +24,11 @@
     "i18next-xhr-backend": "~0.4.0",
     "babel-polyfill": "~0.0.1",
     "axios": "~0.9.1",
-    "ReactRouter.min": "https://npmcdn.com/react-router@2.0.1/umd/ReactRouter.min.js",
-    "redux.min": "https://cdnjs.cloudflare.com/ajax/libs/redux/3.3.1/redux.min.js",
+    "react-router": "https://npmcdn.com/react-router@2.0.1/umd/ReactRouter.min.js",
+    "redux": "https://cdnjs.cloudflare.com/ajax/libs/redux/3.3.1/redux.min.js",
     "bower": "*",
     "install": "~1.0.4",
-    "react-redux.min": "https://cdnjs.cloudflare.com/ajax/libs/react-redux/4.4.0/react-redux.min.js",
+    "react-redux": "https://cdnjs.cloudflare.com/ajax/libs/react-redux/4.4.0/react-redux.min.js",
     "redux-thunk": "https://npmcdn.com/redux-thunk@2.0.1/dist/redux-thunk.min.js"
     
   },

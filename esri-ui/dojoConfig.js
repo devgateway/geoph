@@ -22,19 +22,19 @@ window.dojoConfig = {
   
    {
     name: 'react-router',
-    location:locationPath + 'lib/ReactRouter.min',
+    location:locationPath + 'lib/react-router',
     main: 'index'
   },
 
   {
     name: 'redux',
-   location:locationPath + 'lib/redux.min',
+   location:locationPath + 'lib/redux',
     main: 'index'
   },
 
   {
     name: 'react-redux',
-    location:locationPath + 'lib/react-redux.min',
+    location:locationPath + 'lib/react-redux',
     main: 'index'
   },
 
