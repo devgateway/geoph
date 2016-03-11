@@ -20,6 +20,7 @@
         <hibernate.jpamodelgen.version>4.3.1.Final</hibernate.jpamodelgen.version>
         <derby.version>10.12.1.1</derby.version>
         <commons-lang.version>3.4</commons-lang.version>
+        <geojson.version>1.5.1</geojson.version>
     </properties>
 
     <modules>
@@ -51,6 +52,11 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>${commons-lang.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.grundid.opendatalab</groupId>
+                <artifactId>geojson-jackson</artifactId>
+                <version>${geojson.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
