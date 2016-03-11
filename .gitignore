@@ -1,11 +1,10 @@
 .idea/
 *.iml
 entity-model/target/
-esri-ui/bower_components/
+esri-ui/bower_components/**/**
 *.js
-esri-ui/dist/bower_components/axios/bower.json
-esri-ui/dist/bower_components/
-esri-ui/node_modules
+dist
+esri-ui/node_modules/
 persistence/target/
 services/target/
 rest/target/

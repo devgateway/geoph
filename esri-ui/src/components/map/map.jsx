@@ -41,74 +41,27 @@ const markerSymbol = new SimpleMarkerSymbol({
 
 const MapComponent = React.createClass({
 
-
- getInitialState(){
-  return {mode:'3d'};
-},
-
-toggle(){
- if (this.state.mode=='3d'){
-  this.setState({mode:'2d'})
-}else{
-  this.setState({mode:'3d'})
-}
-},
-
 render(){
-  if (this.state.mode=='3d'){
-   return this.render3d();
- }else{
-  return this.render2d();
-}
-},
-
-render3d() {
 
  return (
-  <div>
-  <a href="javascript:void()" onClick={this.toggle}>Toggle view</a>
-  <div id="map3d">
-
-  <Map className="map"  basemap="streets">
+ <Map className="map" basemap="streets">
+ 
   <GraphicsLayer>
-  <Graphic geometry={point} symbol={markerSymbol}/>
-  <Graphic geometry={point1} symbol={markerSymbol}/>
-  <Graphic geometry={point2} symbol={markerSymbol}/>
-  </GraphicsLayer>
-
-  <SceneView center={[-48, 19]} zoom={3}>
-  <BaseMapToggle/>
-  <Zoom/>
-  </SceneView>
-
-  </Map>
-  </div>
-  </div>
-  )
-},
-
-render2d() {
-
- return (
-  <div id="map2d">
-  <a href="javascript:void()" onClick={this.toggle}>Toggle view</a>
-  <Map className="map"  basemap="streets">
-  <GraphicsLayer>
-  <Graphic geometry={point} symbol={markerSymbol}/>
-  <Graphic geometry={point1} symbol={markerSymbol}/>
-  <Graphic geometry={point2} symbol={markerSymbol}/>
+    <Graphic geometry={point} symbol={markerSymbol}/>
+    <Graphic geometry={point1} symbol={markerSymbol}/>
+    <Graphic geometry={point2} symbol={markerSymbol}/>
   </GraphicsLayer>
 
   <MapView center={[-48, 19]} zoom={3}>
-  <BaseMapToggle/>
-  <Zoom/>
+    <BaseMapToggle/>
+    <Zoom/>
   </MapView>
 
-  </Map>
-  </div>
+</Map>
   )
 }
 
 });
+
 
 export default MapComponent;
