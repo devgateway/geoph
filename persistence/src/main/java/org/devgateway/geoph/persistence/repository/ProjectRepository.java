@@ -6,11 +6,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.Map;
+
 /**
  * @author dbianco
  *         created on mar 03 2016.
  */
-public interface ProjectRepository extends JpaRepository<Project, Long> {
+public interface ProjectRepository {
 
     Page<Project> findAll(Pageable pageable);
+
+    Page<Project> findProjectsByParams(Map<String, String[]> params, Pageable pageable);
 }
