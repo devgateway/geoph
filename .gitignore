@@ -11,4 +11,4 @@ services/target/
 rest/target/
 standalone/target/classes/org/devgateway/geoph/BootMetadata.class
 target
-esri-ui/dist/index.html
+esri-ui/dist
