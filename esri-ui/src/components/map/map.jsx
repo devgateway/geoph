@@ -8,6 +8,7 @@ import Zoom from 'app/components/esri/widgets/zoom';
 import BaseMapToggle from 'app/components/esri/widgets/basemaptoggle';
 import GraphicsLayer from 'app/components/esri/layers/graphicsLayer';
 import Graphic from 'app/components/esri/graphic';
+import Extent from 'app/components/esri/geometry/extend'
 
 import Point from "esri/geometry/Point";
 import SimpleMarkerSymbol from "esri/symbols/SimpleMarkerSymbol";
@@ -39,25 +40,23 @@ const markerSymbol = new SimpleMarkerSymbol({
   })
 });
 
+
+
 const MapComponent = React.createClass({
 
 render(){
 
  return (
- <Map className="map" basemap="streets">
- 
-  <GraphicsLayer>
-    <Graphic geometry={point} symbol={markerSymbol}/>
-    <Graphic geometry={point1} symbol={markerSymbol}/>
-    <Graphic geometry={point2} symbol={markerSymbol}/>
-  </GraphicsLayer>
-
-  <MapView center={[-48, 19]} zoom={3}>
-    <BaseMapToggle/>
-    <Zoom/>
-  </MapView>
-
-</Map>
+       <Map className="map" basemap="streets">
+        <GraphicsLayer>
+          <Graphic geometry={point} symbol={markerSymbol}/>
+          <Graphic geometry={point1} symbol={markerSymbol}/>
+          <Graphic geometry={point2} symbol={markerSymbol}/>
+        </GraphicsLayer>
+        <MapView>
+          <Extent  xmin= {12925933.579460911} ymin= {278072.4096790361} xmax= {14706610.590391904} ymax= {2291117.986596903} spatialReference={102100}/>
+        </MapView>
+      </Map>
   )
 }
 

@@ -1,5 +1,6 @@
 .idea/
 *.iml
+bower_components
 entity-model/target/
 esri-ui/bower_components/**/**
 *.js
