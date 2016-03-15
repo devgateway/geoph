@@ -6,8 +6,7 @@ const loadProjectsCompleted=(data)=>{
 	 return {
     type: Constants.REQUEST_FILTER_LIST,
     data:data
-  }
-}
+ 	 }
 }
 
 const loadProjectsFailed=()=>{
