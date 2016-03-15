@@ -59,7 +59,7 @@ class Connector {
 
 	/*A method should always return a promise*/
 	call(verb,endpoint, params) {
-		debugger;
+		
 		
 		let apiRoot=Settings.get('API',API_BASE_URL);
 		
@@ -75,7 +75,7 @@ class Connector {
 
 		return new Promise((resolve, reject) => {
 			caller(url, params).then((data) => {
-				resolve(data);
+				resolve(data.data);
 			}).catch((err) => {
 				console.log('Failed lading api data')
 				reject(err);

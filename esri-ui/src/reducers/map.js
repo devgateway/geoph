@@ -7,10 +7,10 @@ const map = (state = {
 		}
 	}
 }, action) => {
-console.log(state);
+  console.log(state);
   switch (action.type) {
     case Constants.LOAD_PEOJECT_GEOJSON:
-      debugger;
+      
       return null;
     default:
       return state
