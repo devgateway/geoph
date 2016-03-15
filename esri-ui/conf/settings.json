@@ -47,7 +47,212 @@
 							"loadPath": "locales/{{lng}}/{{ns}}.json"
 						}
 					}
-					}
+				}
+			},
+
+			
+			"FILTERS": {
+				"FILTER_MAP": {
+					"development": 
+						[		
+							{
+								"id": 1,
+								"title": "Funding",
+								"tabs": [
+									{
+										"name": "Funding Source",
+										"apiEndpoint": "",
+										"param": "fs"
+									},
+									{
+										"name": "Funding Type (ODA)",
+										"apiEndpoint": "",
+										"param": "ft"
+									},
+									{
+										"name": "Financing Institution",
+										"apiEndpoint": "",
+										"param": "fi"
+									}
+								]
+							},
+							{
+								"id": 2,
+								"title": "Agencies",
+								"tabs": [
+									{
+										"name": "Implementing Agency",
+										"apiEndpoint": "",
+										"param": ""
+									}
+								]
+							},
+							{
+								"id": 3,
+								"title": "Sectors",
+								"tabs": [
+									{
+										"name": "Sectors",
+										"apiEndpoint": "",
+										"param": "fs"
+									},
+									{
+										"name": "Philippines Development Priority",
+										"apiEndpoint": "",
+										"param": "ft"
+									}
+								]
+							},
+							{
+								"id": 4,
+								"title": "Locations",
+								"tabs": [
+									{
+										"name": "Coverage Scope",
+										"apiEndpoint": "",
+										"param": "fs"
+									},
+									{
+										"name": "Coverage",
+										"apiEndpoint": "",
+										"param": "ft"
+									}
+								]
+							},
+							{
+								"id": 5,
+								"title": "Dates",
+								"tabs": [
+									{
+										"name": "Implementation period",
+										"apiEndpoint": "",
+										"param": "fs"
+									},
+									{
+										"name": "Loan validity period",
+										"apiEndpoint": "",
+										"param": "ft"
+									}
+								]
+							},
+							{
+								"id": 6,
+								"title": "Financial ranges",
+								"tabs": [
+									{
+										"name": "Financial Amount",
+										"apiEndpoint": "",
+										"param": "fs"
+									},
+									{
+										"name": "Physical and Financial Performance",
+										"apiEndpoint": "",
+										"param": "ft"
+									}
+								]
+							}
+						],
+					"production": 
+						[		
+							{
+								"id": 1,
+								"title": "Funding",
+								"tabs": [
+									{
+										"name": "Funding Source",
+										"apiEndpoint": "",
+										"param": "fs"
+									},
+									{
+										"name": "Funding Type (ODA)",
+										"apiEndpoint": "",
+										"param": "ft"
+									},
+									{
+										"name": "Financing Institution",
+										"apiEndpoint": "",
+										"param": "fi"
+									}
+								]
+							},
+							{
+								"id": 2,
+								"title": "Agencies",
+								"tabs": [
+									{
+										"name": "Implementing Agency",
+										"apiEndpoint": "",
+										"param": ""
+									}
+								]
+							},
+							{
+								"id": 3,
+								"title": "Sectors",
+								"tabs": [
+									{
+										"name": "Sectors",
+										"apiEndpoint": "",
+										"param": "fs"
+									},
+									{
+										"name": "Philippines Development Priority",
+										"apiEndpoint": "",
+										"param": "ft"
+									}
+								]
+							},
+							{
+								"id": 4,
+								"title": "Locations",
+								"tabs": [
+									{
+										"name": "Coverage Scope",
+										"apiEndpoint": "",
+										"param": "fs"
+									},
+									{
+										"name": "Coverage",
+										"apiEndpoint": "",
+										"param": "ft"
+									}
+								]
+							},
+							{
+								"id": 5,
+								"title": "Dates",
+								"tabs": [
+									{
+										"name": "Implementation period",
+										"apiEndpoint": "",
+										"param": "fs"
+									},
+									{
+										"name": "Loan validity period",
+										"apiEndpoint": "",
+										"param": "ft"
+									}
+								]
+							},
+							{
+								"id": 6,
+								"title": "Financial ranges",
+								"tabs": [
+									{
+										"name": "Financial Amount",
+										"apiEndpoint": "",
+										"param": "fs"
+									},
+									{
+										"name": "Physical and Financial Performance",
+										"apiEndpoint": "",
+										"param": "ft"
+									}
+								]
+							}
+						]
 
 				}
 			}
+
+}

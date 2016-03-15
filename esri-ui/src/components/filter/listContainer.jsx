@@ -1,7 +1,7 @@
 
 import { connect } from 'react-redux'
 import { fetchFilterListIfNeeded, selectAllFilterList, selectFilterItem } from 'app/actions/index'
-import FilterListComponent from 'app/components/filter/ist'
+import FilterListComponent from 'app/components/filter/list'
 import Constants from 'app/constants/constants';
 
 const mapStateToProps = (state, props) => {

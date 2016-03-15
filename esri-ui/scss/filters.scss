@@ -1,0 +1,38 @@
+
+.selected {
+    border: 1px solid #a1d367;
+    background: #a1d367;
+}
+
+.half-fill {
+    border: 2px solid #a1d367;
+    background: linear-gradient(90deg,#fff 50%,#a1d367 50%);
+}
+
+.selectable {
+    border: 2px solid #ddd;
+    margin-right: 5px;
+    margin-top: 1px;
+    float: left;
+    width: 14px;
+    height: 14px;
+    border-radius: 7px;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+}
+
+.toggle-nav, .tree .selectable {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.expanded.closed {
+    color: #66d;
+}
+.expanded.open {
+    color: #d66;
+}
+.expanded {
+    font-weight: 700;
+    padding: 0 4px;
+}

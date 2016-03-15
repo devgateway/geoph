@@ -107,7 +107,7 @@ gulp.task('server', function(callback) {
 
 gulp.task('copy',['clean'], function(callback) {
   return gulp.src([
-    './index.html', './dojoConfig.js', 'conf/settings.json', '*locales/**/*'
+    './index.html', './dojoConfig.js', '*conf/*', '*locales/**/*'
   ]).pipe(gulp.dest('dist'))
 });
 
