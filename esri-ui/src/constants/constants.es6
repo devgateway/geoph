@@ -18,4 +18,6 @@
 
 
 	/*Settings*/
-	export const PROJECT_GEOJSON ='PROJECT_GEOJSON'  
+	export const PROJECT_GEOJSON ='PROJECT_GEOJSON';  
+	
+	export const API_BASE_URL ='API_BASE_URL';

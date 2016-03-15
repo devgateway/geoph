@@ -1,4 +1,4 @@
-import Constants from 'app/constants/constants';
+import * as Constants from 'app/constants/constants';
 const map = (state = {
 	layers:{
 		projects:{
@@ -7,10 +7,10 @@ const map = (state = {
 		}
 	}
 }, action) => {
-console.log(state);
+  console.log(state);
   switch (action.type) {
     case Constants.LOAD_PEOJECT_GEOJSON:
-      debugger;
+      
       return null;
     default:
       return state

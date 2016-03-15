@@ -16,7 +16,7 @@
 	<changeSet author="sdimunzio" id="sequences">
 
         <preConditions onFail="CONTINUE">
-            <dbms type="PostgreSQL"></dbms>
+            <dbms level="PostgreSQL"></dbms>
 			<sequenceExists catalogName="public" sequenceName="UNIQUE_ID_GENERATOR"/>
 		</preConditions>
 		<createSequence catalogName="public"

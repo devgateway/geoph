@@ -1,4 +1,4 @@
-import Constants from 'app/constants/constants';
+import * as Constants from 'app/constants/constants';
 
 import AjaxUtil from 'app/util/AjaxUtil';
 import Settings from 'app/util/Settings';

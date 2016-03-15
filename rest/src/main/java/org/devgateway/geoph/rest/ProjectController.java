@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.devgateway.geoph.util.Constants.*;
@@ -40,9 +41,9 @@ public class ProjectController {
 
     @RequestMapping(value = "/", method = GET)
     //@Secured("ROLE_READ")
-    public Page<Project> findAllProjects(@PageableDefault(page = 0, size = 20, sort = "id") final Pageable pageable) {
+    public List<Project> findAllProjects() {
         LOGGER.debug("findAllProjects");
-        return service.findAllProjects(pageable);
+        return service.findAllProjects();
     }
 
 

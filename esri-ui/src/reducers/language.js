@@ -1,4 +1,4 @@
-import Constants from 'app/constants/constants';
+import * as Constants from 'app/constants/constants';
 
 const language = (state = 'en', action) => {
 	console.log("lang: "+action.lang);
