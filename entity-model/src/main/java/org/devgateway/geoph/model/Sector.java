@@ -23,7 +23,7 @@ public class Sector extends GenericPersistable implements Serializable {
 
     private String name;
 
-    private int type;
+    private int level;
 
     @OneToMany(fetch = FetchType.EAGER)
     private List<Sector> items = new ArrayList<>();
@@ -39,10 +39,10 @@ public class Sector extends GenericPersistable implements Serializable {
     public Sector() {
     }
 
-    public Sector(String code, String name, int type) {
+    public Sector(String code, String name, int level) {
         this.code = code;
         this.name = name;
-        this.type = type;
+        this.level = level;
     }
 
     public String getCode() {
@@ -61,12 +61,12 @@ public class Sector extends GenericPersistable implements Serializable {
         this.name = name;
     }
 
-    public int getType() {
-        return type;
+    public int getLevel() {
+        return level;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     public List<Sector> getItems() {

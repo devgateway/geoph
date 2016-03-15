@@ -29,22 +29,8 @@ public class DefaultProjectRepository implements ProjectRepository {
     EntityManager em;
 
     @Override
-    public Page<Project> findAll(Pageable pageable) {
-        Query queryTotal = em.createQuery
-                ("Select count(p.id) from Project p");
-        long countResult = (long)queryTotal.getSingleResult();
-
-        CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaQuery<Project> criteria = builder.createQuery(Project.class);
-        Root<Project> projectRoot = criteria.from(Project.class);
-        criteria.select(projectRoot);
-        List<Project> projectList = em.createQuery(criteria)
-                .setFirstResult(pageable.getOffset())
-                .setMaxResults(pageable.getPageNumber())
-                .getResultList();
-
-        return new PageImpl<Project>(projectList, pageable, countResult);
-
+    public List<Project> findAll() {
+        return em.createNamedQuery("findAllProjects", Project.class).getResultList();
     }
 
     @Override

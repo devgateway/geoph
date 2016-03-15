@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,8 +27,8 @@ public class ProjectServiceImpl implements ProjectService {
     ProjectRepository projectRepository;
 
     @Override
-    public Page<Project> findAllProjects(Pageable pageable) {
-        return projectRepository.findAll(pageable);
+    public List<Project> findAllProjects() {
+        return projectRepository.findAll();
     }
 
     public Page<Project> findProjectsByParams(Map<String, String[]> params, Pageable pageable){

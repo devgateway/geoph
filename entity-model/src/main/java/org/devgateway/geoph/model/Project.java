@@ -11,7 +11,12 @@ import java.util.Set;
 /**
  * Created by Sebastian Dimunzio on 2/26/2016.
  */
-
+@NamedQueries({
+    @NamedQuery(
+            name = "findAllProjects",
+            query = "from Project p"
+    )
+})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 public class Project extends GenericPersistable implements Serializable {
@@ -21,19 +26,19 @@ public class Project extends GenericPersistable implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
     private Set<Transaction> transactions;
 
-    @ManyToOne(cascade= CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.LAZY, cascade= CascadeType.MERGE)
     private Agency implementingAgency;
 
     @Column(name = "implementing_agency_office")
     private String implementingAgencyOffice;
 
-    @ManyToOne(cascade= CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.LAZY, cascade= CascadeType.MERGE)
     private Agency executingAgency;
 
-    @ManyToOne(cascade= CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.LAZY, cascade= CascadeType.MERGE)
     private Agency fundingAgency;
 
-    @ManyToOne(cascade= CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.LAZY, cascade= CascadeType.MERGE)
     private Currency originalCurrency;
 
     @Column(name = "total_project_amount")
@@ -48,7 +53,7 @@ public class Project extends GenericPersistable implements Serializable {
     @Column(name = "revised_closing_date")
     private Date revisedClosingDate;
 
-    @ManyToOne(cascade= CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.LAZY, cascade= CascadeType.MERGE)
     private Status status;
 
     @Column(name = "period_start")
@@ -57,10 +62,10 @@ public class Project extends GenericPersistable implements Serializable {
     @Column(name = "period_end")
     private Date periodEnd;
 
-    @ManyToOne(cascade=CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.MERGE)
     private TransactionType grantType;
 
-    @ManyToOne(cascade=CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.MERGE)
     private Classification grantClassification;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
