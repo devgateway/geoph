@@ -64,7 +64,7 @@ gulp.task('build', ['clean','react', 'ext', 'bower','sass','copy'], function() {
 
 
 gulp.task('watch', ['clean','build','server'], function() {
-  gulp.watch([
+ return gulp.watch([
     './index.html', '*.js', 'scss/*.*',
     'src/*.jsx', 'src/**/*.jsx', 'src/**/**/*.jsx',
     'src/*.js', 'src/**/*.js', 'src/**/**/*.js'

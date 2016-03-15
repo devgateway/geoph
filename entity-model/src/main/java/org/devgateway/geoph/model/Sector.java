@@ -1,5 +1,6 @@
 package org.devgateway.geoph.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -26,6 +27,14 @@ public class Sector extends GenericPersistable implements Serializable {
 
     @OneToMany(fetch = FetchType.EAGER)
     private List<Sector> items = new ArrayList<>();
+
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinTable(name = "project_sector", joinColumns = {
+            @JoinColumn(name = "sector_id", nullable = false, updatable = false) },
+            inverseJoinColumns = { @JoinColumn(name = "project_id",
+                    nullable = false, updatable = false) })
+    private Set<Project> projects;
 
     public Sector() {
     }
@@ -66,5 +75,13 @@ public class Sector extends GenericPersistable implements Serializable {
 
     public void setItems(List<Sector> items) {
         this.items = items;
+    }
+
+    public Set<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(Set<Project> projects) {
+        this.projects = projects;
     }
 }
