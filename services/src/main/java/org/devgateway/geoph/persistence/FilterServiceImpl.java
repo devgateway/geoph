@@ -34,6 +34,9 @@ public class FilterServiceImpl implements FilterService {
     @Autowired
     LocationRepository locationRepository;
 
+    @Autowired
+    StatusRepository statusRepository;
+
     @Override
     public List<ImplementingAgency> findAllImpAgencies() {
         LOGGER.debug("Getting all implementing agencies");
@@ -73,5 +76,11 @@ public class FilterServiceImpl implements FilterService {
     public List<Location> findLocationsByParentId(long parentId){
         LOGGER.debug("Getting all children locations for parentId {}", parentId);
         return locationRepository.findLocationsByParentId(parentId);
+    }
+
+    @Override
+    public List<Status> findAllStatuses() {
+        LOGGER.debug("Getting all statuses");
+        return statusRepository.findAll();
     }
 }

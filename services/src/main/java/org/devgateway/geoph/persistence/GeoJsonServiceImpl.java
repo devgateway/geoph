@@ -40,7 +40,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
     }
 
     public FeatureCollection getLocationsByParams(Map<String, String[]> params) {
-        int level = Integer.parseInt(params.get(PROPERTY_LOC_TYPE)[0]);
+        int level = Integer.parseInt(params.get(PROPERTY_LOC_LEVEL)[0]);
         List<Location> locationList = locationRepository.findLocationsByParams(params);
 
         FeatureCollection featureCollection = new FeatureCollection();

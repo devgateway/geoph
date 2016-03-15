@@ -38,13 +38,17 @@ public class GeoJsonController {
     @RequestMapping(value = "/{level}/projects", method = GET)
     public FeatureCollection getGeoJsonByLocationType(
             @PathVariable final String level,
-            @RequestParam(value = FILTER_SECTOR, required = false) String st){
+            @RequestParam(value = FILTER_SECTOR, required = false) String sectors,
+            @RequestParam(value = FILTER_STATUS, required = false) String statuses){
         LOGGER.debug("getGeoJsonByLocationType");
         Map<String, String[]> params = new HashMap<>();
-        int admLevel = LocationAdmLevel.valueOf(level.toUpperCase()).getLevel();
-        params.put(PROPERTY_LOC_TYPE, new String[]{""+admLevel});
-        if(StringUtils.isNotBlank(st)){
-            params.put(FILTER_SECTOR, st.split(PARAM_SEPARATOR));
+        String[] admLevels = new String[]{EMPTY_STRING + LocationAdmLevel.valueOf(level.toUpperCase()).getLevel()};
+        params.put(PROPERTY_LOC_LEVEL, admLevels);
+        if(StringUtils.isNotBlank(sectors)){
+            params.put(FILTER_SECTOR, sectors.split(PARAM_SEPARATOR));
+        }
+        if(StringUtils.isNotBlank(statuses)){
+            params.put(FILTER_STATUS, statuses.split(PARAM_SEPARATOR));
         }
         return service.getLocationsByParams(params);
     }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
+import static org.devgateway.geoph.util.Constants.*;
 
 
 /**
@@ -34,48 +35,13 @@ public class FilterController {
         this.service = service;
     }
 
-    @RequestMapping(value = "/impAgency", method = GET)
-    //@Secured( "ROLE_READ")
-    public GenericResponse findAllImpAgencies() {
-        LOGGER.debug("findAllImpAgencies");
-        List<ImplementingAgency> impAgencies = service.findAllImpAgencies();
-        GenericResponse resp = new GenericResponse(
-                "Implementing Agencies",
-                "ia",
-                "IMPLEMENTING_AGENCY_SECTION",
-                1,
-                impAgencies,
-                impAgencies!=null?impAgencies.size():0
-        );
-
-        return resp;
-    }
-
-    @RequestMapping(value = "/fundingAgency", method = GET)
-    //@Secured("ROLE_READ")
-    public GenericResponse findAllFundingAgencies() {
-        LOGGER.debug("findAllFundingAgencies");
-        List<FundingAgency> fundingAgencies = service.findAllFundingAgencies();
-        GenericResponse resp = new GenericResponse(
-                "Funding Agencies",
-                "fa",
-                "FUNDING_ORG_SECTION",
-                1,
-                fundingAgencies,
-                fundingAgencies!=null?fundingAgencies.size():0
-        );
-
-        return resp;
-    }
-
     @RequestMapping(value = "/flowType", method = GET)
-    //@Secured("ROLE_READ")
     public GenericResponse findAllFlowTypes() {
         LOGGER.debug("findAllFlowTypes");
         List<FlowType> flowTypes = service.findAllFlowTypes();
         GenericResponse resp = new GenericResponse(
                 "Flow Types",
-                "ft",
+                FILTER_FLOW_TYPE,
                 "FLOW_TYPE_SECTION",
                 1,
                 flowTypes,
@@ -85,14 +51,92 @@ public class FilterController {
         return resp;
     }
 
-    @RequestMapping(value = "/sectors", method = GET)
-    //@Secured("ROLE_READ")
+    @RequestMapping(value = "/fundingAgency", method = GET)
+    public GenericResponse findAllFundingAgencies() {
+        LOGGER.debug("findAllFundingAgencies");
+        List<FundingAgency> fundingAgencies = service.findAllFundingAgencies();
+        GenericResponse resp = new GenericResponse(
+                "Funding Agencies",
+                FILTER_FUNDING_AGENCY,
+                "FUNDING_ORG_SECTION",
+                1,
+                fundingAgencies,
+                fundingAgencies!=null?fundingAgencies.size():0
+        );
+
+        return resp;
+    }
+    
+    @RequestMapping(value = "/impAgency", method = GET)
+    public GenericResponse findAllImpAgencies() {
+        LOGGER.debug("findAllImpAgencies");
+        List<ImplementingAgency> impAgencies = service.findAllImpAgencies();
+        GenericResponse resp = new GenericResponse(
+                "Implementing Agencies",
+                FILTER_IMPLEMENTING_AGENCY,
+                "IMPLEMENTING_AGENCY_SECTION",
+                1,
+                impAgencies,
+                impAgencies!=null?impAgencies.size():0
+        );
+
+        return resp;
+    }
+
+    @RequestMapping(value = "/location", method = GET)
+    public GenericResponse findAllLocations() {
+        LOGGER.debug("findAllLocations");
+        List<Location> locations = service.findAllLocations();
+        GenericResponse resp = new GenericResponse(
+                "Locations",
+                FILTER_LOCATION,
+                "LOCATIONS_SECTION",
+                1,
+                locations,
+                locations!=null?locations.size():0
+        );
+        return resp;
+    }
+
+    @RequestMapping(value = "/location/{level}", method = GET)
+    public GenericResponse findLocationsByLevel(@PathVariable final String level) {
+        LOGGER.debug("findLocationsByLevel {}", level);
+        List<Location> locations = service.findLocationsByLevel(
+                LocationAdmLevel.valueOf(level.toUpperCase()).getLevel()
+        );
+        GenericResponse resp = new GenericResponse(
+                "Region Locations",
+                FILTER_LOCATION,
+                "LOCATIONS_SECTION",
+                1,
+                locations,
+                locations!=null?locations.size():0
+        );
+        return resp;
+    }
+
+    @RequestMapping(value = "/location/parent/{parentId}", method = GET)
+    public GenericResponse findLocationsByParentId(@PathVariable final long parentId) {
+        LOGGER.debug("findLocationsByParentId {}" , parentId);
+        List<Location> locations = service.findLocationsByParentId(parentId);
+        GenericResponse resp = new GenericResponse(
+                "Children locations of parentId " + parentId,
+                FILTER_LOCATION,
+                "LOCATIONS_SECTION",
+                1,
+                locations,
+                locations!=null?locations.size():0
+        );
+        return resp;
+    }
+
+    @RequestMapping(value = "/sector", method = GET)
     public GenericResponse findAllSectors() {
         LOGGER.debug("findAllSectors");
         List<Sector> sectors = service.findAllSectors();
         GenericResponse resp = new GenericResponse(
                 "Sectors",
-                "st",
+                FILTER_SECTOR,
                 "SECTORS_SECTION",
                 1,
                 sectors,
@@ -102,55 +146,17 @@ public class FilterController {
         return resp;
     }
 
-    @RequestMapping(value = "/locations", method = GET)
-    //@Secured("ROLE_READ")
-    public GenericResponse findAllLocations() {
-        LOGGER.debug("findAllLocations");
-        List<Location> locations = service.findAllLocations();
+    @RequestMapping(value = "/status", method = GET)
+    public GenericResponse findAllStatuses() {
+        LOGGER.debug("findAllStatuses");
+        List<Status> statuses = service.findAllStatuses();
         GenericResponse resp = new GenericResponse(
-                "Region Locations",
-                "rl",
-                "LOCATIONS_SECTION",
+                "Statuses",
+                FILTER_STATUS,
+                "STATUSES_SECTION",
                 1,
-                locations,
-                locations!=null?locations.size():0
-        );
-
-        return resp;
-    }
-
-    @RequestMapping(value = "/locations/{level}", method = GET)
-    //@Secured("ROLE_READ")
-    public GenericResponse findLocationsByLevel(@PathVariable final String level) {
-        LOGGER.debug("findLocationsByLevel {}", level);
-        List<Location> locations = service.findLocationsByLevel(
-                LocationAdmLevel.valueOf(level.toUpperCase()).getLevel()
-        );
-        GenericResponse resp = new GenericResponse(
-                "Region Locations",
-                "rl",
-                "LOCATIONS_SECTION",
-                1,
-                locations,
-                locations!=null?locations.size():0
-        );
-
-        return resp;
-    }
-
-
-    @RequestMapping(value = "/locations/parent/{parentId}", method = GET)
-    //@Secured("ROLE_READ")
-    public GenericResponse findLocationsByParentId(@PathVariable final long parentId) {
-        LOGGER.debug("findLocationsByParentId {}" , parentId);
-        List<Location> locations = service.findLocationsByParentId(parentId);
-        GenericResponse resp = new GenericResponse(
-                "Children locations of parentId " + parentId,
-                "cl",
-                "LOCATIONS_SECTION",
-                1,
-                locations,
-                locations!=null?locations.size():0
+                statuses,
+                statuses!=null?statuses.size():0
         );
 
         return resp;

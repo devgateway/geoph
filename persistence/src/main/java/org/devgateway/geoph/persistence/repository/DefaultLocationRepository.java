@@ -7,11 +7,11 @@ import org.devgateway.geoph.util.FilterParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Nullable;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -34,20 +34,16 @@ public class DefaultLocationRepository implements LocationRepository {
 
     @Override
     public Location findByCode(String code) {
-        return (Location)em.createNamedQuery("findLocationsByCode").setParameter("code", code).getSingleResult();
+        return em.createNamedQuery("findLocationsByCode", Location.class)
+                .setParameter(PROPERTY_LOC_CODE, code)
+                .getSingleResult();
     }
 
     @Override
     public List<Location> findLocationsByLevel(int level) {
-        List locObject = em.createNamedQuery("findLocationsByLevel").setParameter("level", level).getResultList();
-        List<Location> locationList = Lists.transform(locObject, new Function<Object, Location>() {
-            @Nullable
-            @Override
-            public Location apply(@Nullable Object input) {
-                return (Location) input;
-            }
-        });
-        return locationList;
+        return em.createNamedQuery("findLocationsByLevel", Location.class)
+                .setParameter(PROPERTY_LOC_LEVEL, level)
+                .getResultList();
     }
 
     @Override
@@ -70,8 +66,9 @@ public class DefaultLocationRepository implements LocationRepository {
         List<Predicate> predicates = new ArrayList();
 
         if(params!=null) {
-            if(params.containsKey(PROPERTY_LOC_TYPE)) {
-                predicates.add(criteriaBuilder.equal(locationRoot.get(Location_.level), params.get(PROPERTY_LOC_TYPE)[0]));
+            if(params.containsKey(PROPERTY_LOC_LEVEL)) {
+                List<Long> values = FilterParser.stringArrayToLongList(params.get(PROPERTY_LOC_LEVEL));
+                predicates.add(locationRoot.get(Location_.level).in(values));
             }
             if(params.containsKey(FILTER_SECTOR)) {
                 Join<Location, Project> projectJoin = locationRoot.join(Location_.projects);
@@ -79,9 +76,17 @@ public class DefaultLocationRepository implements LocationRepository {
                 List<Long> values = FilterParser.stringArrayToLongList(params.get(FILTER_SECTOR));
                 predicates.add(sectorJoin.get(Sector_.id).in(values));
             }
+            if(params.containsKey(FILTER_STATUS)) {
+                Join<Location, Project> projectJoin = locationRoot.join(Location_.projects);
+                Join<Project, Status> statusJoin = projectJoin.join(Project_.status);
+                List<Long> values = FilterParser.stringArrayToLongList(params.get(FILTER_STATUS));
+                predicates.add(statusJoin.get(Status_.id).in(values));
+            }
+
+
         }
 
-        Predicate other = criteriaBuilder.or(predicates.toArray(new Predicate[predicates.size()]));
+        Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         criteriaQuery.where(other);
 
         CriteriaQuery<Location> cq = criteriaQuery.select(locationRoot);

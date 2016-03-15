@@ -26,4 +26,6 @@ public interface FilterService {
     List<Location> findLocationsByLevel(int level);
 
     List<Location> findLocationsByParentId(long parentId);
+
+    List<Status> findAllStatuses();
 }
