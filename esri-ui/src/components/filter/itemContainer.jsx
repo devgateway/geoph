@@ -18,7 +18,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(selectFilterItem(filterItem));
     },
 
-    onSelectAllFilterList: (filterItem) => {
+    onChangeAllFilterList: (filterItem) => {
       dispatch(selectAllFilterList(filterItem));
     }
   }

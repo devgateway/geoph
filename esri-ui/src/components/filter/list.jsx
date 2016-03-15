@@ -7,6 +7,12 @@ export default class FilterList extends React.Component {
 		this.props.onLoadFilterList(this.props.type);
 	}
 
+	componentWillReceiveProps: function(nextProps) {
+    if (nextProps.baseMap && nextProps.baseMap!=this.props.baseMap) {
+      console.log('map->_mapLeaflet>componentWillReceiveProps Change Map ' + nextProps.baseMap);
+      this.setBaseMap(nextProps.baseMap);
+    }
+
 	handleItemSelectionChange(item) {
 	    this.props.onSelectFilterItem({filterType: this.props.type, item});
 	}
@@ -19,7 +25,7 @@ export default class FilterList extends React.Component {
     	return (
 	        <div>
 	        	<ul>
-		        	{(this.props.filter && this.props.filter.items) ? this.props.filter.items.map(item => 
+		        	{this.props.items.map(item => 
 			          <li key={item.id}>
 			          	<FilterItem {...item} onItemChange={this.handleItemSelectionChange.bind(this)}/>
 			          </li>
