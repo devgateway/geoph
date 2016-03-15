@@ -3,23 +3,28 @@ import Constants from 'app/constants/constants'
 export default class Settings {
 
 	constructor() {
-			this.env = (document.location.host.indexOf('localhost') > -1 ? 'development' : 'production');
-	}
-
-	initialize(settings){
-		window._setting=settings;
+		this.env = (document.location.host.indexOf('localhost') > -1 ? 'development' : 'production');
 	}
 
 
-	static get() {
+	static initialize(settings){
 		if (!window._setting_instance) {
 			window._setting_instance = new Settings()
 		}
-		return window._setting_instance.getSetting ;
+		window._setting=settings;
 	}
 
+	static get(module, name) {
+		if (window._setting==null || !window._setting){
+			throw Error('Settgins should be initialized first');
+		}else{
+			return window._setting_instance.getSetting(module, name);
+		}
+	}
+
+
+
 	getSetting(module, name) {
-		debugger;
 		if(!window._setting){
 			throw new Error('Settings should be initialize');
 		}

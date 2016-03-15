@@ -2,8 +2,13 @@ import Axios from 'axios';
 import Constants from 'app/constants/constants';
 import Settings from 'app/util/Settings';
 
-debugger;
+
 console.log(Settings);
+
+const POST= 'POST';
+const GET= 'GET';
+const PUT= 'PUT';
+const DELETE= 'DELETE';
 
 class Connector {
 
@@ -53,15 +58,19 @@ class Connector {
 	}
 
 	/*A method should always return a promise*/
-	call(url, params, verb) {
+	call(verb,endpoint, params) {
+		debugger;
+		
+		let apiRoot=Settings.get('API',Constants.API_BASE_URL);
+		let url=`$apiRoot\\$endpoint`;
 
-		let base=Settings.get('API',Constants.API_BASE_URL);
-		console.log(base);
 
 		let caller;
-		if (verb == 'get') caller = get;
-		if (verb == 'post') caller = post;
-		if (verb == 'put') caller = put;
+		if (verb == GET) caller = this.get;
+		if (verb == POST) caller = this.post;
+		if (verb == PUT ) caller = this.put;
+
+
 
 		return new Promise((resolve, reject) => {
 			caller(url, params).then((data) => {
@@ -73,16 +82,21 @@ class Connector {
 		})
 	}
 
-	getProjectsByLevel(level) {
+	/**/
+	getProjects() {
 		return new Promise( (resolve, reject) => {
-			this.call('', {
-				level
-			}).then((data) => {
+			
+			this.call(GET,Settings.get('API','PROJECT_GEO_JSON'), {}).then((data) => {
+				/*apply any data transformation*/
 				resolve(data); ////resolve with original data or perform any data transformation needed
+			
 			}).catch(reject)
 		});
 
 	}
+
+	
 }
+
 
 export default new Connector();

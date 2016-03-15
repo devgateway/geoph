@@ -45,12 +45,12 @@ const markerSymbol = new SimpleMarkerSymbol({
 const MapComponent = React.createClass({
 
 onLoadProjects(){
-  debugger;
-  this.props.onLoadProjects(1)
+  
+  this.props.onLoadProjects()
 },
 
 componentDidMount() {
-  debugger;
+  
     this.onLoadProjects();  
 },
 
@@ -58,10 +58,8 @@ componentDidMount() {
 render(){
  return (
        <Map className="map" basemap="streets">
-        <GraphicsLayer>
-          <Graphic geometry={point} symbol={markerSymbol}/>
-          <Graphic geometry={point1} symbol={markerSymbol}/>
-          <Graphic geometry={point2} symbol={markerSymbol}/>
+        <GraphicsLayer geojson={this.props.data} name={this.props.name}>
+         
         </GraphicsLayer>
         <MapView>
           <Extent  xmin= {12925933.579460911} ymin= {278072.4096790361} xmax= {14706610.590391904} ymax= {2291117.986596903} spatialReference={102100}/>

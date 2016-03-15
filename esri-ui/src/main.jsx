@@ -22,7 +22,6 @@ const store = configureStore({}, browserHistory);
 const history = syncHistoryWithStore(browserHistory, store);
 
 AjaxUtil.get('/settings.json').then((conf)=>{
-debugger;  
   let settings=new Setting();
   Setting.initialize(conf.data);
   const options = Setting.get('I18N', 'OPTIONS');
