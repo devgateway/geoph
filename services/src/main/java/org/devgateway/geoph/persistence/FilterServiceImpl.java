@@ -59,9 +59,15 @@ public class FilterServiceImpl implements FilterService {
     }
 
     @Override
-    public List<Location> findLocationsByType(int type) {
-        LOGGER.debug("Getting all locations of type: {}", type);
-        return locationRepository.findLocationsByType(type);
+    public List<Location> findAllLocations() {
+        LOGGER.debug("Getting all locations");
+        return locationRepository.findAll();
+    }
+
+    @Override
+    public List<Location> findLocationsByLevel(int level) {
+        LOGGER.debug("Getting all locations of level: {}", level);
+        return locationRepository.findLocationsByLevel(level);
     }
 
     public List<Location> findLocationsByParentId(long parentId){

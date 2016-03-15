@@ -3,8 +3,6 @@ package org.devgateway.geoph.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,13 +14,27 @@ import java.util.Set;
  * @author dbianco
  *         created on mar 01 2016.
  */
+@NamedQueries({
+        @NamedQuery(
+                name = "findAllLocations",
+                query = "from Location l"
+        ),
+        @NamedQuery(
+                name = "findLocationsByCode",
+                query = "from Location l where l.code = :code"
+        ),
+        @NamedQuery(
+                name = "findLocationsByLevel",
+                query = "from Location l where l.level = :level"
+        )
+})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 public class Location extends GenericPersistable implements Serializable {
 
     private String name;
 
-    private int type;
+    private int level;
 
     private String code;
 
@@ -32,6 +44,10 @@ public class Location extends GenericPersistable implements Serializable {
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "location_items", joinColumns = {
+            @JoinColumn(name = "location_id", nullable = false, updatable = false) },
+            inverseJoinColumns = { @JoinColumn(name = "items_id",
+                    nullable = false, updatable = false) })
     private List<Location> items = new ArrayList<>();
 
     @JsonIgnore
@@ -45,18 +61,18 @@ public class Location extends GenericPersistable implements Serializable {
     public Location() {
     }
 
-    public Location(String name, int type, String code, Double latitude, Double longitude) {
+    public Location(String name, int level, String code, Double latitude, Double longitude) {
         this.name = name;
-        this.type = type;
+        this.level = level;
         this.code = code;
         this.latitude = latitude;
         this.longitude = longitude;
     }
 
-    public Location(String name, int type, String code, Double latitude,
+    public Location(String name, int level, String code, Double latitude,
                     Double longitude, List<Location> items) {
         this.name = name;
-        this.type = type;
+        this.level = level;
         this.code = code;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -84,12 +100,12 @@ public class Location extends GenericPersistable implements Serializable {
         this.items = items;
     }
 
-    public int getType() {
-        return type;
+    public int getLevel() {
+        return level;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     public Double getLatitude() {

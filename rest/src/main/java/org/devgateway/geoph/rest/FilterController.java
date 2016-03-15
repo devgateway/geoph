@@ -3,6 +3,7 @@ package org.devgateway.geoph.rest;
 import org.devgateway.geoph.model.*;
 import org.devgateway.geoph.response.GenericResponse;
 import org.devgateway.geoph.services.FilterService;
+import org.devgateway.geoph.util.LocationAdmLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,7 @@ public class FilterController {
                 "IMPLEMENTING_AGENCY_SECTION",
                 1,
                 impAgencies,
-                impAgencies.size()
+                impAgencies!=null?impAgencies.size():0
         );
 
         return resp;
@@ -61,7 +62,7 @@ public class FilterController {
                 "FUNDING_ORG_SECTION",
                 1,
                 fundingAgencies,
-                fundingAgencies.size()
+                fundingAgencies!=null?fundingAgencies.size():0
         );
 
         return resp;
@@ -78,7 +79,7 @@ public class FilterController {
                 "FLOW_TYPE_SECTION",
                 1,
                 flowTypes,
-                flowTypes.size()
+                flowTypes!=null?flowTypes.size():0
         );
 
         return resp;
@@ -95,7 +96,7 @@ public class FilterController {
                 "SECTORS_SECTION",
                 1,
                 sectors,
-                sectors.size()
+                sectors!=null?sectors.size():0
         );
 
         return resp;
@@ -103,22 +104,42 @@ public class FilterController {
 
     @RequestMapping(value = "/locations", method = GET)
     //@Secured("ROLE_READ")
-    public GenericResponse findTopLocations() {
+    public GenericResponse findAllLocations() {
         LOGGER.debug("findAllLocations");
-        List<Location> locations = service.findLocationsByType(1);
+        List<Location> locations = service.findAllLocations();
         GenericResponse resp = new GenericResponse(
                 "Region Locations",
                 "rl",
                 "LOCATIONS_SECTION",
                 1,
                 locations,
-                locations.size()
+                locations!=null?locations.size():0
         );
 
         return resp;
     }
 
-    @RequestMapping(value = "/locations/{parentId}", method = GET)
+    @RequestMapping(value = "/locations/{level}", method = GET)
+    //@Secured("ROLE_READ")
+    public GenericResponse findLocationsByLevel(@PathVariable final String level) {
+        LOGGER.debug("findLocationsByLevel {}", level);
+        List<Location> locations = service.findLocationsByLevel(
+                LocationAdmLevel.valueOf(level.toUpperCase()).getLevel()
+        );
+        GenericResponse resp = new GenericResponse(
+                "Region Locations",
+                "rl",
+                "LOCATIONS_SECTION",
+                1,
+                locations,
+                locations!=null?locations.size():0
+        );
+
+        return resp;
+    }
+
+
+    @RequestMapping(value = "/locations/parent/{parentId}", method = GET)
     //@Secured("ROLE_READ")
     public GenericResponse findLocationsByParentId(@PathVariable final long parentId) {
         LOGGER.debug("findLocationsByParentId {}" , parentId);
@@ -129,7 +150,7 @@ public class FilterController {
                 "LOCATIONS_SECTION",
                 1,
                 locations,
-                locations.size()
+                locations!=null?locations.size():0
         );
 
         return resp;

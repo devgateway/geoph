@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+
+import static org.devgateway.geoph.util.Constants.*;
 
 /**
  * @author dbianco
@@ -21,16 +24,32 @@ public class GeoJsonServiceImpl implements GeoJsonService {
     @Autowired
     LocationRepository locationRepository;
 
-    public FeatureCollection getLocationsByType(String type) {
-        List<Location> locationList = locationRepository.findLocationsByType(Integer.parseInt(type));
+    public FeatureCollection getLocationsByLevel(int level) {
+        List<Location> locationList = locationRepository.findLocationsByLevel(level);
 
         FeatureCollection featureCollection = new FeatureCollection();
         for(Location location : locationList) {
             Feature feature = new Feature();
             feature.setGeometry(new Point(location.getLongitude(), location.getLatitude()));
-            feature.setProperty("name", location.getName());
-            feature.setProperty("code", location.getCode());
-            feature.setProperty("projectCount", location.getProjects().size());
+            feature.setProperty(PROPERTY_LOC_NAME, location.getName());
+            feature.setProperty(PROPERTY_LOC_CODE, location.getCode());
+            feature.setProperty(PROPERTY_LOC_PROJ_COUNT, location.getProjects().size());
+            featureCollection.add(feature);
+        }
+        return featureCollection;
+    }
+
+    public FeatureCollection getLocationsByParams(Map<String, String[]> params) {
+        int level = Integer.parseInt(params.get(PROPERTY_LOC_TYPE)[0]);
+        List<Location> locationList = locationRepository.findLocationsByParams(params);
+
+        FeatureCollection featureCollection = new FeatureCollection();
+        for(Location location : locationList) {
+            Feature feature = new Feature();
+            feature.setGeometry(new Point(location.getLongitude(), location.getLatitude()));
+            feature.setProperty(PROPERTY_LOC_NAME, location.getName());
+            feature.setProperty(PROPERTY_LOC_CODE, location.getCode());
+            feature.setProperty(PROPERTY_LOC_PROJ_COUNT, location.getProjects().size());
             featureCollection.add(feature);
         }
         return featureCollection;

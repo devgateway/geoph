@@ -21,7 +21,9 @@ public interface FilterService {
 
     List<Sector> findAllSectors();
 
-    List<Location> findLocationsByType(int type);
+    List<Location> findAllLocations();
+
+    List<Location> findLocationsByLevel(int level);
 
     List<Location> findLocationsByParentId(long parentId);
 }
