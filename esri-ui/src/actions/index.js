@@ -3,7 +3,6 @@ import Constants from 'app/constants/constants';
 import AjaxUtil from 'app/util/AjaxUtil';
 import Settings from 'app/util/Settings';
 
-let settings=Settings.getInstace();
 
 
 export const setLanguage = (lang) => {
@@ -33,7 +32,7 @@ export const receiveFilterList = (filterType, json) => {
 export const fetchFilterList = (filterType) => {
   return dispatch => {
     dispatch(requestFilterList(filterType))
-    return AjaxUtil.get(settings.get('API','FILTER_ENDPOINTS')[filterType])
+    return AjaxUtil.get(Settings.get('API','FILTER_ENDPOINTS')[filterType])
       .then(req => dispatch(receiveFilterList(filterType, req.data)))
   }
 }

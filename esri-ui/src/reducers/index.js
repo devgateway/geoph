@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
 import language from './language';
 import filters from './filters';
+import map from './map';
+
 import {routerReducer}  from 'react-redux-router';
 
 /*reducer names should match with a state property*/
@@ -8,6 +10,7 @@ import {routerReducer}  from 'react-redux-router';
 const geophApp = combineReducers({
   language,
   filters,
+  map,
   routing: routerReducer
 })
 
