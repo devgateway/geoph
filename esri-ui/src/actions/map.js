@@ -1,4 +1,4 @@
-import Constants from 'app/constants/constants';
+import * as Constants from 'app/constants/constants';
 import Connector from 'app/connector/connector.js';
 
 
@@ -17,7 +17,11 @@ const loadProjectsFailed=()=>{
 export const loadProjects = () => {
 
 	return (dispatch, getState) =>{
-		Connector.getProjectsByLevel().then(()=>dispatch(loadProjectsCompleted)).catch(()=>{ 
+		
+		Connector.getProjectsGeoJson()
+		.then(()=>{
+			dispatch(loadProjectsCompleted)}
+		).catch(()=>{ 
 			dispatch(loadProjectsFailed);
 		});
 	} 

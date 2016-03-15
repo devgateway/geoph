@@ -2,7 +2,7 @@
 import { connect } from 'react-redux'
 import {loadProjects} from 'app/actions/map'
 import MapComponent from 'app/components/map/map'
-import Constants from 'app/constants/constants';
+import * as Constants from 'app/constants/constants';
 
 const stateToProps = (state, props) => {
   

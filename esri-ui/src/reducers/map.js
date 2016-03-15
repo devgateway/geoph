@@ -1,4 +1,4 @@
-import Constants from 'app/constants/constants';
+import * as Constants from 'app/constants/constants';
 const map = (state = {
 	layers:{
 		projects:{
