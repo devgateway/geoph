@@ -44,8 +44,18 @@ const markerSymbol = new SimpleMarkerSymbol({
 
 const MapComponent = React.createClass({
 
-render(){
+onLoadProjects(){
+  debugger;
+  this.props.onLoadProjects(1)
+},
 
+componentDidMount() {
+  debugger;
+    this.onLoadProjects();  
+},
+
+
+render(){
  return (
        <Map className="map" basemap="streets">
         <GraphicsLayer>

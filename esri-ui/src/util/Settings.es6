@@ -11,14 +11,15 @@ export default class Settings {
 	}
 
 
-	static getInstace() {
+	static get() {
 		if (!window._setting_instance) {
 			window._setting_instance = new Settings()
 		}
-		return window._setting_instance ;
+		return window._setting_instance.getSetting ;
 	}
 
-	get(module, name) {
+	getSetting(module, name) {
+		debugger;
 		if(!window._setting){
 			throw new Error('Settings should be initialize');
 		}

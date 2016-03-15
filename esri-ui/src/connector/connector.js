@@ -1,12 +1,11 @@
-import Settings from 'app/util/Settings';
 import Axios from 'axios';
+import Constants from 'app/constants/constants';
+import Settings from 'app/util/Settings';
 
-export
-default class Connector {
+debugger;
+console.log(Settings);
 
-	authenticate() {
-
-	}
+class Connector {
 
 
 	get(url, params = {}) {
@@ -16,12 +15,12 @@ default class Connector {
 					responseType: 'json',
 					params: params
 				})
-					.then(function(response) {
-						resolve(response);
-					})
-					.catch(function(response) {
-						reject(response);
-					});
+				.then(function(response) {
+					resolve(response);
+				})
+				.catch(function(response) {
+					reject(response);
+				});
 			});
 	}
 
@@ -29,31 +28,36 @@ default class Connector {
 		return new Promise(
 			function(resolve, reject) {
 				Axios.put(url, body)
-					.then(function(response) {
-						resolve(response);
-					})
-					.catch(function(response) {
-						reject(response);
-					});
+				.then(function(response) {
+					resolve(response);
+				})
+				.catch(function(response) {
+					reject(response);
+				});
 			});
 	}
 
 
 	post(url, body = {}) {
+		
 		return new Promise(
 			function(resolve, reject) {
 				Axios.put(url, body)
-					.then(function(response) {
-						resolve(response);
-					})
-					.catch(function(response) {
-						reject(response);
-					});
+				.then(function(response) {
+					resolve(response);
+				})
+				.catch(function(response) {
+					reject(response);
+				});
 			});
 	}
 
 	/*A method should always return a promise*/
 	call(url, params, verb) {
+
+		let base=Settings.get('API',Constants.API_BASE_URL);
+		console.log(base);
+
 		let caller;
 		if (verb == 'get') caller = get;
 		if (verb == 'post') caller = post;
@@ -61,7 +65,6 @@ default class Connector {
 
 		return new Promise((resolve, reject) => {
 			caller(url, params).then((data) => {
-
 				resolve(data);
 			}).catch((err) => {
 				console.log('Failed lading api data')
@@ -72,7 +75,7 @@ default class Connector {
 
 	getProjectsByLevel(level) {
 		return new Promise( (resolve, reject) => {
-			call(settings.get(constants.PROJECT_GEOJSON_URL), {
+			this.call('', {
 				level
 			}).then((data) => {
 				resolve(data); ////resolve with original data or perform any data transformation needed
@@ -80,4 +83,6 @@ default class Connector {
 		});
 
 	}
+}
 
+export default new Connector();

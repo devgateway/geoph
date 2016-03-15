@@ -3,7 +3,6 @@
 bower_components
 entity-model/target/
 esri-ui/bower_components/**/**
-*.js
 dist
 esri-ui/node_modules/
 persistence/target/

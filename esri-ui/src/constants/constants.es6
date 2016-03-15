@@ -13,4 +13,8 @@ export default class Constants {
 
 	static SELECT_ALL_FILTER_LIST = 'SELECT_ALL_FILTER_LIST';
 
+
+	/*LAYERS*/
+	static LOAD_PEOJECT_GEOJSON = 'LOAD_PEOJECT_GEOJSON';
+
 }
