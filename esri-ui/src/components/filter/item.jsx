@@ -12,11 +12,14 @@ export default class FilterItem extends React.Component {
 		let {id, type, selected} = this.props;
 		if (id){
 			this.props.onItemChange({id, type, selected: !selected});
+		} else {
+			this.props.onChangeAllFilterList({type, selected: !selected});
 		}
 	}
 
   	handleChildChange() {
-		this.props.onItemChange({id: this.props.id, selected: !this.props.selected});
+  		//aka viene cuando uno del listado hijo se selecciona y hay que ver que hacer (probablemente un forceUpdate)
+		
 	}
 
   	render() {
