@@ -5,10 +5,7 @@ import MapComponent from 'app/components/map/map'
 import * as Constants from 'app/constants/constants';
 
 const stateToProps = (state, props) => {
-  
-  return {
-  	...state.map  
-  }
+  return state.map  
 }
 
 
