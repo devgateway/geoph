@@ -53,3 +53,24 @@ INSERT INTO transaction (discriminator,id,amount,date,funding_support,flow_type_
 	
 INSERT INTO transaction (discriminator,id,amount,date,funding_support,flow_type_id,project_id,transaction_type_id) 
 	VALUES ('pmc',18,1600000.0,{ts '2015-10-15 00:00:00.0'},15,3,7,3);
+	
+INSERT INTO transaction (discriminator,id,amount,date,funding_support,flow_type_id,project_id,transaction_type_id) 
+	VALUES ('pmc',19,1230000.0,{ts '2015-10-15 00:00:00.0'},15,3,8,3);
+	
+INSERT INTO transaction (discriminator,id,amount,date,funding_support,flow_type_id,project_id,transaction_type_id) 
+	VALUES ('pmc',20,1110000.0,{ts '2015-10-15 00:00:00.0'},15,3,8,3);
+	
+INSERT INTO transaction (discriminator,id,amount,date,funding_support,flow_type_id,project_id,transaction_type_id) 
+	VALUES ('grant',21,1500000.0,{ts '2015-10-15 00:00:00.0'},null,2,9,3);	
+
+INSERT INTO transaction (discriminator,id,amount,date,funding_support,flow_type_id,project_id,transaction_type_id) 
+	VALUES ('loan',22,2000000.0,{ts '2015-08-15 00:00:00.0'},null,1,9,1);
+	
+INSERT INTO transaction (discriminator,id,amount,date,funding_support,flow_type_id,project_id,transaction_type_id) 
+	VALUES ('pmc',23,1110000.0,{ts '2015-10-15 00:00:00.0'},15,3,10,3);
+	
+INSERT INTO transaction (discriminator,id,amount,date,funding_support,flow_type_id,project_id,transaction_type_id) 
+	VALUES ('grant',24,1500000.0,{ts '2015-10-15 00:00:00.0'},null,2,10,3);	
+
+INSERT INTO transaction (discriminator,id,amount,date,funding_support,flow_type_id,project_id,transaction_type_id) 
+	VALUES ('loan',25,2000000.0,{ts '2015-08-15 00:00:00.0'},null,1,10,1);

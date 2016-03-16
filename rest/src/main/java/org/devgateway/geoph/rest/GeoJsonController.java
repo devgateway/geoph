@@ -38,12 +38,21 @@ public class GeoJsonController {
     @RequestMapping(value = "/{level}/projects", method = GET)
     public FeatureCollection getGeoJsonByLocationType(
             @PathVariable final String level,
+            @RequestParam(value = FILTER_DATE_START, required = false) String startDate,
+            @RequestParam(value = FILTER_DATE_END, required = false) String endDate,
             @RequestParam(value = FILTER_SECTOR, required = false) String sectors,
             @RequestParam(value = FILTER_STATUS, required = false) String statuses){
         LOGGER.debug("getGeoJsonByLocationType");
         Map<String, String[]> params = new HashMap<>();
         String[] admLevels = new String[]{EMPTY_STRING + LocationAdmLevel.valueOf(level.toUpperCase()).getLevel()};
         params.put(PROPERTY_LOC_LEVEL, admLevels);
+
+        if(StringUtils.isNotBlank(startDate)){
+            params.put(FILTER_DATE_START, new String[]{startDate});
+        }
+        if(StringUtils.isNotBlank(endDate)){
+            params.put(FILTER_DATE_END, new String[]{endDate});
+        }
         if(StringUtils.isNotBlank(sectors)){
             params.put(FILTER_SECTOR, sectors.split(PARAM_SEPARATOR));
         }

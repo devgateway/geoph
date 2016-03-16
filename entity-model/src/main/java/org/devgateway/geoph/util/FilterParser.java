@@ -5,6 +5,8 @@ import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -23,6 +25,16 @@ public class FilterParser {
             }
         });
         return ret;
+    }
+
+    public static Date stringArrayToDate(String[] array){
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            return formatter.parse(array[0]);
+        } catch (ParseException e) {
+            LOGGER.error("Exception trying to parse the date:" + array[0] + " - " + e.getMessage());
+        }
+        return null;
     }
 
 }

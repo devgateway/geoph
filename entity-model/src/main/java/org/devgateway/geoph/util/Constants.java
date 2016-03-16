@@ -9,6 +9,8 @@ public class Constants {
     public static final String EMPTY_STRING = "";
     public static final String PARAM_SEPARATOR = ",";
 
+    public static final String FILTER_DATE_START = "ds";
+    public static final String FILTER_DATE_END = "de";
     public static final String FILTER_FLOW_TYPE = "ft";
     public static final String FILTER_FUNDING_AGENCY = "fa";
     public static final String FILTER_IMPLEMENTING_AGENCY = "ia";
@@ -17,8 +19,11 @@ public class Constants {
     public static final String FILTER_STATUS = "sa";
 
     public static final String PROPERTY_LOC_CODE = "code";
+    public static final String PROPERTY_LOC_GRANTS = "grants";
     public static final String PROPERTY_LOC_LEVEL = "level";
+    public static final String PROPERTY_LOC_LOANS = "loans";
+    public static final String PROPERTY_LOC_PMC = "pmc";
     public static final String PROPERTY_LOC_NAME = "name";
     public static final String PROPERTY_LOC_PROJ_COUNT = "projectCount";
-
+    public static final String PROPERTY_LOC_TRX_COUNT = "transactionCount";
 }
