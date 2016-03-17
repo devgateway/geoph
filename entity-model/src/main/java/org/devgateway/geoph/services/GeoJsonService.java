@@ -1,5 +1,6 @@
 package org.devgateway.geoph.services;
 
+import org.devgateway.geoph.util.Parameters;
 import org.geojson.FeatureCollection;
 
 import java.util.Map;
@@ -12,6 +13,6 @@ public interface GeoJsonService {
 
     public FeatureCollection getLocationsByLevel(int level);
 
-    FeatureCollection getLocationsByParams(Map<String, String[]> params);
+    FeatureCollection getLocationsByParams(Parameters params);
 
 }

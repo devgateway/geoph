@@ -3,6 +3,7 @@ package org.devgateway.geoph.rest;
 import org.apache.commons.lang3.StringUtils;
 import org.devgateway.geoph.model.Project;
 import org.devgateway.geoph.services.ProjectService;
+import org.devgateway.geoph.util.Parameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,31 +41,24 @@ public class ProjectController {
     }
 
     @RequestMapping(value = "/", method = GET)
+    public Page<Project> findProjectsByParams(
+            @RequestParam(value = FILTER_DATE_START, required = false) String startDate,
+            @RequestParam(value = FILTER_DATE_END, required = false) String endDate,
+            @RequestParam(value = FILTER_SECTOR, required = false) String sectors,
+            @RequestParam(value = FILTER_STATUS, required = false) String statuses,
+            @RequestParam(value = FILTER_LOCATION, required = false) String locations,
+            @RequestParam(value = FILTER_PROJECT, required = false) String projects,
+            @PageableDefault(page = 0, size = 20, sort = "id") final Pageable pageable) {
+        LOGGER.debug("findProjectsByParams");
+        Parameters params = new Parameters(startDate, endDate, sectors, statuses, locations, projects, pageable);
+        return service.findProjectsByParams(params);
+    }
+
+    @RequestMapping(value = "/{id}", method = GET)
     //@Secured("ROLE_READ")
     public List<Project> findAllProjects() {
         LOGGER.debug("findAllProjects");
         return service.findAllProjects();
-    }
-
-
-    @RequestMapping(value = "/test", method = GET)
-    //@Secured("ROLE_READ")
-    public Page<Project> findProjectsByParams(
-            @RequestParam(value = FILTER_SECTOR, required = false) String st,
-            @RequestParam(value = FILTER_LOCATION, required = false) String lo,
-            @RequestParam(value = "op", required = false) String op,
-            @PageableDefault(page = 0, size = 20, sort = "id") final Pageable pageable) {
-        LOGGER.debug("findProjectsByParams");
-
-        Map<String, String[]> params = new HashMap<>();
-        if(StringUtils.isNotBlank(st)){
-            params.put(FILTER_SECTOR, st.split(PARAM_SEPARATOR));
-        }
-        if(StringUtils.isNotBlank(lo)){
-            params.put(FILTER_LOCATION, lo.split(PARAM_SEPARATOR));
-        }
-
-        return service.findProjectsByParams(params, pageable);
     }
 
 }

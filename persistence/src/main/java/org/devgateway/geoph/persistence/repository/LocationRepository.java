@@ -1,6 +1,7 @@
 package org.devgateway.geoph.persistence.repository;
 
 import org.devgateway.geoph.model.Location;
+import org.devgateway.geoph.util.Parameters;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,5 +24,5 @@ public interface LocationRepository {
 
     List<Location> findLocationsByParentId(long parentId);
 
-    List<Location> findLocationsByParams(Map<String, String[]> params);
+    List<Location> findLocationsByParams(Parameters params);
 }

@@ -7,3 +7,6 @@ INSERT INTO project_sector (project_id, sector_id) values (4, 27);
 INSERT INTO project_sector (project_id, sector_id) values (5, 26);
 INSERT INTO project_sector (project_id, sector_id) values (6, 19);
 INSERT INTO project_sector (project_id, sector_id) values (7, 35);
+INSERT INTO project_sector (project_id, sector_id) values (8, 30);
+INSERT INTO project_sector (project_id, sector_id) values (9, 31);
+INSERT INTO project_sector (project_id, sector_id) values (9, 32);
