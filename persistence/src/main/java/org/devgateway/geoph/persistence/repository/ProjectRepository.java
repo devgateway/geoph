@@ -18,5 +18,7 @@ public interface ProjectRepository {
 
     List<Project> findAll();
 
+    Project findById(long id);
+
     Page<Project> findProjectsByParams(Parameters params);
 }

@@ -16,5 +16,7 @@ public interface ProjectService {
 
     List<Project> findAllProjects();
 
+    Project findById(long id);
+
     Page<Project> findProjectsByParams(Parameters params);
 }

@@ -27,4 +27,6 @@ public class Constants {
     public static final String PROPERTY_LOC_NAME = "name";
     public static final String PROPERTY_LOC_PROJ_COUNT = "projectCount";
     public static final String PROPERTY_LOC_TRX_COUNT = "transactionCount";
+
+    public static final String PROPERTY_PRJ_ID = "id";
 }
