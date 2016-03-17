@@ -6,17 +6,21 @@ import { selectAllFilterList, selectFilterItem, fetchFilterListIfNeeded } from '
 class FilterList extends React.Component {
 
   	render() {
-    	return (
-	        <div>
-	        	<ul style={{left: '25', listStyleType: 'none'}}>	        	
-	        	{this.props.items.map((item) => {
-			        return <li key={item.id}> 
-			        	<ItemConnected filterType={this.props.filterType} {...item} />
-			        </li>
-			    })}
-			    </ul>
-		    </div>
-      	);
+  		if (this.props.expanded){
+	    	return (
+		        <div>
+		        	<ul style={{left: '25', listStyleType: 'none'}}>	        	
+		        	{this.props.items.map((item) => {
+				        return <li key={item.id}> 
+				        	<ItemConnected filterType={this.props.filterType} {...item} />
+				        </li>
+				    })}
+				    </ul>
+			    </div>
+	      	);
+	    } else {
+	    	return null;
+	    }
   	}
 }
 
@@ -31,6 +35,10 @@ class FilterItem extends React.Component {
 		if (this.props.loadList){
 			this.props.onLoadFilterList(this.props.filterType);
 		}
+	}
+
+	toggleExpanded(){
+		this.setState({'expanded': !this.state.expanded});
 	}
 
 	handleChange() {
@@ -56,7 +64,7 @@ class FilterItem extends React.Component {
 			        		<div className="counter">
 				        		({this.props.selectedCounter}/{this.props.totalCounter})
 				        	</div>
-				        	<div className={this.state.expanded? "expanded open" : "expanded closed"}>
+				        	<div className={this.state.expanded? "expanded open" : "expanded closed"} onClick={this.toggleExpanded.bind(this)}>
 				        		{this.state.expanded? "-" : "+"}
 				        	</div>
 				        </div>
@@ -64,7 +72,7 @@ class FilterItem extends React.Component {
 		        </div>	
 		        <div>
 	        		{this.props.items && this.props.items.length>0? 
-		        		<FilterList {...this.props} />
+		        		<FilterList expanded={this.state.expanded} {...this.props} />
 				    : null}	 
 		        </div>       
 	        </div>

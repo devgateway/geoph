@@ -1,4 +1,18 @@
 
+.filter-tab-content{
+  padding-top: 20px;
+}
+
+.filter-tab-content .tab-content{
+   background-color: white; 
+}
+
+.filter-list-content{
+  height: 280px;
+  max-height: 350px;
+  overflow: auto;
+}
+
 .selected {
     border: 1px solid #a1d367;
     background: #a1d367;
@@ -10,6 +24,7 @@
 }
 
 .selectable {
+    cursor: pointer;
     border: 2px solid #ddd;
     margin-right: 5px;
     margin-top: 1px;
@@ -33,10 +48,42 @@
     color: #d66;
 }
 .expanded {
+    cursor: pointer;
+    display: inline-block;
     font-weight: 700;
+    padding: 0 4px;
+}
+
+.counter {
+    cursor: pointer;
     padding: 0 4px;
 }
 
 .filterItemInfo div{
   display: inline-block;
+}
+
+.nav-tabs{
+  background-color:#BEDBEF;
+}
+.tab-content{
+    background-color:#EDF2F5;
+    color:#080808;
+    padding:5px
+}
+.nav-tabs > li > a{
+  border: medium none;
+}
+.nav-tabs > li > a:hover{
+  background-color: #337AB7 !important;
+  border: medium none;
+  border-radius: 0;
+  color:#fff;
+}
+
+.modal-header {
+    background-color: #6F7F8C;
+    color: #EFF6F9;
+    padding: 15px;
+    border-bottom: none;
 }

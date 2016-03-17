@@ -30,8 +30,7 @@
     "install": "~1.0.4",
     "react-redux": "https://cdnjs.cloudflare.com/ajax/libs/react-redux/4.4.0/react-redux.min.js",
     "redux-thunk": "https://npmcdn.com/redux-thunk@2.0.1/dist/redux-thunk.min.js",
-    "react-bootstrap": "~0.28.3",
-    "react-modal": "~0.6.1"
+    "react-bootstrap": "~0.28.3"
   },
   "overrides": {
     "bootstrap": {

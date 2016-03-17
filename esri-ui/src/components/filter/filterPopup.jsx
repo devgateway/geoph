@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Modal, Button, Tabs, Tab} from 'react-bootstrap';
-//import FilterMap from 'conf/filterMap';
 import FilterTabs from 'app/components/filter/filterTabs';
 
 export default class FilterPopup extends React.Component {
@@ -40,8 +39,7 @@ export default class FilterPopup extends React.Component {
   		return (
     	<div>
 	        <Button className='' onClick={this.showFilterPopup.bind(this)}>Filters</Button>
-			
-			<Modal className='' bsSize='large' aria-labelledby='contained-modal-title-lg'
+			<Modal bsSize='large' aria-labelledby='contained-modal-title-lg'
 			 show={this.state.showModal} onHide={this.hideFilterPopup.bind(this)}>
 				<Modal.Header>
 					<Modal.Title>

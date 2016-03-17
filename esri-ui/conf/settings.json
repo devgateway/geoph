@@ -16,12 +16,14 @@
 		"FILTER_LIST": {
 			"development": {
 				"st": "/filters/sector",
-				"fa": "/filters/fundingAgency"				
+				"fa": "/filters/fundingAgency",
+				"ia": "/filters/impAgency"			
 			},
 
 			"production": {
 				"st": "/filters/sector",
-				"fa": "/filters/fundingAgency"				
+				"fa": "/filters/fundingAgency",
+				"ia": "/filters/impAgency"				
 			}
 		}
 	},
