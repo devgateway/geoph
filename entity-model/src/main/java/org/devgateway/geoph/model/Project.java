@@ -15,6 +15,10 @@ import java.util.Set;
     @NamedQuery(
             name = "findAllProjects",
             query = "from Project p"
+    ),
+    @NamedQuery(
+            name = "findProjectsById",
+            query = "from Project p where p.id = :id"
     )
 })
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)

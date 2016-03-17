@@ -13,6 +13,8 @@ import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.devgateway.geoph.util.Constants.*;
+
 
 /**
  * @author dbianco
@@ -30,6 +32,13 @@ public class DefaultProjectRepository implements ProjectRepository {
     }
 
     @Override
+    public Project findById(long id) {
+        return em.createNamedQuery("findProjectsById", Project.class)
+                .setParameter(PROPERTY_PRJ_ID, id)
+                .getSingleResult();
+    }
+
+    @Override
     public Page<Project> findProjectsByParams(Parameters params) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<Project> criteriaQuery = criteriaBuilder
@@ -38,18 +47,31 @@ public class DefaultProjectRepository implements ProjectRepository {
         List<Predicate> predicates = new ArrayList();
 
         if(params!=null) {
+            if(params.getProjects()!=null){
+                predicates.add(projectRoot.get(Project_.id).in(params.getProjects()));
+            }
             if(params.getSectors()!=null) {
                 Join<Project, Sector> sectorJoin = projectRoot.join(Project_.sectors);
                 predicates.add(sectorJoin.get(Sector_.id).in(params.getSectors()));
+            }
+            if(params.getStatuses()!=null) {
+                Join<Project, Status> statusJoin = projectRoot.join(Project_.status);
+                predicates.add(statusJoin.get(Status_.id).in(params.getStatuses()));
             }
             if(params.getLocations()!=null) {
                 Join<Project, Location> locationJoin = projectRoot.join(Project_.locations);
                 predicates.add(locationJoin.get(Location_.id).in(params.getLocations()));
             }
+            if(params.getStartDate()!=null){
+                predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectRoot.get(Project_.periodStart), params.getStartDate()));
+            }
+            if(params.getEndDate()!=null){
+                predicates.add(criteriaBuilder.lessThanOrEqualTo(projectRoot.get(Project_.periodEnd), params.getEndDate()));
+            }
         }
 
         if(predicates.size()>0) {
-            Predicate other = criteriaBuilder.or(predicates.toArray(new Predicate[predicates.size()]));
+            Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
             criteriaQuery.where(other);
         }
 

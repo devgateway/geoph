@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,7 +29,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
  *         created on mar 08 2016.
  */
 @RestController
-@RequestMapping(value = "/project")
+@RequestMapping(value = "/projects")
 public class ProjectController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FilterController.class);
@@ -40,7 +41,7 @@ public class ProjectController {
         this.service = service;
     }
 
-    @RequestMapping(value = "/", method = GET)
+    @RequestMapping(method = GET)
     public Page<Project> findProjectsByParams(
             @RequestParam(value = FILTER_DATE_START, required = false) String startDate,
             @RequestParam(value = FILTER_DATE_END, required = false) String endDate,
@@ -55,10 +56,9 @@ public class ProjectController {
     }
 
     @RequestMapping(value = "/{id}", method = GET)
-    //@Secured("ROLE_READ")
-    public List<Project> findAllProjects() {
-        LOGGER.debug("findAllProjects");
-        return service.findAllProjects();
+    public Project findProjectById(@PathVariable final long id) {
+        LOGGER.debug("findProjectById");
+        return service.findById(id);
     }
 
 }

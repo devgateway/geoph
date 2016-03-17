@@ -66,6 +66,9 @@ public class DefaultLocationRepository implements LocationRepository {
             if(params.getLocations()!=null) {
                 predicates.add(locationRoot.get(Location_.level).in(params.getLocations()));
             }
+            if(params.getProjects()!=null) {
+                predicates.add(projectJoin.in(params.getProjects()));
+            }
             if(params.getSectors()!=null) {
                 Join<Project, Sector> sectorJoin = projectJoin.join(Project_.sectors);
                 predicates.add(sectorJoin.get(Sector_.id).in(params.getSectors()));
@@ -82,8 +85,10 @@ public class DefaultLocationRepository implements LocationRepository {
             }
         }
 
-        Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
-        criteriaQuery.where(other);
+        if(predicates.size()>0) {
+            Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+            criteriaQuery.where(other);
+        }
 
         CriteriaQuery<Location> cq = criteriaQuery.select(locationRoot);
         TypedQuery<Location> query = em.createQuery(cq);

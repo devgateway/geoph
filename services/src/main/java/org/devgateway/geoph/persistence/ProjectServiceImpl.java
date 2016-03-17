@@ -29,6 +29,12 @@ public class ProjectServiceImpl implements ProjectService {
         return projectRepository.findAll();
     }
 
+    @Override
+    public Project findById(long id){
+        return projectRepository.findById(id);
+    }
+
+    @Override
     public Page<Project> findProjectsByParams(Parameters params){
         return projectRepository.findProjectsByParams(params);
     }
