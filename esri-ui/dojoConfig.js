@@ -13,14 +13,31 @@ window.dojoConfig = {
     main: 'main'
   },
 
- 
   {
     name: 'react',
-    location: locationPath + 'lib/react/',
+    location: locationPath + 'lib/react',
     main: 'react'
   }, 
   
-   {
+  {
+    name: 'react-dom',
+    location: locationPath + 'lib/react',
+    main: 'react-dom'
+  }, 
+  
+  {
+    name: 'react-modal',
+    location: locationPath + 'lib/react-modal/dist',
+    main: 'react-modal'
+  }, 
+  
+  {
+    name: 'react-bootstrap',
+    location: locationPath + 'lib/react-bootstrap',
+    main: 'react-bootstrap'
+  }, 
+  
+  {
     name: 'react-router',
     location:locationPath + 'lib/react-router',
     main: 'index'
@@ -28,7 +45,7 @@ window.dojoConfig = {
 
   {
     name: 'redux',
-   location:locationPath + 'lib/redux',
+    location:locationPath + 'lib/redux',
     main: 'index'
   },
 

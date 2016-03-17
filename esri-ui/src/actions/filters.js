@@ -1,17 +1,5 @@
-import Constants from 'app/constants/constants.es6';
-import i18next from 'i18next';
-import fetch from 'isomorphic-fetch';
-import Settings from 'app/util/Settings.es6';
-
-let settings=Settings.getInstace();
-
-export const setLanguage = (lang) => {
-  i18next.changeLanguage(lang);
-  return {
-    type: Constants.SET_APP_LANGUAGE,
-    lang 
-  }
-}
+import * as Constants from 'app/constants/constants';
+import Connector from 'app/connector/connector.js';
 
 export const requestFilterList = (filter) => {
   return {
@@ -20,11 +8,11 @@ export const requestFilterList = (filter) => {
   }
 }
 
-export const receiveFilterList = (filterType, json) => {
+export const receiveFilterList = (filterType, data) => {
   return {
     type: Constants.RECEIVE_FILTER_LIST,
     filterType,
-    items: [...json.hits],
+    data: data,
     receivedAt: Date.now()
   }
 }
@@ -32,9 +20,8 @@ export const receiveFilterList = (filterType, json) => {
 export const fetchFilterList = (filterType) => {
   return dispatch => {
     dispatch(requestFilterList(filterType))
-    return fetch(settings.get('API','FILTER_ENDPOINTS')[filterType])
-      .then(req => req.json())
-      .then(json => dispatch(receiveFilterList(filterType, json)))
+    return Connector.getFilterList(filterType)
+      .then(req => dispatch(receiveFilterList(filterType, req)))
   }
 }
 
@@ -61,13 +48,14 @@ export const selectFilterItem = (filterItem) => {
   return {
     type: Constants.SELECT_FILTER_ITEM,
     filterType: filterItem.filterType,
-    item: filterItem.item //it should be {id, selected}
+    item: filterItem
   }
 }
 
-export const selectAllFilterList = (filter) => {
+export const selectAllFilterList = (filterItem) => {
   return {
     type: Constants.SELECT_ALL_FILTER_LIST,
-    filter //it should be {filterType, selected}
+    filterType: filterItem.filterType,
+    item: filterItem
   }
 }

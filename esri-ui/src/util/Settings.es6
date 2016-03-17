@@ -15,8 +15,9 @@ export default class Settings {
 	}
 
 	static get(module, name) {
+		
 		if (window._setting==null || !window._setting){
-			throw Error('Settgins should be initialized first');
+			throw Error('Settings  should be initialized first');
 		}else{
 			return window._setting_instance.getSetting(module, name);
 		}

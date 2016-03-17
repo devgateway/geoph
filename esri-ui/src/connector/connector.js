@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import Constants from 'app/constants/constants';
+import {API_BASE_URL}  from 'app/constants/constants';
 import Settings from 'app/util/Settings';
 
 
@@ -59,10 +59,11 @@ class Connector {
 
 	/*A method should always return a promise*/
 	call(verb,endpoint, params) {
-		debugger;
 		
-		let apiRoot=Settings.get('API',Constants.API_BASE_URL);
-		let url=`$apiRoot\\$endpoint`;
+		
+		let apiRoot=Settings.get('API',API_BASE_URL);
+		
+		let url=`${apiRoot}${endpoint}`; 
 
 
 		let caller;
@@ -74,7 +75,7 @@ class Connector {
 
 		return new Promise((resolve, reject) => {
 			caller(url, params).then((data) => {
-				resolve(data);
+				resolve(data.data);
 			}).catch((err) => {
 				console.log('Failed lading api data')
 				reject(err);
@@ -83,20 +84,26 @@ class Connector {
 	}
 
 	/**/
-	getProjects() {
+	getProjectsGeoJson() {
 		return new Promise( (resolve, reject) => {
-			
-			this.call(GET,Settings.get('API','PROJECT_GEO_JSON'), {}).then((data) => {
+			this.call(GET,Settings.get('API','PROJECT_GEOJSON'), {}).then((data) => {
 				/*apply any data transformation*/
 				resolve(data); ////resolve with original data or perform any data transformation needed
 			
 			}).catch(reject)
 		});
-
 	}
 
-	
+	getFilterList(filterType) {
+		return new Promise( (resolve, reject) => {
+			this.call(GET,Settings.get('API','FILTER_LIST')[filterType], {}).then((data) => {
+				resolve(data); ////resolve with original data or perform any data transformation needed			
+			}).catch(reject)
+		});
+	}
 }
 
 
-export default new Connector();
+const connector=new Connector();
+
+export default connector;
