@@ -56,9 +56,9 @@ public class FilterServiceImpl implements FilterService {
     }
 
     @Override
-    public List<Sector> findAllSectors() {
+    public List<Sector> findByLevel(int level) {
         LOGGER.debug("Getting all sectors");
-        return sectorRepository.findAll();
+        return sectorRepository.findByLevel(level);
     }
 
     @Override

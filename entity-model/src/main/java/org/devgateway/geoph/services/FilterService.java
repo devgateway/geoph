@@ -19,7 +19,7 @@ public interface FilterService {
 
     List<FlowType> findAllFlowTypes();
 
-    List<Sector> findAllSectors();
+    List<Sector> findByLevel(int level);
 
     List<Location> findAllLocations();
 

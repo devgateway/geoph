@@ -1,6 +1,7 @@
 package org.devgateway.geoph.services;
 
 import org.devgateway.geoph.model.Project;
+import org.devgateway.geoph.util.Parameters;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -15,5 +16,7 @@ public interface ProjectService {
 
     List<Project> findAllProjects();
 
-    Page<Project> findProjectsByParams(Map<String, String[]> params, Pageable pageable);
+    Project findById(long id);
+
+    Page<Project> findProjectsByParams(Parameters params);
 }

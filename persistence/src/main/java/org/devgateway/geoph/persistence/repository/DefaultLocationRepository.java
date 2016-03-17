@@ -1,9 +1,7 @@
 package org.devgateway.geoph.persistence.repository;
 
-import com.google.common.base.Function;
-import com.google.common.collect.Lists;
 import org.devgateway.geoph.model.*;
-import org.devgateway.geoph.util.FilterParser;
+import org.devgateway.geoph.util.Parameters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import static org.devgateway.geoph.util.Constants.*;
 
@@ -57,7 +53,7 @@ public class DefaultLocationRepository implements LocationRepository {
     }
 
     @Override
-    public List<Location> findLocationsByParams(Map<String, String[]> params) {
+    public List<Location> findLocationsByParams(Parameters params) {
 
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<Location> criteriaQuery = criteriaBuilder
@@ -66,28 +62,33 @@ public class DefaultLocationRepository implements LocationRepository {
         List<Predicate> predicates = new ArrayList();
 
         if(params!=null) {
-            if(params.containsKey(PROPERTY_LOC_LEVEL)) {
-                List<Long> values = FilterParser.stringArrayToLongList(params.get(PROPERTY_LOC_LEVEL));
-                predicates.add(locationRoot.get(Location_.level).in(values));
+            Join<Location, Project> projectJoin = locationRoot.join(Location_.projects);
+            if(params.getLocations()!=null) {
+                predicates.add(locationRoot.get(Location_.level).in(params.getLocations()));
             }
-            if(params.containsKey(FILTER_SECTOR)) {
-                Join<Location, Project> projectJoin = locationRoot.join(Location_.projects);
+            if(params.getProjects()!=null) {
+                predicates.add(projectJoin.in(params.getProjects()));
+            }
+            if(params.getSectors()!=null) {
                 Join<Project, Sector> sectorJoin = projectJoin.join(Project_.sectors);
-                List<Long> values = FilterParser.stringArrayToLongList(params.get(FILTER_SECTOR));
-                predicates.add(sectorJoin.get(Sector_.id).in(values));
+                predicates.add(sectorJoin.get(Sector_.id).in(params.getSectors()));
             }
-            if(params.containsKey(FILTER_STATUS)) {
-                Join<Location, Project> projectJoin = locationRoot.join(Location_.projects);
+            if(params.getStatuses()!=null) {
                 Join<Project, Status> statusJoin = projectJoin.join(Project_.status);
-                List<Long> values = FilterParser.stringArrayToLongList(params.get(FILTER_STATUS));
-                predicates.add(statusJoin.get(Status_.id).in(values));
+                predicates.add(statusJoin.get(Status_.id).in(params.getStatuses()));
             }
-
-
+            if(params.getStartDate()!=null){
+                predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectJoin.get(Project_.periodStart), params.getStartDate()));
+            }
+            if(params.getEndDate()!=null){
+                predicates.add(criteriaBuilder.lessThanOrEqualTo(projectJoin.get(Project_.periodEnd), params.getEndDate()));
+            }
         }
 
-        Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
-        criteriaQuery.where(other);
+        if(predicates.size()>0) {
+            Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+            criteriaQuery.where(other);
+        }
 
         CriteriaQuery<Location> cq = criteriaQuery.select(locationRoot);
         TypedQuery<Location> query = em.createQuery(cq);

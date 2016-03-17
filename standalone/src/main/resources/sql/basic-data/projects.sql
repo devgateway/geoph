@@ -34,6 +34,21 @@ INSERT INTO project (id,closing_date,implementing_agency_office,period_end,perio
 	total_project_amount,executing_agency_id,funding_agency_id,grant_classification_id,grant_type_id,implementing_agency_id,original_currency_id,status_id) 
 	VALUES (7,{ts '2015-08-31 00:00:00.0'},'',{ts '2015-06-30 00:00:00.0'},{ts '2012-02-04 00:00:00.0'},{ts '2015-07-31 00:00:00.0'},{ts '2012-05-04 00:00:00.0'},
 	'Capacity Enhancement of Mass Transit Systems in Metro Manila',1.62E7,null,2,null,null,6,1,2);
+	
+INSERT INTO project (id,closing_date,implementing_agency_office,period_end,period_start,revised_closing_date,start_date,title,
+	total_project_amount,executing_agency_id,funding_agency_id,grant_classification_id,grant_type_id,implementing_agency_id,original_currency_id,status_id) 
+	VALUES (8,{ts '2015-08-31 00:00:00.0'},'',{ts '2015-06-30 00:00:00.0'},{ts '2012-02-04 00:00:00.0'},{ts '2015-07-31 00:00:00.0'},{ts '2012-05-04 00:00:00.0'},
+	'Capacity Enhancement of Mass Transit Systems in Metro Manila',1.62E7,null,2,null,null,6,1,2);
+	
+INSERT INTO project (id,closing_date,implementing_agency_office,period_end,period_start,revised_closing_date,start_date,title,
+	total_project_amount,executing_agency_id,funding_agency_id,grant_classification_id,grant_type_id,implementing_agency_id,original_currency_id,status_id) 
+	VALUES (9,{ts '2015-07-31 00:00:00.0'},'',{ts '2015-10-31 00:00:00.0'},{ts '2012-05-04 00:00:00.0'},{ts '2015-07-31 00:00:00.0'},{ts '2012-03-04 00:00:00.0'},
+	'Banaoang Pump Irrigation Project',1.24E7,null,3,null,null,9,1,4);
+
+INSERT INTO project (id,closing_date,implementing_agency_office,period_end,period_start,revised_closing_date,start_date,title,
+	total_project_amount,executing_agency_id,funding_agency_id,grant_classification_id,grant_type_id,implementing_agency_id,original_currency_id,status_id) 
+	VALUES (10,{ts '2015-08-31 00:00:00.0'},'',{ts '2018-08-31 00:00:00.0'},{ts '2015-04-04 00:00:00.0'},{ts '2015-07-31 00:00:00.0'},{ts '2012-05-04 00:00:00.0'},
+	'Airport Development Project',1.16E7,null,1,null,null,7,1,2);
 
 
 
