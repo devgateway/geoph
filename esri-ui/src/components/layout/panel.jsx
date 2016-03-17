@@ -7,12 +7,14 @@ export default class Header extends React.Component {
     super();
   }
 
-
+  levelChanged(evt){
+      alert(evt.target.value);
+  }
 
   render() {
     return (
       <div className="panel">
-        PANEL
+      
       </div>
       )
   }

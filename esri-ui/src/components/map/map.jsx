@@ -13,17 +13,7 @@ import Extent from 'app/components/esri/geometry/extend'
 
 const MapComponent = React.createClass({
 
-  onLoadProjects(){
-    this.props.onLoadProjects()
-  },
-
-  componentDidMount() {
-    this.onLoadProjects();  
-  },
-
-  componentWillUpdate(nextProps, nextState) {
-   console.log(nextProps.data); 
-  },
+  
 
   render(){
    return (

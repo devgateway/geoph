@@ -18,9 +18,8 @@
 	
 	export const PROJECT_GEOJSON_LOADED = 'PROJECT_GEOJSON_LOADED';
 
-
-
 	/*Settings*/
+
 	export const PROJECT_GEOJSON ='PROJECT_GEOJSON';  
 	
 	export const API_BASE_URL ='API_BASE_URL';

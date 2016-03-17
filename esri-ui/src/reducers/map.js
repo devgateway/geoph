@@ -22,8 +22,6 @@ const map = (state = {
       });
     case LOAD_PEOJECT_GEOJSON_FAILED:
     return null;
-
-
     default:
     return state
 

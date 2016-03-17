@@ -1,4 +1,4 @@
-import {LOAD_PROJECT_GEOJSON_SUCCESS,LOAD_PEOJECT_GEOJSON_FAILED}  from 'app/constants/constants';
+import {LOAD_PROJECT_GEOJSON_SUCCESS,LOAD_PEOJECT_GEOJSON_FAILED,CHANGE_LAYER_LEVEL}  from 'app/constants/constants';
 import Connector from 'app/connector/connector.js';
 
 
@@ -17,14 +17,16 @@ return {
 }
 
 
-export const loadProjects = () => {
+
+export const loadProjects = (level,params) => {
 	return (dispatch, getState) =>{
-		Connector.getProjectsGeoJson()
+		Connector.getProjectsGeoJson(level,params)
 		.then((data)=>{
 				
 				dispatch(loadProjectsCompleted(data))}
 			).catch((err)=>{ 
 				debugger;
+				console.log(err);
 				dispatch(loadProjectsFailed(err));
 			});
 		} 

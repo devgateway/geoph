@@ -9,15 +9,8 @@ const stateToProps = (state, props) => {
 }
 
 
-const dispatchToProps = (dispatch, ownProps) => {
-  return {
-    onLoadProjects: (level) => {
-      dispatch(loadProjects(level));
-    },
-  }
-}
 /*Connect map component to redux state*/
-const Map=connect(stateToProps,dispatchToProps)(MapComponent);
+const Map=connect(stateToProps)(MapComponent);
 
 export {Map};
  

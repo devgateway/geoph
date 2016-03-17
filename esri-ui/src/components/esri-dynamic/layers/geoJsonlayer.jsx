@@ -2,45 +2,78 @@ import React from 'react';
 import ReactDOM from 'react/react-dom';
 import EsriGraphicsLayer from 'esri/layers/GraphicsLayer';
 import Layer from 'app/components/esri/layers/Layer';
+
+import SimpleMarkerSymbol from 'esri/symbols/SimpleMarkerSymbol';
+import SimpleLineSymbol   from 'esri/symbols/SimpleLineSymbol';
+
+import TextSymbol   from 'esri/symbols/TextSymbol';
+
+
+import Point from 'esri/geometry/Point';
+
+import SpatialReference from 'esri/geometry/SpatialReference';
+
 import Graphic from "esri/Graphic";
 import domReady from "dojo/domReady!";
 
-class GeoJsonLayer extends Layer{
-	componentWillMount() {
-		this.element = new EsriGraphicsLayer();
-		this.props.map.add(this.element)
-	}
+      //Create a symbol for drawing the point
+      var markerSymbol = new SimpleMarkerSymbol({
+        color: [226, 119, 40],
+        outline: new SimpleLineSymbol({
+          color: [255, 255, 255],
+          width: 2
+      })
+    });
+
+      var label=new TextSymbol({
+        text:'S',
+        color:[0, 255, 123, 0.7]
+      });
+
+      var point = new Point({
+        longitude: -49.97,
+        latitude: 41.73
+    });
 
 
-	componentWillUpdate(nextProps, nextState) {
 
-		this.loadGeoJson(nextProps.data); 
-	}
 
-	loadGeoJson(json){
-		const features=Terraformer.ArcGIS.convert(json);
-		debugger;
+      const defaultSpatialReference = new SpatialReference({wkid: 4326});
 
-	}
+      class GeoJsonLayer extends Layer{
 
-	addGraphics(arcgisJson) {}
 
-	createGraphic(arcgisJson) {
-		var graphic;
-            // This magically sets geometry type!
-            graphic = new Graphic(arcgisJson);
-            // Set the correct symbol based on type and render - NOTE: Only supports simple renderers
-            if (this.renderer && this.renderer.symbol) {
-                //graphic.setSymbol(this.render.getSymbol(graphic));  // use for complex renderers
-                graphic.setSymbol(this.renderer.symbol);
-            } else {
-            	graphic.setSymbol(this._getEsriSymbol(graphic.geometry.type));
-            }
-            // Update SR because terraformer sets incorrect spatial reference
-            graphic.geometry.setSpatialReference(this.props.spatialReference); // NOTE: Has to match features!
-            return graphic;
+        componentWillMount() {
+            this.layer = new EsriGraphicsLayer();
+            this.props.map.add(this.layer);
+
+
         }
+
+
+        componentWillUpdate(nextProps, nextState) {
+         this.loadGeoJson(nextProps.data);
+     }
+
+     loadGeoJson(json){
+        debugger;
+        const features=Terraformer.ArcGIS.convert(json);
+        
+        const graphics=features.map((f)=>{
+            this.layer.add(this.createGraphic(f));
+        });
+
     }
 
+ 
 
-    export default GeoJsonLayer;
+    createGraphic(arcgisJson) {
+        const g=Graphic;
+        let graphic= g.fromJSON(arcgisJson);
+        graphic.symbol=markerSymbol;
+        return graphic;
+    }
+}
+
+
+export default GeoJsonLayer;
