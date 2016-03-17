@@ -2,32 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Modal, Button, Tabs, Tab} from 'react-bootstrap';
 //import FilterMap from 'conf/filterMap';
-import FilterTabContent from 'app/components/filter/filterTabContent';
-import AjaxUtil from 'app/util/AjaxUtil';
-import Setting from 'app/util/settings';
-
-let settings=Setting.getInstace();
-
-const customStyles = {
-  content : {
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)'
-  }
-};
+import FilterTabs from 'app/components/filter/filterTabs';
 
 export default class FilterPopup extends React.Component {
 
 	constructor() {
 	    super();
-	    this.state = {
-	    	'showModal': false, 
-	    	'filterMap': settings.get('FILTERS','FILTER_MAP'), 
-	    	'activeID': 1
-	    };
+	    this.state = {'showModal': false};
 	}
 
   	componentDidMount() {
@@ -68,15 +49,7 @@ export default class FilterPopup extends React.Component {
 					</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<div className="tab-container">
-		              <Tabs defaultActiveKey={1}>
-		              	{filters.map((filter) => {
-		              		return <Tab className="" eventKey={filter.id} key={filter.id} title={filter.title}>
-			                  	<FilterTabContent  {...filter}/>
-			                </Tab>
-				        })}		             
-		              </Tabs>
-		            </div>
+					<FilterTabs />
 				</Modal.Body>
 				<Modal.Footer>
 					<Button className="btn btn-sm" bsStyle='danger' onClick={this.reset.bind(this)}>Reset</Button>

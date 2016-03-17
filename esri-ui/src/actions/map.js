@@ -3,11 +3,10 @@ import Connector from 'app/connector/connector.js';
 
 
 const loadProjectsCompleted=(data)=>{
-	debugger;
-	 return {
-    type: Constants.REQUEST_FILTER_LIST,
-    data:data
- 	 }
+	return {
+    	type: Constants.REQUEST_FILTER_LIST,
+    	data:data
+ 	}
 }
 
 const loadProjectsFailed=()=>{
@@ -21,7 +20,6 @@ export const loadProjects = () => {
 		
 		Connector.getProjectsGeoJson()
 		.then((data)=>{
-			debugger;
 			dispatch(loadProjectsCompleted)}
 		).catch(()=>{ 
 			dispatch(loadProjectsFailed);

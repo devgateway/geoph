@@ -24,7 +24,7 @@ import static org.devgateway.geoph.util.Constants.*;
 
 @RestController
 @RequestMapping(value = "/filters")
-public class FilterController {
+public class FilterController extends CrossOriginSupport{
 
     private final FilterService service;
 

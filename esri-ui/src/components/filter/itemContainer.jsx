@@ -1,18 +1,14 @@
 
 import { connect } from 'react-redux'
-import { selectAllFilterList, selectFilterItem } from 'app/actions/index'
+import { selectAllFilterList, selectFilterItem, fetchFilterListIfNeeded } from 'app/actions/index'
 import ItemComponent from 'app/components/filter/item'
 import Constants from 'app/constants/constants';
 
-const mapStateToProps = (state, props) => {
-  return {
-    filter: state.filters[props.type]//aka filtrar por id el item del listado
-  }
-}
-
-
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
+    onLoadFilterList: (type) => {
+      dispatch(fetchFilterListIfNeeded(type));
+    },
 
     onItemChange: (filterItem) => {
       dispatch(selectFilterItem(filterItem));
@@ -24,5 +20,5 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(ItemComponent);
+export default connect(null,mapDispatchToProps)(ItemComponent);
  

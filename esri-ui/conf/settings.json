@@ -11,8 +11,19 @@
 			"production": "http://localhost:8090"
 		},
 
-		"PROJECT_GEOJSON":"/geodata/region/projects"
+		"PROJECT_GEOJSON":"/geodata/region/projects",
 
+		"FILTER_LIST": {
+			"development": {
+				"st": "/filters/sector",
+				"fa": "/filters/fundingAgency"				
+			},
+
+			"production": {
+				"st": "/filters/sector",
+				"fa": "/filters/fundingAgency"				
+			}
+		}
 	},
 
 	"I18N": {
