@@ -3,6 +3,7 @@ package org.devgateway.geoph.rest;
 import org.apache.commons.lang3.StringUtils;
 import org.devgateway.geoph.services.GeoJsonService;
 import org.devgateway.geoph.util.LocationAdmLevel;
+import org.devgateway.geoph.util.Parameters;
 import org.geojson.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,24 +42,12 @@ public class GeoJsonController {
             @RequestParam(value = FILTER_DATE_START, required = false) String startDate,
             @RequestParam(value = FILTER_DATE_END, required = false) String endDate,
             @RequestParam(value = FILTER_SECTOR, required = false) String sectors,
-            @RequestParam(value = FILTER_STATUS, required = false) String statuses){
+            @RequestParam(value = FILTER_STATUS, required = false) String statuses,
+            @RequestParam(value = FILTER_LOCATION, required = false) String locations,
+            @RequestParam(value = FILTER_PROJECT, required = false) String projects){
         LOGGER.debug("getGeoJsonByLocationType");
-        Map<String, String[]> params = new HashMap<>();
-        String[] admLevels = new String[]{EMPTY_STRING + LocationAdmLevel.valueOf(level.toUpperCase()).getLevel()};
-        params.put(PROPERTY_LOC_LEVEL, admLevels);
-
-        if(StringUtils.isNotBlank(startDate)){
-            params.put(FILTER_DATE_START, new String[]{startDate});
-        }
-        if(StringUtils.isNotBlank(endDate)){
-            params.put(FILTER_DATE_END, new String[]{endDate});
-        }
-        if(StringUtils.isNotBlank(sectors)){
-            params.put(FILTER_SECTOR, sectors.split(PARAM_SEPARATOR));
-        }
-        if(StringUtils.isNotBlank(statuses)){
-            params.put(FILTER_STATUS, statuses.split(PARAM_SEPARATOR));
-        }
+        Parameters params = new Parameters(startDate, endDate, sectors, statuses, locations, projects, null);
+        params.setLocationLevel(level);
         return service.getLocationsByParams(params);
     }
 

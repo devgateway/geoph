@@ -3,16 +3,14 @@ package org.devgateway.geoph.persistence;
 import org.devgateway.geoph.model.Project;
 import org.devgateway.geoph.persistence.repository.ProjectRepository;
 import org.devgateway.geoph.services.ProjectService;
-import org.devgateway.geoph.util.FilterParser;
+import org.devgateway.geoph.util.Parameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author dbianco
@@ -31,7 +29,7 @@ public class ProjectServiceImpl implements ProjectService {
         return projectRepository.findAll();
     }
 
-    public Page<Project> findProjectsByParams(Map<String, String[]> params, Pageable pageable){
-        return projectRepository.findProjectsByParams(params, pageable);
+    public Page<Project> findProjectsByParams(Parameters params){
+        return projectRepository.findProjectsByParams(params);
     }
 }

@@ -3,6 +3,7 @@ package org.devgateway.geoph.persistence;
 import org.devgateway.geoph.model.*;
 import org.devgateway.geoph.persistence.repository.LocationRepository;
 import org.devgateway.geoph.services.GeoJsonService;
+import org.devgateway.geoph.util.Parameters;
 import org.geojson.Feature;
 import org.geojson.FeatureCollection;
 import org.geojson.Point;
@@ -39,8 +40,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
         return featureCollection;
     }
 
-    public FeatureCollection getLocationsByParams(Map<String, String[]> params) {
-        int level = Integer.parseInt(params.get(PROPERTY_LOC_LEVEL)[0]);
+    public FeatureCollection getLocationsByParams(Parameters params) {
         List<Location> locationList = locationRepository.findLocationsByParams(params);
 
         FeatureCollection featureCollection = new FeatureCollection();

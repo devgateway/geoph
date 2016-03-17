@@ -1,22 +1,18 @@
 package org.devgateway.geoph.persistence.repository;
 
 import org.devgateway.geoph.model.*;
-import org.devgateway.geoph.util.FilterParser;
+import org.devgateway.geoph.util.Parameters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import static org.devgateway.geoph.util.Constants.*;
 
 /**
  * @author dbianco
@@ -34,7 +30,7 @@ public class DefaultProjectRepository implements ProjectRepository {
     }
 
     @Override
-    public Page<Project> findProjectsByParams(Map<String, String[]> params, Pageable pageable) {
+    public Page<Project> findProjectsByParams(Parameters params) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<Project> criteriaQuery = criteriaBuilder
                 .createQuery(Project.class);
@@ -42,27 +38,30 @@ public class DefaultProjectRepository implements ProjectRepository {
         List<Predicate> predicates = new ArrayList();
 
         if(params!=null) {
-            if(params.containsKey(FILTER_SECTOR)) {
+            if(params.getSectors()!=null) {
                 Join<Project, Sector> sectorJoin = projectRoot.join(Project_.sectors);
-                List<Long> values = FilterParser.stringArrayToLongList(params.get(FILTER_SECTOR));
-                predicates.add(sectorJoin.get(Sector_.id).in(values));
+                predicates.add(sectorJoin.get(Sector_.id).in(params.getSectors()));
             }
-            if(params.containsKey(FILTER_LOCATION)) {
+            if(params.getLocations()!=null) {
                 Join<Project, Location> locationJoin = projectRoot.join(Project_.locations);
-                List<Long> values = FilterParser.stringArrayToLongList(params.get(FILTER_LOCATION));
-                predicates.add(locationJoin.get(Location_.id).in(values));
+                predicates.add(locationJoin.get(Location_.id).in(params.getLocations()));
             }
         }
 
-        Predicate other = criteriaBuilder.or(predicates.toArray(new Predicate[predicates.size()]));
-        criteriaQuery.where(other);
+        if(predicates.size()>0) {
+            Predicate other = criteriaBuilder.or(predicates.toArray(new Predicate[predicates.size()]));
+            criteriaQuery.where(other);
+        }
 
         CriteriaQuery<Project> cq = criteriaQuery.select(projectRoot);
         TypedQuery<Project> query = em.createQuery(cq);
 
-        List<Project> projectList = query.getResultList();
+        List<Project> projectList = query
+                .setFirstResult(params.getPageable().getOffset())
+                .setMaxResults(params.getPageable().getPageNumber())
+                .getResultList();
 
-        return new PageImpl<Project>(projectList, pageable, 0);
+        return new PageImpl<Project>(projectList, params.getPageable(), projectList.size());
     }
 
 
