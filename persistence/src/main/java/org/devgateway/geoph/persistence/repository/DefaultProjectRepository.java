@@ -71,6 +71,14 @@ public class DefaultProjectRepository implements ProjectRepository {
             if(params.getEndDate()!=null){
                 predicates.add(criteriaBuilder.lessThanOrEqualTo(projectRoot.get(Project_.periodEnd), params.getEndDate()));
             }
+            if(params.getFundingAgencies()!=null){
+                Join<Project, Agency> fundingAgencyJoin = projectRoot.join(Project_.fundingAgency);
+                predicates.add(fundingAgencyJoin.get(FundingAgency_.id).in(params.getFundingAgencies()));
+            }
+            if(params.getImpAgencies()!=null){
+                Join<Project, Agency> impAgencyJoin = projectRoot.join(Project_.implementingAgency);
+                predicates.add(impAgencyJoin.get(ImplementingAgency_.id).in(params.getImpAgencies()));
+            }
         }
 
         if(predicates.size()>0) {
