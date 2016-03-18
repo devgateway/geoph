@@ -59,3 +59,11 @@ export const selectAllFilterList = (filterItem) => {
     item: filterItem
   }
 }
+
+export const searchItemByText = (filterSearch) => {
+  return {
+    type: Constants.SELECT_ALL_FILTER_LIST,
+    filterType: filterSearch.filterType,
+    text: filterSearch.text
+  }
+}
