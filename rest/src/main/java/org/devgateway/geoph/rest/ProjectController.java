@@ -30,7 +30,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
  */
 @RestController
 @RequestMapping(value = "/projects")
-public class ProjectController {
+public class ProjectController  extends CrossOriginSupport {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FilterController.class);
 

@@ -25,7 +25,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
  */
 @RestController
 @RequestMapping(value = "/geodata")
-public class GeoJsonController extends CrossOriginSupport{
+public class GeoJsonController extends CrossOriginSupport {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GeoJsonController.class);
 

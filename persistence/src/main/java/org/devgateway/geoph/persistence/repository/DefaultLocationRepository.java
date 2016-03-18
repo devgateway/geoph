@@ -86,6 +86,14 @@ public class DefaultLocationRepository implements LocationRepository {
             if(params.getEndDate()!=null){
                 predicates.add(criteriaBuilder.lessThanOrEqualTo(projectJoin.get(Project_.periodEnd), params.getEndDate()));
             }
+            if(params.getFundingAgencies()!=null) {
+                Join<Project, Agency> fundingAgencyJoin = projectJoin.join(Project_.fundingAgency, JoinType.LEFT);
+                predicates.add(fundingAgencyJoin.get(FundingAgency_.id).in(params.getFundingAgencies()));
+            }
+            if(params.getImpAgencies()!=null) {
+                Join<Project, Agency> impAgencyJoin = projectJoin.join(Project_.implementingAgency, JoinType.LEFT);
+                predicates.add(impAgencyJoin.get(ImplementingAgency_.id).in(params.getImpAgencies()));
+            }
         }
 
         if(predicates.size()>0) {
