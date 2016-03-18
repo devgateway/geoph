@@ -97,7 +97,7 @@
                                     <manifest>
                                         <addClasspath>true</addClasspath>
                                         <classpathPrefix>lib/</classpathPrefix>
-                                        <mainClass>org.devgateway.geoph.deployer.Main</mainClass>
+                                        <mainClass>org.devgateway.geoph.Main</mainClass>
                                     </manifest>
                                 </archive>
                             </configuration>

@@ -1,11 +1,12 @@
-package org.devgateway.geoph.deployer;
-
+package org.devgateway.geoph;
+import org.devgateway.geoph.persistence.spring.PersistenceApplication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
+
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 import org.springframework.core.env.Environment;
@@ -20,7 +21,9 @@ import java.util.Arrays;
 @PropertySources({
         @PropertySource("file:${CONF_PATH}/application.properties")
 })
-
+@Import({
+        PersistenceApplication.class
+})
 public class Main {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
@@ -39,7 +42,7 @@ public class Main {
         Environment environment = ctx.getBean(Environment.class);
         DeployProfile deployProfile = environment.getProperty("geoph.deploy.profile", DeployProfile.class, DeployProfile.DEV);
         LOGGER.info("Deploying GeoPH using profile: {}", deployProfile);
-        if (deployProfile == DeployProfile.DEV) {
+        if(deployProfile == DeployProfile.DEV) {
             BootMetadata bootMetadata = ctx.getBean(BootMetadata.class);
             bootMetadata.boot();
         }
