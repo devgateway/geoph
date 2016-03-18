@@ -35,7 +35,7 @@ public class Parameters {
 
     private List<Long> projects;
 
-    private List<Integer> locationLevel;
+    private List<Integer> locationLevels;
 
     private Pageable pageable;
 
@@ -124,16 +124,16 @@ public class Parameters {
         this.projects = projects!=null? convertStringToLongList(projects):null;
     }
 
-    public List<Integer> getLocationLevel() {
-        return locationLevel;
+    public List<Integer> getLocationLevels() {
+        return locationLevels;
     }
 
-    public void setLocationLevel(List<Integer> locationLevel) {
-        this.locationLevel = locationLevel;
+    public void setLocationLevels(List<Integer> locationLevels) {
+        this.locationLevels = locationLevels;
     }
 
     public void setLocationLevel(String locationLevel) {
-        this.locationLevel = convertStringToIntegerList(locationLevel);
+        this.locationLevels = convertAdmStringToIntegerList(locationLevel);
     }
 
     public Pageable getPageable() {
@@ -146,13 +146,13 @@ public class Parameters {
 
 
 
-    private static List<Integer> convertStringToIntegerList(final String values){
+    private static List<Integer> convertAdmStringToIntegerList(final String values){
         List<Integer> ret = null;
         if(StringUtils.isNotBlank(values)) {
             ret = Lists.transform(Arrays.asList(values.split(PARAM_SEPARATOR)), new Function<String, Integer>() {
                 @Override
-                public Integer apply(String o) {
-                    return Integer.parseInt(o);
+                public Integer apply(String level) {
+                    return LocationAdmLevel.valueOf(level.toUpperCase()).getLevel();
                 }
             });
         }
