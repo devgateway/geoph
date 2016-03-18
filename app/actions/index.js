@@ -1,4 +1,4 @@
-define(['exports', 'app/constants/constants', 'app/util/AjaxUtil', 'app/util/Settings'], function (exports, _constants, _AjaxUtil, _Settings) {
+define(['exports', 'app/constants/constants', 'app/util/setting'], function (exports, _constants, _setting) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -8,9 +8,7 @@ define(['exports', 'app/constants/constants', 'app/util/AjaxUtil', 'app/util/Set
 
   var Constants = _interopRequireWildcard(_constants);
 
-  var _AjaxUtil2 = _interopRequireDefault(_AjaxUtil);
-
-  var _Settings2 = _interopRequireDefault(_Settings);
+  var _setting2 = _interopRequireDefault(_setting);
 
   function _interopRequireDefault(obj) {
     return obj && obj.__esModule ? obj : {
@@ -42,4 +40,4 @@ define(['exports', 'app/constants/constants', 'app/util/AjaxUtil', 'app/util/Set
     };
   };
 });
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFjdGlvbnNcXGluZGV4LmpzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7O01BQVk7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBSUwsTUFBTSxvQ0FBYyxTQUFkLFdBQWMsQ0FBQyxJQUFELEVBQVU7QUFDbkMsV0FBTztBQUNMLFlBQU0sVUFBVSxnQkFBVjtBQUNOLGdCQUZLO0tBQVAsQ0FEbUM7R0FBViIsImZpbGUiOiJhY3Rpb25zXFxpbmRleC5qcyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCAqIGFzIENvbnN0YW50cyBmcm9tICdhcHAvY29uc3RhbnRzL2NvbnN0YW50cyc7XHJcbmltcG9ydCBBamF4VXRpbCBmcm9tICdhcHAvdXRpbC9BamF4VXRpbCc7XHJcbmltcG9ydCBTZXR0aW5ncyBmcm9tICdhcHAvdXRpbC9TZXR0aW5ncyc7XHJcblxyXG5leHBvcnQgY29uc3Qgc2V0TGFuZ3VhZ2UgPSAobGFuZykgPT4ge1xyXG4gIHJldHVybiB7XHJcbiAgICB0eXBlOiBDb25zdGFudHMuU0VUX0FQUF9MQU5HVUFHRSxcclxuICAgIGxhbmcgXHJcbiAgfVxyXG59XHJcblxyXG4iXX0=
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFjdGlvbnNcXGluZGV4LmpzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7O01BQVk7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUdMLE1BQU0sb0NBQWMsU0FBZCxXQUFjLENBQUMsSUFBRCxFQUFVO0FBQ25DLFdBQU87QUFDTCxZQUFNLFVBQVUsZ0JBQVY7QUFDTixnQkFGSztLQUFQLENBRG1DO0dBQVYiLCJmaWxlIjoiYWN0aW9uc1xcaW5kZXguanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgKiBhcyBDb25zdGFudHMgZnJvbSAnYXBwL2NvbnN0YW50cy9jb25zdGFudHMnO1xyXG5pbXBvcnQgU2V0dGluZ3MgZnJvbSAnYXBwL3V0aWwvc2V0dGluZyc7XHJcblxyXG5leHBvcnQgY29uc3Qgc2V0TGFuZ3VhZ2UgPSAobGFuZykgPT4ge1xyXG4gIHJldHVybiB7XHJcbiAgICB0eXBlOiBDb25zdGFudHMuU0VUX0FQUF9MQU5HVUFHRSxcclxuICAgIGxhbmcgXHJcbiAgfVxyXG59XHJcblxyXG4iXX0=

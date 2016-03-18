@@ -3,7 +3,7 @@ var locationPath = location.pathname.replace(/\/[^\/]+$/, '');
 window.dojoConfig = {
   async: true,
   parseOnLoad: true,
-  cacheBust: true,
+  cacheBust: false,
   deps: ['app/main'],
 
   packages: [
