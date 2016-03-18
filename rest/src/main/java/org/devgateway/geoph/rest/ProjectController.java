@@ -49,9 +49,12 @@ public class ProjectController {
             @RequestParam(value = FILTER_STATUS, required = false) String statuses,
             @RequestParam(value = FILTER_LOCATION, required = false) String locations,
             @RequestParam(value = FILTER_PROJECT, required = false) String projects,
+            @RequestParam(value = FILTER_IMPLEMENTING_AGENCY, required = false) String impAgencies,
+            @RequestParam(value = FILTER_FUNDING_AGENCY, required = false) String fundingAgencies,
             @PageableDefault(page = 0, size = 20, sort = "id") final Pageable pageable) {
         LOGGER.debug("findProjectsByParams");
-        Parameters params = new Parameters(startDate, endDate, sectors, statuses, locations, projects, pageable);
+        Parameters params = new Parameters(startDate, endDate, sectors, statuses,
+                locations, projects, impAgencies, fundingAgencies, pageable);
         return service.findProjectsByParams(params);
     }
 

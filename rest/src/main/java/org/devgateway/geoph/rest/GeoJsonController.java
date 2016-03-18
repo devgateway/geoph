@@ -44,9 +44,12 @@ public class GeoJsonController {
             @RequestParam(value = FILTER_SECTOR, required = false) String sectors,
             @RequestParam(value = FILTER_STATUS, required = false) String statuses,
             @RequestParam(value = FILTER_LOCATION, required = false) String locations,
-            @RequestParam(value = FILTER_PROJECT, required = false) String projects){
+            @RequestParam(value = FILTER_PROJECT, required = false) String projects,
+            @RequestParam(value = FILTER_IMPLEMENTING_AGENCY, required = false) String impAgencies,
+            @RequestParam(value = FILTER_FUNDING_AGENCY, required = false) String fundingAgencies){
         LOGGER.debug("getGeoJsonByLocationType");
-        Parameters params = new Parameters(startDate, endDate, sectors, statuses, locations, projects, null);
+        Parameters params = new Parameters(startDate, endDate, sectors, statuses,
+                locations, projects, impAgencies, fundingAgencies, null);
         params.setLocationLevel(level);
         return service.getLocationsByParams(params);
     }
