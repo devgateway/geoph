@@ -1,4 +1,4 @@
-package org.devgateway.geoph;
+package org.devgateway.geoph.deployer;
 
 /**
  * @author dbianco

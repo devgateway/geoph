@@ -1,11 +1,8 @@
-package org.devgateway.geoph;
+package org.devgateway.geoph.deployer;
 
-import org.devgateway.geoph.model.*;
-import org.devgateway.geoph.persistence.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.stereotype.Component;
@@ -13,10 +10,6 @@ import org.springframework.stereotype.Component;
 import javax.sql.DataSource;
 import javax.transaction.Transactional;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.HashSet;
 
 /**
  * @author dbianco
