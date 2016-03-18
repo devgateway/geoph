@@ -1,4 +1,4 @@
-package org.devgateway.geoph.deployer;
+package org.devgateway.geoph;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.hibernate4.Hibernate4Module;

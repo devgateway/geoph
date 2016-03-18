@@ -62,15 +62,18 @@ public class DefaultLocationRepository implements LocationRepository {
         List<Predicate> predicates = new ArrayList();
 
         if(params!=null) {
-            Join<Location, Project> projectJoin = locationRoot.join(Location_.projects);
+            Join<Location, Project> projectJoin = locationRoot.join(Location_.projects, JoinType.LEFT);
+            if(params.getLocationLevels()!=null) {
+                predicates.add(locationRoot.get(Location_.level).in(params.getLocationLevels()));
+            }
             if(params.getLocations()!=null) {
-                predicates.add(locationRoot.get(Location_.level).in(params.getLocations()));
+                predicates.add(locationRoot.get(Location_.id).in(params.getLocations()));
             }
             if(params.getProjects()!=null) {
                 predicates.add(projectJoin.in(params.getProjects()));
             }
             if(params.getSectors()!=null) {
-                Join<Project, Sector> sectorJoin = projectJoin.join(Project_.sectors);
+                Join<Project, Sector> sectorJoin = projectJoin.join(Project_.sectors, JoinType.LEFT);
                 predicates.add(sectorJoin.get(Sector_.id).in(params.getSectors()));
             }
             if(params.getStatuses()!=null) {
@@ -90,8 +93,7 @@ public class DefaultLocationRepository implements LocationRepository {
             criteriaQuery.where(other);
         }
 
-        CriteriaQuery<Location> cq = criteriaQuery.select(locationRoot);
-        TypedQuery<Location> query = em.createQuery(cq);
+        TypedQuery<Location> query = em.createQuery(criteriaQuery.select(locationRoot));
 
         return query.getResultList();
     }

@@ -35,20 +35,28 @@ public class Parameters {
 
     private List<Long> projects;
 
-    private List<Integer> locationLevel;
+    private List<Long> impAgencies;
+
+    private List<Long> fundingAgencies;
+
+    private List<Integer> locationLevels;
 
     private Pageable pageable;
 
     public Parameters() {
     }
 
-    public Parameters(String startDate, String endDate, String sectors, String statuses, String locations, String projects, Pageable pageable) {
+    public Parameters(String startDate, String endDate, String sectors, String statuses,
+                      String locations, String projects, String impAgencies, String fundingAgencies,
+                      Pageable pageable) {
         this.setStartDate(startDate);
         this.setEndDate(endDate);
         this.setSectors(sectors);
         this.setStatuses(statuses);
         this.setLocations(locations);
         this.setProjects(projects);
+        this.setImpAgencies(impAgencies);
+        this.setFundingAgencies(fundingAgencies);
         this.setPageable(pageable);
     }
 
@@ -124,16 +132,40 @@ public class Parameters {
         this.projects = projects!=null? convertStringToLongList(projects):null;
     }
 
-    public List<Integer> getLocationLevel() {
-        return locationLevel;
+    public List<Integer> getLocationLevels() {
+        return locationLevels;
     }
 
-    public void setLocationLevel(List<Integer> locationLevel) {
-        this.locationLevel = locationLevel;
+    public void setLocationLevels(List<Integer> locationLevels) {
+        this.locationLevels = locationLevels;
     }
 
     public void setLocationLevel(String locationLevel) {
-        this.locationLevel = convertStringToIntegerList(locationLevel);
+        this.locationLevels = convertAdmStringToIntegerList(locationLevel);
+    }
+
+    public List<Long> getImpAgencies() {
+        return impAgencies;
+    }
+
+    public void setImpAgencies(List<Long> impAgencies) {
+        this.impAgencies = impAgencies;
+    }
+
+    public void setImpAgencies(String impAgencies) {
+        this.impAgencies = impAgencies!=null? convertStringToLongList(impAgencies):null;
+    }
+
+    public List<Long> getFundingAgencies() {
+        return fundingAgencies;
+    }
+
+    public void setFundingAgencies(List<Long> fundingAgencies) {
+        this.fundingAgencies = fundingAgencies;
+    }
+
+    public void setFundingAgencies(String fundingAgencies) {
+        this.fundingAgencies = fundingAgencies!=null? convertStringToLongList(fundingAgencies):null;
     }
 
     public Pageable getPageable() {
@@ -146,13 +178,13 @@ public class Parameters {
 
 
 
-    private static List<Integer> convertStringToIntegerList(final String values){
+    private static List<Integer> convertAdmStringToIntegerList(final String values){
         List<Integer> ret = null;
         if(StringUtils.isNotBlank(values)) {
             ret = Lists.transform(Arrays.asList(values.split(PARAM_SEPARATOR)), new Function<String, Integer>() {
                 @Override
-                public Integer apply(String o) {
-                    return Integer.parseInt(o);
+                public Integer apply(String level) {
+                    return LocationAdmLevel.valueOf(level.toUpperCase()).getLevel();
                 }
             });
         }

@@ -1,4 +1,4 @@
-package org.devgateway.geoph.deployer;
+package org.devgateway.geoph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
