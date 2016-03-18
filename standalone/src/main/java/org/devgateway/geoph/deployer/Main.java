@@ -20,7 +20,7 @@ import java.util.Arrays;
 @PropertySources({
         @PropertySource("file:${CONF_PATH}/application.properties")
 })
-@ComponentScan("org.devgateway.geoph")
+
 public class Main {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
