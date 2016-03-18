@@ -3,12 +3,14 @@ package org.devgateway.geoph.rest;
 import org.apache.commons.lang3.StringUtils;
 import org.devgateway.geoph.model.Project;
 import org.devgateway.geoph.services.ProjectService;
+import org.devgateway.geoph.util.Parameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,7 +29,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
  *         created on mar 08 2016.
  */
 @RestController
-@RequestMapping(value = "/project")
+@RequestMapping(value = "/projects")
 public class ProjectController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FilterController.class);
@@ -39,32 +41,24 @@ public class ProjectController {
         this.service = service;
     }
 
-    @RequestMapping(value = "/", method = GET)
-    //@Secured("ROLE_READ")
-    public List<Project> findAllProjects() {
-        LOGGER.debug("findAllProjects");
-        return service.findAllProjects();
-    }
-
-
-    @RequestMapping(value = "/test", method = GET)
-    //@Secured("ROLE_READ")
+    @RequestMapping(method = GET)
     public Page<Project> findProjectsByParams(
-            @RequestParam(value = FILTER_SECTOR, required = false) String st,
-            @RequestParam(value = FILTER_LOCATION, required = false) String lo,
-            @RequestParam(value = "op", required = false) String op,
+            @RequestParam(value = FILTER_DATE_START, required = false) String startDate,
+            @RequestParam(value = FILTER_DATE_END, required = false) String endDate,
+            @RequestParam(value = FILTER_SECTOR, required = false) String sectors,
+            @RequestParam(value = FILTER_STATUS, required = false) String statuses,
+            @RequestParam(value = FILTER_LOCATION, required = false) String locations,
+            @RequestParam(value = FILTER_PROJECT, required = false) String projects,
             @PageableDefault(page = 0, size = 20, sort = "id") final Pageable pageable) {
         LOGGER.debug("findProjectsByParams");
+        Parameters params = new Parameters(startDate, endDate, sectors, statuses, locations, projects, pageable);
+        return service.findProjectsByParams(params);
+    }
 
-        Map<String, String[]> params = new HashMap<>();
-        if(StringUtils.isNotBlank(st)){
-            params.put(FILTER_SECTOR, st.split(PARAM_SEPARATOR));
-        }
-        if(StringUtils.isNotBlank(lo)){
-            params.put(FILTER_LOCATION, lo.split(PARAM_SEPARATOR));
-        }
-
-        return service.findProjectsByParams(params, pageable);
+    @RequestMapping(value = "/{id}", method = GET)
+    public Project findProjectById(@PathVariable final long id) {
+        LOGGER.debug("findProjectById");
+        return service.findById(id);
     }
 
 }

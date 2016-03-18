@@ -6,8 +6,10 @@ const filters = (state = {}, action) => {
     case Constants.SELECT_ALL_FILTER_LIST:
     case Constants.RECEIVE_FILTER_LIST:
     case Constants.REQUEST_FILTER_LIST:
+      let fl = filter(state[action.filterType], action);
+      updateFilterCounters(fl);
       return Object.assign({}, state, {
-        [action.filterType]: filter(state[action.filterType], action)
+        [action.filterType]: fl
       })
     default:
       return state
@@ -24,18 +26,21 @@ const filter = (state = {
         isFetching: true,
       })
     case Constants.RECEIVE_FILTER_LIST:
-      return Object.assign({}, state, {
+      return Object.assign({}, state, action.data, {
         isFetching: false,
-        items: action.items,
         lastUpdated: action.receivedAt
       })
 
     case Constants.SELECT_FILTER_ITEM:
+      return Object.assign({}, state, {
+          isFetching: false,
+          items: state.items.map(i => filterItem(i, action))
+      })
     case Constants.SELECT_ALL_FILTER_LIST:
     	return Object.assign({}, state, {
 	        isFetching: false,
-	        items: state.items.map(i => filterItem(i, action)),
-	        lastUpdated: action.receivedAt
+          selected: action.item.selected,
+	        items: state.items.map(i => filterItem(i, action))
 	    })
     default:
       return state
@@ -45,20 +50,41 @@ const filter = (state = {
 const filterItem = (state = {
   selected: false
 }, action) => {
+  let copyState = Object.assign({}, state); 
   switch (action.type) {
     case Constants.SELECT_FILTER_ITEM:
-    	if (state.id !== action.item.id) {
-	        return state
-	    }
-	    return Object.assign({}, state, {
-	        selected: action.item.selected
-	    })
+      updateFilterSelection(copyState, action.item.id, action.item.selected); 
+      return copyState
     case Constants.SELECT_ALL_FILTER_LIST:
-      	return Object.assign({}, state, {
-	        selected: action.item.selected
-	    })
+      updateFilterSelection(copyState, 'all', action.item.selected); 
+      return copyState
     default:
       return state
+  }
+}
+
+//This function iterates over all children items and select the given one
+const updateFilterSelection = (item, id, selection) => { 
+  if (item.id === id || 'all' === id){
+    updateItemAndChildren(item, selection);
+  } else if (item.items && item.items.length>0){
+    item.items.map(it => updateFilterSelection(it, id, selection));
+  }
+}
+
+const updateItemAndChildren = (item, selection) => { 
+  Object.assign(item, {'selected': selection});
+  if (item.items && item.items.length>0){
+    item.items.map(it => updateItemAndChildren(it, selection));
+  }  
+}
+
+//This function add the total and selected counter fields to each object that has children
+const updateFilterCounters = (filterObject) => { 
+  if (filterObject.items && filterObject.items.length>0){
+    Object.assign(filterObject, {'totalCounter': filterObject.items.length});
+    Object.assign(filterObject, {'selectedCounter': filterObject.items.filter((it) => {return it.selected}).length});
+    filterObject.items.forEach((item) => {updateFilterCounters(item)});
   }
 }
 

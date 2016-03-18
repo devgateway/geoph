@@ -24,7 +24,7 @@ import static org.devgateway.geoph.util.Constants.*;
 
 @RestController
 @RequestMapping(value = "/filters")
-public class FilterController {
+public class FilterController extends CrossOriginSupport{
 
     private final FilterService service;
 
@@ -133,7 +133,7 @@ public class FilterController {
     @RequestMapping(value = "/sector", method = GET)
     public GenericResponse findAllSectors() {
         LOGGER.debug("findAllSectors");
-        List<Sector> sectors = service.findAllSectors();
+        List<Sector> sectors = service.findByLevel(1);
         GenericResponse resp = new GenericResponse(
                 "Sectors",
                 FILTER_SECTOR,

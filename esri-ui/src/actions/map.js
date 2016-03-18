@@ -4,9 +4,15 @@ import Connector from 'app/connector/connector.js';
 
 const loadProjectsCompleted=(data)=>{
 	return {
+<<<<<<< HEAD
 		type:LOAD_PROJECT_GEOJSON_SUCCESS,
 		data:data
 	}
+=======
+    	type: Constants.REQUEST_FILTER_LIST,
+    	data:data
+ 	}
+>>>>>>> master
 }
 
 const loadProjectsFailed=(error)=>{
@@ -22,6 +28,7 @@ export const loadProjects = (level,params) => {
 	return (dispatch, getState) =>{
 		Connector.getProjectsGeoJson(level,params)
 		.then((data)=>{
+<<<<<<< HEAD
 				
 				dispatch(loadProjectsCompleted(data))}
 			).catch((err)=>{ 
@@ -32,4 +39,13 @@ export const loadProjects = (level,params) => {
 		} 
 
 	}
+=======
+			dispatch(loadProjectsCompleted)}
+		).catch(()=>{ 
+			dispatch(loadProjectsFailed);
+		});
+	} 
+
+}
+>>>>>>> master
 
