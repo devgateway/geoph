@@ -2,6 +2,7 @@ import React from 'react';
 import { Link  } from 'react-router';
 import Header  from 'app/components/layout/header';
 import Footer  from 'app/components/layout/footer';
+import Panel  from 'app/components/layout/panel';
 
 export default class App extends React.Component {
 
@@ -16,6 +17,7 @@ export default class App extends React.Component {
         <Header/>
           {this.props.children}
         <Footer/>
+        <Panel/>
       </div>
     )
   }

@@ -3,6 +3,7 @@ var locationPath = location.pathname.replace(/\/[^\/]+$/, '');
 window.dojoConfig = {
   async: true,
   parseOnLoad: true,
+  cacheBust: true,
   deps: ['app/main'],
 
   packages: [
@@ -13,28 +14,45 @@ window.dojoConfig = {
     main: 'main'
   },
 
- 
   {
     name: 'react',
-    location: locationPath + 'lib/react/',
+    location: locationPath + 'lib/react',
     main: 'react'
   }, 
   
-   {
+  {
+    name: 'react-dom',
+    location: locationPath + 'lib/react',
+    main: 'react-dom'
+  }, 
+  
+  {
+    name: 'react-modal',
+    location: locationPath + 'lib/react-modal/dist',
+    main: 'react-modal'
+  }, 
+  
+  {
+    name: 'react-bootstrap',
+    location: locationPath + 'lib/react-bootstrap',
+    main: 'react-bootstrap'
+  }, 
+  
+  {
     name: 'react-router',
-    location:locationPath + 'lib/ReactRouter.min',
+    location:locationPath + 'lib/react-router',
     main: 'index'
   },
 
   {
     name: 'redux',
-   location:locationPath + 'lib/redux.min',
+    location:locationPath + 'lib/redux',
     main: 'index'
   },
 
   {
     name: 'react-redux',
-    location:locationPath + 'lib/react-redux.min',
+    location:locationPath + 'lib/react-redux',
     main: 'index'
   },
 
@@ -73,6 +91,17 @@ window.dojoConfig = {
     location: locationPath + 'lib/es6-promise',
     main: 'es6-promise.min'
   },
+/*
+  {
+    name: 'terraformer',
+    location: locationPath + 'lib/terraformer',
+    main: 'terraformer.min'
+  },
+  {
+    name: 'terraformer-arcgis-parser',
+    location: locationPath + 'lib/terraformer-arcgis-parser',
+    main: 'terraformer-arcgis-parser.min'
+  },*/
 
   {
     name: 'react-redux-router',

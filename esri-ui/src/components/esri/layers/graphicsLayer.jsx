@@ -1,38 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react/react-dom';
-import GraphicsLayer from 'esri/layers/GraphicsLayer';
+import EsriGraphicsLayer from 'esri/layers/GraphicsLayer';
+import Layer from 'app/components/esri/layers/Layer';
 import Graphic from "esri/Graphic";
-
-
 import domReady from "dojo/domReady!";
 
 
-const graphicsLayer = React.createClass({
-
+class GraphicsLayer extends Layer{
 	componentWillMount() {
-		this.element = new GraphicsLayer();
-		this.props.map.add(this.element)
-	},
-
-
-	getClonedChildrenWithMap(extra) {
-		const { children, map } = this.props;
-		const props = Object.assign({map}, extra);
-
-		return React.Children.map(children, child => {
-			return child ? React.cloneElement(child, props) : null;
-		});
-	},
-
-	renderChildrenWithProps: function(props) {
-		const children =this.getClonedChildrenWithMap(props);
-		return <div style={{display: 'none'}}>{children}</div>;
-	},
-
-	render() {
-		return this.renderChildrenWithProps({layer:this.element});
+		this.layer = new EsriGraphicsLayer();
+		this.props.map.add(this.layer)
 	}
 
-});
+}
 
-export default graphicsLayer;
+export default GraphicsLayer;

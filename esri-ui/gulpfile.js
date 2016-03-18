@@ -64,7 +64,7 @@ gulp.task('build', ['clean','react', 'ext', 'bower','sass','copy'], function() {
 
 
 gulp.task('watch', ['clean','build','server'], function() {
-  gulp.watch([
+ return gulp.watch([
     './index.html', '*.js', 'scss/*.*',
     'src/*.jsx', 'src/**/*.jsx', 'src/**/**/*.jsx',
     'src/*.js', 'src/**/*.js', 'src/**/**/*.js'
@@ -107,7 +107,7 @@ gulp.task('server', function(callback) {
 
 gulp.task('copy',['clean'], function(callback) {
   return gulp.src([
-    './index.html', './dojoConfig.js', 'conf/settings.json', '*locales/**/*'
+    './index.html', './dojoConfig.js', '*conf/*', '*locales/**/*'
   ]).pipe(gulp.dest('dist'))
 });
 
