@@ -62,7 +62,7 @@ export const selectAllFilterList = (filterItem) => {
 
 export const searchItemByText = (filterSearch) => {
   return {
-    type: Constants.SELECT_ALL_FILTER_LIST,
+    type: Constants.SEARCH_FILTER_LIST_BY_TEXT,
     filterType: filterSearch.filterType,
     text: filterSearch.text
   }

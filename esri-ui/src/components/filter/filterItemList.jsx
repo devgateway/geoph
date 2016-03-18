@@ -52,6 +52,9 @@ class FilterItem extends React.Component {
 
   	render() {
   		let selectionClass = "selectable " + (this.props.selected? "selected" : this.props.selectedCounter>0? "half-fill" : "");
+  		if (this.props.hide){
+  			return null;
+  		}
     	return (
 	        <div>
 	        	<div className="filterItemInfo">
@@ -68,7 +71,7 @@ class FilterItem extends React.Component {
 				        		{this.state.expanded? "-" : "+"}
 				        	</div>
 				        </div>
-		        	: null}	 
+		        	: null}
 		        </div>	
 		        <div>
 	        		{this.props.items && this.props.items.length>0? 

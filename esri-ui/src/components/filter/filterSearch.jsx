@@ -9,17 +9,24 @@ class SearchText extends React.Component {
 	    this.state = {};
 	}
 
+	onKeyUp() {
+		let keyword = this.refs.keyword.value;
+		if (keyword.length != 1) {
+          this.props.onTriggerSearch({filterType: this.props.filterType, text: keyword});
+        }
+	}
+
 	triggerSearch(text) {
-		
+		this.props.onTriggerSearch({filterType: this.props.filterType, text: this.refs.keyword.value});
 	}
 
   	render() {
   		return (
 	        <div>
 	        	<div className="input-group">
-			      <input type="text" className="form-control" placeholder="Search..." />
+			      <input ref="keyword" type="text" className="form-control" placeholder="Search..." onKeyUp={this.onKeyUp.bind(this)}/>
 			      <span className="input-group-btn">
-			        <button className="btn btn-success" type="button">Go!</button>
+			        <button className="btn btn-success" type="button" onClick={this.triggerSearch.bind(this)}>Go!</button>
 			      </span>
 			    </div>
        
