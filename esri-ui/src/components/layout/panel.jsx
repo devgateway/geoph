@@ -1,28 +1,24 @@
 import React from 'react';
 import { Link  } from 'react-router';
 import FilterPopup from 'app/components/filter/filterPopup'
-
+import {LayerControl} from 'app/components/controls/layer';
 export default class Header extends React.Component {
 
   constructor() {
     super();
   }
 
-<<<<<<< HEAD
+
   levelChanged(evt){
-      alert(evt.target.value);
+    alert(evt.target.value);
   }
 
   render() {
     return (
       <div className="panel">
-      
-=======
-  render() {
-    return (
-      <div className="panel">
-        <FilterPopup/>
->>>>>>> master
+      <FilterPopup/>
+
+      <LayerControl/>
       </div>
       )
   }

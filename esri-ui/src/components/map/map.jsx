@@ -19,9 +19,9 @@ const MapComponent = React.createClass({
    return (
      <Map className="map" basemap="streets" >
      <GeoJsonLayer data={this.props.layers.projects.data} name={this.props.layers.projects.name}></GeoJsonLayer>
-     <MapView>
+     <SceneView>
         <Extent  xmin= {12925933.579460911} ymin= {278072.4096790361} xmax= {14706610.590391904} ymax= {2291117.986596903} spatialReference={102100}/>
-     </MapView>
+     </SceneView>
      </Map>
      )
  }

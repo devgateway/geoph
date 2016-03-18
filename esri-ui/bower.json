@@ -31,7 +31,7 @@
     "react-redux": "https://cdnjs.cloudflare.com/ajax/libs/react-redux/4.4.0/react-redux.min.js",
     "redux-thunk": "https://npmcdn.com/redux-thunk@2.0.1/dist/redux-thunk.min.js",
     "terraformer": "http://cdn-geoweb.s3.amazonaws.com/terraformer/1.0.4/terraformer.min.js",
-    "terraformer-arcgis-parser": "~1.0.4"
+    "terraformer-arcgis-parser": "~1.0.4",
     "react-bootstrap": "~0.28.3"
   },
   "overrides": {
