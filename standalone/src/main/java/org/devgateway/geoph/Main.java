@@ -24,12 +24,12 @@ import java.util.Arrays;
 @Import({
         PersistenceApplication.class
 })
-public class Deployer {
+public class Main {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Deployer.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) {
-        ApplicationContext ctx = SpringApplication.run(Deployer.class, args);
+        ApplicationContext ctx = SpringApplication.run(Main.class, args);
 
         LOGGER.info("Let's inspect the beans provided by Spring Boot:");
 
