@@ -19,7 +19,7 @@ class Layer extends React.Component{
 	}
 
 	render() {
-		return this.renderChildrenWithProps({layer:this.element});
+		return this.renderChildrenWithProps({layer:this.layer});
 	}
 
 }

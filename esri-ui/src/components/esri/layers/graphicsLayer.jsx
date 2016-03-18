@@ -8,8 +8,8 @@ import domReady from "dojo/domReady!";
 
 class GraphicsLayer extends Layer{
 	componentWillMount() {
-		this.element = new EsriGraphicsLayer();
-		this.props.map.add(this.element)
+		this.layer = new EsriGraphicsLayer();
+		this.props.map.add(this.layer)
 	}
 
 }
