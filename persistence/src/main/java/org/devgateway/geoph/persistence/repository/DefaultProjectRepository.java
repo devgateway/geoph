@@ -28,13 +28,16 @@ public class DefaultProjectRepository implements ProjectRepository {
 
     @Override
     public List<Project> findAll() {
-        return em.createNamedQuery("findAllProjects", Project.class).getResultList();
+        return em.createNamedQuery("findAllProjects", Project.class)
+                .setHint(QUERY_HINT, em.getEntityGraph(GRAPH_PROJECT_ALL))
+                .getResultList();
     }
 
     @Override
     public Project findById(long id) {
         return em.createNamedQuery("findProjectsById", Project.class)
                 .setParameter(PROPERTY_PRJ_ID, id)
+                .setHint(QUERY_HINT, em.getEntityGraph(GRAPH_PROJECT_ALL))
                 .getSingleResult();
     }
 
@@ -81,6 +84,7 @@ public class DefaultProjectRepository implements ProjectRepository {
         List<Project> projectList = query
                 .setFirstResult(params.getPageable().getOffset())
                 .setMaxResults(params.getPageable().getPageNumber())
+                .setHint(QUERY_HINT, em.getEntityGraph(GRAPH_PROJECT_ALL))
                 .getResultList();
 
         return new PageImpl<Project>(projectList, params.getPageable(), projectList.size());

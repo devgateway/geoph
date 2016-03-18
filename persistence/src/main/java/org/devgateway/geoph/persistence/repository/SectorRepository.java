@@ -10,11 +10,11 @@ import java.util.List;
  * @author dbianco
  *         created on mar 03 2016.
  */
-public interface SectorRepository extends JpaRepository<Sector, Long> {
+public interface SectorRepository {
 
-    @Query("select a from Sector a where a.code = ?1")
+    List<Sector> findAll();
+
     Sector findByCode(String code);
 
-    @Query("select a from Sector a where a.level = ?1")
     List<Sector> findByLevel(int level);
 }

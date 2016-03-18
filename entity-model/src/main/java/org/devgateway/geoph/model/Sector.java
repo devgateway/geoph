@@ -14,6 +14,24 @@ import java.util.Set;
  * @author dbianco
  *         created on mar 01 2016.
  */
+@NamedQueries({
+        @NamedQuery(
+                name = "findAllSectors",
+                query = "from Sector s"
+        ),
+        @NamedQuery(
+                name = "findSectorsByCode",
+                query = "from Sector s where s.code = :code"
+        ),
+        @NamedQuery(
+                name = "findSectorsById",
+                query = "from Sector s where s.id = :id"
+        ),
+        @NamedQuery(
+                name = "findSectorsByLevel",
+                query = "from Sector s where s.level = :level"
+        )
+})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 public class Sector extends GenericPersistable implements Serializable {
@@ -25,7 +43,7 @@ public class Sector extends GenericPersistable implements Serializable {
 
     private int level;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Sector> items = new ArrayList<>();
 
     @JsonIgnore

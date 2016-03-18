@@ -93,8 +93,7 @@ public class DefaultLocationRepository implements LocationRepository {
             criteriaQuery.where(other);
         }
 
-        CriteriaQuery<Location> cq = criteriaQuery.select(locationRoot);
-        TypedQuery<Location> query = em.createQuery(cq);
+        TypedQuery<Location> query = em.createQuery(criteriaQuery.select(locationRoot));
 
         return query.getResultList();
     }

@@ -23,6 +23,19 @@ import java.util.Set;
 })
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
+@NamedEntityGraph(name = "graph.project.all",
+        attributeNodes = {
+                @NamedAttributeNode("transactions"),
+                @NamedAttributeNode("implementingAgency"),
+                @NamedAttributeNode("executingAgency"),
+                @NamedAttributeNode("fundingAgency"),
+                @NamedAttributeNode("originalCurrency"),
+                @NamedAttributeNode("status"),
+                @NamedAttributeNode("grantType"),
+                @NamedAttributeNode("grantClassification"),
+                @NamedAttributeNode("locations"),
+                @NamedAttributeNode("sectors")
+        })
 public class Project extends GenericPersistable implements Serializable {
 
     private String title;
@@ -69,7 +82,7 @@ public class Project extends GenericPersistable implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.MERGE)
     private TransactionType grantType;
 
-    @ManyToOne(cascade=CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.MERGE)
     private Classification grantClassification;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
