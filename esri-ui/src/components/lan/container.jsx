@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import * as Constants from 'app/constants/constants';
 import { setLanguage } from 'app/actions/index'
-import MessageComponent from 'app/components/lan/message';
+import MessageComponent from 'app/components/lan/translator';
 import LangSwitcherComponent from 'app/components/lan/switcher';
 
 /*Pass stat to properties Message */

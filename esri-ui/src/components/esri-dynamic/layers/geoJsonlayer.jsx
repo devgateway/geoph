@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react/react-dom';
 import EsriGraphicsLayer from 'esri/layers/GraphicsLayer';
-import Layer from 'app/components/esri/layers/Layer';
+import Layer from 'app/components/esri/layers/layer';
 
 import SimpleMarkerSymbol from 'esri/symbols/SimpleMarkerSymbol';
 import SimpleLineSymbol   from 'esri/symbols/SimpleLineSymbol';
