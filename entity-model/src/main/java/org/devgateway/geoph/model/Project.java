@@ -27,22 +27,22 @@ public class Project extends GenericPersistable implements Serializable {
 
     private String title;
 
-    @OneToMany(mappedBy = "project")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
     private Set<Transaction> transactions;
 
-    @ManyToOne(cascade= CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.LAZY, cascade= CascadeType.MERGE)
     private Agency implementingAgency;
 
     @Column(name = "implementing_agency_office")
     private String implementingAgencyOffice;
 
-    @ManyToOne(cascade= CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.LAZY, cascade= CascadeType.MERGE)
     private Agency executingAgency;
 
-    @ManyToOne(cascade= CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.LAZY, cascade= CascadeType.MERGE)
     private Agency fundingAgency;
 
-    @ManyToOne(cascade= CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.LAZY, cascade= CascadeType.MERGE)
     private Currency originalCurrency;
 
     @Column(name = "total_project_amount")
@@ -57,7 +57,7 @@ public class Project extends GenericPersistable implements Serializable {
     @Column(name = "revised_closing_date")
     private Date revisedClosingDate;
 
-    @ManyToOne(cascade= CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.LAZY, cascade= CascadeType.MERGE)
     private Status status;
 
     @Column(name = "period_start")
@@ -66,20 +66,20 @@ public class Project extends GenericPersistable implements Serializable {
     @Column(name = "period_end")
     private Date periodEnd;
 
-    @ManyToOne(cascade=CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.MERGE)
     private TransactionType grantType;
 
     @ManyToOne(cascade=CascadeType.MERGE)
     private Classification grantClassification;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable(name = "project_location", joinColumns = {
             @JoinColumn(name = "project_id", nullable = false, updatable = false) },
             inverseJoinColumns = { @JoinColumn(name = "location_id",
                     nullable = false, updatable = false) })
     private Set<Location> locations;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable(name = "project_sector", joinColumns = {
             @JoinColumn(name = "project_id", nullable = false, updatable = false) },
             inverseJoinColumns = { @JoinColumn(name = "sector_id",
