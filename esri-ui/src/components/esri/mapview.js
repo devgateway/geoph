@@ -21,7 +21,7 @@ const ReactMapView = React.createClass({
 		})
 
 		this.view.watch('zoom',(zoom)=>{
-			console.log(zoom);
+		//console.log(zoom);
 		})
 		this.view.watch('animation',(response)=>{
 			if(response && response.state === "running"){

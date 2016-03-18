@@ -13,7 +13,7 @@ export default class Landing extends React.Component {
               <div className="main">
                 <Map/>
               </div>
-                <div className="panel"></div>
+                
               </div>
           )
     }

@@ -1,30 +1,35 @@
-import * as Constants from 'app/constants/constants';
+import {LOAD_PROJECT_GEOJSON_SUCCESS,LOAD_PEOJECT_GEOJSON_FAILED,CHANGE_LAYER_LEVEL}  from 'app/constants/constants';
 import Connector from 'app/connector/connector.js';
 
 
 const loadProjectsCompleted=(data)=>{
 	return {
-    	type: Constants.REQUEST_FILTER_LIST,
-    	data:data
- 	}
+		type:LOAD_PROJECT_GEOJSON_SUCCESS,
+		data:data
+	}
 }
 
-const loadProjectsFailed=()=>{
-	
+const loadProjectsFailed=(error)=>{
+return {
+		type:LOAD_PEOJECT_GEOJSON_FAILED,
+		error
+	}	
 }
 
 
-export const loadProjects = () => {
 
+export const loadProjects = (level,params) => {
 	return (dispatch, getState) =>{
-		
-		Connector.getProjectsGeoJson()
+		Connector.getProjectsGeoJson(level,params)
 		.then((data)=>{
-			dispatch(loadProjectsCompleted)}
-		).catch(()=>{ 
-			dispatch(loadProjectsFailed);
-		});
-	} 
+				
+				dispatch(loadProjectsCompleted(data))}
+			).catch((err)=>{ 
+				debugger;
+				console.log(err);
+				dispatch(loadProjectsFailed(err));
+			});
+		} 
 
-}
+	}
 

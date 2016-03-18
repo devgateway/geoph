@@ -5,22 +5,12 @@ import MapComponent from 'app/components/map/map'
 import * as Constants from 'app/constants/constants';
 
 const stateToProps = (state, props) => {
-  
-  return {
-  	...state.map  
-  }
+  return state.map  
 }
 
 
-const dispatchToProps = (dispatch, ownProps) => {
-  return {
-    onLoadProjects: (level) => {
-      dispatch(loadProjects(level));
-    },
-  }
-}
 /*Connect map component to redux state*/
-const Map=connect(stateToProps,dispatchToProps)(MapComponent);
+const Map=connect(stateToProps)(MapComponent);
 
 export {Map};
  
