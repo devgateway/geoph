@@ -1,21 +1,23 @@
 //import es6Promise from 'es6-promise';
+ require('../stylesheets/main.scss');
+ 
 import babelPolyfill from 'babel-polyfill';
 
 import React from 'react';
-import { render } from 'react/react-dom';
+import {render} from 'react-dom';
 
 import i18next from 'i18next';
 import XHR from 'i18next-xhr-backend';
 
 import { Provider } from 'react-redux'
-import configureStore from 'app/store/configureStore';
+import configureStore from './store/configureStore';
 
 import { Router,browserHistory } from 'react-router';
-import {syncHistoryWithStore} from 'react-redux-router';
-import routes from 'app/routes';
+import {syncHistoryWithStore} from 'react-router-redux';
+import routes from './routes';
 
-import AjaxUtil from 'app/util/ajax';
-import Setting from 'app/util/setting';
+import AjaxUtil from './util/ajax';
+import Setting from './util/setting';
 
 
 const store = configureStore({}, browserHistory);
