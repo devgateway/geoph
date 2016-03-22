@@ -16,7 +16,7 @@
 	<changeSet author="sdimunzio" id="sequences">
 
         <preConditions onFail="CONTINUE">
-            <dbms level="PostgreSQL"></dbms>
+            <dbms type="PostgreSQL"></dbms>
 			<sequenceExists catalogName="public" sequenceName="UNIQUE_ID_GENERATOR"/>
 		</preConditions>
 		<createSequence catalogName="public"
@@ -27,42 +27,5 @@
 						sequenceName="UNIQUE_ID_GENERATOR"
 						startValue="5"/>
 	</changeSet>
-
-    <!--changeSet id="1" author="dbianco">
-        <preConditions onFail="CONTINUE">
-            <tableExists tableName="AGENCY" />
-        </preConditions>
-        <sqlFile path="Agency.sql"/>
-    </changeSet-->
-    <changeSet id="2" author="dbianco">
-        <preConditions onFail="CONTINUE">
-            <tableExists tableName="CURRENCY" />
-        </preConditions>
-        <sqlFile path="Currency.sql"/>
-    </changeSet>
-    <!--changeSet id="3" author="dbianco">
-        <preConditions onFail="CONTINUE">
-            <tableExists tableName="FUNDING_TYPE" />
-        </preConditions>
-        <sqlFile path="FundingType.sql"/>
-    </changeSet>
-    <changeSet id="4" author="dbianco">
-        <preConditions onFail="CONTINUE">
-            <tableExists tableName="STATUS" />
-        </preConditions>
-        <sqlFile path="Status.sql"/>
-    </changeSet>
-    <changeSet id="5" author="dbianco">
-        <preConditions onFail="CONTINUE">
-            <tableExists tableName="TRANSACTION_TYPE" />
-        </preConditions>
-        <sqlFile path="TransactionType.sql"/>
-    </changeSet>
-    <changeSet id="6" author="dbianco">
-        <preConditions onFail="CONTINUE">
-            <tableExists tableName="IMPLEMENTING_AGENCY_TYPE" />
-        </preConditions>
-        <sqlFile path="ImplementingAgencyType.sql"/>
-    </changeSet-->
 
 </databaseChangeLog>

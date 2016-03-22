@@ -3,6 +3,7 @@ package org.devgateway.geoph.persistence;
 import org.devgateway.geoph.model.*;
 import org.devgateway.geoph.persistence.repository.*;
 import org.devgateway.geoph.services.FilterService;
+import org.devgateway.geoph.util.LocationAdmLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,9 +69,9 @@ public class FilterServiceImpl implements FilterService {
     }
 
     @Override
-    public List<Location> findLocationsByLevel(int level) {
+    public List<Location> findLocationsByLevel(LocationAdmLevel level) {
         LOGGER.debug("Getting all locations of level: {}", level);
-        return locationRepository.findLocationsByLevel(level);
+        return locationRepository.findLocationsByLevel(level.getLevel());
     }
 
     public List<Location> findLocationsByParentId(long parentId){

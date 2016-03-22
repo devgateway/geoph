@@ -1,8 +1,8 @@
 package org.devgateway.geoph.services;
 
 import org.devgateway.geoph.model.*;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.devgateway.geoph.util.LocationAdmLevel;
+
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ public interface FilterService {
 
     List<Location> findAllLocations();
 
-    List<Location> findLocationsByLevel(int level);
+    List<Location> findLocationsByLevel(LocationAdmLevel level);
 
     List<Location> findLocationsByParentId(long parentId);
 

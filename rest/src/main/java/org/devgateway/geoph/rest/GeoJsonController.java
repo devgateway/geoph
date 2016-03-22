@@ -1,7 +1,7 @@
 package org.devgateway.geoph.rest;
 
-import org.apache.commons.lang3.StringUtils;
 import org.devgateway.geoph.services.GeoJsonService;
+import org.devgateway.geoph.util.GeometryDetailLevel;
 import org.devgateway.geoph.util.LocationAdmLevel;
 import org.devgateway.geoph.util.Parameters;
 import org.geojson.*;
@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.devgateway.geoph.util.Constants.*;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -52,6 +50,23 @@ public class GeoJsonController extends CrossOriginSupport {
                 locations, projects, impAgencies, fundingAgencies, null);
         params.setLocationLevel(level);
         return service.getLocationsByParams(params);
+    }
+
+    @RequestMapping(value = "/{level}/shapes", method = GET)
+    public FeatureCollection getGeoJsonForShapes(
+            @PathVariable final String level){
+        LOGGER.debug("getGeoJsonForShapes");
+        return service.getShapesByLevelAndDetail(LocationAdmLevel.valueOf(level.toUpperCase()),
+                GeometryDetailLevel.MEDIUM);
+    }
+
+    @RequestMapping(value = "/{level}/shapes/detail/{detail}", method = GET)
+    public FeatureCollection getGeoJsonForShapes2(
+            @PathVariable final String level,
+            @PathVariable final String detail){
+        LOGGER.debug("getGeoJsonForShapes2");
+        return service.getShapesByLevelAndDetail(LocationAdmLevel.valueOf(level.toUpperCase()),
+                GeometryDetailLevel.valueOf(detail.toUpperCase()));
     }
 
 }

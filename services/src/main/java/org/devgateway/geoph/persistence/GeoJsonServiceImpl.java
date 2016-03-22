@@ -3,15 +3,16 @@ package org.devgateway.geoph.persistence;
 import org.devgateway.geoph.model.*;
 import org.devgateway.geoph.persistence.repository.LocationRepository;
 import org.devgateway.geoph.services.GeoJsonService;
+import org.devgateway.geoph.util.GeometryDetailLevel;
+import org.devgateway.geoph.util.LocationAdmLevel;
+import org.devgateway.geoph.util.PostGisHelper;
 import org.devgateway.geoph.util.Parameters;
-import org.geojson.Feature;
-import org.geojson.FeatureCollection;
-import org.geojson.Point;
+import org.geojson.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import static org.devgateway.geoph.util.Constants.*;
 
@@ -25,8 +26,8 @@ public class GeoJsonServiceImpl implements GeoJsonService {
     @Autowired
     LocationRepository locationRepository;
 
-    public FeatureCollection getLocationsByLevel(int level) {
-        List<Location> locationList = locationRepository.findLocationsByLevel(level);
+    public FeatureCollection getLocationsByLevel(LocationAdmLevel level) {
+        List<Location> locationList = locationRepository.findLocationsByLevel(level.getLevel());
 
         FeatureCollection featureCollection = new FeatureCollection();
         for(Location location : locationList) {
@@ -47,6 +48,19 @@ public class GeoJsonServiceImpl implements GeoJsonService {
         for(Location location : locationList) {
             featureCollection.add(getFeature(location));
         }
+        return featureCollection;
+    }
+
+    @Override
+    public FeatureCollection getShapesByLevelAndDetail(LocationAdmLevel level, GeometryDetailLevel detail) {
+        FeatureCollection featureCollection = new FeatureCollection();
+        if(level == LocationAdmLevel.REGION){
+            List<PostGisHelper> helperList = locationRepository.getRegionShapesWithDetail(detail);
+            for(PostGisHelper helper:helperList){
+                featureCollection.add(parseGeoJson(helper));
+            }
+        }
+        //TODO Implement shapes for provinces and municipalities!
         return featureCollection;
     }
 
@@ -79,6 +93,26 @@ public class GeoJsonServiceImpl implements GeoJsonService {
             feature.setProperty(PROPERTY_LOC_PMC, pmc);
         }
 
+        return feature;
+    }
+
+    private Feature parseGeoJson(PostGisHelper helper){
+        Feature feature = new Feature();
+        MultiPolygon multiPolygon = new MultiPolygon();
+        for(Double[][][] inner:helper.getCoordinates()){
+            Polygon polygon = new Polygon();
+            for(Double[][] inner2:inner){
+                List<LngLatAlt> pointList = new ArrayList<>();
+                for(Double[] inner3:inner2){
+                    pointList.add(new LngLatAlt(inner3[0], inner3[1]));
+                }
+                polygon.add(pointList);
+            }
+            multiPolygon.add(polygon);
+        }
+        feature.setGeometry(multiPolygon);
+        feature.setProperty("regionName", helper.getRegionName());
+        feature.setProperty("locationId", helper.getLocationId());
         return feature;
     }
 }

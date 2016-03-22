@@ -1,14 +1,11 @@
 package org.devgateway.geoph.persistence.repository;
 
 import org.devgateway.geoph.model.Location;
+import org.devgateway.geoph.util.GeometryDetailLevel;
+import org.devgateway.geoph.util.PostGisHelper;
 import org.devgateway.geoph.util.Parameters;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author dbianco
@@ -25,4 +22,6 @@ public interface LocationRepository {
     List<Location> findLocationsByParentId(long parentId);
 
     List<Location> findLocationsByParams(Parameters params);
+
+    List<PostGisHelper> getRegionShapesWithDetail(GeometryDetailLevel detail);
 }

@@ -1,9 +1,10 @@
 package org.devgateway.geoph.services;
 
+import org.devgateway.geoph.util.GeometryDetailLevel;
+import org.devgateway.geoph.util.LocationAdmLevel;
 import org.devgateway.geoph.util.Parameters;
 import org.geojson.FeatureCollection;
 
-import java.util.Map;
 
 /**
  * @author dbianco
@@ -11,8 +12,10 @@ import java.util.Map;
  */
 public interface GeoJsonService {
 
-    public FeatureCollection getLocationsByLevel(int level);
+    public FeatureCollection getLocationsByLevel(LocationAdmLevel level);
 
     FeatureCollection getLocationsByParams(Parameters params);
+
+    FeatureCollection getShapesByLevelAndDetail(LocationAdmLevel level, GeometryDetailLevel detail);
 
 }

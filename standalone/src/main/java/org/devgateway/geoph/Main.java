@@ -1,4 +1,5 @@
 package org.devgateway.geoph;
+
 import org.devgateway.geoph.persistence.spring.PersistenceApplication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -6,9 +7,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.annotation.PropertySources;
 import org.springframework.core.env.Environment;
 
 import java.util.Arrays;
@@ -18,9 +19,8 @@ import java.util.Arrays;
  */
 
 @SpringBootApplication
-@PropertySources({
-        @PropertySource("file:${CONF_PATH}/application.properties")
-})
+@Configuration
+@PropertySource(value = "file:${CONF_PATH}/application.properties")
 @Import({
         PersistenceApplication.class
 })

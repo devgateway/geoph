@@ -1,13 +1,18 @@
 package org.devgateway.geoph.persistence.repository;
 
+import com.google.gson.Gson;
 import org.devgateway.geoph.model.*;
+import org.devgateway.geoph.util.GeometryDetailLevel;
+import org.devgateway.geoph.util.PostGisHelper;
 import org.devgateway.geoph.util.Parameters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -102,7 +107,22 @@ public class DefaultLocationRepository implements LocationRepository {
         }
 
         TypedQuery<Location> query = em.createQuery(criteriaQuery.select(locationRoot));
-
         return query.getResultList();
+    }
+
+    @Override
+    public List<PostGisHelper> getRegionShapesWithDetail(GeometryDetailLevel detail) {
+        Query q = em.createNativeQuery("SELECT locationId, region, ST_AsGeoJSON(ST_Simplify(geom, "
+                + detail.getLevel() + ")) as geoJsonObject from region_geometry");
+        List<Object[]> resultList = q.getResultList();
+        Gson g = new Gson();
+        List<PostGisHelper> resp = new ArrayList<>();
+        for(Object[] o:resultList){
+            PostGisHelper helper = g.fromJson((String)o[2], PostGisHelper.class);
+            helper.setLocationId(((BigDecimal) o[0]).longValue());
+            helper.setRegionName((String)o[1]);
+            resp.add(helper);
+        }
+        return resp;
     }
 }
