@@ -1,21 +1,55 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no"/>
-    <title>Simple Map</title>
-     <link rel="stylesheet" href="https://js.arcgis.com/4.0beta3/esri/css/main.css">
-     <link rel="stylesheet" href="css/main.css">
-     <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+<head><link href="main.css" rel="stylesheet"></head>Html Webpack Plugin:
+<pre>
+  Error: Child compilation failed:
+  Entry module not found: Error: Cannot resolve 'file' or 'directory' d:\Work\geoph\leaflet-ui\app\html\index-prod.html in d:\Work\geoph\leaflet-ui:
+  Error: Cannot resolve 'file' or 'directory' d:\Work\geoph\leaflet-ui\app\html\index-prod.html in d:\Work\geoph\leaflet-ui
   
-    <script src="dojoConfig.js"></script>
-    <script src="https://js.arcgis.com/4.0beta3/"></script>
-    <script src="lib/terraformer/terraformer.min.js"></script>
-    <script src="lib/terraformer-arcgis-parser/terraformer-arcgis-parser.min.js"></script>
+  - compiler.js:78 
+    [leaflet-ui]/[html-webpack-plugin]/lib/compiler.js:78:16
   
-    </head>
-
-  <body>
-      <div id="root"></div>
-  </body>
-</html>
+  - Compiler.js:214 Compiler.<anonymous>
+    [leaflet-ui]/[webpack]/lib/Compiler.js:214:10
+  
+  - Compiler.js:403 
+    [leaflet-ui]/[webpack]/lib/Compiler.js:403:12
+  
+  - Tapable.js:67 Compiler.next
+    [leaflet-ui]/[webpack]/[tapable]/lib/Tapable.js:67:11
+  
+  - CachePlugin.js:40 Compiler.<anonymous>
+    [leaflet-ui]/[webpack]/lib/CachePlugin.js:40:4
+  
+  - Tapable.js:71 Compiler.applyPluginsAsync
+    [leaflet-ui]/[webpack]/[tapable]/lib/Tapable.js:71:13
+  
+  - Compiler.js:400 Compiler.<anonymous>
+    [leaflet-ui]/[webpack]/lib/Compiler.js:400:9
+  
+  - Compilation.js:577 Compilation.<anonymous>
+    [leaflet-ui]/[webpack]/lib/Compilation.js:577:13
+  
+  - Tapable.js:60 Compilation.applyPluginsAsync
+    [leaflet-ui]/[webpack]/[tapable]/lib/Tapable.js:60:69
+  
+  - Compilation.js:572 Compilation.<anonymous>
+    [leaflet-ui]/[webpack]/lib/Compilation.js:572:10
+  
+  - Tapable.js:67 Compilation.next
+    [leaflet-ui]/[webpack]/[tapable]/lib/Tapable.js:67:11
+  
+  - UglifyJsPlugin.js:140 Compilation.<anonymous>
+    [leaflet-ui]/[webpack]/lib/optimize/UglifyJsPlugin.js:140:4
+  
+  - Tapable.js:71 Compilation.applyPluginsAsync
+    [leaflet-ui]/[webpack]/[tapable]/lib/Tapable.js:71:13
+  
+  - Compilation.js:567 Compilation.<anonymous>
+    [leaflet-ui]/[webpack]/lib/Compilation.js:567:9
+  
+  - Tapable.js:60 Compilation.applyPluginsAsync
+    [leaflet-ui]/[webpack]/[tapable]/lib/Tapable.js:60:69
+  
+  - Compilation.js:563 Compilation.<anonymous>
+    [leaflet-ui]/[webpack]/lib/Compilation.js:563:8
+  
+</pre><script src="bundle.js"></script>
