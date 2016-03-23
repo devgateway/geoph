@@ -97,9 +97,10 @@ import React from 'react';
 
   pointToLayer(feature, latlng) {
     console.log(feature);
+
     let icon = divIcon({
       iconSize: [30, 30],
-      className: 'marker location-marker',
+      className: `marker location-marker size${feature.properties.projectCount}`,
       html: `<div class='text'>${feature.properties.projectCount}</div>`
     });
     let mark = marker(latlng, {

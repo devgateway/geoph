@@ -17,8 +17,8 @@ class Component extends React.Component {
 		return (<div>
 			<select name='level' onChange={this.onChangeLevel.bind(this)}>
 			<option value='region'>Region</option>
-			<option value='department'>Department</option>
-			<option value='municipalities'>Municipalities</option>
+			<option value='province'>Department</option>
+			<option value='municipality'>Municipalities</option>
 			</select>
 			</div>)
 	}
