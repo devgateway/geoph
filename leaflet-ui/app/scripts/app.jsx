@@ -1,5 +1,6 @@
-//import es6Promise from 'es6-promise';
- require('../stylesheets/main.scss');
+require('bootstrap/dist/css/bootstrap.css');
+require('font-awesome/css/font-awesome.css');
+require('../stylesheets/main.scss');
  
 import babelPolyfill from 'babel-polyfill';
 

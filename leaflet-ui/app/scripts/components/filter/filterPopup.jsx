@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Modal, Button, Tabs, Tab} from 'react-bootstrap';
+import {Modal, Button} from 'react-bootstrap';
 import FilterTabs from './filterTabs.jsx';
 
 export default class FilterPopup extends React.Component {
@@ -34,8 +34,7 @@ export default class FilterPopup extends React.Component {
 	    
 	}
 
-  	render() {
-  		let filters = this.state.filterMap || [];
+	render() {
   		return (
     	<div>
 	        <Button className='' onClick={this.showFilterPopup.bind(this)}>Filters</Button>
