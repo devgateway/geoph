@@ -44,24 +44,25 @@ public class GeoJsonController extends CrossOriginSupport {
             @RequestParam(value = FILTER_LOCATION, required = false) String locations,
             @RequestParam(value = FILTER_PROJECT, required = false) String projects,
             @RequestParam(value = FILTER_IMPLEMENTING_AGENCY, required = false) String impAgencies,
-            @RequestParam(value = FILTER_FUNDING_AGENCY, required = false) String fundingAgencies){
+            @RequestParam(value = FILTER_FUNDING_AGENCY, required = false) String fundingAgencies,
+            @RequestParam(value = FILTER_FLOW_TYPE, required = false) String flowTypes){
         LOGGER.debug("getGeoJsonByLocationType");
         Parameters params = new Parameters(startDate, endDate, sectors, statuses,
-                locations, projects, impAgencies, fundingAgencies, null);
+                locations, projects, impAgencies, fundingAgencies, flowTypes, null);
         params.setLocationLevel(level);
         return service.getLocationsByParams(params);
     }
 
-    @RequestMapping(value = "/{level}/shapes", method = GET)
-    public FeatureCollection getGeoJsonForShapes(
+    @RequestMapping(value = "/{level}/statistical", method = GET)
+    public FeatureCollection getGeoJsonStatistical(
             @PathVariable final String level){
         LOGGER.debug("getGeoJsonForShapes");
         return service.getShapesByLevelAndDetail(LocationAdmLevel.valueOf(level.toUpperCase()),
                 GeometryDetailLevel.MEDIUM);
     }
 
-    @RequestMapping(value = "/{level}/shapes/detail/{detail}", method = GET)
-    public FeatureCollection getGeoJsonForShapes2(
+    @RequestMapping(value = "/{level}/statistical/detail/{detail}", method = GET)
+    public FeatureCollection getGeoJsonStatisticalDetailed(
             @PathVariable final String level,
             @PathVariable final String detail){
         LOGGER.debug("getGeoJsonForShapes2");

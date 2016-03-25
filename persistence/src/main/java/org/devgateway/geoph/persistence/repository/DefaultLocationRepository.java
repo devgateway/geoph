@@ -99,6 +99,11 @@ public class DefaultLocationRepository implements LocationRepository {
                 Join<Project, Agency> impAgencyJoin = projectJoin.join(Project_.implementingAgency, JoinType.LEFT);
                 predicates.add(impAgencyJoin.get(ImplementingAgency_.id).in(params.getImpAgencies()));
             }
+            if(params.getFlowTypes()!=null){
+                Join<Project, Transaction> transactionJoin = projectJoin.join(Project_.transactions);
+                Join<Transaction, FlowType> flowTypeJoin = transactionJoin.join(Transaction_.flowType);
+                predicates.add(flowTypeJoin.get(FlowType_.id).in(params.getFlowTypes()));
+            }
         }
 
         if(predicates.size()>0) {

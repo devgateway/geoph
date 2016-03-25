@@ -39,6 +39,8 @@ public class Parameters {
 
     private List<Long> fundingAgencies;
 
+    private List<Long> flowTypes;
+
     private List<Integer> locationLevels;
 
     private Pageable pageable;
@@ -48,7 +50,7 @@ public class Parameters {
 
     public Parameters(String startDate, String endDate, String sectors, String statuses,
                       String locations, String projects, String impAgencies, String fundingAgencies,
-                      Pageable pageable) {
+                      String flowTypes, Pageable pageable) {
         this.setStartDate(startDate);
         this.setEndDate(endDate);
         this.setSectors(sectors);
@@ -57,6 +59,7 @@ public class Parameters {
         this.setProjects(projects);
         this.setImpAgencies(impAgencies);
         this.setFundingAgencies(fundingAgencies);
+        this.setFlowTypes(flowTypes);
         this.setPageable(pageable);
     }
 
@@ -166,6 +169,18 @@ public class Parameters {
 
     public void setFundingAgencies(String fundingAgencies) {
         this.fundingAgencies = fundingAgencies!=null? convertStringToLongList(fundingAgencies):null;
+    }
+
+    public List<Long> getFlowTypes() {
+        return flowTypes;
+    }
+
+    public void setFlowTypes(List<Long> flowTypes) {
+        this.flowTypes = flowTypes;
+    }
+
+    public void setFlowTypes(String flowTypes) {
+        this.flowTypes = flowTypes!=null? convertStringToLongList(flowTypes):null;
     }
 
     public Pageable getPageable() {
