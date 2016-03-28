@@ -11,3 +11,4 @@ rest/target/
 standalone/target/classes/org/devgateway/geoph/BootMetadata.class
 target
 esri-ui/dist
+leaflet-ui/node_modules/

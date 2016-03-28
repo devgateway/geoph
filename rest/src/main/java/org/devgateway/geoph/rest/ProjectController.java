@@ -30,7 +30,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
  */
 @RestController
 @RequestMapping(value = "/projects")
-public class ProjectController {
+public class ProjectController  extends CrossOriginSupport {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FilterController.class);
 
@@ -51,10 +51,11 @@ public class ProjectController {
             @RequestParam(value = FILTER_PROJECT, required = false) String projects,
             @RequestParam(value = FILTER_IMPLEMENTING_AGENCY, required = false) String impAgencies,
             @RequestParam(value = FILTER_FUNDING_AGENCY, required = false) String fundingAgencies,
+            @RequestParam(value = FILTER_FLOW_TYPE, required = false) String flowTypes,
             @PageableDefault(page = 0, size = 20, sort = "id") final Pageable pageable) {
         LOGGER.debug("findProjectsByParams");
         Parameters params = new Parameters(startDate, endDate, sectors, statuses,
-                locations, projects, impAgencies, fundingAgencies, pageable);
+                locations, projects, impAgencies, fundingAgencies, flowTypes, pageable);
         return service.findProjectsByParams(params);
     }
 
