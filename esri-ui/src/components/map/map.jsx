@@ -5,7 +5,7 @@ import Map from 'app/components/esri/map';
 import SceneView from 'app/components/esri/sceneView';
 import MapView from 'app/components/esri/mapview';
 import GraphicsLayer from 'app/components/esri/layers/graphicsLayer';
-import GeoJsonLayer from 'app/components/esri-dynamic/layers/geoJsonLayer';
+import GeoJsonLayer from 'app/components/esri-dynamic/layers/geoJsonlayer';
 
 import Graphic from 'app/components/esri/graphic';
 import Extent from 'app/components/esri/geometry/extend'

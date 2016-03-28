@@ -1,5 +1,5 @@
-import * as Constants from 'app/constants/constants';
-import Connector from 'app/connector/connector.js';
+import * as Constants from '../constants/constants.js';
+import Connector from '../connector/connector.js';
 
 export const requestFilterList = (filter) => {
   return {
@@ -57,13 +57,5 @@ export const selectAllFilterList = (filterItem) => {
     type: Constants.SELECT_ALL_FILTER_LIST,
     filterType: filterItem.filterType,
     item: filterItem
-  }
-}
-
-export const searchItemByText = (filterSearch) => {
-  return {
-    type: Constants.SEARCH_FILTER_LIST_BY_TEXT,
-    filterType: filterSearch.filterType,
-    text: filterSearch.text
   }
 }

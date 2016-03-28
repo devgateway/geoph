@@ -4,25 +4,18 @@
 }
 
 .filter-tab-content .tab-content{
-  background-color: white; 
+   background-color: white; 
 }
 
 .filter-list-content{
-  height: 285px;
+  height: 280px;
   max-height: 350px;
   overflow: auto;
 }
 
-.filter-item-list{
-  position: relative;
-  top: 8px;
-  height: 240px;
-  overflow: auto;
-}
-
 .selected {
-  border: 1px solid #a1d367;
-  background: #a1d367;
+    border: 1px solid #a1d367;
+    background: #a1d367;
 }
 
 .half-fill {

@@ -1,5 +1,5 @@
-import * as Constants from 'app/constants/constants';
-import Settings from 'app/util/setting';
+import * as Constants from '../constants/constants';
+import Settings from '../util/settings';
 
 export const setLanguage = (lang) => {
   return {
