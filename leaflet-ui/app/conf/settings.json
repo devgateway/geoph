@@ -8,7 +8,7 @@
 
 		"API_BASE_URL": {
 			"development": "http://localhost:8090",
-			"production": "http://localhost:8090"
+			"production": "http://geoph.developmentgateway.org"
 		},
 
 		"PROJECT_GEOJSON":"/geodata/${level}/projects",

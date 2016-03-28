@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import {API_BASE_URL}  from '../constants/constants';
-import Settings from '../util/setting';
+import Settings from '../util/settings';
 
 
 console.log(Settings);
