@@ -91,17 +91,7 @@ window.dojoConfig = {
     location: locationPath + 'lib/es6-promise',
     main: 'es6-promise.min'
   },
-/*
-  {
-    name: 'terraformer',
-    location: locationPath + 'lib/terraformer',
-    main: 'terraformer.min'
-  },
-  {
-    name: 'terraformer-arcgis-parser',
-    location: locationPath + 'lib/terraformer-arcgis-parser',
-    main: 'terraformer-arcgis-parser.min'
-  },*/
+
 
   {
     name: 'react-redux-router',

@@ -1,0 +1,58 @@
+{
+	"SEARCH": {
+		"GEO_NAMES_SERVICE_USER_NAME": "aiddata",
+		"FUZZY_LEVEL": 0
+	},
+
+	"API": {
+
+		"API_BASE_URL": {
+			"development": "http://localhost:8090",
+			"production": "http://geoph.developmentgateway.org"
+		},
+
+		"PROJECT_GEOJSON":"/geodata/${level}/projects",
+
+		"FILTER_LIST": {
+			"development": {
+				"st": "/filters/sector",
+				"fa": "/filters/fundingAgency",
+				"ia": "/filters/impAgency"			
+			},
+
+			"production": {
+				"st": "/filters/sector",
+				"fa": "/filters/fundingAgency",
+				"ia": "/filters/impAgency"				
+			}
+		}
+	},
+
+	"I18N": {
+
+		"OPTIONS": {
+			"development": {
+				"lng": "en",
+				"fallbackLng": "en",
+				"ns": ["translations"],
+				"defaultNS": "translations",
+				"fallbackNS": "common",
+				"backend": {
+					"loadPath": "/locales/{{lng}}/{{ns}}.json"
+				}
+			},
+
+			"production": {
+				"lng": "en",
+				"fallbackLng": "en",
+				"ns": ["translations"],
+				"defaultNS": "translations",
+				"fallbackNS": "common",
+				"backend": {
+					"loadPath": "locales/{{lng}}/{{ns}}.json"
+				}
+			}
+		}
+
+	}
+}
