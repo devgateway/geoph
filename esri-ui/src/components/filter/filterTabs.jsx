@@ -1,6 +1,6 @@
 import React from 'react';
 import {Tabs, Tab, Button, Label} from 'react-bootstrap';
-import ItemComponent from 'app/components/filter/filterItemList'
+import FilterList from 'app/components/filter/filterListWithSearch'
 import { connect } from 'react-redux'
 
 class FilterTabContent extends React.Component {
@@ -27,21 +27,21 @@ class FilterTabContent extends React.Component {
 								Funding Type (ODA) Tab content
 						    </Tab>
 						    <Tab className="filter-list-content" eventKey={3} title="Financing Institution">
-								<ItemComponent loadList={true} filterType="fa" {...this.props.filters["fa"]} />
+								<FilterList filterType="fa" {...this.props.filters["fa"]} />
 						    </Tab>
 						</Tabs>
 	                </Tab>
 	                <Tab className="filter-tab-content" eventKey={2} title="Agencies">
 	                  	<Tabs defaultActiveKey={1} position="left" tabWidth={3}>
 							<Tab className="filter-list-content" eventKey={1} title="Implementing Agency">
-								<ItemComponent loadList={true} filterType="ia" {...this.props.filters["ia"]} />
+								<FilterList filterType="ia" {...this.props.filters["ia"]} />
 						    </Tab>						   
 						</Tabs>
 	                </Tab>
 	                <Tab className="filter-tab-content" eventKey={3} title="Sectors">
 	                  	<Tabs defaultActiveKey={1} position="left" tabWidth={3}>
 							<Tab className="filter-list-content" eventKey={1} title="Sectors">
-								<ItemComponent loadList={true} filterType="st" {...this.props.filters["st"]} />
+								<FilterList filterType="st" {...this.props.filters["st"]} />
 						    </Tab>
 						    <Tab className="filter-list-content" eventKey={2} title="Philippines Development Priority">
 								Philippines Development Priority Tab content

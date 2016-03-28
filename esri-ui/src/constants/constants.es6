@@ -4,6 +4,7 @@
 
 	export const SET_APP_LANGUAGE = 'SET_APP_LANGUAGE';
 
+	/*Filter Events*/
 	export const REQUEST_FILTER_LIST = 'REQUEST_FILTER_LIST';
 
 	export const RECEIVE_FILTER_LIST = 'RECEIVE_FILTER_LIST';
@@ -11,6 +12,8 @@
 	export const SELECT_FILTER_ITEM = 'SELECT_FILTER_ITEM';
 
 	export const SELECT_ALL_FILTER_LIST = 'SELECT_ALL_FILTER_LIST';
+
+	export const SEARCH_FILTER_LIST_BY_TEXT = 'SEARCH_FILTER_LIST_BY_TEXT';
 
 
 	/*LAYERS events*/
