@@ -53,7 +53,7 @@ public class GeoJsonController extends CrossOriginSupport {
         return service.getLocationsByParams(params);
     }
 
-    @RequestMapping(value = "/{level}/statistical", method = GET)
+    @RequestMapping(value = "/stats/{level}/funding", method = GET)
     public FeatureCollection getGeoJsonStatistical(
             @PathVariable final String level){
         LOGGER.debug("getGeoJsonForShapes");
@@ -61,7 +61,7 @@ public class GeoJsonController extends CrossOriginSupport {
                 GeometryDetailLevel.MEDIUM);
     }
 
-    @RequestMapping(value = "/{level}/statistical/detail/{detail}", method = GET)
+    @RequestMapping(value = "/stats/{level}/funding/detail/{detail}", method = GET)
     public FeatureCollection getGeoJsonStatisticalDetailed(
             @PathVariable final String level,
             @PathVariable final String detail){

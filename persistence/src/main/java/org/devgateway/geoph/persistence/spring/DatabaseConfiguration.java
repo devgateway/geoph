@@ -14,26 +14,19 @@
  */
 package org.devgateway.geoph.persistence.spring;
 
-import java.io.PrintWriter;
-import java.net.InetAddress;
 import java.sql.Connection;
-import java.util.Properties;
 
 import javax.naming.NamingException;
 
-//import org.apache.derby.drda.NetworkServerControl;
-//import org.apache.derby.jdbc.ClientDriver;
 import org.apache.log4j.Logger;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
-import org.devgateway.geoph.persistence.dao.AuditorAwareImpl;
 import org.postgresql.Driver;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.mock.jndi.SimpleNamingContextBuilder;
 
