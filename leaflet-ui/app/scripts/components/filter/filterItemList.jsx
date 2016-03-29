@@ -52,6 +52,9 @@ class FilterItem extends React.Component {
 
   	render() {
   		let selectionClass = "selectable " + (this.props.selected? "selected" : this.props.selectedCounter>0? "half-fill" : "");
+  		if (this.props.hide){
+ 			return null;
+  		}
     	return (
 	        <div>
 	        	<div className="filterItemInfo">

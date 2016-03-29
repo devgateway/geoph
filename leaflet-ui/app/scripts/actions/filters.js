@@ -9,9 +9,6 @@ export const requestFilterList = (filter) => {
   }
 }
 
-
-
-
 export const applyFilter = (filterType) => {
   return (dispatch, getState) => {
     debugger;
@@ -19,7 +16,6 @@ export const applyFilter = (filterType) => {
     return dispatch(loadProjects('region',collectValues(getState().filters)));
   }
 }
-
 
 export const receiveFilterList = (filterType, data) => {
   return {
@@ -70,5 +66,13 @@ export const selectAllFilterList = (filterItem) => {
     type: Constants.SELECT_ALL_FILTER_LIST,
     filterType: filterItem.filterType,
     item: filterItem
+  }
+}
+
+export const searchItemByText = (filterSearch) => {
+  return {
+    type: Constants.SEARCH_FILTER_LIST_BY_TEXT,
+    filterType: filterSearch.filterType,
+    text: filterSearch.text
   }
 }
