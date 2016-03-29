@@ -2,6 +2,7 @@ package org.devgateway.geoph.util;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import static org.devgateway.geoph.util.Constants.PARAM_SEPARATOR;
 
@@ -196,12 +198,20 @@ public class Parameters {
     private static List<Integer> convertAdmStringToIntegerList(final String values){
         List<Integer> ret = null;
         if(StringUtils.isNotBlank(values)) {
-            ret = Lists.transform(Arrays.asList(values.split(PARAM_SEPARATOR)), new Function<String, Integer>() {
+            Set<Integer> admSet = Sets.newHashSet(Lists.transform(Arrays.asList(values.split(PARAM_SEPARATOR)), new Function<String, Integer>() {
                 @Override
                 public Integer apply(String level) {
                     return LocationAdmLevel.valueOf(level.toUpperCase()).getLevel();
                 }
-            });
+            }));
+            if(admSet.contains(LocationAdmLevel.PROVINCE.getLevel())){
+                admSet.add(LocationAdmLevel.MUNICIPALITY.getLevel());
+            } else if(admSet.contains(LocationAdmLevel.REGION.getLevel())){
+                admSet.add(LocationAdmLevel.PROVINCE.getLevel());
+                admSet.add(LocationAdmLevel.MUNICIPALITY.getLevel());
+            }
+
+            ret = Lists.newArrayList(admSet);
         }
         return ret;
     }
