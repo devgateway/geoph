@@ -54,4 +54,7 @@ public class CacheConfiguration {
 		return managementService;
 	}
 
+    public CacheManager getCacheManager() {
+        return cacheManager;
+    }
 }

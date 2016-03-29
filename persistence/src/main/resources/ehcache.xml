@@ -3,7 +3,7 @@
          xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"
          updateCheck="false">
 
-    <defaultCache
+    <defaultCache statistics="true"
             maxElementsInMemory="20000"
             eternal="false"
             timeToIdleSeconds="1800"
