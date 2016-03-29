@@ -2,8 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Modal, Button} from 'react-bootstrap';
 import FilterTabs from './filterTabs.jsx';
+import {applyFilter}  from '../../actions/filters.js'
+import { connect } from 'react-redux'
 
-export default class FilterPopup extends React.Component {
+class FilterPopup extends React.Component {
 
 	constructor() {
 	    super();
@@ -31,7 +33,9 @@ export default class FilterPopup extends React.Component {
 	}
 
   	apply() {
-	    
+  		
+	    this.props.onFilterApply();
+	    this.hideFilterPopup();
 	}
 
 	render() {
@@ -58,3 +62,18 @@ export default class FilterPopup extends React.Component {
       	);
   	}
 }
+
+
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+ return {
+    onFilterApply: () => {
+      dispatch(applyFilter());
+    }
+  }
+}
+
+
+
+
+export default connect(null,mapDispatchToProps)(FilterPopup);;
