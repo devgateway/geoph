@@ -8,13 +8,13 @@ const map = (state = {
     }
   }
 }, action) => {
-
-  console.log(state);
+;
   switch (action.type) {
     case LOAD_PROJECT_GEOJSON_SUCCESS:
     let newState=Object.assign({}, state)
     return  Object.assign(newState, {
       layers:{
+        level:action.level,
         projects: {
           data: action.data,
           name: 'Project Layers'

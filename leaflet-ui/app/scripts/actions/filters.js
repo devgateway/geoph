@@ -1,12 +1,25 @@
-import * as Constants from '../constants/constants.js';
-import Connector from '../connector/connector.js';
-
+import * as Constants from '../constants/constants';
+import Connector from '../connector/connector';
+import {loadProjects} from './map';
+import {collectValues} from '../util/filterUtil';
 export const requestFilterList = (filter) => {
   return {
     type: Constants.REQUEST_FILTER_LIST,
     filter
   }
 }
+
+
+
+
+export const applyFilter = (filterType) => {
+  return (dispatch, getState) => {
+    debugger;
+    //call to all filters changed related eventes 
+    return dispatch(loadProjects('region',collectValues(getState().filters)));
+  }
+}
+
 
 export const receiveFilterList = (filterType, data) => {
   return {
@@ -21,7 +34,7 @@ export const fetchFilterList = (filterType) => {
   return dispatch => {
     dispatch(requestFilterList(filterType))
     return Connector.getFilterList(filterType)
-      .then(req => dispatch(receiveFilterList(filterType, req)))
+    .then(req => dispatch(receiveFilterList(filterType, req)))
   }
 }
 

@@ -42,6 +42,9 @@ const filter = (state = {
           selected: action.item.selected,
 	        items: state.items.map(i => filterItem(i, action))
 	    })
+
+     
+
     default:
       return state
   }

@@ -1,7 +1,7 @@
 import Axios from 'axios';
 import {API_BASE_URL}  from '../constants/constants';
 import Settings from '../util/settings';
-
+import Qs from 'qs';
 
 console.log(Settings);
 
@@ -16,9 +16,14 @@ class Connector {
 	get(url, params = {}) {
 		return new Promise(
 			function(resolve, reject) { // (A)
+				
 				Axios.get(url, {
 					responseType: 'json',
-					params: params
+					params: params,
+					paramsSerializer: function(params) {
+						return Qs.stringify(params, {arrayFormat: 'repeat'})
+					},
+
 				})
 				.then(function(response) {
 					resolve(response);
@@ -77,7 +82,7 @@ class Connector {
 			caller(url, params).then((data) => {
 				resolve(data.data);
 			}).catch((err) => {
-				console.log('Failed lading api data')
+				console.log('Error when trying to get backend data')
 				reject(err);
 			})
 		})
@@ -91,7 +96,7 @@ class Connector {
 			this.call(GET,url.replace('${level}',level), params).then((data) => {
 				/*apply any data transformation*/
 				resolve(data); ////resolve with original data or perform any data transformation needed
-			
+
 			}).catch(reject)
 		});
 	}

@@ -21,7 +21,7 @@ import React from 'react';
   componentWillMount() {
     super.componentWillMount();
     this.props.map.on('zoomend',function(){
-      console.log(this.getBounds());
+      //console.log(this.getBounds());
     })
     this._create();
 
@@ -86,18 +86,14 @@ import React from 'react';
 
 
   style() {
-    console.log('not implemented');
   }
 
   onEachFeature(feature, layer) {
-    console.log('not implemented');
   }
 
 
 
   pointToLayer(feature, latlng) {
-    console.log(feature);
-
     let icon = divIcon({
       iconSize: [30, 30],
       className: `marker location-marker size${feature.properties.projectCount}`,

@@ -6,7 +6,7 @@ import App from './components/layout/root';
 import Landing from './components/layout/landing';
 
 export default (
-  	<Route path="/geoph" component={App}>
+  	<Route path="/" component={App}>
 	  <IndexRoute component={Landing} />
 	</Route>
 );
