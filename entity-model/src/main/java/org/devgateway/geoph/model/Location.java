@@ -58,26 +58,15 @@ public class Location extends GenericPersistable implements Serializable {
                     nullable = false, updatable = false) })
     private Set<Project> projects;
 
+    @Column(name = "region_id")
+    private Long regionId;
+
+    @Column(name = "province_id")
+    private Long provinceId;
+
     public Location() {
     }
 
-    public Location(String name, int level, String code, Double latitude, Double longitude) {
-        this.name = name;
-        this.level = level;
-        this.code = code;
-        this.latitude = latitude;
-        this.longitude = longitude;
-    }
-
-    public Location(String name, int level, String code, Double latitude,
-                    Double longitude, List<Location> items) {
-        this.name = name;
-        this.level = level;
-        this.code = code;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.items = items;
-    }
 
     @JsonIgnore
     public boolean isNew(){
@@ -138,5 +127,21 @@ public class Location extends GenericPersistable implements Serializable {
 
     public void setProjects(Set<Project> projects) {
         this.projects = projects;
+    }
+
+    public long getRegionId() {
+        return regionId;
+    }
+
+    public void setRegionId(Long regionId) {
+        this.regionId = regionId;
+    }
+
+    public long getProvinceId() {
+        return provinceId;
+    }
+
+    public void setProvinceId(Long provinceId) {
+        this.provinceId = provinceId;
     }
 }

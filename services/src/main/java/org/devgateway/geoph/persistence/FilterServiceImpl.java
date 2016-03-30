@@ -3,6 +3,7 @@ package org.devgateway.geoph.persistence;
 import org.devgateway.geoph.model.*;
 import org.devgateway.geoph.persistence.repository.*;
 import org.devgateway.geoph.services.FilterService;
+import org.devgateway.geoph.util.FlowType;
 import org.devgateway.geoph.util.LocationAdmLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,9 +28,6 @@ public class FilterServiceImpl implements FilterService {
     FundingAgencyRepository fundingAgencyRepository;
 
     @Autowired
-    FlowTypeRepository flowTypeRepository;
-
-    @Autowired
     SectorRepository sectorRepository;
 
     @Autowired
@@ -48,12 +46,6 @@ public class FilterServiceImpl implements FilterService {
     public List<FundingAgency> findAllFundingAgencies() {
         LOGGER.debug("Getting all implementing agencies");
         return fundingAgencyRepository.findAll();
-    }
-
-    @Override
-    public List<FlowType> findAllFlowTypes() {
-        LOGGER.debug("Getting all funding sources");
-        return flowTypeRepository.findAll();
     }
 
     @Override

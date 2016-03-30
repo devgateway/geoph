@@ -15,7 +15,7 @@ import java.util.Date;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="Discriminator", discriminatorType=DiscriminatorType.STRING)
+@DiscriminatorColumn(name="flow_type", discriminatorType=DiscriminatorType.STRING)
 @DiscriminatorValue(value="transaction")
 public class Transaction extends GenericPersistable implements Serializable {
 
@@ -27,8 +27,8 @@ public class Transaction extends GenericPersistable implements Serializable {
 
     private Date date;
 
-    @ManyToOne(cascade= CascadeType.MERGE)
-    private FlowType flowType;
+    @Column(name = "flow_type", insertable = false, updatable = false)
+    private String flowType;
 
     @ManyToOne(cascade= CascadeType.MERGE)
     private TransactionType transactionType;
@@ -36,7 +36,7 @@ public class Transaction extends GenericPersistable implements Serializable {
     public Transaction() {
     }
 
-    public Transaction(Project project, double amount, Date date, FlowType flowType, TransactionType transactionType) {
+    public Transaction(Project project, double amount, Date date, String flowType, TransactionType transactionType) {
         this.project = project;
         this.amount = amount;
         this.date = date;
@@ -68,11 +68,11 @@ public class Transaction extends GenericPersistable implements Serializable {
         this.date = date;
     }
 
-    public FlowType getFlowType() {
+    public String getFlowType() {
         return flowType;
     }
 
-    public void setFlowType(FlowType flowType) {
+    public void setFlowType(String flowType) {
         this.flowType = flowType;
     }
 

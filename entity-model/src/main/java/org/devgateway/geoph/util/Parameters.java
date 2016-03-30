@@ -198,20 +198,12 @@ public class Parameters {
     private static List<Integer> convertAdmStringToIntegerList(final String values){
         List<Integer> ret = null;
         if(StringUtils.isNotBlank(values)) {
-            Set<Integer> admSet = Sets.newHashSet(Lists.transform(Arrays.asList(values.split(PARAM_SEPARATOR)), new Function<String, Integer>() {
+            ret = Lists.transform(Arrays.asList(values.split(PARAM_SEPARATOR)), new Function<String, Integer>() {
                 @Override
                 public Integer apply(String level) {
                     return LocationAdmLevel.valueOf(level.toUpperCase()).getLevel();
                 }
-            }));
-            if(admSet.contains(LocationAdmLevel.PROVINCE.getLevel())){
-                admSet.add(LocationAdmLevel.MUNICIPALITY.getLevel());
-            } else if(admSet.contains(LocationAdmLevel.REGION.getLevel())){
-                admSet.add(LocationAdmLevel.PROVINCE.getLevel());
-                admSet.add(LocationAdmLevel.MUNICIPALITY.getLevel());
-            }
-
-            ret = Lists.newArrayList(admSet);
+            });
         }
         return ret;
     }
