@@ -6,6 +6,7 @@ const filters = (state = {}, action) => {
     case Constants.SELECT_ALL_FILTER_LIST:
     case Constants.RECEIVE_FILTER_DATA:
     case Constants.REQUEST_FILTER_DATA:
+    case Constants.FILTER_SET_DATE:
     case Constants.SEARCH_FILTER_LIST_BY_TEXT:
       let fl = filter(state[action.filterType], action);
       updateFilterCounters(fl);
@@ -32,6 +33,11 @@ const filter = (state = {
         lastUpdated: action.receivedAt
       })
 
+    case Constants.FILTER_SET_DATE:
+      return Object.assign({}, state, {
+          startDate: action.filterDate.startDate,
+          endDate: action.filterDate.endDate
+      })
     case Constants.SELECT_FILTER_ITEM:
       return Object.assign({}, state, {
           isFetching: false,

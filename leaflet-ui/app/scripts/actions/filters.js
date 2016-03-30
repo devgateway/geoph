@@ -81,15 +81,8 @@ export const setFilterDate = (filterDate) => {
   return {
     type: Constants.FILTER_SET_DATE,
     filterType: filterDate.filterType,
-    text: filterSearch.text
+    filterDate: filterDate
   }
 }
 
-export const fetchDatesLimitIfNeeded = (filterDate) => {
-  return {
-    type: Constants.SEARCH_FILTER_LIST_BY_TEXT,
-    filterType: filterSearch.filterType,
-    text: filterSearch.text
-  }
-}
 
