@@ -41,7 +41,7 @@ public class Parameters {
 
     private List<Long> fundingAgencies;
 
-    private List<Long> flowTypes;
+    private List<String> flowTypes;
 
     private List<Integer> locationLevels;
 
@@ -173,16 +173,40 @@ public class Parameters {
         this.fundingAgencies = fundingAgencies!=null? convertStringToLongList(fundingAgencies):null;
     }
 
-    public List<Long> getFlowTypes() {
+    public List<String> getFlowTypes() {
         return flowTypes;
     }
 
-    public void setFlowTypes(List<Long> flowTypes) {
+    public void setFlowTypes(List<String> flowTypes) {
         this.flowTypes = flowTypes;
     }
 
     public void setFlowTypes(String flowTypes) {
-        this.flowTypes = flowTypes!=null? convertStringToLongList(flowTypes):null;
+        this.flowTypes = flowTypes!=null? convertStringToFlowTypesList(flowTypes):null;
+    }
+
+    private List<String> convertStringToFlowTypesList(String flowTypes) {
+        List<String> ret = null;
+        if(StringUtils.isNotBlank(flowTypes)) {
+            ret = Lists.transform(Arrays.asList(flowTypes.split(PARAM_SEPARATOR)), new Function<String, String>() {
+                @Override
+                public String apply(String input) {
+                    String ret = null;
+                    switch (Integer.parseInt(input)) {
+                        case 1:
+                            ret = FlowType.LOAN.name().toLowerCase();
+                            break;
+                        case 2:
+                            ret = FlowType.GRANT.name().toLowerCase();
+                            break;
+                        default:
+                            ret = FlowType.PMC.name().toLowerCase();
+                    }
+                    return ret;
+                }
+            });
+        }
+        return ret;
     }
 
     public Pageable getPageable() {
