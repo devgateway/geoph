@@ -1,6 +1,7 @@
 import React from 'react';
 import {Tabs, Tab, Button, Label} from 'react-bootstrap';
 import FilterList from './filterListWithSearch'
+import FilterDate from './filterDateRange'
 import { connect } from 'react-redux'
 
 class FilterTabContent extends React.Component {
@@ -61,10 +62,10 @@ class FilterTabContent extends React.Component {
 	                <Tab className="filter-tab-content" eventKey={5} title="Dates">
 	                  	<Tabs defaultActiveKey={1} position="left" tabWidth={3}>
 							<Tab className="filter-list-content" eventKey={1} title="Implementation period">
-								Implementation period Tab content
+								<FilterDate />
 						    </Tab>
 						    <Tab className="filter-list-content" eventKey={2} title="Loan validity period">
-								Loan validity period Tab content
+								<FilterDate />
 						    </Tab>
 						</Tabs>
 	                </Tab>

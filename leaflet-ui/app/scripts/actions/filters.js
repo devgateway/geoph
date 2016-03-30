@@ -2,9 +2,9 @@ import * as Constants from '../constants/constants';
 import Connector from '../connector/connector';
 import {loadProjects} from './map';
 import {collectValues} from '../util/filterUtil';
-export const requestFilterList = (filter) => {
+export const requestFilterData = (filter) => {
   return {
-    type: Constants.REQUEST_FILTER_LIST,
+    type: Constants.REQUEST_FILTER_DATA,
     filter
   }
 }
@@ -17,24 +17,24 @@ export const applyFilter = (filterType) => {
   }
 }
 
-export const receiveFilterList = (filterType, data) => {
+export const receiveFilterData = (filterType, data) => {
   return {
-    type: Constants.RECEIVE_FILTER_LIST,
+    type: Constants.RECEIVE_FILTER_DATA,
     filterType,
     data: data,
     receivedAt: Date.now()
   }
 }
 
-export const fetchFilterList = (filterType) => {
+export const fetchFilterData = (filterType) => {
   return dispatch => {
-    dispatch(requestFilterList(filterType))
-    return Connector.getFilterList(filterType)
-    .then(req => dispatch(receiveFilterList(filterType, req)))
+    dispatch(requestFilterData(filterType))
+    return Connector.getFilterData(filterType)
+    .then(req => dispatch(receiveFilterData(filterType, req)))
   }
 }
 
-export const shouldFetchFilterList = (state, filterType) => {
+export const shouldFetchFilterData = (state, filterType) => {
   const list = state.filters[filterType]
   if (!list) {
     return true
@@ -45,10 +45,10 @@ export const shouldFetchFilterList = (state, filterType) => {
   }
 }
 
-export const fetchFilterListIfNeeded = (filterType) => {
+export const fetchFilterDataIfNeeded = (filterType) => {
   return (dispatch, getState) => {
-    if (shouldFetchFilterList(getState(), filterType)) {
-      return dispatch(fetchFilterList(filterType))
+    if (shouldFetchFilterData(getState(), filterType)) {
+      return dispatch(fetchFilterData(filterType))
     }
   }
 }
@@ -76,3 +76,20 @@ export const searchItemByText = (filterSearch) => {
     text: filterSearch.text
   }
 }
+
+export const setFilterDate = (filterDate) => {
+  return {
+    type: Constants.FILTER_SET_DATE,
+    filterType: filterDate.filterType,
+    text: filterSearch.text
+  }
+}
+
+export const fetchDatesLimitIfNeeded = (filterDate) => {
+  return {
+    type: Constants.SEARCH_FILTER_LIST_BY_TEXT,
+    filterType: filterSearch.filterType,
+    text: filterSearch.text
+  }
+}
+

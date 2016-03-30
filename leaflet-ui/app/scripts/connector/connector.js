@@ -101,7 +101,7 @@ class Connector {
 		});
 	}
 
-	getFilterList(filterType) {
+	getFilterData(filterType) {
 		return new Promise( (resolve, reject) => {
 			this.call(GET,Settings.get('API','FILTER_LIST')[filterType], {}).then((data) => {
 				resolve(data); ////resolve with original data or perform any data transformation needed			

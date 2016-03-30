@@ -4,8 +4,8 @@ const filters = (state = {}, action) => {
   switch (action.type) {
     case Constants.SELECT_FILTER_ITEM:
     case Constants.SELECT_ALL_FILTER_LIST:
-    case Constants.RECEIVE_FILTER_LIST:
-    case Constants.REQUEST_FILTER_LIST:
+    case Constants.RECEIVE_FILTER_DATA:
+    case Constants.REQUEST_FILTER_DATA:
     case Constants.SEARCH_FILTER_LIST_BY_TEXT:
       let fl = filter(state[action.filterType], action);
       updateFilterCounters(fl);
@@ -22,11 +22,11 @@ const filter = (state = {
   items: []
 }, action) => {
   switch (action.type) {
-    case Constants.REQUEST_FILTER_LIST:
+    case Constants.REQUEST_FILTER_DATA:
       return Object.assign({}, state, {
         isFetching: true,
       })
-    case Constants.RECEIVE_FILTER_LIST:
+    case Constants.RECEIVE_FILTER_DATA:
       return Object.assign({}, state, action.data, {
         isFetching: false,
         lastUpdated: action.receivedAt

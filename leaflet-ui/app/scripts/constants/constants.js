@@ -1,12 +1,12 @@
 
-
+	/*FILTER events*/
 	export const AUTO_ZOOM = 'AUTO_ZOOM';
 
 	export const SET_APP_LANGUAGE = 'SET_APP_LANGUAGE';
 
-	export const REQUEST_FILTER_LIST = 'REQUEST_FILTER_LIST';
+	export const REQUEST_FILTER_DATA = 'REQUEST_FILTER_DATA';
 
-	export const RECEIVE_FILTER_LIST = 'RECEIVE_FILTER_LIST';
+	export const RECEIVE_FILTER_DATA = 'RECEIVE_FILTER_DATA';
 
 	export const SELECT_FILTER_ITEM = 'SELECT_FILTER_ITEM';
 
@@ -16,13 +16,16 @@
 
 	export const SEARCH_FILTER_LIST_BY_TEXT = 'SEARCH_FILTER_LIST_BY_TEXT';
 
+	export const FILTER_SET_DATE = 'FILTER_SET_DATE';
+
+
 	/*LAYERS events*/
 	export const LOAD_PROJECT_GEOJSON_SUCCESS = 'LOAD_PROJECT_GEOJSON_SUCCESS';
 	
 	export const PROJECT_GEOJSON_LOADED = 'PROJECT_GEOJSON_LOADED';
 
-	/*Settings*/
 
+	/*Settings*/
 	export const PROJECT_GEOJSON ='PROJECT_GEOJSON';  
 	
 	export const API_BASE_URL ='API_BASE_URL';
