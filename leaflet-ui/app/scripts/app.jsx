@@ -30,7 +30,7 @@ AjaxUtil.get('conf/settings.json').then((conf)=>{
 
   i18next.use(XHR).init(options, (err, t) => {
   	if(err){
-  		cconsole.log(e.name + ': ' + e.message);
+  		console.log(err);
   	}
 
     render((

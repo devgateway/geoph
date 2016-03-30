@@ -8,8 +8,15 @@
 }
 
 .filter-list-content{
-  height: 280px;
+  height: 285px;
   max-height: 350px;
+  overflow: auto;
+}
+
+.filter-item-list{
+  position: relative;
+  top: 8px;
+  height: 240px;
   overflow: auto;
 }
 
