@@ -2,6 +2,7 @@ package org.devgateway.geoph.persistence.repository;
 
 import com.google.gson.Gson;
 import org.devgateway.geoph.model.*;
+import org.devgateway.geoph.util.FlowType;
 import org.devgateway.geoph.util.GeometryDetailLevel;
 import org.devgateway.geoph.util.PostGisHelper;
 import org.devgateway.geoph.util.Parameters;
@@ -50,27 +51,68 @@ public class DefaultLocationRepository implements LocationRepository {
     @Override
     public List<Location> findLocationsByParentId(long parentId) {
         return em.createNativeQuery("Select l.* from location l " +
-                "inner join location_items li on l.id=li.items_id " +
-                "where li.location_id = :parentId",
+                        "inner join location_items li on l.id=li.items_id " +
+                        "where li.location_id = :parentId",
                 Location.class)
                 .setParameter("parentId", parentId)
                 .getResultList();
     }
 
     @Override
-    public List<Location> findLocationsByParams(Parameters params) {
+    public Location findParentLocation(long locationId) {
+        return (Location) em.createNativeQuery("Select l.* from location l inner join location_items li " +
+                        "on l.id=li.location_id where li.items_id = :locationId",
+                Location.class)
+                .setParameter("locationId", locationId)
+                .getSingleResult();
+    }
+
+    @Override
+    public Location findGrandParentLocation(long locationId) {
+        return (Location) em.createNativeQuery("Select l.* from location l inner join location_items li " +
+                        "on l.id=li.location_id " +
+                        "inner join location_items li2 on li2.location_id = li.items_id " +
+                        "where li2.items_id = :locationId",
+                    Location.class)
+                .setParameter("locationId", locationId)
+                .getSingleResult();
+    }
+
+    @Override
+    public List<Object> findLocationsByParams(Parameters params) {
 
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-        CriteriaQuery<Location> criteriaQuery = criteriaBuilder
-                .createQuery(Location.class);
-        Root<Location> locationRoot = criteriaQuery.from(Location.class);
-        List<Predicate> predicates = new ArrayList();
+        CriteriaQuery<Object> criteriaQuery = criteriaBuilder.createQuery();
 
+        Root<Location> locationRoot = criteriaQuery.from(Location.class);
+        List<Selection<?>> multiSelect = new ArrayList<>();
+        multiSelect.add(locationRoot);
+
+        List<Predicate> predicates = new ArrayList();
+        List<Expression<?>> groupByList = new ArrayList<>();
+        groupByList.add(locationRoot);
         if(params!=null) {
             Join<Location, Project> projectJoin = locationRoot.join(Location_.projects, JoinType.LEFT);
-            if(params.getLocationLevels()!=null) {
+            multiSelect.add(criteriaBuilder.countDistinct(projectJoin).alias("projectCount"));
+
+            Join<Project, Transaction> transaction0Join = projectJoin.join(Project_.transactions, JoinType.LEFT);
+            multiSelect.add(criteriaBuilder.countDistinct(transaction0Join).alias("transactionCount"));
+
+            Join<Project, Transaction> transaction1Join = projectJoin.join(Project_.transactions, JoinType.LEFT);
+            transaction1Join.on(transaction1Join.get(Transaction_.flowType).in(FlowType.LOAN.name().toLowerCase()));
+            multiSelect.add(criteriaBuilder.sum(transaction1Join.get(Transaction_.amount)).alias("loans"));
+
+            Join<Project, Transaction> transaction2Join = projectJoin.join(Project_.transactions, JoinType.LEFT);
+            transaction2Join.on(transaction2Join.get(Transaction_.flowType).in(FlowType.GRANT.name().toLowerCase()));
+            multiSelect.add(criteriaBuilder.sum(transaction2Join.get(Transaction_.amount)).alias("grants"));
+
+            Join<Project, Transaction> transaction3Join = projectJoin.join(Project_.transactions, JoinType.LEFT);
+            transaction3Join.on(transaction3Join.get(Transaction_.flowType).in(FlowType.PMC.name().toLowerCase()));
+            multiSelect.add(criteriaBuilder.sum(transaction3Join.get(Transaction_.amount)).alias("pmcs"));
+
+            /*if(params.getLocationLevels()!=null) {
                 predicates.add(locationRoot.get(Location_.level).in(params.getLocationLevels()));
-            }
+            }*/
             if(params.getLocations()!=null) {
                 predicates.add(locationRoot.get(Location_.id).in(params.getLocations()));
             }
@@ -101,17 +143,18 @@ public class DefaultLocationRepository implements LocationRepository {
             }
             if(params.getFlowTypes()!=null){
                 Join<Project, Transaction> transactionJoin = projectJoin.join(Project_.transactions);
-                Join<Transaction, FlowType> flowTypeJoin = transactionJoin.join(Transaction_.flowType);
-                predicates.add(flowTypeJoin.get(FlowType_.id).in(params.getFlowTypes()));
+                predicates.add(transactionJoin.get(Transaction_.flowType).in(params.getFlowTypes()));
             }
+
         }
 
-        if(predicates.size()>0) {
-            Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
-            criteriaQuery.where(other);
-        }
+        Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+        criteriaQuery.where(other);
 
-        TypedQuery<Location> query = em.createQuery(criteriaQuery.select(locationRoot));
+
+        criteriaQuery.groupBy(groupByList);
+        TypedQuery<Object> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
+
         return query.getResultList();
     }
 

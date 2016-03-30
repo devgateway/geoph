@@ -21,7 +21,12 @@ public interface LocationRepository {
 
     List<Location> findLocationsByParentId(long parentId);
 
-    List<Location> findLocationsByParams(Parameters params);
+    List<Object> findLocationsByParams(Parameters params);
 
     List<PostGisHelper> getRegionShapesWithDetail(GeometryDetailLevel detail);
+
+    Location findParentLocation(long locationId);
+
+    Location findGrandParentLocation(long locationId);
+
 }

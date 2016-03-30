@@ -3,6 +3,7 @@ package org.devgateway.geoph.rest;
 import org.devgateway.geoph.model.*;
 import org.devgateway.geoph.response.GenericResponse;
 import org.devgateway.geoph.services.FilterService;
+import org.devgateway.geoph.util.FlowType;
 import org.devgateway.geoph.util.LocationAdmLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.*;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 import static org.devgateway.geoph.util.Constants.*;
@@ -38,7 +39,13 @@ public class FilterController extends CrossOriginSupport {
     @RequestMapping(value = "/flowType", method = GET)
     public GenericResponse findAllFlowTypes() {
         LOGGER.debug("findAllFlowTypes");
-        List<FlowType> flowTypes = service.findAllFlowTypes();
+        List<Map<String, String>> flowTypes = new ArrayList<>();
+        for(FlowType flowType:FlowType.values()){
+            Map<String, String> flowTypesMap = new HashMap<>();
+            flowTypesMap.put("id", String.valueOf(flowType.getId()));
+            flowTypesMap.put("name", flowType.name());
+            flowTypes.add(flowTypesMap);
+        }
         GenericResponse resp = new GenericResponse(
                 "Flow Types",
                 FILTER_FLOW_TYPE,
@@ -157,6 +164,48 @@ public class FilterController extends CrossOriginSupport {
                 1,
                 statuses,
                 statuses!=null?statuses.size():0
+        );
+
+        return resp;
+    }
+
+    @RequestMapping(value = "/impPeriod", method = GET)
+    public GenericResponse findImpPeriod() {
+        LOGGER.debug("findImpPeriod");
+        List<Map<String, String>> maxDates = new ArrayList<>();
+        Map<String, String> maxDatesMap = new HashMap<>();
+        maxDatesMap.put("minDate", "2010-01-01");
+        maxDatesMap.put("maxDate", "2020-12-31");
+        maxDates.add(maxDatesMap);
+
+        GenericResponse resp = new GenericResponse(
+                "Implementation Period",
+                null,
+                "IMP_PERIOD_SECTION",
+                1,
+                maxDates,
+                maxDates!=null?maxDates.size():0
+        );
+
+        return resp;
+    }
+
+    @RequestMapping(value = "/grantPeriod", method = GET)
+    public GenericResponse findGrantPeriod() {
+        LOGGER.debug("findGrantPeriod");
+        List<Map<String, String>> maxDates = new ArrayList<>();
+        Map<String, String> maxDatesMap = new HashMap<>();
+        maxDatesMap.put("minDate", "2010-01-01");
+        maxDatesMap.put("maxDate", "2020-12-31");
+        maxDates.add(maxDatesMap);
+
+        GenericResponse resp = new GenericResponse(
+                "Load Validity Grant Period",
+                null,
+                "GRANT_PERIOD_SECTION",
+                1,
+                maxDates,
+                maxDates!=null?maxDates.size():0
         );
 
         return resp;
