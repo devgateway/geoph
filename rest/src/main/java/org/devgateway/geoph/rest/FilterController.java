@@ -172,16 +172,10 @@ public class FilterController extends CrossOriginSupport {
     @RequestMapping(value = "/impPeriod", method = GET)
     public GenericResponse findImpPeriod() {
         LOGGER.debug("findImpPeriod");
-        List<Map<String, Date>> maxDates = new ArrayList<>();
-        Map<String, Date> maxDatesMap = new HashMap<>();
-        Calendar cal1 = Calendar.getInstance();
-        cal1.setTimeInMillis(0);
-        cal1.set(2010, 0, 1);
-        maxDatesMap.put("minDate", cal1.getTime());
-        Calendar cal2 = Calendar.getInstance();
-        cal2.setTimeInMillis(0);
-        cal2.set(2020, 11, 30);
-        maxDatesMap.put("maxDate", cal2.getTime());
+        List<Map<String, String>> maxDates = new ArrayList<>();
+        Map<String, String> maxDatesMap = new HashMap<>();
+        maxDatesMap.put("minDate", "2010-01-01");
+        maxDatesMap.put("maxDate", "2020-12-31");
         maxDates.add(maxDatesMap);
 
         GenericResponse resp = new GenericResponse(
@@ -199,16 +193,10 @@ public class FilterController extends CrossOriginSupport {
     @RequestMapping(value = "/grantPeriod", method = GET)
     public GenericResponse findGrantPeriod() {
         LOGGER.debug("findGrantPeriod");
-        List<Map<String, Date>> maxDates = new ArrayList<>();
-        Map<String, Date> maxDatesMap = new HashMap<>();
-        Calendar cal1 = Calendar.getInstance();
-        cal1.setTimeInMillis(0);
-        cal1.set(2010, 0, 1);
-        maxDatesMap.put("minDate", cal1.getTime());
-        Calendar cal2 = Calendar.getInstance();
-        cal2.setTimeInMillis(0);
-        cal2.set(2020, 11, 30);
-        maxDatesMap.put("maxDate", cal2.getTime());
+        List<Map<String, String>> maxDates = new ArrayList<>();
+        Map<String, String> maxDatesMap = new HashMap<>();
+        maxDatesMap.put("minDate", "2010-01-01");
+        maxDatesMap.put("maxDate", "2020-12-31");
         maxDates.add(maxDatesMap);
 
         GenericResponse resp = new GenericResponse(

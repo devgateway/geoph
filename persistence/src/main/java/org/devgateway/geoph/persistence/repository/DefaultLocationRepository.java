@@ -143,7 +143,7 @@ public class DefaultLocationRepository implements LocationRepository {
             }
             if(params.getFlowTypes()!=null){
                 Join<Project, Transaction> transactionJoin = projectJoin.join(Project_.transactions);
-                predicates.add(transactionJoin.get(FlowType_.id).in(params.getFlowTypes()));
+                predicates.add(transactionJoin.get(Transaction_.flowType).in(params.getFlowTypes()));
             }
 
         }
