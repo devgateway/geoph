@@ -20,7 +20,7 @@ public class Loan extends Transaction implements Serializable {
     public Loan() {
     }
 
-    public Loan(Project project, double amount, Date date, FlowType flowType, TransactionType transactionType) {
+    public Loan(Project project, double amount, Date date, String flowType, TransactionType transactionType) {
         super(project, amount, date, flowType, transactionType);
     }
 }

@@ -5,10 +5,7 @@ import com.google.common.collect.Maps;
 import org.devgateway.geoph.model.*;
 import org.devgateway.geoph.persistence.repository.LocationRepository;
 import org.devgateway.geoph.services.GeoJsonService;
-import org.devgateway.geoph.util.GeometryDetailLevel;
-import org.devgateway.geoph.util.LocationAdmLevel;
-import org.devgateway.geoph.util.PostGisHelper;
-import org.devgateway.geoph.util.Parameters;
+import org.devgateway.geoph.util.*;
 import org.geojson.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,13 +44,48 @@ public class GeoJsonServiceImpl implements GeoJsonService {
     }
 
     public FeatureCollection getLocationsByParams(Parameters params) {
-        List<Location> locationList = locationRepository.findLocationsByParams(params);
+        int level = LocationAdmLevel.MUNICIPALITY.getLevel();
+        for(int paramLevel:params.getLocationLevels()){
+            if(paramLevel<level){
+                level=paramLevel;
+            }
+        }
+        List<Location> locations = locationRepository.findLocationsByLevel(level);
+        Map<Long, LocationProperty> locationPropertyMap = new HashMap<>();
+        for(Location location:locations){
+            locationPropertyMap.put(location.getId(), new LocationProperty(location));
+        }
+
+        List<Object> locationResults = locationRepository.findLocationsByParams(params);
+        for(Object o:locationResults){
+            Location l = (Location)((Object[])o)[0];
+            LocationProperty lp = null;
+            if(level==1){
+                lp = locationPropertyMap.get(l.getRegionId());
+            } else if(level==2){
+                lp = locationPropertyMap.get(l.getProvinceId());
+            } else if(level==3){
+                lp = locationPropertyMap.get(l.getId());
+            }
+            lp.addProjectCount((Long)((Object[])o)[1]);
+            lp.addTransactionCount((Long)((Object[])o)[2]);
+            lp.addLoan((Double)((Object[])o)[3]);
+            lp.addGrant((Double)((Object[])o)[4]);
+            lp.addPmc((Double)((Object[])o)[5]);
+        }
 
         FeatureCollection featureCollection = new FeatureCollection();
-        for(Location location : locationList) {
+        for(LocationProperty location : locationPropertyMap.values()) {
             Feature feature = new Feature();
             feature.setGeometry(new Point(location.getLongitude(), location.getLatitude()));
-            setFeatureProperties(feature, location, true);
+            feature.setProperty(PROPERTY_LOC_ID, location.getId());
+            feature.setProperty(PROPERTY_LOC_NAME, location.getName());
+            feature.setProperty(PROPERTY_LOC_CODE, location.getCode());
+            feature.setProperty(PROPERTY_LOC_PROJ_COUNT, location.getProjectCount());
+            feature.setProperty(PROPERTY_LOC_TRX_COUNT, location.getTransactionCount());
+            feature.setProperty(PROPERTY_LOC_GRANTS, location.getGrant());
+            feature.setProperty(PROPERTY_LOC_LOANS, location.getLoan());
+            feature.setProperty(PROPERTY_LOC_PMC, location.getPmc());
             featureCollection.add(feature);
         }
         return featureCollection;
