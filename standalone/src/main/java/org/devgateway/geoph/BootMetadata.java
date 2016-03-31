@@ -41,9 +41,9 @@ public class BootMetadata {
                 "/sql/basic-data/projects.sql",
                 "/sql/basic-data/project_sectors.sql",
                 "/sql/basic-data/project_locations.sql",
-                "/sql/basic-data/transactions.sql",
-                "/sql/basic-data/indicator.sql",
-                "/sql/basic-data/indicator_detail.sql"
+                "/sql/basic-data/transactions.sql"
+                //"/sql/basic-data/indicator.sql",
+                //"/sql/basic-data/indicator_detail.sql"
                 );
 
         //The princess is in another castle

@@ -23,22 +23,33 @@ const view = React.createClass({
 		return {};
 	},
 
+	componentWillUpdate(nextProps, nextState) {
+		debugger;
+	},
+
 	render(){
-		
-		return ( 
-			 <Map className="map" zoom={13} bounds={bounds}>
+		debugger;
+		return (
+			<Map className="map" zoom={13} bounds={bounds}>
 			    <TileLayer url='http://{s}.tile.osm.org/{z}/{x}/{y}.png' attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'/>
-			    <GeoJsonLayer autoZoom={true} data={this.props.layers.projects.data}/>
-			  </Map>)
+			    {
+			    	this.props.layers.map((layer)=>{
+			    		return <GeoJsonLayer key={layer.name} autoZoom={layer.autoZoom} data={layer.data}/>	
+			    	})
+			    }
+			</Map>
+			)
 	}
 });
 
 
-const stateToProps = (state, props) => {
+const stateToProps = (state,props) => {
+	debugger;
 	return state.map;
 }
 
 const MapView=connect(stateToProps)(view);
+
 
 export default MapView;
 

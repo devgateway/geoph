@@ -129,7 +129,7 @@ public class Location extends GenericPersistable implements Serializable {
         this.projects = projects;
     }
 
-    public long getRegionId() {
+    public Long getRegionId() {
         return regionId;
     }
 
@@ -137,7 +137,7 @@ public class Location extends GenericPersistable implements Serializable {
         this.regionId = regionId;
     }
 
-    public long getProvinceId() {
+    public Long getProvinceId() {
         return provinceId;
     }
 

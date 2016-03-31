@@ -11,8 +11,6 @@ export const requestFilterData = (filter) => {
 
 export const applyFilter = (filterType) => {
   return (dispatch, getState) => {
-    debugger;
-    //call to all filters changed related eventes 
     return dispatch(loadProjects('region',collectValues(getState().filters)));
   }
 }

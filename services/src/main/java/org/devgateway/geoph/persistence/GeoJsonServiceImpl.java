@@ -44,35 +44,14 @@ public class GeoJsonServiceImpl implements GeoJsonService {
     }
 
     public FeatureCollection getLocationsByParams(Parameters params) {
-        int level = LocationAdmLevel.MUNICIPALITY.getLevel();
-        for(int paramLevel:params.getLocationLevels()){
-            if(paramLevel<level){
-                level=paramLevel;
-            }
-        }
+        int level = getUpperLevel(params);
         List<Location> locations = locationRepository.findLocationsByLevel(level);
         Map<Long, LocationProperty> locationPropertyMap = new HashMap<>();
         for(Location location:locations){
             locationPropertyMap.put(location.getId(), new LocationProperty(location));
         }
 
-        List<Object> locationResults = locationRepository.findLocationsByParams(params);
-        for(Object o:locationResults){
-            Location l = (Location)((Object[])o)[0];
-            LocationProperty lp = null;
-            if(level==1){
-                lp = locationPropertyMap.get(l.getRegionId());
-            } else if(level==2){
-                lp = locationPropertyMap.get(l.getProvinceId());
-            } else if(level==3){
-                lp = locationPropertyMap.get(l.getId());
-            }
-            lp.addProjectCount((Long)((Object[])o)[1]);
-            lp.addTransactionCount((Long)((Object[])o)[2]);
-            lp.addLoan((Double)((Object[])o)[3]);
-            lp.addGrant((Double)((Object[])o)[4]);
-            lp.addPmc((Double)((Object[])o)[5]);
-        }
+        aggregateResults(params, level, locationPropertyMap);
 
         FeatureCollection featureCollection = new FeatureCollection();
         for(LocationProperty location : locationPropertyMap.values()) {
@@ -89,6 +68,39 @@ public class GeoJsonServiceImpl implements GeoJsonService {
             featureCollection.add(feature);
         }
         return featureCollection;
+    }
+
+    private void aggregateResults(Parameters params, int level, Map<Long, LocationProperty> locationPropertyMap) {
+        List<Object> locationResults = locationRepository.findLocationsByParams(params);
+        for(Object o:locationResults){
+            Object[] objectList = ((Object[])o);
+            Location l = (Location)objectList[0];
+            LocationProperty lp = null;
+            if(level==1){
+                lp = locationPropertyMap.get(l.getRegionId());
+            } else if(level==2){
+                lp = l.getProvinceId()!=null ? locationPropertyMap.get(l.getProvinceId()) : null;
+            } else if(level==3){
+                lp = locationPropertyMap.get(l.getId());
+            }
+            if(lp!=null) {
+                lp.addProjectCount((Long)objectList[1]);
+                lp.addTransactionCount((Long)objectList[2]);
+                lp.addLoan((Double)objectList[3]);
+                lp.addGrant((Double)objectList[4]);
+                lp.addPmc((Double)objectList[5]);
+            }
+        }
+    }
+
+    private int getUpperLevel(Parameters params) {
+        int level = LocationAdmLevel.MUNICIPALITY.getLevel();
+        for(int paramLevel:params.getLocationLevels()){
+            if(paramLevel<level){
+                level=paramLevel;
+            }
+        }
+        return level;
     }
 
     @Override
