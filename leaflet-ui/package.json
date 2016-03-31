@@ -81,11 +81,11 @@
     "url-loader": "^0.5.7",
     "webpack": "^1.12.12",
     "webpack-dev-middleware": "^1.5.1",
-    "webpack-hot-middleware": "^2.6.4"
+    "webpack-hot-middleware": "^2.6.4",
+    "moment": "^2.12.0",
+    "react-date-picker": "^4.0.10"
   },
   "dependencies": {
-    "moment": "^2.12.0",
-    "react-date-picker": "^4.0.10",
-    "react-datepicker": "^0.25.0"
+    
   }
 }

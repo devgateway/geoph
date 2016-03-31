@@ -62,10 +62,10 @@ class FilterTabContent extends React.Component {
 	                <Tab className="filter-tab-content" eventKey={5} title="Dates">
 	                  	<Tabs defaultActiveKey={1} position="left" tabWidth={3}>
 							<Tab className="filter-list-content" eventKey={1} title="Implementation period">
-								<FilterDate lang={this.props.language}/>
+								<FilterDate filterType="ip" lang={this.props.language} {...this.props.filters["ip"]}/>
 						    </Tab>
 						    <Tab className="filter-list-content" eventKey={2} title="Loan validity period">
-								<FilterDate lang={this.props.language}/>
+								<FilterDate filterType="gp" lang={this.props.language} {...this.props.filters["gp"]}/>
 						    </Tab>
 						</Tabs>
 	                </Tab>

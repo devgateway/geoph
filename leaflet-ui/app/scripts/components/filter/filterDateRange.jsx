@@ -28,7 +28,7 @@ class FilterDate extends React.Component {
 		let ed = Moment(date);
 		let sd = this.refs.startDate.getDate();//.format("YYYY-MM-DD");	
 		if (this.validateDates(sd, ed)){
-			this.props.onDateChange({filterType: this.props.filterType, startDate: ed.format("YYYY-MM-DD"), endDate: date});
+			this.props.onDateChange({filterType: this.props.filterType, startDate: sd.format("YYYY-MM-DD"), endDate: date});
 		}
 	}
 
@@ -43,26 +43,32 @@ class FilterDate extends React.Component {
 	}
 
   	render() {
+  		let startMinDate = this.props.items? this.props.items[0].minDate : '';
+  		let startMaxDate = this.props.endDate || (this.props.items? this.props.items[0].maxDate : '');
+  		let endMinDate = this.props.startDate || (this.props.items? this.props.items[0].minDate : '');
+  		let endMaxDate = this.props.items? this.props.items[0].maxDate : '';
   		return (
 	        <div className="date-picker-container">
 	        	<div className="date-picker-div">
 	        		<span>Start Date: <b>{this.props.startDate || "Not Set"}</b></span>
 	        		<DatePicker 
+	        			hideFooter={true}
 	        			ref="startDate" 
 	        			locale={this.props.lang} 
-	        			minDate={this.props.minDate} 
-	        			maxDate={this.props.endDate || this.props.maxDate} 
-	        			date={this.state.dateNow} 
+	        			minDate={startMinDate} 
+	        			maxDate={startMaxDate} 
+	        			date={this.props.startDate || this.state.dateNow} 
 	        			onChange={this.handleStartDate.bind(this)} />
 		        </div>	
 		        <div className="date-picker-div">
-	        		<span>End Date: <b>{this.props.EndDate || "Not Set"}</b></span>
+	        		<span>End Date: <b>{this.props.endDate || "Not Set"}</b></span>
 	        		<DatePicker 
+	        			hideFooter={true}
 	        			ref="endDate" 
 	        			locale={this.props.lang} 
-	        			minDate={this.props.startDate || this.props.minDate} 
-	        			maxDate={this.props.maxDate} 
-	        			date={this.state.dateNow} 
+	        			minDate={endMinDate} 
+	        			maxDate={endMaxDate} 
+	        			date={this.props.endDate || this.state.dateNow} 
 	        			onChange={this.handleEndDate.bind(this)} />	 
 		        </div>
 		        {this.state.errorMessage.length>0?

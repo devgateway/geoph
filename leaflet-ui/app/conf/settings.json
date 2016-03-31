@@ -17,13 +17,17 @@
 			"development": {
 				"st": "/filters/sector",
 				"fa": "/filters/fundingAgency",
-				"ia": "/filters/impAgency"			
+				"ia": "/filters/impAgency",
+				"ip": "/filters/impPeriod",
+				"gp": "/filters/grantPeriod"			
 			},
 
 			"production": {
 				"st": "/filters/sector",
 				"fa": "/filters/fundingAgency",
-				"ia": "/filters/impAgency"				
+				"ia": "/filters/impAgency",
+				"ip": "/filters/impPeriod",
+				"gp": "/filters/grantPeriod"				
 			}
 		}
 	},
