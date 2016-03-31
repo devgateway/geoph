@@ -1,15 +1,26 @@
 package org.devgateway.geoph;
 
+import org.devgateway.geoph.model.security.GrantedAuthority;
+import org.devgateway.geoph.model.security.User;
+import org.devgateway.geoph.services.SecurityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import javax.transaction.Transactional;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import static java.lang.Math.random;
+import static java.lang.System.currentTimeMillis;
+import static java.util.concurrent.TimeUnit.DAYS;
 
 /**
  * @author dbianco
@@ -22,7 +33,14 @@ public class BootMetadata {
     private static final Logger LOGGER = LoggerFactory.getLogger(BootMetadata.class);
 
     @Autowired
+    PasswordEncoder encoder;
+
+    @Autowired
     DataSource dataSource;
+
+    @Autowired
+    SecurityService securityService;
+
 
 
     protected void boot() {
@@ -47,6 +65,24 @@ public class BootMetadata {
                 );
 
         //The princess is in another castle
+
+        GrantedAuthority readPermission = securityService.saveGrantedAuthority(
+                new GrantedAuthority("Login, Search and View Layers", "READ" ));
+        List<GrantedAuthority> commonAuthorities = new ArrayList<>();
+        commonAuthorities.add(readPermission);
+
+        User geophUser = new User();
+        geophUser.setEmail("admin@aiddata.org");
+        geophUser.setName("Admin");
+        geophUser.setLastName("Aiddata");
+        geophUser.setPassword(encoder.encode("hello123"));
+        geophUser.setEnabled(true);
+        geophUser.setCreated(new Date(currentTimeMillis() - DAYS.toMillis((long) (random() * 60))));
+        geophUser.setAccountNonExpired(true);
+        geophUser.setAccountNonLocked(true);
+        geophUser.setCredentialsNonExpired(true);
+        geophUser.setAuthorities(commonAuthorities);
+        geophUser = securityService.savePerson(geophUser);
     }
 
     private void runScript(String... scriptList) {

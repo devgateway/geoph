@@ -23,6 +23,8 @@
         <geojson.version>1.5.1</geojson.version>
         <jacksondatatype.version>2.7.3</jacksondatatype.version>
         <gson.version>2.6.2</gson.version>
+		<security-web.version>4.0.4.RELEASE</security-web.version>
+		<security-config.version>4.0.4.RELEASE</security-config.version>
     </properties>
 
     <modules>
@@ -70,6 +72,16 @@
                 <artifactId>gson</artifactId>
                 <version>${gson.version}</version>
             </dependency>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-web</artifactId>
+				<version>${security-web.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-config</artifactId>
+				<version>${security-config.version}</version>
+			</dependency>											
         </dependencies>
     </dependencyManagement>
 
