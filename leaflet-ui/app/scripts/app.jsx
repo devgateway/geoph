@@ -3,6 +3,7 @@ require('font-awesome/css/font-awesome.css');
 require('react-date-picker/base.css');
 require('react-date-picker/theme/hackerone.css');
 require('../stylesheets/main.scss');
+
  
 import babelPolyfill from 'babel-polyfill';
 

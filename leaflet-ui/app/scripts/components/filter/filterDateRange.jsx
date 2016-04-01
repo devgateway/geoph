@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import DatePicker from 'react-date-picker'
 import Moment from 'moment'
-import { setFilterDate, fetchFilterDataIfNeeded } from '../../actions/filters.js'
+import { setFilterRange, fetchFilterDataIfNeeded } from '../../actions/filters.js'
 
 
 class FilterDate extends React.Component {
@@ -20,7 +20,7 @@ class FilterDate extends React.Component {
 		let sd = Moment(date);
 		let ed = this.refs.endDate.getDate();//.format("YYYY-MM-DD");	
 		if (this.validateDates(sd, ed)){
-			this.props.onDateChange({filterType: this.props.filterType, startDate:date, endDate: ed.format("YYYY-MM-DD")});
+			this.props.onDateChange({filterType: this.props.filterType, minSelected:date, maxSelected: ed.format("YYYY-MM-DD")});
 		}
 	}
 
@@ -28,7 +28,7 @@ class FilterDate extends React.Component {
 		let ed = Moment(date);
 		let sd = this.refs.startDate.getDate();//.format("YYYY-MM-DD");	
 		if (this.validateDates(sd, ed)){
-			this.props.onDateChange({filterType: this.props.filterType, startDate: sd.format("YYYY-MM-DD"), endDate: date});
+			this.props.onDateChange({filterType: this.props.filterType, minSelected: sd.format("YYYY-MM-DD"), maxSelected: date});
 		}
 	}
 
@@ -44,31 +44,31 @@ class FilterDate extends React.Component {
 
   	render() {
   		let startMinDate = this.props.items? this.props.items[0].minDate : '';
-  		let startMaxDate = this.props.endDate || (this.props.items? this.props.items[0].maxDate : '');
-  		let endMinDate = this.props.startDate || (this.props.items? this.props.items[0].minDate : '');
+  		let startMaxDate = this.props.maxSelected || (this.props.items? this.props.items[0].maxDate : '');
+  		let endMinDate = this.props.minSelected || (this.props.items? this.props.items[0].minDate : '');
   		let endMaxDate = this.props.items? this.props.items[0].maxDate : '';
   		return (
 	        <div className="date-picker-container">
 	        	<div className="date-picker-div">
-	        		<span>Start Date: <b>{this.props.startDate || "Not Set"}</b></span>
+	        		<span>Start Date: <b>{this.props.minSelected || "Not Set"}</b></span>
 	        		<DatePicker 
 	        			hideFooter={true}
 	        			ref="startDate" 
 	        			locale={this.props.lang} 
 	        			minDate={startMinDate} 
 	        			maxDate={startMaxDate} 
-	        			date={this.props.startDate || this.state.dateNow} 
+	        			date={this.props.minSelected || this.state.dateNow} 
 	        			onChange={this.handleStartDate.bind(this)} />
 		        </div>	
 		        <div className="date-picker-div">
-	        		<span>End Date: <b>{this.props.endDate || "Not Set"}</b></span>
+	        		<span>End Date: <b>{this.props.maxSelected || "Not Set"}</b></span>
 	        		<DatePicker 
 	        			hideFooter={true}
 	        			ref="endDate" 
 	        			locale={this.props.lang} 
 	        			minDate={endMinDate} 
 	        			maxDate={endMaxDate} 
-	        			date={this.props.endDate || this.state.dateNow} 
+	        			date={this.props.maxSelected || this.state.dateNow} 
 	        			onChange={this.handleEndDate.bind(this)} />	 
 		        </div>
 		        {this.state.errorMessage.length>0?
@@ -89,8 +89,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(fetchFilterDataIfNeeded(type));
     },
 
-    onDateChange: (filterDate) => {
-      dispatch(setFilterDate(filterDate));
+    onDateChange: (filterRange) => {
+      dispatch(setFilterRange(filterRange));
     }
   }
 }

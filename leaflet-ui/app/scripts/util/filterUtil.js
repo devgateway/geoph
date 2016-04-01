@@ -5,7 +5,6 @@ const selected=(values)=>{
 	return values.filter((it)=>{return it.selected || (it.selectedCounter && it.selectedCounter > 0)});
 }
 
-
 const collect=(options)=>{
 	let values=[];
    //first level iteration 
@@ -21,18 +20,23 @@ const collect=(options)=>{
    return values;
 }
 
-
-
+const collectRange=(options)=>{
+	let values=[];
+   	if(options.minSelected && options.maxSelected){
+   		values.push(options.minSelected);
+   		values.push(options.maxSelected);
+   	}
+   return values;
+}
 
 export const collectValues=filters=>{
 	let params={};
 	
 	for(let param in filters){
 		let options=filters[param].items;
-		let selection=collect(selected(options));
+		let selection=filters[param].isRange? collectRange(filters[param]) : collect(selected(options));
 		if(selection.length > 0){
-			params[param]=selection;
-			
+			params[param]=selection;			
 		}
 	}
 	console.log(params)

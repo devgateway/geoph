@@ -75,11 +75,11 @@ export const searchItemByText = (filterSearch) => {
   }
 }
 
-export const setFilterDate = (filterDate) => {
+export const setFilterRange = (filter) => {
   return {
-    type: Constants.FILTER_SET_DATE,
-    filterType: filterDate.filterType,
-    filterDate: filterDate
+    type: Constants.FILTER_SET_RANGE,
+    filterType: filter.filterType,
+    filter: filter
   }
 }
 

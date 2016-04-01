@@ -1,0 +1,13 @@
+{
+    "description": "Percentage of target reached",
+    "param": null,
+    "group": "FIN_AMOUNT_SECTION",
+    "index": 1,
+    "items": [
+        {
+            "minValue": 0,
+            "maxValue": 100
+        }
+    ],
+    "count": 1
+}

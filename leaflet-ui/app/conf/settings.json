@@ -20,17 +20,21 @@
 				"fa": "/filters/fundingAgency",
 				"ia": "/filters/impAgency",
 				"ip": "/filters/impPeriod",
-				"gp": "/filters/grantPeriod"			
+				"gp": "/filters/grantPeriod",
+				"fs": "/filters/status",				
+				"pr": {"mock": true, "path": "./json-data/percentageTarget.json"}				
 			},
-
 			"production": {
 				"st": "/filters/sector",
 				"fa": "/filters/fundingAgency",
 				"ia": "/filters/impAgency",
 				"ip": "/filters/impPeriod",
-				"gp": "/filters/grantPeriod"				
+				"gp": "/filters/grantPeriod",
+				"fs": "/filters/status",
+				"pr": {"mock": true, "path": "./json-data/percentageTarget.json"}				
 			}
 		}
+		
 	},
 
 	"I18N": {

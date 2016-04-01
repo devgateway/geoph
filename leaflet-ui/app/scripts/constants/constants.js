@@ -16,7 +16,7 @@
 
 	export const SEARCH_FILTER_LIST_BY_TEXT = 'SEARCH_FILTER_LIST_BY_TEXT';
 
-	export const FILTER_SET_DATE = 'FILTER_SET_DATE';
+	export const FILTER_SET_RANGE = 'FILTER_SET_RANGE';
 
 
 	/*LAYERS events*/

@@ -24,11 +24,10 @@ const view = React.createClass({
 	},
 
 	componentWillUpdate(nextProps, nextState) {
-		debugger;
+		
 	},
 
-	render(){
-		debugger;
+	render(){		
 		return (
 			<Map className="map" zoom={13} bounds={bounds}>
 			    <TileLayer url='http://{s}.tile.osm.org/{z}/{x}/{y}.png' attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'/>
@@ -44,7 +43,6 @@ const view = React.createClass({
 
 
 const stateToProps = (state,props) => {
-	debugger;
 	return state.map;
 }
 
