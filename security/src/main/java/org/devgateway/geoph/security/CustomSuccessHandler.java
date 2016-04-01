@@ -2,7 +2,7 @@ package org.devgateway.geoph.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.devgateway.geoph.model.security.PersistentToken;
-import org.devgateway.geoph.model.security.User;
+import org.devgateway.geoph.model.security.SystemUser;
 import org.devgateway.geoph.services.SecurityService;
 import org.devgateway.geoph.services.TokenService;
 import org.slf4j.Logger;
@@ -30,7 +30,6 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     private final SecurityService securityService;
     private final TokenService tokenService;
 
-    @Autowired
     public CustomSuccessHandler(SecurityService securityService, TokenService tokenService) {
         mapper = new ObjectMapper();
         this.securityService = securityService;
@@ -38,9 +37,6 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     }
 
     @Override
-    /**
-     * Override the original redirect by an JSON response
-     */
     @Transactional
     public void onAuthenticationSuccess(HttpServletRequest req, HttpServletResponse res, Authentication authentication)
             throws IOException, ServletException {
@@ -66,7 +62,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
             res.setHeader("X-Internal-Token", encodedToken);
 
             try{
-                final User publicView = securityService.getLoggedUser();
+                final SystemUser publicView = securityService.getLoggedUser();
                 mapper.writeValue(res.getWriter(), publicView);
                 res.setStatus(HttpServletResponse.SC_OK);
                 res.getWriter().flush();

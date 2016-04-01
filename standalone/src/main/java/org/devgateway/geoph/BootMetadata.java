@@ -1,7 +1,7 @@
 package org.devgateway.geoph;
 
 import org.devgateway.geoph.model.security.GrantedAuthority;
-import org.devgateway.geoph.model.security.User;
+import org.devgateway.geoph.model.security.SystemUser;
 import org.devgateway.geoph.services.SecurityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static org.devgateway.geoph.util.Constants.PASS_ENCODE;
 import static java.lang.Math.random;
 import static java.lang.System.currentTimeMillis;
 import static java.util.concurrent.TimeUnit.DAYS;
@@ -32,8 +34,7 @@ public class BootMetadata {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BootMetadata.class);
 
-    @Autowired
-    PasswordEncoder encoder;
+    PasswordEncoder encoder = new StandardPasswordEncoder(PASS_ENCODE);
 
     @Autowired
     DataSource dataSource;
@@ -71,7 +72,7 @@ public class BootMetadata {
         List<GrantedAuthority> commonAuthorities = new ArrayList<>();
         commonAuthorities.add(readPermission);
 
-        User geophUser = new User();
+        SystemUser geophUser = new SystemUser();
         geophUser.setEmail("admin@aiddata.org");
         geophUser.setName("Admin");
         geophUser.setLastName("Aiddata");

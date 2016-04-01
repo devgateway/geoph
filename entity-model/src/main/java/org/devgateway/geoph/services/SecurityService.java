@@ -1,7 +1,7 @@
 package org.devgateway.geoph.services;
 
 import org.devgateway.geoph.model.security.GrantedAuthority;
-import org.devgateway.geoph.model.security.User;
+import org.devgateway.geoph.model.security.SystemUser;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
@@ -12,9 +12,9 @@ public interface SecurityService extends UserDetailsService {
 
     GrantedAuthority saveGrantedAuthority(GrantedAuthority grantedAuthority);
 
-    User savePerson(User geophUser);
+    SystemUser savePerson(SystemUser geophUser);
 
-    User getLoggedUser() throws Exception;
+    SystemUser getLoggedUser() throws Exception;
 
-    User loadUserByUsername(String username);
+    SystemUser loadUserByUsername(String username);
 }

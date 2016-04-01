@@ -1,5 +1,6 @@
-package org.devgateway.geoph.security;
+package org.devgateway.geoph;
 
+import org.devgateway.geoph.security.*;
 import org.devgateway.geoph.services.SecurityService;
 import org.devgateway.geoph.services.TokenService;
 import org.slf4j.Logger;
@@ -8,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -29,6 +29,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static org.devgateway.geoph.util.Constants.PASS_ENCODE;
+
 /**
  * @author dbianco
  *         created on mar 31 2016.
@@ -36,16 +38,12 @@ import java.io.IOException;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
-@ComponentScan(basePackages = { "org.devgateway.geoph.security.*" })
-@EnableJpaRepositories(basePackages = {
-        "org.devgateway.geoph.persistence.repository.security",
-})
+@ComponentScan(basePackages = { "org.devgateway.geoph.*" })
 public class SecurityConfig  extends WebSecurityConfigurerAdapter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SecurityConfig.class);
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder = new StandardPasswordEncoder(PASS_ENCODE);
 
     @Autowired
     SecurityService securityService;
@@ -63,7 +61,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
                 .disable()
                 .addFilterBefore(new CORSFilter(), LogoutFilter.class)
                 .addFilterBefore(tokenValidationFilter(), LogoutFilter.class)
-                .addFilter(jsonUsernamePasswordAuthenticationFilter(customAuthenticationSuccessHandler(securityService)))
+                .addFilter(jsonUsernamePasswordAuthenticationFilter(customAuthenticationSuccessHandler()))
                 .logout()
                 .logoutSuccessHandler(new LogoutSuccessHandler() {
                     @Override
@@ -75,13 +73,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
                 });
     }
 
-    @Bean
-    public AuthenticationEntryPoint customAuthenticationEntryPoint() {
-        return new CustomAuthenticationEntryPoint();
-    }
-
-    @Bean
-    public AuthenticationSuccessHandler customAuthenticationSuccessHandler(final SecurityService securityService) throws Exception {
+    public AuthenticationSuccessHandler customAuthenticationSuccessHandler() throws Exception {
         return new CustomSuccessHandler(securityService, tokenService);
     }
 
@@ -89,7 +81,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
         return new TokenValidationFilter(authenticationManagerBean(), tokenService, securityService);
     }
 
-    @Bean
+    //@Bean
     public UsernamePasswordAuthenticationFilter jsonUsernamePasswordAuthenticationFilter(final AuthenticationSuccessHandler authenticationSuccessHandler) throws Exception {
         UsernamePasswordAuthenticationFilter usernamePasswordAuthenticationFilter = new JsonUsernamePasswordAuthenticationFilter();
         usernamePasswordAuthenticationFilter.setAuthenticationManager(authenticationManager());
@@ -105,7 +97,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder getPasswordEncoder() {
-        return new StandardPasswordEncoder("1");
+        return this.passwordEncoder;
     }
 
 }

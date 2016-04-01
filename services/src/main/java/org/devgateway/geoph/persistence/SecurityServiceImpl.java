@@ -1,7 +1,7 @@
 package org.devgateway.geoph.persistence;
 
 import org.devgateway.geoph.model.security.GrantedAuthority;
-import org.devgateway.geoph.model.security.User;
+import org.devgateway.geoph.model.security.SystemUser;
 import org.devgateway.geoph.persistence.repository.security.GrantedAuthorityRepository;
 import org.devgateway.geoph.persistence.repository.security.UserRepository;
 import org.devgateway.geoph.services.SecurityService;
@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -37,18 +36,18 @@ public class SecurityServiceImpl implements SecurityService {
     }
 
     @Override
-    public User savePerson(User geophUser) {
+    public SystemUser savePerson(SystemUser geophUser) {
         return userRepository.saveAndFlush(geophUser);
     }
 
     @Override
-    public User getLoggedUser() throws Exception {
+    public SystemUser getLoggedUser() throws Exception {
         return userRepository.findByEmail(getUsername());
     }
 
     @Override
-    public User loadUserByUsername(String username) {
-        User user = userRepository.findByEmail(username);
+    public SystemUser loadUserByUsername(String username) {
+        SystemUser user = userRepository.findByEmail(username);
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
@@ -60,7 +59,7 @@ public class SecurityServiceImpl implements SecurityService {
         notNull(SecurityContextHolder.getContext(), "The Security Context could not be null");
         notNull(SecurityContextHolder.getContext().getAuthentication(), "The Security Context Authentication could not be null");
         principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        isTrue(principal instanceof User, "The user is not logged in");
-        return ((User) principal).getUsername();
+        isTrue(principal instanceof SystemUser, "The user is not logged in");
+        return ((SystemUser) principal).getUsername();
     }
 }

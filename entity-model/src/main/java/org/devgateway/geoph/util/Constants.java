@@ -6,6 +6,7 @@ package org.devgateway.geoph.util;
  */
 public class Constants {
 
+    public static final String PASS_ENCODE = "valar morghulis";
     public static final String PARAM_SEPARATOR = ",";
     public static final String KEY_SEPARATOR = "-";
 

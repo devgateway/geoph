@@ -19,7 +19,7 @@ import static org.hibernate.annotations.CacheConcurrencyStrategy.READ_WRITE;
  */
 @Entity
 @Cache(usage = READ_WRITE)
-public class User extends GenericPersistable implements Serializable, Cloneable, UserDetails {
+public class SystemUser extends GenericPersistable implements Serializable, Cloneable, UserDetails {
 
     @Column(unique = true)
     private String email;
@@ -150,7 +150,7 @@ public class User extends GenericPersistable implements Serializable, Cloneable,
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        final User other = (User) obj;
+        final SystemUser other = (SystemUser) obj;
         return Objects.equals(this.getId(), other.getId());
     }
 
