@@ -1,6 +1,6 @@
-package org.devgateway.geoph;
+package org.devgateway.geoph.security;
 
-import org.devgateway.geoph.security.*;
+import org.devgateway.geoph.security.auth.*;
 import org.devgateway.geoph.services.SecurityService;
 import org.devgateway.geoph.services.TokenService;
 import org.slf4j.Logger;
@@ -32,25 +32,30 @@ import java.io.IOException;
 import static org.devgateway.geoph.util.Constants.PASS_ENCODE;
 
 /**
- * @author dbianco
- *         created on mar 31 2016.
+ * Created by Sebastian Dimunzio on Jun 6, 2014
  */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
-@ComponentScan(basePackages = { "org.devgateway.geoph.*" })
-public class SecurityConfig  extends WebSecurityConfigurerAdapter {
+@ComponentScan(basePackages = { "org.devgateway.geoph.security.*" })
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SecurityConfig.class);
 
-    private PasswordEncoder passwordEncoder = new StandardPasswordEncoder(PASS_ENCODE);
+    @Autowired
+    private SecurityService securityService;
+
+    PasswordEncoder encoder = new StandardPasswordEncoder(PASS_ENCODE);
 
     @Autowired
-    SecurityService securityService;
+    private TokenService tokenService;
 
-    @Autowired
-    TokenService tokenService;
-
+    /**
+     * Configure the Http Security Bean
+     *
+     * @param http
+     * @throws Exception
+     */
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf()
                 .disable()
@@ -61,7 +66,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
                 .disable()
                 .addFilterBefore(new CORSFilter(), LogoutFilter.class)
                 .addFilterBefore(tokenValidationFilter(), LogoutFilter.class)
-                .addFilter(jsonUsernamePasswordAuthenticationFilter(customAuthenticationSuccessHandler()))
+                .addFilter(getAuthenticationFilter())
                 .logout()
                 .logoutSuccessHandler(new LogoutSuccessHandler() {
                     @Override
@@ -73,31 +78,41 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
                 });
     }
 
-    public AuthenticationSuccessHandler customAuthenticationSuccessHandler() throws Exception {
-        return new CustomSuccessHandler(securityService, tokenService);
+    @Bean
+    public AuthenticationEntryPoint customAuthenticationEntryPoint() {
+        return new CustomAuthenticationEntryPoint();
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler customAuthenticationSuccessHandler(final SecurityService securityService) throws Exception {
+        return new CustomSuccessHandler(tokenService, securityService);
     }
 
     public TokenValidationFilter tokenValidationFilter() throws Exception {
-        return new TokenValidationFilter(authenticationManagerBean(), tokenService, securityService);
+        TokenValidationFilter filter = new TokenValidationFilter();
+        filter.setAuthenticationManager(authenticationManagerBean());
+        filter.setSecurityService(securityService);
+        filter.setTokenService(tokenService);
+        return filter;
     }
 
-    //@Bean
-    public UsernamePasswordAuthenticationFilter jsonUsernamePasswordAuthenticationFilter(final AuthenticationSuccessHandler authenticationSuccessHandler) throws Exception {
-        UsernamePasswordAuthenticationFilter usernamePasswordAuthenticationFilter = new JsonUsernamePasswordAuthenticationFilter();
-        usernamePasswordAuthenticationFilter.setAuthenticationManager(authenticationManager());
-        usernamePasswordAuthenticationFilter.setAuthenticationSuccessHandler(authenticationSuccessHandler);
-        return usernamePasswordAuthenticationFilter;
+    @Bean
+    public UsernamePasswordAuthenticationFilter getAuthenticationFilter() throws Exception {
+        UsernamePasswordAuthenticationFilter filter = new JsonUserPassAuthFilter();
+        filter.setAuthenticationManager(authenticationManager());
+        filter.setAuthenticationSuccessHandler(customAuthenticationSuccessHandler(securityService));
+        return filter;
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder registry) throws Exception {
         LOGGER.info("Configuring UserDetails Service");
-        registry.userDetailsService(securityService).passwordEncoder(passwordEncoder);
+        registry.userDetailsService(securityService)
+                .passwordEncoder(encoder);
     }
 
     @Bean
     public PasswordEncoder getPasswordEncoder() {
-        return this.passwordEncoder;
+        return this.encoder;
     }
-
 }

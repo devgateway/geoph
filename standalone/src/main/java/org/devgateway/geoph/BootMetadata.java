@@ -73,9 +73,9 @@ public class BootMetadata {
         commonAuthorities.add(readPermission);
 
         SystemUser geophUser = new SystemUser();
-        geophUser.setEmail("admin@aiddata.org");
+        geophUser.setEmail("admin@geoph.org");
         geophUser.setName("Admin");
-        geophUser.setLastName("Aiddata");
+        geophUser.setLastName("Geoph");
         geophUser.setPassword(encoder.encode("hello123"));
         geophUser.setEnabled(true);
         geophUser.setCreated(new Date(currentTimeMillis() - DAYS.toMillis((long) (random() * 60))));

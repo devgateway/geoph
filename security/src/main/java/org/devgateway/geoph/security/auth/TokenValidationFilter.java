@@ -1,4 +1,4 @@
-package org.devgateway.geoph.security;
+package org.devgateway.geoph.security.auth;
 
 import org.devgateway.geoph.model.security.PersistentToken;
 import org.devgateway.geoph.services.SecurityService;
@@ -39,20 +39,12 @@ public class TokenValidationFilter extends GenericFilterBean {
     private static final Logger LOGGER = LoggerFactory.getLogger(TokenValidationFilter.class);
 
     private static String DELIMITER = ":";
-
     protected AuthenticationDetailsSource<HttpServletRequest, ?> authenticationDetailsSource = new WebAuthenticationDetailsSource();
 
+
     private AuthenticationManager authenticationManager;
-
     private TokenService tokenService;
-
     private SecurityService securityService;
-
-    public TokenValidationFilter(AuthenticationManager authenticationManager, TokenService tokenService, SecurityService securityService){
-        this.authenticationManager = authenticationManager;
-        this.tokenService = tokenService;
-        this.securityService = securityService;
-    }
 
 
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
@@ -72,7 +64,7 @@ public class TokenValidationFilter extends GenericFilterBean {
                 LOGGER.info("User not authenticated: {}", e.getMessage());
             }
             if (userDetails != null) {
-                LOGGER.info("Success Token authentication for " + userDetails.getUsername() + " ");
+                //LOGGER.info("Success Token authentication for " + userDetails.getUsername() + " ");
 
                 SecurityContext securityContext = SecurityContextHolder.getContext();
 
@@ -127,7 +119,7 @@ public class TokenValidationFilter extends GenericFilterBean {
         final String presentedToken = tokens[1];
 
 
-        PersistentToken token = tokenService.findBySeries(presentedSeries);
+        PersistentToken token = this.tokenService.findBySeries(presentedSeries);
 
         if (token == null) {
             // No series match, so we can't authenticate using this cookie
@@ -138,6 +130,8 @@ public class TokenValidationFilter extends GenericFilterBean {
         if (!presentedToken.equals(token.getTokenValue())) {
             // Token doesn't match series value. Delete all logins for this user and throw an exception to warn them.
             //TODO: Unvalidate login
+
+
         }
 
         if (token.getDate().getTime() + (token.getValidDays() * 24 * 60 * 60 * 1000L) <= System.currentTimeMillis()) {
@@ -145,19 +139,17 @@ public class TokenValidationFilter extends GenericFilterBean {
         }
 
         //TODO: update token expiration time
-        /*
-        PersistentRememberMeToken newToken = new PersistentRememberMeToken(token.getUsername(), token.getSeries(), generateTokenData(), new Date());
+        /// PersistentRememberMeToken newToken = new PersistentRememberMeToken(token.getUsername(), token.getSeries(), generateTokenData(), new Date());
 
         try {
-            tokenService.save(newToken.getSeries(), newToken.getTokenValue(), newToken.getDate());
+            // tokenService.save(newToken.getSeries(), newToken.getTokenValue(), newToken.getDate());
 
         } catch (DataAccessException e) {
             logger.error("Failed to update token: ", e);
             throw new RememberMeAuthenticationException("Autologin failed due to data access problem");
         }
-        */
 
-        return securityService.loadUserByUsername(token.getUsername());
+        return this.securityService.loadUserByUsername(token.getUsername());
     }
 
     public AuthenticationManager getAuthenticationManager() {
@@ -165,6 +157,26 @@ public class TokenValidationFilter extends GenericFilterBean {
     }
 
 
+    public TokenService getTokenService() {
+        return tokenService;
+    }
+
+    public void setTokenService(TokenService tokenService) {
+        this.tokenService = tokenService;
+    }
+
+    public SecurityService getSecurityService() {
+        return securityService;
+    }
+
+    public void setSecurityService(SecurityService securityService) {
+        this.securityService = securityService;
+    }
+
+
+    public void setAuthenticationManager(AuthenticationManager authenticationManager) {
+        this.authenticationManager = authenticationManager;
+    }
 }
 
 

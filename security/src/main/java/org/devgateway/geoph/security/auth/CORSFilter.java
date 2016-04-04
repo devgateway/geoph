@@ -1,4 +1,4 @@
-package org.devgateway.geoph.security;
+package org.devgateway.geoph.security.auth;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +14,6 @@ import static javax.servlet.http.HttpServletResponse.SC_OK;
  * <p/>
  * Created by sebas on 6/22/14.
  */
-
 public class CORSFilter implements Filter {
 
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
@@ -41,6 +40,5 @@ public class CORSFilter implements Filter {
 
     public void destroy() {
     }
-
 
 }

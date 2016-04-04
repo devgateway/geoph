@@ -1,4 +1,4 @@
-package org.devgateway.geoph.security;
+package org.devgateway.geoph.security.auth;
 
 /**
  * Created by sebas on 6/17/14.
@@ -6,7 +6,9 @@ package org.devgateway.geoph.security;
 public class LoginRequest {
 
     private String username;
+
     private String password;
+
     private Boolean rememberMe;
 
     public String getUsername() {
