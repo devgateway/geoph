@@ -35,4 +35,5 @@ public class Constants {
 
     public static final String QUERY_HINT = "javax.persistence.fetchgraph";
     public static final String GRAPH_PROJECT_ALL = "graph.project.all";
+    public static final String DOUBLE_FORMAT = "%.2f";
 }

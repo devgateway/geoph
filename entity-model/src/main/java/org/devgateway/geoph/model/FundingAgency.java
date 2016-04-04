@@ -3,15 +3,19 @@ package org.devgateway.geoph.model;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
  * @author dbianco
  *         created on mar 02 2016.
  */
+@NamedQueries({
+        @NamedQuery(
+                name = "findAllFundingAgency",
+                query = "from FundingAgency s"
+        )
+})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @DiscriminatorValue(value="funding_agency")
