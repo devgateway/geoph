@@ -1,0 +1,67 @@
+@import '../../../stylesheets/base.scss';
+$options:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAQCAIAAADmq9q9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NDkxMSwgMjAxMy8xMC8yOS0xMTo0NzoxNiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpENEExMjY1QUZBRDQxMUU1OTZBRkE3NTQyQzY2RUFFQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpENEExMjY1QkZBRDQxMUU1OTZBRkE3NTQyQzY2RUFFQiI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkQ0QTEyNjU4RkFENDExRTU5NkFGQTc1NDJDNjZFQUVCIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkQ0QTEyNjU5RkFENDExRTU5NkFGQTc1NDJDNjZFQUVCIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+wLNPRwAABYRJREFUeNqkVmlQU1cUzgtZCIEAgQjIokUwVCmyiG0FigtFRqVQKUiL2tHqiI4tw9gWUatCdRSnVtsO4kIVLThaaXGBggtOWS2ilEVWESQKJGyBBBKSQNIv3E6GAf+od14y59573rnfOd855z6a7g3Gncpmu/B9oQlnFaNqTH/OLr5cWKXSjL2eNYbVqj1KtYZhRDdhs2SKUYpGoygKG7RJAytsJqM/7xCZNot6LHkmMyxMeVzj3sHh6tbO/IpGpUqTdq3MwpRjy+cFes6hTRt9QyMnrhbllte3PO9lMYxcHQUr35v3ZUSAtTmXKDBGRtU4Jn5toKeL/fHfi8oft9NeNgzgGjsk36bdoFOUu7NdTWsXViQD8t1n8sbGtR3igTUfeLg7205//c/i2pzi2nmzbUUSqfdch4qGDkeBhVoz5rvl2LEd4XhLD2Vcq/UROhzYGIKJg8Bi/7l8mUKFIBmsGNGpqpYXcJpMzU05wJFf0XSv6smoegwrWp3uaWcf2X3yovdCfiXXmNUhkSauCzIzYWMxp6QOZ1/cEwPNS3erzid+GpOceedh89FtH8VFBkYfuAAdoIFZqndoRCKVY94k6oHzbKYRoBgeJn6UfpDDZlrxfN92whrBAVr9PZzfnz8bapjWtXUnZ9xKOHUzPfc+AoAVMHgyp/TI1tWwkHg6T9wv++S7jPr2blMOW9QjteWbXT+8Ga9AjQGjLaKeiL3nXeytbz1oAqMvJQgk4v/uwxZAetAg0oyNYzrLxjJqmddbdnyw4+lqf62krrtfBsZ5Jsbbwv2ZDH1oT+aUxYb5EU/2b1zh6mC9/cdsyAMyRX27eJm3qznXeFuYX2pOKQMea3Q6BBAPNObYW28P92t+3nvmRvl0QBsOZQE+kTlsZsSSBVvDFiedK6Do1K6Y5YjTpTuPUEHeQoekTSFE7WZ5/Y4IfyLv+zUfVUZkkJWSVYi0hRy8SIhQMbAERhe42MOzYaXq+I7wJV4ucoUKSY4UZjH1Yatp7SR0LBQ6QpZIh5FhSHME8kjm3d9uP8QW9BEk1MXjtm7ALa1t8xE6Am6zSPK4TZz9d80sW8tf/iiZ7BjKkAh8HhdVSae9yriS9PmJuDWz7fiQAV2fK8YsssXlsICPEAe76w9mRu3PIFuoOHNT48TTuVN6RICHMxFAqr6CQBBiACfIauyxqy8liOQKvFzq5WJjaYaSqWvrqm7tAi+oF4BYH7wwOeN2e1c/QdndL1dp9LCETjYoQFcHQfb3G/em/9XUITHYxKF4xANyzfi40GkGY4rfOGNn6nUio/msWOTW2tlX2SjSTjjU8rznQkElQEAGZdeKa0fVmjkzrXA2cBQ+alGPjSNn1y73ilrqScIWung+OJXKFWH+7qF+82+W1V8sqCyoaIQmWtTSuFToWPG4seGLKU7QNyZsJuqTvGloaCwG47MPfdYF+6DOg+LTEHP1vR/0OR+XisQ0otPRmokyHNJqdegoZIqGe3DzSqQzmSJv3GIO881NTu2MXO4zlyyW1LYtmwBBBtA3ZSXScSo8BseAYngQW1Sfm9MM6IEOgTmX0OxkY7lp1bspsaFJX4SgaRruAYIDFnEbDI2M5t1v6OqXkV2BhWn6rugOsTTk69OkE8LUZPZR52cT1kLt/1wpqn46PUmHler4qEBcMY+aXyAMWEGtHd66GsLgsLK87hlJAiRQwzMxHIgO8hY6CtB74NvQsBLNkNj5OOCdywc2bEm5guYR6ud+Lu+fy4X/ki0YTE+IJo2f4q/cTe7SKfefbmIJjipUoFXLYTEN1yEGoKOlopuhjSJskfvOd/bJyk5+5evmBEIH5UrhRERf6Tqkvd6FjpsM3wM/XS2CjC+E1Qln8LWAb4Y3+eT4T4ABABsZ0sGSRNtfAAAAAElFTkSuQmCC');
+$left-space:26px;
+$redBoders:1px solid red;
+
+.header{
+  position: absolute;
+  width: 100%;
+  top: 0px; 
+  left: 0px;
+  overflow: hidden;
+  .heading{
+    padding-left:113px;
+    background: $flag;
+    background-position: $left-space 16px;
+    background-repeat: no-repeat;
+    height: 66px;
+    border:1px  solid transparent;
+
+  }
+  .title{
+    padding-left:$left-space;
+    border-top:1px solid #CCC;
+    border-bottom:1px solid #CCC;
+    height:33px;
+    h2{
+      float:left;
+    }
+
+  }
+
+  ul.options{
+    padding-top: 7px;
+    float:right;
+    margin-right: 36px;
+    li{
+      cursor: pointer;
+     display: inline-block;
+     font-size:10px;
+     margin-left:10px;
+   }
+ }
+
+   .options-icons{
+    float:left;
+    width:15px;
+    height:16px;
+    background:$options;
+    background-repeat: no-repeat;
+    margin-right:3px;
+
+  }
+  .options-icons.filters{
+    background-position:0 0;
+  }
+  .options-icons.settings{
+   background-position:-16 0;
+  }
+  .options-icons.basemaps{
+   background-position:-32 0;
+  }
+
+}
+
+
+
+

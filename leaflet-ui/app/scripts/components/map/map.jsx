@@ -10,7 +10,7 @@ import * as Constants from '../../constants/constants.js';
 import {L, Popup, Map, Marker, TileLayer,ZoomControl,MapLayer,ScaleControl} from 'react-leaflet'; 
 
 require('leaflet/dist/leaflet.css')
-require('../../../stylesheets/map.scss');
+require('./map.scss');
 
 var southWest = latLng(4.3245014930192, 115.224609375),
     northEast = latLng(23.140359987886118,134.3408203125),

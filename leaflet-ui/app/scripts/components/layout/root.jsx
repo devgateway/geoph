@@ -4,6 +4,8 @@ import Header from './header.jsx';
 import Footer from './footer.jsx';
 import Panel  from './panel.jsx';
 
+require("./root.scss");
+
 export default class App extends React.Component {
 
   constructor() {

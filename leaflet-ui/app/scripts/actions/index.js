@@ -8,3 +8,10 @@ export const setLanguage = (lang) => {
   }
 }
 
+
+export const showLanSelector = () => {
+  return {
+    type: Constants.TOGGLE_SELECTOR
+    
+  }
+}

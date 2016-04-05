@@ -3,6 +3,7 @@
 	export const AUTO_ZOOM = 'AUTO_ZOOM';
 
 	export const SET_APP_LANGUAGE = 'SET_APP_LANGUAGE';
+	export const TOGGLE_SELECTOR = 'TOGGLE_SELECTOR';
 
 	export const REQUEST_FILTER_LIST = 'REQUEST_FILTER_LIST';
 

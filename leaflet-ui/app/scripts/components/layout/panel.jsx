@@ -1,7 +1,10 @@
 import React from 'react';
 import { Link  } from 'react-router';
-import FilterPopup from '../filter/filterPopup'
+
 import {LayerControl} from '../controls/layer';
+
+require("./pane.scss");
+
 export default class Header extends React.Component {
 
   constructor() {
@@ -16,8 +19,7 @@ export default class Header extends React.Component {
   render() {
     return (
       <div className="panel">
-      <FilterPopup/>
-
+   
       <LayerControl/>
       </div>
       )
