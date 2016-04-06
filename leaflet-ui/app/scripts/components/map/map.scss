@@ -1,0 +1,13 @@
+@import  '../../../stylesheets/base.scss';
+
+.map{
+	width: 100%;
+	height: 100%;
+}
+.location-marker{
+	@include border-radius(50%)
+	@include box-sizing(25px,25px)
+    line-height: 2.7;
+    text-align: center;
+    background-color: #ff9900;
+}

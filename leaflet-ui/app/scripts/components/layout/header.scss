@@ -1,0 +1,84 @@
+@import '../../../stylesheets/base.scss';
+
+$left-space:26px;
+
+
+.header{
+  @include absolute(0px,0px,initial,0px)
+  @include box-sizing (100%,101px);
+  .heading{
+    padding-left:113px;
+
+    background: $flag;
+    background-position: $left-space 16px;
+    background-repeat: no-repeat;
+    @include box-sizing (initial,66px);
+
+  }
+
+  .title{
+    padding-left:$left-space;
+    border-top:1px solid #CCC;
+    border-bottom:1px solid #CCC;
+
+    @include box-sizing (initial,35);
+
+    padding-top: 8px;
+    h2{
+      font-weight: bold;
+      float:left;
+    }
+
+  }
+
+}
+
+ul.options{
+  @include list-horizontal
+  
+  float:right;
+  margin-right: 36px;
+
+  li{
+    @include font(11.083px,$regular)
+    cursor: pointer;
+    margin-left:10px;
+  }
+
+  .options-icons{
+    @include box-sizing (15px,16px);
+    float:left;
+    margin-right:3px;
+
+  }
+  .options-icons.filters{
+    @include icons(0,-60);
+  }
+
+  .options-icons.settings{
+    @include icons(-17,-60);
+  }
+  .options-icons.basemaps{
+    @include icons(-33,-60);
+  }
+  ul{
+    @include list-horizontal
+    display: inline-block;
+    padding-left: 0px;
+
+    >li{
+      margin-left:3px;
+    }
+    >li:after{
+      content:'|'
+    }
+    >li:before{
+      content:'|'
+    }
+    >li.selected{
+      font-weight: bold;
+    }
+  }
+
+}
+
