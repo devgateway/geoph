@@ -26,6 +26,8 @@
 
  	export const LOAD_FUNDING_GEOJSON_FAILED = 'LOAD_FUNDING_GEOJSON_FAILED';
 
+ 	export const TOGGLE_LAYER = 'TOGGLE_LAYER';
+
 
 	/*Settings*/
 

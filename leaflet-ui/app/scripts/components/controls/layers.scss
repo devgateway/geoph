@@ -1,0 +1,22 @@
+
+@import '../../../stylesheets/base.scss';
+
+.layers-control{
+	@include font(14px,$regular)
+	.btn-xs{
+		@include box-sizing(25px,16px);
+		@include font(9px,#FFF)
+	}
+	.btn-success{
+		
+	}
+	.btn-default{
+		background-color:#999;
+	}
+	ul{
+		list-style: none;
+		li{
+
+		};
+	}
+}
