@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link  } from 'react-router';
 import FilterPopup from '../filter/filterPopup'
+import TestChart from '../charts/testChartPlotly'
 import {LayerControl} from '../controls/layer';
 export default class Header extends React.Component {
 
@@ -19,6 +20,7 @@ export default class Header extends React.Component {
       <FilterPopup/>
 
       <LayerControl/>
+      <TestChart />
       </div>
       )
   }

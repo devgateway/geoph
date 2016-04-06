@@ -148,5 +148,6 @@ gulp.task('copy-files', function() {
  
   gulp.src(['app/locales/**/*']).pipe(gulp.dest('dist/locales'));
   gulp.src(['app/conf/**/*']).pipe(gulp.dest('dist/conf'));
+  gulp.src(['app/json-data/**/*']).pipe(gulp.dest('dist/json-data'));
 
 });
