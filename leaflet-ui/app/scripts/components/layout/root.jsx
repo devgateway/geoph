@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import Header from './header.jsx';
 import Footer from './footer.jsx';
 import Panel  from './panel.jsx';
+import Landing  from './landing.jsx';
 
 require("./root.scss");
 
@@ -17,9 +18,12 @@ export default class App extends React.Component {
     return (
       <div className="root">
         <Header/>
-          {this.props.children}
+            <Landing/>            
+          <Panel>
+              {this.props.children}
+          </Panel>
         <Footer/>
-        <Panel/>
+      
       </div>
     )
   }
