@@ -33,6 +33,7 @@
         <module>persistence</module>
         <module>standalone</module>
         <module>war</module>
+        <module>security</module>
         <module>services</module>
         <module>entity-model</module>
     </modules>
