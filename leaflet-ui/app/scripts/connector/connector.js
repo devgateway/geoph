@@ -63,20 +63,15 @@ class Connector {
 	}
 
 	/*A method should always return a promise*/
-	call(verb,endpoint, params) {
+	call(verb,endpoint, params, absolute) {
 		
-		
-		let apiRoot=Settings.get('API',API_BASE_URL);
-		
-		let url=`${apiRoot}${endpoint}`; 
-
+		let apiRoot = absolute? "" : Settings.get('API',API_BASE_URL);		
+		let url = `${apiRoot}${endpoint}`; 
 
 		let caller;
 		if (verb == GET) caller = this.get;
 		if (verb == POST) caller = this.post;
 		if (verb == PUT ) caller = this.put;
-
-
 
 		return new Promise((resolve, reject) => {
 			caller(url, params).then((data) => {
@@ -115,11 +110,18 @@ class Connector {
 
 	}
 
-	getFilterList(filterType) {
+	getFilterData(filterType) {
 		return new Promise( (resolve, reject) => {
-			this.call(GET,Settings.get('API','FILTER_LIST')[filterType], {}).then((data) => {
-				resolve(data); ////resolve with original data or perform any data transformation needed			
-			}).catch(reject)
+			let path = Settings.get('API','FILTER_LIST')[filterType];
+			if (path.mock) {
+				this.call(GET,path.path, {}, true).then((data) => {
+					resolve(data); ////resolve with original data or perform any data transformation needed			
+				}).catch(reject)
+			} else {
+				this.call(GET, path, {}).then((data) => {
+					resolve(data); ////resolve with original data or perform any data transformation needed			
+				}).catch(reject)
+			}
 		});
 	}
 }
