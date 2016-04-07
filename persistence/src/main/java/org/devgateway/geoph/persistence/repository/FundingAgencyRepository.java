@@ -15,4 +15,5 @@ public interface FundingAgencyRepository {
     List<FundingAgency> findAll();
 
     List<Object> findFundingByFundingAgency(Parameters params);
+
 }

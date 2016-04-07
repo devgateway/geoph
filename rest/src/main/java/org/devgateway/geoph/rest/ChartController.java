@@ -47,4 +47,38 @@ public class ChartController {
                 locations, projects, impAgencies, fundingAgencies, flowTypes, null);
         return chartService.getFundingByFundingAgency(params);
     }
+
+    @RequestMapping(value = "/impAgency", method = GET)
+    public List<Map<String, String>> getByImplementingAgency(
+            @RequestParam(value = FILTER_DATE_START, required = false) String startDate,
+            @RequestParam(value = FILTER_DATE_END, required = false) String endDate,
+            @RequestParam(value = FILTER_SECTOR, required = false) String sectors,
+            @RequestParam(value = FILTER_STATUS, required = false) String statuses,
+            @RequestParam(value = FILTER_LOCATION, required = false) String locations,
+            @RequestParam(value = FILTER_PROJECT, required = false) String projects,
+            @RequestParam(value = FILTER_IMPLEMENTING_AGENCY, required = false) String impAgencies,
+            @RequestParam(value = FILTER_FUNDING_AGENCY, required = false) String fundingAgencies,
+            @RequestParam(value = FILTER_FLOW_TYPE, required = false) String flowTypes) {
+        LOGGER.debug("getByImplementingAgency");
+        Parameters params = new Parameters(startDate, endDate, sectors, statuses,
+                locations, projects, impAgencies, fundingAgencies, flowTypes, null);
+        return chartService.getFundingByImplementingAgency(params);
+    }
+
+    @RequestMapping(value = "/sector", method = GET)
+    public List<Map<String, String>> getBySector(
+            @RequestParam(value = FILTER_DATE_START, required = false) String startDate,
+            @RequestParam(value = FILTER_DATE_END, required = false) String endDate,
+            @RequestParam(value = FILTER_SECTOR, required = false) String sectors,
+            @RequestParam(value = FILTER_STATUS, required = false) String statuses,
+            @RequestParam(value = FILTER_LOCATION, required = false) String locations,
+            @RequestParam(value = FILTER_PROJECT, required = false) String projects,
+            @RequestParam(value = FILTER_IMPLEMENTING_AGENCY, required = false) String impAgencies,
+            @RequestParam(value = FILTER_FUNDING_AGENCY, required = false) String fundingAgencies,
+            @RequestParam(value = FILTER_FLOW_TYPE, required = false) String flowTypes) {
+        LOGGER.debug("getBySector");
+        Parameters params = new Parameters(startDate, endDate, sectors, statuses,
+                locations, projects, impAgencies, fundingAgencies, flowTypes, null);
+        return chartService.getFundingBySector(params);
+    }
 }

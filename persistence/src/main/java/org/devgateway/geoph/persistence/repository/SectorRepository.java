@@ -1,6 +1,7 @@
 package org.devgateway.geoph.persistence.repository;
 
 import org.devgateway.geoph.model.Sector;
+import org.devgateway.geoph.util.Parameters;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -17,4 +18,6 @@ public interface SectorRepository {
     Sector findByCode(String code);
 
     List<Sector> findByLevel(int level);
+
+    List<Object> findFundingBySector(Parameters params);
 }

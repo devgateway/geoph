@@ -1,6 +1,7 @@
 package org.devgateway.geoph.persistence.repository;
 
 import org.devgateway.geoph.model.*;
+import org.devgateway.geoph.persistence.util.FilterHelper;
 import org.devgateway.geoph.util.FlowType;
 import org.devgateway.geoph.util.Parameters;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,41 +59,7 @@ public class DefaultFundingAgencyRepository implements FundingAgencyRepository {
         transaction3Join.on(transaction3Join.get(Transaction_.flowType).in(FlowType.PMC.name().toLowerCase()));
         multiSelect.add(criteriaBuilder.sum(transaction3Join.get(Transaction_.amount)).alias("pmcs"));
 
-        if(params!=null) {
-            if (params.getProjects() != null) {
-                predicates.add(projectRoot.get(Project_.id).in(params.getProjects()));
-            }
-            if (params.getSectors() != null) {
-                Join<Project, Sector> sectorJoin = projectRoot.join(Project_.sectors);
-                predicates.add(sectorJoin.get(Sector_.id).in(params.getSectors()));
-            }
-            if (params.getStatuses() != null) {
-                Join<Project, Status> statusJoin = projectRoot.join(Project_.status);
-                predicates.add(statusJoin.get(Status_.id).in(params.getStatuses()));
-            }
-            if (params.getLocations() != null) {
-                Join<Project, Location> locationJoin = projectRoot.join(Project_.locations);
-                predicates.add(locationJoin.get(Location_.id).in(params.getLocations()));
-            }
-            if (params.getStartDate() != null) {
-                predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectRoot.get(Project_.periodStart), params.getStartDate()));
-            }
-            if (params.getEndDate() != null) {
-                predicates.add(criteriaBuilder.lessThanOrEqualTo(projectRoot.get(Project_.periodEnd), params.getEndDate()));
-            }
-            if (params.getFundingAgencies() != null) {
-                Join<Project, Agency> fundingAgencyJoin = projectRoot.join(Project_.fundingAgency);
-                predicates.add(fundingAgencyJoin.get(FundingAgency_.id).in(params.getFundingAgencies()));
-            }
-            if (params.getImpAgencies() != null) {
-                Join<Project, Agency> impAgencyJoin = projectRoot.join(Project_.implementingAgency);
-                predicates.add(impAgencyJoin.get(ImplementingAgency_.id).in(params.getImpAgencies()));
-            }
-            if (params.getFlowTypes() != null) {
-                Join<Project, Transaction> transactionJoin = projectRoot.join(Project_.transactions);
-                predicates.add(transactionJoin.get(Transaction_.flowType).in(params.getFlowTypes()));
-            }
-        }
+        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);
 
         Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         criteriaQuery.where(other);
@@ -103,5 +70,6 @@ public class DefaultFundingAgencyRepository implements FundingAgencyRepository {
 
         return query.getResultList();
     }
+
 
 }

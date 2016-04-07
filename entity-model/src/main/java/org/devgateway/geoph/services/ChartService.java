@@ -11,4 +11,8 @@ import java.util.Map;
  */
 public interface ChartService {
     List<Map<String, String>> getFundingByFundingAgency(Parameters params);
+
+    List<Map<String,String>> getFundingByImplementingAgency(Parameters params);
+
+    List<Map<String,String>> getFundingBySector(Parameters params);
 }
