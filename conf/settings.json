@@ -33,6 +33,15 @@
 				"fs": "/filters/status",
 				"pr": {"mock": true, "path": "./json-data/percentageTarget.json"}				
 			}
+		},
+
+		"CHARTS": {
+			"development": {
+				"test": {"mock": true, "path": "./json-data/mockGraphData.json"}				
+			},
+			"production": {
+				"test": {"mock": true, "path": "./json-data/mockGraphData.json"}				
+			}
 		}
 		
 	},
