@@ -3,16 +3,19 @@ package org.devgateway.geoph.model;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.CascadeType;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
  * @author dbianco
  *         created on mar 02 2016.
  */
+@NamedQueries({
+        @NamedQuery(
+                name = "findAllImplementingAgency",
+                query = "from ImplementingAgency s"
+        )
+})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @DiscriminatorValue(value="implementing_agency")

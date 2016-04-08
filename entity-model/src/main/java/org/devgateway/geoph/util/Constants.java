@@ -6,6 +6,7 @@ package org.devgateway.geoph.util;
  */
 public class Constants {
 
+    public static final String PASS_ENCODE = "valar morghulis";
     public static final String PARAM_SEPARATOR = ",";
     public static final String KEY_SEPARATOR = "-";
 
@@ -34,4 +35,5 @@ public class Constants {
 
     public static final String QUERY_HINT = "javax.persistence.fetchgraph";
     public static final String GRAPH_PROJECT_ALL = "graph.project.all";
+    public static final String DOUBLE_FORMAT = "%.2f";
 }

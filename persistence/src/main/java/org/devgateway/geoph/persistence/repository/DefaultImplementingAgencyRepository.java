@@ -13,39 +13,23 @@ import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.devgateway.geoph.util.Constants.*;
-
 /**
  * @author dbianco
- *         created on mar 18 2016.
+ *         created on abr 04 2016.
  */
 @Service
-public class DefaultSectorRepository implements SectorRepository {
+public class DefaultImplementingAgencyRepository implements ImplementingAgencyRepository {
 
     @Autowired
     EntityManager em;
 
     @Override
-    public List<Sector> findAll() {
-        return em.createNamedQuery("findAllSectors", Sector.class)
-                .getResultList();
-    }
-    @Override
-    public Sector findByCode(String code) {
-        return em.createNamedQuery("findSectorsByCode", Sector.class)
-                .setParameter("code", code)
-                .getSingleResult();
+    public List<ImplementingAgency> findAll() {
+        return em.createNamedQuery("findAllImplementingAgency", ImplementingAgency.class).getResultList();
     }
 
     @Override
-    public List<Sector> findByLevel(int level) {
-        return sectorInitializer(em.createNamedQuery("findSectorsByLevel", Sector.class)
-                .setParameter("level", level)
-                .getResultList());
-    }
-
-    @Override
-    public List<Object> findFundingBySector(Parameters params) {
+    public List<Object> findFundingByImplementingAgency(Parameters params) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<Object> criteriaQuery = criteriaBuilder.createQuery();
 
@@ -55,10 +39,10 @@ public class DefaultSectorRepository implements SectorRepository {
         List<Predicate> predicates = new ArrayList();
         List<Expression<?>> groupByList = new ArrayList<>();
 
-        Join<Project, Sector> sectorJoin = projectRoot.join(Project_.sectors);
-        multiSelect.add(sectorJoin);
+        Join<Project, Agency> agencyJoin = projectRoot.join(Project_.implementingAgency);
+        multiSelect.add(agencyJoin);
         multiSelect.add(criteriaBuilder.countDistinct(projectRoot).alias("projectCount"));
-        groupByList.add(sectorJoin);
+        groupByList.add(agencyJoin);
 
         Join<Project, Transaction> transaction0Join = projectRoot.join(Project_.transactions);
         multiSelect.add(criteriaBuilder.countDistinct(transaction0Join).alias("transactionCount"));
@@ -87,12 +71,6 @@ public class DefaultSectorRepository implements SectorRepository {
         return query.getResultList();
     }
 
-    private List<Sector> sectorInitializer(List<Sector> sectors){
-        for(Sector sector:sectors){
-            if(sector.getItems()!=null){
-                sectorInitializer(sector.getItems());
-            }
-        }
-        return sectors;
-    }
+
+
 }
