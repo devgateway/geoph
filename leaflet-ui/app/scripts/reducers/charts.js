@@ -22,11 +22,11 @@ const chart = (state = {
         isFetching: true,
       })
     case Constants.RECEIVE_CHART_DATA:
-      return Object.assign({}, state, action.data, {
+      return Object.assign({}, state, {
+        data: action.data, 
         isFetching: false,
         lastUpdated: action.receivedAt
       })
-
     default:
       return state
   }

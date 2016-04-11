@@ -18,7 +18,7 @@ class ChartComponent extends React.Component {
 	}
 
 	parseDataForPiechart(){
-		const {chartData, dimension, measure} = this.props;
+		const {chartData, dimension, measure, width, height} = this.props;
 		let labels = [];
 		let values = [];
 		if (chartData){
@@ -46,8 +46,8 @@ class ChartComponent extends React.Component {
 			    }
 		    ],
 			'layout': {         
-		      	'height': 450,
-				'width': 550,
+		      	'height': height || 450,
+				'width': width || 550,
 				'margin':{
 					't':0,
 					'b':200,
@@ -68,7 +68,7 @@ class ChartComponent extends React.Component {
 	}
 
 	parseDataForBarchart(){
-		const {chartData, dimension, measure} = this.props;
+		const {chartData, dimension, measure, width, height} = this.props;
 		let itemNames = [];
 		let values = [];
 		if (chartData){
@@ -77,6 +77,7 @@ class ChartComponent extends React.Component {
 				values.push(i[measure]);
 			});
 		}
+		debugger;
 		return {
 			'data': [
 				{
@@ -93,8 +94,8 @@ class ChartComponent extends React.Component {
 				xaxis:{
 					showticklabels:false,
 				},                
-		      	'height': 450,
-				'width': 550,
+		      	'height': height? height : 450,
+				'width': width? width : 550,
 				'autosize': false,
 				'margin':{
 					't':0,
@@ -119,10 +120,16 @@ class ChartComponent extends React.Component {
 	    	<div>
 	    		{!this.props.chartType?
 	    			<div className="chart-type-selector">
-					  <select value={this.state.chartType} onChange={this.setChartType.bind(this)} >
-					    <option value='bar'>Bar chart</option>
-					    <option value='pie'>Pie chart</option>
-					  </select>
+	    				<div><input type="radio" 
+							value='bar'
+							checked={this.state.chartType ==='bar'} 
+							onChange={this.setChartType.bind(this)} />Bar chart
+                        </div>
+                        <div><input type="radio"  
+							value='pie' 
+							checked={this.state.chartType === 'pie'} 
+							onChange={this.setChartType.bind(this)} />Pie chart
+                        </div>					  
 					</div>
 	    		: null}	    			    	
 	    		<div>

@@ -19,7 +19,7 @@ export default class Header extends React.Component {
       <div className="title">
       <h2>Philippines Closed / Terminated Project Data Map</h2>
       <ul className="options">
-          <li onClick={this.props.onFliterClick}><div className="options-icons filters"></div>Filters (1/100)</li>
+          <FilterPopup />
           <li onClick={this.props.onFliterClick}><div className="options-icons settings"></div>Settings </li>
           <li onClick={this.props.onFliterClick}><div className="options-icons basemaps"></div>Basemap</li>
           <LangSwitcher/>

@@ -10,14 +10,19 @@ class Charts extends React.Component {
   }
 
   componentDidMount() {
-    this.props.onLoadChartData('test');
+    this.props.onLoadChartData('fundingAgency');
   }
 
   render() {
+    debugger;
   	return (
     	<div className="chart-view">
           <p>Explore this in-depth profile of Philippines to find out overall lorem ipsum dolor sit amet, consectetur elit. </p>
-          <Chart chartData={this.props.charts.test? this.props.charts.test.mockData : null} measure="grant" dimension="name"/>
+          <Chart chartData={this.props.charts.fundingAgency? this.props.charts.fundingAgency.data : null} 
+            measure="grant" 
+            dimension="name"
+            width="350"
+            height="350"/>
       </div>
     )
   }

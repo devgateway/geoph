@@ -37,9 +37,15 @@
 
 		"CHARTS": {
 			"development": {
+				"sector": "/charts/sector",
+				"impAgency": "/charts/impAgency",
+				"fundingAgency": "/charts/fundingAgency",
 				"test": {"mock": true, "path": "./json-data/mockGraphData.json"}				
 			},
 			"production": {
+				"sector": "/charts/sector",
+				"impAgency": "/charts/impAgency",
+				"fundingAgency": "/charts/fundingAgency",
 				"test": {"mock": true, "path": "./json-data/mockGraphData.json"}				
 			}
 		}

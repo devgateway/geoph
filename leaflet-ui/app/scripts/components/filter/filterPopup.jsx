@@ -4,6 +4,7 @@ import {Modal, Button} from 'react-bootstrap';
 import FilterTabs from './filterTabs.jsx';
 import {applyFilter}  from '../../actions/filters.js'
 import { connect } from 'react-redux'
+require('./filters.scss');
 
 class FilterPopup extends React.Component {
 
@@ -39,9 +40,8 @@ class FilterPopup extends React.Component {
 	}
 
 	render() {
-  		return (
-    	<div>
-	        <Button className='' onClick={this.showFilterPopup.bind(this)}>Filters</Button>
+		return (
+    	<li onClick={this.showFilterPopup.bind(this)}><div className="options-icons filters"></div>Filters
 			<Modal bsSize='large' aria-labelledby='contained-modal-title-lg'
 			 show={this.state.showModal} onHide={this.hideFilterPopup.bind(this)}>
 				<Modal.Header>
@@ -58,7 +58,7 @@ class FilterPopup extends React.Component {
         			<Button className="btn btn-sm" bsStyle='success' onClick={this.apply.bind(this)}>Apply</Button>
 				</Modal.Footer>
 			</Modal>
-		</div>
+		</li>
       	);
   	}
 }
