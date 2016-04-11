@@ -94,8 +94,8 @@ class ChartComponent extends React.Component {
 				xaxis:{
 					showticklabels:false,
 				},                
-		      	'height': height? height : 450,
-				'width': width? width : 550,
+		      	'height': height || 450,
+				'width': width || 550,
 				'autosize': false,
 				'margin':{
 					't':0,
