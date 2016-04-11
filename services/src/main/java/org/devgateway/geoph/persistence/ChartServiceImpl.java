@@ -13,10 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 import static org.devgateway.geoph.util.Constants.DOUBLE_FORMAT;
@@ -52,9 +49,9 @@ public class ChartServiceImpl implements ChartService {
             fundingAgencyMap.put("code", fa.getCode());
             fundingAgencyMap.put("projectCount", objectList[1]!=null?objectList[1].toString():"");
             fundingAgencyMap.put("transactionCount", objectList[2]!=null?objectList[2].toString():"");
-            fundingAgencyMap.put("loan", objectList[3] != null ? String.format(DOUBLE_FORMAT, ((Double) objectList[3])) : "");
-            fundingAgencyMap.put("grant", objectList[4]!=null?String.format(DOUBLE_FORMAT, ((Double) objectList[4])):"");
-            fundingAgencyMap.put("pmc", objectList[5]!=null?String.format(DOUBLE_FORMAT, ((Double) objectList[5])):"");
+            fundingAgencyMap.put("loan", objectList[3] != null ? String.format(Locale.US, DOUBLE_FORMAT, ((Double) objectList[3])) : "");
+            fundingAgencyMap.put("grant", objectList[4]!=null?String.format(Locale.US, DOUBLE_FORMAT, ((Double) objectList[4])):"");
+            fundingAgencyMap.put("pmc", objectList[5]!=null?String.format(Locale.US, DOUBLE_FORMAT, ((Double) objectList[5])):"");
             fundingAgenciesList.add(fundingAgencyMap);
         }
         return fundingAgenciesList;
@@ -73,9 +70,9 @@ public class ChartServiceImpl implements ChartService {
             impAgencyMap.put("code", ia.getCode());
             impAgencyMap.put("projectCount", objectList[1]!=null?objectList[1].toString():"");
             impAgencyMap.put("transactionCount", objectList[2]!=null?objectList[2].toString():"");
-            impAgencyMap.put("loan", objectList[3] != null ? String.format(DOUBLE_FORMAT, ((Double) objectList[3])) : "");
-            impAgencyMap.put("grant", objectList[4]!=null?String.format(DOUBLE_FORMAT, ((Double) objectList[4])):"");
-            impAgencyMap.put("pmc", objectList[5]!=null?String.format(DOUBLE_FORMAT, ((Double) objectList[5])):"");
+            impAgencyMap.put("loan", objectList[3] != null ? String.format(Locale.US, DOUBLE_FORMAT, ((Double) objectList[3])) : "");
+            impAgencyMap.put("grant", objectList[4]!=null?String.format(Locale.US, DOUBLE_FORMAT, ((Double) objectList[4])):"");
+            impAgencyMap.put("pmc", objectList[5]!=null?String.format(Locale.US, DOUBLE_FORMAT, ((Double) objectList[5])):"");
             impAgenciesList.add(impAgencyMap);
         }
         return impAgenciesList;
@@ -94,9 +91,9 @@ public class ChartServiceImpl implements ChartService {
             sectorMap.put("code", sector.getCode());
             sectorMap.put("projectCount", objectList[1]!=null?objectList[1].toString():"");
             sectorMap.put("transactionCount", objectList[2]!=null?objectList[2].toString():"");
-            sectorMap.put("loan", objectList[3] != null ? String.format(DOUBLE_FORMAT, ((Double) objectList[3])) : "");
-            sectorMap.put("grant", objectList[4]!=null?String.format(DOUBLE_FORMAT, ((Double) objectList[4])):"");
-            sectorMap.put("pmc", objectList[5]!=null?String.format(DOUBLE_FORMAT, ((Double) objectList[5])):"");
+            sectorMap.put("loan", objectList[3] != null ? String.format(Locale.US, DOUBLE_FORMAT, ((Double) objectList[3])) : "");
+            sectorMap.put("grant", objectList[4]!=null?String.format(Locale.US, DOUBLE_FORMAT, ((Double) objectList[4])):"");
+            sectorMap.put("pmc", objectList[5]!=null?String.format(Locale.US, DOUBLE_FORMAT, ((Double) objectList[5])):"");
             sectorList.add(sectorMap);
         }
         return sectorList;
