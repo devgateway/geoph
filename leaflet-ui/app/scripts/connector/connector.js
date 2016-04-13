@@ -124,6 +124,21 @@ class Connector {
 			}
 		});
 	}
+
+	getChartData(chart) {
+		return new Promise( (resolve, reject) => {
+			let path = Settings.get('API','CHARTS')[chart];
+			if (path.mock) {
+				this.call(GET,path.path, {}, true).then((data) => {
+					resolve(data);		
+				}).catch(reject)
+			} else {
+				this.call(GET, path, {}).then((data) => {
+					resolve(data); 	
+				}).catch(reject)
+			}
+		});
+	}
 }
 
 

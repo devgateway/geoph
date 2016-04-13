@@ -1,25 +1,53 @@
 import React from 'react';
 import { Link  } from 'react-router';
-import FilterPopup from '../filter/filterPopup'
-import {LayerControl} from '../controls/layer';
-export default class Header extends React.Component {
+import {Tabs,Tab} from 'react-bootstrap';
+import { connect } from 'react-redux'
+require("./panel.scss");
+
+export default class Panel extends React.Component {
 
   constructor() {
     super();
   }
 
 
-  levelChanged(evt){
-    alert(evt.target.value);
-  }
-
   render() {
     return (
-      <div className="panel">
-      <FilterPopup/>
 
-      <LayerControl/>
+      <div className="panel">
+        <ul>
+          <li className={(this.props.currentView=='/tools')?"active":""}>
+              <Link to="/tools">
+             
+                  <div className="icon tools"/>
+                 <span>Tool View</span>
+              </Link>
+          </li>
+          <li className={(this.props.currentView=='/charts')?"active":""}>
+            <Link to="/charts">
+              <div className="icon chart"/>
+              <span>Chart View</span>
+              </Link>
+          </li>
+          </ul>
+          
+              {this.props.children}
       </div>
       )
   }
 }
+
+ 
+const mapStateToProps = (state, props) => {
+      return {currentView:state.routing.locationBeforeTransitions.pathname}
+}
+
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+ return {}
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Panel);;
+
+
+

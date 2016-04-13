@@ -35,7 +35,10 @@ module.exports = {
 
 
   module: {
-  loaders: [{
+      noParse: [
+        /plotly\.js/
+      ],  
+      loaders: [{
         test: /\.(js|jsx|es6)$/,
         loaders: ['babel'],
         include: path.join(__dirname, 'app')

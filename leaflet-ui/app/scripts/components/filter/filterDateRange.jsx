@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 import DatePicker from 'react-date-picker'
 import Moment from 'moment'
 import { setFilterRange, fetchFilterDataIfNeeded } from '../../actions/filters.js'
-
+require('react-date-picker/base.css');
+require('react-date-picker/theme/hackerone.css');
 
 class FilterDate extends React.Component {
 

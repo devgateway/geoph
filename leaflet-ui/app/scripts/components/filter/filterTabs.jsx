@@ -63,17 +63,17 @@ class FilterTabContent extends React.Component {
 	                <Tab className="filter-tab-content" eventKey={5} title="Dates">
 	                  	<Tabs defaultActiveKey={1} position="left" tabWidth={3}>
 							<Tab className="filter-list-content" eventKey={1} title="Implementation period">
-								<FilterDate filterType="ip" lang={this.props.language} {...this.props.filters["ip"]}/>
+								<FilterDate filterType="ip" lang={this.props.language.lan} {...this.props.filters["ip"]}/>
 						    </Tab>
 						    <Tab className="filter-list-content" eventKey={2} title="Loan validity period">
-								<FilterDate filterType="gp" lang={this.props.language} {...this.props.filters["gp"]}/>
+								<FilterDate filterType="gp" lang={this.props.language.lan} {...this.props.filters["gp"]}/>
 						    </Tab>
 						</Tabs>
 	                </Tab>
 	                <Tab className="filter-tab-content" eventKey={6} title="Status">
 	                  	<Tabs defaultActiveKey={1} position="left" tabWidth={3}>
 							<Tab className="filter-list-content" eventKey={1} title="Financing Status">
-								<FilterList filterType="fs" lang={this.props.language} {...this.props.filters["fs"]}/>
+								<FilterList filterType="fs" {...this.props.filters["fs"]}/>
 						    </Tab>
 						</Tabs>
 	                </Tab>
