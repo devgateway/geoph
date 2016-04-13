@@ -5,7 +5,7 @@ import App from './components/layout/root';
 
 import Landing from './components/layout/landing';
 import Tools from './components/layout/tools';
-import Charts from './components/layout/charts';
+import Charts from './components/charts/chartsTab';
 
 const NoMatch = React.createClass({
   

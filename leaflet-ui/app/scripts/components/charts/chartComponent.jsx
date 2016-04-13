@@ -10,21 +10,25 @@ class ChartComponent extends React.Component {
 
 	constructor() {
 	    super();
-	    this.state = {'chartType': 'bar'};
+	    this.state = {'chartType': 'bar', 'measType': 'funding'};
 	}
 
   	componentDidMount() {
-	
+		
 	}
 
 	parseDataForPiechart(){
 		const {chartData, dimension, measure, width, height} = this.props;
+		let meas = measure && this.state.measType=='funding'? measure : 'projectCount';
 		let labels = [];
 		let values = [];
 		if (chartData){
 			chartData.map((i) => {
-				labels.push(i[dimension]);
-				values.push(i[measure]);
+				if (i[meas] && i[meas].length>0){
+					let label = i[dimension].length>35? i[dimension].substr(0,32)+'...' : i[dimension];
+					labels.push(label);
+					values.push(i[meas]);
+				}
 			});
 		}
 		return {
@@ -46,17 +50,21 @@ class ChartComponent extends React.Component {
 			    }
 		    ],
 			'layout': {         
-		      	'height': height || 450,
-				'width': width || 550,
+		      	//'height': height || 250,
+				//'width': width || 550,
 				'margin':{
-					't':0,
-					'b':200,
+					't':20,
+					'b':35,
 					'l':0
 				},
-				//'autosize': true,
+				'autosize': true,
 				'legend':{
-					x:0.7,
-					y:1
+					x:-1,
+					y:1,
+					bgcolor:"rgba(0, 0, 0, 0)",
+					font:{
+						size:10
+					}
 				}
 			},
 			'config': {
@@ -69,22 +77,24 @@ class ChartComponent extends React.Component {
 
 	parseDataForBarchart(){
 		const {chartData, dimension, measure, width, height} = this.props;
+		let meas = measure && this.state.measType=='funding'? measure : 'projectCount';
 		let itemNames = [];
 		let values = [];
 		if (chartData){
 			chartData.map((i) => {
-				itemNames.push(i[dimension]);
-				values.push(i[measure]);
+				if (i[meas] && i[meas].length>0){
+					itemNames.push(i[dimension]);
+					values.push(i[meas]);
+				}
 			});
 		}
-		debugger;
 		return {
 			'data': [
 				{
 					type: 'bar',   
 			        x: itemNames,  
 			        y: values,    
-			        name: measure,
+			        name: meas,
 					"marker":{  
 					 	"color": '#93C364'
 					}
@@ -94,12 +104,12 @@ class ChartComponent extends React.Component {
 				xaxis:{
 					showticklabels:false,
 				},                
-		      	'height': height || 450,
-				'width': width || 550,
-				'autosize': false,
+		      	//'height': height || 250,
+				//'width': width || 550,
+				'autosize': true,
 				'margin':{
-					't':0,
-					'b':200
+					't':20,
+					'b':35
 				}
 		    },
 			'config': {
@@ -111,30 +121,52 @@ class ChartComponent extends React.Component {
 	}
 
 	setChartType(ev){
-		this.setState({'chartType': ev.target.value})
+		this.setState({'chartType': ev.target.value});
+	}
+
+	setMeasType(ev){
+		this.setState({'measType': ev.target.value});
 	}
 
 	render() {
 		var chartData = this.props.chartType || (this.state.chartType=='bar'? this.parseDataForBarchart() : this.parseDataForPiechart());
+	    var meas = this.props.measure || (this.state.chartType=='bar'? this.parseDataForBarchart() : this.parseDataForPiechart());
 	    return (
-	    	<div>
+	    	<div className="chart">
+	    		<div className="chart-title">
+	    			{this.props.title || ""}
+	    		</div>
 	    		{!this.props.chartType?
 	    			<div className="chart-type-selector">
-	    				<div><input type="radio" 
+	    				<div className="chart-type-option"><input type="radio" 
 							value='bar'
 							checked={this.state.chartType ==='bar'} 
 							onChange={this.setChartType.bind(this)} />Bar chart
                         </div>
-                        <div><input type="radio"  
+                        <div className="chart-type-option"><input type="radio"  
 							value='pie' 
 							checked={this.state.chartType === 'pie'} 
 							onChange={this.setChartType.bind(this)} />Pie chart
                         </div>					  
 					</div>
-	    		: null}	    			    	
+	    		: null}  
+	    		{this.props.measure?
+	    		<div className="chart-measure-selector">
+	    				<div className="chart-measure-option"><input type="radio" 
+							value='funding'
+							checked={this.state.measType ==='funding'} 
+							onChange={this.setMeasType.bind(this)} />Funding
+                        </div>
+                        <div className="chart-measure-option"><input type="radio"  
+							value='projectCount' 
+							checked={this.state.measType === 'projectCount'} 
+							onChange={this.setMeasType.bind(this)} />Project Count
+                        </div>					  
+					</div>
+	    		: null}		    			  			   
 	    		<div>
 		      		<Plotly className="" data={chartData.data} layout={chartData.layout} config={chartData.config}/>
-		      	</div>
+		      	</div>		      	
 	      	</div>
 	    );
   	}
