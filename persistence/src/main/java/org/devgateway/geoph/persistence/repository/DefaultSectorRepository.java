@@ -30,6 +30,7 @@ public class DefaultSectorRepository implements SectorRepository {
         return em.createNamedQuery("findAllSectors", Sector.class)
                 .getResultList();
     }
+
     @Override
     public Sector findByCode(String code) {
         return em.createNamedQuery("findSectorsByCode", Sector.class)

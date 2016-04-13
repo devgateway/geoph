@@ -90,6 +90,22 @@ public class FilterController extends CrossOriginSupport {
         return resp;
     }
 
+    @RequestMapping(value = "/physicalStatus", method = GET)
+    public GenericResponse findAllPhysicalStatus() {
+        LOGGER.debug("findAllPhysicalStatus");
+        List<PhysicalStatus> physicalStatuses = service.findAllPhysicalStatus();
+        GenericResponse resp = new GenericResponse(
+                "Physical Statuses",
+                FILTER_PHYSICAL_STATUS,
+                "PHYSICAL_STATUS_SECTION",
+                1,
+                physicalStatuses,
+                physicalStatuses!=null?physicalStatuses.size():0
+        );
+
+        return resp;
+    }
+
     @RequestMapping(value = "/location", method = GET)
     public GenericResponse findAllLocations() {
         LOGGER.debug("findAllLocations");

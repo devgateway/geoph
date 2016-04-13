@@ -15,4 +15,6 @@ public interface ChartService {
     List<Map<String,String>> getFundingByImplementingAgency(Parameters params);
 
     List<Map<String,String>> getFundingBySector(Parameters params);
+
+    List<Map<String,String>> getFundingByPhysicalStatus(Parameters params);
 }
