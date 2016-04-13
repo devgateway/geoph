@@ -41,10 +41,13 @@ public class ChartController {
             @RequestParam(value = FILTER_PROJECT, required = false) String projects,
             @RequestParam(value = FILTER_IMPLEMENTING_AGENCY, required = false) String impAgencies,
             @RequestParam(value = FILTER_FUNDING_AGENCY, required = false) String fundingAgencies,
-            @RequestParam(value = FILTER_FLOW_TYPE, required = false) String flowTypes) {
+            @RequestParam(value = FILTER_FLOW_TYPE, required = false) String flowTypes,
+            @RequestParam(value = FILTER_PROJECT_TITLE, required = false) String projectTitle,
+            @RequestParam(value = FILTER_PHYSICAL_STATUS, required = false) String physicalStatuses) {
         LOGGER.debug("getByFundingAgency");
         Parameters params = new Parameters(startDate, endDate, sectors, statuses,
-                locations, projects, impAgencies, fundingAgencies, flowTypes, null);
+                locations, projects, impAgencies, fundingAgencies, flowTypes,
+                projectTitle, physicalStatuses, null);
         return chartService.getFundingByFundingAgency(params);
     }
 
@@ -58,10 +61,13 @@ public class ChartController {
             @RequestParam(value = FILTER_PROJECT, required = false) String projects,
             @RequestParam(value = FILTER_IMPLEMENTING_AGENCY, required = false) String impAgencies,
             @RequestParam(value = FILTER_FUNDING_AGENCY, required = false) String fundingAgencies,
-            @RequestParam(value = FILTER_FLOW_TYPE, required = false) String flowTypes) {
+            @RequestParam(value = FILTER_FLOW_TYPE, required = false) String flowTypes,
+            @RequestParam(value = FILTER_PROJECT_TITLE, required = false) String projectTitle,
+            @RequestParam(value = FILTER_PHYSICAL_STATUS, required = false) String physicalStatuses) {
         LOGGER.debug("getByImplementingAgency");
         Parameters params = new Parameters(startDate, endDate, sectors, statuses,
-                locations, projects, impAgencies, fundingAgencies, flowTypes, null);
+                locations, projects, impAgencies, fundingAgencies, flowTypes,
+                projectTitle, physicalStatuses, null);
         return chartService.getFundingByImplementingAgency(params);
     }
 
@@ -75,10 +81,33 @@ public class ChartController {
             @RequestParam(value = FILTER_PROJECT, required = false) String projects,
             @RequestParam(value = FILTER_IMPLEMENTING_AGENCY, required = false) String impAgencies,
             @RequestParam(value = FILTER_FUNDING_AGENCY, required = false) String fundingAgencies,
-            @RequestParam(value = FILTER_FLOW_TYPE, required = false) String flowTypes) {
+            @RequestParam(value = FILTER_FLOW_TYPE, required = false) String flowTypes,
+            @RequestParam(value = FILTER_PROJECT_TITLE, required = false) String projectTitle,
+            @RequestParam(value = FILTER_PHYSICAL_STATUS, required = false) String physicalStatuses) {
         LOGGER.debug("getBySector");
         Parameters params = new Parameters(startDate, endDate, sectors, statuses,
-                locations, projects, impAgencies, fundingAgencies, flowTypes, null);
+                locations, projects, impAgencies, fundingAgencies, flowTypes,
+                projectTitle, physicalStatuses, null);
         return chartService.getFundingBySector(params);
+    }
+
+    @RequestMapping(value = "/physicalStatus", method = GET)
+    public List<Map<String, String>> getByPhysicalStatus(
+            @RequestParam(value = FILTER_DATE_START, required = false) String startDate,
+            @RequestParam(value = FILTER_DATE_END, required = false) String endDate,
+            @RequestParam(value = FILTER_SECTOR, required = false) String sectors,
+            @RequestParam(value = FILTER_STATUS, required = false) String statuses,
+            @RequestParam(value = FILTER_LOCATION, required = false) String locations,
+            @RequestParam(value = FILTER_PROJECT, required = false) String projects,
+            @RequestParam(value = FILTER_IMPLEMENTING_AGENCY, required = false) String impAgencies,
+            @RequestParam(value = FILTER_FUNDING_AGENCY, required = false) String fundingAgencies,
+            @RequestParam(value = FILTER_FLOW_TYPE, required = false) String flowTypes,
+            @RequestParam(value = FILTER_PROJECT_TITLE, required = false) String projectTitle,
+            @RequestParam(value = FILTER_PHYSICAL_STATUS, required = false) String physicalStatuses) {
+        LOGGER.debug("getBySector");
+        Parameters params = new Parameters(startDate, endDate, sectors, statuses,
+                locations, projects, impAgencies, fundingAgencies, flowTypes,
+                projectTitle, physicalStatuses, null);
+        return chartService.getFundingByPhysicalStatus(params);
     }
 }

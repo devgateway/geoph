@@ -2,9 +2,11 @@ package org.devgateway.geoph.persistence;
 
 import org.devgateway.geoph.model.FundingAgency;
 import org.devgateway.geoph.model.ImplementingAgency;
+import org.devgateway.geoph.model.PhysicalStatus;
 import org.devgateway.geoph.model.Sector;
 import org.devgateway.geoph.persistence.repository.FundingAgencyRepository;
 import org.devgateway.geoph.persistence.repository.ImplementingAgencyRepository;
+import org.devgateway.geoph.persistence.repository.PhysicalStatusRepository;
 import org.devgateway.geoph.persistence.repository.SectorRepository;
 import org.devgateway.geoph.services.ChartService;
 import org.devgateway.geoph.util.Parameters;
@@ -18,10 +20,7 @@ import java.util.*;
 
 import static org.devgateway.geoph.util.Constants.DOUBLE_FORMAT;
 
-/**
- * @author dbianco
- *         created on abr 04 2016.
- */
+
 @Service
 public class ChartServiceImpl implements ChartService {
 
@@ -35,6 +34,9 @@ public class ChartServiceImpl implements ChartService {
 
     @Autowired
     SectorRepository sectorRepository;
+
+    @Autowired
+    PhysicalStatusRepository physicalStatusRepository;
 
     @Override
     public List<Map<String, String>> getFundingByFundingAgency(Parameters params) {
@@ -97,5 +99,26 @@ public class ChartServiceImpl implements ChartService {
             sectorList.add(sectorMap);
         }
         return sectorList;
+    }
+
+    @Override
+    public List<Map<String, String>> getFundingByPhysicalStatus(Parameters params) {
+        List<Object> physicalStatusResults = physicalStatusRepository.findFundingByPhysicalStatus(params);
+        List<Map<String, String>> physicalStatusList = new ArrayList<>();
+        for(Object o:physicalStatusResults) {
+            Map<String, String> physicalStatusMap = new HashMap<>();
+            Object[] objectList = ((Object[]) o);
+            PhysicalStatus physicalStatus = (PhysicalStatus)objectList[0];
+            physicalStatusMap.put("id", physicalStatus.getId().toString());
+            physicalStatusMap.put("name", physicalStatus.getName());
+            physicalStatusMap.put("code", physicalStatus.getCode());
+            physicalStatusMap.put("projectCount", objectList[1]!=null?objectList[1].toString():"");
+            physicalStatusMap.put("transactionCount", objectList[2]!=null?objectList[2].toString():"");
+            physicalStatusMap.put("loan", objectList[3] != null ? String.format(Locale.US, DOUBLE_FORMAT, ((Double) objectList[3])) : "");
+            physicalStatusMap.put("grant", objectList[4]!=null?String.format(Locale.US, DOUBLE_FORMAT, ((Double) objectList[4])):"");
+            physicalStatusMap.put("pmc", objectList[5]!=null?String.format(Locale.US, DOUBLE_FORMAT, ((Double) objectList[5])):"");
+            physicalStatusList.add(physicalStatusMap);
+        }
+        return physicalStatusList;
     }
 }

@@ -27,4 +27,6 @@ public interface FilterService {
     List<Location> findLocationsByParentId(long parentId);
 
     List<Status> findAllStatuses();
+
+    List<PhysicalStatus> findAllPhysicalStatus();
 }

@@ -52,10 +52,13 @@ public class ProjectController  extends CrossOriginSupport {
             @RequestParam(value = FILTER_IMPLEMENTING_AGENCY, required = false) String impAgencies,
             @RequestParam(value = FILTER_FUNDING_AGENCY, required = false) String fundingAgencies,
             @RequestParam(value = FILTER_FLOW_TYPE, required = false) String flowTypes,
+            @RequestParam(value = FILTER_PROJECT_TITLE, required = false) String projectTitle,
+            @RequestParam(value = FILTER_PHYSICAL_STATUS, required = false) String physicalStatuses,
             @PageableDefault(page = 0, size = 20, sort = "id") final Pageable pageable) {
         LOGGER.debug("findProjectsByParams");
         Parameters params = new Parameters(startDate, endDate, sectors, statuses,
-                locations, projects, impAgencies, fundingAgencies, flowTypes, pageable);
+                locations, projects, impAgencies, fundingAgencies, flowTypes,
+                projectTitle, physicalStatuses, pageable);
         return service.findProjectsByParams(params);
     }
 

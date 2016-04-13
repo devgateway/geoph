@@ -13,40 +13,38 @@ import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.devgateway.geoph.util.Constants.*;
-
 /**
  * @author dbianco
- *         created on mar 18 2016.
+ *         created on abr 12 2016.
  */
 @Service
-public class DefaultSectorRepository implements SectorRepository {
+public class DefaultPhysicalStatusRepository implements PhysicalStatusRepository {
 
     @Autowired
     EntityManager em;
 
     @Override
-    public List<Sector> findAll() {
-        return em.createNamedQuery("findAllSectors", Sector.class)
+    public List<PhysicalStatus> findAll() {
+        return em.createNamedQuery("findAllPhysicalStatus", PhysicalStatus.class)
                 .getResultList();
     }
 
     @Override
-    public Sector findByCode(String code) {
-        return em.createNamedQuery("findSectorsByCode", Sector.class)
+    public PhysicalStatus findByName(String name) {
+        return em.createNamedQuery("findPhysicalStatusByName", PhysicalStatus.class)
+                .setParameter("name", name)
+                .getSingleResult();
+    }
+
+    @Override
+    public PhysicalStatus findByCode(String code) {
+        return em.createNamedQuery("findPhysicalStatusByCode", PhysicalStatus.class)
                 .setParameter("code", code)
                 .getSingleResult();
     }
 
     @Override
-    public List<Sector> findByLevel(int level) {
-        return sectorInitializer(em.createNamedQuery("findSectorsByLevel", Sector.class)
-                .setParameter("level", level)
-                .getResultList());
-    }
-
-    @Override
-    public List<Object> findFundingBySector(Parameters params) {
+    public List<Object> findFundingByPhysicalStatus(Parameters params) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<Object> criteriaQuery = criteriaBuilder.createQuery();
 
@@ -56,10 +54,10 @@ public class DefaultSectorRepository implements SectorRepository {
         List<Predicate> predicates = new ArrayList();
         List<Expression<?>> groupByList = new ArrayList<>();
 
-        Join<Project, Sector> sectorJoin = projectRoot.join(Project_.sectors);
-        multiSelect.add(sectorJoin);
+        Join<Project, PhysicalStatus> physicalStatusJoin = projectRoot.join(Project_.physicalStatus);
+        multiSelect.add(physicalStatusJoin);
         multiSelect.add(criteriaBuilder.countDistinct(projectRoot).alias("projectCount"));
-        groupByList.add(sectorJoin);
+        groupByList.add(physicalStatusJoin);
 
         Join<Project, Transaction> transaction0Join = projectRoot.join(Project_.transactions);
         multiSelect.add(criteriaBuilder.countDistinct(transaction0Join).alias("transactionCount"));
@@ -86,14 +84,5 @@ public class DefaultSectorRepository implements SectorRepository {
         TypedQuery<Object> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
 
         return query.getResultList();
-    }
-
-    private List<Sector> sectorInitializer(List<Sector> sectors){
-        for(Sector sector:sectors){
-            if(sector.getItems()!=null){
-                sectorInitializer(sector.getItems());
-            }
-        }
-        return sectors;
     }
 }

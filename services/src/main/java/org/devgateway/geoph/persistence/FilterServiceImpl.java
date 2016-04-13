@@ -36,6 +36,9 @@ public class FilterServiceImpl implements FilterService {
     @Autowired
     StatusRepository statusRepository;
 
+    @Autowired
+    PhysicalStatusRepository physicalStatusRepository;
+
     @Override
     public List<ImplementingAgency> findAllImpAgencies() {
         LOGGER.debug("Getting all implementing agencies");
@@ -76,4 +79,11 @@ public class FilterServiceImpl implements FilterService {
         LOGGER.debug("Getting all statuses");
         return statusRepository.findAll();
     }
+
+    @Override
+    public List<PhysicalStatus> findAllPhysicalStatus() {
+        LOGGER.debug("Getting all statuses");
+        return physicalStatusRepository.findAll();
+    }
+
 }
