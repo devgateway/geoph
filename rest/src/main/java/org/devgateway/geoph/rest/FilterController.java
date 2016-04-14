@@ -109,7 +109,7 @@ public class FilterController extends CrossOriginSupport {
     @RequestMapping(value = "/location", method = GET)
     public GenericResponse findAllLocations() {
         LOGGER.debug("findAllLocations");
-        List<Location> locations = service.findAllLocations();
+        List<Location> locations = service.findLocationsByLevel(LocationAdmLevel.REGION);
         GenericResponse resp = new GenericResponse(
                 "Locations",
                 FILTER_LOCATION,

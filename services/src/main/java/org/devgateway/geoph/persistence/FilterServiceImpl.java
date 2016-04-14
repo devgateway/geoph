@@ -66,7 +66,18 @@ public class FilterServiceImpl implements FilterService {
     @Override
     public List<Location> findLocationsByLevel(LocationAdmLevel level) {
         LOGGER.debug("Getting all locations of level: {}", level);
-        return locationRepository.findLocationsByLevel(level.getLevel());
+        List<Location> locationList = locationRepository.findLocationsByLevel(level.getLevel());
+        expandLocationItems(locationList);
+        return locationList;
+    }
+
+    private void expandLocationItems(List<Location> locationList) {
+        for(Location loc : locationList){
+            List<Location> items = loc.getItems();
+            if(items!=null){
+                expandLocationItems(items);
+            }
+        }
     }
 
     public List<Location> findLocationsByParentId(long parentId){
