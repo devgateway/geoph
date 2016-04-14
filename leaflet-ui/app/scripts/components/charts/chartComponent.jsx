@@ -50,14 +50,14 @@ class ChartComponent extends React.Component {
 			    }
 		    ],
 			'layout': {         
-		      	//'height': height || 250,
-				//'width': width || 550,
+		      	'height': height || 250,
+				'width': width || 550,
 				'margin':{
 					't':20,
 					'b':35,
 					'l':0
 				},
-				'autosize': true,
+				//'autosize': true,
 				'legend':{
 					x:-1,
 					y:1,
@@ -104,9 +104,9 @@ class ChartComponent extends React.Component {
 				xaxis:{
 					showticklabels:false,
 				},                
-		      	//'height': height || 250,
-				//'width': width || 550,
-				'autosize': true,
+		      	'height': height || 250,
+				'width': width || 550,
+				'autosize': false,
 				'margin':{
 					't':20,
 					'b':35

@@ -25,7 +25,6 @@ export const toggleVisibility=(name,visible,params)=>{
 			debugger;
 		}
 
-
 	}
 
 }
@@ -57,18 +56,18 @@ export const loadProjects = (level,params) => {
 
 	}
 
-	export const loadFunding = (level,params) => {
-		return (dispatch, getState) =>{
-			Connector.getFundingGeoJson(level,params)
-			.then((data)=>{
+export const loadFunding = (level,params) => {
+	return (dispatch, getState) =>{
+		Connector.getFundingGeoJson(level,params)
+		.then((data)=>{
 
-				dispatch(loadLayerCompleted(level,data,LOAD_FUNDING_GEOJSON_SUCCESS))}
-				).catch((err)=>{ 
-					console.error(err);
-					dispatch(loadLayerFailed(err,LOAD_FUNDING_GEOJSON_FAILED));
-				});
-			} 
+			dispatch(loadLayerCompleted(level,data,LOAD_FUNDING_GEOJSON_SUCCESS))}
+			).catch((err)=>{ 
+				console.error(err);
+				dispatch(loadLayerFailed(err,LOAD_FUNDING_GEOJSON_FAILED));
+			});
+		} 
 
-		}
+	}
 
 

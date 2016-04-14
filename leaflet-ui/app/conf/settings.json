@@ -21,7 +21,8 @@
 				"ia": "/filters/impAgency",
 				"ip": "/filters/impPeriod",
 				"gp": "/filters/grantPeriod",
-				"fs": "/filters/status",				
+				"fs": "/filters/status",	
+				"ft": "/filters/flowType",
 				"pr": {"mock": true, "path": "./json-data/percentageTarget.json"}				
 			},
 			"production": {
@@ -31,6 +32,7 @@
 				"ip": "/filters/impPeriod",
 				"gp": "/filters/grantPeriod",
 				"fs": "/filters/status",
+				"ft": "/filters/flowType",
 				"pr": {"mock": true, "path": "./json-data/percentageTarget.json"}				
 			}
 		},

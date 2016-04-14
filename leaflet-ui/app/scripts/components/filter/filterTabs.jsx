@@ -26,7 +26,7 @@ class FilterTabContent extends React.Component {
 								Funding Source Tab content
 						    </Tab>
 						    <Tab className="filter-list-content" eventKey={2} title="Funding Type (ODA)">
-								Funding Type (ODA) Tab content
+								<FilterList filterType="ft" {...this.props.filters["ft"]} />
 						    </Tab>
 						    <Tab className="filter-list-content" eventKey={3} title="Financing Institution">
 								<FilterList filterType="fa" {...this.props.filters["fa"]} />

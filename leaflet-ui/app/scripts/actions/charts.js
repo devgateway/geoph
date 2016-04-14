@@ -18,10 +18,10 @@ export const receiveChartData = (chart, data) => {
   }
 }
 
-export const fetchChartData = (chart) => {
+export const fetchChartData = (chart, filters) => {
   return dispatch => {
     dispatch(requestChartData(chart))
-    return Connector.getChartData(chart)
+    return Connector.getChartData(chart, filters)
     .then(req => dispatch(receiveChartData(chart, req)))
   }
 }

@@ -10,9 +10,9 @@ class Charts extends React.Component {
   }
 
   componentDidMount() {
-    this.props.onLoadChartData('fundingAgency');
-    this.props.onLoadChartData('sector');
-    this.props.onLoadChartData('impAgency');    
+    this.props.onLoadChartData('fundingAgency', {});
+    this.props.onLoadChartData('sector', {});
+    this.props.onLoadChartData('impAgency', {});    
   }
 
   render() {
@@ -24,7 +24,14 @@ class Charts extends React.Component {
             title="Funding Agency Chart" 
             measure="grant" 
             dimension="name"/>
-          
+          <Chart chartData={this.props.charts.impAgency? this.props.charts.impAgency.data : null}
+            title="Implementing Agency Chart" 
+            measure="grant"  
+            dimension="name"/>
+          <Chart chartData={this.props.charts.sector? this.props.charts.sector.data : null}
+            title="Sector Chart" 
+            measure="grant"  
+            dimension="name"/>
         </div>  
       </div>
     )
