@@ -1,5 +1,5 @@
-import 
-{TOGGLE_LAYER,LOAD_PROJECT_GEOJSON_SUCCESS,LOAD_PEOJECT_GEOJSON_FAILED,CHANGE_LAYER_LEVE,LOAD_FUNDING_GEOJSON_SUCCESS}  from '../constants/constants.js';
+import  {TOGGLE_LAYER,LOAD_PROJECT_GEOJSON_SUCCESS,LOAD_PEOJECT_GEOJSON_FAILED,CHANGE_LAYER_LEVE,LOAD_FUNDING_GEOJSON_SUCCESS}  from '../constants/constants.js';
+import {getLayerById} from '../util/layersUtil.js';
 import Connector from '../connector/connector.js';
 
 
@@ -13,18 +13,14 @@ const loadLayerFailed=(type,error)=>{
 }
 
 
-export const toggleVisibility=(name,visible,params)=>{
+
+export const toggleVisibility=(id,visible,params)=>{
 
 	return (dispatch, getState) => {
-	debugger;
-		let layers=getState().map.layers;
-		if (!layers.find(l=> l.name==name)){
-			//TODO:take params from filters state
-			return dispatch(loadLayer(name,'region',params));
-		}else{
-			debugger;
-		}
-
+		dispatch({
+			type: TOGGLE_LAYER,
+			id
+		});
 
 	}
 
@@ -35,10 +31,10 @@ const loadLayer=(name,level,params)=>{
 	return dispatch => {
 		switch (name){
 			case 'project':
-				return  dispatch(loadProjects(level,params));
+			return  dispatch(loadProjects(level,params));
 
 			case 'funding':
-				return   dispatch(loadFunding(level,params));
+			return   dispatch(loadFunding(level,params));
 		}
 	}	
 }

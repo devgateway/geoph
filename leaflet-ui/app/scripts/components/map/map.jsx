@@ -3,7 +3,7 @@ import ReactDOM from 'react';
 
 import { connect } from 'react-redux'
 import {loadProjects} from '../../actions/map.js'
-import GeoJsonLayer from './layers/geoJson.jsx'
+import SvgLayer from './layers/svg.jsx'
 import {latLngBounds,latLng} from 'leaflet'
 import * as Constants from '../../constants/constants.js';
 
@@ -27,16 +27,21 @@ const view = React.createClass({
 		
 	},
 
+
+	getLayers(){
+		if (this.props.layers){
+			this.props.layers.map((l)=>{
+				return (<div/>)
+			})
+		}
+	},
+
 	render(){
 		
 		return (
 			<Map className="map" zoom={13} bounds={bounds}>
-			    <TileLayer url='http://{s}.tile.osm.org/{z}/{x}/{y}.png' attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'/>
-			    {
-			    	this.props.layers.map((layer)=>{
-			    		return <GeoJsonLayer key={layer.name} autoZoom={layer.autoZoom} data={layer.data}/>	
-			    	})
-			    }
+			   <TileLayer url='http://{s}.tile.osm.org/{z}/{x}/{y}.png' attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'/>
+				{this.getLayers()}
 			</Map>
 			)
 	}
@@ -44,7 +49,7 @@ const view = React.createClass({
 
 
 const stateToProps = (state,props) => {
-	
+	debugger;
 	return state.map;
 }
 

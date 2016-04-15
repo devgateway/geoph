@@ -1,139 +1,128 @@
 import React from 'react';
 import { connect } from 'react-redux'
+import {Message} from '../lan/'
 import {loadProjects,loadFunding,toggleVisibility} from '../../actions/map.js'
 import * as Constants from '../../constants/constants.js';
-
 require('./layers.scss');
+const prefix="control.layers";
+/**
+ * Base Control which holds some comoons functions
+ */
+ class ControlComponent extends React.Component {
+
+ 	getChildProperties(){
+ 		return {onToggleLayer:this.props.onToggleLayer};
+ 	}
+
+ 	getCheckbox(){
+ 		let selected=this.props.layers.findIndex(l=>l.selected).length > -1;
+ 		return (<input type="checkbox" checked={selected}/>)
+ 	}
+
+ 	renderChildren(){
+ 		let childProperties=this.getChildProperties();
 
 
-class Toggler extends React.Component {
-	static propTypes = {
-		onToggle:React.PropTypes.func.isRequired
-	}
+ 		return this.props.layers.map((l)=>{
+ 			if (l.layers){
+ 				return 	<LayerGroup key={l.id} {...l} {...childProperties} />
+ 			}else{
+ 				return 	<Layer  key={l.id} {...l} {...childProperties} />
+ 			}
+ 		})
+ 	}
+ }
 
-	toggle(){
-		debugger;
-		this.props.onToggle(this.props.name,!this.props.visible);
-	}
-
-	render(){
-		return (<button onClick={this.toggle.bind(this)} className={`btn btn-xs  ${this.props.visible?"btn-success":"btn-default"}`}> {this.props.visible?"ON":"OFF"}</button>)
-	}
-}
-
-
-class Leveler extends React.Component {
-
-	setLevel(level){
-		this.props.onChange(level);
-	}
-
-	render(){
-		return (
-			<ul>
-			<li><input onChange={this.setLevel.bind(this,'region')} type="radio" name='level' value='region' checked={this.props.level=='region'}/>Region</li>
-			<li><input onChange={this.setLevel.bind(this,'province')} type="radio" name='level' value='province' checked={this.props.level=='province'}/>Department</li>
-			<li><input onChange={this.setLevel.bind(this,'municipality')} type="radio" name='level' value='municipality' checked={this.props.level=='municipality'}/>Municipalities</li>
-			</ul>
-			)
-	}
-}
+/**
+ * 
+ */
+ class LayerGroup extends ControlComponent {
+ 	render(){
+ 		return( 
+ 			<li className="group">
+ 			{this.getCheckbox()}
+ 			<Message prefix={prefix} k={this.props.keyName}/>
+ 			 ({this.props.layers.length}/{this.props.layers.find(l=>l.visible)})
+ 			<ul>
+ 			{this.renderChildren()}
+ 			</ul>
+ 			</li>)
+ 	}
+ }
 
 
+/**
+ * 
+ */
+ class Layer extends React.Component {
+ 	static propTypes = {
+ 		onToggleLayer:React.PropTypes.func.isRequired
+ 	}
+ 	onChange(){
+ 		this.props.onToggleLayer(this.props.id);
+ 	}
+ 	render(){
+ 		console.log('visible '+this.props.visible);
+ 		return <li className="layer"><input type="checkbox" checked={this.props.visible} onChange={this.onChange.bind(this)}/><Message prefix={prefix} k={this.props.keyName}/></li>
+ 	}
+ }
+
+/**
+ * 
+ */
+ class Component extends ControlComponent {
+
+ 	constructor(props) {
+ 		super(props);
+ 	}
+ 	static propTypes = {
+ 		onToggleLayer:React.PropTypes.func,
+ 		onLoadProjects:React.PropTypes.func.isRequired,
+ 		onLoadFunding:React.PropTypes.func.isRequired
+ 	}
+
+ 	componentWillReceiveProps(nextProps) {
+ 		debugger;
+ 	}
+
+ 	render(){
+
+ 		return (
+ 			<div>
+ 				Layers
+		 			<ul>
+		 				{this.renderChildren()}
+		 			</ul>
+ 			</div>
+ 			)
+ 	}
+ }
 
 
-class Component extends React.Component {
-
-	constructor(props) {
-		super(props);
-	}
-
-	static propTypes = {
-		isProjectVisible: React.PropTypes.bool,
-		isTotalFundingVisible: React.PropTypes.bool,
-		onToggleLayerVisibility:React.PropTypes.func,
-
-		onLoadProjects:React.PropTypes.func.isRequired,
-		onLoadFunding:React.PropTypes.func.isRequired
-	}
-
-	componentDidMount(){
-		
-	}
-
-	onChangeLevel(level){	
-		debugger;
-
-	}
+ const stateToProps = (state, props) => {
+ 	debugger;
+ 	return {layers:state.map.layers,updated:state.map.updated};
+ }
 
 
-	render(){
-		return (
-		<div className="layers-control">
-			<ul>
-				<li>Project and Statistical
-					<ul>
-						<li>
-							Projects 
-							<Toggler name="project" visible={this.props.isProjectVisible} onToggle={this.props.onToggleLayerVisibility.bind(this)}/> 
-							<Leveler level='region' onChange={this.onChangeLevel}/>
-						</li>
-					</ul>
-				</li>
-				<li>Statistical
-					<ul>
-						<li>
-							Total Funding layers 
-							<Toggler name="funding" visible={this.props.isTotalFundingVisible} onToggle={this.props.onToggleLayerVisibility.bind(this)}/> 
+ const dispatchToProps = (dispatch, ownProps) => {
+ 	return {
+ 		onLoadProjects: (level) => {
+ 			dispatch(loadProjects(level));
+ 		},
+ 		onLoadFunding: (level) => {
+ 			dispatch(loadFunding(level));
+ 		},
 
-						</li>
-						<li>
-							Physical progress <Toggler name="physical" visible={this.props.isPhysicalVisible} onToggle={this.props.onToggleLayerVisibility.bind(this)}/> 
-						</li>
-						<li>Geotagged Photos <Toggler name="geotagged" visible={this.props.isGeotaggedVisible} onToggle={this.props.onToggleLayerVisibility.bind(this)}/> 
-						</li>
-					</ul>
-				</li>
+ 		onToggleLayer:(name,visible)=>{
+ 			dispatch(toggleVisibility(name,visible));
+ 		}
+ 	}
+ }
+ /*Connect map component to redux state*/
+ const LayerControl=connect(stateToProps,dispatchToProps)(Component);
 
 
-			</ul>
-			
-		</div>)
-	}
-}
-
-
-
-
-const stateToProps = (state, props) => {
-	debugger;
-	return {
-		isProjectVisible:(state.map.layers.findIndex(l=>l.name=='project') > -1),
-		isTotalFundingVisible:state.map.layers.findIndex(l=>l.name=='funding') > -1,
-		isPhysicalVisible:false,
-		isGeotaggedVisible:false
-	}  
-}
-
-
-const dispatchToProps = (dispatch, ownProps) => {
-	return {
-		onLoadProjects: (level) => {
-			dispatch(loadProjects(level));
-		},
-		onLoadFunding: (level) => {
-			dispatch(loadFunding(level));
-		},
-
-		onToggleLayerVisibility:(name,visible)=>{
-			dispatch(toggleVisibility(name,visible));
-		}
-	}
-}
-/*Connect map component to redux state*/
-const LayerControl=connect(stateToProps,dispatchToProps)(Component);
-
-
-export {LayerControl};
+ export {LayerControl};
 
 

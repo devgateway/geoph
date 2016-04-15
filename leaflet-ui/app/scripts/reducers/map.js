@@ -1,41 +1,59 @@
 import {
-    LOAD_PROJECT_GEOJSON_SUCCESS,
-    LOAD_PEOJECT_GEOJSON_FAILED,
-    
-    LOAD_FUNDING_GEOJSON_SUCCESS,
-    LOAD_FUNDING_GEOJSON_FAILED,
-    TOGGLE_LAYER} from '../constants/constants';
+  LOAD_PROJECT_GEOJSON_SUCCESS,
+  LOAD_PEOJECT_GEOJSON_FAILED,
 
-const addOrUpdate=(newState,newlayer)=>{
- let index=newState.layers.findIndex(function(l){return l.name==newlayer.name});
- if (index > 0){
-  newState.layers[index]=newlayer;
-}else{
-  newState.layers.push(newlayer);
-}
-return newState;
-}
+  LOAD_FUNDING_GEOJSON_SUCCESS,
+  LOAD_FUNDING_GEOJSON_FAILED,
+  TOGGLE_LAYER} from '../constants/constants';
 
 
-const map = (state = {layers: []}, action) => {
-  let newState=Object.assign({}, state)
-  switch (action.type) {
-   case LOAD_PROJECT_GEOJSON_SUCCESS:
-      let projectLayer=  {name:'project',visible:true,data:action.data,autoZoom:true};
-      return Object.assign(addOrUpdate(newState,projectLayer), {updated:new Date()});
+  import {toggleLayerProperty} from '../util/layersUtil.js';
 
-   case LOAD_FUNDING_GEOJSON_SUCCESS:
-     let layer=  {name:'funding',visible:true,data:action.data,autoZoom:false};
-     return Object.assign(addOrUpdate(newState,layer), {updated:new Date()});
+  const defaultState={
+    layers: [
+    {id:'0',keyName:'projects', layers:[
+    {id:'02', keyName:'project'}
+    ]},
 
-   case TOGGLE_LAYER:
-     debugger
+    {id:'1',keyName:'stats', layers:[
 
-   case LOAD_FUNDING_GEOJSON_FAILED:
-   case LOAD_PEOJECT_GEOJSON_FAILED:
-   default:
+    {id:'02', keyName:'funding'},
+
+    {id:'11', keyName:'indicators',layers:[
+    {id:'111', keyName:'poverty'},
+    {id:'112', keyName:'population'},
+
+    ]}
+
+    ]},
+
+    {id:'2',keyName:'geophotos', layers:[]}
+    ]
+  }
+
+
+
+
+
+  const map = (state = defaultState, action) => {
+    switch (action.type) {
+     case LOAD_PROJECT_GEOJSON_SUCCESS:
+     return loadDataIntoLayer(state,action.data,'projects');
+
+     case LOAD_FUNDING_GEOJSON_SUCCESS:
+     return loadDataIntoLayer(state,action.data,'funding');
+     case TOGGLE_LAYER:
+     let newState=toggleLayerProperty(action.id,Object.assign({},state),'visible')
+      Object.assign(newState,{updated:new Date()});
+      console.log(newState.updated)
+     return newState;
+
+     case LOAD_FUNDING_GEOJSON_FAILED:
+     case LOAD_PEOJECT_GEOJSON_FAILED:
+    //set status to error
+    default:
     return state
- }
+  }
 }
 
 

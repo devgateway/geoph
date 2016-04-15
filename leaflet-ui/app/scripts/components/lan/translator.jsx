@@ -3,11 +3,17 @@ import i18next from 'i18next';
 
 export default class Translator extends React.Component {
 	render(){
-		const e=i18next;
-		return <span className={this.props.className}>
-			
-			{i18next.t(this.props.k,this.props.lan)}
+		console.log(this.props.k);
 
-		</span>		
+		const e=i18next;
+		let key="";
+		
+		if (this.props.prefix){
+			key=this.props.prefix+'.'+this.props.k;
+		}else{
+			key=k;
+		}
+		
+		return <span className={this.props.className}>{i18next.t(key,this.props.lan)}</span>		
 	}
 }
