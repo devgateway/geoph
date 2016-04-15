@@ -2,14 +2,15 @@ package org.devgateway.geoph.util;
 
 /**
  * @author dbianco
- *         created on mar 30 2016.
+ *         created on abr 15 2016.
  */
-public enum FlowType {
-    LOAN(1), GRANT(2), PMC(3);
+public enum TransactionTypeEnum {
+
+    COMMITMENT(1), DISBURSEMENT(2), EXPENDITURE(3);
 
     private final int id;
 
-    FlowType(int id) {
+    TransactionTypeEnum(int id) {
         this.id = id;
     }
 

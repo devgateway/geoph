@@ -23,11 +23,14 @@ public class Constants {
     public static final String FILTER_PROJECT_TITLE = "pt";
 
     public static final String PROPERTY_LOC_CODE = "code";
-    public static final String PROPERTY_LOC_GRANTS = "grants";
+    public static final String PROPERTY_LOC_COMMITMENTS = "commitments";
+    public static final String PROPERTY_LOC_DISBURSEMENTS = "disbursements";
+    public static final String PROPERTY_LOC_EXPENDITURES = "expenditures";
+    public static final String PROPERTY_LOC_TARGET = "target";
+    public static final String PROPERTY_LOC_ACTUAL = "actual";
+    public static final String PROPERTY_LOC_CANCELLED = "cancelled";
     public static final String PROPERTY_LOC_ID = "id";
     public static final String PROPERTY_LOC_LEVEL = "level";
-    public static final String PROPERTY_LOC_LOANS = "loans";
-    public static final String PROPERTY_LOC_PMC = "pmc";
     public static final String PROPERTY_LOC_NAME = "name";
     public static final String PROPERTY_LOC_PROJ_COUNT = "projectCount";
     public static final String PROPERTY_LOC_TRX_COUNT = "transactionCount";

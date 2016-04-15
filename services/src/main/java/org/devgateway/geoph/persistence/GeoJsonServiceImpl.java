@@ -1,7 +1,5 @@
 package org.devgateway.geoph.persistence;
 
-import com.google.common.base.Function;
-import com.google.common.collect.Maps;
 import org.devgateway.geoph.model.*;
 import org.devgateway.geoph.persistence.repository.LocationRepository;
 import org.devgateway.geoph.services.GeoJsonService;
@@ -10,7 +8,6 @@ import org.geojson.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +25,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
     @Autowired
     LocationRepository locationRepository;
 
-    public FeatureCollection getLocationsByLevel(LocationAdmLevel level) {
+    public FeatureCollection getLocationsByLevel(LocationAdmLevelEnum level) {
         List<Location> locationList = locationRepository.findLocationsByLevel(level.getLevel());
 
         FeatureCollection featureCollection = new FeatureCollection();
@@ -62,9 +59,9 @@ public class GeoJsonServiceImpl implements GeoJsonService {
             feature.setProperty(PROPERTY_LOC_CODE, location.getCode());
             feature.setProperty(PROPERTY_LOC_PROJ_COUNT, location.getProjectCount());
             feature.setProperty(PROPERTY_LOC_TRX_COUNT, location.getTransactionCount());
-            feature.setProperty(PROPERTY_LOC_GRANTS, location.getGrant());
-            feature.setProperty(PROPERTY_LOC_LOANS, location.getLoan());
-            feature.setProperty(PROPERTY_LOC_PMC, location.getPmc());
+            feature.setProperty(PROPERTY_LOC_COMMITMENTS, location.getCommitments());
+            feature.setProperty(PROPERTY_LOC_DISBURSEMENTS, location.getDisbursements());
+            feature.setProperty(PROPERTY_LOC_EXPENDITURES, location.getExpenditures());
             featureCollection.add(feature);
         }
         return featureCollection;
@@ -83,18 +80,19 @@ public class GeoJsonServiceImpl implements GeoJsonService {
             } else if(level==3){
                 lp = locationPropertyMap.get(l.getId());
             }
+
             if(lp!=null) {
                 lp.addProjectCount((Long)objectList[1]);
-                lp.addLoan((Double)objectList[2]);
-                lp.addGrant((Double)objectList[4]);
-                lp.addPmc((Double)objectList[6]);
+                lp.addCommitment(PROPERTY_LOC_TARGET, (Double)objectList[2]);
+                lp.addCommitment(PROPERTY_LOC_ACTUAL, (Double)objectList[4]);
+                lp.addCommitment(PROPERTY_LOC_EXPENDITURES, (Double)objectList[6]);
                 lp.addTransactionCount((Long)objectList[3] + (Long)objectList[5] + (Long)objectList[7]);
             }
         }
     }
 
     private int getUpperLevel(Parameters params) {
-        int level = LocationAdmLevel.MUNICIPALITY.getLevel();
+        int level = LocationAdmLevelEnum.MUNICIPALITY.getLevel();
         for(int paramLevel:params.getLocationLevels()){
             if(paramLevel<level){
                 level=paramLevel;
@@ -104,75 +102,48 @@ public class GeoJsonServiceImpl implements GeoJsonService {
     }
 
     @Override
-    public FeatureCollection getShapesByLevelAndDetail(LocationAdmLevel level, GeometryDetailLevel detail) {
-        FeatureCollection featureCollection = new FeatureCollection();
-        List<Location> locationList = locationRepository.findLocationsByLevel(level.getLevel());
-        Map<Long, Location> locationMap = Maps.uniqueIndex(locationList, new Function<Location, Long>() {
-            @Nullable
-            @Override
-            public Long apply(@Nullable Location input) {
-                return input.getId();
-            }
-        });
-        if(level == LocationAdmLevel.REGION){
-            List<PostGisHelper> helperList = locationRepository.getRegionShapesWithDetail(detail);
-            for(PostGisHelper helper:helperList){
-                Feature feature = parseGeoJson(helper);
-                setFeatureProperties(feature, locationMap.get(helper.getLocationId()), false);
-                featureCollection.add(feature);
+    public FeatureCollection getShapesByLevelAndDetail(LocationAdmLevelEnum level, double detail, Parameters params) {
+        List<Location> locations = locationRepository.findLocationsByLevel(level.getLevel());
+
+        Map<Long, PostGisHelper> postGisHelperMap = new HashMap<>();
+        if(level == LocationAdmLevelEnum.REGION){
+            List<PostGisHelper> gisHelperList = locationRepository.getRegionShapesWithDetail(detail);
+            for(PostGisHelper helper:gisHelperList){
+                postGisHelperMap.put(helper.getLocationId(), helper);
             }
         }
         //TODO Implement shapes for provinces and municipalities!
+
+
+        Map<Long, LocationProperty> locationPropertyMap = new HashMap<>();
+        for(Location location:locations){
+            locationPropertyMap.put(location.getId(), new LocationProperty(location));
+        }
+        aggregateResults(params, level.getLevel(), locationPropertyMap);
+
+        FeatureCollection featureCollection = new FeatureCollection();
+        for(LocationProperty location : locationPropertyMap.values()) {
+            Feature feature;
+            if(postGisHelperMap.get(location.getId()) != null) {
+                feature = parseGeoJson(postGisHelperMap.get(location.getId()));
+            } else {
+                feature = new Feature();
+            }
+            feature.setProperty(PROPERTY_LOC_ID, location.getId());
+            feature.setProperty(PROPERTY_LOC_NAME, location.getName());
+            feature.setProperty(PROPERTY_LOC_CODE, location.getCode());
+            feature.setProperty(PROPERTY_LOC_PROJ_COUNT, location.getProjectCount());
+            feature.setProperty(PROPERTY_LOC_TRX_COUNT, location.getTransactionCount());
+            feature.setProperty(PROPERTY_LOC_COMMITMENTS, location.getCommitments());
+            feature.setProperty(PROPERTY_LOC_DISBURSEMENTS, location.getDisbursements());
+            feature.setProperty(PROPERTY_LOC_EXPENDITURES, location.getExpenditures());
+            featureCollection.add(feature);
+        }
+
         return featureCollection;
     }
 
-    private void setFeatureProperties(Feature feature, Location location, boolean isSectorAggregationNeeded) {
-        Map<Long, Project> projectMap = new HashMap<>();
-        projectMap.putAll(getProjectsFromLocations(location));
-        feature.setProperty(PROPERTY_LOC_ID, location.getId());
-        feature.setProperty(PROPERTY_LOC_NAME, location.getName());
-        feature.setProperty(PROPERTY_LOC_CODE, location.getCode());
-        feature.setProperty(PROPERTY_LOC_PROJ_COUNT, projectMap.size());
 
-        Map<String, SectorAggregation> sectorAggregationMap = new HashMap<>();
-
-        int trxCount = 0;
-        double grants = 0, loans = 0, pmc = 0;
-        boolean trxFlag = false;
-
-        for(Project project:projectMap.values()){
-            double projectGrants = 0, projectLoans = 0, projectPmc = 0;
-            trxFlag = true;
-            trxCount += project.getTransactions()!=null?project.getTransactions().size():0;
-            for(Transaction trx:project.getTransactions()){
-                if(trx instanceof Grant){
-                    projectGrants += trx.getAmount();
-                } else if(trx instanceof Loan){
-                    projectLoans += trx.getAmount();
-                } else if (trx instanceof PublicInvestment){
-                    projectPmc += trx.getAmount();
-                }
-            }
-            if(isSectorAggregationNeeded){
-                for(Sector sector:project.getSectors()){
-                    sectorAggregationMap.put(sector.getName() + KEY_SEPARATOR + sector.getCode()
-                            , new SectorAggregation(sector.getId(), projectLoans, projectGrants, projectPmc));
-                }
-            }
-            grants += projectGrants;
-            loans += projectLoans;
-            pmc += projectPmc;
-        }
-        if(isSectorAggregationNeeded){
-            feature.setProperty(PROPERTY_LOC_SECTOR_AGGREGATION, sectorAggregationMap);
-        }
-        if(trxFlag){
-            feature.setProperty(PROPERTY_LOC_TRX_COUNT, trxCount);
-            feature.setProperty(PROPERTY_LOC_GRANTS, grants);
-            feature.setProperty(PROPERTY_LOC_LOANS, loans);
-            feature.setProperty(PROPERTY_LOC_PMC, pmc);
-        }
-    }
 
     private Map<Long, Project> getProjectsFromLocations(Location location) {
         Map<Long, Project> ret = new HashMap<>();

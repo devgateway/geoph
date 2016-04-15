@@ -2,7 +2,6 @@ package org.devgateway.geoph.util;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +12,6 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import static org.devgateway.geoph.util.Constants.PARAM_SEPARATOR;
 
@@ -220,13 +218,13 @@ public class Parameters {
                     String ret = null;
                     switch (Integer.parseInt(input)) {
                         case 1:
-                            ret = FlowType.LOAN.name().toLowerCase();
+                            ret = FlowTypeEnum.LOAN.name().toLowerCase();
                             break;
                         case 2:
-                            ret = FlowType.GRANT.name().toLowerCase();
+                            ret = FlowTypeEnum.GRANT.name().toLowerCase();
                             break;
                         default:
-                            ret = FlowType.PMC.name().toLowerCase();
+                            ret = FlowTypeEnum.PMC.name().toLowerCase();
                     }
                     return ret;
                 }
@@ -251,7 +249,7 @@ public class Parameters {
             ret = Lists.transform(Arrays.asList(values.split(PARAM_SEPARATOR)), new Function<String, Integer>() {
                 @Override
                 public Integer apply(String level) {
-                    return LocationAdmLevel.valueOf(level.toUpperCase()).getLevel();
+                    return LocationAdmLevelEnum.valueOf(level.toUpperCase()).getLevel();
                 }
             });
         }

@@ -1,8 +1,8 @@
 package org.devgateway.geoph.rest;
 
 import org.devgateway.geoph.services.GeoJsonService;
-import org.devgateway.geoph.util.GeometryDetailLevel;
-import org.devgateway.geoph.util.LocationAdmLevel;
+import org.devgateway.geoph.util.GeometryDetailLevelEnum;
+import org.devgateway.geoph.util.LocationAdmLevelEnum;
 import org.devgateway.geoph.util.Parameters;
 import org.geojson.*;
 import org.slf4j.Logger;
@@ -58,19 +58,46 @@ public class GeoJsonController extends CrossOriginSupport {
 
     @RequestMapping(value = "/stats/{level}/funding", method = GET)
     public FeatureCollection getGeoJsonStatistical(
-            @PathVariable final String level){
+            @PathVariable final String level,
+            @RequestParam(value = FILTER_DATE_START, required = false) String startDate,
+            @RequestParam(value = FILTER_DATE_END, required = false) String endDate,
+            @RequestParam(value = FILTER_SECTOR, required = false) String sectors,
+            @RequestParam(value = FILTER_STATUS, required = false) String statuses,
+            @RequestParam(value = FILTER_LOCATION, required = false) String locations,
+            @RequestParam(value = FILTER_PROJECT, required = false) String projects,
+            @RequestParam(value = FILTER_IMPLEMENTING_AGENCY, required = false) String impAgencies,
+            @RequestParam(value = FILTER_FUNDING_AGENCY, required = false) String fundingAgencies,
+            @RequestParam(value = FILTER_FLOW_TYPE, required = false) String flowTypes,
+            @RequestParam(value = FILTER_PROJECT_TITLE, required = false) String projectTitle,
+            @RequestParam(value = FILTER_PHYSICAL_STATUS, required = false) String physicalStatuses){
         LOGGER.debug("getGeoJsonForShapes");
-        return service.getShapesByLevelAndDetail(LocationAdmLevel.valueOf(level.toUpperCase()),
-                GeometryDetailLevel.MEDIUM);
+        Parameters params = new Parameters(startDate, endDate, sectors, statuses,
+                locations, projects, impAgencies, fundingAgencies, flowTypes,
+                projectTitle, physicalStatuses, null);
+        return service.getShapesByLevelAndDetail(LocationAdmLevelEnum.valueOf(level.toUpperCase()),
+                GeometryDetailLevelEnum.MEDIUM.getLevel(), params);
     }
 
     @RequestMapping(value = "/stats/{level}/funding/detail/{detail}", method = GET)
     public FeatureCollection getGeoJsonStatisticalDetailed(
             @PathVariable final String level,
-            @PathVariable final String detail){
+            @PathVariable final double detail,
+            @RequestParam(value = FILTER_DATE_START, required = false) String startDate,
+            @RequestParam(value = FILTER_DATE_END, required = false) String endDate,
+            @RequestParam(value = FILTER_SECTOR, required = false) String sectors,
+            @RequestParam(value = FILTER_STATUS, required = false) String statuses,
+            @RequestParam(value = FILTER_LOCATION, required = false) String locations,
+            @RequestParam(value = FILTER_PROJECT, required = false) String projects,
+            @RequestParam(value = FILTER_IMPLEMENTING_AGENCY, required = false) String impAgencies,
+            @RequestParam(value = FILTER_FUNDING_AGENCY, required = false) String fundingAgencies,
+            @RequestParam(value = FILTER_FLOW_TYPE, required = false) String flowTypes,
+            @RequestParam(value = FILTER_PROJECT_TITLE, required = false) String projectTitle,
+            @RequestParam(value = FILTER_PHYSICAL_STATUS, required = false) String physicalStatuses){
         LOGGER.debug("getGeoJsonForShapes2");
-        return service.getShapesByLevelAndDetail(LocationAdmLevel.valueOf(level.toUpperCase()),
-                GeometryDetailLevel.valueOf(detail.toUpperCase()));
+        Parameters params = new Parameters(startDate, endDate, sectors, statuses,
+                locations, projects, impAgencies, fundingAgencies, flowTypes,
+                projectTitle, physicalStatuses, null);
+        return service.getShapesByLevelAndDetail(LocationAdmLevelEnum.valueOf(level.toUpperCase()), detail, params);
     }
 
 }

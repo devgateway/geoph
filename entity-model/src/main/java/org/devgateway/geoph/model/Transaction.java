@@ -33,6 +33,9 @@ public class Transaction extends GenericPersistable implements Serializable {
     @ManyToOne(cascade= CascadeType.MERGE)
     private TransactionType transactionType;
 
+    @ManyToOne(cascade= CascadeType.MERGE)
+    private TransactionStatus transactionStatus;
+
     public Transaction() {
     }
 
@@ -82,5 +85,13 @@ public class Transaction extends GenericPersistable implements Serializable {
 
     public void setTransactionType(TransactionType transactionType) {
         this.transactionType = transactionType;
+    }
+
+    public TransactionStatus getTransactionStatus() {
+        return transactionStatus;
+    }
+
+    public void setTransactionStatus(TransactionStatus transactionStatus) {
+        this.transactionStatus = transactionStatus;
     }
 }

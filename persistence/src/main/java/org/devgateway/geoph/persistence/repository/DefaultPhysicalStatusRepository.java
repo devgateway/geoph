@@ -2,7 +2,7 @@ package org.devgateway.geoph.persistence.repository;
 
 import org.devgateway.geoph.model.*;
 import org.devgateway.geoph.persistence.util.FilterHelper;
-import org.devgateway.geoph.util.FlowType;
+import org.devgateway.geoph.util.FlowTypeEnum;
 import org.devgateway.geoph.util.Parameters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,15 +63,15 @@ public class DefaultPhysicalStatusRepository implements PhysicalStatusRepository
         multiSelect.add(criteriaBuilder.countDistinct(transaction0Join).alias("transactionCount"));
 
         Join<Project, Transaction> transaction1Join = projectRoot.join(Project_.transactions, JoinType.LEFT);
-        transaction1Join.on(transaction1Join.get(Transaction_.flowType).in(FlowType.LOAN.name().toLowerCase()));
+        transaction1Join.on(transaction1Join.get(Transaction_.flowType).in(FlowTypeEnum.LOAN.name().toLowerCase()));
         multiSelect.add(criteriaBuilder.sum(transaction1Join.get(Transaction_.amount)).alias("loans"));
 
         Join<Project, Transaction> transaction2Join = projectRoot.join(Project_.transactions, JoinType.LEFT);
-        transaction2Join.on(transaction2Join.get(Transaction_.flowType).in(FlowType.GRANT.name().toLowerCase()));
+        transaction2Join.on(transaction2Join.get(Transaction_.flowType).in(FlowTypeEnum.GRANT.name().toLowerCase()));
         multiSelect.add(criteriaBuilder.sum(transaction2Join.get(Transaction_.amount)).alias("grants"));
 
         Join<Project, Transaction> transaction3Join = projectRoot.join(Project_.transactions, JoinType.LEFT);
-        transaction3Join.on(transaction3Join.get(Transaction_.flowType).in(FlowType.PMC.name().toLowerCase()));
+        transaction3Join.on(transaction3Join.get(Transaction_.flowType).in(FlowTypeEnum.PMC.name().toLowerCase()));
         multiSelect.add(criteriaBuilder.sum(transaction3Join.get(Transaction_.amount)).alias("pmcs"));
 
         FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);

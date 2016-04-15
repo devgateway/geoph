@@ -1,7 +1,6 @@
 package org.devgateway.geoph.services;
 
-import org.devgateway.geoph.util.GeometryDetailLevel;
-import org.devgateway.geoph.util.LocationAdmLevel;
+import org.devgateway.geoph.util.LocationAdmLevelEnum;
 import org.devgateway.geoph.util.Parameters;
 import org.geojson.FeatureCollection;
 
@@ -12,10 +11,10 @@ import org.geojson.FeatureCollection;
  */
 public interface GeoJsonService {
 
-    public FeatureCollection getLocationsByLevel(LocationAdmLevel level);
+    public FeatureCollection getLocationsByLevel(LocationAdmLevelEnum level);
 
     FeatureCollection getLocationsByParams(Parameters params);
 
-    FeatureCollection getShapesByLevelAndDetail(LocationAdmLevel level, GeometryDetailLevel detail);
+    FeatureCollection getShapesByLevelAndDetail(LocationAdmLevelEnum level, double detail, Parameters params);
 
 }

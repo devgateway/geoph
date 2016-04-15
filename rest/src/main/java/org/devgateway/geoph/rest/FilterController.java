@@ -3,8 +3,8 @@ package org.devgateway.geoph.rest;
 import org.devgateway.geoph.model.*;
 import org.devgateway.geoph.response.GenericResponse;
 import org.devgateway.geoph.services.FilterService;
-import org.devgateway.geoph.util.FlowType;
-import org.devgateway.geoph.util.LocationAdmLevel;
+import org.devgateway.geoph.util.FlowTypeEnum;
+import org.devgateway.geoph.util.LocationAdmLevelEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ public class FilterController extends CrossOriginSupport {
     public GenericResponse findAllFlowTypes() {
         LOGGER.debug("findAllFlowTypes");
         List<Map<String, String>> flowTypes = new ArrayList<>();
-        for(FlowType flowType:FlowType.values()){
+        for(FlowTypeEnum flowType: FlowTypeEnum.values()){
             Map<String, String> flowTypesMap = new HashMap<>();
             flowTypesMap.put("id", String.valueOf(flowType.getId()));
             flowTypesMap.put("name", flowType.name());
@@ -109,7 +109,7 @@ public class FilterController extends CrossOriginSupport {
     @RequestMapping(value = "/location", method = GET)
     public GenericResponse findAllLocations() {
         LOGGER.debug("findAllLocations");
-        List<Location> locations = service.findLocationsByLevel(LocationAdmLevel.REGION);
+        List<Location> locations = service.findLocationsByLevel(LocationAdmLevelEnum.REGION);
         GenericResponse resp = new GenericResponse(
                 "Locations",
                 FILTER_LOCATION,
@@ -125,7 +125,7 @@ public class FilterController extends CrossOriginSupport {
     public GenericResponse findLocationsByLevel(@PathVariable final String level) {
         LOGGER.debug("findLocationsByLevel {}", level);
         List<Location> locations = service.findLocationsByLevel(
-                LocationAdmLevel.valueOf(level.toUpperCase())
+                LocationAdmLevelEnum.valueOf(level.toUpperCase())
         );
         GenericResponse resp = new GenericResponse(
                 "Region Locations",

@@ -1,7 +1,6 @@
 package org.devgateway.geoph.persistence.repository;
 
 import org.devgateway.geoph.model.Location;
-import org.devgateway.geoph.util.GeometryDetailLevel;
 import org.devgateway.geoph.util.PostGisHelper;
 import org.devgateway.geoph.util.Parameters;
 
@@ -23,7 +22,7 @@ public interface LocationRepository {
 
     List<Object> findLocationsByParams(Parameters params);
 
-    List<PostGisHelper> getRegionShapesWithDetail(GeometryDetailLevel detail);
+    List<PostGisHelper> getRegionShapesWithDetail(double detail);
 
     Location findParentLocation(long locationId);
 
