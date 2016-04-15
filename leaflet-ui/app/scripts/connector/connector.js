@@ -84,31 +84,30 @@ class Connector {
 	}
 
 	/**/
-	getProjectsGeoJson(level,params) {
+	loadLayerByOptions(options,params={}) {
+
 		return new Promise( (resolve, reject) => {
-			let url=Settings.get('API','PROJECT_GEOJSON');
-			
-			this.call(GET,url.replace('${level}',level), params).then((data) => {
+			let url=Settings.get('API',options.ep);
+			const {level,quality} = options.settings;
+			const {id}=options;
+	
+			if (level){
+				url=url.replace('${level}',level);
+			}
+			if (quality){
+				Object.assign(params,{quality})
+			}
+
+			this.call(GET,url, params).then((data) => {
 				/*apply any data transformation*/
-				resolve(data); ////resolve with original data or perform any data transformation needed
+				
+				resolve({id,data}); ////resolve with original data or perform any data transformation needed
 
 			}).catch(reject)
 		});
 	}
 
 
-	getFundingGeoJson(level,params){
-	return new Promise( (resolve, reject) => {
-			let url=Settings.get('API','FUNDING_GEOJSON');
-			
-			this.call(GET,url.replace('${level}',level), params).then((data) => {
-				/*apply any data transformation*/
-				resolve(data); ////resolve with original data or perform any data transformation needed
-
-			}).catch(reject)
-		});
-
-	}
 
 	getFilterData(filterType) {
 		return new Promise( (resolve, reject) => {

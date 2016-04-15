@@ -8,7 +8,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
 /**
  * @author Sebas
  */
- export default class SvgLayer extends MapLayer {
+ export default class D3Layer extends MapLayer {
 
    static propTypes = {
     higthligthStyleProvider: React.PropTypes.func,
@@ -26,6 +26,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
 
 
   componentDidUpdate(nextProps, nextState) {
+ 
     const {data, ...props} = this.props;
     this.update();
 
@@ -62,7 +63,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
     path.pointRadius(this.props.map.getZoom()*1.5);
 
     var points = this.g.selectAll("path").data(data, function(d) {return d.id;});
-
+    debugger;
     points.enter().append("path");
     points.exit().remove();
 
