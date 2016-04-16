@@ -93,22 +93,11 @@ public class DefaultLocationRepository implements LocationRepository {
         Join<Location, Project> projectJoin = locationRoot.join(Location_.projects, JoinType.LEFT);
         multiSelect.add(criteriaBuilder.countDistinct(projectJoin).alias("projectCount"));
 
-        /*for(TransactionTypeEnum t:TransactionTypeEnum.values()){
+        for(TransactionTypeEnum t:TransactionTypeEnum.values()){
             for(TransactionStatusEnum s:TransactionStatusEnum.values()){
                 addTransactionJoin(criteriaBuilder, multiSelect, projectJoin, t.getId(), s.getId());
             }
-        }*//*
-        Join<Project, Transaction> transactionJoin = projectJoin.join(Project_.transactions, JoinType.LEFT);
-        transactionJoin.on(transactionJoin.get(Transaction_.transactionType).in(TransactionTypeEnum.COMMITMENT.getId()));
-        multiSelect.add(criteriaBuilder.sum(transactionJoin.get(Transaction_.amount)).alias("sumCommitmentTarget"));
-        multiSelect.add(criteriaBuilder.countDistinct(transactionJoin).alias("countCommitmentTarget"));*/
-
-        Join<Project, Transaction> transaction1Join = projectJoin.join(Project_.transactions, JoinType.LEFT);
-        transaction1Join.on(transaction1Join.get(Transaction_.transactionType).in(FlowTypeEnum.LOAN.name().toLowerCase()));
-        multiSelect.add(criteriaBuilder.sum(transaction1Join.get(Transaction_.amount)).alias("loans"));
-        multiSelect.add(criteriaBuilder.countDistinct(transaction1Join).alias("loansCount"));
-
-
+        }
 
         FilterHelper.filterLocationQuery(params, criteriaBuilder, locationRoot, predicates, projectJoin);
 
@@ -122,12 +111,13 @@ public class DefaultLocationRepository implements LocationRepository {
         return query.getResultList();
     }
 
-    private void addTransactionJoin(CriteriaBuilder criteriaBuilder, List<Selection<?>> multiSelect, Join<Location, Project> projectJoin, int trxType, int trxStatus) {
+    private void addTransactionJoin(CriteriaBuilder criteriaBuilder, List<Selection<?>> multiSelect,
+                                    Join<Location, Project> projectJoin, int trxType, int trxStatus) {
         Join<Project, Transaction> transactionJoin = projectJoin.join(Project_.transactions, JoinType.LEFT);
-        transactionJoin.on(transactionJoin.get(Transaction_.transactionType).in(trxType));
-        transactionJoin.on(transactionJoin.get(Transaction_.transactionType).in(trxStatus));
-        multiSelect.add(criteriaBuilder.sum(transactionJoin.get(Transaction_.amount)).alias("aliasSum"+trxType+"-"+trxStatus));
-        multiSelect.add(criteriaBuilder.countDistinct(transactionJoin).alias("aliasCount"+trxType+"-"+trxStatus));
+        transactionJoin.on(transactionJoin.get(Transaction_.transactionTypeId).in(trxType),
+                transactionJoin.get(Transaction_.transactionStatusId).in(trxStatus));
+        multiSelect.add(criteriaBuilder.sum(transactionJoin.get(Transaction_.amount)));
+        multiSelect.add(criteriaBuilder.countDistinct(transactionJoin));
     }
 
 

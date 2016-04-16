@@ -30,21 +30,15 @@ public class Transaction extends GenericPersistable implements Serializable {
     @Column(name = "flow_type", insertable = false, updatable = false)
     private String flowType;
 
-    @ManyToOne(cascade= CascadeType.MERGE)
-    private TransactionType transactionType;
+    @JsonIgnore
+    @Column(name = "transaction_type_id")
+    private long transactionTypeId;
 
-    @ManyToOne(cascade= CascadeType.MERGE)
-    private TransactionStatus transactionStatus;
+    @JsonIgnore
+    @Column(name = "transaction_status_id")
+    private long transactionStatusId;
 
     public Transaction() {
-    }
-
-    public Transaction(Project project, double amount, Date date, String flowType, TransactionType transactionType) {
-        this.project = project;
-        this.amount = amount;
-        this.date = date;
-        this.flowType = flowType;
-        this.transactionType = transactionType;
     }
 
     public Project getProject() {
@@ -79,19 +73,19 @@ public class Transaction extends GenericPersistable implements Serializable {
         this.flowType = flowType;
     }
 
-    public TransactionType getTransactionType() {
-        return transactionType;
+    public long getTransactionTypeId() {
+        return transactionTypeId;
     }
 
-    public void setTransactionType(TransactionType transactionType) {
-        this.transactionType = transactionType;
+    public void setTransactionTypeId(long transactionTypeId) {
+        this.transactionTypeId = transactionTypeId;
     }
 
-    public TransactionStatus getTransactionStatus() {
-        return transactionStatus;
+    public long getTransactionStatusId() {
+        return transactionStatusId;
     }
 
-    public void setTransactionStatus(TransactionStatus transactionStatus) {
-        this.transactionStatus = transactionStatus;
+    public void setTransactionStatusId(long transactionStatusId) {
+        this.transactionStatusId = transactionStatusId;
     }
 }

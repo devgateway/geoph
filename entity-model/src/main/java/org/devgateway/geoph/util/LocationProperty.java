@@ -134,9 +134,24 @@ public class LocationProperty {
         }
     }
 
-    public void addCommitment(String type, Double commitmentValue){
-        if(commitmentValue!=null){
-            commitments.put(type, commitments.get(type) + commitmentValue);
+    public void addCommitment(String type, Double addValue){
+        if(addValue!=null){
+            commitments.put(type, commitments.get(type)!=null?commitments.get(type) + addValue:addValue);
+        }
+    }
+
+
+    public void addDisbursement(String type, Double addValue){
+        if(addValue!=null){
+            disbursements.put(type, disbursements.get(type)!=null?disbursements.get(type) + addValue:addValue);
+        }
+    }
+
+
+
+    public void addExpenditure(String type, Double addValue){
+        if(addValue!=null){
+            expenditures.put(type, expenditures.get(type)!=null?expenditures.get(type) + addValue:addValue);
         }
     }
 }

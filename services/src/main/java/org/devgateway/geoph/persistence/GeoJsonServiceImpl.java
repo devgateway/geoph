@@ -83,10 +83,32 @@ public class GeoJsonServiceImpl implements GeoJsonService {
 
             if(lp!=null) {
                 lp.addProjectCount((Long)objectList[1]);
-                lp.addCommitment(PROPERTY_LOC_TARGET, (Double)objectList[2]);
-                lp.addCommitment(PROPERTY_LOC_ACTUAL, (Double)objectList[4]);
-                lp.addCommitment(PROPERTY_LOC_EXPENDITURES, (Double)objectList[6]);
-                lp.addTransactionCount((Long)objectList[3] + (Long)objectList[5] + (Long)objectList[7]);
+                long[] transactions = new long[]{(Long)objectList[3], (Long)objectList[5], (Long)objectList[7],
+                        (Long)objectList[9], (Long)objectList[11], (Long)objectList[13],
+                        (Long)objectList[15], (Long)objectList[17], (Long)objectList[19],};
+                long aggregationTimes = 1;
+                long count = 0;
+                for(long t:transactions){
+                    if(t>0){
+                        aggregationTimes*=t;
+                        count+=t;
+                    }
+                }
+                lp.addCommitment(PROPERTY_LOC_TARGET, transactions[0]>0?(Double)objectList[2]*transactions[0]/aggregationTimes:0);
+                lp.addCommitment(PROPERTY_LOC_ACTUAL, transactions[1]>0?(Double)objectList[4]*transactions[1]/aggregationTimes:0);
+                lp.addCommitment(PROPERTY_LOC_CANCELLED, transactions[2]>0?(Double)objectList[6]*transactions[2]/aggregationTimes:0);
+
+
+                lp.addDisbursement(PROPERTY_LOC_TARGET, transactions[3]>0?(Double)objectList[8]*transactions[3]/aggregationTimes:0);
+                lp.addDisbursement(PROPERTY_LOC_ACTUAL, transactions[4]>0?(Double)objectList[10]*transactions[4]/aggregationTimes:0);
+                lp.addDisbursement(PROPERTY_LOC_CANCELLED, transactions[5]>0?(Double)objectList[12]*transactions[5]/aggregationTimes:0);
+
+
+                lp.addExpenditure(PROPERTY_LOC_TARGET, transactions[6]>0?(Double)objectList[14]*transactions[6]/aggregationTimes:0);
+                lp.addExpenditure(PROPERTY_LOC_ACTUAL, transactions[7]>0?(Double)objectList[16]*transactions[7]/aggregationTimes:0);
+                lp.addExpenditure(PROPERTY_LOC_CANCELLED, transactions[8]>0?(Double)objectList[18]*transactions[8]/aggregationTimes:0);
+
+                lp.addTransactionCount(count);
             }
         }
     }
