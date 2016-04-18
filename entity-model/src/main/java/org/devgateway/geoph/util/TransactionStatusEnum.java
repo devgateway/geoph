@@ -18,4 +18,13 @@ public enum TransactionStatusEnum {
         return id;
     }
 
+    public static TransactionStatusEnum getEnumById(long id){
+        for(TransactionStatusEnum e:TransactionStatusEnum.values()){
+            if(e.getId()==id){
+                return e;
+            }
+        }
+        return null;
+    }
+
 }

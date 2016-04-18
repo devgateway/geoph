@@ -17,4 +17,13 @@ public enum TransactionTypeEnum {
     public int getId() {
         return id;
     }
+
+    public static TransactionTypeEnum getEnumById(long id){
+        for(TransactionTypeEnum e:TransactionTypeEnum.values()){
+            if(e.getId()==id){
+                return e;
+            }
+        }
+        return null;
+    }
 }

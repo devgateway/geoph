@@ -62,7 +62,7 @@ INSERT INTO transaction (flow_type,id,amount,date,funding_support,project_id,tra
     VALUES ('grant',86,1250085.0,{ts '2015-06-23 00:30:58.0'},null,63,2,2); 
 
 INSERT INTO transaction (flow_type,id,amount,date,funding_support,project_id,transaction_status_id,transaction_type_id) 
-    VALUES ('grant',2,2500000.0,{ts '2015-09-15 00:00:00.0'},null,1,2,2); 
+    VALUES ('grant',2,2500000.0,{ts '2015-09-15 00:00:00.0'},null,1,3,2); 
 
 INSERT INTO transaction (flow_type,id,amount,date,funding_support,project_id,transaction_status_id,transaction_type_id) 
     VALUES ('grant',136,1777458.0,{ts '2014-04-08 14:27:50.0'},null,113,2,1); 
@@ -341,7 +341,7 @@ INSERT INTO transaction (flow_type,id,amount,date,funding_support,project_id,tra
     VALUES ('loan',116,1631580.0,{ts '2014-04-07 14:52:22.0'},null,93,2,1); 
 
 INSERT INTO transaction (flow_type,id,amount,date,funding_support,project_id,transaction_status_id,transaction_type_id) 
-    VALUES ('loan',126,985813.0,{ts '2012-12-31 03:03:08.0'},null,103,2,1); 
+    VALUES ('loan',126,985813.0,{ts '2012-12-31 03:03:08.0'},null,103,3,1); 
 
 INSERT INTO transaction (flow_type,id,amount,date,funding_support,project_id,transaction_status_id,transaction_type_id) 
     VALUES ('loan',132,1525199.0,{ts '2013-12-17 05:39:31.0'},null,109,2,1); 
@@ -353,7 +353,7 @@ INSERT INTO transaction (flow_type,id,amount,date,funding_support,project_id,tra
     VALUES ('loan',184,1074886.0,{ts '2014-07-17 18:21:42.0'},null,161,1,1); 
 
 INSERT INTO transaction (flow_type,id,amount,date,funding_support,project_id,transaction_status_id,transaction_type_id) 
-    VALUES ('loan',186,1491565.0,{ts '2014-01-21 08:51:05.0'},null,163,1,2); 
+    VALUES ('loan',186,1491565.0,{ts '2014-01-21 08:51:05.0'},null,163,3,2); 
 
 INSERT INTO transaction (flow_type,id,amount,date,funding_support,project_id,transaction_status_id,transaction_type_id) 
     VALUES ('loan',187,1770473.0,{ts '2015-05-06 19:02:43.0'},null,164,1,1); 
@@ -377,7 +377,7 @@ INSERT INTO transaction (flow_type,id,amount,date,funding_support,project_id,tra
     VALUES ('loan',156,1679097.0,{ts '2012-12-31 11:08:11.0'},null,133,2,3); 
 
 INSERT INTO transaction (flow_type,id,amount,date,funding_support,project_id,transaction_status_id,transaction_type_id) 
-    VALUES ('pmc',122,1200276.0,{ts '2014-08-13 22:48:58.0'},90.0,99,2,3); 
+    VALUES ('pmc',122,1200276.0,{ts '2014-08-13 22:48:58.0'},90.0,99,3,3); 
 
 INSERT INTO transaction (flow_type,id,amount,date,funding_support,project_id,transaction_status_id,transaction_type_id) 
     VALUES ('pmc',16,1600000.0,{ts '2015-10-15 00:00:00.0'},90.0,6,2,3); 
@@ -542,7 +542,7 @@ INSERT INTO transaction (flow_type,id,amount,date,funding_support,project_id,tra
     VALUES ('pmc',64,1287647.0,{ts '2015-03-11 19:47:29.0'},80.0,41,2,1); 
 
 INSERT INTO transaction (flow_type,id,amount,date,funding_support,project_id,transaction_status_id,transaction_type_id) 
-    VALUES ('pmc',154,997811.0,{ts '2015-05-17 15:15:36.0'},75.0,131,2,1); 
+    VALUES ('pmc',154,997811.0,{ts '2015-05-17 15:15:36.0'},75.0,131,3,1); 
 
 INSERT INTO transaction (flow_type,id,amount,date,funding_support,project_id,transaction_status_id,transaction_type_id) 
     VALUES ('pmc',74,817252.0,{ts '2014-01-14 03:22:13.0'},85.0,51,2,2); 
@@ -557,7 +557,7 @@ INSERT INTO transaction (flow_type,id,amount,date,funding_support,project_id,tra
     VALUES ('pmc',26,1600000.0,{ts '2015-10-15 00:00:00.0'},90.0,11,2,3); 
 
 INSERT INTO transaction (flow_type,id,amount,date,funding_support,project_id,transaction_status_id,transaction_type_id) 
-    VALUES ('pmc',32,1600000.0,{ts '2015-10-15 00:00:00.0'},85.0,13,2,2); 
+    VALUES ('pmc',32,1600000.0,{ts '2015-10-15 00:00:00.0'},85.0,13,3,2); 
 
 INSERT INTO transaction (flow_type,id,amount,date,funding_support,project_id,transaction_status_id,transaction_type_id) 
     VALUES ('pmc',76,808422.0,{ts '2016-07-27 04:03:19.0'},85.0,53,2,2); 

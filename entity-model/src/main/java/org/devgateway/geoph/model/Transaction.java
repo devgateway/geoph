@@ -1,6 +1,9 @@
 package org.devgateway.geoph.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.devgateway.geoph.util.TransactionStatusEnum;
+import org.devgateway.geoph.util.TransactionTypeEnum;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -87,5 +90,15 @@ public class Transaction extends GenericPersistable implements Serializable {
 
     public void setTransactionStatusId(long transactionStatusId) {
         this.transactionStatusId = transactionStatusId;
+    }
+
+    @JsonProperty(value = "transactionType")
+    public TransactionTypeEnum getTransactionType() {
+        return TransactionTypeEnum.getEnumById(transactionTypeId);
+    }
+
+    @JsonProperty(value = "transactionStatus")
+    public TransactionStatusEnum getTransactionStatus() {
+        return TransactionStatusEnum.getEnumById(transactionStatusId);
     }
 }
