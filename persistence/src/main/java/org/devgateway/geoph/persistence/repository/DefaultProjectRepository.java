@@ -60,13 +60,21 @@ public class DefaultProjectRepository implements ProjectRepository {
         CriteriaQuery<Project> cq = criteriaQuery.select(projectRoot);
         TypedQuery<Project> query = em.createQuery(cq);
 
+        CriteriaQuery<Long> cqCount = criteriaBuilder.createQuery(Long.class);
+        cqCount.select(criteriaBuilder.count(cqCount.from(Project.class)));
+        em.createQuery(cqCount);
+        if(predicates.size()>0){
+            cqCount.where(criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()])));
+        }
+        Long count = em.createQuery(cqCount).getSingleResult();
+
         List<Project> projectList = query
                 .setFirstResult(params.getPageable().getOffset())
-                .setMaxResults(params.getPageable().getPageNumber())
+                .setMaxResults(params.getPageable().getPageSize())
                 .setHint(QUERY_HINT, em.getEntityGraph(GRAPH_PROJECT_ALL))
                 .getResultList();
 
-        return new PageImpl<Project>(projectList, params.getPageable(), projectList.size());
+        return new PageImpl<Project>(projectList, params.getPageable(), count);
     }
 
 
