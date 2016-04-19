@@ -10,12 +10,14 @@ public class Constants {
     public static final String PARAM_SEPARATOR = ",";
     public static final String KEY_SEPARATOR = "-";
 
-    public static final String FILTER_DATE_START = "ds";
-    public static final String FILTER_DATE_END = "de";
+    public static final String FILTER_START_DATE = "ds";
+    public static final String FILTER_END_DATE = "de";
     public static final String FILTER_FLOW_TYPE = "ft";
     public static final String FILTER_FUNDING_AGENCY = "fa";
     public static final String FILTER_IMPLEMENTING_AGENCY = "ia";
     public static final String FILTER_LOCATION = "lo";
+    public static final String FILTER_PERFORMANCE_START = "ps";
+    public static final String FILTER_PERFORMANCE_END = "pe";
     public static final String FILTER_PHYSICAL_STATUS = "ph";
     public static final String FILTER_PROJECT = "pr";
     public static final String FILTER_SECTOR = "st";

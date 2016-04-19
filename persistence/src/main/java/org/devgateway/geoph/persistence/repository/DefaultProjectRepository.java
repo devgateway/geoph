@@ -60,13 +60,8 @@ public class DefaultProjectRepository implements ProjectRepository {
         CriteriaQuery<Project> cq = criteriaQuery.select(projectRoot);
         TypedQuery<Project> query = em.createQuery(cq);
 
-        CriteriaQuery<Long> cqCount = criteriaBuilder.createQuery(Long.class);
-        cqCount.select(criteriaBuilder.count(cqCount.from(Project.class)));
-        em.createQuery(cqCount);
-        if(predicates.size()>0){
-            cqCount.where(criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()])));
-        }
-        Long count = em.createQuery(cqCount).getSingleResult();
+
+        int count = query.getResultList().size();
 
         List<Project> projectList = query
                 .setFirstResult(params.getPageable().getOffset())

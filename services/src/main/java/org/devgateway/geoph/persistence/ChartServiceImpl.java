@@ -17,8 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-
-import static org.devgateway.geoph.util.Constants.DOUBLE_FORMAT;
+import static org.devgateway.geoph.util.Constants.*;
 
 
 @Service
@@ -39,84 +38,100 @@ public class ChartServiceImpl implements ChartService {
     PhysicalStatusRepository physicalStatusRepository;
 
     @Override
-    public List<Map<String, String>> getFundingByFundingAgency(Parameters params) {
+    public List<Map<String, Object>> getFundingByFundingAgency(Parameters params) {
         List<Object> fundingAgenciesResults = fundingAgencyRepository.findFundingByFundingAgency(params);
-        List<Map<String, String>> fundingAgenciesList = new ArrayList<>();
+        List<Map<String, Object>> fundingAgenciesList = new ArrayList<>();
         for(Object o:fundingAgenciesResults) {
-            Map<String, String> fundingAgencyMap = new HashMap<>();
+            Map<String, Object> fundingAgencyMap = new HashMap<>();
             Object[] objectList = ((Object[]) o);
             FundingAgency fa = (FundingAgency)objectList[0];
             fundingAgencyMap.put("id", fa.getId().toString());
             fundingAgencyMap.put("name", fa.getName());
             fundingAgencyMap.put("code", fa.getCode());
-            fundingAgencyMap.put("projectCount", objectList[1]!=null?objectList[1].toString():"");
-            fundingAgencyMap.put("transactionCount", objectList[2]!=null?objectList[2].toString():"");
-            fundingAgencyMap.put("loan", objectList[3] != null ? String.format(Locale.US, DOUBLE_FORMAT, ((Double) objectList[3])) : "");
-            fundingAgencyMap.put("grant", objectList[4]!=null?String.format(Locale.US, DOUBLE_FORMAT, ((Double) objectList[4])):"");
-            fundingAgencyMap.put("pmc", objectList[5]!=null?String.format(Locale.US, DOUBLE_FORMAT, ((Double) objectList[5])):"");
+            addFundingValues(fundingAgencyMap, objectList);
             fundingAgenciesList.add(fundingAgencyMap);
         }
         return fundingAgenciesList;
     }
 
+    private void addFundingValues(Map<String, Object> chartMap, Object[] objectList) {
+        chartMap.put("projectCount", objectList[1]!=null?objectList[1].toString():"");
+        long[] transactions = new long[]{(Long)objectList[3], (Long)objectList[5], (Long)objectList[7],
+                (Long)objectList[9], (Long)objectList[11], (Long)objectList[13],
+                (Long)objectList[15], (Long)objectList[17], (Long)objectList[19],};
+        long count = 0;
+        for(long t:transactions){
+            if(t>0){
+                count+=t;
+            }
+        }
+        Map<String, String> commitments = new HashMap<>();
+        commitments.put(PROPERTY_LOC_TARGET, String.format(Locale.US, DOUBLE_FORMAT, transactions[0]>0?(Double)objectList[2]:0));
+        commitments.put(PROPERTY_LOC_ACTUAL, String.format(Locale.US, DOUBLE_FORMAT, transactions[1]>0?(Double)objectList[4]:0));
+        commitments.put(PROPERTY_LOC_CANCELLED, String.format(Locale.US, DOUBLE_FORMAT, transactions[2]>0?(Double)objectList[6]:0));
+        chartMap.put(PROPERTY_LOC_COMMITMENTS, commitments);
+
+        Map<String, String> disbursements = new HashMap<>();
+        disbursements.put(PROPERTY_LOC_TARGET, String.format(Locale.US, DOUBLE_FORMAT, transactions[3]>0?(Double)objectList[8]:0));
+        disbursements.put(PROPERTY_LOC_ACTUAL, String.format(Locale.US, DOUBLE_FORMAT, transactions[4]>0?(Double)objectList[10]:0));
+        disbursements.put(PROPERTY_LOC_CANCELLED, String.format(Locale.US, DOUBLE_FORMAT, transactions[5]>0?(Double)objectList[12]:0));
+        chartMap.put(PROPERTY_LOC_DISBURSEMENTS, disbursements);
+
+        Map<String, String> expenditures = new HashMap<>();
+        expenditures.put(PROPERTY_LOC_TARGET, String.format(Locale.US, DOUBLE_FORMAT, transactions[6] > 0 ? (Double) objectList[14] : 0));
+        expenditures.put(PROPERTY_LOC_ACTUAL, String.format(Locale.US, DOUBLE_FORMAT, transactions[7] > 0 ? (Double) objectList[16] : 0));
+        expenditures.put(PROPERTY_LOC_CANCELLED, String.format(Locale.US, DOUBLE_FORMAT, transactions[8] > 0 ? (Double) objectList[18] : 0));
+        chartMap.put(PROPERTY_LOC_EXPENDITURES, expenditures);
+
+        chartMap.put("transactionCount", Long.toString(count));
+    }
+
     @Override
-    public List<Map<String, String>> getFundingByImplementingAgency(Parameters params) {
+    public List<Map<String, Object>> getFundingByImplementingAgency(Parameters params) {
         List<Object> impAgenciesResults = implementingAgencyRepository.findFundingByImplementingAgency(params);
-        List<Map<String, String>> impAgenciesList = new ArrayList<>();
+        List<Map<String, Object>> impAgenciesList = new ArrayList<>();
         for(Object o:impAgenciesResults) {
-            Map<String, String> impAgencyMap = new HashMap<>();
+            Map<String, Object> impAgencyMap = new HashMap<>();
             Object[] objectList = ((Object[]) o);
             ImplementingAgency ia = (ImplementingAgency)objectList[0];
             impAgencyMap.put("id", ia.getId().toString());
             impAgencyMap.put("name", ia.getName());
             impAgencyMap.put("code", ia.getCode());
-            impAgencyMap.put("projectCount", objectList[1]!=null?objectList[1].toString():"");
-            impAgencyMap.put("transactionCount", objectList[2]!=null?objectList[2].toString():"");
-            impAgencyMap.put("loan", objectList[3] != null ? String.format(Locale.US, DOUBLE_FORMAT, ((Double) objectList[3])) : "");
-            impAgencyMap.put("grant", objectList[4]!=null?String.format(Locale.US, DOUBLE_FORMAT, ((Double) objectList[4])):"");
-            impAgencyMap.put("pmc", objectList[5]!=null?String.format(Locale.US, DOUBLE_FORMAT, ((Double) objectList[5])):"");
+            addFundingValues(impAgencyMap, objectList);
             impAgenciesList.add(impAgencyMap);
         }
         return impAgenciesList;
     }
 
     @Override
-    public List<Map<String, String>> getFundingBySector(Parameters params) {
+    public List<Map<String, Object>> getFundingBySector(Parameters params) {
         List<Object> sectorResults = sectorRepository.findFundingBySector(params);
-        List<Map<String, String>> sectorList = new ArrayList<>();
+        List<Map<String, Object>> sectorList = new ArrayList<>();
         for(Object o:sectorResults) {
-            Map<String, String> sectorMap = new HashMap<>();
+            Map<String, Object> sectorMap = new HashMap<>();
             Object[] objectList = ((Object[]) o);
             Sector sector = (Sector)objectList[0];
             sectorMap.put("id", sector.getId().toString());
             sectorMap.put("name", sector.getName());
             sectorMap.put("code", sector.getCode());
-            sectorMap.put("projectCount", objectList[1]!=null?objectList[1].toString():"");
-            sectorMap.put("transactionCount", objectList[2]!=null?objectList[2].toString():"");
-            sectorMap.put("loan", objectList[3] != null ? String.format(Locale.US, DOUBLE_FORMAT, ((Double) objectList[3])) : "");
-            sectorMap.put("grant", objectList[4]!=null?String.format(Locale.US, DOUBLE_FORMAT, ((Double) objectList[4])):"");
-            sectorMap.put("pmc", objectList[5]!=null?String.format(Locale.US, DOUBLE_FORMAT, ((Double) objectList[5])):"");
+            addFundingValues(sectorMap, objectList);
             sectorList.add(sectorMap);
         }
         return sectorList;
     }
 
     @Override
-    public List<Map<String, String>> getFundingByPhysicalStatus(Parameters params) {
+    public List<Map<String, Object>> getFundingByPhysicalStatus(Parameters params) {
         List<Object> physicalStatusResults = physicalStatusRepository.findFundingByPhysicalStatus(params);
-        List<Map<String, String>> physicalStatusList = new ArrayList<>();
+        List<Map<String, Object>> physicalStatusList = new ArrayList<>();
         for(Object o:physicalStatusResults) {
-            Map<String, String> physicalStatusMap = new HashMap<>();
+            Map<String, Object> physicalStatusMap = new HashMap<>();
             Object[] objectList = ((Object[]) o);
             PhysicalStatus physicalStatus = (PhysicalStatus)objectList[0];
             physicalStatusMap.put("id", physicalStatus.getId().toString());
             physicalStatusMap.put("name", physicalStatus.getName());
             physicalStatusMap.put("code", physicalStatus.getCode());
-            physicalStatusMap.put("projectCount", objectList[1]!=null?objectList[1].toString():"");
-            physicalStatusMap.put("transactionCount", objectList[2]!=null?objectList[2].toString():"");
-            physicalStatusMap.put("loan", objectList[3] != null ? String.format(Locale.US, DOUBLE_FORMAT, ((Double) objectList[3])) : "");
-            physicalStatusMap.put("grant", objectList[4]!=null?String.format(Locale.US, DOUBLE_FORMAT, ((Double) objectList[4])):"");
-            physicalStatusMap.put("pmc", objectList[5]!=null?String.format(Locale.US, DOUBLE_FORMAT, ((Double) objectList[5])):"");
+            addFundingValues(physicalStatusMap, objectList);
             physicalStatusList.add(physicalStatusMap);
         }
         return physicalStatusList;

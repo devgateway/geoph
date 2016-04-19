@@ -37,8 +37,10 @@ public class GeoJsonController extends CrossOriginSupport {
     @RequestMapping(value = "/{level}/projects", method = GET)
     public FeatureCollection getGeoJsonByLocationType(
             @PathVariable final String level,
-            @RequestParam(value = FILTER_DATE_START, required = false) String startDate,
-            @RequestParam(value = FILTER_DATE_END, required = false) String endDate,
+            @RequestParam(value = FILTER_START_DATE, required = false) String startDate,
+            @RequestParam(value = FILTER_END_DATE, required = false) String endDate,
+            @RequestParam(value = FILTER_PERFORMANCE_START, required = false) String performanceStart,
+            @RequestParam(value = FILTER_PERFORMANCE_END, required = false) String performanceEnd,
             @RequestParam(value = FILTER_SECTOR, required = false) String sectors,
             @RequestParam(value = FILTER_STATUS, required = false) String statuses,
             @RequestParam(value = FILTER_LOCATION, required = false) String locations,
@@ -49,8 +51,9 @@ public class GeoJsonController extends CrossOriginSupport {
             @RequestParam(value = FILTER_PROJECT_TITLE, required = false) String projectTitle,
             @RequestParam(value = FILTER_PHYSICAL_STATUS, required = false) String physicalStatuses){
         LOGGER.debug("getGeoJsonByLocationType");
-        Parameters params = new Parameters(startDate, endDate, sectors, statuses,
-                locations, projects, impAgencies, fundingAgencies, flowTypes,
+        Parameters params = new Parameters(startDate, endDate, performanceStart,
+                performanceEnd, sectors, statuses, locations,
+                projects, impAgencies, fundingAgencies, flowTypes,
                 projectTitle, physicalStatuses, null);
         params.setLocationLevel(level);
         return service.getLocationsByParams(params);
@@ -59,8 +62,10 @@ public class GeoJsonController extends CrossOriginSupport {
     @RequestMapping(value = "/stats/{level}/funding", method = GET)
     public FeatureCollection getGeoJsonStatistical(
             @PathVariable final String level,
-            @RequestParam(value = FILTER_DATE_START, required = false) String startDate,
-            @RequestParam(value = FILTER_DATE_END, required = false) String endDate,
+            @RequestParam(value = FILTER_START_DATE, required = false) String startDate,
+            @RequestParam(value = FILTER_END_DATE, required = false) String endDate,
+            @RequestParam(value = FILTER_PERFORMANCE_START, required = false) String performanceStart,
+            @RequestParam(value = FILTER_PERFORMANCE_END, required = false) String performanceEnd,
             @RequestParam(value = FILTER_SECTOR, required = false) String sectors,
             @RequestParam(value = FILTER_STATUS, required = false) String statuses,
             @RequestParam(value = FILTER_LOCATION, required = false) String locations,
@@ -71,8 +76,9 @@ public class GeoJsonController extends CrossOriginSupport {
             @RequestParam(value = FILTER_PROJECT_TITLE, required = false) String projectTitle,
             @RequestParam(value = FILTER_PHYSICAL_STATUS, required = false) String physicalStatuses){
         LOGGER.debug("getGeoJsonForShapes");
-        Parameters params = new Parameters(startDate, endDate, sectors, statuses,
-                locations, projects, impAgencies, fundingAgencies, flowTypes,
+        Parameters params = new Parameters(startDate, endDate, performanceStart,
+                performanceEnd, sectors, statuses, locations,
+                projects, impAgencies, fundingAgencies, flowTypes,
                 projectTitle, physicalStatuses, null);
         return service.getShapesByLevelAndDetail(LocationAdmLevelEnum.valueOf(level.toUpperCase()),
                 GeometryDetailLevelEnum.MEDIUM.getLevel(), params);
@@ -82,8 +88,10 @@ public class GeoJsonController extends CrossOriginSupport {
     public FeatureCollection getGeoJsonStatisticalDetailed(
             @PathVariable final String level,
             @PathVariable final double detail,
-            @RequestParam(value = FILTER_DATE_START, required = false) String startDate,
-            @RequestParam(value = FILTER_DATE_END, required = false) String endDate,
+            @RequestParam(value = FILTER_START_DATE, required = false) String startDate,
+            @RequestParam(value = FILTER_END_DATE, required = false) String endDate,
+            @RequestParam(value = FILTER_PERFORMANCE_START, required = false) String performanceStart,
+            @RequestParam(value = FILTER_PERFORMANCE_END, required = false) String performanceEnd,
             @RequestParam(value = FILTER_SECTOR, required = false) String sectors,
             @RequestParam(value = FILTER_STATUS, required = false) String statuses,
             @RequestParam(value = FILTER_LOCATION, required = false) String locations,
@@ -94,8 +102,9 @@ public class GeoJsonController extends CrossOriginSupport {
             @RequestParam(value = FILTER_PROJECT_TITLE, required = false) String projectTitle,
             @RequestParam(value = FILTER_PHYSICAL_STATUS, required = false) String physicalStatuses){
         LOGGER.debug("getGeoJsonForShapes2");
-        Parameters params = new Parameters(startDate, endDate, sectors, statuses,
-                locations, projects, impAgencies, fundingAgencies, flowTypes,
+        Parameters params = new Parameters(startDate, endDate, performanceStart,
+                performanceEnd, sectors, statuses, locations,
+                projects, impAgencies, fundingAgencies, flowTypes,
                 projectTitle, physicalStatuses, null);
         return service.getShapesByLevelAndDetail(LocationAdmLevelEnum.valueOf(level.toUpperCase()), detail, params);
     }

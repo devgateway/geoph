@@ -27,6 +27,10 @@ public class Parameters {
 
     private Date endDate;
 
+    private Date periodPerformanceStart;
+
+    private Date periodPerformanceEnd;
+
     private List<Long> sectors;
 
     private List<Long> statuses;
@@ -52,11 +56,14 @@ public class Parameters {
     public Parameters() {
     }
 
-    public Parameters(String startDate, String endDate, String sectors, String statuses,
+    public Parameters(String startDate, String endDate, String periodPerformanceStart,
+                      String periodPerformanceEnd, String sectors, String statuses,
                       String locations, String projects, String impAgencies, String fundingAgencies,
                       String flowTypes, String projectTitle, String physicalStatuses, Pageable pageable) {
         this.setStartDate(startDate);
         this.setEndDate(endDate);
+        this.setPeriodPerformanceStart(periodPerformanceStart);
+        this.setPeriodPerformanceEnd(periodPerformanceEnd);
         this.setSectors(sectors);
         this.setStatuses(statuses);
         this.setLocations(locations);
@@ -91,6 +98,30 @@ public class Parameters {
 
     public void setEndDate(String endDate) {
         this.endDate = convertStringToDate(endDate);
+    }
+
+    public Date getPeriodPerformanceStart() {
+        return periodPerformanceStart;
+    }
+
+    public void setPeriodPerformanceStart(Date periodPerformanceStart) {
+        this.periodPerformanceStart = periodPerformanceStart;
+    }
+
+    public void setPeriodPerformanceStart(String periodPerformanceStart) {
+        this.periodPerformanceStart = convertStringToDate(periodPerformanceStart);
+    }
+
+    public Date getPeriodPerformanceEnd() {
+        return periodPerformanceEnd;
+    }
+
+    public void setPeriodPerformanceEnd(Date periodPerformanceEnd) {
+        this.periodPerformanceEnd = periodPerformanceEnd;
+    }
+
+    public void setPeriodPerformanceEnd(String periodPerformanceEnd) {
+        this.periodPerformanceEnd = convertStringToDate(periodPerformanceEnd);
     }
 
     public List<Long> getSectors() {
