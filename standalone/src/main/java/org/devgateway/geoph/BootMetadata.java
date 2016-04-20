@@ -53,6 +53,7 @@ public class BootMetadata {
                 "/sql/basic-data/agencies.sql",
                 "/sql/basic-data/currencies.sql",
                 "/sql/basic-data/statuses.sql",
+                "/sql/basic-data/physical_statuses.sql",
                 "/sql/basic-data/transaction_type.sql",
                 "/sql/basic-data/classifications.sql",
                 "/sql/basic-data/sectors.sql",

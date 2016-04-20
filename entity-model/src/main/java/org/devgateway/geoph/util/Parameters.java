@@ -33,6 +33,8 @@ public class Parameters {
 
     private List<Long> statuses;
 
+    private List<Long> physicalStatuses;
+
     private List<Long> locations;
 
     private List<Long> projects;
@@ -45,6 +47,8 @@ public class Parameters {
 
     private List<Integer> locationLevels;
 
+    private String projectTitle;
+
     private Pageable pageable;
 
     public Parameters() {
@@ -52,7 +56,7 @@ public class Parameters {
 
     public Parameters(String startDate, String endDate, String sectors, String statuses,
                       String locations, String projects, String impAgencies, String fundingAgencies,
-                      String flowTypes, Pageable pageable) {
+                      String flowTypes, String projectTitle, String physicalStatuses, Pageable pageable) {
         this.setStartDate(startDate);
         this.setEndDate(endDate);
         this.setSectors(sectors);
@@ -62,6 +66,8 @@ public class Parameters {
         this.setImpAgencies(impAgencies);
         this.setFundingAgencies(fundingAgencies);
         this.setFlowTypes(flowTypes);
+        this.projectTitle = projectTitle;
+        this.setPhysicalStatuses(physicalStatuses);
         this.setPageable(pageable);
     }
 
@@ -111,6 +117,18 @@ public class Parameters {
 
     public void setStatuses(String statuses) {
         this.statuses = statuses!=null? convertStringToLongList(statuses):null;
+    }
+
+    public List<Long> getPhysicalStatuses() {
+        return physicalStatuses;
+    }
+
+    public void setPhysicalStatuses(List<Long> physicalStatuses) {
+        this.physicalStatuses = physicalStatuses;
+    }
+
+    public void setPhysicalStatuses(String physicalStatuses) {
+        this.physicalStatuses = physicalStatuses!=null? convertStringToLongList(physicalStatuses):null;
     }
 
     public List<Long> getLocations() {
@@ -183,6 +201,14 @@ public class Parameters {
 
     public void setFlowTypes(String flowTypes) {
         this.flowTypes = flowTypes!=null? convertStringToFlowTypesList(flowTypes):null;
+    }
+
+    public String getProjectTitle() {
+        return projectTitle;
+    }
+
+    public void setProjectTitle(String projectTitle) {
+        this.projectTitle = projectTitle;
     }
 
     private List<String> convertStringToFlowTypesList(String flowTypes) {

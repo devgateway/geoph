@@ -45,10 +45,13 @@ public class GeoJsonController extends CrossOriginSupport {
             @RequestParam(value = FILTER_PROJECT, required = false) String projects,
             @RequestParam(value = FILTER_IMPLEMENTING_AGENCY, required = false) String impAgencies,
             @RequestParam(value = FILTER_FUNDING_AGENCY, required = false) String fundingAgencies,
-            @RequestParam(value = FILTER_FLOW_TYPE, required = false) String flowTypes){
+            @RequestParam(value = FILTER_FLOW_TYPE, required = false) String flowTypes,
+            @RequestParam(value = FILTER_PROJECT_TITLE, required = false) String projectTitle,
+            @RequestParam(value = FILTER_PHYSICAL_STATUS, required = false) String physicalStatuses){
         LOGGER.debug("getGeoJsonByLocationType");
         Parameters params = new Parameters(startDate, endDate, sectors, statuses,
-                locations, projects, impAgencies, fundingAgencies, flowTypes, null);
+                locations, projects, impAgencies, fundingAgencies, flowTypes,
+                projectTitle, physicalStatuses, null);
         params.setLocationLevel(level);
         return service.getLocationsByParams(params);
     }

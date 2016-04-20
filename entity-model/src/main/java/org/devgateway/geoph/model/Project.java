@@ -34,7 +34,8 @@ import java.util.Set;
                 @NamedAttributeNode("grantType"),
                 @NamedAttributeNode("grantClassification"),
                 @NamedAttributeNode("locations"),
-                @NamedAttributeNode("sectors")
+                @NamedAttributeNode("sectors"),
+                @NamedAttributeNode("physicalStatus")
         })
 public class Project extends GenericPersistable implements Serializable {
 
@@ -73,6 +74,9 @@ public class Project extends GenericPersistable implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, cascade= CascadeType.MERGE)
     private Status status;
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade= CascadeType.MERGE)
+    private PhysicalStatus physicalStatus;
+
     @Column(name = "period_start")
     private Date periodStart;
 
@@ -100,57 +104,6 @@ public class Project extends GenericPersistable implements Serializable {
     private Set<Sector> sectors;
 
     public Project() {
-    }
-
-    public Project(String title, Agency implementingAgency, String implementingAgencyOffice,
-                   Agency executingAgency, Agency fundingAgency, Currency originalCurrency,
-                   double totalProjectAmount, Date startDate, Date closingDate,
-                   Date revisedClosingDate, Status status, Date periodStart, Date periodEnd,
-                   TransactionType grantType, Classification grantClassification, Set<Location> locations,
-                   Set<Sector> sectors) {
-        this.title = title;
-        this.implementingAgency = implementingAgency;
-        this.implementingAgencyOffice = implementingAgencyOffice;
-        this.executingAgency = executingAgency;
-        this.fundingAgency = fundingAgency;
-        this.originalCurrency = originalCurrency;
-        this.totalProjectAmount = totalProjectAmount;
-        this.startDate = startDate;
-        this.closingDate = closingDate;
-        this.revisedClosingDate = revisedClosingDate;
-        this.status = status;
-        this.periodStart = periodStart;
-        this.periodEnd = periodEnd;
-        this.grantType = grantType;
-        this.grantClassification = grantClassification;
-        this.locations = locations;
-        this.sectors = sectors;
-    }
-
-    public Project(String title, Set<Transaction> transactions, Agency implementingAgency,
-                   String implementingAgencyOffice, Agency executingAgency, Agency fundingAgency,
-                   Currency originalCurrency, double totalProjectAmount, Date startDate,
-                   Date closingDate, Date revisedClosingDate, Status status, Date periodStart,
-                   Date periodEnd, TransactionType grantType, Classification grantClassification,
-                   Set<Location> locations, Set<Sector> sectors) {
-        this.title = title;
-        this.transactions = transactions;
-        this.implementingAgency = implementingAgency;
-        this.implementingAgencyOffice = implementingAgencyOffice;
-        this.executingAgency = executingAgency;
-        this.fundingAgency = fundingAgency;
-        this.originalCurrency = originalCurrency;
-        this.totalProjectAmount = totalProjectAmount;
-        this.startDate = startDate;
-        this.closingDate = closingDate;
-        this.revisedClosingDate = revisedClosingDate;
-        this.status = status;
-        this.periodStart = periodStart;
-        this.periodEnd = periodEnd;
-        this.grantType = grantType;
-        this.grantClassification = grantClassification;
-        this.locations = locations;
-        this.sectors = sectors;
     }
 
     public String getTitle() {
@@ -247,6 +200,14 @@ public class Project extends GenericPersistable implements Serializable {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public PhysicalStatus getPhysicalStatus() {
+        return physicalStatus;
+    }
+
+    public void setPhysicalStatus(PhysicalStatus physicalStatus) {
+        this.physicalStatus = physicalStatus;
     }
 
     public Date getPeriodStart() {

@@ -85,10 +85,10 @@ public class GeoJsonServiceImpl implements GeoJsonService {
             }
             if(lp!=null) {
                 lp.addProjectCount((Long)objectList[1]);
-                lp.addTransactionCount((Long)objectList[2]);
-                lp.addLoan((Double)objectList[3]);
+                lp.addLoan((Double)objectList[2]);
                 lp.addGrant((Double)objectList[4]);
-                lp.addPmc((Double)objectList[5]);
+                lp.addPmc((Double)objectList[6]);
+                lp.addTransactionCount((Long)objectList[3] + (Long)objectList[5] + (Long)objectList[7]);
             }
         }
     }
