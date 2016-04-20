@@ -1,8 +1,7 @@
 package org.devgateway.geoph.services;
 
 import org.devgateway.geoph.model.*;
-import org.devgateway.geoph.util.FlowType;
-import org.devgateway.geoph.util.LocationAdmLevel;
+import org.devgateway.geoph.util.LocationAdmLevelEnum;
 
 
 import java.util.List;
@@ -22,7 +21,7 @@ public interface FilterService {
 
     List<Location> findAllLocations();
 
-    List<Location> findLocationsByLevel(LocationAdmLevel level);
+    List<Location> findLocationsByLevel(LocationAdmLevelEnum level);
 
     List<Location> findLocationsByParentId(long parentId);
 

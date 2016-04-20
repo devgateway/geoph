@@ -10,11 +10,11 @@ import java.util.Map;
  *         created on abr 04 2016.
  */
 public interface ChartService {
-    List<Map<String, String>> getFundingByFundingAgency(Parameters params);
+    List<Map<String, Object>> getFundingByFundingAgency(Parameters params);
 
-    List<Map<String,String>> getFundingByImplementingAgency(Parameters params);
+    List<Map<String, Object>> getFundingByImplementingAgency(Parameters params);
 
-    List<Map<String,String>> getFundingBySector(Parameters params);
+    List<Map<String, Object>> getFundingBySector(Parameters params);
 
-    List<Map<String,String>> getFundingByPhysicalStatus(Parameters params);
+    List<Map<String, Object>> getFundingByPhysicalStatus(Parameters params);
 }
