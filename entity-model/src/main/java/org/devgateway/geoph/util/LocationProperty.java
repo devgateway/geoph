@@ -2,6 +2,9 @@ package org.devgateway.geoph.util;
 
 import org.devgateway.geoph.model.Location;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author dbianco
  *         created on mar 29 2016.
@@ -22,11 +25,11 @@ public class LocationProperty {
 
     private long transactionCount = 0;
 
-    private double loan = 0;
+    private Map<String, Double> commitments = new HashMap<>();
 
-    private double grant = 0;
+    private Map<String, Double> disbursements = new HashMap<>();
 
-    private double pmc = 0;
+    private Map<String, Double> expenditures = new HashMap<>();
 
     public LocationProperty() {
     }
@@ -83,40 +86,40 @@ public class LocationProperty {
         return projectCount;
     }
 
-    public void setProjectCount(int projectCount) {
-        this.projectCount = projectCount;
-    }
-
     public long getTransactionCount() {
         return transactionCount;
     }
 
-    public void setTransactionCount(int transactionCount) {
+    public void setProjectCount(long projectCount) {
+        this.projectCount = projectCount;
+    }
+
+    public void setTransactionCount(long transactionCount) {
         this.transactionCount = transactionCount;
     }
 
-    public double getLoan() {
-        return loan;
+    public Map<String, Double> getCommitments() {
+        return commitments;
     }
 
-    public void setLoan(double loan) {
-        this.loan = loan;
+    public void setCommitments(Map<String, Double> commitments) {
+        this.commitments = commitments;
     }
 
-    public double getGrant() {
-        return grant;
+    public Map<String, Double> getDisbursements() {
+        return disbursements;
     }
 
-    public void setGrant(double grant) {
-        this.grant = grant;
+    public void setDisbursements(Map<String, Double> disbursements) {
+        this.disbursements = disbursements;
     }
 
-    public double getPmc() {
-        return pmc;
+    public Map<String, Double> getExpenditures() {
+        return expenditures;
     }
 
-    public void setPmc(double pmc) {
-        this.pmc = pmc;
+    public void setExpenditures(Map<String, Double> expenditures) {
+        this.expenditures = expenditures;
     }
 
     public void addProjectCount(Long projectCount){
@@ -131,21 +134,24 @@ public class LocationProperty {
         }
     }
 
-    public void addLoan(Double loan){
-        if(loan!=null){
-            this.loan += loan;
+    public void addCommitment(String type, Double addValue){
+        if(addValue!=null){
+            commitments.put(type, commitments.get(type)!=null?commitments.get(type) + addValue:addValue);
         }
     }
 
-    public void addGrant(Double grant){
-        if(grant!=null){
-            this.grant += grant;
+
+    public void addDisbursement(String type, Double addValue){
+        if(addValue!=null){
+            disbursements.put(type, disbursements.get(type)!=null?disbursements.get(type) + addValue:addValue);
         }
     }
 
-    public void addPmc(Double pmc){
-        if(pmc!=null){
-            this.pmc += pmc;
+
+
+    public void addExpenditure(String type, Double addValue){
+        if(addValue!=null){
+            expenditures.put(type, expenditures.get(type)!=null?expenditures.get(type) + addValue:addValue);
         }
     }
 }

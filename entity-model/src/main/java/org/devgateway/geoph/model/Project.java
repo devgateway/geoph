@@ -65,8 +65,8 @@ public class Project extends GenericPersistable implements Serializable {
     @Column(name = "start_date")
     private Date startDate;
 
-    @Column(name = "closing_date")
-    private Date closingDate;
+    @Column(name = "end_date")
+    private Date endDate;
 
     @Column(name = "revised_closing_date")
     private Date revisedClosingDate;
@@ -77,11 +77,11 @@ public class Project extends GenericPersistable implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, cascade= CascadeType.MERGE)
     private PhysicalStatus physicalStatus;
 
-    @Column(name = "period_start")
-    private Date periodStart;
+    @Column(name = "period_performance_start")
+    private Date periodPerformanceStart;
 
-    @Column(name = "period_end")
-    private Date periodEnd;
+    @Column(name = "period_performance_end")
+    private Date periodPerformanceEnd;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.MERGE)
     private TransactionType grantType;
@@ -178,12 +178,12 @@ public class Project extends GenericPersistable implements Serializable {
         this.startDate = startDate;
     }
 
-    public Date getClosingDate() {
-        return closingDate;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public void setClosingDate(Date closingDate) {
-        this.closingDate = closingDate;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public Date getRevisedClosingDate() {
@@ -210,20 +210,20 @@ public class Project extends GenericPersistable implements Serializable {
         this.physicalStatus = physicalStatus;
     }
 
-    public Date getPeriodStart() {
-        return periodStart;
+    public Date getPeriodPerformanceStart() {
+        return periodPerformanceStart;
     }
 
-    public void setPeriodStart(Date periodStart) {
-        this.periodStart = periodStart;
+    public void setPeriodPerformanceStart(Date periodPerformanceStart) {
+        this.periodPerformanceStart = periodPerformanceStart;
     }
 
-    public Date getPeriodEnd() {
-        return periodEnd;
+    public Date getPeriodPerformanceEnd() {
+        return periodPerformanceEnd;
     }
 
-    public void setPeriodEnd(Date periodEnd) {
-        this.periodEnd = periodEnd;
+    public void setPeriodPerformanceEnd(Date periodPerformanceEnd) {
+        this.periodPerformanceEnd = periodPerformanceEnd;
     }
 
     public TransactionType getGrantType() {

@@ -1,13 +1,9 @@
 package org.devgateway.geoph.persistence.repository;
 
 import com.google.gson.Gson;
-import org.apache.commons.lang3.StringUtils;
 import org.devgateway.geoph.model.*;
 import org.devgateway.geoph.persistence.util.FilterHelper;
-import org.devgateway.geoph.util.FlowType;
-import org.devgateway.geoph.util.GeometryDetailLevel;
-import org.devgateway.geoph.util.PostGisHelper;
-import org.devgateway.geoph.util.Parameters;
+import org.devgateway.geoph.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -97,20 +93,11 @@ public class DefaultLocationRepository implements LocationRepository {
         Join<Location, Project> projectJoin = locationRoot.join(Location_.projects, JoinType.LEFT);
         multiSelect.add(criteriaBuilder.countDistinct(projectJoin).alias("projectCount"));
 
-        Join<Project, Transaction> transaction1Join = projectJoin.join(Project_.transactions, JoinType.LEFT);
-        transaction1Join.on(transaction1Join.get(Transaction_.flowType).in(FlowType.LOAN.name().toLowerCase()));
-        multiSelect.add(criteriaBuilder.sum(transaction1Join.get(Transaction_.amount)).alias("loans"));
-        multiSelect.add(criteriaBuilder.countDistinct(transaction1Join).alias("loansCount"));
-
-        Join<Project, Transaction> transaction2Join = projectJoin.join(Project_.transactions, JoinType.LEFT);
-        transaction2Join.on(transaction2Join.get(Transaction_.flowType).in(FlowType.GRANT.name().toLowerCase()));
-        multiSelect.add(criteriaBuilder.sum(transaction2Join.get(Transaction_.amount)).alias("grants"));
-        multiSelect.add(criteriaBuilder.countDistinct(transaction2Join).alias("grantsCount"));
-
-        Join<Project, Transaction> transaction3Join = projectJoin.join(Project_.transactions, JoinType.LEFT);
-        transaction3Join.on(transaction3Join.get(Transaction_.flowType).in(FlowType.PMC.name().toLowerCase()));
-        multiSelect.add(criteriaBuilder.sum(transaction3Join.get(Transaction_.amount)).alias("pmcs"));
-        multiSelect.add(criteriaBuilder.countDistinct(transaction3Join).alias("pmcsCount"));
+        for(TransactionTypeEnum t:TransactionTypeEnum.values()){
+            for(TransactionStatusEnum s:TransactionStatusEnum.values()){
+                addTransactionJoin(criteriaBuilder, multiSelect, projectJoin, t.getId(), s.getId());
+            }
+        }
 
         FilterHelper.filterLocationQuery(params, criteriaBuilder, locationRoot, predicates, projectJoin);
 
@@ -124,11 +111,21 @@ public class DefaultLocationRepository implements LocationRepository {
         return query.getResultList();
     }
 
+    private void addTransactionJoin(CriteriaBuilder criteriaBuilder, List<Selection<?>> multiSelect,
+                                    Join<Location, Project> projectJoin, int trxType, int trxStatus) {
+        Join<Project, Transaction> transactionJoin = projectJoin.join(Project_.transactions, JoinType.LEFT);
+        transactionJoin.on(transactionJoin.get(Transaction_.transactionTypeId).in(trxType),
+                transactionJoin.get(Transaction_.transactionStatusId).in(trxStatus));
+        multiSelect.add(criteriaBuilder.sum(transactionJoin.get(Transaction_.amount)));
+        multiSelect.add(criteriaBuilder.countDistinct(transactionJoin));
+    }
+
 
     @Override
-    public List<PostGisHelper> getRegionShapesWithDetail(GeometryDetailLevel detail) {
-        Query q = em.createNativeQuery("SELECT locationId, region, ST_AsGeoJSON(ST_Simplify(geom, "
-                + detail.getLevel() + ")) as geoJsonObject from region_geometry");
+    public List<PostGisHelper> getRegionShapesWithDetail(double detail) {
+        Query q = em.createNativeQuery("SELECT locationId, region, ST_AsGeoJSON(ST_Simplify(geom, :detail)) " +
+                "as geoJsonObject from region_geometry")
+                .setParameter("detail", detail);
         List<Object[]> resultList = q.getResultList();
         Gson g = new Gson();
         List<PostGisHelper> resp = new ArrayList<>();

@@ -42,7 +42,6 @@ public class Location extends GenericPersistable implements Serializable {
 
     private Double longitude;
 
-    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "location_items", joinColumns = {
             @JoinColumn(name = "location_id", nullable = false, updatable = false) },

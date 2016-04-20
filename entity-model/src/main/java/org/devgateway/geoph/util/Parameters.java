@@ -2,7 +2,6 @@ package org.devgateway.geoph.util;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +12,6 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import static org.devgateway.geoph.util.Constants.PARAM_SEPARATOR;
 
@@ -28,6 +26,10 @@ public class Parameters {
     private Date startDate;
 
     private Date endDate;
+
+    private Date periodPerformanceStart;
+
+    private Date periodPerformanceEnd;
 
     private List<Long> sectors;
 
@@ -54,11 +56,14 @@ public class Parameters {
     public Parameters() {
     }
 
-    public Parameters(String startDate, String endDate, String sectors, String statuses,
+    public Parameters(String startDate, String endDate, String periodPerformanceStart,
+                      String periodPerformanceEnd, String sectors, String statuses,
                       String locations, String projects, String impAgencies, String fundingAgencies,
                       String flowTypes, String projectTitle, String physicalStatuses, Pageable pageable) {
         this.setStartDate(startDate);
         this.setEndDate(endDate);
+        this.setPeriodPerformanceStart(periodPerformanceStart);
+        this.setPeriodPerformanceEnd(periodPerformanceEnd);
         this.setSectors(sectors);
         this.setStatuses(statuses);
         this.setLocations(locations);
@@ -93,6 +98,30 @@ public class Parameters {
 
     public void setEndDate(String endDate) {
         this.endDate = convertStringToDate(endDate);
+    }
+
+    public Date getPeriodPerformanceStart() {
+        return periodPerformanceStart;
+    }
+
+    public void setPeriodPerformanceStart(Date periodPerformanceStart) {
+        this.periodPerformanceStart = periodPerformanceStart;
+    }
+
+    public void setPeriodPerformanceStart(String periodPerformanceStart) {
+        this.periodPerformanceStart = convertStringToDate(periodPerformanceStart);
+    }
+
+    public Date getPeriodPerformanceEnd() {
+        return periodPerformanceEnd;
+    }
+
+    public void setPeriodPerformanceEnd(Date periodPerformanceEnd) {
+        this.periodPerformanceEnd = periodPerformanceEnd;
+    }
+
+    public void setPeriodPerformanceEnd(String periodPerformanceEnd) {
+        this.periodPerformanceEnd = convertStringToDate(periodPerformanceEnd);
     }
 
     public List<Long> getSectors() {
@@ -220,13 +249,13 @@ public class Parameters {
                     String ret = null;
                     switch (Integer.parseInt(input)) {
                         case 1:
-                            ret = FlowType.LOAN.name().toLowerCase();
+                            ret = FlowTypeEnum.LOAN.name().toLowerCase();
                             break;
                         case 2:
-                            ret = FlowType.GRANT.name().toLowerCase();
+                            ret = FlowTypeEnum.GRANT.name().toLowerCase();
                             break;
                         default:
-                            ret = FlowType.PMC.name().toLowerCase();
+                            ret = FlowTypeEnum.PMC.name().toLowerCase();
                     }
                     return ret;
                 }
@@ -251,7 +280,7 @@ public class Parameters {
             ret = Lists.transform(Arrays.asList(values.split(PARAM_SEPARATOR)), new Function<String, Integer>() {
                 @Override
                 public Integer apply(String level) {
-                    return LocationAdmLevel.valueOf(level.toUpperCase()).getLevel();
+                    return LocationAdmLevelEnum.valueOf(level.toUpperCase()).getLevel();
                 }
             });
         }
