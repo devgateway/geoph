@@ -6,8 +6,9 @@ import LangSwitcherComponent from './switcher.jsx';
 
 /*Pass stat to properties Message */
 const Message = connect((state, props) => {
+
 	return {
-		lan: state.language
+		lan: state.language,
 	}
 })(MessageComponent);
 

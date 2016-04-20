@@ -24,7 +24,7 @@ class FilterSlider extends React.Component {
   		let minSelected = this.props.minSelected || (this.props.items? this.props.items[0].minValue : 0);
   		let maxSelected = this.props.maxSelected || (this.props.items? this.props.items[0].maxValue : 10);
   		let values = {'min': minSelected, 'max': maxSelected};
-  		//debugger;
+  		//
   		return (
 	        <div className="range-filter-container">
         		<div className="">
