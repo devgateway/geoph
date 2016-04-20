@@ -8,7 +8,6 @@ public class Constants {
 
     public static final String PASS_ENCODE = "valar morghulis";
     public static final String PARAM_SEPARATOR = ",";
-    public static final String KEY_SEPARATOR = "-";
 
     public static final String FILTER_START_DATE = "ds";
     public static final String FILTER_END_DATE = "de";
@@ -36,11 +35,14 @@ public class Constants {
     public static final String PROPERTY_LOC_NAME = "name";
     public static final String PROPERTY_LOC_PROJ_COUNT = "projectCount";
     public static final String PROPERTY_LOC_TRX_COUNT = "transactionCount";
-    public static final String PROPERTY_LOC_SECTOR_AGGREGATION = "sectorAggregation";
 
     public static final String PROPERTY_PRJ_ID = "id";
 
     public static final String QUERY_HINT = "javax.persistence.fetchgraph";
     public static final String GRAPH_PROJECT_ALL = "graph.project.all";
     public static final String DOUBLE_FORMAT = "%.2f";
+
+    public static final String ALPHABET = "BCDFGHIJKLMNPQRSTVWXZ";
+    public static final int ALPHABET_NUMBER = ALPHABET.length();
+
 }

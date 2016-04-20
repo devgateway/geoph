@@ -29,8 +29,8 @@ public class ProjectController  extends CrossOriginSupport {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FilterController.class);
 
-
     private final ProjectService service;
+
     @Autowired
     public ProjectController(ProjectService service) {
         this.service = service;
