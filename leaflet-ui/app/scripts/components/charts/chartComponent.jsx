@@ -152,12 +152,12 @@ class ChartComponent extends React.Component {
 	    		: null}  
 	    		{this.props.measure?
 	    		<div className="chart-measure-selector">
-	    				<div className="chart-measure-option"><input type="radio" 
+	    				<div className="chart-type-option"><input type="radio" 
 							value='funding'
 							checked={this.state.measType ==='funding'} 
 							onChange={this.setMeasType.bind(this)} />Funding
                         </div>
-                        <div className="chart-measure-option"><input type="radio"  
+                        <div className="chart-type-option"><input type="radio"  
 							value='projectCount' 
 							checked={this.state.measType === 'projectCount'} 
 							onChange={this.setMeasType.bind(this)} />Project Count

@@ -26,6 +26,11 @@
 	export const RECEIVE_CHART_DATA = 'RECEIVE_CHART_DATA';
 
 
+	/*SETTINGS events*/
+
+	export const SET_FUNDING_TYPE = 'SET_FUNDING_TYPE';
+	
+
 	/*LAYERS events*/
 	export const LOAD_PROJECT_GEOJSON_SUCCESS = 'LOAD_PROJECT_GEOJSON_SUCCESS';
 	

@@ -1,0 +1,16 @@
+@import '../../../stylesheets/base.scss';
+
+.settings-container{
+	padding: 10px;
+	position: fixed;
+	top: 102px;
+	right: 0px;
+	background-color: rgba(247, 247, 247, 0.93);
+	left: initial;
+	overflow: hidden;
+	width: 40%;
+	border-color: #EEE;
+	border-style: solid;
+	border-width: 2px;
+	z-index: 1000;
+}

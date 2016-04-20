@@ -106,7 +106,6 @@ class Component extends React.Component {
 
 
 const stateToProps = (state, props) => {
-	debugger;
 	return {
 		isProjectVisible:(state.map.layers.findIndex(l=>l.name=='project') > -1),
 		isTotalFundingVisible:state.map.layers.findIndex(l=>l.name=='funding') > -1,

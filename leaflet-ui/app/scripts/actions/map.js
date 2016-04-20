@@ -16,7 +16,6 @@ const loadLayerFailed=(type,error)=>{
 export const toggleVisibility=(name,visible,params)=>{
 
 	return (dispatch, getState) => {
-	debugger;
 		let layers=getState().map.layers;
 		if (!layers.find(l=> l.name==name)){
 			//TODO:take params from filters state

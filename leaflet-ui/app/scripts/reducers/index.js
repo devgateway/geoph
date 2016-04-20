@@ -3,6 +3,7 @@ import language from './language';
 import filters from './filters';
 import map from './map';
 import charts from './charts';
+import settings from './settings';
 
 import {routerReducer}  from 'react-router-redux';
 
@@ -13,6 +14,7 @@ const geophApp = combineReducers({
   filters,
   map,
   charts,
+  settings,
   routing: routerReducer
 })
 
