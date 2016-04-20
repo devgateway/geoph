@@ -63,7 +63,6 @@ import { render, unmountComponentAtNode } from 'react-dom';
     path.pointRadius(this.props.map.getZoom()*1.5);
 
     var points = this.g.selectAll("path").data(data, function(d) {return d.id;});
-    debugger;
     points.enter().append("path");
     points.exit().remove();
 

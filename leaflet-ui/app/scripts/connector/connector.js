@@ -89,7 +89,7 @@ class Connector {
 		return new Promise( (resolve, reject) => {
 			let url=Settings.get('API',options.ep);
 			const {level,quality} = options.settings;
-			const {id}=options;
+			const {id, filters}=options;
 	
 			if (level){
 				url=url.replace('${level}',level);
@@ -97,7 +97,8 @@ class Connector {
 			if (quality){
 				Object.assign(params,{quality})
 			}
-
+			Object.assign(params, filters)
+			
 			this.call(GET,url, params).then((data) => {
 				/*apply any data transformation*/
 				

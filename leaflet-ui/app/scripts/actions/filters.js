@@ -1,6 +1,6 @@
 import * as Constants from '../constants/constants';
 import Connector from '../connector/connector';
-import {loadProjects, loadFunding} from './map';
+import {applyFiltersToLayers} from './map';
 import {fetchChartData} from './charts';
 import {collectValues} from '../util/filterUtil';
 
@@ -14,8 +14,7 @@ export const requestFilterData = (filter) => {
 export const applyFilter = (filterType) => {
   return (dispatch, getState) => {
     let filters = collectValues(getState().filters);
-    dispatch(loadProjects('region', filters)); //TODO take the level from getState().map 
-    dispatch(loadFunding('region', filters)); //TODO take the level from getState().map 
+    dispatch(applyFiltersToLayers(filters));
     dispatch(fetchChartData('fundingAgency', filters));
     dispatch(fetchChartData('sector', filters));
     dispatch(fetchChartData('impAgency', filters));
