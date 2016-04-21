@@ -1,6 +1,6 @@
-{	
+{
 	"welcome": "This is a welcome message!!",
-	"general":{
+	"general": {
 		"hello": "Hello! This is a test..."
 	},
 
@@ -9,5 +9,22 @@
 			"english": "English",
 			"spanish": "Spanish"
 		}
+	},
+
+	"control": {
+		"layers": {
+			"stats": "Statistical",
+			"projects": "Projects & Statistical",
+			"project": "Projects points",
+			"poverty": "Poverty",
+			"population": "Population",
+			"funding": "Total Funding",
+			"indicators": "Indicators",
+			"geophotos": "Geotagged Photos"
+		}
+	},
+
+	"map": {
+		
 	}
 }
