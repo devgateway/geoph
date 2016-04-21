@@ -1,5 +1,6 @@
 package org.devgateway.geoph.persistence;
 
+import org.apache.commons.lang3.StringUtils;
 import org.devgateway.geoph.model.AppMap;
 import org.devgateway.geoph.persistence.repository.AppMapRepository;
 import org.devgateway.geoph.services.AppMapService;
@@ -21,8 +22,11 @@ public class AppMapServiceImpl implements AppMapService {
     AppMapRepository repository;
 
     @Override
-    public List<AppMap> findByName(String name) {
-        return repository.findByName(name);
+    public List<AppMap> findByNameOrDescription(String name) {
+        if(StringUtils.isNotBlank(name)){
+            return repository.findByNameOrDescription(name.toLowerCase());
+        }
+        return null;
     }
 
     @Override

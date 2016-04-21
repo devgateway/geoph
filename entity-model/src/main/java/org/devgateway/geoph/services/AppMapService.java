@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface AppMapService {
 
-    List<AppMap> findByName(String name);
+    List<AppMap> findByNameOrDescription(String name);
 
     AppMap findByKey(String key);
 

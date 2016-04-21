@@ -10,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -25,6 +27,12 @@ public class MapController {
 
     private final AppMapService service;
 
+    @RequestMapping(method = GET)
+    public Page<AppMap> findMaps( @PageableDefault(page = 0, size = 20, sort = "id") final Pageable pageable) {
+        LOGGER.debug("findMaps");
+        return service.findAll(pageable);
+    }
+
     @Autowired
     public MapController(AppMapService service) {
         this.service = service;
@@ -39,12 +47,6 @@ public class MapController {
         return service.save(appMap);
     }
 
-    @RequestMapping(method = GET)
-    public Page<AppMap> findMaps( @PageableDefault(page = 0, size = 20, sort = "id") final Pageable pageable) {
-        LOGGER.debug("findMaps");
-        return service.findAll(pageable);
-    }
-
     @RequestMapping(value = "/id/{id}", method = GET)
     public AppMap findMapById(@PathVariable final long id) {
         LOGGER.debug("findMapById");
@@ -55,6 +57,13 @@ public class MapController {
     public AppMap findMapByKey(@PathVariable final String key) {
         LOGGER.debug("findMapByKey");
         return service.findByKey(key);
+    }
+
+
+    @RequestMapping(value = "/search/{name}", method = GET)
+    public List <AppMap> findMapByName(@PathVariable final String name) {
+        LOGGER.debug("findMapByKey");
+        return service.findByNameOrDescription(name);
     }
 
 }
