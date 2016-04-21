@@ -84,7 +84,7 @@ public class GeoJsonController extends CrossOriginSupport {
                 GeometryDetailLevelEnum.MEDIUM.getLevel(), params);
     }
 
-    @RequestMapping(value = "/stats/{level}/funding/detail/{detail}", method = GET)
+    @RequestMapping(value = "/stats/{level}/funding/detail/{detail:.+}", method = GET)
     public FeatureCollection getGeoJsonStatisticalDetailed(
             @PathVariable final String level,
             @PathVariable final double detail,
