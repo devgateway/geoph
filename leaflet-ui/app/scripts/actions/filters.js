@@ -15,9 +15,7 @@ export const applyFilter = (filterType) => {
   return (dispatch, getState) => {
     let filters = collectValues(getState().filters);
     dispatch(applyFiltersToLayers(filters));
-    dispatch(fetchChartData('fundingAgency', filters));
-    dispatch(fetchChartData('sector', filters));
-    dispatch(fetchChartData('impAgency', filters));
+    dispatch(fetchChartData(filters));
   }
 }
 

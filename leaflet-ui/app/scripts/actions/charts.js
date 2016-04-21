@@ -2,26 +2,24 @@ import * as Constants from '../constants/constants';
 import Settings from '../util/settings';
 import Connector from '../connector/connector';
 
-export const requestChartData = (chart) => {
+export const requestChartData = () => {
   return {
-    type: Constants.REQUEST_CHART_DATA,
-    chart
+    type: Constants.REQUEST_CHART_DATA
   }
 }
 
-export const receiveChartData = (chart, data) => {
+export const receiveChartData = (data) => {
   return {
     type: Constants.RECEIVE_CHART_DATA,
-    chart,
     data: data,
     receivedAt: Date.now()
   }
 }
 
-export const fetchChartData = (chart, filters) => {
+export const fetchChartData = (filters) => {
   return dispatch => {
-    dispatch(requestChartData(chart))
-    return Connector.getChartData(chart, filters)
-    .then(req => dispatch(receiveChartData(chart, req)))
+    dispatch(requestChartData())
+    return Connector.getChartData(filters)
+    .then(req => dispatch(receiveChartData(req)))
   }
 }

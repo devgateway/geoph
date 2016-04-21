@@ -7,7 +7,7 @@ class Settings extends React.Component {
 
   constructor() {
     super();
-    this.state = {'showSettings': false, 'fundingType': 'pd'};
+    this.state = {'showSettings': false};
   }
 
   toggleSettingsView() {
@@ -19,6 +19,16 @@ class Settings extends React.Component {
     this.setState({'fundingType': ev.target.value});
   }
 
+  changeFundingMeasure(ev){
+    this.props.onSetFundingType({measure: ev.target.value, type: this.props.fundingType.type});
+    //this.setState({'fundingType': ev.target.value});
+  }
+
+  changeFundingType(ev){
+    this.props.onSetFundingType({measure: this.props.fundingType.measure, type: ev.target.value});
+    //this.setState({'fundingType': ev.target.value});
+  }
+
   render() {
     return (
       <li ><div className="options-icons settings" onClick={this.toggleSettingsView.bind(this)}></div><span onClick={this.toggleSettingsView.bind(this)}>Settings</span>
@@ -27,28 +37,21 @@ class Settings extends React.Component {
             <h2>Funding Type </h2>
             <br />
             <div className="chart-type-selector">
-              <div className="chart-type-option"><input type="radio" 
-                value='ac'
-                checked={this.state.fundingType ==='ac'} 
-                onChange={this.setFunding.bind(this)} />Actual commitments
+              <div className="chart-type-option">
+                <select className='form-control input-sm' value={this.props.fundingType.measure} onChange={this.changeFundingMeasure.bind(this)}>
+                  <option value='commitments'>Commitments</option>
+                  <option value='disbursements'>Disbursements</option>
+                  <option value='expenditures'>Expenditures</option>
+                </select>
               </div>
-              <div className="chart-type-option"><input type="radio"  
-                value='ad' 
-                checked={this.state.fundingType === 'ad'} 
-                onChange={this.setFunding.bind(this)} />Actual disbursements
-              </div> 
-              <div className="chart-type-option"><input type="radio" 
-                value='pc'
-                checked={this.state.fundingType ==='pc'} 
-                onChange={this.setFunding.bind(this)} />Planned commitments
-              </div>
-              <div className="chart-type-option"><input type="radio"  
-                value='pd' 
-                checked={this.state.fundingType === 'pd'} 
-                onChange={this.setFunding.bind(this)} />Planned disbursements
-              </div>            
+              <div className="chart-type-option">
+                <select className='form-control input-sm' value={this.props.fundingType.type} onChange={this.changeFundingType.bind(this)}>
+                  <option value='actual'>Actual</option>
+                  <option value='cancelled'>Cancelled</option>
+                  <option value='target'>Target</option>
+                </select>
+              </div>               
             </div> 
-            <hr /> 
           </div>
         : null}
       </li>
@@ -58,15 +61,15 @@ class Settings extends React.Component {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    onSetFundingType: (type) => {
-      dispatch(setFundingType(type));
+    onSetFundingType: (fundingType) => {
+      dispatch(setFundingType(fundingType));
     }
   }
 }
 
 const mapStateToProps = (state, props) => {
   return {
-    settings: state.settings
+    fundingType: state.settings.fundingType
   }
 }
 

@@ -4,9 +4,13 @@ const charts = (state = {}, action) => {
   switch (action.type) {
     case Constants.RECEIVE_CHART_DATA:
     case Constants.REQUEST_CHART_DATA:
-      return Object.assign({}, state, {
-        [action.chart]: chart(state[action.chart], action)
-      })
+      let chartsObj = {};
+      for(var key in action.data){
+          let act = {type: action.type, data: action.data[key]};
+          //Object.assign(chartsObj, {key: chart(state[key], act)})
+          chartsObj[key] = chart(state[key], act);
+      }
+      return Object.assign({}, state, chartsObj)
     default:
       return state
   }
@@ -24,8 +28,7 @@ const chart = (state = {
     case Constants.RECEIVE_CHART_DATA:
       return Object.assign({}, state, {
         data: action.data, 
-        isFetching: false,
-        lastUpdated: action.receivedAt
+        isFetching: false
       })
     default:
       return state

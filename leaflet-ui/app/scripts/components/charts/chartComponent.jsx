@@ -22,12 +22,20 @@ class ChartComponent extends React.Component {
 		let meas = measure && this.state.measType=='funding'? measure : 'projectCount';
 		let labels = [];
 		let values = [];
-		if (chartData){
+		if (chartData && chartData.map){
 			chartData.map((i) => {
-				if (i[meas] && i[meas].length>0){
-					let label = i[dimension].length>35? i[dimension].substr(0,32)+'...' : i[dimension];
-					labels.push(label);
-					values.push(i[meas]);
+				if (meas=='projectCount'){
+					if (i[meas] && i[meas].length>0){
+						let label = i[dimension].length>35? i[dimension].substr(0,32)+'...' : i[dimension];
+						labels.push(label);
+						values.push(i[meas]);
+					}
+				} else {
+					if (i[meas.measure][meas.type] && i[meas.measure][meas.type].length>0){
+						let label = i[dimension].length>35? i[dimension].substr(0,32)+'...' : i[dimension];
+						labels.push(label);
+						values.push(i[meas.measure][meas.type]);
+					}
 				}
 			});
 		}
@@ -80,11 +88,18 @@ class ChartComponent extends React.Component {
 		let meas = measure && this.state.measType=='funding'? measure : 'projectCount';
 		let itemNames = [];
 		let values = [];
-		if (chartData){
+		if (chartData  && chartData.map){
 			chartData.map((i) => {
-				if (i[meas] && i[meas].length>0){
-					itemNames.push(i[dimension]);
-					values.push(i[meas]);
+				if (meas=='projectCount'){
+					if (i[meas] && i[meas].length>0){
+						itemNames.push(i[dimension]);
+						values.push(i[meas]);
+					}
+				} else {
+					if (i[meas.measure][meas.type] && i[meas.measure][meas.type].length>0){
+						itemNames.push(i[dimension]);
+						values.push(i[meas.measure][meas.type]);
+					}
 				}
 			});
 		}
@@ -94,7 +109,7 @@ class ChartComponent extends React.Component {
 					type: 'bar',   
 			        x: itemNames,  
 			        y: values,    
-			        name: meas,
+			        //name: meas,
 					"marker":{  
 					 	"color": '#93C364'
 					}
@@ -130,7 +145,6 @@ class ChartComponent extends React.Component {
 
 	render() {
 		var chartData = this.props.chartType || (this.state.chartType=='bar'? this.parseDataForBarchart() : this.parseDataForPiechart());
-	    var meas = this.props.measure || (this.state.chartType=='bar'? this.parseDataForBarchart() : this.parseDataForPiechart());
 	    return (
 	    	<div className="chart">
 	    		<div className="chart-title">

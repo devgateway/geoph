@@ -125,9 +125,9 @@ class Connector {
 		});
 	}
 
-	getChartData(chart, filters) {
+	getChartData(filters) {
 		return new Promise( (resolve, reject) => {
-			let path = Settings.get('API','CHARTS')[chart];
+			let path = Settings.get('API','CHARTS');
 			if (path.mock) {
 				this.call(GET,path.path, {}, true).then((data) => {
 					resolve(data);		
