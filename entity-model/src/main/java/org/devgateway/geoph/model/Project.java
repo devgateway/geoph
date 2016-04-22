@@ -31,7 +31,6 @@ import java.util.Set;
                 @NamedAttributeNode("fundingAgency"),
                 @NamedAttributeNode("originalCurrency"),
                 @NamedAttributeNode("status"),
-                @NamedAttributeNode("grantType"),
                 @NamedAttributeNode("grantClassification"),
                 @NamedAttributeNode("locations"),
                 @NamedAttributeNode("sectors"),
@@ -84,9 +83,6 @@ public class Project extends GenericPersistable implements Serializable {
 
     @Column(name = "period_performance_end")
     private Date periodPerformanceEnd;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.MERGE)
-    private TransactionType grantType;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.MERGE)
     private Classification grantClassification;
@@ -240,14 +236,6 @@ public class Project extends GenericPersistable implements Serializable {
 
     public void setPeriodPerformanceEnd(Date periodPerformanceEnd) {
         this.periodPerformanceEnd = periodPerformanceEnd;
-    }
-
-    public TransactionType getGrantType() {
-        return grantType;
-    }
-
-    public void setGrantType(TransactionType grantType) {
-        this.grantType = grantType;
     }
 
     public Classification getGrantClassification() {

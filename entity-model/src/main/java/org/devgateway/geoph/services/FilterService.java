@@ -5,6 +5,7 @@ import org.devgateway.geoph.util.LocationAdmLevelEnum;
 
 
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -28,4 +29,6 @@ public interface FilterService {
     List<Status> findAllStatuses();
 
     List<PhysicalStatus> findAllPhysicalStatus();
+
+    List<Map<String,Object>> findAllFlowTypes();
 }

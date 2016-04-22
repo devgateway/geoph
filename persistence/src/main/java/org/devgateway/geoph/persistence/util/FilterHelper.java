@@ -66,6 +66,10 @@ public class FilterHelper {
                     Join<Project, Transaction> transactionJoin = projectRoot.join(Project_.transactions);
                     predicates.add(transactionJoin.get(Transaction_.flowType).in(params.getFlowTypes()));
                 }
+                if (params.getClassifications() != null) {
+                    Join<Project, Classification> classificationJoin = projectRoot.join(Project_.grantClassification);
+                    predicates.add(classificationJoin.get(Classification_.id).in(params.getClassifications()));
+                }
             }
         }
     }
@@ -120,6 +124,10 @@ public class FilterHelper {
                 if (params.getFlowTypes() != null) {
                     Join<Project, Transaction> transactionJoin = projectJoin.join(Project_.transactions);
                     predicates.add(transactionJoin.get(Transaction_.flowType).in(params.getFlowTypes()));
+                }
+                if (params.getClassifications() != null) {
+                    Join<Project, Classification> classificationJoin = projectJoin.join(Project_.grantClassification);
+                    predicates.add(classificationJoin.get(Classification_.id).in(params.getClassifications()));
                 }
             }
         }

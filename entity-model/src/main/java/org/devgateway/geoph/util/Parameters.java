@@ -9,10 +9,9 @@ import org.springframework.data.domain.Pageable;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
+import static org.devgateway.geoph.util.Constants.FLOW_TYPE_ID_SEPARATOR;
 import static org.devgateway.geoph.util.Constants.PARAM_SEPARATOR;
 
 /**
@@ -46,6 +45,8 @@ public class Parameters {
     private List<Long> fundingAgencies;
 
     private List<String> flowTypes;
+
+    private List<Integer> classifications;
 
     private List<Integer> locationLevels;
 
@@ -228,8 +229,22 @@ public class Parameters {
         this.flowTypes = flowTypes;
     }
 
-    public void setFlowTypes(String flowTypes) {
-        this.flowTypes = flowTypes!=null? convertStringToFlowTypesList(flowTypes):null;
+    public void setFlowTypes(String filters) {
+        if(StringUtils.isNotBlank(filters)) {
+            for(String filter : filters.split(PARAM_SEPARATOR)){
+                if(filter.indexOf(FLOW_TYPE_ID_SEPARATOR)>0){
+                    if(classifications==null){
+                        classifications = new ArrayList<>();
+                    }
+                    classifications.add(Integer.parseInt(filter.substring(filter.indexOf(FLOW_TYPE_ID_SEPARATOR)+1)));
+                } else {
+                    if(flowTypes==null){
+                        flowTypes = new ArrayList<>();
+                    }
+                    flowTypes.add(FlowTypeEnum.getEnumById(Integer.parseInt(filter)).name().toLowerCase());
+                }
+            }
+        }
     }
 
     public String getProjectTitle() {
@@ -240,28 +255,12 @@ public class Parameters {
         this.projectTitle = projectTitle;
     }
 
-    private List<String> convertStringToFlowTypesList(String flowTypes) {
-        List<String> ret = null;
-        if(StringUtils.isNotBlank(flowTypes)) {
-            ret = Lists.transform(Arrays.asList(flowTypes.split(PARAM_SEPARATOR)), new Function<String, String>() {
-                @Override
-                public String apply(String input) {
-                    String ret = null;
-                    switch (Integer.parseInt(input)) {
-                        case 1:
-                            ret = FlowTypeEnum.LOAN.name().toLowerCase();
-                            break;
-                        case 2:
-                            ret = FlowTypeEnum.GRANT.name().toLowerCase();
-                            break;
-                        default:
-                            ret = FlowTypeEnum.PMC.name().toLowerCase();
-                    }
-                    return ret;
-                }
-            });
-        }
-        return ret;
+    public List<Integer> getClassifications() {
+        return classifications;
+    }
+
+    public void setClassifications(List<Integer> classifications) {
+        this.classifications = classifications;
     }
 
     public Pageable getPageable() {

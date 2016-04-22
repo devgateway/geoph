@@ -45,4 +45,5 @@ public class Constants {
     public static final String ALPHABET = "BCDFGHIJKLMNPQRSTVWXZ";
     public static final int ALPHABET_NUMBER = ALPHABET.length();
 
+    public static final String FLOW_TYPE_ID_SEPARATOR = ".";
 }

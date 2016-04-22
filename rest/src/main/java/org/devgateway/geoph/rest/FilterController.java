@@ -39,13 +39,7 @@ public class FilterController extends CrossOriginSupport {
     @RequestMapping(value = "/flowType", method = GET)
     public GenericResponse findAllFlowTypes() {
         LOGGER.debug("findAllFlowTypes");
-        List<Map<String, String>> flowTypes = new ArrayList<>();
-        for(FlowTypeEnum flowType: FlowTypeEnum.values()){
-            Map<String, String> flowTypesMap = new HashMap<>();
-            flowTypesMap.put("id", String.valueOf(flowType.getId()));
-            flowTypesMap.put("name", flowType.name());
-            flowTypes.add(flowTypesMap);
-        }
+        List<Map<String, Object>> flowTypes = service.findAllFlowTypes();
         GenericResponse resp = new GenericResponse(
                 "Flow Types",
                 FILTER_FLOW_TYPE,

@@ -16,4 +16,13 @@ public enum FlowTypeEnum {
     public int getId() {
         return id;
     }
+
+    public static FlowTypeEnum getEnumById(long id){
+        for(FlowTypeEnum e:FlowTypeEnum.values()){
+            if(e.getId()==id){
+                return e;
+            }
+        }
+        return null;
+    }
 }
