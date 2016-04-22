@@ -35,6 +35,8 @@ import java.util.Set;
                 @NamedAttributeNode("grantClassification"),
                 @NamedAttributeNode("locations"),
                 @NamedAttributeNode("sectors"),
+                @NamedAttributeNode("climateChange"),
+                @NamedAttributeNode("genderResponsiveness"),
                 @NamedAttributeNode("physicalStatus")
         })
 public class Project extends GenericPersistable implements Serializable {
@@ -102,6 +104,20 @@ public class Project extends GenericPersistable implements Serializable {
             inverseJoinColumns = { @JoinColumn(name = "sector_id",
                     nullable = false, updatable = false) })
     private Set<Sector> sectors;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinTable(name = "project_climate_change", joinColumns = {
+            @JoinColumn(name = "project_id", nullable = false, updatable = false) },
+            inverseJoinColumns = { @JoinColumn(name = "climate_change_id",
+                    nullable = false, updatable = false) })
+    private Set<ClimateChange> climateChange;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinTable(name = "project_gender_responsiveness", joinColumns = {
+            @JoinColumn(name = "project_id", nullable = false, updatable = false) },
+            inverseJoinColumns = { @JoinColumn(name = "gender_responsiveness_id",
+                    nullable = false, updatable = false) })
+    private Set<GenderResponsiveness> genderResponsiveness;
 
     public Project() {
     }
@@ -256,5 +272,21 @@ public class Project extends GenericPersistable implements Serializable {
 
     public void setSectors(Set<Sector> sectors) {
         this.sectors = sectors;
+    }
+
+    public Set<ClimateChange> getClimateChange() {
+        return climateChange;
+    }
+
+    public void setClimateChange(Set<ClimateChange> climateChange) {
+        this.climateChange = climateChange;
+    }
+
+    public Set<GenderResponsiveness> getGenderResponsiveness() {
+        return genderResponsiveness;
+    }
+
+    public void setGenderResponsiveness(Set<GenderResponsiveness> genderResponsiveness) {
+        this.genderResponsiveness = genderResponsiveness;
     }
 }
