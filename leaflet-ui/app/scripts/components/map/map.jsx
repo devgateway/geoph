@@ -16,25 +16,6 @@ var southWest = latLng(4.3245014930192, 115.224609375),
 northEast = latLng(23.140359987886118,134.3408203125),
 bounds = latLngBounds(southWest, northEast);
 
-const styleProvider=(d)=>{
-  return {
-    fill:()=>{return '#ff9966'},
-    stroke:()=>{return '#993300'},
-    fillOpacity:()=>{0.5},
-    strokeOpacity:()=>{0.7},
-  }
-}
-
-const higthligthStyleProvider=()=>{
- return {
-  fill:()=>{return '#FF0000'},
-  stroke:()=>{return '#993300'},
-  fillOpacity:()=>{0.5},
-  strokeOpacity:()=>{0.7},
-}
-}
-
-
 const view = React.createClass({
 
 	getInitialState() {
@@ -50,9 +31,9 @@ const view = React.createClass({
 		return	layers.map((l)=>{
 			if (l.get('layers')){
 				return this.getLayers(l.get('layers'));
-			}else{
+			}else if(l.get('visible')){
 				let data=l.get('data')?l.get('data').toJS():null;
-				return (<SvgLayer key={l.get('id')} data={data} styleProvider={styleProvider} higthligthStyleProvider={higthligthStyleProvider}/>)
+				return (<SvgLayer visible={l.get('visible')} key={l.get('id')} data={data}/>)
 			} 
 		}).reduce((l)=>{
 			if (l)

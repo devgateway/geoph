@@ -40,7 +40,7 @@ export const toggleVisibility=(id,visible,params)=>{
 
 /*Get data of an specif layer passing layer options and getstate in order to take current filters*/
 const loadLayer=(options,getState)=>{
-
+	//TODO:take filtes
 	return (dispatch, getState) =>{
 		
 		Connector.loadLayerByOptions(options).then(
