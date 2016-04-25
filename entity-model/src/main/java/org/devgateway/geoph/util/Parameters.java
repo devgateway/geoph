@@ -50,6 +50,10 @@ public class Parameters {
 
     private List<Integer> locationLevels;
 
+    private List<Long> climateChanges;
+
+    private List<Long> genderResponsiveness;
+
     private String projectTitle;
 
     private Pageable pageable;
@@ -60,7 +64,8 @@ public class Parameters {
     public Parameters(String startDate, String endDate, String periodPerformanceStart,
                       String periodPerformanceEnd, String sectors, String statuses,
                       String locations, String projects, String impAgencies, String fundingAgencies,
-                      String flowTypes, String projectTitle, String physicalStatuses, Pageable pageable) {
+                      String flowTypes, String projectTitle, String physicalStatuses,
+                      String climateChanges, String genderResponsiveness, Pageable pageable) {
         this.setStartDate(startDate);
         this.setEndDate(endDate);
         this.setPeriodPerformanceStart(periodPerformanceStart);
@@ -74,6 +79,8 @@ public class Parameters {
         this.setFlowTypes(flowTypes);
         this.projectTitle = projectTitle;
         this.setPhysicalStatuses(physicalStatuses);
+        this.setClimateChanges(climateChanges);
+        this.setGenderResponsiveness(genderResponsiveness);
         this.setPageable(pageable);
     }
 
@@ -263,6 +270,30 @@ public class Parameters {
         this.classifications = classifications;
     }
 
+    public List<Long> getClimateChanges() {
+        return climateChanges;
+    }
+
+    public void setClimateChanges(List<Long> climateChanges) {
+        this.climateChanges = climateChanges;
+    }
+
+    public void setClimateChanges(String climateChanges) {
+        this.climateChanges = climateChanges!=null? convertStringToLongList(climateChanges):null;
+    }
+
+    public List<Long> getGenderResponsiveness() {
+        return genderResponsiveness;
+    }
+
+    public void setGenderResponsiveness(List<Long> genderResponsiveness) {
+        this.genderResponsiveness = genderResponsiveness;
+    }
+
+    public void setGenderResponsiveness(String genderResponsiveness) {
+        this.genderResponsiveness = genderResponsiveness!=null? convertStringToLongList(genderResponsiveness):null;
+    }
+
     public Pageable getPageable() {
         return pageable;
     }
@@ -270,8 +301,6 @@ public class Parameters {
     public void setPageable(Pageable pageable) {
         this.pageable = pageable;
     }
-
-
 
     private static List<Integer> convertAdmStringToIntegerList(final String values){
         List<Integer> ret = null;

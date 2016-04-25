@@ -70,6 +70,14 @@ public class FilterHelper {
                     Join<Project, Classification> classificationJoin = projectRoot.join(Project_.grantClassification);
                     predicates.add(classificationJoin.get(Classification_.id).in(params.getClassifications()));
                 }
+                if (params.getClimateChanges() != null) {
+                    Join<Project, ClimateChange> climateChangeJoin = projectRoot.join(Project_.climateChange);
+                    predicates.add(climateChangeJoin.get(ClimateChange_.id).in(params.getClimateChanges()));
+                }
+                if (params.getGenderResponsiveness() != null) {
+                    Join<Project, GenderResponsiveness> genderResponsivenessJoin = projectRoot.join(Project_.genderResponsiveness);
+                    predicates.add(genderResponsivenessJoin.get(GenderResponsiveness_.id).in(params.getGenderResponsiveness()));
+                }
             }
         }
     }
@@ -128,6 +136,14 @@ public class FilterHelper {
                 if (params.getClassifications() != null) {
                     Join<Project, Classification> classificationJoin = projectJoin.join(Project_.grantClassification);
                     predicates.add(classificationJoin.get(Classification_.id).in(params.getClassifications()));
+                }
+                if (params.getClimateChanges() != null) {
+                    Join<Project, ClimateChange> climateChangeJoin = projectJoin.join(Project_.climateChange);
+                    predicates.add(climateChangeJoin.get(ClimateChange_.id).in(params.getClimateChanges()));
+                }
+                if (params.getGenderResponsiveness() != null) {
+                    Join<Project, GenderResponsiveness> genderResponsivenessJoin = projectJoin.join(Project_.genderResponsiveness);
+                    predicates.add(genderResponsivenessJoin.get(GenderResponsiveness_.id).in(params.getGenderResponsiveness()));
                 }
             }
         }

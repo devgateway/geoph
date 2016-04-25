@@ -49,12 +49,14 @@ public class GeoJsonController extends CrossOriginSupport {
             @RequestParam(value = FILTER_FUNDING_AGENCY, required = false) String fundingAgencies,
             @RequestParam(value = FILTER_FLOW_TYPE, required = false) String flowTypes,
             @RequestParam(value = FILTER_PROJECT_TITLE, required = false) String projectTitle,
-            @RequestParam(value = FILTER_PHYSICAL_STATUS, required = false) String physicalStatuses){
+            @RequestParam(value = FILTER_PHYSICAL_STATUS, required = false) String physicalStatuses,
+            @RequestParam(value = FILTER_CLIMATE_CHANGE, required = false) String climateChange,
+            @RequestParam(value = FILTER_GENDER_RESPONSIVENESS, required = false) String genderResponsiveness){
         LOGGER.debug("getGeoJsonByLocationType");
         Parameters params = new Parameters(startDate, endDate, performanceStart,
                 performanceEnd, sectors, statuses, locations,
                 projects, impAgencies, fundingAgencies, flowTypes,
-                projectTitle, physicalStatuses, null);
+                projectTitle, physicalStatuses, climateChange, genderResponsiveness, null);
         params.setLocationLevel(level);
         return service.getLocationsByParams(params);
     }
@@ -74,12 +76,14 @@ public class GeoJsonController extends CrossOriginSupport {
             @RequestParam(value = FILTER_FUNDING_AGENCY, required = false) String fundingAgencies,
             @RequestParam(value = FILTER_FLOW_TYPE, required = false) String flowTypes,
             @RequestParam(value = FILTER_PROJECT_TITLE, required = false) String projectTitle,
-            @RequestParam(value = FILTER_PHYSICAL_STATUS, required = false) String physicalStatuses){
+            @RequestParam(value = FILTER_PHYSICAL_STATUS, required = false) String physicalStatuses,
+            @RequestParam(value = FILTER_CLIMATE_CHANGE, required = false) String climateChange,
+            @RequestParam(value = FILTER_GENDER_RESPONSIVENESS, required = false) String genderResponsiveness){
         LOGGER.debug("getGeoJsonForShapes");
         Parameters params = new Parameters(startDate, endDate, performanceStart,
                 performanceEnd, sectors, statuses, locations,
                 projects, impAgencies, fundingAgencies, flowTypes,
-                projectTitle, physicalStatuses, null);
+                projectTitle, physicalStatuses, climateChange, genderResponsiveness, null);
         return service.getShapesByLevelAndDetail(LocationAdmLevelEnum.valueOf(level.toUpperCase()),
                 GeometryDetailLevelEnum.MEDIUM.getLevel(), params);
     }
@@ -100,12 +104,14 @@ public class GeoJsonController extends CrossOriginSupport {
             @RequestParam(value = FILTER_FUNDING_AGENCY, required = false) String fundingAgencies,
             @RequestParam(value = FILTER_FLOW_TYPE, required = false) String flowTypes,
             @RequestParam(value = FILTER_PROJECT_TITLE, required = false) String projectTitle,
-            @RequestParam(value = FILTER_PHYSICAL_STATUS, required = false) String physicalStatuses){
+            @RequestParam(value = FILTER_PHYSICAL_STATUS, required = false) String physicalStatuses,
+            @RequestParam(value = FILTER_CLIMATE_CHANGE, required = false) String climateChange,
+            @RequestParam(value = FILTER_GENDER_RESPONSIVENESS, required = false) String genderResponsiveness){
         LOGGER.debug("getGeoJsonForShapes2");
         Parameters params = new Parameters(startDate, endDate, performanceStart,
                 performanceEnd, sectors, statuses, locations,
                 projects, impAgencies, fundingAgencies, flowTypes,
-                projectTitle, physicalStatuses, null);
+                projectTitle, physicalStatuses, climateChange, genderResponsiveness, null);
         return service.getShapesByLevelAndDetail(LocationAdmLevelEnum.valueOf(level.toUpperCase()), detail, params);
     }
 

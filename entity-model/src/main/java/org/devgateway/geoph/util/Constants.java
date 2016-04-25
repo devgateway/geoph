@@ -9,10 +9,12 @@ public class Constants {
     public static final String PASS_ENCODE = "valar morghulis";
     public static final String PARAM_SEPARATOR = ",";
 
+    public static final String FILTER_CLIMATE_CHANGE = "cc";
     public static final String FILTER_START_DATE = "ds";
     public static final String FILTER_END_DATE = "de";
     public static final String FILTER_FLOW_TYPE = "ft";
     public static final String FILTER_FUNDING_AGENCY = "fa";
+    public static final String FILTER_GENDER_RESPONSIVENESS = "gr";
     public static final String FILTER_IMPLEMENTING_AGENCY = "ia";
     public static final String FILTER_LOCATION = "lo";
     public static final String FILTER_PERFORMANCE_START = "ps";
