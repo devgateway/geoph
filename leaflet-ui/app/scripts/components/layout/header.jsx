@@ -15,21 +15,20 @@ export default class Header extends React.Component {
   render() {
     return (
       <div className="header">
-      <div className="heading">
-      <h1>National Economic Development Authority (NEDA)</h1>
+        <div className="heading">
+          <h1>National Economic Development Authority (NEDA)</h1>
+        </div>
+        <div className="title">
+          <h2>Philippines Closed / Terminated Project Data Map</h2>
+          <ul className="options">
+            <FilterPopup />
+            <Settings />
+            <Basemap />
+            <LangSwitcher/>
+          </ul>
+        </div>
       </div>
-      <div className="title">
-      <h2>Philippines Closed / Terminated Project Data Map</h2>
-      <ul className="options">
-          <FilterPopup />
-          <Settings />
-          <Basemap />
-          <LangSwitcher/>
-
-     </ul>
-      </div>
-      </div>
-      )
+    )
   }
 }
 

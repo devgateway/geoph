@@ -39,6 +39,8 @@
 
 	export const LAYER_LOAD_FAILURE = 'LAYER_LOAD_FAILURE';
 
+	export const SET_BASEMAP = 'SET_BASEMAP';
+
 	/*Settings*/
 	export const PROJECT_GEOJSON ='PROJECT_GEOJSON';  
 	

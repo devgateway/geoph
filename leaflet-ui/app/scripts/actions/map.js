@@ -1,4 +1,4 @@
-import  {TOGGLE_LAYER,LAYER_LOAD_SUCCESS,LAYER_LOAD_FAILURE}  from '../constants/constants.js';
+import  {SET_BASEMAP, TOGGLE_LAYER,LAYER_LOAD_SUCCESS,LAYER_LOAD_FAILURE}  from '../constants/constants.js';
 
 import {getLayerById} from '../util/layersUtil.js';
 
@@ -58,3 +58,9 @@ const loadLayer=(options,getState)=>{
 		} 
 }
 
+export const setBaseMap=(basemap)=>{
+	return {
+	    type: SET_BASEMAP,
+	    basemap: basemap
+	}
+}

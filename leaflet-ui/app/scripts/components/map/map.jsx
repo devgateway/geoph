@@ -7,7 +7,8 @@ import SvgLayer from './layers/svg.jsx'
 import {latLngBounds,latLng} from 'leaflet'
 import * as Constants from '../../constants/constants.js';
 
-import {L, Popup, Map, Marker, TileLayer,ZoomControl,MapLayer,ScaleControl,LayerGroup} from 'react-leaflet'; 
+import {Popup, Map, Marker, TileLayer,ZoomControl,MapLayer,ScaleControl,LayerGroup} from 'react-leaflet'; 
+import L from 'leaflet';
 
 require('leaflet/dist/leaflet.css')
 require('./map.scss');
@@ -63,20 +64,19 @@ const view = React.createClass({
 	},
 
 	render(){
-		
 		return (
 			<Map className="map" zoom={13} bounds={bounds}>
-			<TileLayer url='http://{s}.tile.osm.org/{z}/{x}/{y}.png' attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'/>
-			{this.getLayers()}
+				<TileLayer url={this.props.map.get('basemap').get('url')}/>
+				{this.getLayers()}
 			</Map>
-			)
+		)
 	}
 });
 
 
 const stateToProps = (state,props) => {
 	
-	return {map:state.map};
+	return {map: state.map};
 }
 
 const MapView=connect(stateToProps)(view);
