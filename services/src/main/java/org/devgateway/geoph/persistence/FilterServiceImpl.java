@@ -9,7 +9,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author dbianco
@@ -37,6 +40,12 @@ public class FilterServiceImpl implements FilterService {
 
     @Autowired
     PhysicalStatusRepository physicalStatusRepository;
+
+    @Autowired
+    FlowTypeRepository flowTypeRepository;
+
+    @Autowired
+    ClassificationRepository classificationRepository;
 
     @Override
     public List<ImplementingAgency> findAllImpAgencies() {
@@ -94,6 +103,30 @@ public class FilterServiceImpl implements FilterService {
     public List<PhysicalStatus> findAllPhysicalStatus() {
         LOGGER.debug("Getting all statuses");
         return physicalStatusRepository.findAll();
+    }
+
+    @Override
+    public List<Map<String, Object>> findAllFlowTypes() {
+        List<Map<String, Object>> retList = new ArrayList<>();
+        List<FlowType> flowTypes = flowTypeRepository.findAll();
+        for(FlowType flowType : flowTypes){
+            Map<String, Object> flowTypesMap = new HashMap<>();
+            flowTypesMap.put("id", String.valueOf(flowType.getId()));
+            flowTypesMap.put("name", flowType.getName());
+            if(flowType.getName().toLowerCase().equals("grant")){
+                List<Classification> classifications = classificationRepository.findAll();
+                List<Map<String, Object>> classificationList = new ArrayList<>();
+                for(Classification classification:classifications){
+                    Map<String, Object> classificationMap = new HashMap<>();
+                    classificationMap.put("id", String.valueOf(flowType.getId()) +"."+ String.valueOf(classification.getId()));
+                    classificationMap.put("name", classification.getName());
+                    classificationList.add(classificationMap);
+                }
+                flowTypesMap.put("items", classificationList);
+            }
+            retList.add(flowTypesMap);
+        }
+        return retList;
     }
 
 }

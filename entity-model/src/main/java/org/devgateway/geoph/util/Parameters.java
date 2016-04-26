@@ -9,10 +9,9 @@ import org.springframework.data.domain.Pageable;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
+import static org.devgateway.geoph.util.Constants.FLOW_TYPE_ID_SEPARATOR;
 import static org.devgateway.geoph.util.Constants.PARAM_SEPARATOR;
 
 /**
@@ -47,7 +46,13 @@ public class Parameters {
 
     private List<String> flowTypes;
 
+    private List<Integer> classifications;
+
     private List<Integer> locationLevels;
+
+    private List<Long> climateChanges;
+
+    private List<Long> genderResponsiveness;
 
     private String projectTitle;
 
@@ -59,7 +64,8 @@ public class Parameters {
     public Parameters(String startDate, String endDate, String periodPerformanceStart,
                       String periodPerformanceEnd, String sectors, String statuses,
                       String locations, String projects, String impAgencies, String fundingAgencies,
-                      String flowTypes, String projectTitle, String physicalStatuses, Pageable pageable) {
+                      String flowTypes, String projectTitle, String physicalStatuses,
+                      String climateChanges, String genderResponsiveness, Pageable pageable) {
         this.setStartDate(startDate);
         this.setEndDate(endDate);
         this.setPeriodPerformanceStart(periodPerformanceStart);
@@ -73,6 +79,8 @@ public class Parameters {
         this.setFlowTypes(flowTypes);
         this.projectTitle = projectTitle;
         this.setPhysicalStatuses(physicalStatuses);
+        this.setClimateChanges(climateChanges);
+        this.setGenderResponsiveness(genderResponsiveness);
         this.setPageable(pageable);
     }
 
@@ -228,8 +236,22 @@ public class Parameters {
         this.flowTypes = flowTypes;
     }
 
-    public void setFlowTypes(String flowTypes) {
-        this.flowTypes = flowTypes!=null? convertStringToFlowTypesList(flowTypes):null;
+    public void setFlowTypes(String filters) {
+        if(StringUtils.isNotBlank(filters)) {
+            for(String filter : filters.split(PARAM_SEPARATOR)){
+                if(filter.indexOf(FLOW_TYPE_ID_SEPARATOR)>0){
+                    if(classifications==null){
+                        classifications = new ArrayList<>();
+                    }
+                    classifications.add(Integer.parseInt(filter.substring(filter.indexOf(FLOW_TYPE_ID_SEPARATOR)+1)));
+                } else {
+                    if(flowTypes==null){
+                        flowTypes = new ArrayList<>();
+                    }
+                    flowTypes.add(FlowTypeEnum.getEnumById(Integer.parseInt(filter)).name().toLowerCase());
+                }
+            }
+        }
     }
 
     public String getProjectTitle() {
@@ -240,28 +262,36 @@ public class Parameters {
         this.projectTitle = projectTitle;
     }
 
-    private List<String> convertStringToFlowTypesList(String flowTypes) {
-        List<String> ret = null;
-        if(StringUtils.isNotBlank(flowTypes)) {
-            ret = Lists.transform(Arrays.asList(flowTypes.split(PARAM_SEPARATOR)), new Function<String, String>() {
-                @Override
-                public String apply(String input) {
-                    String ret = null;
-                    switch (Integer.parseInt(input)) {
-                        case 1:
-                            ret = FlowTypeEnum.LOAN.name().toLowerCase();
-                            break;
-                        case 2:
-                            ret = FlowTypeEnum.GRANT.name().toLowerCase();
-                            break;
-                        default:
-                            ret = FlowTypeEnum.PMC.name().toLowerCase();
-                    }
-                    return ret;
-                }
-            });
-        }
-        return ret;
+    public List<Integer> getClassifications() {
+        return classifications;
+    }
+
+    public void setClassifications(List<Integer> classifications) {
+        this.classifications = classifications;
+    }
+
+    public List<Long> getClimateChanges() {
+        return climateChanges;
+    }
+
+    public void setClimateChanges(List<Long> climateChanges) {
+        this.climateChanges = climateChanges;
+    }
+
+    public void setClimateChanges(String climateChanges) {
+        this.climateChanges = climateChanges!=null? convertStringToLongList(climateChanges):null;
+    }
+
+    public List<Long> getGenderResponsiveness() {
+        return genderResponsiveness;
+    }
+
+    public void setGenderResponsiveness(List<Long> genderResponsiveness) {
+        this.genderResponsiveness = genderResponsiveness;
+    }
+
+    public void setGenderResponsiveness(String genderResponsiveness) {
+        this.genderResponsiveness = genderResponsiveness!=null? convertStringToLongList(genderResponsiveness):null;
     }
 
     public Pageable getPageable() {
@@ -271,8 +301,6 @@ public class Parameters {
     public void setPageable(Pageable pageable) {
         this.pageable = pageable;
     }
-
-
 
     private static List<Integer> convertAdmStringToIntegerList(final String values){
         List<Integer> ret = null;

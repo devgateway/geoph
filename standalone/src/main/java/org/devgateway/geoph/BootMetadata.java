@@ -52,19 +52,24 @@ public class BootMetadata {
                 "/sql/basic-data/implementing_agency_types.sql",
                 "/sql/basic-data/agencies.sql",
                 "/sql/basic-data/currencies.sql",
+                "/sql/basic-data/flow_type.sql",
                 "/sql/basic-data/statuses.sql",
                 "/sql/basic-data/physical_statuses.sql",
                 "/sql/basic-data/transaction_type.sql",
                 "/sql/basic-data/transaction_status.sql",
                 "/sql/basic-data/classifications.sql",
                 "/sql/basic-data/sectors.sql",
+                "/sql/basic-data/climate_change.sql",
+                "/sql/basic-data/gender_responsiveness.sql",
                 "/sql/basic-data/sector_items.sql",
                 "/sql/basic-data/projects.sql",
                 "/sql/basic-data/project_sectors.sql",
                 "/sql/basic-data/project_locations.sql",
-                "/sql/basic-data/transactions.sql"
-                //"/sql/basic-data/indicator.sql",
-                //"/sql/basic-data/indicator_detail.sql"
+                "/sql/basic-data/project_climate_change.sql",
+                "/sql/basic-data/project_gender_responsiveness.sql",
+                "/sql/basic-data/transactions.sql",
+                "/sql/basic-data/indicator.sql",
+                "/sql/basic-data/indicator_detail.sql"
                 );
 
         //The princess is in another castle

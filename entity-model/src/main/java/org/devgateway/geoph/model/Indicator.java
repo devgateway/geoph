@@ -1,5 +1,6 @@
 package org.devgateway.geoph.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -24,9 +25,6 @@ public class Indicator extends GenericPersistable implements Serializable {
 
     private String unit;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "indicator")
-    private Set<IndicatorDetail> details = new HashSet<>();
-
     public String getName() {
         return name;
     }
@@ -49,13 +47,5 @@ public class Indicator extends GenericPersistable implements Serializable {
 
     public void setUnit(String unit) {
         this.unit = unit;
-    }
-
-    public Set<IndicatorDetail> getDetails() {
-        return details;
-    }
-
-    public void setDetails(Set<IndicatorDetail> details) {
-        this.details = details;
     }
 }
