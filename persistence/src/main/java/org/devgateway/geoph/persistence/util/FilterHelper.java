@@ -15,6 +15,7 @@ public class FilterHelper {
 
     private static final Object LOCK_PROJECT = new Object() {};
     private static final Object LOCK_LOCATION = new Object() {};
+    private static final Object LOCK_TRANSACTION = new Object() {};
 
     public static void filterProjectQuery(Parameters params, CriteriaBuilder criteriaBuilder, Root<Project> projectRoot, List<Predicate> predicates) {
         synchronized (LOCK_PROJECT) {
@@ -42,10 +43,16 @@ public class FilterHelper {
                     predicates.add(locationJoin.get(Location_.id).in(params.getLocations()));
                 }
                 if (params.getStartDate() != null) {
-                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectRoot.get(Project_.periodStart), params.getStartDate()));
+                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectRoot.get(Project_.startDate), params.getStartDate()));
                 }
                 if (params.getEndDate() != null) {
-                    predicates.add(criteriaBuilder.lessThanOrEqualTo(projectRoot.get(Project_.periodEnd), params.getEndDate()));
+                    predicates.add(criteriaBuilder.lessThanOrEqualTo(projectRoot.get(Project_.endDate), params.getEndDate()));
+                }
+                if (params.getPeriodPerformanceStart() != null) {
+                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectRoot.get(Project_.periodPerformanceStart), params.getPeriodPerformanceStart()));
+                }
+                if (params.getPeriodPerformanceEnd() != null) {
+                    predicates.add(criteriaBuilder.lessThanOrEqualTo(projectRoot.get(Project_.periodPerformanceEnd), params.getPeriodPerformanceEnd()));
                 }
                 if (params.getFundingAgencies() != null) {
                     Join<Project, Agency> fundingAgencyJoin = projectRoot.join(Project_.fundingAgency);
@@ -91,10 +98,16 @@ public class FilterHelper {
                     predicates.add(physicalStatusJoin.get(PhysicalStatus_.id).in(params.getPhysicalStatuses()));
                 }
                 if (params.getStartDate() != null) {
-                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectJoin.get(Project_.periodStart), params.getStartDate()));
+                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectJoin.get(Project_.startDate), params.getStartDate()));
                 }
                 if (params.getEndDate() != null) {
-                    predicates.add(criteriaBuilder.lessThanOrEqualTo(projectJoin.get(Project_.periodEnd), params.getEndDate()));
+                    predicates.add(criteriaBuilder.lessThanOrEqualTo(projectJoin.get(Project_.endDate), params.getEndDate()));
+                }
+                if (params.getPeriodPerformanceStart() != null) {
+                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectJoin.get(Project_.periodPerformanceStart), params.getPeriodPerformanceStart()));
+                }
+                if (params.getPeriodPerformanceEnd() != null) {
+                    predicates.add(criteriaBuilder.lessThanOrEqualTo(projectJoin.get(Project_.periodPerformanceEnd), params.getPeriodPerformanceEnd()));
                 }
                 if (params.getFundingAgencies() != null) {
                     Join<Project, Agency> fundingAgencyJoin = projectJoin.join(Project_.fundingAgency, JoinType.LEFT);
@@ -109,6 +122,17 @@ public class FilterHelper {
                     predicates.add(transactionJoin.get(Transaction_.flowType).in(params.getFlowTypes()));
                 }
             }
+        }
+    }
+
+    public static void addTransactionJoin(CriteriaBuilder criteriaBuilder, List<Selection<?>> multiSelect,
+                                    Root<Project> projectRoot, int trxType, int trxStatus) {
+        synchronized (LOCK_TRANSACTION) {
+            Join<Project, Transaction> transactionJoin = projectRoot.join(Project_.transactions, JoinType.LEFT);
+            transactionJoin.on(transactionJoin.get(Transaction_.transactionTypeId).in(trxType),
+                    transactionJoin.get(Transaction_.transactionStatusId).in(trxStatus));
+            multiSelect.add(criteriaBuilder.sum(transactionJoin.get(Transaction_.amount)));
+            multiSelect.add(criteriaBuilder.countDistinct(transactionJoin));
         }
     }
 }

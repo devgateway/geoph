@@ -24,11 +24,6 @@ public class PublicInvestment extends Transaction implements Serializable {
     public PublicInvestment() {
     }
 
-    public PublicInvestment(Project project, double amount, Date date, String flowType, TransactionType transactionType, double fundingSupport) {
-        super(project, amount, date, flowType, transactionType);
-        this.fundingSupport = fundingSupport;
-    }
-
     public double getFundingSupport() {
         return fundingSupport;
     }

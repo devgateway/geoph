@@ -55,6 +55,7 @@ public class BootMetadata {
                 "/sql/basic-data/statuses.sql",
                 "/sql/basic-data/physical_statuses.sql",
                 "/sql/basic-data/transaction_type.sql",
+                "/sql/basic-data/transaction_status.sql",
                 "/sql/basic-data/classifications.sql",
                 "/sql/basic-data/sectors.sql",
                 "/sql/basic-data/sector_items.sql",

@@ -19,8 +19,4 @@ public class Grant extends Transaction implements Serializable {
     public Grant() {
     }
 
-    public Grant(Project project, double amount, Date date, String flowType, TransactionType transactionType) {
-        super(project, amount, date, flowType, transactionType);
-    }
-
 }

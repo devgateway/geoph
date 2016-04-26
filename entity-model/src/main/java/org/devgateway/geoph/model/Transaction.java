@@ -1,6 +1,9 @@
 package org.devgateway.geoph.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.devgateway.geoph.util.TransactionStatusEnum;
+import org.devgateway.geoph.util.TransactionTypeEnum;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -30,18 +33,15 @@ public class Transaction extends GenericPersistable implements Serializable {
     @Column(name = "flow_type", insertable = false, updatable = false)
     private String flowType;
 
-    @ManyToOne(cascade= CascadeType.MERGE)
-    private TransactionType transactionType;
+    @JsonIgnore
+    @Column(name = "transaction_type_id")
+    private long transactionTypeId;
+
+    @JsonIgnore
+    @Column(name = "transaction_status_id")
+    private long transactionStatusId;
 
     public Transaction() {
-    }
-
-    public Transaction(Project project, double amount, Date date, String flowType, TransactionType transactionType) {
-        this.project = project;
-        this.amount = amount;
-        this.date = date;
-        this.flowType = flowType;
-        this.transactionType = transactionType;
     }
 
     public Project getProject() {
@@ -76,11 +76,29 @@ public class Transaction extends GenericPersistable implements Serializable {
         this.flowType = flowType;
     }
 
-    public TransactionType getTransactionType() {
-        return transactionType;
+    public long getTransactionTypeId() {
+        return transactionTypeId;
     }
 
-    public void setTransactionType(TransactionType transactionType) {
-        this.transactionType = transactionType;
+    public void setTransactionTypeId(long transactionTypeId) {
+        this.transactionTypeId = transactionTypeId;
+    }
+
+    public long getTransactionStatusId() {
+        return transactionStatusId;
+    }
+
+    public void setTransactionStatusId(long transactionStatusId) {
+        this.transactionStatusId = transactionStatusId;
+    }
+
+    @JsonProperty(value = "transactionType")
+    public TransactionTypeEnum getTransactionType() {
+        return TransactionTypeEnum.getEnumById(transactionTypeId);
+    }
+
+    @JsonProperty(value = "transactionStatus")
+    public TransactionStatusEnum getTransactionStatus() {
+        return TransactionStatusEnum.getEnumById(transactionStatusId);
     }
 }
