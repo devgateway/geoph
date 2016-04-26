@@ -47,6 +47,12 @@ public class FilterServiceImpl implements FilterService {
     @Autowired
     ClassificationRepository classificationRepository;
 
+    @Autowired
+    ClimateChangeRepository climateChangeRepository;
+
+    @Autowired
+    GenderResponsivenessRepository genderResponsivenessRepository;
+
     @Override
     public List<ImplementingAgency> findAllImpAgencies() {
         LOGGER.debug("Getting all implementing agencies");
@@ -127,6 +133,16 @@ public class FilterServiceImpl implements FilterService {
             retList.add(flowTypesMap);
         }
         return retList;
+    }
+
+    @Override
+    public List<ClimateChange> findAllClimateChanges() {
+        return climateChangeRepository.findAll();
+    }
+
+    @Override
+    public List<GenderResponsiveness> findAllGenderResponsiveness() {
+        return genderResponsivenessRepository.findAll();
     }
 
 }

@@ -20,7 +20,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
  *         created on abr 20 2016.
  */
 @RestController
-@RequestMapping(value = "/map")
+@RequestMapping(value = "/maps")
 public class MapController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MapController.class);
