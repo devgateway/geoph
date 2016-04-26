@@ -10,7 +10,7 @@ const prefix="control.layers";
  	
 
  	getSettings(){
- 		debugger;
+ 		
  	 if(this.props.settings.get('level')){
  	 	return (<ul className="settings"><li>Region</li><li>Province</li><li>Municipality</li></ul>)
  	 }
@@ -44,7 +44,7 @@ const prefix="control.layers";
  	}
 
  	getSettings(){
- 		debugger;
+ 		
  		return <Settings {...this.props}/>
  	}
 

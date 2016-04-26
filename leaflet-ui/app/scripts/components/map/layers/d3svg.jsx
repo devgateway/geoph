@@ -49,7 +49,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
   }
 
   renderPaths(data){
-    debugger;
+    
     var  map=this.props.map;
 
     // Use Leaflet to implement a D3 geometric transformation.
@@ -63,7 +63,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
     path.pointRadius(this.props.map.getZoom()*1.5);
 
     var points = this.g.selectAll("path").data(data, function(d) {return d.id;});
-    debugger;
+    
     points.enter().append("path");
     points.exit().remove();
 

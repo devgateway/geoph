@@ -4,6 +4,7 @@ import {MapLayer} from 'react-leaflet';
 import React from 'react';
 import d3 from 'd3';
 import { render, unmountComponentAtNode } from 'react-dom';
+import geostats from  '../../../util/geostats';
 
 /**
  * @author Sebas
@@ -41,20 +42,21 @@ import { render, unmountComponentAtNode } from 'react-dom';
   }
 
   update(){
+    
     //TODO:maybe a more efficent way can be implemented
     //clean
     this.mapmove();
   }
 
+
+  getValues(features){
+    const valprop=this.props.valueProperty;
+    return features.map(function(f) { return +f.properties[valprop]});
+  }
+
   renderPaths(data){
- 
-    var rateByCount = {};
-    data.forEach(function(f) { rateByCount[f.properties.id] = +f.properties.projectCount;});
-    let scales = {};
-    scales.quantize = d3.scale.quantize().domain([0,0.2,0.4,0.5,1]).range(d3.range(9).map(function(i) { return "q" + i + "-9"; }));
-    scales.radious = d3.scale.quantize().domain([[0,0.2,0.4,0.5,1]]).range(d3.range(9));
-  
-    var  map=this.props.map;
+
+   var  map=this.props.map;
     // Use Leaflet to implement a D3 geometric transformation.
     function projectPoint(x, y) {
       var point = map.latLngToLayerPoint(new L.LatLng(y, x));
@@ -62,30 +64,36 @@ import { render, unmountComponentAtNode } from 'react-dom';
     }
 
     var transform = d3.geo.transform({ point: projectPoint });
-    var path = d3.geo.path().projection(transform);
-    path.pointRadius((f)=>{
-      return  6;
-    });
 
-    var points = this.g.selectAll("path").data(data);
+    var path = d3.geo.path().projection(transform);
+    const size=this.props.size*(this.props.relativeToZoom?this.props.map.getZoom():1);
+    console.log(size);
+    path.pointRadius((f)=>size);
+
+
+    var points = this.g.selectAll("path").data(this.filter(data));
     
     points.enter().append("path");
     points.exit().remove();
 
     points.attr("d", path)
     .on("click",this.onClick.bind(this));
-    //.on("mouseover",this.onMouseover.bind(this))
-    //.on("mouseout",this.onMouseout.bind(this));
 
     points.attr("class", function(d) {
-      //return scales.quantize(rateByCount[d.properties.id]);
-       const value=scales.quantize(rateByCount[d.properties.id]);
-       console.log(value);
-      return value ;
-    })
-
+      return this.getClass(d);
+    }.bind(this));
 
   }
+
+  filter(data){
+    console.log('Total points=> '+data.length)
+    var bounds=this.props.map.getBounds();
+    const filtered = data.filter((f)=>bounds.contains(L.geoJson(f).getBounds()))
+    console.log('Removed =>'+(data.length - filtered.length));
+    return filtered;
+
+  }
+
 
   onClick(properties){
     L.DomEvent._getEvent().stopPropagation();
@@ -93,23 +101,19 @@ import { render, unmountComponentAtNode } from 'react-dom';
   }
 
 
-
   mapmove(e) {
-
     if (this.props.data && this.props.data.features){
+      this.values=this.getValues(this.props.data.features);//isolate features values 
       this.renderPaths(this.props.data.features);
     }else{
       console.log('Dataset is empty');
     }
   }
 
-
-
   renderPopupContent(feature) {
     let popup = L.popup()
     .setLatLng(L.latLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]))
     .openOn(this.props.map);
-
 
     if (this.props.children) {
       render(React.cloneElement(React.Children.only(this.props.children), feature.properties) ,popup._contentNode);
@@ -117,6 +121,11 @@ import { render, unmountComponentAtNode } from 'react-dom';
       popup._updatePosition();
       popup._adjustPan();
     } 
+  }
+
+
+  getClass(d){
+    return this.props.classProvider? this.props.classProvider(d.properties[this.props.valueProperty],this.values):"q0-9";
   }
 
 
