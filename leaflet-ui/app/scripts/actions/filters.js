@@ -1,31 +1,38 @@
-import * as Constants from '../constants/constants.js';
-import Connector from '../connector/connector.js';
-
-export const requestFilterList = (filter) => {
+import * as Constants from '../constants/constants';
+import Connector from '../connector/connector';
+import {loadProjects} from './map';
+import {collectValues} from '../util/filterUtil';
+export const requestFilterData = (filter) => {
   return {
-    type: Constants.REQUEST_FILTER_LIST,
+    type: Constants.REQUEST_FILTER_DATA,
     filter
   }
 }
 
-export const receiveFilterList = (filterType, data) => {
+export const applyFilter = (filterType) => {
+  return (dispatch, getState) => {
+    return dispatch(loadProjects('region',collectValues(getState().filters)));
+  }
+}
+
+export const receiveFilterData = (filterType, data) => {
   return {
-    type: Constants.RECEIVE_FILTER_LIST,
+    type: Constants.RECEIVE_FILTER_DATA,
     filterType,
     data: data,
     receivedAt: Date.now()
   }
 }
 
-export const fetchFilterList = (filterType) => {
+export const fetchFilterData = (filterType) => {
   return dispatch => {
-    dispatch(requestFilterList(filterType))
-    return Connector.getFilterList(filterType)
-      .then(req => dispatch(receiveFilterList(filterType, req)))
+    dispatch(requestFilterData(filterType))
+    return Connector.getFilterData(filterType)
+    .then(req => dispatch(receiveFilterData(filterType, req)))
   }
 }
 
-export const shouldFetchFilterList = (state, filterType) => {
+export const shouldFetchFilterData = (state, filterType) => {
   const list = state.filters[filterType]
   if (!list) {
     return true
@@ -36,10 +43,10 @@ export const shouldFetchFilterList = (state, filterType) => {
   }
 }
 
-export const fetchFilterListIfNeeded = (filterType) => {
+export const fetchFilterDataIfNeeded = (filterType) => {
   return (dispatch, getState) => {
-    if (shouldFetchFilterList(getState(), filterType)) {
-      return dispatch(fetchFilterList(filterType))
+    if (shouldFetchFilterData(getState(), filterType)) {
+      return dispatch(fetchFilterData(filterType))
     }
   }
 }
@@ -59,3 +66,21 @@ export const selectAllFilterList = (filterItem) => {
     item: filterItem
   }
 }
+
+export const searchItemByText = (filterSearch) => {
+  return {
+    type: Constants.SEARCH_FILTER_LIST_BY_TEXT,
+    filterType: filterSearch.filterType,
+    text: filterSearch.text
+  }
+}
+
+export const setFilterRange = (filter) => {
+  return {
+    type: Constants.FILTER_SET_RANGE,
+    filterType: filter.filterType,
+    filter: filter
+  }
+}
+
+

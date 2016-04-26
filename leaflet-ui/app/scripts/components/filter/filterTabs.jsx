@@ -1,6 +1,8 @@
 import React from 'react';
 import {Tabs, Tab, Button, Label} from 'react-bootstrap';
-import ItemComponent from './filterItemList.jsx'
+import FilterList from './filterListWithSearch'
+import FilterDate from './filterDateRange'
+import FilterSlider from './filterSliderRange'
 import { connect } from 'react-redux'
 
 class FilterTabContent extends React.Component {
@@ -27,21 +29,21 @@ class FilterTabContent extends React.Component {
 								Funding Type (ODA) Tab content
 						    </Tab>
 						    <Tab className="filter-list-content" eventKey={3} title="Financing Institution">
-								<ItemComponent loadList={true} filterType="fa" {...this.props.filters["fa"]} />
+								<FilterList filterType="fa" {...this.props.filters["fa"]} />
 						    </Tab>
 						</Tabs>
 	                </Tab>
 	                <Tab className="filter-tab-content" eventKey={2} title="Agencies">
 	                  	<Tabs defaultActiveKey={1} position="left" tabWidth={3}>
 							<Tab className="filter-list-content" eventKey={1} title="Implementing Agency">
-								<ItemComponent loadList={true} filterType="ia" {...this.props.filters["ia"]} />
+								<FilterList filterType="ia" {...this.props.filters["ia"]} />
 						    </Tab>						   
 						</Tabs>
 	                </Tab>
 	                <Tab className="filter-tab-content" eventKey={3} title="Sectors">
 	                  	<Tabs defaultActiveKey={1} position="left" tabWidth={3}>
 							<Tab className="filter-list-content" eventKey={1} title="Sectors">
-								<ItemComponent loadList={true} filterType="st" {...this.props.filters["st"]} />
+								<FilterList filterType="st" {...this.props.filters["st"]} />
 						    </Tab>
 						    <Tab className="filter-list-content" eventKey={2} title="Philippines Development Priority">
 								Philippines Development Priority Tab content
@@ -61,20 +63,37 @@ class FilterTabContent extends React.Component {
 	                <Tab className="filter-tab-content" eventKey={5} title="Dates">
 	                  	<Tabs defaultActiveKey={1} position="left" tabWidth={3}>
 							<Tab className="filter-list-content" eventKey={1} title="Implementation period">
-								Implementation period Tab content
+								<FilterDate filterType="ip" lang={this.props.language.lan} {...this.props.filters["ip"]}/>
 						    </Tab>
 						    <Tab className="filter-list-content" eventKey={2} title="Loan validity period">
-								Loan validity period Tab content
+								<FilterDate filterType="gp" lang={this.props.language.lan} {...this.props.filters["gp"]}/>
 						    </Tab>
 						</Tabs>
 	                </Tab>
-	                <Tab className="filter-tab-content" eventKey={6} title="Financial ranges">
+	                <Tab className="filter-tab-content" eventKey={6} title="Status">
+	                  	<Tabs defaultActiveKey={1} position="left" tabWidth={3}>
+							<Tab className="filter-list-content" eventKey={1} title="Financing Status">
+								<FilterList filterType="fs" {...this.props.filters["fs"]}/>
+						    </Tab>
+						</Tabs>
+	                </Tab>
+	                <Tab className="filter-tab-content" eventKey={7} title="Financial Amount">
 	                  	<Tabs defaultActiveKey={1} position="left" tabWidth={3}>
 							<Tab className="filter-list-content" eventKey={1} title="Financial Amount">
-								Financial Amount Tab content
+								
 						    </Tab>
-						    <Tab className="filter-list-content" eventKey={2} title="Physical and Financial Performance">
-								Physical and Financial Performance Tab content
+						</Tabs>
+	                </Tab>
+	                <Tab className="filter-tab-content" eventKey={8} title="Physical and Financial">
+	                  	<Tabs defaultActiveKey={1} position="left" tabWidth={3}>
+							<Tab className="filter-list-content" eventKey={1} title="Percentage of target reached">
+								<FilterSlider filterType="pr" valueSymbol="%" {...this.props.filters["pr"]}/>
+						    </Tab>
+						    <Tab className="filter-list-content" eventKey={2} title="Physical Status">
+								
+						    </Tab>
+						    <Tab className="filter-list-content" eventKey={3} title="Alert Level">
+								
 						    </Tab>
 						</Tabs>
 	                </Tab>
@@ -87,7 +106,7 @@ class FilterTabContent extends React.Component {
 
 const mapStateToProps = (state, props) => {
   return {
-    filters: state.filters
+    filters: state.filters, language: state.language
   }
 }
 

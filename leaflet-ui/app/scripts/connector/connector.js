@@ -1,7 +1,7 @@
 import Axios from 'axios';
 import {API_BASE_URL}  from '../constants/constants';
 import Settings from '../util/settings';
-
+import Qs from 'qs';
 
 console.log(Settings);
 
@@ -16,9 +16,14 @@ class Connector {
 	get(url, params = {}) {
 		return new Promise(
 			function(resolve, reject) { // (A)
+				
 				Axios.get(url, {
 					responseType: 'json',
-					params: params
+					params: params,
+					paramsSerializer: function(params) {
+						return Qs.stringify(params, {arrayFormat: 'repeat'})
+					},
+
 				})
 				.then(function(response) {
 					resolve(response);
@@ -58,26 +63,21 @@ class Connector {
 	}
 
 	/*A method should always return a promise*/
-	call(verb,endpoint, params) {
+	call(verb,endpoint, params, absolute) {
 		
-		
-		let apiRoot=Settings.get('API',API_BASE_URL);
-		
-		let url=`${apiRoot}${endpoint}`; 
-
+		let apiRoot = absolute? "" : Settings.get('API',API_BASE_URL);		
+		let url = `${apiRoot}${endpoint}`; 
 
 		let caller;
 		if (verb == GET) caller = this.get;
 		if (verb == POST) caller = this.post;
 		if (verb == PUT ) caller = this.put;
 
-
-
 		return new Promise((resolve, reject) => {
 			caller(url, params).then((data) => {
 				resolve(data.data);
 			}).catch((err) => {
-				console.log('Failed lading api data')
+				console.log('Error when trying to get backend data')
 				reject(err);
 			})
 		})
@@ -91,16 +91,52 @@ class Connector {
 			this.call(GET,url.replace('${level}',level), params).then((data) => {
 				/*apply any data transformation*/
 				resolve(data); ////resolve with original data or perform any data transformation needed
-			
+
 			}).catch(reject)
 		});
 	}
 
-	getFilterList(filterType) {
-		return new Promise( (resolve, reject) => {
-			this.call(GET,Settings.get('API','FILTER_LIST')[filterType], {}).then((data) => {
-				resolve(data); ////resolve with original data or perform any data transformation needed			
+
+	getFundingGeoJson(level,params){
+	return new Promise( (resolve, reject) => {
+			let url=Settings.get('API','FUNDING_GEOJSON');
+			
+			this.call(GET,url.replace('${level}',level), params).then((data) => {
+				/*apply any data transformation*/
+				resolve(data); ////resolve with original data or perform any data transformation needed
+
 			}).catch(reject)
+		});
+
+	}
+
+	getFilterData(filterType) {
+		return new Promise( (resolve, reject) => {
+			let path = Settings.get('API','FILTER_LIST')[filterType];
+			if (path.mock) {
+				this.call(GET,path.path, {}, true).then((data) => {
+					resolve(data); ////resolve with original data or perform any data transformation needed			
+				}).catch(reject)
+			} else {
+				this.call(GET, path, {}).then((data) => {
+					resolve(data); ////resolve with original data or perform any data transformation needed			
+				}).catch(reject)
+			}
+		});
+	}
+
+	getChartData(chart) {
+		return new Promise( (resolve, reject) => {
+			let path = Settings.get('API','CHARTS')[chart];
+			if (path.mock) {
+				this.call(GET,path.path, {}, true).then((data) => {
+					resolve(data);		
+				}).catch(reject)
+			} else {
+				this.call(GET, path, {}).then((data) => {
+					resolve(data); 	
+				}).catch(reject)
+			}
 		});
 	}
 }

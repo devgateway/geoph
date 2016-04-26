@@ -1,0 +1,57 @@
+@import '../../../stylesheets/base.scss';
+
+.panel{
+	@include absolute(102px,0px,40px,initial)
+	@include font(16px,$regular);
+	@include col2size();
+
+	>ul{
+		@include margin(27px,initial,3px,10px)
+		@include list-horizontal()
+		padding:0px !important;
+		
+		li{
+			@include box-sizing(30%,38px) 	
+			@include border-radius(5px)
+			@include font(15px,$blue)
+			border:1px solid #86a1b9;
+			margin:5px;
+			padding-top: 7px;
+		}
+	}
+
+	.icon{
+		@include box-sizing(26px,28px) 	
+		margin:-3px 5px 0px 5px; 
+		float: left;
+	}
+	
+	li.active{
+		background-color: #f8fdff;
+	}
+
+
+	.icon.tools{
+		@include icons(-81,-29)
+
+	}
+	li.active .icon.tools{
+		@include icons(-1,-29)
+	}
+
+
+	.icon.chart{
+		@include icons(-55,-29)
+	}
+	li.active .icon.chart{
+		@include icons(-28,-29)
+	}
+
+	li a{
+		text-decoration: none;
+	}
+
+	p{
+		margin: 15px;
+	}
+}

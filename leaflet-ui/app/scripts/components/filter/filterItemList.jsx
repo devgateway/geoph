@@ -1,7 +1,7 @@
 import React from 'react';
 //import FilterList from 'app/components/filter/list';
 import { connect } from 'react-redux'
-import { selectAllFilterList, selectFilterItem, fetchFilterListIfNeeded } from '../../actions/filters.js'
+import { selectAllFilterList, selectFilterItem, fetchFilterDataIfNeeded } from '../../actions/filters.js'
 
 class FilterList extends React.Component {
 
@@ -52,6 +52,9 @@ class FilterItem extends React.Component {
 
   	render() {
   		let selectionClass = "selectable " + (this.props.selected? "selected" : this.props.selectedCounter>0? "half-fill" : "");
+  		if (this.props.hide){
+ 			return null;
+  		}
     	return (
 	        <div>
 	        	<div className="filterItemInfo">
@@ -84,7 +87,7 @@ class FilterItem extends React.Component {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onLoadFilterList: (type) => {
-      dispatch(fetchFilterListIfNeeded(type));
+      dispatch(fetchFilterDataIfNeeded(type));
     },
 
     onItemChange: (filterItem) => {

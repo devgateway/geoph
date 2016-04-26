@@ -12,20 +12,44 @@
 		},
 
 		"PROJECT_GEOJSON":"/geodata/${level}/projects",
+		"FUNDING_GEOJSON":"/geodata/stats/${level}/funding",
 
 		"FILTER_LIST": {
 			"development": {
 				"st": "/filters/sector",
 				"fa": "/filters/fundingAgency",
-				"ia": "/filters/impAgency"			
+				"ia": "/filters/impAgency",
+				"ip": "/filters/impPeriod",
+				"gp": "/filters/grantPeriod",
+				"fs": "/filters/status",				
+				"pr": {"mock": true, "path": "./json-data/percentageTarget.json"}				
 			},
-
 			"production": {
 				"st": "/filters/sector",
 				"fa": "/filters/fundingAgency",
-				"ia": "/filters/impAgency"				
+				"ia": "/filters/impAgency",
+				"ip": "/filters/impPeriod",
+				"gp": "/filters/grantPeriod",
+				"fs": "/filters/status",
+				"pr": {"mock": true, "path": "./json-data/percentageTarget.json"}				
+			}
+		},
+
+		"CHARTS": {
+			"development": {
+				"sector": "/charts/sector",
+				"impAgency": "/charts/impAgency",
+				"fundingAgency": "/charts/fundingAgency",
+				"test": {"mock": true, "path": "./json-data/mockGraphData.json"}				
+			},
+			"production": {
+				"sector": "/charts/sector",
+				"impAgency": "/charts/impAgency",
+				"fundingAgency": "/charts/fundingAgency",
+				"test": {"mock": true, "path": "./json-data/mockGraphData.json"}				
 			}
 		}
+		
 	},
 
 	"I18N": {

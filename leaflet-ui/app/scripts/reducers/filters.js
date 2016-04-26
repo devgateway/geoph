@@ -1,11 +1,13 @@
 import * as Constants from '../constants/constants';
 
 const filters = (state = {}, action) => {
-	switch (action.type) {
+  switch (action.type) {
     case Constants.SELECT_FILTER_ITEM:
     case Constants.SELECT_ALL_FILTER_LIST:
-    case Constants.RECEIVE_FILTER_LIST:
-    case Constants.REQUEST_FILTER_LIST:
+    case Constants.RECEIVE_FILTER_DATA:
+    case Constants.REQUEST_FILTER_DATA:
+    case Constants.FILTER_SET_RANGE:
+    case Constants.SEARCH_FILTER_LIST_BY_TEXT:
       let fl = filter(state[action.filterType], action);
       updateFilterCounters(fl);
       return Object.assign({}, state, {
@@ -21,27 +23,38 @@ const filter = (state = {
   items: []
 }, action) => {
   switch (action.type) {
-    case Constants.REQUEST_FILTER_LIST:
+    case Constants.REQUEST_FILTER_DATA:
       return Object.assign({}, state, {
         isFetching: true,
       })
-    case Constants.RECEIVE_FILTER_LIST:
+    case Constants.RECEIVE_FILTER_DATA:
       return Object.assign({}, state, action.data, {
         isFetching: false,
         lastUpdated: action.receivedAt
       })
 
+    case Constants.FILTER_SET_RANGE:
+      return Object.assign({}, state, {
+          isRange: true,
+          minSelected: action.filter.minSelected,
+          maxSelected: action.filter.maxSelected
+      })
     case Constants.SELECT_FILTER_ITEM:
       return Object.assign({}, state, {
           isFetching: false,
           items: state.items.map(i => filterItem(i, action))
       })
     case Constants.SELECT_ALL_FILTER_LIST:
-    	return Object.assign({}, state, {
-	        isFetching: false,
+      return Object.assign({}, state, {
+          isFetching: false,
           selected: action.item.selected,
-	        items: state.items.map(i => filterItem(i, action))
-	    })
+          items: state.items.map(i => filterItem(i, action))
+      })
+    case Constants.SEARCH_FILTER_LIST_BY_TEXT:
+      return Object.assign({}, state, {
+          isFetching: false,
+          items: state.items.map(i => filterItem(i, action))
+      })
     default:
       return state
   }
@@ -58,6 +71,9 @@ const filterItem = (state = {
     case Constants.SELECT_ALL_FILTER_LIST:
       updateFilterSelection(copyState, 'all', action.item.selected); 
       return copyState
+    case Constants.SEARCH_FILTER_LIST_BY_TEXT:
+      searchByTextIntoChildren(copyState, action.text); 
+      return copyState
     default:
       return state
   }
@@ -68,14 +84,14 @@ const updateFilterSelection = (item, id, selection) => {
   if (item.id === id || 'all' === id){
     updateItemAndChildren(item, selection);
   } else if (item.items && item.items.length>0){
-    item.items.map(it => updateFilterSelection(it, id, selection));
+    item.items.forEach(it => updateFilterSelection(it, id, selection));
   }
 }
 
 const updateItemAndChildren = (item, selection) => { 
   Object.assign(item, {'selected': selection});
   if (item.items && item.items.length>0){
-    item.items.map(it => updateItemAndChildren(it, selection));
+    item.items.forEach(it => updateItemAndChildren(it, selection));
   }  
 }
 
@@ -88,5 +104,33 @@ const updateFilterCounters = (filterObject) => {
   }
 }
 
+//This function search by text into the items and its children
+const searchByTextIntoChildren = (item, keyword) => { 
+  let itemMatch = itemMatchs(item, keyword);
+  let childrenMatch = false;
+  if (item.items && item.items.length>0){
+    item.items.forEach((it) => {
+      if (searchByTextIntoChildren(it, keyword)){
+        childrenMatch = true;
+      }
+    });
+  }
+  if (itemMatch || childrenMatch){
+    Object.assign(item, {'hide': false});
+    return true;
+  } else {
+    Object.assign(item, {'hide': true});
+    return false;
+  }
+}
+
+const itemMatchs = (item, keyword) => {
+  if (keyword.length > 1) {
+    var pattern = new RegExp(keyword, 'i');
+    return pattern.test(item.name);
+  } else {
+    return true;
+  }
+}
 
 export default filters
