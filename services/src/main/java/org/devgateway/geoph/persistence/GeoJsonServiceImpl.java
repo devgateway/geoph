@@ -52,17 +52,19 @@ public class GeoJsonServiceImpl implements GeoJsonService {
 
         FeatureCollection featureCollection = new FeatureCollection();
         for(LocationProperty location : locationPropertyMap.values()) {
-            Feature feature = new Feature();
-            feature.setGeometry(new Point(location.getLongitude(), location.getLatitude()));
-            feature.setProperty(PROPERTY_LOC_ID, location.getId());
-            feature.setProperty(PROPERTY_LOC_NAME, location.getName());
-            feature.setProperty(PROPERTY_LOC_CODE, location.getCode());
-            feature.setProperty(PROPERTY_LOC_PROJ_COUNT, location.getProjectCount());
-            feature.setProperty(PROPERTY_LOC_TRX_COUNT, location.getTransactionCount());
-            feature.setProperty(PROPERTY_LOC_COMMITMENTS, location.getCommitments());
-            feature.setProperty(PROPERTY_LOC_DISBURSEMENTS, location.getDisbursements());
-            feature.setProperty(PROPERTY_LOC_EXPENDITURES, location.getExpenditures());
-            featureCollection.add(feature);
+            if(location.getProjectCount()>0) {
+                Feature feature = new Feature();
+                feature.setGeometry(new Point(location.getLongitude(), location.getLatitude()));
+                feature.setProperty(PROPERTY_LOC_ID, location.getId());
+                feature.setProperty(PROPERTY_LOC_NAME, location.getName());
+                feature.setProperty(PROPERTY_LOC_CODE, location.getCode());
+                feature.setProperty(PROPERTY_LOC_PROJ_COUNT, location.getProjectCount());
+                feature.setProperty(PROPERTY_LOC_TRX_COUNT, location.getTransactionCount());
+                feature.setProperty(PROPERTY_LOC_COMMITMENTS, location.getCommitments());
+                feature.setProperty(PROPERTY_LOC_DISBURSEMENTS, location.getDisbursements());
+                feature.setProperty(PROPERTY_LOC_EXPENDITURES, location.getExpenditures());
+                featureCollection.add(feature);
+            }
         }
         return featureCollection;
     }
