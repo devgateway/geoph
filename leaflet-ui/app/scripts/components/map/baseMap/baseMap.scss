@@ -1,0 +1,75 @@
+@import '../../../../stylesheets/base.scss';
+
+.basemap-container{
+	padding: 10px;
+	position: fixed;
+	top: 102px;
+	right: 0px;
+	background-color: rgba(247, 247, 247, 0.93);
+	left: initial;
+	overflow: hidden;
+	width: 40%;
+	border-color: #EEE;
+	border-style: solid;
+	border-width: 2px;
+	z-index: 1000;
+}
+
+.basemap-row{
+	display: inline-flex;
+	padding: 15px;
+}
+
+.basemap-item{
+	display: inline-flex;
+	width: 230px;
+}
+
+.basemap-image{
+	width: 75px;
+	height: 50px;
+	border-style: solid;
+	border-color: #AAA;
+	border-width: 2px;
+}
+
+.basemap-image.imagery{
+    @include basemapimages(0,0);
+  }
+
+.basemap-image.street{
+    @include basemapimages(-75,0);
+  }
+
+.basemap-image.gray{
+    @include basemapimages(0,-50);
+  }
+
+.basemap-image.darkgray{
+    @include basemapimages(-75,-50);
+  }
+
+.basemap-image.terrain{
+    @include basemapimages(0,-100);
+  }
+
+.basemap-image.topographic{
+    @include basemapimages(-75,-100);
+  }
+
+.basemap-image.oceans{
+    @include basemapimages(0,-150);
+  }
+
+.basemap-image.openstreet{
+    @include basemapimages(-75,-150);
+  }
+
+.basemap-image.selected{
+	border-color: #7AC4DC;
+}
+
+.basemap-label{
+	padding: 15px;
+	color: #AAA !important;
+}

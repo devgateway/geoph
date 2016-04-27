@@ -1,4 +1,4 @@
-import  {TOGGLE_LAYER,LAYER_LOAD_SUCCESS,LAYER_LOAD_FAILURE}  from '../constants/constants.js';
+import  {SET_BASEMAP, TOGGLE_LAYER,LAYER_LOAD_SUCCESS,LAYER_LOAD_FAILURE}  from '../constants/constants.js';
 
 import {getLayerById} from '../util/layersUtil.js';
 
@@ -15,13 +15,18 @@ const loadLayerFailed=(type,error)=>{
 	return {type:LAYER_LOAD_FAILURE,error}
 }
 
+export const applyFiltersToLayers=(filters)=>{
+	return (dispatch, getState) => {		
+		loadLayerTree(dispatch,getState,getState().map.get('layers'), filters, true);
+	}	
+}
 
-const loadLayerIfNeeded=(dispatch,getState,layers)=>{
+const loadLayerTree=(dispatch,getState,layers,filters,force)=>{
 	layers.forEach((l)=>{
 		if (l.get('layers')){ //it is a group 
-			 loadLayerIfNeeded(dispatch,getState,l.get('layers'));
-		}else if (l.get('visible') && !l.get('data')){
-			const options={id:l.get('id'),ep:l.get('ep'),settings:l.get('settings').toObject()};
+			loadLayerTree(dispatch,getState,l.get('layers'),filters,force);
+		}else if (l.get('visible') && (!l.get('data')||force)){
+			const options={id:l.get('id'),ep:l.get('ep'),settings:l.get('settings').toObject(), filters: filters};
 			dispatch(loadLayer(options,getState));
 		}
 	})
@@ -34,7 +39,7 @@ export const toggleVisibility=(id,visible,params)=>{
 			type: TOGGLE_LAYER,
 			id
 		});
-		loadLayerIfNeeded(dispatch,getState,getState().map.get('layers'));
+		loadLayerTree(dispatch,getState,getState().map.get('layers'));
 	}
 }
 
@@ -53,3 +58,9 @@ const loadLayer=(options,getState)=>{
 		} 
 }
 
+export const setBaseMap=(basemap)=>{
+	return {
+	    type: SET_BASEMAP,
+	    basemap: basemap
+	}
+}

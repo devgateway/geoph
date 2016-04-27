@@ -90,7 +90,7 @@ class Connector {
 			
 			let url=Settings.get('API',options.ep);
 			const {level,quality} = options.settings;
-			const {id}=options;
+			const {id, filters}=options;
 	
 			if (level){
 				url=url.replace('${level}',level);
@@ -98,7 +98,8 @@ class Connector {
 			if (quality){
 				Object.assign(params,{quality})
 			}
-
+			Object.assign(params, filters)
+			
 			this.call(GET,url, params).then((data) => {
 				/*apply any data transformation*/
 				
@@ -125,15 +126,15 @@ class Connector {
 		});
 	}
 
-	getChartData(chart) {
+	getChartData(filters) {
 		return new Promise( (resolve, reject) => {
-			let path = Settings.get('API','CHARTS')[chart];
+			let path = Settings.get('API','CHARTS');
 			if (path.mock) {
 				this.call(GET,path.path, {}, true).then((data) => {
 					resolve(data);		
 				}).catch(reject)
 			} else {
-				this.call(GET, path, {}).then((data) => {
+				this.call(GET, path, filters).then((data) => {
 					resolve(data); 	
 				}).catch(reject)
 			}

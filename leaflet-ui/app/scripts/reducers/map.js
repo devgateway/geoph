@@ -1,8 +1,9 @@
-import { LAYER_LOAD_SUCCESS,LAYER_LOAD_FAILURE , TOGGLE_LAYER} from '../constants/constants';
+import {SET_BASEMAP, LAYER_LOAD_SUCCESS,LAYER_LOAD_FAILURE , TOGGLE_LAYER} from '../constants/constants';
 
 import Immutable from 'immutable';
 
 const defaultState = Immutable.fromJS({
+  basemap: {name: 'street', url: '//server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}'},
   layers: [{
     id: '0',
     keyName: 'projects',
@@ -89,13 +90,15 @@ const toogle=(layers,id,property)=>{
 
 
 const map = (state = defaultState, action) => {
-  
+  let newState;
   switch (action.type) {
     case TOGGLE_LAYER:
       return state.set('layers',toogle(state.get('layers'),action.id,'visible'));
     case LAYER_LOAD_SUCCESS:
-      let newState= state.set('layers',setPropsToLayer(state.get('layers'),action.id,{data:action.data}));
-      
+      newState= state.set('layers',setPropsToLayer(state.get('layers'),action.id,{data:action.data}));    
+      return newState;
+    case SET_BASEMAP:
+      newState= state.set('basemap', Immutable.fromJS(action.basemap));    
       return newState;
     case LAYER_LOAD_FAILURE:
       default:

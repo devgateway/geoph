@@ -22,12 +22,20 @@ class ChartComponent extends React.Component {
 		let meas = measure && this.state.measType=='funding'? measure : 'projectCount';
 		let labels = [];
 		let values = [];
-		if (chartData){
+		if (chartData && chartData.map){
 			chartData.map((i) => {
-				if (i[meas] && i[meas].length>0){
-					let label = i[dimension].length>35? i[dimension].substr(0,32)+'...' : i[dimension];
-					labels.push(label);
-					values.push(i[meas]);
+				if (meas=='projectCount'){
+					if (i[meas] && i[meas].length>0){
+						let label = i[dimension].length>35? i[dimension].substr(0,32)+'...' : i[dimension];
+						labels.push(label);
+						values.push(i[meas]);
+					}
+				} else {
+					if (i[meas.measure][meas.type] && i[meas.measure][meas.type].length>0){
+						let label = i[dimension].length>35? i[dimension].substr(0,32)+'...' : i[dimension];
+						labels.push(label);
+						values.push(i[meas.measure][meas.type]);
+					}
 				}
 			});
 		}
@@ -50,14 +58,14 @@ class ChartComponent extends React.Component {
 			    }
 		    ],
 			'layout': {         
-		      	//'height': height || 250,
-				//'width': width || 550,
+		      	'height': height || 250,
+				'width': width || 550,
 				'margin':{
 					't':20,
 					'b':35,
 					'l':0
 				},
-				'autosize': true,
+				//'autosize': true,
 				'legend':{
 					x:-1,
 					y:1,
@@ -80,11 +88,18 @@ class ChartComponent extends React.Component {
 		let meas = measure && this.state.measType=='funding'? measure : 'projectCount';
 		let itemNames = [];
 		let values = [];
-		if (chartData){
+		if (chartData  && chartData.map){
 			chartData.map((i) => {
-				if (i[meas] && i[meas].length>0){
-					itemNames.push(i[dimension]);
-					values.push(i[meas]);
+				if (meas=='projectCount'){
+					if (i[meas] && i[meas].length>0){
+						itemNames.push(i[dimension]);
+						values.push(i[meas]);
+					}
+				} else {
+					if (i[meas.measure][meas.type] && i[meas.measure][meas.type].length>0){
+						itemNames.push(i[dimension]);
+						values.push(i[meas.measure][meas.type]);
+					}
 				}
 			});
 		}
@@ -94,7 +109,7 @@ class ChartComponent extends React.Component {
 					type: 'bar',   
 			        x: itemNames,  
 			        y: values,    
-			        name: meas,
+			        //name: meas,
 					"marker":{  
 					 	"color": '#93C364'
 					}
@@ -104,9 +119,9 @@ class ChartComponent extends React.Component {
 				xaxis:{
 					showticklabels:false,
 				},                
-		      	//'height': height || 250,
-				//'width': width || 550,
-				'autosize': true,
+		      	'height': height || 250,
+				'width': width || 550,
+				'autosize': false,
 				'margin':{
 					't':20,
 					'b':35
@@ -130,7 +145,6 @@ class ChartComponent extends React.Component {
 
 	render() {
 		var chartData = this.props.chartType || (this.state.chartType=='bar'? this.parseDataForBarchart() : this.parseDataForPiechart());
-	    var meas = this.props.measure || (this.state.chartType=='bar'? this.parseDataForBarchart() : this.parseDataForPiechart());
 	    return (
 	    	<div className="chart">
 	    		<div className="chart-title">
@@ -152,12 +166,12 @@ class ChartComponent extends React.Component {
 	    		: null}  
 	    		{this.props.measure?
 	    		<div className="chart-measure-selector">
-	    				<div className="chart-measure-option"><input type="radio" 
+	    				<div className="chart-type-option"><input type="radio" 
 							value='funding'
 							checked={this.state.measType ==='funding'} 
 							onChange={this.setMeasType.bind(this)} />Funding
                         </div>
-                        <div className="chart-measure-option"><input type="radio"  
+                        <div className="chart-type-option"><input type="radio"  
 							value='projectCount' 
 							checked={this.state.measType === 'projectCount'} 
 							onChange={this.setMeasType.bind(this)} />Project Count

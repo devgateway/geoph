@@ -26,6 +26,11 @@
 	export const RECEIVE_CHART_DATA = 'RECEIVE_CHART_DATA';
 
 
+	/*SETTINGS events*/
+
+	export const SET_FUNDING_TYPE = 'SET_FUNDING_TYPE';
+	
+
 	/*LAYERS events*/
 
  	export const TOGGLE_LAYER = 'TOGGLE_LAYER';
@@ -33,6 +38,8 @@
 	export const LAYER_LOAD_SUCCESS = 'LAYER_LOAD_SUCCESS';
 
 	export const LAYER_LOAD_FAILURE = 'LAYER_LOAD_FAILURE';
+
+	export const SET_BASEMAP = 'SET_BASEMAP';
 
 	/*Settings*/
 	export const PROJECT_GEOJSON ='PROJECT_GEOJSON';  
