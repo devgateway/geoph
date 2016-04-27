@@ -31,4 +31,8 @@ public interface FilterService {
     List<PhysicalStatus> findAllPhysicalStatus();
 
     List<Map<String,Object>> findAllFlowTypes();
+
+    List<ClimateChange> findAllClimateChanges();
+
+    List<GenderResponsiveness> findAllGenderResponsiveness();
 }
