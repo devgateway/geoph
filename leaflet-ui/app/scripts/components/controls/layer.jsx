@@ -8,14 +8,6 @@ const prefix="control.layers";
 
  class Settings extends React.Component {
  	
-
- 	getSettings(){
- 		
- 	 if(this.props.settings.get('level')){}
- 	 	return ()
- 	 
- 	}
-
  	render(){
  		return (<li className="settings">
  					<ul className="settings">
