@@ -1,5 +1,12 @@
 @import '../../../stylesheets/base.scss';
 
+@mixin icons($x,$y) {
+	background:url(../../../assets/sprites.png);
+	background-repeat: no-repeat;
+	background-position: $x $y;
+}
+
+
 .panel{
 	@include absolute(102px,0px,40px,initial)
 	@include font(16px,$regular);
