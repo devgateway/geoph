@@ -7,20 +7,24 @@ const defaultState = Immutable.fromJS({
   layers: [{
     id: '0',
     keyName: 'projects',
-    layers: [{
-      id: '02',
-      ep:'PROJECT_GEOJSON',
-      settings:{'level':'region'},
-      keyName: 'project'
-    }]
+        layers: [{
+          id: '02',
+          ep:'PROJECT_GEOJSON',
+          settings:{'level':'region'},
+          keyName: 'project',
+          'cssPrefix':'points yellow',
+          'zIndex':100, 
+        }]
   }, {
     id: '1',
     keyName: 'stats',
     layers: [{
       id: '10',
-      ep:'FUDNING_GEOJSON',
-      settings:{'quality':0.01},
-      keyName: 'funding'
+      ep:'FUNDING_GEOJSON',
+      settings:{'quality':0.01,'level':'region'},
+      keyName: 'funding',
+      'cssPrefix':'shapes red',
+      'zIndex':99,
     }, {
       id: '11',
       keyName: 'indicators',
