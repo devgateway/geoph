@@ -1,41 +1,106 @@
-import {
-    LOAD_PROJECT_GEOJSON_SUCCESS,
-    LOAD_PEOJECT_GEOJSON_FAILED,
+import { LAYER_LOAD_SUCCESS,LAYER_LOAD_FAILURE , TOGGLE_LAYER} from '../constants/constants';
+
+import Immutable from 'immutable';
+
+const defaultState = Immutable.fromJS({
+  layers: [{
+    id: '0',
+    keyName: 'projects',
+        layers: [{
+          id: '02',
+          ep:'PROJECT_GEOJSON',
+          settings:{'level':'region'},
+          keyName: 'project',
+          'cssPrefix':'points yellow',
+          'zIndex':100, 
+        }]
+  }, {
+    id: '1',
+    keyName: 'stats',
+    layers: [{
+      id: '10',
+      ep:'FUNDING_GEOJSON',
+      settings:{'quality':0.01,'level':'region'},
+      keyName: 'funding',
+      'cssPrefix':'shapes red',
+      'zIndex':99,
+    }, {
+      id: '11',
+      keyName: 'indicators',
+      layers: [{
+        id: '111',
+        keyName: 'poverty'
+      }, {
+        id: '112',
+        keyName: 'population'
+      }]
+    }]
+  }, {
+    id: '2',
+    keyName: 'geophotos'
+  }]
+});
+
+
+
+const setPropsToLayer=(layers,id,properties)=>{
+  return layers.map((l)=>{
     
-    LOAD_FUNDING_GEOJSON_SUCCESS,
-    LOAD_FUNDING_GEOJSON_FAILED,
-    TOGGLE_LAYER} from '../constants/constants';
-
-const addOrUpdate=(newState,newlayer)=>{
- let index=newState.layers.findIndex(function(l){return l.name==newlayer.name});
- if (index > 0){
-  newState.layers[index]=newlayer;
-}else{
-  newState.layers.push(newlayer);
-}
-return newState;
+    if (l.get('id')==id){
+      return l.merge(properties);
+    }else if(l.get('layers')){
+       l=l.set('layers', setPropsToLayer(l.get('layers'),id,properties))
+      return l;
+    }
+    
+      return l;
+    
+  });
 }
 
+const setProps=(layers,props)=>{
+  return layers.map((l)=>{
+    if (l.get('layers')){
+      l=l.set('layers',setProps(l.get('layers'),props));
+    }
+    return l.merge(props);
 
-const map = (state = {layers: []}, action) => {
-  let newState=Object.assign({}, state)
+  })
+}
+
+
+const toogle=(layers,id,property)=>{
+
+  return layers.map((l)=>{
+    if (l.get('id')==id || id==null){
+            l=l.set(property,!l.get(property)); //toggle property of current layer
+            if (l.get('layers')){
+              //if it is a group update child with curren parrent value
+              l=l.set('layers', setProps(l.get('layers'),{'visible':l.get('visible')})) 
+            }
+            return l;
+
+          }else if(l.get('layers')){
+           return l.set('layers',toogle(l.get('layers'),id,property))
+         }
+         return l;
+       })
+}
+
+
+const map = (state = defaultState, action) => {
+  
   switch (action.type) {
-   case LOAD_PROJECT_GEOJSON_SUCCESS:
-      let projectLayer=  {name:'project',visible:true,data:action.data,autoZoom:true};
-      return Object.assign(addOrUpdate(newState,projectLayer), {updated:new Date()});
-
-   case LOAD_FUNDING_GEOJSON_SUCCESS:
-     let layer=  {name:'funding',visible:true,data:action.data,autoZoom:false};
-     return Object.assign(addOrUpdate(newState,layer), {updated:new Date()});
-
-   case TOGGLE_LAYER:
-     debugger
-
-   case LOAD_FUNDING_GEOJSON_FAILED:
-   case LOAD_PEOJECT_GEOJSON_FAILED:
-   default:
+    case TOGGLE_LAYER:
+      return state.set('layers',toogle(state.get('layers'),action.id,'visible'));
+    case LAYER_LOAD_SUCCESS:
+      let newState= state.set('layers',setPropsToLayer(state.get('layers'),action.id,{data:action.data}));
+      
+      return newState;
+    case LAYER_LOAD_FAILURE:
+      default:
     return state
- }
+  }
 }
 
 

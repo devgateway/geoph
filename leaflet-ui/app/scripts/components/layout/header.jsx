@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import {LangSwitcher} from '../lan/container'
+import {LangSwitcher} from '../lan/'
 import FilterPopup from '../filter/filterPopup'
 
 require('./header.scss');

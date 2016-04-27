@@ -10,6 +10,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 import org.springframework.core.env.Environment;
 
 import java.util.Arrays;
@@ -20,7 +21,10 @@ import java.util.Arrays;
 
 @SpringBootApplication
 @Configuration
-@PropertySource(value = "file:${CONF_PATH}/application.properties")
+@PropertySources({
+        @PropertySource("classpath:/org/devgateway/geoph/application.properties"),
+        @PropertySource(value = "file:${CONF_FILE}", ignoreResourceNotFound = true)
+})
 @Import({
         PersistenceApplication.class
 })
@@ -33,7 +37,7 @@ public class Main {
 
         LOGGER.info("Let's inspect the beans provided by Spring Boot:");
 
-        String[] beanNames = ctx.getBeanDefinitionNames();
+        String[] beanNames = ctx.   getBeanDefinitionNames();
         Arrays.sort(beanNames);
         for (String beanName : beanNames) {
             System.out.println(beanName);
