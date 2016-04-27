@@ -2,6 +2,13 @@
 
 $left-space:26px;
 
+$flag:url('../../../assets/flag.png');
+
+@mixin icons($x,$y) {
+  background:url(../../../assets/sprites.png);
+  background-repeat: no-repeat;
+  background-position: $x $y;
+}
 
 .header{
   @include absolute(0px,0px,initial,0px)

@@ -91,7 +91,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
 
 
   setSvgSize(data){
-    var s=this.maxSize*3;
+    var s=this.maxSize*3; //s*2 to have the full size of the marker but we should also include borders so *3 just in case! not the best!
     var r=s/2;
 
     var bounds = this.path.bounds(data),topLeft = bounds[0],bottomRight = bounds[1];

@@ -8,17 +8,19 @@ const prefix="control.layers";
 
  class Settings extends React.Component {
  	
-
- 	getSettings(){
- 		
- 	 if(this.props.settings.get('level')){
- 	 	return (<ul className="settings"><li>Region</li><li>Province</li><li>Municipality</li></ul>)
- 	 }
- 	}
-
  	render(){
- 		debugger;
- 		return (<li className="settings"></li>);
+ 		return (<li className="settings">
+ 					<ul className="settings">
+ 						<li>Region</li>
+ 						<li>Province</li>
+ 						<li>Municipality</li>
+ 					</ul>
+ 					<li>
+ 						<div className="pallete red"></div>
+ 						<div className="pallete yellow"></div>
+ 						<div className="pallete blue"></div>
+ 					</li>
+ 			</li>);
  	}
  }
 
