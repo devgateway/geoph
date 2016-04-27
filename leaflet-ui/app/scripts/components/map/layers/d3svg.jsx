@@ -26,10 +26,12 @@ import { render, unmountComponentAtNode } from 'react-dom';
 
 
   componentDidUpdate(nextProps, nextState) {
- 
     const {data, ...props} = this.props;
     this.update();
+  }
 
+  componentWillUnmount() {
+        
   }
 
 

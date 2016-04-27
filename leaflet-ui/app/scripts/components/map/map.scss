@@ -5,24 +5,49 @@
 	height: 100%;
 }
 
-
-
-.svg-maker {
-  stroke: #fff;
-  fill:yellow;
-  stroke-linejoin: round;
-}
-
 path {
-  -webkit-transition: fill 200ms linear;
+	
+  -webkit-transition: opacity 200ms ease;
 }
 
-.q0-9 { fill:rgb(247,251,255); }
-.q1-9 { fill:rgb(222,235,247); }
-.q2-9 { fill:rgb(198,219,239); }
-.q3-9 { fill:rgb(158,202,225); }
-.q4-9 { fill:rgb(107,174,214); }
-.q5-9 { fill:rgb(66,146,198); }
-.q6-9 { fill:rgb(33,113,181); }
-.q7-9 { fill:rgb(8,81,156); }
-.q8-9 { fill:rgb(8,48,107); }
+.points{
+	stroke-dashoffset: inherit;
+    stroke-linejoin: round;
+    stroke-width: 5;
+    stroke-opacity: 0.5;
+    stroke-dasharray: inherit;
+        stroke: antiquewhite;
+}
+.green0-9 { fill:#bcf1a9; }
+.green1-9 { fill:#73e767; }
+.green2-9 { fill:#61bc39; }
+.green3-9 { fill:#2d9301; }
+.green4-9 { fill:#1d6600; }
+.green5-9 { fill:#113c00; }
+.green6-9 { fill:#134300; }
+
+
+.yellow0-9 { fill:#eff28f; }
+.yellow1-9 { fill:#dadf5c; }
+.yellow2-9 { fill:#c4bf34; }
+.yellow3-9 { fill:#94920f; }
+.yellow4-9 { fill:#7b7209; }
+.yellow5-9 { fill:#716801; }
+.yellow6-9 { fill:#5b5400; }
+
+
+.red0-9 { fill:#f28f8f; }
+.red1-9 { fill:#df5c5c; }
+.red2-9 { fill:#c43434; }
+.red3-9 { fill:#9b2020; }
+.red4-9 { fill:#7b0909; }
+.red5-9 { fill:#650000; }
+.red6-9 { fill:#4b0000; }
+
+
+
+
+
+
+
+
