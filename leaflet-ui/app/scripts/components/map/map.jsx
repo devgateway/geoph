@@ -105,8 +105,8 @@ const view = React.createClass({
 		
 		return (
 			<Map className="map" zoom={13} bounds={bounds}>
-			<TileLayer url='http://{s}.tile.osm.org/{z}/{x}/{y}.png' attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'/>
-			<Layers layers={this.props.map.get('layers')}/>
+				<TileLayer url={this.props.map.get('basemap').get('url')}/>
+				<Layers layers={this.props.map.get('layers')}/>
 			</Map>
 			)
 	}
