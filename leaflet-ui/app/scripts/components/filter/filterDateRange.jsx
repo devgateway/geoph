@@ -45,13 +45,13 @@ class FilterDate extends React.Component {
 
   	render() {
   		let startMinDate = this.props.items? this.props.items[0].minDate : '';
-  		let startMaxDate = this.props.maxSelected || (this.props.items? this.props.items[0].maxDate : '');
-  		let endMinDate = this.props.minSelected || (this.props.items? this.props.items[0].minDate : '');
+  		let startMaxDate = this.props.maxSelected ||  Date.now();//(this.props.items? this.props.items[0].maxDate : '');
+  		let endMinDate = this.props.minSelected || Date.now();//(this.props.items? this.props.items[0].minDate : '');
   		let endMaxDate = this.props.items? this.props.items[0].maxDate : '';
   		return (
 	        <div className="date-picker-container">
 	        	<div className="date-picker-div">
-	        		<span>Start Date: <b>{this.props.minSelected || "Not Set"}</b></span>
+	        		<span>{this.props.startDateLabel || 'Start Date'}: <b>{this.props.minSelected || "Not Set"}</b></span>
 	        		<DatePicker 
 	        			hideFooter={true}
 	        			ref="startDate" 
@@ -62,7 +62,7 @@ class FilterDate extends React.Component {
 	        			onChange={this.handleStartDate.bind(this)} />
 		        </div>	
 		        <div className="date-picker-div">
-	        		<span>End Date: <b>{this.props.maxSelected || "Not Set"}</b></span>
+	        		<span>{this.props.endDateLabel || 'End Date'}: <b>{this.props.maxSelected || "Not Set"}</b></span>
 	        		<DatePicker 
 	        			hideFooter={true}
 	        			ref="endDate" 

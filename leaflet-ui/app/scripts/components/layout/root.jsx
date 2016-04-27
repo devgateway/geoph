@@ -18,10 +18,10 @@ export default class App extends React.Component {
     return (
       <div className="root">
         <Header/>
-            <Landing/>            
-          <Panel>
-              {this.props.children}
-          </Panel>
+        <Landing/>            
+        <Panel>
+            {this.props.children}
+        </Panel>
         <Footer/>
       
       </div>

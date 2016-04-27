@@ -26,7 +26,7 @@ class FilterTabContent extends React.Component {
 								Funding Source Tab content
 						    </Tab>
 						    <Tab className="filter-list-content" eventKey={2} title="Funding Type (ODA)">
-								Funding Type (ODA) Tab content
+								<FilterList filterType="ft" {...this.props.filters["ft"]} />
 						    </Tab>
 						    <Tab className="filter-list-content" eventKey={3} title="Financing Institution">
 								<FilterList filterType="fa" {...this.props.filters["fa"]} />
@@ -65,8 +65,8 @@ class FilterTabContent extends React.Component {
 							<Tab className="filter-list-content" eventKey={1} title="Implementation period">
 								<FilterDate filterType="ip" lang={this.props.language.lan} {...this.props.filters["ip"]}/>
 						    </Tab>
-						    <Tab className="filter-list-content" eventKey={2} title="Loan validity period">
-								<FilterDate filterType="gp" lang={this.props.language.lan} {...this.props.filters["gp"]}/>
+						    <Tab className="filter-list-content" eventKey={2} title="Loan/Grant Validity Period">
+								<FilterDate startDateLabel='Effective Date' endDateLabel='Loan Closing Date' filterType="gp" lang={this.props.language.lan} {...this.props.filters["gp"]}/>
 						    </Tab>
 						</Tabs>
 	                </Tab>

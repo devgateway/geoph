@@ -36,16 +36,42 @@ public class FilterController extends CrossOriginSupport {
         this.service = service;
     }
 
+    @RequestMapping(value = "/climateChange", method = GET)
+    public GenericResponse findAllClimateChanges() {
+        LOGGER.debug("findAllClimateChanges");
+        List<ClimateChange> climateChanges = service.findAllClimateChanges();
+        GenericResponse resp = new GenericResponse(
+                "Climate Change",
+                FILTER_CLIMATE_CHANGE,
+                "CLIMATE_CHANGE_SECTION",
+                1,
+                climateChanges,
+                climateChanges!=null?climateChanges.size():0
+        );
+
+        return resp;
+    }
+
+    @RequestMapping(value = "/genderResponsiveness", method = GET)
+    public GenericResponse findAllGenderResponsiveness() {
+        LOGGER.debug("findAllGenderResponsiveness");
+        List<GenderResponsiveness> genderResponsiveness = service.findAllGenderResponsiveness();
+        GenericResponse resp = new GenericResponse(
+                "Gender Responsiveness",
+                FILTER_GENDER_RESPONSIVENESS,
+                "GENDER_RESPONSIVENESS_SECTION",
+                1,
+                genderResponsiveness,
+                genderResponsiveness!=null?genderResponsiveness.size():0
+        );
+
+        return resp;
+    }
+
     @RequestMapping(value = "/flowType", method = GET)
     public GenericResponse findAllFlowTypes() {
         LOGGER.debug("findAllFlowTypes");
-        List<Map<String, String>> flowTypes = new ArrayList<>();
-        for(FlowTypeEnum flowType: FlowTypeEnum.values()){
-            Map<String, String> flowTypesMap = new HashMap<>();
-            flowTypesMap.put("id", String.valueOf(flowType.getId()));
-            flowTypesMap.put("name", flowType.name());
-            flowTypes.add(flowTypesMap);
-        }
+        List<Map<String, Object>> flowTypes = service.findAllFlowTypes();
         GenericResponse resp = new GenericResponse(
                 "Flow Types",
                 FILTER_FLOW_TYPE,

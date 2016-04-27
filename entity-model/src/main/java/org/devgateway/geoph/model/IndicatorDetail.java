@@ -3,10 +3,7 @@ package org.devgateway.geoph.model;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -15,32 +12,30 @@ import java.io.Serializable;
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
-public class IndicatorDetail implements Serializable {
+public class IndicatorDetail extends GenericPersistable implements Serializable {
 
-    @Id
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Indicator indicator;
+    @Column(name = "indicator_id")
+    private long indicatorId;
 
-    @Id
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Location location;
+    @Column(name = "location_id")
+    private long locationId;
 
     private String value;
 
-    public Indicator getIndicator() {
-        return indicator;
+    public long getIndicatorId() {
+        return indicatorId;
     }
 
-    public void setIndicator(Indicator indicator) {
-        this.indicator = indicator;
+    public void setIndicatorId(long indicatorId) {
+        this.indicatorId = indicatorId;
     }
 
-    public Location getLocation() {
-        return location;
+    public long getLocationId() {
+        return locationId;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
+    public void setLocationId(long locationId) {
+        this.locationId = locationId;
     }
 
     public String getValue() {

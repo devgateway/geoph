@@ -91,7 +91,8 @@
     "webpack-hot-middleware": "^2.6.4"
   },
   "dependencies": {
-    "immutable": "^3.7.6"
-   
+    "immutable": "^3.7.6",
+    "simple-statistics": "^2.0.0-beta1",
+    "react-onclickoutside": "^5.0.0"
   }
 }

@@ -46,12 +46,14 @@ public class ChartController {
             @RequestParam(value = FILTER_FUNDING_AGENCY, required = false) String fundingAgencies,
             @RequestParam(value = FILTER_FLOW_TYPE, required = false) String flowTypes,
             @RequestParam(value = FILTER_PROJECT_TITLE, required = false) String projectTitle,
-            @RequestParam(value = FILTER_PHYSICAL_STATUS, required = false) String physicalStatuses) {
+            @RequestParam(value = FILTER_PHYSICAL_STATUS, required = false) String physicalStatuses,
+            @RequestParam(value = FILTER_CLIMATE_CHANGE, required = false) String climateChange,
+            @RequestParam(value = FILTER_GENDER_RESPONSIVENESS, required = false) String genderResponsiveness) {
         LOGGER.debug("getAllCharts");
         Parameters params = new Parameters(startDate, endDate, performanceStart,
                 performanceEnd, sectors, statuses, locations,
                 projects, impAgencies, fundingAgencies, flowTypes,
-                projectTitle, physicalStatuses, null);
+                projectTitle, physicalStatuses, climateChange, genderResponsiveness, null);
         Map<String, Object> allCharts = new HashMap<>();
         allCharts.put("fundingAgency", chartService.getFundingByFundingAgency(params));
         allCharts.put("implementingAgency", chartService.getFundingByImplementingAgency(params));
@@ -74,12 +76,14 @@ public class ChartController {
             @RequestParam(value = FILTER_FUNDING_AGENCY, required = false) String fundingAgencies,
             @RequestParam(value = FILTER_FLOW_TYPE, required = false) String flowTypes,
             @RequestParam(value = FILTER_PROJECT_TITLE, required = false) String projectTitle,
-            @RequestParam(value = FILTER_PHYSICAL_STATUS, required = false) String physicalStatuses) {
+            @RequestParam(value = FILTER_PHYSICAL_STATUS, required = false) String physicalStatuses,
+            @RequestParam(value = FILTER_CLIMATE_CHANGE, required = false) String climateChange,
+            @RequestParam(value = FILTER_GENDER_RESPONSIVENESS, required = false) String genderResponsiveness) {
         LOGGER.debug("getByFundingAgency");
         Parameters params = new Parameters(startDate, endDate, performanceStart,
                 performanceEnd, sectors, statuses, locations,
                 projects, impAgencies, fundingAgencies, flowTypes,
-                projectTitle, physicalStatuses, null);
+                projectTitle, physicalStatuses, climateChange, genderResponsiveness, null);
         return chartService.getFundingByFundingAgency(params);
     }
 
@@ -97,12 +101,14 @@ public class ChartController {
             @RequestParam(value = FILTER_FUNDING_AGENCY, required = false) String fundingAgencies,
             @RequestParam(value = FILTER_FLOW_TYPE, required = false) String flowTypes,
             @RequestParam(value = FILTER_PROJECT_TITLE, required = false) String projectTitle,
-            @RequestParam(value = FILTER_PHYSICAL_STATUS, required = false) String physicalStatuses) {
+            @RequestParam(value = FILTER_PHYSICAL_STATUS, required = false) String physicalStatuses,
+            @RequestParam(value = FILTER_CLIMATE_CHANGE, required = false) String climateChange,
+            @RequestParam(value = FILTER_GENDER_RESPONSIVENESS, required = false) String genderResponsiveness) {
         LOGGER.debug("getByImplementingAgency");
         Parameters params = new Parameters(startDate, endDate, performanceStart,
                 performanceEnd, sectors, statuses, locations,
                 projects, impAgencies, fundingAgencies, flowTypes,
-                projectTitle, physicalStatuses, null);
+                projectTitle, physicalStatuses, climateChange, genderResponsiveness, null);
         return chartService.getFundingByImplementingAgency(params);
     }
 
@@ -120,12 +126,14 @@ public class ChartController {
             @RequestParam(value = FILTER_FUNDING_AGENCY, required = false) String fundingAgencies,
             @RequestParam(value = FILTER_FLOW_TYPE, required = false) String flowTypes,
             @RequestParam(value = FILTER_PROJECT_TITLE, required = false) String projectTitle,
-            @RequestParam(value = FILTER_PHYSICAL_STATUS, required = false) String physicalStatuses) {
+            @RequestParam(value = FILTER_PHYSICAL_STATUS, required = false) String physicalStatuses,
+            @RequestParam(value = FILTER_CLIMATE_CHANGE, required = false) String climateChange,
+            @RequestParam(value = FILTER_GENDER_RESPONSIVENESS, required = false) String genderResponsiveness) {
         LOGGER.debug("getBySector");
         Parameters params = new Parameters(startDate, endDate, performanceStart,
                 performanceEnd, sectors, statuses, locations,
                 projects, impAgencies, fundingAgencies, flowTypes,
-                projectTitle, physicalStatuses, null);
+                projectTitle, physicalStatuses, climateChange, genderResponsiveness, null);
         return chartService.getFundingBySector(params);
     }
 
@@ -143,12 +151,14 @@ public class ChartController {
             @RequestParam(value = FILTER_FUNDING_AGENCY, required = false) String fundingAgencies,
             @RequestParam(value = FILTER_FLOW_TYPE, required = false) String flowTypes,
             @RequestParam(value = FILTER_PROJECT_TITLE, required = false) String projectTitle,
-            @RequestParam(value = FILTER_PHYSICAL_STATUS, required = false) String physicalStatuses) {
+            @RequestParam(value = FILTER_PHYSICAL_STATUS, required = false) String physicalStatuses,
+            @RequestParam(value = FILTER_CLIMATE_CHANGE, required = false) String climateChange,
+            @RequestParam(value = FILTER_GENDER_RESPONSIVENESS, required = false) String genderResponsiveness) {
         LOGGER.debug("getBySector");
         Parameters params = new Parameters(startDate, endDate, performanceStart,
                 performanceEnd, sectors, statuses, locations,
                 projects, impAgencies, fundingAgencies, flowTypes,
-                projectTitle, physicalStatuses, null);
+                projectTitle, physicalStatuses, climateChange, genderResponsiveness, null);
         return chartService.getFundingByPhysicalStatus(params);
     }
 }

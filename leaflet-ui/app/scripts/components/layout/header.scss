@@ -46,10 +46,10 @@ ul.options{
   float:right;
   margin-right: 36px;
 
-  li{
+  li span{
     @include font(11.083px,$regular)
     cursor: pointer;
-    margin-left:10px;
+    margin-right:10px;
   }
 
   .options-icons{
