@@ -5,6 +5,23 @@ import {loadProjects,loadFunding,toggleVisibility} from '../../actions/map.js'
 import * as Constants from '../../constants/constants.js';
 require('./layers.scss');
 const prefix="control.layers";
+
+ class Settings extends React.Component {
+ 	
+
+ 	getSettings(){
+ 		
+ 	 if(this.props.settings.get('level')){
+ 	 	return (<ul className="settings"><li>Region</li><li>Province</li><li>Municipality</li></ul>)
+ 	 }
+ 	}
+
+ 	render(){
+ 		debugger;
+ 		return (<li className="settings"></li>);
+ 	}
+ }
+
 /**
  * Base Control which holds some comoons functions
  */
@@ -13,6 +30,7 @@ const prefix="control.layers";
  	static propTypes = {
  		onToggleLayer:React.PropTypes.func.isRequired
  	}
+
  	onChange(){
  		this.props.onToggleLayer(this.props.id);
  	}
@@ -26,6 +44,11 @@ const prefix="control.layers";
  		return(	<input type="checkbox" checked={this.props.visible} onChange={this.onChange.bind(this)}/>)
  	}
 
+ 	getSettings(){
+ 		
+ 		return <Settings {...this.props}/>
+ 	}
+
  	renderChildren(){
  		let childProperties=this.getChildProperties();
 
@@ -35,7 +58,7 @@ const prefix="control.layers";
  				return 	<LayerGroup key={l.get('id')} id={l.get('id')}  visible={l.get('visible')}   keyName={l.get('keyName')} layers={l.get('layers')}   {...childProperties} />
  			}else{
  				
- 				return 	<Layer  key={l.get('id')} id={l.get('id')}    visible={l.get('visible')}  keyName={l.get('keyName')}  {...childProperties} />
+ 				return 	<Layer  key={l.get('id')} id={l.get('id')}    visible={l.get('visible')}  keyName={l.get('keyName')}  {...childProperties} settings={l.get('settings')} />
  			}
  		})
  	}
@@ -48,11 +71,11 @@ const prefix="control.layers";
  	render(){
  		return( 
  			<li className="group">
- 			{this.getCheckbox()}
- 			<Message prefix={prefix} k={this.props.keyName}/>
+ 				{this.getCheckbox()}
+ 				<Message prefix={prefix} k={this.props.keyName}/>
  			<div className="breadcrums">{this.props.layers.filter(l=>l.get('visible')).size} / {this.props.layers.size}</div>
  			<ul>
- 			{this.renderChildren()}
+ 				{this.renderChildren()}
  			</ul>
  			</li>)
  	}
@@ -66,7 +89,9 @@ const prefix="control.layers";
  	
  	render(){
  		console.log(this.props.keyName+' visible :'+this.props.visible);
- 		return <li className="layer">{this.getCheckbox()}<Message prefix={prefix} k={this.props.keyName}/></li>
+ 		return <li className="layer">{this.getCheckbox()}<Message prefix={prefix} k={this.props.keyName}/>
+ 			{this.getSettings()}
+ 		</li>
  	}
  }
 
@@ -92,10 +117,10 @@ const prefix="control.layers";
 
  		return (
  			<div>
- 			Layers
- 			<ul>
- 			{this.renderChildren()}
- 			</ul>
+ 				Layers
+	 			<ul>
+	 			{this.renderChildren()}
+	 				</ul>
  			</div>
  			)
  	}

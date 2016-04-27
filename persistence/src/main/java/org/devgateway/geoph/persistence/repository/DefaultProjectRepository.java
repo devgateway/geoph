@@ -57,7 +57,7 @@ public class DefaultProjectRepository implements ProjectRepository {
             criteriaQuery.where(other);
         }
 
-        CriteriaQuery<Project> cq = criteriaQuery.select(projectRoot);
+        CriteriaQuery<Project> cq = criteriaQuery.select(projectRoot).distinct(true);
         TypedQuery<Project> query = em.createQuery(cq);
 
 
