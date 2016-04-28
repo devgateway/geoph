@@ -3,9 +3,7 @@ import i18next from 'i18next';
 
 export default class Translator extends React.Component {
 	render(){
-		console.log(this.props.k);
-
-		const e=i18next;
+			const e=i18next;
 		let key="";
 		
 		if (this.props.prefix){

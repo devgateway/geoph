@@ -1,28 +1,55 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import {Message} from '../lan/'
-import {loadProjects,loadFunding,toggleVisibility} from '../../actions/map.js'
+import {loadProjects,loadFunding,toggleVisibility,setSetting} from '../../actions/map.js'
 import * as Constants from '../../constants/constants.js';
 require('./layers.scss');
 const prefix="control.layers";
 
- class Settings extends React.Component {
- 	
- 	render(){
- 		return (<li className="settings">
- 					<ul className="settings">
- 						<li>Region</li>
- 						<li>Province</li>
- 						<li>Municipality</li>
- 					</ul>
- 					<li>
- 						<div className="pallete red"></div>
- 						<div className="pallete yellow"></div>
- 						<div className="pallete blue"></div>
- 					</li>
- 			</li>);
- 	}
- }
+import InputRange from 'react-input-range';
+
+class Settings extends React.Component {
+	set(setting,value){
+		this.props.onSettingChanged(this.props.id,setting,value)
+	}
+	setQuality(slider,value){
+		this.set('quality',value)
+	}
+
+	render(){
+		let settings=this.props.settings?this.props.settings.toJS():{}; 
+		return (
+			<ul className="settings">
+			{(settings['level'])?<li>
+			<ul className="level">
+                <li>Level:</li>
+
+                <li className={settings['level']=="region"?"active":""}  onClick={()=>{this.set('level','region')}}>Region</li>
+				<li className={settings['level']=="province"?"active":""} onClick={()=>{this.set('level','province')}}>Province</li>
+				<li className={settings['level']=="municipality"?"active":""} onClick={()=>{this.set('level','municipality')}}>Municipality</li>
+			</ul>
+			</li>:null}
+			{(settings['quality'])?<li>
+                <ul>
+                    <li>Quality</li>
+                    <li>
+                        <InputRange maxValue={100} minValue={1} value={settings['quality']} onChange={this.setQuality.bind(this)}/>
+                    </li>
+                </ul>
+                </li>:null}
+                {(settings['css'])?<li>
+			    	<ul  className="css">
+                    <li>Colors</li>
+					<li className={settings['css']=="red"?"scheme red active":"scheme red "}  onClick={()=>{this.set('css','red')}} ></li>
+					<li className={settings['css']=="yellow"?"scheme yellow active":"scheme yellow "} onClick={()=>{this.set('css','yellow')}}></li>
+					<li className={settings['css']=="green"?"scheme green active":"scheme green "} onClick={()=>{this.set('css','green')}}></li>
+                        <li className={settings['css']=="orange"?"scheme orange active":"scheme orange "} onClick={()=>{this.set('css','orange')}}></li>
+                        <li className={settings['css']=="blue"?"scheme blue active":"scheme blue "} onClick={()=>{this.set('css','blue')}}></li>
+				</ul>
+			</li>:null}
+			</ul>);
+	}
+}
 
 /**
  * Base Control which holds some comoons functions
@@ -38,44 +65,48 @@ const prefix="control.layers";
  	}
 
  	getChildProperties(){
- 		return {onToggleLayer:this.props.onToggleLayer};
+ 		return {onToggleLayer:this.props.onToggleLayer,onSettingChanged :this.props.onSettingChanged};
  	}
 
  	getCheckbox(){
- 	
- 		return(	<input type="checkbox" checked={this.props.visible} onChange={this.onChange.bind(this)}/>)
+		return(	
+ 			<div className="group-title" onClick={this.onChange.bind(this)}> 
+ 				<input type="checkbox" checked={this.props.visible}/>
+ 				<Message prefix={prefix} k={this.props.keyName}/>
+ 			</div>
+ 			)
  	}
 
  	getSettings(){
- 		
- 		return <Settings {...this.props}/>
+ 			let childProperties=this.getChildProperties();
+ 		return <Settings {...this.props} {...childProperties}/>
  	}
 
  	renderChildren(){
  		let childProperties=this.getChildProperties();
 
- 		
+ 			
  		return this.props.layers.map((l)=>{
  			if (l.get('layers')){
- 				return 	<LayerGroup key={l.get('id')} id={l.get('id')}  visible={l.get('visible')}   keyName={l.get('keyName')} layers={l.get('layers')}   {...childProperties} />
+ 				return 	<LayerGroup key={l.get('id')} id={l.get('id')}  visible={l.get('visible')} keyName={l.get('keyName')} layers={l.get('layers')}   {...childProperties} />
  			}else{
- 				
  				return 	<Layer  key={l.get('id')} id={l.get('id')}    visible={l.get('visible')}  keyName={l.get('keyName')}  {...childProperties} settings={l.get('settings')} />
  			}
  		})
  	}
  }
 
-/**
+ /**
  * 
  */
  class LayerGroup extends ControlComponent {
  	render(){
  		return( 
  			<li className="group">
- 				{this.getCheckbox()}
- 				<Message prefix={prefix} k={this.props.keyName}/>
- 			<div className="breadcrums">{this.props.layers.filter(l=>l.get('visible')).size} / {this.props.layers.size}</div>
+				{this.getCheckbox()}
+				<div className="breadcrums">
+					({this.props.layers.filter(l=>l.get('visible')).size}/{this.props.layers.size})
+				</div>
  			<ul>
  				{this.renderChildren()}
  			</ul>
@@ -84,45 +115,50 @@ const prefix="control.layers";
  }
 
 
-/**
+ /**
  * 
  */
  class Layer extends ControlComponent {
  	
  	render(){
- 		console.log(this.props.keyName+' visible :'+this.props.visible);
- 		return <li className="layer">{this.getCheckbox()}<Message prefix={prefix} k={this.props.keyName}/>
- 			{this.getSettings()}
+ 		return <li className="layer">
+ 		{this.getCheckbox()}
+ 		{this.getSettings()}
  		</li>
  	}
  }
 
-/**
+ /**
  * 
  */
  class Component extends ControlComponent {
 
  	constructor(props) {
  		super(props);
+        this.state={expanded:false}
  	}
  	static propTypes = {
  		onToggleLayer:React.PropTypes.func,
  		onLoadProjects:React.PropTypes.func.isRequired,
- 		onLoadFunding:React.PropTypes.func.isRequired
+ 		onLoadFunding:React.PropTypes.func.isRequired,
+ 		onSettingChanged:React.PropTypes.func.isRequired
  	}
 
- 	componentWillReceiveProps(nextProps) {
- 		
- 	}
-
+     toggle(){
+         this.setState({expanded:!this.state.expanded})
+     }
  	render(){
-
  		return (
- 			<div>
- 				Layers
-	 			<ul>
-	 			{this.renderChildren()}
-	 				</ul>
+ 			<div className={(this.state.expanded==true)?"layers-control":"layers-control collapsed"}>
+			    <div className="title"><div className="icon"><div/></div>Adjust layers to see detailed data
+                    <div className="toggle"><a href="#" onClick={this.toggle.bind(this)}>{(this.state.expanded==true)?'-':'+'}</a></div>
+                </div>
+                {(this.state.expanded==true)? <ul>
+                    {this.renderChildren()}
+                </ul>:null}
+                <div>
+
+                </div>
  			</div>
  			)
  	}
@@ -145,6 +181,10 @@ const prefix="control.layers";
 
  		onToggleLayer:(name,visible)=>{
  			dispatch(toggleVisibility(name,visible));
+ 		},
+
+ 		onSettingChanged:(name,setting,value)=>{
+ 			dispatch(setSetting(name,setting,value));
  		}
  	}
  }

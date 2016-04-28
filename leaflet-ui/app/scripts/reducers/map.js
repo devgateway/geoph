@@ -1,4 +1,4 @@
-import {SET_BASEMAP, LAYER_LOAD_SUCCESS,LAYER_LOAD_FAILURE , TOGGLE_LAYER} from '../constants/constants';
+import {SET_BASEMAP, LAYER_LOAD_SUCCESS,LAYER_LOAD_FAILURE , TOGGLE_LAYER,SET_LAYER_SETTING} from '../constants/constants';
 
 import Immutable from 'immutable';
 
@@ -7,23 +7,23 @@ const defaultState = Immutable.fromJS({
   layers: [{
     id: '0',
     keyName: 'projects',
-        layers: [{
-          id: '02',
-          ep:'PROJECT_GEOJSON',
-          settings:{'level':'region'},
-          keyName: 'project',
-          'cssPrefix':'points yellow',
-          'zIndex':100, 
-        }]
+    layers: [{
+      id: '02',
+      ep:'PROJECT_GEOJSON',
+      settings:{'level':'region','css':'yellow'},
+      keyName: 'project',
+      'cssPrefix':'points',
+      'zIndex':100, 
+    }]
   }, {
     id: '1',
     keyName: 'stats',
     layers: [{
       id: '10',
       ep:'FUNDING_GEOJSON',
-      settings:{'quality':0.1,'level':'region'},
+      settings:{'quality':0.1,'css':'red'},
       keyName: 'funding',
-      'cssPrefix':'shapes red',
+      'cssPrefix':'shapes',
       'zIndex':99,
     }, {
       id: '11',
@@ -46,17 +46,28 @@ const defaultState = Immutable.fromJS({
 
 const setPropsToLayer=(layers,id,properties)=>{
   return layers.map((l)=>{
-    
+
     if (l.get('id')==id){
       return l.merge(properties);
     }else if(l.get('layers')){
-       l=l.set('layers', setPropsToLayer(l.get('layers'),id,properties))
-      return l;
-    }
-    
-      return l;
-    
-  });
+     l=l.set('layers', setPropsToLayer(l.get('layers'),id,properties))
+     return l;
+   }
+
+   return l;
+
+ });
+}
+
+const setSettingToLayer=(layers,id,name,value)=>{
+  return layers.map((l)=>{
+    if (l.get('id')==id){
+      return l.setIn(['settings',name],value);
+    }else if(l.get('layers')){
+     return l.set('layers', setSettingToLayer(l.get('layers'),id,name,value));
+   }
+   return l;
+ });
 }
 
 const setProps=(layers,props)=>{
@@ -92,16 +103,25 @@ const toogle=(layers,id,property)=>{
 const map = (state = defaultState, action) => {
   let newState;
   switch (action.type) {
+
     case TOGGLE_LAYER:
-      return state.set('layers',toogle(state.get('layers'),action.id,'visible'));
+    return state.set('layers',toogle(state.get('layers'),action.id,'visible'));
+
+    case SET_LAYER_SETTING:
+    console.log(action.name+'--'+action.value);
+    return state.set('layers',setSettingToLayer(state.get('layers'),action.id,action.name,action.value));
+
     case LAYER_LOAD_SUCCESS:
-      newState= state.set('layers',setPropsToLayer(state.get('layers'),action.id,{data:action.data}));    
-      return newState;
+    newState= state.set('layers',setPropsToLayer(state.get('layers'),action.id,{data:action.data}));    
+    return newState;
+    
     case SET_BASEMAP:
-      newState= state.set('basemap', Immutable.fromJS(action.basemap));    
-      return newState;
+    newState= state.set('basemap', Immutable.fromJS(action.basemap));    
+    return newState;
+    
     case LAYER_LOAD_FAILURE:
-      default:
+    default:
+    
     return state
   }
 }

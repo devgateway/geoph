@@ -1,4 +1,4 @@
-import  {SET_BASEMAP, TOGGLE_LAYER,LAYER_LOAD_SUCCESS,LAYER_LOAD_FAILURE}  from '../constants/constants.js';
+import  {SET_BASEMAP, TOGGLE_LAYER,LAYER_LOAD_SUCCESS,LAYER_LOAD_FAILURE,SET_LAYER_SETTING }  from '../constants/constants.js';
 
 import {getLayerById} from '../util/layersUtil.js';
 
@@ -33,15 +33,47 @@ const loadLayerTree=(dispatch,getState,layers,filters,force)=>{
 	
 }
 
+
+const loadLayerById=(dispatch,getState,layers,filters,id)=>{
+	layers.forEach((l)=>{
+		if (l.get('layers')){ //it is a group 
+			loadLayerTree(dispatch,getState,l.get('layers'),filters,id);
+		}else if (l.get('visible')  && l.get('id')==id){
+			const options={id:l.get('id'),ep:l.get('ep'),settings:l.get('settings').toObject(), filters: filters};
+			dispatch(loadLayer(options,getState));
+		}
+	})
+}
+
+
 export const toggleVisibility=(id,visible,params)=>{
 	return (dispatch, getState) => {
 		dispatch({
 			type: TOGGLE_LAYER,
 			id
 		});
-		loadLayerTree(dispatch,getState,getState().map.get('layers'));
+		loadLayerById(dispatch,getState,getState().map.get('layers'),{},id);
 	}
 }
+
+
+
+
+export const setSetting=(id,name,value)=>{
+	//TODO:reload layer if setting is quality or level
+	return (dispatch, getState) => {
+		dispatch({
+			type: SET_LAYER_SETTING,
+			id,
+			name,
+			value
+		});
+		loadLayerTree(dispatch,getState,getState().map.get('layers'),{},true);
+	}
+
+
+}
+
 
 /*Get data of an specif layer passing layer options and getstate in order to take current filters*/
 const loadLayer=(options,getState)=>{

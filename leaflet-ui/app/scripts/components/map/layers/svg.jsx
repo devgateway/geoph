@@ -21,12 +21,10 @@ import { render, unmountComponentAtNode } from 'react-dom';
   }
 
   componentWillMount() {
-    debugger;
     super.componentWillMount();
     this.leafletElement = geoJson();
-    
     this.svg = d3.select(this.props.map.getPanes().overlayPane).append("svg"); 
-      this.svg.style("z-index",this.props.zIndex);
+    this.svg.style("z-index",this.props.zIndex);
     //this.svg= d3.select(this.props.map._container).select("svg"),
     this.g = this.svg.append("g").attr("class", "leaflet-zoom-hide");
     this.props.map.on('moveend', this.mapmove.bind(this));
@@ -35,12 +33,11 @@ import { render, unmountComponentAtNode } from 'react-dom';
 
   componentDidUpdate(nextProps, nextState) {
     const {data, ...props} = this.props;
-    console.log('visible...'+this.props.visible)
+    debugger;
     this.mapmove();
   }
 
   componentWillUnmount() {
-    
     //this.props.map.off('moveend');
     this.svg.remove();    
   }
@@ -53,15 +50,12 @@ import { render, unmountComponentAtNode } from 'react-dom';
 
 
   renderPaths(data){
-    
-
     this.filed=this.props.valueProperty;
     this.minSize=this.props.minSize;
     this.maxSize=this.props.maxSize;
     this.sizeFactor=this.props.sizeFactor;
-
-
-    var  map=this.props.map;
+  
+   var  map=this.props.map;
 
     // Use Leaflet to implement a D3 geometric transformation.
     function projectPoint(x, y) {
@@ -74,6 +68,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
 
     this.path.pointRadius((d)=>{
       let size= this.props.map.getZoom()* this.sizeFactor * d.properties[this.filed];
+      //console.log((size < this.minSize)?this.minSize:(size>this.maxSize)?this.maxSize:size)
       return (size < this.minSize)?this.minSize:(size>this.maxSize)?this.maxSize:size;
     });
     
@@ -144,11 +139,13 @@ import { render, unmountComponentAtNode } from 'react-dom';
 
 
   getClass(d){
-    debugger;
+    
     if (this.props.cssProvider){
       if (!this.cssProvider)
         this.cssProvider=new this.props.cssProvider(this.values,this.props.thresholds);
-      return  this.cssProvider.getCssClass(d.properties[this.props.valueProperty]);
+      var className=this.props.classes+this.cssProvider.getCssClass(d.properties[this.props.valueProperty]);
+      
+      return className;  
     }
 
   }

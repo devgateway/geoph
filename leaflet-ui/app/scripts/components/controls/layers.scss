@@ -1,22 +1,157 @@
-
 @import '../../../stylesheets/base.scss';
 
 .layers-control{
-	@include font(14px,$regular)
-	.btn-xs{
-		@include box-sizing(25px,16px);
-		@include font(9px,#FFF)
-	}
-	.btn-success{
-		
-	}
-	.btn-default{
-		background-color:#999;
-	}
-	ul{
-		list-style: none;
-		li{
+  	@include box-sizing(auto,auto)
+	@include font(15px,$regular)
+	border: 1px solid #edf0f4;
+	border-radius: 2px;
+	margin: 22px;
+	.title{
+		color: rgb( 61, 77, 101 );
+		height: 34px;
+		line-height: 2;
 
-		};
+		.icon{
+			@include box-sizing(45px,34px)
+			margin-top: 1px;
+			padding-top: 3px;
+
+			>div{
+				background: url('../../../assets/sprites.png') no-repeat 0px 0px;
+				@include box-sizing(26px,26px)
+				margin: 0 auto;
+			}
+		}
+		.toggle{
+			float: right;
+			margin-right: 12px;
+		}
 	}
+
+	li{
+
+		margin: 0px 0px 10px 0px;
+		padding: 0px;
+	  clear: both;
+	  height: 20px;
+	}
+
+  li.active{
+	font-weight: bold;
+  }
+
+  ul{
+	margin: 0px 0px 0px 25px;
+	padding: 0px;
+	list-style: none;
+ }
+
+
+
+	input[type="radio"], input[type="checkbox"] {
+	  margin: 0px 4px 0px 0px;
+	  margin-top: 1px \9;
+	}
+
+	>ul{
+		@include box-sizing(100%,auto);
+		  margin-left: 50px;
+		ul{
+		  font-size: 13.125px;
+		  font-family: "Open Sans";
+		  color: rgb( 0, 0, 0 );
+		}
+		ul.settings{
+			>li>ul>li{
+			    height: 20px;
+				float:left;
+				margin: 3px 15px;
+
+
+				cursor: pointer;
+				clear: none;
+			}
+
+			li.scheme{
+				@include  box-sizing(22px,18px)
+				margin: 3px 15px;
+				cursor: pointer;
+			}
+			li.scheme.active{
+				border: 1px solid #000;
+			}
+			li.red{
+				background-color: #f28f8f
+			}
+			li.yellow{
+				background-color: #eff28f
+			}
+			li.green{
+				background-color: #bcf1a9
+			}
+		  li.blue{
+			background-color: #008aea
+		  }
+		  li.orange{
+			background-color: #ce7b05
+		  }
+
+		}
+	}
+
+	.breadcrums{
+		float:left;
+		padding:3px;
+		font-size: 11.25px;
+		color: #999999;
+		line-height: 1.8;
+	   margin-left: 4px;
+	}
+
+	.group-title{
+		cursor:pointer;
+		float:left;
+	 	 line-height: 1.8;
+	}
+
+	.InputRange {
+		cursor: pointer;
+		height: 12px;
+		position: relative;
+		width: 100px !important;
+
+	}
+  .InputRange-labelContainer{
+	display: none;
+  }
+  .InputRange-slider {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background: rgb(255, 174, 0);
+	 border: 0px solid #775820;
+	border-radius: 50%;
+	cursor: pointer;
+	display: block;
+	height: 15px;
+	margin-left: -1rem;
+	margin-top: -1.15rem;
+	outline: none;
+	position: absolute;
+	top: 50%;
+	transition: -webkit-transform 0.3s ease-out, box-shadow 0.3s ease-out;
+	transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+	width: 15px;
+  }
 }
+.layers-control.collapsed{
+	.title{
+		.icon{
+			border-right: 1px solid #edf0f4;
+			border-radius: 2px;
+		}
+	}
+
+}
+
+

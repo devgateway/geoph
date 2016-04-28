@@ -32,7 +32,9 @@ const PathInitializer=React.createClass({
 const Layer=React.createClass({
 	
 	render(){
-		
+			let prefix=this.props.layer.get('cssPrefix')
+			let css=(this.props.layer.get('settings')?this.props.layer.get('settings').get('css'):'');
+			let classes=prefix+' '+css ;
 			return (this.props.layer.get('visible')==true)?<SvgLayer  
 				map={this.props.map}
 				sizeFactor={0.6}  
@@ -41,7 +43,8 @@ const Layer=React.createClass({
 				zIndex={this.props.layer.get('zIndex')}
 				relativeToZoom={true}  
 				valueProperty="projectCount"  
-				cssProvider={JenksCssProvider(this.props.layer.get('cssPrefix'))}  
+				cssProvider={JenksCssProvider}
+				classes={classes}  
 				thresholds={5} 
 				visible={this.props.layer.get('visible')} 
 				key={this.props.layer.get('keName')} 
@@ -75,34 +78,7 @@ const view = React.createClass({
 		return {};
 	},
 
-	componentWillUpdate(nextProps, nextState) {
-		
-	},
-
-	/*getLayers(layers=this.props.map.get('layers')){
-		console.log(layers.toJs());
-
-		var children=layers.map((l)=>{
-		
-			if (l.get('layers')){
-				return this.getLayers(l.get('layers'));
-			}else if(l.get('visible')==true){
-				let data=l.get('data')?l.get('data').toJS():null;
-				
-				console.log('returning layer '+l.get('keyName'));
-				return (<SvgLayer  sizeFactor={0.6}  minSize={10} maxSize={50} relativeToZoom={true}  valueProperty="projectCount"  cssProvider={JenksCssProvider}  thresholds={5} visible={l.get('visible')} key={l.get('id')} data={data}/>)
-			} else{
-				return null;	
-			}
-		})
-
-		
-		return children;
-		
-	},*/
-
 	render(){
-		
 		return (
 			<Map className="map" zoom={13} bounds={bounds}>
 				<TileLayer url={this.props.map.get('basemap').get('url')}/>

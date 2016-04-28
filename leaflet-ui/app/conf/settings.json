@@ -12,7 +12,7 @@
 		},
 
 		"PROJECT_GEOJSON":"/geodata/${level}/projects",
-		"FUNDING_GEOJSON":"/geodata/stats/${level}/funding",
+		"FUNDING_GEOJSON":"/geodata/stats/region/funding",
 
 		"FILTER_LIST": {
 			"development": {

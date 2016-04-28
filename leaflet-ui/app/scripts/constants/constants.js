@@ -3,6 +3,7 @@
 	export const AUTO_ZOOM = 'AUTO_ZOOM';
 
 	export const SET_APP_LANGUAGE = 'SET_APP_LANGUAGE';
+
 	export const TOGGLE_SELECTOR = 'TOGGLE_SELECTOR';
 
 	export const REQUEST_FILTER_DATA = 'REQUEST_FILTER_DATA';
@@ -34,6 +35,9 @@
 	/*LAYERS events*/
 
  	export const TOGGLE_LAYER = 'TOGGLE_LAYER';
+
+
+ 	export const SET_LAYER_SETTING = 'SET_LAYER_SETTING';
 
 	export const LAYER_LOAD_SUCCESS = 'LAYER_LOAD_SUCCESS';
 
