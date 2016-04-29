@@ -3,8 +3,8 @@ import {geoJson, latlng, marker, divIcon} from 'leaflet';
 import {MapLayer} from 'react-leaflet';
 import React from 'react';
 import d3 from 'd3';
-
-import { render, unmountComponentAtNode } from 'react-dom';
+import ProjectPopup from '../popups/projectLayerPopup'
+import ReactDOM from 'react-dom';
 
 /**
  * @author Sebas
@@ -33,7 +33,6 @@ import { render, unmountComponentAtNode } from 'react-dom';
 
   componentDidUpdate(nextProps, nextState) {
     const {data, ...props} = this.props;
-    debugger;
     this.mapmove();
   }
 
@@ -129,6 +128,11 @@ import { render, unmountComponentAtNode } from 'react-dom';
     .setLatLng(L.latLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]))
     .openOn(this.props.map);
 
+    let container = ReactDOM.findDOMNode(this);
+    let popupContent = React.createElement(ProjectPopup, feature);
+    React.render(popupContent, container);
+    popup.setContent(container.innerHTML);
+    
     if (this.props.children) {
       render(React.cloneElement(React.Children.only(this.props.children), feature.properties) ,popup._contentNode);
       popup._updateLayout();
