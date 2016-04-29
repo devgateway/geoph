@@ -1,9 +1,11 @@
 package org.devgateway.geoph.rest;
 
+import org.devgateway.geoph.model.GeoPhotoSource;
 import org.devgateway.geoph.model.Indicator;
 import org.devgateway.geoph.model.IndicatorDetail;
 import org.devgateway.geoph.security.NotAllowException;
 import org.devgateway.geoph.services.LayerService;
+import org.devgateway.geoph.util.GeoPhotoGeometryHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,18 +45,32 @@ public class LayerController {
         return "Hello World";
     }
 
-    @RequestMapping(value = "/list", method = GET)
+    @RequestMapping(value = "/indicators/list", method = GET)
     //@Secured("ROLE_READ")
-    public List<Indicator> getLayerList() {
-        LOGGER.debug("getLayerList");
-        return service.getLayerList();
+    public List<Indicator> getIndicatorsList() {
+        LOGGER.debug("getIndicatorsList");
+        return service.getIndicatorsList();
     }
 
-    @RequestMapping(value = "/data/id/{indicatorId}", method = GET)
+    @RequestMapping(value = "/indicators/id/{indicatorId}", method = GET)
     //@Secured("ROLE_READ")
-    public List<IndicatorDetail> getLayerData(@PathVariable final long indicatorId) {
-        LOGGER.debug("getLayerData for indicator id:" + indicatorId);
-        return service.getLayerData(indicatorId);
+    public List<IndicatorDetail> getIndicatorsData(@PathVariable final long indicatorId) {
+        LOGGER.debug("getIndicatorsData for indicator id:" + indicatorId);
+        return service.getIndicatorsData(indicatorId);
+    }
+
+    @RequestMapping(value = "/geophotos/list", method = GET)
+    //@Secured("ROLE_READ")
+    public List<GeoPhotoSource> getGeoPhotosList() {
+        LOGGER.debug("getGeoPhotosList");
+        return service.getGeoPhotoSourceList();
+    }
+
+    @RequestMapping(value = "/geophotos/id/{kmlId}", method = GET)
+    //@Secured("ROLE_READ")
+    public List<GeoPhotoGeometryHelper> getGeoPhotosData(@PathVariable final long kmlId) {
+        LOGGER.debug("getGeoPhotosData for kml id:" + kmlId);
+        return service.getGeoPhotoData(kmlId);
     }
 
     @ExceptionHandler(NotAllowException.class)
@@ -68,4 +84,6 @@ public class LayerController {
         result.put("timestamp", System.currentTimeMillis());
         return result;
     }
+
+
 }
