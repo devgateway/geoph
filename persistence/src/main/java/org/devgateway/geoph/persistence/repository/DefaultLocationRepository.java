@@ -5,6 +5,7 @@ import org.devgateway.geoph.model.*;
 import org.devgateway.geoph.persistence.util.FilterHelper;
 import org.devgateway.geoph.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -40,6 +41,7 @@ public class DefaultLocationRepository implements LocationRepository {
     }
 
     @Override
+    @Cacheable("locationsByLevel")
     public List<Location> findLocationsByLevel(int level) {
         return em.createNamedQuery("findLocationsByLevel", Location.class)
                 .setParameter(PROPERTY_LOC_LEVEL, level)
@@ -77,6 +79,7 @@ public class DefaultLocationRepository implements LocationRepository {
     }
 
     @Override
+    @Cacheable("locationsByParams")
     public List<Object> findLocationsByParams(Parameters params) {
 
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
@@ -122,6 +125,7 @@ public class DefaultLocationRepository implements LocationRepository {
 
 
     @Override
+    @Cacheable("shapesWithDetail")
     public List<PostGisHelper> getRegionShapesWithDetail(double detail) {
         Query q = em.createNativeQuery("SELECT locationId, region, ST_AsGeoJSON(ST_Simplify(geom, :detail)) " +
                 "as geoJsonObject from region_geometry")

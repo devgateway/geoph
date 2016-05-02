@@ -1,8 +1,8 @@
 package org.devgateway.geoph.persistence.repository;
 
-import net.sf.ehcache.CacheManager;
 import org.devgateway.geoph.persistence.spring.CacheConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
 
 /**
@@ -18,6 +18,6 @@ public class DefaultAppStatsRepository implements AppStatsRepository{
     public String getCacheStats() {
         CacheManager cacheManager = conf.getCacheManager();
         cacheManager.getCacheNames();
-        return cacheManager.getEhcache("org.devgateway.geoph.model.Location").getStatistics().toString();
+        return cacheManager.getCache("org.devgateway.geoph.model.Location").toString();
     }
 }

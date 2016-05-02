@@ -14,6 +14,7 @@ package org.devgateway.geoph.persistence.spring;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.orm.jpa.EntityScan;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -28,6 +29,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EntityScan("org.devgateway.geoph")
 @PropertySource("classpath:/org/devgateway/geoph/persistence/application.properties")
 @ComponentScan("org.devgateway.geoph")
+@EnableCaching
 public class PersistenceApplication {
 
 
