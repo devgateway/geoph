@@ -1,7 +1,9 @@
 package org.devgateway.geoph.rest;
 
+import com.ui4j.api.browser.BrowserFactory;
 import org.devgateway.geoph.model.AppMap;
 import org.devgateway.geoph.services.AppMapService;
+import org.devgateway.geoph.util.PropsHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +12,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.List;
+import java.util.Random;
 
+import static org.devgateway.geoph.util.Constants.ALPHABET;
+import static org.devgateway.geoph.util.Constants.ALPHABET_NUMBER;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -64,6 +71,31 @@ public class MapController {
     public List <AppMap> findMapByName(@PathVariable final String name) {
         LOGGER.debug("findMapByKey");
         return service.findByNameOrDescription(name);
+    }
+
+    @RequestMapping(value = "/print", method = GET)
+    public String printPage(@RequestParam(value = "url", required = true) String url){
+        String filename = null;
+        try {
+            com.ui4j.api.browser.Page page = BrowserFactory.getWebKit().navigate(url);
+            page.show(true);
+            Thread.sleep(PropsHelper.getScreenCaptureTimeToWait());
+            filename = getRandomKey() + ".png";
+            page.captureScreen(new FileOutputStream(new File(PropsHelper.getScreenCaptureDir() + filename)));
+
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+        }
+        return filename;
+    }
+
+    private static String getRandomKey(){
+        Random r = new Random();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 7; i++) {
+            sb.append(ALPHABET.charAt(r.nextInt(ALPHABET_NUMBER)));
+        }
+        return sb.toString().toLowerCase();
     }
 
 }
