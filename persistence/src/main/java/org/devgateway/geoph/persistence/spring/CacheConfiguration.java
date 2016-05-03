@@ -14,47 +14,34 @@
  */
 package org.devgateway.geoph.persistence.spring;
 
-import javax.management.MBeanServer;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.ehcache.EhCacheManagerFactoryBean;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.concurrent.ConcurrentMapCache;
+import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.DependsOn;
-import org.springframework.core.io.ClassPathResource;
 
-import net.sf.ehcache.CacheManager;
-import net.sf.ehcache.management.ManagementService;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * @author mpostelnicu
+ * @author dbianco
  *
  */
 @Configuration
 public class CacheConfiguration {
 
-	@Autowired
-	private MBeanServer mbeanServer;
-
-	@Autowired
-	private CacheManager cacheManager;
-
-	@Bean
-	public EhCacheManagerFactoryBean ehCacheManagerFactoryBean() {
-		EhCacheManagerFactoryBean ehCacheManagerFactoryBean = new EhCacheManagerFactoryBean();
-		ehCacheManagerFactoryBean.setConfigLocation(new ClassPathResource("ehcache.xml"));
-		ehCacheManagerFactoryBean.setShared(true);
-		return ehCacheManagerFactoryBean;
-	}
-
-	@Bean(destroyMethod = "dispose", initMethod = "init")
-	@DependsOn(value = { "ehCacheManagerFactoryBean" })
-	public ManagementService ehCacheManagementService() {
-		ManagementService managementService = new ManagementService(cacheManager, mbeanServer, true, true, true, true);
-		return managementService;
-	}
-
+    @Bean
     public CacheManager getCacheManager() {
+        SimpleCacheManager cacheManager = new SimpleCacheManager();
+        List<Cache> caches = new ArrayList<>();
+        caches.add(new ConcurrentMapCache("locationsByLevel"));
+        caches.add(new ConcurrentMapCache("locationsByParams"));
+        caches.add(new ConcurrentMapCache("shapesWithDetail"));
+
+        cacheManager.setCaches(caches);
         return cacheManager;
     }
+
 }

@@ -26,6 +26,7 @@
 		<security-web.version>4.0.4.RELEASE</security-web.version>
 		<security-config.version>4.0.4.RELEASE</security-config.version>
 		<security-core.version>4.0.4.RELEASE</security-core.version>
+		<ui4j.version>2.1.0</ui4j.version>
     </properties>
 
     <modules>
@@ -88,7 +89,12 @@
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-core</artifactId>
 				<version>${security-core.version}</version>
-			</dependency>											
+			</dependency>
+			<dependency>
+				<groupId>com.ui4j</groupId>
+				<artifactId>ui4j-all</artifactId>
+				<version>${ui4j.version}</version>
+			</dependency>
         </dependencies>
     </dependencyManagement>
 
