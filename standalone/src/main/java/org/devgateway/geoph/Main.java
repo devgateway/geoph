@@ -48,6 +48,7 @@ public class Main {
         DeployProfile deployProfile = environment.getProperty("geoph.deploy.profile", DeployProfile.class, DeployProfile.DEV);
         PropsHelper.setScreenCaptureDir(environment.getProperty("screen.capture.dir", "/tmp/"));
         PropsHelper.setScreenCaptureTimeToWait(Long.parseLong(environment.getProperty("screen.capture.waiting.time", "25000")));
+        PropsHelper.setScreenFirefoxExe(environment.getProperty("screen.firefox.binary"));
         LOGGER.info("Deploying GeoPH using profile: {}", deployProfile);
         if(deployProfile == DeployProfile.DEV) {
             BootMetadata bootMetadata = ctx.getBean(BootMetadata.class);

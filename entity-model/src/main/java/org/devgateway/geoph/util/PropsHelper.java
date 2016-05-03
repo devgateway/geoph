@@ -10,6 +10,8 @@ public class PropsHelper {
 
     private static long screenCaptureTimeToWait = 25000;
 
+    private static String screenFirefoxExe = null;
+
     private PropsHelper(){
 
     }
@@ -28,5 +30,13 @@ public class PropsHelper {
 
     public static void setScreenCaptureTimeToWait(long screenCaptureTimeToWait) {
         PropsHelper.screenCaptureTimeToWait = screenCaptureTimeToWait;
+    }
+
+    public static String getScreenFirefoxExe() {
+        return screenFirefoxExe;
+    }
+
+    public static void setScreenFirefoxExe(String screenFirefoxExe) {
+        PropsHelper.screenFirefoxExe = screenFirefoxExe;
     }
 }

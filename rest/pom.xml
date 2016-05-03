@@ -32,8 +32,8 @@
             <artifactId>commons-lang3</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.ui4j</groupId>
-            <artifactId>ui4j-all</artifactId>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
         </dependency>
     </dependencies>
 
