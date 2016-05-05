@@ -26,6 +26,7 @@
 		<security-web.version>4.0.4.RELEASE</security-web.version>
 		<security-config.version>4.0.4.RELEASE</security-config.version>
 		<security-core.version>4.0.4.RELEASE</security-core.version>
+		<selenium.version>2.53.0</selenium.version>
     </properties>
 
     <modules>
@@ -88,7 +89,12 @@
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-core</artifactId>
 				<version>${security-core.version}</version>
-			</dependency>											
+			</dependency>
+			<dependency>
+				<groupId>org.seleniumhq.selenium</groupId>
+				<artifactId>selenium-java</artifactId>
+				<version>${selenium.version}</version>
+			</dependency>
         </dependencies>
     </dependencyManagement>
 

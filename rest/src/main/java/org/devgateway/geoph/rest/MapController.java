@@ -1,7 +1,16 @@
 package org.devgateway.geoph.rest;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.devgateway.geoph.model.AppMap;
 import org.devgateway.geoph.services.AppMapService;
+import org.devgateway.geoph.util.PropsHelper;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxBinary;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxProfile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +19,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
 import java.util.List;
+import java.util.Random;
+
+import static org.devgateway.geoph.util.Constants.ALPHABET;
+import static org.devgateway.geoph.util.Constants.ALPHABET_NUMBER;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -64,6 +78,37 @@ public class MapController {
     public List <AppMap> findMapByName(@PathVariable final String name) {
         LOGGER.debug("findMapByKey");
         return service.findByNameOrDescription(name);
+    }
+
+    @RequestMapping(value = "/print", method = GET)
+    public String printPage(@RequestParam(value = "url", required = true) String url){
+        String filename = null;
+        try {
+            if(StringUtils.isNotBlank(PropsHelper.getScreenFirefoxExe())) {
+                File pathToBinary = new File(PropsHelper.getScreenFirefoxExe());
+                FirefoxBinary ffBinary = new FirefoxBinary(pathToBinary);
+                FirefoxProfile firefoxProfile = new FirefoxProfile();
+                WebDriver driver = new FirefoxDriver(ffBinary, firefoxProfile);
+                driver.get(url);
+                Thread.sleep(PropsHelper.getScreenCaptureTimeToWait());
+                filename = getRandomKey() + ".png";
+                File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+                FileUtils.copyFile(scrFile, new File(PropsHelper.getScreenCaptureDir() + filename));
+                driver.close();
+            }
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+        }
+        return filename;
+    }
+
+    private static String getRandomKey(){
+        Random r = new Random();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 7; i++) {
+            sb.append(ALPHABET.charAt(r.nextInt(ALPHABET_NUMBER)));
+        }
+        return sb.toString().toLowerCase();
     }
 
 }
