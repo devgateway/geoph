@@ -11,7 +11,8 @@
 	@include absolute(102px,0px,40px,initial)
 	@include font(16px,$regular);
 	@include col2size();
-	overflow:auto;
+	overflow:hidden;
+	margin-bottom: 0px !important;
 	>ul{
 		@include margin(27px,initial,3px,10px)
 		@include list-horizontal()

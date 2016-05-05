@@ -6,7 +6,7 @@ require("./charts.scss");
 
 var pieColors = ["#f6eff7","#d0d1e6","#a6bddb","#67a9cf","#3690c0","#02818a","#016450"];
 
-class ChartComponent extends React.Component {
+export default class ChartComponent extends React.Component {
 
 	constructor() {
 	    super();
@@ -25,15 +25,15 @@ class ChartComponent extends React.Component {
 		if (chartData && chartData.map){
 			chartData.map((i) => {
 				if (meas=='projectCount'){
-					if (i[meas] && i[meas].length>0){
+					if (i[meas] && i[meas].length>0 && parseInt(i[meas])>0){
 						let label = i[dimension].length>35? i[dimension].substr(0,32)+'...' : i[dimension];
-						labels.push(label);
+						labels.push(this.capitalizeName(label));
 						values.push(i[meas]);
 					}
 				} else {
-					if (i[meas.measure][meas.type] && i[meas.measure][meas.type].length>0){
+					if (i[meas.measure][meas.type] && i[meas.measure][meas.type].length>0 && parseFloat(i[meas.measure][meas.type])>0){
 						let label = i[dimension].length>35? i[dimension].substr(0,32)+'...' : i[dimension];
-						labels.push(label);
+						labels.push(this.capitalizeName(label));
 						values.push(i[meas.measure][meas.type]);
 					}
 				}
@@ -52,7 +52,7 @@ class ChartComponent extends React.Component {
 			        'hole': 0.45,
 			        'textposition': 'none',
 			        'domain':{
-						x:[0,0.8],
+						x:[0.25,1],
 						y:[0,1]
 					},
 			    }
@@ -62,12 +62,13 @@ class ChartComponent extends React.Component {
 				'width': width || 550,
 				'margin':{
 					't':20,
-					'b':35,
-					'l':0
+					'b':20,
+					'l':0, 
+					'r':10
 				},
 				//'autosize': true,
 				'legend':{
-					x:-1,
+					x:-0.5,
 					y:1,
 					bgcolor:"rgba(0, 0, 0, 0)",
 					font:{
@@ -91,13 +92,13 @@ class ChartComponent extends React.Component {
 		if (chartData  && chartData.map){
 			chartData.map((i) => {
 				if (meas=='projectCount'){
-					if (i[meas] && i[meas].length>0){
-						itemNames.push(i[dimension]);
+					if (i[meas] && i[meas].length>0 && parseInt(i[meas])>0){
+						itemNames.push(this.capitalizeName(i[dimension]));
 						values.push(i[meas]);
 					}
 				} else {
-					if (i[meas.measure][meas.type] && i[meas.measure][meas.type].length>0){
-						itemNames.push(i[dimension]);
+					if (i[meas.measure][meas.type] && i[meas.measure][meas.type].length>0 && parseFloat(i[meas.measure][meas.type])>0){
+						itemNames.push(this.capitalizeName(i[dimension]));
 						values.push(i[meas.measure][meas.type]);
 					}
 				}
@@ -135,6 +136,15 @@ class ChartComponent extends React.Component {
 		}
 	}
 
+	capitalizeName(str) {
+		if (!str || str.length==0){
+			return "";
+		}
+		return str[0].toUpperCase() + str.replace(/ ([a-z])/g, function(a, b) {
+			return ' ' + b.toUpperCase();
+		}).slice(1);
+	}
+
 	setChartType(ev){
 		this.setState({'chartType': ev.target.value});
 	}
@@ -144,7 +154,20 @@ class ChartComponent extends React.Component {
 	}
 
 	render() {
-		var chartData = this.props.chartType || (this.state.chartType=='bar'? this.parseDataForBarchart() : this.parseDataForPiechart());
+		var chartData;
+		if (this.props.chartType){
+			chartData = this.props.chartType=='bar'? this.parseDataForBarchart() : this.parseDataForPiechart();
+		} else {
+			chartData = this.state.chartType=='bar'? this.parseDataForBarchart() : this.parseDataForPiechart();
+		}
+		this.props.chartType || (this.state.chartType=='bar'? this.parseDataForBarchart() : this.parseDataForPiechart());
+		if (chartData.data[0].values && chartData.data[0].values.length==0){
+			return (
+	    	<div className="no-data">
+	    		<h4>No data to show</h4>
+	    	</div>
+	    	)
+		}
 	    return (
 	    	<div className="chart">
 	    		<div className="chart-title">
@@ -164,7 +187,7 @@ class ChartComponent extends React.Component {
                         </div>					  
 					</div>
 	    		: null}  
-	    		{this.props.measure?
+	    		{this.props.showMeasureSelector?
 	    		<div className="chart-measure-selector">
 	    				<div className="chart-type-option"><input type="radio" 
 							value='funding'
@@ -186,4 +209,3 @@ class ChartComponent extends React.Component {
   	}
 }
 
-export default connect()(ChartComponent);;
