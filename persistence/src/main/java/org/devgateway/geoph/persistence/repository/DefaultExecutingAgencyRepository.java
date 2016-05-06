@@ -1,8 +1,10 @@
 package org.devgateway.geoph.persistence.repository;
 
-import org.devgateway.geoph.model.*;
+import org.devgateway.geoph.model.Agency;
+import org.devgateway.geoph.model.ExecutingAgency;
+import org.devgateway.geoph.model.Project;
+import org.devgateway.geoph.model.Project_;
 import org.devgateway.geoph.persistence.util.FilterHelper;
-import org.devgateway.geoph.util.FlowTypeEnum;
 import org.devgateway.geoph.util.Parameters;
 import org.devgateway.geoph.util.TransactionStatusEnum;
 import org.devgateway.geoph.util.TransactionTypeEnum;
@@ -17,21 +19,21 @@ import java.util.List;
 
 /**
  * @author dbianco
- *         created on abr 04 2016.
+ *         created on may 05 2016.
  */
 @Service
-public class DefaultImplementingAgencyRepository implements ImplementingAgencyRepository {
+public class DefaultExecutingAgencyRepository implements ExecutingAgencyRepository {
 
     @Autowired
     EntityManager em;
 
     @Override
-    public List<ImplementingAgency> findAll() {
-        return em.createNamedQuery("findAllImplementingAgency", ImplementingAgency.class).getResultList();
+    public List<ExecutingAgency> findAll() {
+        return em.createNamedQuery("findAllExecutingAgency", ExecutingAgency.class).getResultList();
     }
 
     @Override
-    public List<Object> findFundingByImplementingAgency(Parameters params) {
+    public List<Object> findFundingByExecutingAgency(Parameters params){
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<Object> criteriaQuery = criteriaBuilder.createQuery();
 
@@ -41,7 +43,7 @@ public class DefaultImplementingAgencyRepository implements ImplementingAgencyRe
         List<Predicate> predicates = new ArrayList();
         List<Expression<?>> groupByList = new ArrayList<>();
 
-        Join<Project, Agency> agencyJoin = projectRoot.join(Project_.implementingAgencies);
+        Join<Project, Agency> agencyJoin = projectRoot.join(Project_.executingAgency);
         multiSelect.add(agencyJoin);
         multiSelect.add(criteriaBuilder.countDistinct(projectRoot).alias("projectCount"));
         groupByList.add(agencyJoin);
@@ -63,7 +65,5 @@ public class DefaultImplementingAgencyRepository implements ImplementingAgencyRe
 
         return query.getResultList();
     }
-
-
 
 }

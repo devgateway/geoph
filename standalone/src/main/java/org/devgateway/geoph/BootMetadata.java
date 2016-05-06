@@ -63,6 +63,7 @@ public class BootMetadata {
                 "/sql/basic-data/gender_responsiveness.sql",
                 "/sql/basic-data/sector_items.sql",
                 "/sql/basic-data/projects.sql",
+                "/sql/basic-data/project_agencies.sql",
                 "/sql/basic-data/project_sectors.sql",
                 "/sql/basic-data/project_locations.sql",
                 "/sql/basic-data/project_climate_change.sql",

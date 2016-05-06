@@ -3,7 +3,6 @@ package org.devgateway.geoph.rest;
 import org.devgateway.geoph.model.*;
 import org.devgateway.geoph.response.GenericResponse;
 import org.devgateway.geoph.services.FilterService;
-import org.devgateway.geoph.util.FlowTypeEnum;
 import org.devgateway.geoph.util.LocationAdmLevelEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -182,7 +181,7 @@ public class FilterController extends CrossOriginSupport {
     @RequestMapping(value = "/sector", method = GET)
     public GenericResponse findAllSectors() {
         LOGGER.debug("findAllSectors");
-        List<Sector> sectors = service.findByLevel(1);
+        List<Sector> sectors = service.findAllSectorByLevel(1);
         GenericResponse resp = new GenericResponse(
                 "Sectors",
                 FILTER_SECTOR,

@@ -18,7 +18,11 @@ public interface FilterService {
 
     List<FundingAgency> findAllFundingAgencies();
 
-    List<Sector> findByLevel(int level);
+    List<ExecutingAgency> findAllExecutingAgencies();
+
+    List<Sector> findAllSectors();
+
+    List<Sector> findAllSectorByLevel(int level);
 
     List<Location> findAllLocations();
 
@@ -35,4 +39,6 @@ public interface FilterService {
     List<ClimateChange> findAllClimateChanges();
 
     List<GenderResponsiveness> findAllGenderResponsiveness();
+
+    List<Classification> findAllClassifications();
 }
