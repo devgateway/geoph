@@ -139,7 +139,7 @@ public class MapController {
             List<Location> lList = filterService.findAllLocations();
             Map<String, Location> lMap = new HashMap<>();
             for (Location l : lList){
-                lMap.put(l.getId().toString(), l);
+                lMap.put(l.getCode().toString(), l);
             }
 
             List<Status> stList = filterService.findAllStatuses();

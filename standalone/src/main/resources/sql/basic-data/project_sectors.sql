@@ -411,4 +411,3 @@ INSERT INTO project_sector (project_id,sector_id) VALUES (449,1);
 INSERT INTO project_sector (project_id,sector_id) VALUES (451,2);
 INSERT INTO project_sector (project_id,sector_id) VALUES (452,1);
 INSERT INTO project_sector (project_id,sector_id) VALUES (453,5);
-
