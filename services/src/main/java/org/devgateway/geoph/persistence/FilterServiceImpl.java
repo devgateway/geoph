@@ -30,6 +30,9 @@ public class FilterServiceImpl implements FilterService {
     FundingAgencyRepository fundingAgencyRepository;
 
     @Autowired
+    ExecutingAgencyRepository executingAgencyRepository;
+
+    @Autowired
     SectorRepository sectorRepository;
 
     @Autowired
@@ -61,14 +64,26 @@ public class FilterServiceImpl implements FilterService {
 
     @Override
     public List<FundingAgency> findAllFundingAgencies() {
-        LOGGER.debug("Getting all implementing agencies");
+        LOGGER.debug("Getting all funding agencies");
         return fundingAgencyRepository.findAll();
     }
 
     @Override
-    public List<Sector> findByLevel(int level) {
-        LOGGER.debug("Getting all sectors");
+    public List<ExecutingAgency> findAllExecutingAgencies() {
+        LOGGER.debug("Getting all executing agencies");
+        return executingAgencyRepository.findAll();
+    }
+
+    @Override
+    public List<Sector> findAllSectorByLevel(int level) {
+        LOGGER.debug("Getting all sectors by level");
         return sectorRepository.findByLevel(level);
+    }
+
+    @Override
+    public List<Sector> findAllSectors() {
+        LOGGER.debug("Getting all sectors");
+        return sectorRepository.findAll();
     }
 
     @Override
@@ -143,6 +158,11 @@ public class FilterServiceImpl implements FilterService {
     @Override
     public List<GenderResponsiveness> findAllGenderResponsiveness() {
         return genderResponsivenessRepository.findAll();
+    }
+
+    @Override
+    public List<Classification> findAllClassifications() {
+        return classificationRepository.findAll();
     }
 
 }

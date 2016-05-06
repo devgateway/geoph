@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -22,6 +23,7 @@ import static org.devgateway.geoph.util.Constants.*;
  *         created on mar 09 2016.
  */
 @Service
+@Transactional
 public class DefaultProjectRepository implements ProjectRepository {
 
     @Autowired
@@ -70,6 +72,12 @@ public class DefaultProjectRepository implements ProjectRepository {
                 .getResultList();
 
         return new PageImpl<Project>(projectList, params.getPageable(), count);
+    }
+
+    @Override
+    public Project save(Project project) {
+        em.persist(project);
+        return project;
     }
 
 

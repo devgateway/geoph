@@ -59,7 +59,7 @@ public class FilterHelper {
                     predicates.add(fundingAgencyJoin.get(FundingAgency_.id).in(params.getFundingAgencies()));
                 }
                 if (params.getImpAgencies() != null) {
-                    Join<Project, Agency> impAgencyJoin = projectRoot.join(Project_.implementingAgency);
+                    Join<Project, Agency> impAgencyJoin = projectRoot.join(Project_.implementingAgencies);
                     predicates.add(impAgencyJoin.get(ImplementingAgency_.id).in(params.getImpAgencies()));
                 }
                 if (params.getFlowTypes() != null) {
@@ -126,7 +126,7 @@ public class FilterHelper {
                     predicates.add(fundingAgencyJoin.get(FundingAgency_.id).in(params.getFundingAgencies()));
                 }
                 if (params.getImpAgencies() != null) {
-                    Join<Project, Agency> impAgencyJoin = projectJoin.join(Project_.implementingAgency, JoinType.LEFT);
+                    Join<Project, Agency> impAgencyJoin = projectJoin.join(Project_.implementingAgencies, JoinType.LEFT);
                     predicates.add(impAgencyJoin.get(ImplementingAgency_.id).in(params.getImpAgencies()));
                 }
                 if (params.getFlowTypes() != null) {

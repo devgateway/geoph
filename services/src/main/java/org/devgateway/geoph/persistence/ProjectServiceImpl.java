@@ -38,4 +38,9 @@ public class ProjectServiceImpl implements ProjectService {
     public Page<Project> findProjectsByParams(Parameters params){
         return projectRepository.findProjectsByParams(params);
     }
+
+    @Override
+    public Project save(Project project) {
+        return projectRepository.save(project);
+    }
 }

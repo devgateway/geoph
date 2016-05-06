@@ -19,4 +19,6 @@ public interface ProjectService {
     Project findById(long id);
 
     Page<Project> findProjectsByParams(Parameters params);
+
+    Project save(Project project);
 }

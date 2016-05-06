@@ -26,7 +26,7 @@ import java.util.Set;
 @NamedEntityGraph(name = "graph.project.all",
         attributeNodes = {
                 @NamedAttributeNode("transactions"),
-                @NamedAttributeNode("implementingAgency"),
+                @NamedAttributeNode("implementingAgencies"),
                 @NamedAttributeNode("executingAgency"),
                 @NamedAttributeNode("fundingAgency"),
                 @NamedAttributeNode("originalCurrency"),
@@ -40,13 +40,19 @@ import java.util.Set;
         })
 public class Project extends GenericPersistable implements Serializable {
 
+    private String phId;
+
     private String title;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
     private Set<Transaction> transactions;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade= CascadeType.MERGE)
-    private Agency implementingAgency;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinTable(name = "project_agency", joinColumns = {
+            @JoinColumn(name = "project_id", nullable = false, updatable = false) },
+            inverseJoinColumns = { @JoinColumn(name = "agency_id",
+                    nullable = false, updatable = false) })
+    private Set<Agency> implementingAgencies;
 
     @Column(name = "implementing_agency_office")
     private String implementingAgencyOffice;
@@ -118,6 +124,14 @@ public class Project extends GenericPersistable implements Serializable {
     public Project() {
     }
 
+    public String getPhId() {
+        return phId;
+    }
+
+    public void setPhId(String phId) {
+        this.phId = phId;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -134,12 +148,12 @@ public class Project extends GenericPersistable implements Serializable {
         this.transactions = transactions;
     }
 
-    public Agency getImplementingAgency() {
-        return implementingAgency;
+    public Set<Agency> getImplementingAgencies() {
+        return implementingAgencies;
     }
 
-    public void setImplementingAgency(Agency implementingAgency) {
-        this.implementingAgency = implementingAgency;
+    public void setImplementingAgencies(Set<Agency> implementingAgencies) {
+        this.implementingAgencies = implementingAgencies;
     }
 
     public String getImplementingAgencyOffice() {
