@@ -37,6 +37,8 @@ public class CacheConfiguration {
         SimpleCacheManager cacheManager = new SimpleCacheManager();
         List<Cache> caches = new ArrayList<>();
         caches.add(new ConcurrentMapCache("locationsByLevel"));
+        caches.add(new ConcurrentMapCache("locationsByCode"));
+        caches.add(new ConcurrentMapCache("locationsById"));
         caches.add(new ConcurrentMapCache("locationsByParams"));
         caches.add(new ConcurrentMapCache("shapesWithDetail"));
 

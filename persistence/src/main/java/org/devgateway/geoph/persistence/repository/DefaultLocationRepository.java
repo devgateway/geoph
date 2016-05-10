@@ -34,6 +34,15 @@ public class DefaultLocationRepository implements LocationRepository {
     }
 
     @Override
+    @Cacheable("locationsById")
+    public Location findById(long id) {
+        return em.createNamedQuery("findLocationsById", Location.class)
+                .setParameter(PROPERTY_LOC_ID, id)
+                .getSingleResult();
+    }
+
+    @Override
+    @Cacheable("locationsByCode")
     public Location findByCode(String code) {
         return em.createNamedQuery("findLocationsByCode", Location.class)
                 .setParameter(PROPERTY_LOC_CODE, code)

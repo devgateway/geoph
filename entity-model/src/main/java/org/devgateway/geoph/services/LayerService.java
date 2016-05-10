@@ -4,6 +4,7 @@ import org.devgateway.geoph.model.GeoPhotoSource;
 import org.devgateway.geoph.model.Indicator;
 import org.devgateway.geoph.model.IndicatorDetail;
 import org.devgateway.geoph.util.GeoPhotoGeometryHelper;
+import org.geojson.FeatureCollection;
 
 import java.util.List;
 
@@ -15,9 +16,9 @@ public interface LayerService {
 
     List<Indicator> getIndicatorsList();
 
-    List<IndicatorDetail> getIndicatorsData(long indicatorId);
+    FeatureCollection getIndicatorsData(long indicatorId);
 
     List<GeoPhotoSource> getGeoPhotoSourceList();
 
-    List<GeoPhotoGeometryHelper> getGeoPhotoData(long kmlId);
+    FeatureCollection getGeoPhotoData(long kmlId);
 }

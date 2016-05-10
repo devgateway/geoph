@@ -14,6 +14,8 @@ public interface LocationRepository {
 
     List<Location> findAll();
 
+    Location findById(long id);
+
     Location findByCode(String code);
 
     List<Location> findLocationsByLevel(int level);
