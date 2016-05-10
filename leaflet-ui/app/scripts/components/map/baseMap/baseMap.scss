@@ -2,9 +2,11 @@
 
 
 @mixin basemapimages($x,$y) {
-	background-repeat: no-repeat;
+	background:url(../../../../assets/basemaps.png);
+  	background-repeat: no-repeat;
 	background-position: $x $y;
 }
+
 .basemap-container{
 	padding: 10px;
 	position: fixed;

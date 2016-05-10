@@ -9,6 +9,9 @@ import * as Constants from '../../constants/constants.js';
 import JenksCssProvider from '../../util/jenksUtil.js'
 import {L, Popup, Map, Marker, TileLayer,ZoomControl,MapLayer,ScaleControl,LayerGroup} from 'react-leaflet'; 
 
+import ProjectPopup from './popups/projectLayerPopup'
+import Test from '../controls/settings'
+
 require('leaflet/dist/leaflet.css')
 require('./map.scss');
 
@@ -48,7 +51,9 @@ const Layer=React.createClass({
 				thresholds={5} 
 				visible={this.props.layer.get('visible')} 
 				key={this.props.layer.get('keName')} 
-				data={this.props.layer.get('data')?this.props.layer.get('data').toJS():null}/>:null;
+				data={this.props.layer.get('data')?this.props.layer.get('data').toJS():null}>
+					<ProjectPopup/>
+				</SvgLayer>:null;
 	
 	}
 })
@@ -82,16 +87,17 @@ const view = React.createClass({
 		return (
 			<Map className="map" zoom={13} bounds={bounds}>
 				<TileLayer url={this.props.map.get('basemap').get('url')}/>
-				<Layers layers={this.props.map.get('layers')}/>
+				<Layers layers={this.props.map.get('layers')} charts={this.props.charts} fundingType={this.props.fundingType}/>
 			</Map>
 			)
 	}
 });
 
 
-const stateToProps = (state,props) => {
-	
-	return {map:state.map};
+const stateToProps = (state,props) => {	
+	return {
+		map:state.map
+	};
 }
 
 const MapView=connect(stateToProps)(view);

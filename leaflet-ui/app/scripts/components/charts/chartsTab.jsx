@@ -14,25 +14,30 @@ class Charts extends React.Component {
   }
 
   render() {
+    let charts = this.props.charts && this.props.charts.sideCharts? this.props.charts.sideCharts : {}
     return (
       <div className="chart-view">
         <p>Explore this in-depth profile of Philippines to find out overall lorem ipsum dolor sit amet, consectetur elit. </p>
         <div className="charts-container">
-          <Chart chartData={this.props.charts && this.props.charts.fundingAgency? this.props.charts.fundingAgency.data : []}
+          <Chart chartData={charts.fundingAgency? charts.fundingAgency.data : []}
             title="Funding Agency Chart" 
             measure={this.props.fundingType} 
+            showMeasureSelector={true}
             dimension="name"/>
-          <Chart chartData={this.props.charts && this.props.charts.implementingAgency? this.props.charts.implementingAgency.data : []}
+          <Chart chartData={charts.implementingAgency? charts.implementingAgency.data : []}
             title="Implementing Agency Chart" 
             measure={this.props.fundingType} 
+            showMeasureSelector={true}
             dimension="name"/>
-          <Chart chartData={this.props.charts && this.props.charts.physicalStatus? this.props.charts.physicalStatus.data : []}
+          <Chart chartData={charts.physicalStatus? charts.physicalStatus.data : []}
             title="Physical Status Chart" 
             measure={this.props.fundingType} 
+            showMeasureSelector={true}
             dimension="name"/>
-          <Chart chartData={this.props.charts && this.props.charts.sector? this.props.charts.sector.data : []}
+          <Chart chartData={charts.sector? charts.sector.data : []}
             title="Sector Chart" 
             measure={this.props.fundingType} 
+            showMeasureSelector={true}
             dimension="name"/>
         </div>  
       </div>

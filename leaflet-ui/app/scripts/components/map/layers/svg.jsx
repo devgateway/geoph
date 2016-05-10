@@ -3,15 +3,18 @@ import {geoJson, latlng, marker, divIcon} from 'leaflet';
 import {MapLayer} from 'react-leaflet';
 import React from 'react';
 import d3 from 'd3';
-
 import { render, unmountComponentAtNode } from 'react-dom';
+import ProjectPopup from '../popups/projectLayerPopup';
+import { fetchPopupChartData } from '../../../actions/charts.js'
+import { connect } from 'react-redux'
+import {collectValues} from '../../../util/filterUtil';
 
 /**
  * @author Sebas
  */
- export default class D3Layer extends MapLayer {
+class D3Layer extends MapLayer {
 
-   static propTypes = {
+  static propTypes = {
     higthligthStyleProvider: React.PropTypes.func,
   };
 
@@ -33,7 +36,6 @@ import { render, unmountComponentAtNode } from 'react-dom';
 
   componentDidUpdate(nextProps, nextState) {
     const {data, ...props} = this.props;
-    debugger;
     this.mapmove();
   }
 
@@ -111,7 +113,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
 
   onClick(properties){
     L.DomEvent._getEvent().stopPropagation();
-    this.renderPopupContent(properties);
+    this.getPopupContent(properties);
   }
 
 
@@ -119,24 +121,37 @@ import { render, unmountComponentAtNode } from 'react-dom';
     if (this.props.data && this.props.data.features){
       this.values=this.getValues(this.props.data.features);//isolate features values 
       this.renderPaths(this.props.data);
-    }else{
+    } else {
       console.log('Dataset is empty');
     }
   }
 
-  renderPopupContent(feature) {
-    let popup = L.popup()
+  getPopupContent(feature) {
+    this.setState({popupFeature: feature});
+    let filters = collectValues(this.props.filters);
+    Object.assign(filters, {'lo': [feature.properties.id]})
+    this.props.onGetPopupData(filters);
+  }
+
+  renderPopupContent(charts) {
+    let feature = this.state.popupFeature;
+    let popup = L.popup({maxWidth:"400", minWidth:"400", maxHeight:"280"})
     .setLatLng(L.latLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]))
     .openOn(this.props.map);
-
+    Object.assign(feature, {'charts': charts, 'fundingType': this.props.fundingType});
     if (this.props.children) {
-      render(React.cloneElement(React.Children.only(this.props.children), feature.properties) ,popup._contentNode);
+      render(React.cloneElement(React.Children.only(this.props.children), feature), popup._contentNode);
       popup._updateLayout();
       popup._updatePosition();
       popup._adjustPan();
     } 
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.charts && this.props.charts && nextProps.charts.lastUpdate && (nextProps.charts.lastUpdate != this.props.charts.lastUpdate)){
+        this.renderPopupContent(nextProps.charts)
+    }
+  }
 
   getClass(d){
     
@@ -150,8 +165,6 @@ import { render, unmountComponentAtNode } from 'react-dom';
 
   }
 
-
-
   render() {
     return this.renderChildrenWithProps({
       popupContainer: this.leafletElement,
@@ -160,3 +173,20 @@ import { render, unmountComponentAtNode } from 'react-dom';
 
 }
 
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    onGetPopupData: (filters) => {
+      dispatch(fetchPopupChartData(filters));
+    }
+  }
+}
+
+const mapStateToProps = (state, props) => {
+  return {
+    fundingType: state.settings.fundingType,
+    charts: state.charts.popupCharts,
+    filters: state.filters
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(D3Layer);;

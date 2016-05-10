@@ -4,13 +4,16 @@ const charts = (state = {}, action) => {
   switch (action.type) {
     case Constants.RECEIVE_CHART_DATA:
     case Constants.REQUEST_CHART_DATA:
-      let chartsObj = {};
+      let chartsObj = {lastUpdate: action.receivedAt};
       for(var key in action.data){
           let act = {type: action.type, data: action.data[key]};
-          //Object.assign(chartsObj, {key: chart(state[key], act)})
           chartsObj[key] = chart(state[key], act);
       }
-      return Object.assign({}, state, chartsObj)
+      if (action.fromPopup){
+        return Object.assign({}, state, {popupCharts: chartsObj});
+      } else {
+        return Object.assign({}, state, {sideCharts: chartsObj});
+      }
     default:
       return state
   }
