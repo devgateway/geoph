@@ -22,7 +22,9 @@ public interface LocationRepository {
 
     List<Location> findLocationsByParentId(long parentId);
 
-    List<Object> findLocationsByParams(Parameters params);
+    List<Object> findLocationsByParams(Parameters params, int trxTypeId, int trxStatusId);
+
+    List<Object> countLocationProjectsByParams(Parameters params);
 
     List<PostGisHelper> getRegionShapesWithDetail(double detail);
 
