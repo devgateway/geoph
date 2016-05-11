@@ -16,7 +16,12 @@ class FilterTabContent extends React.Component {
 		
 	}
 
+	getFilterData(filterType){
+		return this.props.filters.get('filters').toJS().find(function(it){return it.filterType==filterType})		
+	}
+
   	render() {
+  		debugger;
   		return (
 	    	<div className="tab-container">
 	    		<Tabs defaultActiveKey={1}>
@@ -26,24 +31,24 @@ class FilterTabContent extends React.Component {
 								Funding Source Tab content
 						    </Tab>
 						    <Tab className="filter-list-content" eventKey={2} title="Funding Type (ODA)">
-								<FilterList filterType="ft" {...this.props.filters["ft"]} />
+								<FilterList filterType="ft" {...this.getFilterData("ft")} />
 						    </Tab>
 						    <Tab className="filter-list-content" eventKey={3} title="Financing Institution">
-								<FilterList filterType="fa" {...this.props.filters["fa"]} />
+								<FilterList filterType="fa" {...this.getFilterData("fa")} />
 						    </Tab>
 						</Tabs>
 	                </Tab>
 	                <Tab className="filter-tab-content" eventKey={2} title="Agencies">
 	                  	<Tabs defaultActiveKey={1} position="left" tabWidth={3}>
 							<Tab className="filter-list-content" eventKey={1} title="Implementing Agency">
-								<FilterList filterType="ia" {...this.props.filters["ia"]} />
+								<FilterList filterType="ia" {...this.getFilterData("ia")} />
 						    </Tab>						   
 						</Tabs>
 	                </Tab>
 	                <Tab className="filter-tab-content" eventKey={3} title="Sectors">
 	                  	<Tabs defaultActiveKey={1} position="left" tabWidth={3}>
 							<Tab className="filter-list-content" eventKey={1} title="Sectors">
-								<FilterList filterType="st" {...this.props.filters["st"]} />
+								<FilterList filterType="st" {...this.getFilterData("st")} />
 						    </Tab>
 						    <Tab className="filter-list-content" eventKey={2} title="Philippines Development Priority">
 								Philippines Development Priority Tab content
@@ -63,17 +68,17 @@ class FilterTabContent extends React.Component {
 	                <Tab className="filter-tab-content" eventKey={5} title="Dates">
 	                  	<Tabs defaultActiveKey={1} position="left" tabWidth={3}>
 							<Tab className="filter-list-content" eventKey={1} title="Implementation period">
-								<FilterDate filterType="ip" lang={this.props.language.lan} {...this.props.filters["ip"]}/>
+								<FilterDate filterType="ip" lang={this.props.language.lan} {...this.getFilterData("ip")}/>
 						    </Tab>
 						    <Tab className="filter-list-content" eventKey={2} title="Loan/Grant Validity Period">
-								<FilterDate startDateLabel='Effective Date' endDateLabel='Loan Closing Date' filterType="gp" lang={this.props.language.lan} {...this.props.filters["gp"]}/>
+								<FilterDate startDateLabel='Effective Date' endDateLabel='Loan Closing Date' filterType="gp" lang={this.props.language.lan} {...this.getFilterData("gp")}/>
 						    </Tab>
 						</Tabs>
 	                </Tab>
 	                <Tab className="filter-tab-content" eventKey={6} title="Status">
 	                  	<Tabs defaultActiveKey={1} position="left" tabWidth={3}>
 							<Tab className="filter-list-content" eventKey={1} title="Financing Status">
-								<FilterList filterType="fs" {...this.props.filters["fs"]}/>
+								<FilterList filterType="fs" {...this.getFilterData("fs")}/>
 						    </Tab>
 						</Tabs>
 	                </Tab>
@@ -87,7 +92,7 @@ class FilterTabContent extends React.Component {
 	                <Tab className="filter-tab-content" eventKey={8} title="Physical and Financial">
 	                  	<Tabs defaultActiveKey={1} position="left" tabWidth={3}>
 							<Tab className="filter-list-content" eventKey={1} title="Percentage of target reached">
-								<FilterSlider filterType="pr" valueSymbol="%" {...this.props.filters["pr"]}/>
+								<FilterSlider filterType="pr" valueSymbol="%" {...this.getFilterData("pr")}/>
 						    </Tab>
 						    <Tab className="filter-list-content" eventKey={2} title="Physical Status">
 								

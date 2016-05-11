@@ -71,21 +71,19 @@ const setProps=(layers,props)=>{
 
 
 const toogle=(layers,id,property)=>{
-
   return layers.map((l)=>{
     if (l.get('id')==id || id==null){
-            l=l.set(property,!l.get(property)); //toggle property of current layer
-            if (l.get('layers')){
-              //if it is a group update child with curren parrent value
-              l=l.set('layers', setProps(l.get('layers'),{'visible':l.get('visible')})) 
-            }
-            return l;
-
-          }else if(l.get('layers')){
-           return l.set('layers',toogle(l.get('layers'),id,property))
-         }
-         return l;
-       })
+      l=l.set(property,!l.get(property)); //toggle property of current layer
+      if (l.get('layers')){
+        //if it is a group update child with curren parrent value
+        l=l.set('layers', setProps(l.get('layers'),{'visible':l.get('visible')})) 
+      }
+      return l;
+    } else if (l.get('layers')){
+      return l.set('layers',toogle(l.get('layers'),id,property))
+    }
+    return l;
+  })
 }
 
 

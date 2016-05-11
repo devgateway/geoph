@@ -4,10 +4,10 @@ import {applyFiltersToLayers} from './map';
 import {fetchChartData} from './charts';
 import {collectValues} from '../util/filterUtil';
 
-export const requestFilterData = (filter) => {
+export const requestFilterData = (filterType) => {
   return {
     type: Constants.REQUEST_FILTER_DATA,
-    filter
+    filterType
   }
 }
 

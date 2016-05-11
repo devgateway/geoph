@@ -17,7 +17,6 @@ const prefix="control.layers";
  	}
 
  	render(){
- 		debugger;
  		return (<li className="settings"></li>);
  	}
  }
