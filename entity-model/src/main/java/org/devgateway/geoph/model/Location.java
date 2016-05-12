@@ -20,6 +20,10 @@ import java.util.Set;
                 query = "from Location l"
         ),
         @NamedQuery(
+                name = "findLocationsById",
+                query = "from Location l where l.id = :id"
+        ),
+        @NamedQuery(
                 name = "findLocationsByCode",
                 query = "from Location l where l.code = :code"
         ),

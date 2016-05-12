@@ -6,6 +6,7 @@ import org.devgateway.geoph.model.IndicatorDetail;
 import org.devgateway.geoph.security.NotAllowException;
 import org.devgateway.geoph.services.LayerService;
 import org.devgateway.geoph.util.GeoPhotoGeometryHelper;
+import org.geojson.FeatureCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +55,7 @@ public class LayerController {
 
     @RequestMapping(value = "/indicators/id/{indicatorId}", method = GET)
     //@Secured("ROLE_READ")
-    public List<IndicatorDetail> getIndicatorsData(@PathVariable final long indicatorId) {
+    public FeatureCollection getIndicatorsData(@PathVariable final long indicatorId) {
         LOGGER.debug("getIndicatorsData for indicator id:" + indicatorId);
         return service.getIndicatorsData(indicatorId);
     }
@@ -68,7 +69,7 @@ public class LayerController {
 
     @RequestMapping(value = "/geophotos/id/{kmlId}", method = GET)
     //@Secured("ROLE_READ")
-    public List<GeoPhotoGeometryHelper> getGeoPhotosData(@PathVariable final long kmlId) {
+    public FeatureCollection getGeoPhotosData(@PathVariable final long kmlId) {
         LOGGER.debug("getGeoPhotosData for kml id:" + kmlId);
         return service.getGeoPhotoData(kmlId);
     }
