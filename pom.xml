@@ -27,6 +27,7 @@
 		<security-config.version>4.0.4.RELEASE</security-config.version>
 		<security-core.version>4.0.4.RELEASE</security-core.version>
 		<selenium.version>2.53.0</selenium.version>
+        <poi.version>3.14</poi.version>
     </properties>
 
     <modules>
@@ -95,6 +96,11 @@
 				<artifactId>selenium-java</artifactId>
 				<version>${selenium.version}</version>
 			</dependency>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>${poi.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

@@ -48,4 +48,11 @@ public class Constants {
     public static final int ALPHABET_NUMBER = ALPHABET.length();
 
     public static final String FLOW_TYPE_ID_SEPARATOR = ".";
+
+    public static final String[] EXPORT_ENGLISH_TITLE_ARRAY = {"Location ID", "UACS Code", "ADM Level", "Name",
+            "Latitude", "Longitude", "Region", "Province", "Project ID", "Title", "Implementing Agency",
+            "Executing Agency", "Funding Institution", "Original Currency (OC)", "Amount in OC", "Start Date",
+            "Closing Date", "Revised Closing Date", "Sectors", "Period of Performance Start",
+            "Period of Performance End", "Status", "Physical Status", "Physical Progress (Actual)",
+            "Physical Progress (Target)", "Grant Classification", "Total Disbursements", "Total Commitments"};
 }

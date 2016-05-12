@@ -8,10 +8,7 @@ import org.geojson.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.devgateway.geoph.util.Constants.*;
 
@@ -68,6 +65,20 @@ public class GeoJsonServiceImpl implements GeoJsonService {
             }
         }
         return featureCollection;
+    }
+
+    public List<Location> getLocationsForExport(Parameters params){
+        List<Location> locationList = new ArrayList<>();
+        List<Object> locationResults = locationRepository.findLocationsByParams(params, 0, 0);
+        for(Object o:locationResults) {
+            Location l = (Location) o;
+            Set<Project> projects = l.getProjects();
+            for(Project p : projects){
+                p.getTransactions();
+            }
+            locationList.add(l);
+        }
+        return locationList;
     }
 
     private void addProjectCount(Parameters params, int level, Map<Long, LocationProperty> locationPropertyMap) {

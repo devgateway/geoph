@@ -12,6 +12,8 @@ public class PropsHelper {
 
     private static String screenFirefoxExe = null;
 
+    private static String exportDir = "/tmp/";
+
     private PropsHelper(){
 
     }
@@ -38,5 +40,13 @@ public class PropsHelper {
 
     public static void setScreenFirefoxExe(String screenFirefoxExe) {
         PropsHelper.screenFirefoxExe = screenFirefoxExe;
+    }
+
+    public static String getExportDir() {
+        return exportDir;
+    }
+
+    public static void setExportDir(String exportDir) {
+        PropsHelper.exportDir = exportDir;
     }
 }
