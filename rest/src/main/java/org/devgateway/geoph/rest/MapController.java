@@ -26,10 +26,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileReader;
+import java.io.*;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -47,6 +45,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public class MapController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MapController.class);
+    public static final String COMMA = ",";
 
     private final AppMapService service;
 
@@ -150,85 +149,80 @@ public class MapController {
         String filename = null;
 
         if(fileType.toLowerCase().trim().equals("xls")){
-            Workbook wb = new HSSFWorkbook();
-            Sheet sheet = wb.createSheet("Geoph export");
-            Row row = sheet.createRow((short)0);
+            filename = getExcelFile(language, locationList);
+        } else {
+            filename = getCsvFile(language, locationList);
+        }
+        return filename;
+    }
+
+    private String getCsvFile(String language, List<Location> locationList) {
+        String filename = "NEDA_data_" + getRandomKey() + ".csv";
+        try {
+            FileWriter writer = new FileWriter(PropsHelper.getExportDir() + filename);
             String[] titles = null;
             if(language.toLowerCase().trim().equals("ph")){
+                //TODO
                 titles = EXPORT_ENGLISH_TITLE_ARRAY;
             } else {
                 titles = EXPORT_ENGLISH_TITLE_ARRAY;
             }
-            CellStyle titleStyle = getCellStyle(wb);
-            for(int i=0; i<titles.length; i++){
-                Cell cell = row.createCell((short) i);
-                cell.setCellValue(titles[i]);
-                cell.setCellStyle(titleStyle);
+            for(int i=0; i<titles.length; i++) {
+                writer.append(titles[i]);
+                if(i!=titles.length-1){
+                    writer.append(',');
+                }
             }
-            short rowNumber = 0;
-            CreationHelper createHelper = wb.getCreationHelper();
-            CellStyle dataStyle = wb.createCellStyle();
-            dataStyle.setDataFormat(
-                    createHelper.createDataFormat().getFormat("m/d/yy h:mm"));
-            for(Location l : locationList){
-                for(Project p : l.getProjects()){
-                    rowNumber ++;
-                    Row dataRow = sheet.createRow(rowNumber);
-                    dataRow.createCell(0).setCellValue(l.getId());
-                    dataRow.createCell(1).setCellValue(l.getCode());
-                    dataRow.createCell(2).setCellValue(l.getLevel());
-                    dataRow.createCell(3).setCellValue(l.getName());
-                    dataRow.createCell(4).setCellValue(l.getLatitude());
-                    dataRow.createCell(5).setCellValue(l.getLongitude());
-                    dataRow.createCell(6).setCellValue(l.getRegionId());
-                    dataRow.createCell(7).setCellValue(l.getProvinceId() != null ? l.getProvinceId().toString() : "");
-                    dataRow.createCell(8).setCellValue(p.getPhId());
-                    dataRow.createCell(9).setCellValue(p.getTitle());
+            writer.append('\n');
+            DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+            for(Location l : locationList) {
+                for (Project p : l.getProjects()) {
+                    writer.append(""+l.getId());
+                    writer.append(COMMA +l.getCode());
+                    writer.append(COMMA +l.getLevel());
+                    writer.append(COMMA +l.getName().replace(',', '/'));
+                    writer.append(COMMA +l.getLatitude());
+                    writer.append(COMMA +l.getLongitude());
+                    writer.append(COMMA +l.getRegionId());
+                    writer.append(l.getProvinceId() != null ? COMMA +l.getProvinceId().toString() : COMMA);
+                    writer.append(COMMA +p.getPhId());
+                    writer.append(COMMA +p.getTitle().replace(',', '/'));
+                    writer.append(COMMA);
                     StringBuilder iaSb = new StringBuilder();
                     for(Agency ia : p.getImplementingAgencies()){
-                        iaSb.append(ia.getCode() + ", ");
+                        iaSb.append(ia.getCode() + "/");
                     }
                     if(iaSb.length()>2){
-                        dataRow.createCell(10).setCellValue(iaSb.toString().substring(0, iaSb.length()-2));
+                        writer.append(iaSb.toString().substring(0, iaSb.length()-2));
                     }
-                    dataRow.createCell(11).setCellValue(p.getExecutingAgency()!=null?p.getExecutingAgency().getName():"");
-                    dataRow.createCell(12).setCellValue(p.getFundingAgency()!=null?p.getFundingAgency().getName():"");
-                    dataRow.createCell(13).setCellValue(p.getOriginalCurrency()!=null?p.getOriginalCurrency().getName():"");
-                    dataRow.createCell(14).setCellValue(p.getTotalProjectAmount());
+                    writer.append(p.getExecutingAgency()!=null? COMMA +p.getExecutingAgency().getName(): COMMA);
+                    writer.append(p.getFundingAgency()!=null? COMMA +p.getFundingAgency().getName(): COMMA);
+                    writer.append(p.getOriginalCurrency()!=null? COMMA +p.getOriginalCurrency().getName(): COMMA);
+                    writer.append(COMMA +p.getTotalProjectAmount());
 
-                    Cell cellStartDate = dataRow.createCell(15);
-                    cellStartDate.setCellValue(p.getStartDate());
-                    cellStartDate.setCellStyle(dataStyle);
+                    writer.append(COMMA + formatter.format(p.getStartDate()));
+                    writer.append(COMMA + formatter.format(p.getEndDate()));
+                    writer.append(COMMA + formatter.format(p.getRevisedClosingDate()));
 
-                    Cell cellEndDate = dataRow.createCell(16);
-                    cellEndDate.setCellValue(p.getStartDate());
-                    cellEndDate.setCellStyle(dataStyle);
-
-                    Cell cellRevisedClosingDate = dataRow.createCell(17);
-                    cellRevisedClosingDate.setCellValue(p.getRevisedClosingDate());
-                    cellRevisedClosingDate.setCellStyle(dataStyle);
-
+                    writer.append(COMMA);
                     StringBuilder sectorSb = new StringBuilder();
                     for(Sector s : p.getSectors()){
-                        sectorSb.append(s.getCode());
+                        sectorSb.append(s.getCode() + "/");
                     }
                     if(sectorSb.length()>2){
-                        dataRow.createCell(18).setCellValue(sectorSb.toString().substring(0, sectorSb.length()-2));
+                        writer.append(sectorSb.toString().substring(0, sectorSb.length()-2));
                     }
 
-                    Cell cellPeriodPerformanceStart = dataRow.createCell(19);
-                    cellPeriodPerformanceStart.setCellValue(p.getPeriodPerformanceStart());
-                    cellPeriodPerformanceStart.setCellStyle(dataStyle);
+                    writer.append(COMMA + formatter.format(p.getPeriodPerformanceStart()));
+                    writer.append(COMMA + formatter.format(p.getPeriodPerformanceEnd()));
 
-                    Cell cellPeriodPerformanceEnd = dataRow.createCell(20);
-                    cellPeriodPerformanceEnd.setCellValue(p.getPeriodPerformanceEnd());
-                    cellPeriodPerformanceEnd.setCellStyle(dataStyle);
+                    writer.append(p.getStatus()!=null?COMMA+p.getStatus().getName():COMMA);
+                    writer.append(p.getPhysicalStatus()!=null?COMMA+p.getPhysicalStatus().getName():COMMA);
 
-                    dataRow.createCell(21).setCellValue(p.getStatus()!=null?p.getStatus().getName():"");
-                    dataRow.createCell(22).setCellValue(p.getPhysicalStatus()!=null?p.getPhysicalStatus().getName():"");
-                    dataRow.createCell(23).setCellValue("");
-                    dataRow.createCell(24).setCellValue("");
-                    dataRow.createCell(25).setCellValue(p.getGrantClassification()!=null?p.getGrantClassification().getName():"");
+                    writer.append(COMMA); //TODO Physical performance
+                    writer.append(COMMA);
+
+                    writer.append(p.getGrantClassification()!=null?COMMA+p.getGrantClassification().getName():COMMA);
                     long disbursements = 0;
                     long commitments = 0;
                     for(Transaction t : p.getTransactions()){
@@ -239,21 +233,123 @@ public class MapController {
                             commitments += t.getAmount();
                         }
                     }
-                    dataRow.createCell(26).setCellValue(disbursements);
-                    dataRow.createCell(27).setCellValue(commitments);
+                    writer.append(COMMA+disbursements);
+                    writer.append(COMMA+commitments);
+                    writer.append('\n');
                 }
             }
+            writer.flush();
+            writer.close();
+        } catch(IOException e) {
+            LOGGER.error(e.getMessage());
+        }
+        return filename;
+    }
 
-            try {
-                filename = "NEDA_data_" + getRandomKey() + ".xls";
-                FileOutputStream fileOut = new FileOutputStream(filename);
-                wb.write(fileOut);
-                fileOut.close();
-            } catch (Exception e){
-                LOGGER.error(e.getMessage());
-            }
+    private String getExcelFile(String language, List<Location> locationList) {
+        String filename = "";
+        Workbook wb = new HSSFWorkbook();
+        Sheet sheet = wb.createSheet("Geoph export");
+        Row row = sheet.createRow((short)0);
+        String[] titles = null;
+        if(language.toLowerCase().trim().equals("ph")){
+            //TODO
+            titles = EXPORT_ENGLISH_TITLE_ARRAY;
         } else {
+            titles = EXPORT_ENGLISH_TITLE_ARRAY;
+        }
+        CellStyle titleStyle = getCellStyle(wb);
+        for(int i=0; i<titles.length; i++){
+            Cell cell = row.createCell((short) i);
+            cell.setCellValue(titles[i]);
+            cell.setCellStyle(titleStyle);
+        }
+        short rowNumber = 0;
+        CreationHelper createHelper = wb.getCreationHelper();
+        CellStyle dataStyle = wb.createCellStyle();
+        dataStyle.setDataFormat(
+                createHelper.createDataFormat().getFormat("m/d/yy h:mm"));
+        for(Location l : locationList){
+            for(Project p : l.getProjects()){
+                rowNumber ++;
+                Row dataRow = sheet.createRow(rowNumber);
+                dataRow.createCell(0).setCellValue(l.getId());
+                dataRow.createCell(1).setCellValue(l.getCode());
+                dataRow.createCell(2).setCellValue(l.getLevel());
+                dataRow.createCell(3).setCellValue(l.getName());
+                dataRow.createCell(4).setCellValue(l.getLatitude());
+                dataRow.createCell(5).setCellValue(l.getLongitude());
+                dataRow.createCell(6).setCellValue(l.getRegionId());
+                dataRow.createCell(7).setCellValue(l.getProvinceId() != null ? l.getProvinceId().toString() : "");
+                dataRow.createCell(8).setCellValue(p.getPhId());
+                dataRow.createCell(9).setCellValue(p.getTitle());
+                StringBuilder iaSb = new StringBuilder();
+                for(Agency ia : p.getImplementingAgencies()){
+                    iaSb.append(ia.getCode() + ", ");
+                }
+                if(iaSb.length()>3){
+                    dataRow.createCell(10).setCellValue(iaSb.toString().substring(0, iaSb.length()-3));
+                }
+                dataRow.createCell(11).setCellValue(p.getExecutingAgency()!=null?p.getExecutingAgency().getName():"");
+                dataRow.createCell(12).setCellValue(p.getFundingAgency()!=null?p.getFundingAgency().getName():"");
+                dataRow.createCell(13).setCellValue(p.getOriginalCurrency()!=null?p.getOriginalCurrency().getName():"");
+                dataRow.createCell(14).setCellValue(p.getTotalProjectAmount());
 
+                Cell cellStartDate = dataRow.createCell(15);
+                cellStartDate.setCellValue(p.getStartDate());
+                cellStartDate.setCellStyle(dataStyle);
+
+                Cell cellEndDate = dataRow.createCell(16);
+                cellEndDate.setCellValue(p.getEndDate());
+                cellEndDate.setCellStyle(dataStyle);
+
+                Cell cellRevisedClosingDate = dataRow.createCell(17);
+                cellRevisedClosingDate.setCellValue(p.getRevisedClosingDate());
+                cellRevisedClosingDate.setCellStyle(dataStyle);
+
+                StringBuilder sectorSb = new StringBuilder();
+                for(Sector s : p.getSectors()){
+                    sectorSb.append(s.getCode() + ", ");
+                }
+                if(sectorSb.length()>3){
+                    dataRow.createCell(18).setCellValue(sectorSb.toString().substring(0, sectorSb.length()-3));
+                }
+
+                Cell cellPeriodPerformanceStart = dataRow.createCell(19);
+                cellPeriodPerformanceStart.setCellValue(p.getPeriodPerformanceStart());
+                cellPeriodPerformanceStart.setCellStyle(dataStyle);
+
+                Cell cellPeriodPerformanceEnd = dataRow.createCell(20);
+                cellPeriodPerformanceEnd.setCellValue(p.getPeriodPerformanceEnd());
+                cellPeriodPerformanceEnd.setCellStyle(dataStyle);
+
+                dataRow.createCell(21).setCellValue(p.getStatus()!=null?p.getStatus().getName():"");
+                dataRow.createCell(22).setCellValue(p.getPhysicalStatus()!=null?p.getPhysicalStatus().getName():"");
+                dataRow.createCell(23).setCellValue(""); //TODO Physical performance
+                dataRow.createCell(24).setCellValue("");
+                dataRow.createCell(25).setCellValue(p.getGrantClassification()!=null?p.getGrantClassification().getName():"");
+                long disbursements = 0;
+                long commitments = 0;
+                for(Transaction t : p.getTransactions()){
+                    if(t.getTransactionType().getId() == TransactionTypeEnum.DISBURSEMENT.getId()){
+                        disbursements += t.getAmount();
+                    }
+                    if(t.getTransactionType().getId() == TransactionTypeEnum.COMMITMENT.getId()){
+                        commitments += t.getAmount();
+                    }
+                }
+                dataRow.createCell(26).setCellValue(disbursements);
+                dataRow.createCell(27).setCellValue(commitments);
+            }
+        }
+
+        try {
+            filename = "NEDA_data_" + getRandomKey() + ".xls";
+            FileOutputStream fileOut = new FileOutputStream(PropsHelper.getExportDir()+filename);
+            wb.write(fileOut);
+            fileOut.close();
+        } catch (Exception e){
+            LOGGER.error(e.getMessage());
         }
         return filename;
     }
@@ -355,7 +451,7 @@ public class MapController {
                     p.setFundingAgency(faMap.get(tokens[3].toLowerCase().trim()));
                 }
                 if(StringUtils.isNotBlank(tokens[5])) {
-                    String[] ias = tokens[5].split(",");
+                    String[] ias = tokens[5].split(COMMA);
                     Set<Agency> iaSet = new HashSet<>();
                     for(String ia : ias){
                         if(iaMap.get(ia.toLowerCase().trim())!=null){
@@ -374,7 +470,7 @@ public class MapController {
                     p.setExecutingAgency(ea != null ? ea : eaDef);
                 }
                 if(StringUtils.isNotBlank(tokens[9])) {
-                    p.setTotalProjectAmount(Double.parseDouble(tokens[9].replace(".", "").replace(",", ".")));
+                    p.setTotalProjectAmount(Double.parseDouble(tokens[9].replace(".", "").replace(COMMA, ".")));
                 }
 
                 if(StringUtils.isNotBlank(tokens[12])) {
@@ -407,7 +503,7 @@ public class MapController {
                     }
                 }
                 if(tokens.length>16 &&StringUtils.isNotBlank(tokens[16])) {
-                    String[] locs = tokens[16].split(",");
+                    String[] locs = tokens[16].split(COMMA);
                     Set<Location> ls = new HashSet<>();
                     for(String loc : locs){
                         ls.add(lMap.get(loc.trim()));
