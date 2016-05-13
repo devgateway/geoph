@@ -4,18 +4,39 @@ import {applyFiltersToLayers} from './map';
 import {fetchChartData} from './charts';
 import {collectValues} from '../util/filterUtil';
 
-export const requestFilterData = (filter) => {
-  return {
-    type: Constants.REQUEST_FILTER_DATA,
-    filter
+export const applyFilter = (filterType) => {
+  return (dispatch, getState) => {
+    let filters = collectValues(getState().filters.filterMain);
+    dispatch(applyFiltersToLayers(filters));
+    dispatch(fetchChartData(filters));
   }
 }
 
-export const applyFilter = (filterType) => {
-  return (dispatch, getState) => {
-    let filters = collectValues(getState().filters);
-    dispatch(applyFiltersToLayers(filters));
-    dispatch(fetchChartData(filters));
+export const cancelFilter = (filterType) => {
+  return {
+    type: Constants.CANCEL_FILTER,
+    filterType
+  }
+}
+
+export const openFilter = (filterType) => {
+  return {
+    type: Constants.OPEN_FILTER,
+    filterType
+  }
+}
+
+export const resetFilter = (filterType) => {
+  return {
+    type: Constants.RESET_FILTER,
+    filterType
+  }
+}
+
+export const requestFilterData = (filterType) => {
+  return {
+    type: Constants.REQUEST_FILTER_DATA,
+    filterType
   }
 }
 
@@ -37,7 +58,7 @@ export const fetchFilterData = (filterType) => {
 }
 
 export const shouldFetchFilterData = (state, filterType) => {
-  const list = state.filters[filterType]
+  const list = state.filters.filterMain[filterType]
   if (!list) {
     return true
   } else if (list.isFetching) {

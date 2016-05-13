@@ -21,7 +21,7 @@ class FilterDate extends React.Component {
 		let sd = Moment(date);
 		let ed = this.refs.endDate.getDate();//.format("YYYY-MM-DD");	
 		if (this.validateDates(sd, ed)){
-			this.props.onDateChange({filterType: this.props.filterType, minSelected:date, maxSelected: ed.format("YYYY-MM-DD")});
+			this.props.onDateChange({filterType: this.props.filterType, minSelected:date, maxSelected: this.props.maxSelected});
 		}
 	}
 
@@ -29,7 +29,7 @@ class FilterDate extends React.Component {
 		let ed = Moment(date);
 		let sd = this.refs.startDate.getDate();//.format("YYYY-MM-DD");	
 		if (this.validateDates(sd, ed)){
-			this.props.onDateChange({filterType: this.props.filterType, minSelected: sd.format("YYYY-MM-DD"), maxSelected: date});
+			this.props.onDateChange({filterType: this.props.filterType, minSelected: this.props.minSelected, maxSelected: date});
 		}
 	}
 
@@ -44,10 +44,10 @@ class FilterDate extends React.Component {
 	}
 
   	render() {
-  		let startMinDate = this.props.items? this.props.items[0].minDate : '';
+  		let startMinDate = this.props.items && this.props.items[0]? this.props.items[0].minDate : '';
   		let startMaxDate = this.props.maxSelected ||  Date.now();//(this.props.items? this.props.items[0].maxDate : '');
   		let endMinDate = this.props.minSelected || Date.now();//(this.props.items? this.props.items[0].minDate : '');
-  		let endMaxDate = this.props.items? this.props.items[0].maxDate : '';
+  		let endMaxDate = this.props.items && this.props.items[0]? this.props.items[0].maxDate : '';
   		return (
 	        <div className="date-picker-container">
 	        	<div className="date-picker-div">

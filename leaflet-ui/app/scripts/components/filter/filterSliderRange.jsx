@@ -21,8 +21,8 @@ class FilterSlider extends React.Component {
 	}
 
   	render() {
-  		let minSelected = this.props.minSelected || (this.props.items? this.props.items[0].minValue : 0);
-  		let maxSelected = this.props.maxSelected || (this.props.items? this.props.items[0].maxValue : 10);
+  		let minSelected = this.props.minSelected || (this.props.items && this.props.items[0]? this.props.items[0].minValue : 0);
+  		let maxSelected = this.props.maxSelected || (this.props.items && this.props.items[0]? this.props.items[0].maxValue : 10);
   		let values = {'min': minSelected, 'max': maxSelected};
   		//
   		return (
