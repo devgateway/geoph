@@ -49,6 +49,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
         }
 
         aggregateResults(params, level, locationPropertyMap);
+        addProjectCount(params, level, locationPropertyMap);
 
         FeatureCollection featureCollection = new FeatureCollection();
         for(LocationProperty location : locationPropertyMap.values()) {
@@ -69,48 +70,74 @@ public class GeoJsonServiceImpl implements GeoJsonService {
         return featureCollection;
     }
 
-    private void aggregateResults(Parameters params, int level, Map<Long, LocationProperty> locationPropertyMap) {
-        List<Object> locationResults = locationRepository.findLocationsByParams(params);
-        for(Object o:locationResults){
-            Object[] objectList = ((Object[])o);
-            Location l = (Location)objectList[0];
+    private void addProjectCount(Parameters params, int level, Map<Long, LocationProperty> locationPropertyMap) {
+        List<Object> locationResults = locationRepository.countLocationProjectsByParams(params);
+        for(Object o:locationResults) {
+            Object[] objectList = ((Object[]) o);
+            Location l = (Location) objectList[0];
             LocationProperty lp = null;
-            if(level==1){
+            if (level == 1) {
                 lp = locationPropertyMap.get(l.getRegionId());
-            } else if(level==2){
-                lp = l.getProvinceId()!=null ? locationPropertyMap.get(l.getProvinceId()) : null;
-            } else if(level==3){
+            } else if (level == 2) {
+                lp = l.getProvinceId() != null ? locationPropertyMap.get(l.getProvinceId()) : null;
+            } else if (level == 3) {
                 lp = locationPropertyMap.get(l.getId());
             }
 
-            if(lp!=null) {
-                lp.addProjectCount((Long)objectList[1]);
-                long[] transactions = new long[]{(Long)objectList[3], (Long)objectList[5], (Long)objectList[7],
-                        (Long)objectList[9], (Long)objectList[11], (Long)objectList[13],
-                        (Long)objectList[15], (Long)objectList[17], (Long)objectList[19],};
-                long aggregationTimes = 1;
-                long count = 0;
-                for(long t:transactions){
-                    if(t>0){
-                        aggregationTimes*=t;
-                        count+=t;
+            if (lp != null) {
+                lp.addProjectCount((Long) objectList[1]);
+            }
+        }
+    }
+
+    private void aggregateResults(Parameters params, int level, Map<Long, LocationProperty> locationPropertyMap) {
+
+        for(TransactionTypeEnum tt:TransactionTypeEnum.values()){
+            for(TransactionStatusEnum ts:TransactionStatusEnum.values()){
+                List<Object> locationResults = locationRepository.findLocationsByParams(params, tt.getId(), ts.getId());
+                for(Object o:locationResults){
+                    Object[] objectList = ((Object[])o);
+                    Location l = (Location)objectList[0];
+                    LocationProperty lp = null;
+                    if(level==1){
+                        lp = locationPropertyMap.get(l.getRegionId());
+                    } else if(level==2){
+                        lp = l.getProvinceId()!=null ? locationPropertyMap.get(l.getProvinceId()) : null;
+                    } else if(level==3){
+                        lp = locationPropertyMap.get(l.getId());
+                    }
+
+                    if(lp!=null) {
+                        if(objectList[2]!=null) {
+                            if (tt.compareTo(TransactionTypeEnum.COMMITMENT) == 0) {
+                                if(ts.compareTo(TransactionStatusEnum.TARGET) == 0) {
+                                    lp.addCommitment(PROPERTY_LOC_TARGET, (Double) objectList[1]);
+                                } else if(ts.compareTo(TransactionStatusEnum.ACTUAL) == 0) {
+                                    lp.addCommitment(PROPERTY_LOC_ACTUAL, (Double) objectList[1]);
+                                } else if(ts.compareTo(TransactionStatusEnum.CANCELLED) == 0) {
+                                    lp.addCommitment(PROPERTY_LOC_CANCELLED, (Double) objectList[1]);
+                                }
+                            }else if (tt.compareTo(TransactionTypeEnum.DISBURSEMENT) == 0) {
+                                if(ts.compareTo(TransactionStatusEnum.TARGET) == 0) {
+                                    lp.addDisbursement(PROPERTY_LOC_TARGET, (Double) objectList[1]);
+                                } else if(ts.compareTo(TransactionStatusEnum.ACTUAL) == 0) {
+                                    lp.addDisbursement(PROPERTY_LOC_ACTUAL, (Double) objectList[1]);
+                                } else if(ts.compareTo(TransactionStatusEnum.CANCELLED) == 0) {
+                                    lp.addDisbursement(PROPERTY_LOC_CANCELLED, (Double) objectList[1]);
+                                }
+                            }else if (tt.compareTo(TransactionTypeEnum.EXPENDITURE) == 0) {
+                                if(ts.compareTo(TransactionStatusEnum.TARGET) == 0) {
+                                    lp.addExpenditure(PROPERTY_LOC_TARGET, (Double) objectList[1]);
+                                } else if(ts.compareTo(TransactionStatusEnum.ACTUAL) == 0) {
+                                    lp.addExpenditure(PROPERTY_LOC_ACTUAL, (Double) objectList[1]);
+                                } else if(ts.compareTo(TransactionStatusEnum.CANCELLED) == 0) {
+                                    lp.addExpenditure(PROPERTY_LOC_CANCELLED, (Double) objectList[1]);
+                                }
+                            }
+                        }
+                        lp.addTransactionCount((Long)objectList[2]);
                     }
                 }
-                lp.addCommitment(PROPERTY_LOC_TARGET, transactions[0]>0?(Double)objectList[2]*transactions[0]/aggregationTimes:0);
-                lp.addCommitment(PROPERTY_LOC_ACTUAL, transactions[1]>0?(Double)objectList[4]*transactions[1]/aggregationTimes:0);
-                lp.addCommitment(PROPERTY_LOC_CANCELLED, transactions[2]>0?(Double)objectList[6]*transactions[2]/aggregationTimes:0);
-
-
-                lp.addDisbursement(PROPERTY_LOC_TARGET, transactions[3]>0?(Double)objectList[8]*transactions[3]/aggregationTimes:0);
-                lp.addDisbursement(PROPERTY_LOC_ACTUAL, transactions[4]>0?(Double)objectList[10]*transactions[4]/aggregationTimes:0);
-                lp.addDisbursement(PROPERTY_LOC_CANCELLED, transactions[5]>0?(Double)objectList[12]*transactions[5]/aggregationTimes:0);
-
-
-                lp.addExpenditure(PROPERTY_LOC_TARGET, transactions[6]>0?(Double)objectList[14]*transactions[6]/aggregationTimes:0);
-                lp.addExpenditure(PROPERTY_LOC_ACTUAL, transactions[7]>0?(Double)objectList[16]*transactions[7]/aggregationTimes:0);
-                lp.addExpenditure(PROPERTY_LOC_CANCELLED, transactions[8]>0?(Double)objectList[18]*transactions[8]/aggregationTimes:0);
-
-                lp.addTransactionCount(count);
             }
         }
     }

@@ -34,6 +34,15 @@ public class DefaultLocationRepository implements LocationRepository {
     }
 
     @Override
+    @Cacheable("locationsById")
+    public Location findById(long id) {
+        return em.createNamedQuery("findLocationsById", Location.class)
+                .setParameter(PROPERTY_LOC_ID, id)
+                .getSingleResult();
+    }
+
+    @Override
+    @Cacheable("locationsByCode")
     public Location findByCode(String code) {
         return em.createNamedQuery("findLocationsByCode", Location.class)
                 .setParameter(PROPERTY_LOC_CODE, code)
@@ -79,8 +88,8 @@ public class DefaultLocationRepository implements LocationRepository {
     }
 
     @Override
-    @Cacheable("locationsByParams")
-    public List<Object> findLocationsByParams(Parameters params) {
+    @Cacheable("countLocationProjectsByParams")
+    public List<Object> countLocationProjectsByParams(Parameters params) {
 
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<Object> criteriaQuery = criteriaBuilder.createQuery();
@@ -96,11 +105,36 @@ public class DefaultLocationRepository implements LocationRepository {
         Join<Location, Project> projectJoin = locationRoot.join(Location_.projects, JoinType.LEFT);
         multiSelect.add(criteriaBuilder.countDistinct(projectJoin).alias("projectCount"));
 
-        for(TransactionTypeEnum t:TransactionTypeEnum.values()){
-            for(TransactionStatusEnum s:TransactionStatusEnum.values()){
-                addTransactionJoin(criteriaBuilder, multiSelect, projectJoin, t.getId(), s.getId());
-            }
-        }
+        FilterHelper.filterLocationQuery(params, criteriaBuilder, locationRoot, predicates, projectJoin);
+
+        Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+        criteriaQuery.where(other);
+
+
+        criteriaQuery.groupBy(groupByList);
+        TypedQuery<Object> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
+
+        return query.getResultList();
+    }
+
+    @Override
+    @Cacheable("locationsByParams")
+    public List<Object> findLocationsByParams(Parameters params, int trxTypeId, int trxStatusId) {
+
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<Object> criteriaQuery = criteriaBuilder.createQuery();
+
+        Root<Location> locationRoot = criteriaQuery.from(Location.class);
+        List<Selection<?>> multiSelect = new ArrayList<>();
+        multiSelect.add(locationRoot);
+
+        List<Predicate> predicates = new ArrayList();
+        List<Expression<?>> groupByList = new ArrayList<>();
+        groupByList.add(locationRoot);
+
+        Join<Location, Project> projectJoin = locationRoot.join(Location_.projects, JoinType.LEFT);
+
+        addTransactionJoin(criteriaBuilder, multiSelect, projectJoin, trxTypeId, trxStatusId);
 
         FilterHelper.filterLocationQuery(params, criteriaBuilder, locationRoot, predicates, projectJoin);
 
