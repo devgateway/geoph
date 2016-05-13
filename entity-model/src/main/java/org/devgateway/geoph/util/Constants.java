@@ -10,15 +10,15 @@ public class Constants {
     public static final String PARAM_SEPARATOR = ",";
 
     public static final String FILTER_CLIMATE_CHANGE = "cc";
-    public static final String FILTER_START_DATE = "ds";
-    public static final String FILTER_END_DATE = "de";
+    public static final String FILTER_START_DATE = "dt_s";
+    public static final String FILTER_END_DATE = "dt_e";
     public static final String FILTER_FLOW_TYPE = "ft";
     public static final String FILTER_FUNDING_AGENCY = "fa";
     public static final String FILTER_GENDER_RESPONSIVENESS = "gr";
     public static final String FILTER_IMPLEMENTING_AGENCY = "ia";
     public static final String FILTER_LOCATION = "lo";
-    public static final String FILTER_PERFORMANCE_START = "ps";
-    public static final String FILTER_PERFORMANCE_END = "pe";
+    public static final String FILTER_PERFORMANCE_START = "pp_s";
+    public static final String FILTER_PERFORMANCE_END = "pp_e";
     public static final String FILTER_PHYSICAL_STATUS = "ph";
     public static final String FILTER_PROJECT = "pr";
     public static final String FILTER_SECTOR = "st";
@@ -48,4 +48,11 @@ public class Constants {
     public static final int ALPHABET_NUMBER = ALPHABET.length();
 
     public static final String FLOW_TYPE_ID_SEPARATOR = ".";
+
+    public static final String[] EXPORT_ENGLISH_TITLE_ARRAY = {"Location ID", "UACS Code", "ADM Level", "Name",
+            "Latitude", "Longitude", "Region", "Province", "Project ID", "Title", "Implementing Agency",
+            "Executing Agency", "Funding Institution", "Original Currency (OC)", "Amount in OC", "Start Date",
+            "Closing Date", "Revised Closing Date", "Sectors", "Period of Performance Start",
+            "Period of Performance End", "Status", "Physical Status", "Physical Progress (Actual)",
+            "Physical Progress (Target)", "Grant Classification", "Total Disbursements", "Total Commitments"};
 }

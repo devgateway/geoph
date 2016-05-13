@@ -134,7 +134,9 @@ public class DefaultLocationRepository implements LocationRepository {
 
         Join<Location, Project> projectJoin = locationRoot.join(Location_.projects, JoinType.LEFT);
 
-        addTransactionJoin(criteriaBuilder, multiSelect, projectJoin, trxTypeId, trxStatusId);
+        if(trxTypeId!=0 && trxStatusId!=0) {
+            addTransactionJoin(criteriaBuilder, multiSelect, projectJoin, trxTypeId, trxStatusId);
+        }
 
         FilterHelper.filterLocationQuery(params, criteriaBuilder, locationRoot, predicates, projectJoin);
 

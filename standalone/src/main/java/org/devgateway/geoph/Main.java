@@ -49,6 +49,7 @@ public class Main {
         PropsHelper.setScreenCaptureDir(environment.getProperty("screen.capture.dir", "/tmp/"));
         PropsHelper.setScreenCaptureTimeToWait(Long.parseLong(environment.getProperty("screen.capture.waiting.time", "25000")));
         PropsHelper.setScreenFirefoxExe(environment.getProperty("screen.firefox.binary"));
+        PropsHelper.setExportDir(environment.getProperty("export.dir"));
         LOGGER.info("Deploying GeoPH using profile: {}", deployProfile);
         if(deployProfile == DeployProfile.DEV) {
             BootMetadata bootMetadata = ctx.getBean(BootMetadata.class);
