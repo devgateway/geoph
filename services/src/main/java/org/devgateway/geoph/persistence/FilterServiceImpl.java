@@ -51,6 +51,9 @@ public class FilterServiceImpl implements FilterService {
     ClassificationRepository classificationRepository;
 
     @Autowired
+    GrantSubTypeRepository grantSubTypeRepository;
+
+    @Autowired
     ClimateChangeRepository climateChangeRepository;
 
     @Autowired
@@ -135,15 +138,15 @@ public class FilterServiceImpl implements FilterService {
             flowTypesMap.put("id", String.valueOf(flowType.getId()));
             flowTypesMap.put("name", flowType.getName());
             if(flowType.getName().toLowerCase().equals("grant")){
-                List<Classification> classifications = classificationRepository.findAll();
-                List<Map<String, Object>> classificationList = new ArrayList<>();
-                for(Classification classification:classifications){
-                    Map<String, Object> classificationMap = new HashMap<>();
-                    classificationMap.put("id", String.valueOf(flowType.getId()) +"."+ String.valueOf(classification.getId()));
-                    classificationMap.put("name", classification.getName());
-                    classificationList.add(classificationMap);
+                List<GrantSubType> grantSubTypes = grantSubTypeRepository.findAll();
+                List<Map<String, Object>> grantSubTypeList = new ArrayList<>();
+                for(GrantSubType grantSubType:grantSubTypes){
+                    Map<String, Object> grantSubTypeMap = new HashMap<>();
+                    grantSubTypeMap.put("id", String.valueOf(flowType.getId()) +"."+ String.valueOf(grantSubType.getId()));
+                    grantSubTypeMap.put("name", grantSubType.getName());
+                    grantSubTypeList.add(grantSubTypeMap);
                 }
-                flowTypesMap.put("items", classificationList);
+                flowTypesMap.put("items", grantSubTypeList);
             }
             retList.add(flowTypesMap);
         }
@@ -164,5 +167,12 @@ public class FilterServiceImpl implements FilterService {
     public List<Classification> findAllClassifications() {
         return classificationRepository.findAll();
     }
+
+    @Override
+    public List<GrantSubType> findAllGrantSubTypes() {
+        return grantSubTypeRepository.findAll();
+    }
+
+
 
 }

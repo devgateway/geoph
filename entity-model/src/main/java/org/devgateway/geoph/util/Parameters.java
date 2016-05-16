@@ -46,7 +46,7 @@ public class Parameters {
 
     private List<String> flowTypes;
 
-    private List<Integer> classifications;
+    private List<Integer> grantSubTypes;
 
     private List<Integer> locationLevels;
 
@@ -240,10 +240,10 @@ public class Parameters {
         if(StringUtils.isNotBlank(filters)) {
             for(String filter : filters.split(PARAM_SEPARATOR)){
                 if(filter.indexOf(FLOW_TYPE_ID_SEPARATOR)>0){
-                    if(classifications==null){
-                        classifications = new ArrayList<>();
+                    if(grantSubTypes==null){
+                        grantSubTypes = new ArrayList<>();
                     }
-                    classifications.add(Integer.parseInt(filter.substring(filter.indexOf(FLOW_TYPE_ID_SEPARATOR)+1)));
+                    grantSubTypes.add(Integer.parseInt(filter.substring(filter.indexOf(FLOW_TYPE_ID_SEPARATOR)+1)));
                 } else {
                     if(flowTypes==null){
                         flowTypes = new ArrayList<>();
@@ -254,20 +254,20 @@ public class Parameters {
         }
     }
 
+    public List<Integer> getGrantSubTypes() {
+        return grantSubTypes;
+    }
+
+    public void setGrantSubTypes(List<Integer> grantSubTypes) {
+        this.grantSubTypes = grantSubTypes;
+    }
+
     public String getProjectTitle() {
         return projectTitle;
     }
 
     public void setProjectTitle(String projectTitle) {
         this.projectTitle = projectTitle;
-    }
-
-    public List<Integer> getClassifications() {
-        return classifications;
-    }
-
-    public void setClassifications(List<Integer> classifications) {
-        this.classifications = classifications;
     }
 
     public List<Long> getClimateChanges() {

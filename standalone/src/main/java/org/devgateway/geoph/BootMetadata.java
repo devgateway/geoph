@@ -58,6 +58,7 @@ public class BootMetadata {
                 "/sql/basic-data/transaction_type.sql",
                 "/sql/basic-data/transaction_status.sql",
                 "/sql/basic-data/classifications.sql",
+                "/sql/basic-data/grant_sub_type.sql",
                 "/sql/basic-data/sectors.sql",
                 "/sql/basic-data/climate_change.sql",
                 "/sql/basic-data/gender_responsiveness.sql",

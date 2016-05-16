@@ -41,6 +41,10 @@ public class Transaction extends GenericPersistable implements Serializable {
     @Column(name = "transaction_status_id")
     private long transactionStatusId;
 
+    @JsonIgnore
+    @Column(name = "grant_sub_type_id")
+    private long grantSubTypeId ;
+
     public Transaction() {
     }
 
@@ -100,5 +104,13 @@ public class Transaction extends GenericPersistable implements Serializable {
     @JsonProperty(value = "transactionStatus")
     public TransactionStatusEnum getTransactionStatus() {
         return TransactionStatusEnum.getEnumById(transactionStatusId);
+    }
+
+    public long getGrantSubTypeId() {
+        return grantSubTypeId;
+    }
+
+    public void setGrantSubTypeId(long grantSubTypeId) {
+        this.grantSubTypeId = grantSubTypeId;
     }
 }
