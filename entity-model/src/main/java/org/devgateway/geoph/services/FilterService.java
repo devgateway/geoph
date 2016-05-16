@@ -41,4 +41,6 @@ public interface FilterService {
     List<GenderResponsiveness> findAllGenderResponsiveness();
 
     List<Classification> findAllClassifications();
+
+    List<GrantSubType> findAllGrantSubTypes();
 }

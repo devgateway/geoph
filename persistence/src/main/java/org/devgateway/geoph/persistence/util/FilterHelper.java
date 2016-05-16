@@ -66,9 +66,9 @@ public class FilterHelper {
                     Join<Project, Transaction> transactionJoin = projectRoot.join(Project_.transactions);
                     predicates.add(transactionJoin.get(Transaction_.flowType).in(params.getFlowTypes()));
                 }
-                if (params.getClassifications() != null) {
-                    Join<Project, Classification> classificationJoin = projectRoot.join(Project_.grantClassification);
-                    predicates.add(classificationJoin.get(Classification_.id).in(params.getClassifications()));
+                if (params.getGrantSubTypes() != null) {
+                    Join<Project, Transaction> transactionJoin = projectRoot.join(Project_.transactions);
+                    predicates.add(transactionJoin.get(Transaction_.grantSubTypeId).in(params.getGrantSubTypes()));
                 }
                 if (params.getClimateChanges() != null) {
                     Join<Project, ClimateChange> climateChangeJoin = projectRoot.join(Project_.climateChange);
@@ -133,9 +133,9 @@ public class FilterHelper {
                     Join<Project, Transaction> transactionJoin = projectJoin.join(Project_.transactions);
                     predicates.add(transactionJoin.get(Transaction_.flowType).in(params.getFlowTypes()));
                 }
-                if (params.getClassifications() != null) {
-                    Join<Project, Classification> classificationJoin = projectJoin.join(Project_.grantClassification);
-                    predicates.add(classificationJoin.get(Classification_.id).in(params.getClassifications()));
+                if (params.getGrantSubTypes() != null) {
+                    Join<Project, Transaction> transactionJoin = projectJoin.join(Project_.transactions);
+                    predicates.add(transactionJoin.get(Transaction_.grantSubTypeId).in(params.getGrantSubTypes()));
                 }
                 if (params.getClimateChanges() != null) {
                     Join<Project, ClimateChange> climateChangeJoin = projectJoin.join(Project_.climateChange);

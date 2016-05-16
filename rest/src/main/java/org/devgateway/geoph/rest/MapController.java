@@ -173,7 +173,7 @@ public class MapController {
                     writer.append(',');
                 }
             }
-            writer.append('\n');
+            writer.append(System.getProperty("line.separator"));
             DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
             for(Location l : locationList) {
                 for (Project p : l.getProjects()) {
@@ -235,7 +235,7 @@ public class MapController {
                     }
                     writer.append(COMMA+disbursements);
                     writer.append(COMMA+commitments);
-                    writer.append('\n');
+                    writer.append(System.getProperty("line.separator"));
                 }
             }
             writer.flush();

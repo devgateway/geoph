@@ -182,6 +182,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
             locationPropertyMap.put(location.getId(), new LocationProperty(location));
         }
         aggregateResults(params, level.getLevel(), locationPropertyMap);
+        addProjectCount(params, level.getLevel(), locationPropertyMap);
 
         FeatureCollection featureCollection = new FeatureCollection();
         for(LocationProperty location : locationPropertyMap.values()) {
