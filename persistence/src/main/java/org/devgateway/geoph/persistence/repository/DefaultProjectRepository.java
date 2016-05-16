@@ -80,5 +80,15 @@ public class DefaultProjectRepository implements ProjectRepository {
         return project;
     }
 
+    @Override
+    public double getMaxFinancialAmount() {
+        return (Double)em.createNativeQuery("select max(p.total_project_amount) from Project p").getSingleResult();
+    }
+
+    @Override
+    public double getMinFinancialAmount() {
+        return (Double)em.createNativeQuery("select min(p.total_project_amount) from Project p").getSingleResult();
+    }
+
 
 }

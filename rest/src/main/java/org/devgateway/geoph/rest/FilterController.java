@@ -67,6 +67,22 @@ public class FilterController extends CrossOriginSupport {
         return resp;
     }
 
+    @RequestMapping(value = "/financialAmountBoundaries", method = GET)
+    public GenericResponse findFinancialAmountBoundaries() {
+        LOGGER.debug("findFinancialAmountBoundaries");
+        List<Double> financialAmountBoundaries = service.findFinancialAmountBoundaries();
+        GenericResponse resp = new GenericResponse(
+                "Financial Amount Boundaries",
+                FILTER_FINANCIAL_AMOUNT_MAX + "/" +FILTER_FINANCIAL_AMOUNT_MIN,
+                "FINANCIAL_AMOUNT_SECTION",
+                1,
+                financialAmountBoundaries,
+                financialAmountBoundaries!=null?financialAmountBoundaries.size():0
+        );
+
+        return resp;
+    }
+
     @RequestMapping(value = "/flowType", method = GET)
     public GenericResponse findAllFlowTypes() {
         LOGGER.debug("findAllFlowTypes");

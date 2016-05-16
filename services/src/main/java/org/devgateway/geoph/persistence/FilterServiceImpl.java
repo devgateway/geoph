@@ -59,6 +59,9 @@ public class FilterServiceImpl implements FilterService {
     @Autowired
     GenderResponsivenessRepository genderResponsivenessRepository;
 
+    @Autowired
+    ProjectRepository projectRepository;
+
     @Override
     public List<ImplementingAgency> findAllImpAgencies() {
         LOGGER.debug("Getting all implementing agencies");
@@ -173,6 +176,15 @@ public class FilterServiceImpl implements FilterService {
         return grantSubTypeRepository.findAll();
     }
 
+    @Override
+    public List<Double> findFinancialAmountBoundaries() {
+        List<Double> financialAmountBounds = new ArrayList<>();
+        double minFinancialAmount = projectRepository.getMinFinancialAmount();
+        double maxFinancialAmount = projectRepository.getMaxFinancialAmount();
+        financialAmountBounds.add(maxFinancialAmount);
+        financialAmountBounds.add(minFinancialAmount);
+        return financialAmountBounds;
+    }
 
 
 }

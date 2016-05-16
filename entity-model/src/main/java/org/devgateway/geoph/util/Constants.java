@@ -15,6 +15,8 @@ public class Constants {
     public static final String FILTER_FLOW_TYPE = "ft";
     public static final String FILTER_FUNDING_AGENCY = "fa";
     public static final String FILTER_GENDER_RESPONSIVENESS = "gr";
+    public static final String FILTER_FINANCIAL_AMOUNT_MAX = "fin_amount_max";
+    public static final String FILTER_FINANCIAL_AMOUNT_MIN = "fin_amount_min";
     public static final String FILTER_IMPLEMENTING_AGENCY = "ia";
     public static final String FILTER_LOCATION = "lo";
     public static final String FILTER_PERFORMANCE_START = "pp_s";
