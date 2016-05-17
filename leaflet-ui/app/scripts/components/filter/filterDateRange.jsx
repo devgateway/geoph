@@ -60,7 +60,8 @@ class FilterDate extends React.Component {
 	        			maxDate={startMaxDate} 
 	        			date={this.props.minSelected || this.state.dateNow} 
 	        			onChange={this.handleStartDate.bind(this)} />
-		        </div>	
+		        </div>
+		        <div className="date-picker-divisor"/>	
 		        <div className="date-picker-div">
 	        		<span>{this.props.endDateLabel || 'End Date'}: <b>{this.props.maxSelected || "Not Set"}</b></span>
 	        		<DatePicker 
