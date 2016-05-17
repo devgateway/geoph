@@ -1,6 +1,8 @@
 import * as Constants from '../constants/constants';
+import {cloneDeep} from '../util/filterUtil';
 
-const filters = (state = {}, action) => {
+const filters = (state = {filterMain: {}}, action) => {
+  let filterMain;
   switch (action.type) {
     case Constants.SELECT_FILTER_ITEM:
     case Constants.SELECT_ALL_FILTER_LIST:
@@ -8,10 +10,40 @@ const filters = (state = {}, action) => {
     case Constants.REQUEST_FILTER_DATA:
     case Constants.FILTER_SET_RANGE:
     case Constants.SEARCH_FILTER_LIST_BY_TEXT:
-      let fl = filter(state[action.filterType], action);
+      let fl = filter(state.filterMain[action.filterType], action);
       updateFilterCounters(fl);
+      filterMain = cloneDeep(state.filterMain);      
+      Object.assign(filterMain, {[action.filterType]: fl});
       return Object.assign({}, state, {
-        [action.filterType]: fl
+        filterMain: filterMain
+      })
+    case Constants.OPEN_FILTER:
+      filterMain = cloneDeep(state.filterMain);      
+      return Object.assign({}, state, {
+        filterBackup: filterMain
+      })
+    case Constants.CANCEL_FILTER:
+      let filterBackup = cloneDeep(state.filterBackup);      
+      return Object.assign({}, state, {
+        filterMain: filterBackup
+      })
+    case Constants.RESET_FILTER:
+      let actionDummy = {type: Constants.SELECT_ALL_FILTER_LIST, item: {selected: false}};
+      filterMain = cloneDeep(state.filterMain);      
+      for (var fltr in state.filterMain) {
+        let fl;
+        if (!state.filterMain[fltr].isRange){
+          fl = filter(state.filterMain[fltr], actionDummy);
+          updateFilterCounters(fl);
+        } else {
+          fl = cloneDeep(state.filterMain[fltr]);
+          delete fl['minSelected'];
+          delete fl['maxSelected'];
+        }        
+        Object.assign(filterMain, {[fltr]: fl});
+      }
+      return Object.assign({}, state, {
+        filterMain: filterMain
       })
     default:
       return state
@@ -63,11 +95,11 @@ const filter = (state = {
 const filterItem = (state = {
   selected: false
 }, action) => {
-  let copyState = Object.assign({}, state); 
+  let copyState = Object.assign({}, state, {updatedAt: Date.now()}); 
   switch (action.type) {
     case Constants.SELECT_FILTER_ITEM:
       updateFilterSelection(copyState, action.item.id, action.item.selected); 
-      return copyState
+      return Object.assign({}, copyState);
     case Constants.SELECT_ALL_FILTER_LIST:
       updateFilterSelection(copyState, 'all', action.item.selected); 
       return copyState
@@ -85,6 +117,12 @@ const updateFilterSelection = (item, id, selection) => {
     updateItemAndChildren(item, selection);
   } else if (item.items && item.items.length>0){
     item.items.forEach(it => updateFilterSelection(it, id, selection));
+    let selectionLength = item.items.filter((it) => {return it.selected}).length;
+    if (item.items.length == selectionLength){
+      Object.assign(item, {'selected': true});
+    } else {
+      Object.assign(item, {'selected': false});
+    }
   }
 }
 
@@ -97,11 +135,20 @@ const updateItemAndChildren = (item, selection) => {
 
 //This function add the total and selected counter fields to each object that has children
 const updateFilterCounters = (filterObject) => { 
+  let count = 0;
+  let countSel = 0;
   if (filterObject.items && filterObject.items.length>0){
-    Object.assign(filterObject, {'totalCounter': filterObject.items.length});
-    Object.assign(filterObject, {'selectedCounter': filterObject.items.filter((it) => {return it.selected}).length});
-    filterObject.items.forEach((item) => {updateFilterCounters(item)});
+    count = filterObject.items.length;
+    countSel = filterObject.items.filter((it) => {return it.selected}).length;
+    filterObject.items.forEach((item) => {
+      let cnts = updateFilterCounters(item);
+      count = count + cnts.count;
+      countSel = countSel + cnts.countSel;
+    });
+    Object.assign(filterObject, {'totalCounter': count});
+    Object.assign(filterObject, {'selectedCounter': countSel});
   }
+  return {count: count, countSel: countSel}
 }
 
 //This function search by text into the items and its children

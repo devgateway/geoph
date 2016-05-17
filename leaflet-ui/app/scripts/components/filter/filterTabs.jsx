@@ -23,7 +23,7 @@ class FilterTabContent extends React.Component {
 	    			<Tab className="filter-tab-content" eventKey={1} title="Funding">
 	                  	<Tabs defaultActiveKey={1} position="left" tabWidth={3}>
 							<Tab className="filter-list-content" eventKey={1} title="Funding Source">
-								Funding Source Tab content
+								
 						    </Tab>
 						    <Tab className="filter-list-content" eventKey={2} title="Funding Type (ODA)">
 								<FilterList filterType="ft" {...this.props.filters["ft"]} />
@@ -48,6 +48,12 @@ class FilterTabContent extends React.Component {
 						    <Tab className="filter-list-content" eventKey={2} title="Philippines Development Priority">
 								Philippines Development Priority Tab content
 						    </Tab>
+						    <Tab className="filter-list-content" eventKey={3} title="Relevance to climate">
+								<FilterList filterType="cc" {...this.props.filters["cc"]} />
+						    </Tab>
+						    <Tab className="filter-list-content" eventKey={4} title="Gender">
+								<FilterList filterType="gr" {...this.props.filters["gr"]} />
+						    </Tab>
 						</Tabs>
 	                </Tab>
 	                <Tab className="filter-tab-content" eventKey={4} title="Locations">
@@ -63,17 +69,17 @@ class FilterTabContent extends React.Component {
 	                <Tab className="filter-tab-content" eventKey={5} title="Dates">
 	                  	<Tabs defaultActiveKey={1} position="left" tabWidth={3}>
 							<Tab className="filter-list-content" eventKey={1} title="Implementation period">
-								<FilterDate filterType="ip" lang={this.props.language.lan} {...this.props.filters["ip"]}/>
+								<FilterDate filterType="dt" lang={this.props.language.lan} {...this.props.filters["dt"]}/>
 						    </Tab>
 						    <Tab className="filter-list-content" eventKey={2} title="Loan/Grant Validity Period">
-								<FilterDate startDateLabel='Effective Date' endDateLabel='Loan Closing Date' filterType="gp" lang={this.props.language.lan} {...this.props.filters["gp"]}/>
+								<FilterDate startDateLabel='Effective Date' endDateLabel='Loan Closing Date' filterType="pp" lang={this.props.language.lan} {...this.props.filters["pp"]}/>
 						    </Tab>
 						</Tabs>
 	                </Tab>
 	                <Tab className="filter-tab-content" eventKey={6} title="Status">
 	                  	<Tabs defaultActiveKey={1} position="left" tabWidth={3}>
 							<Tab className="filter-list-content" eventKey={1} title="Financing Status">
-								<FilterList filterType="fs" {...this.props.filters["fs"]}/>
+								<FilterList filterType="sa" {...this.props.filters["sa"]}/>
 						    </Tab>
 						</Tabs>
 	                </Tab>
@@ -90,7 +96,7 @@ class FilterTabContent extends React.Component {
 								<FilterSlider filterType="pr" valueSymbol="%" {...this.props.filters["pr"]}/>
 						    </Tab>
 						    <Tab className="filter-list-content" eventKey={2} title="Physical Status">
-								
+								<FilterList filterType="ph" {...this.props.filters["ph"]} />
 						    </Tab>
 						    <Tab className="filter-list-content" eventKey={3} title="Alert Level">
 								
@@ -106,7 +112,7 @@ class FilterTabContent extends React.Component {
 
 const mapStateToProps = (state, props) => {
   return {
-    filters: state.filters, language: state.language
+    filters: state.filters.filterMain, language: state.language
   }
 }
 

@@ -128,7 +128,7 @@ class D3Layer extends MapLayer {
 
   getPopupContent(feature) {
     this.setState({popupFeature: feature});
-    let filters = collectValues(this.props.filters);
+    let filters = collectValues(this.props.filters.filterMain);
     Object.assign(filters, {'lo': [feature.properties.id]})
     this.props.onGetPopupData(filters);
   }

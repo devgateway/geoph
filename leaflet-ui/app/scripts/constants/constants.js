@@ -20,6 +20,13 @@
 
 	export const FILTER_SET_RANGE = 'FILTER_SET_RANGE';
 
+	export const CANCEL_FILTER = 'CANCEL_FILTER';
+
+	export const OPEN_FILTER = 'OPEN_FILTER';
+
+	export const RESET_FILTER = 'RESET_FILTER';
+	
+
 	/*CHARTS events*/
 
 	export const REQUEST_CHART_DATA = 'REQUEST_CHART_DATA';
