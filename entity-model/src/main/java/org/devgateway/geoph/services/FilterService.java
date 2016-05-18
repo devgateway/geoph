@@ -43,4 +43,6 @@ public interface FilterService {
     List<Classification> findAllClassifications();
 
     List<GrantSubType> findAllGrantSubTypes();
+
+    List<Double> findFinancialAmountPeriod();
 }
