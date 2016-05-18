@@ -62,6 +62,9 @@ public class FilterServiceImpl implements FilterService {
     @Autowired
     ProjectRepository projectRepository;
 
+    @Autowired
+    CurrencyRepository currencyRepository;
+
     @Override
     public List<ImplementingAgency> findAllImpAgencies() {
         LOGGER.debug("Getting all implementing agencies");
@@ -186,5 +189,9 @@ public class FilterServiceImpl implements FilterService {
         return financialAmountBounds;
     }
 
+    @Override
+    public List<Currency> findAllCurrencies(){
+        return currencyRepository.findAll();
+    }
 
 }

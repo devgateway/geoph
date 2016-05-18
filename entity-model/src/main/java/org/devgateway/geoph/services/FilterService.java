@@ -45,4 +45,6 @@ public interface FilterService {
     List<GrantSubType> findAllGrantSubTypes();
 
     List<Double> findFinancialAmountPeriod();
+
+    List<Currency> findAllCurrencies();
 }
