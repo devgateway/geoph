@@ -65,11 +65,18 @@ public class DefaultProjectRepository implements ProjectRepository {
 
         int count = query.getResultList().size();
 
-        List<Project> projectList = query
-                .setFirstResult(params.getPageable().getOffset())
-                .setMaxResults(params.getPageable().getPageSize())
-                .setHint(QUERY_HINT, em.getEntityGraph(GRAPH_PROJECT_ALL))
-                .getResultList();
+        List<Project> projectList = new ArrayList<>();
+        if(params.getPageable()!=null) {
+            projectList = query
+                    .setFirstResult(params.getPageable().getOffset())
+                    .setMaxResults(params.getPageable().getPageSize())
+                    .setHint(QUERY_HINT, em.getEntityGraph(GRAPH_PROJECT_ALL))
+                    .getResultList();
+        } else {
+            projectList = query
+                    .setHint(QUERY_HINT, em.getEntityGraph(GRAPH_PROJECT_ALL))
+                    .getResultList();
+        }
 
         return new PageImpl<Project>(projectList, params.getPageable(), count);
     }
@@ -78,6 +85,16 @@ public class DefaultProjectRepository implements ProjectRepository {
     public Project save(Project project) {
         em.persist(project);
         return project;
+    }
+
+    @Override
+    public double getMaxFinancialAmount() {
+        return (Double)em.createNativeQuery("select max(p.total_project_amount) from Project p").getSingleResult();
+    }
+
+    @Override
+    public double getMinFinancialAmount() {
+        return (Double)em.createNativeQuery("select min(p.total_project_amount) from Project p").getSingleResult();
     }
 
 

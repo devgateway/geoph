@@ -138,12 +138,15 @@ public class MapController {
             @RequestParam(value = FILTER_PROJECT_TITLE, required = false) String projectTitle,
             @RequestParam(value = FILTER_PHYSICAL_STATUS, required = false) String physicalStatuses,
             @RequestParam(value = FILTER_CLIMATE_CHANGE, required = false) String climateChange,
-            @RequestParam(value = FILTER_GENDER_RESPONSIVENESS, required = false) String genderResponsiveness){
+            @RequestParam(value = FILTER_GENDER_RESPONSIVENESS, required = false) String genderResponsiveness,
+            @RequestParam(value = FILTER_FINANCIAL_AMOUNT_MAX, required = false) Double financialAmountMax,
+            @RequestParam(value = FILTER_FINANCIAL_AMOUNT_MIN, required = false) Double financialAmountMin){
         LOGGER.debug("exportData");
         Parameters params = new Parameters(startDate, endDate, performanceStart,
                 performanceEnd, sectors, statuses, locations,
                 projects, impAgencies, fundingAgencies, flowTypes,
-                projectTitle, physicalStatuses, climateChange, genderResponsiveness, null);
+                projectTitle, physicalStatuses, climateChange, genderResponsiveness,
+                financialAmountMin, financialAmountMax, null);
         List<Location> locationList = geoJsonService.getLocationsForExport(params);
 
         String filename = null;
@@ -468,6 +471,10 @@ public class MapController {
                 if(StringUtils.isNotBlank(tokens[4])) {
                     ExecutingAgency ea = eaMap.get(tokens[4].toLowerCase().trim());
                     p.setExecutingAgency(ea != null ? ea : eaDef);
+                }
+
+                if(StringUtils.isNotBlank(tokens[9])) {
+                    p.setTotalProjectAmount(Double.parseDouble(tokens[9].replace(".", "").replace(COMMA, ".")));
                 }
                 if(StringUtils.isNotBlank(tokens[9])) {
                     p.setTotalProjectAmount(Double.parseDouble(tokens[9].replace(".", "").replace(COMMA, ".")));

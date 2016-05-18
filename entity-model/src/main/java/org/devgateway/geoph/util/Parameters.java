@@ -58,6 +58,10 @@ public class Parameters {
 
     private Pageable pageable;
 
+    private Double financialAmountMin;
+
+    private Double financialAmountMax;
+
     public Parameters() {
     }
 
@@ -65,7 +69,8 @@ public class Parameters {
                       String periodPerformanceEnd, String sectors, String statuses,
                       String locations, String projects, String impAgencies, String fundingAgencies,
                       String flowTypes, String projectTitle, String physicalStatuses,
-                      String climateChanges, String genderResponsiveness, Pageable pageable) {
+                      String climateChanges, String genderResponsiveness,
+                      Double financialAmountMin, Double financialAmountMax, Pageable pageable) {
         this.setStartDate(startDate);
         this.setEndDate(endDate);
         this.setPeriodPerformanceStart(periodPerformanceStart);
@@ -81,6 +86,8 @@ public class Parameters {
         this.setPhysicalStatuses(physicalStatuses);
         this.setClimateChanges(climateChanges);
         this.setGenderResponsiveness(genderResponsiveness);
+        this.financialAmountMin = financialAmountMin;
+        this.financialAmountMax = financialAmountMax;
         this.setPageable(pageable);
     }
 
@@ -292,6 +299,22 @@ public class Parameters {
 
     public void setGenderResponsiveness(String genderResponsiveness) {
         this.genderResponsiveness = genderResponsiveness!=null? convertStringToLongList(genderResponsiveness):null;
+    }
+
+    public Double getFinancialAmountMin() {
+        return financialAmountMin;
+    }
+
+    public void setFinancialAmountMin(Double financialAmountMin) {
+        this.financialAmountMin = financialAmountMin;
+    }
+
+    public Double getFinancialAmountMax() {
+        return financialAmountMax;
+    }
+
+    public void setFinancialAmountMax(Double financialAmountMax) {
+        this.financialAmountMax = financialAmountMax;
     }
 
     public Pageable getPageable() {

@@ -23,4 +23,9 @@ public interface ProjectRepository {
     Page<Project> findProjectsByParams(Parameters params);
 
     Project save(Project project);
+
+    double getMaxFinancialAmount();
+
+    double getMinFinancialAmount();
+
 }

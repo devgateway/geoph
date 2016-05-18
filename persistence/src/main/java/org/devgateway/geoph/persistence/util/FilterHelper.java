@@ -78,6 +78,12 @@ public class FilterHelper {
                     Join<Project, GenderResponsiveness> genderResponsivenessJoin = projectRoot.join(Project_.genderResponsiveness);
                     predicates.add(genderResponsivenessJoin.get(GenderResponsiveness_.id).in(params.getGenderResponsiveness()));
                 }
+                if(params.getFinancialAmountMin() != null) {
+                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectRoot.get(Project_.totalProjectAmount), params.getFinancialAmountMin()));
+                }
+                if(params.getFinancialAmountMax() != null) {
+                    predicates.add(criteriaBuilder.lessThanOrEqualTo(projectRoot.get(Project_.totalProjectAmount), params.getFinancialAmountMax()));
+                }
             }
         }
     }
@@ -144,6 +150,12 @@ public class FilterHelper {
                 if (params.getGenderResponsiveness() != null) {
                     Join<Project, GenderResponsiveness> genderResponsivenessJoin = projectJoin.join(Project_.genderResponsiveness);
                     predicates.add(genderResponsivenessJoin.get(GenderResponsiveness_.id).in(params.getGenderResponsiveness()));
+                }
+                if(params.getFinancialAmountMin() != null) {
+                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectJoin.get(Project_.totalProjectAmount), params.getFinancialAmountMin()));
+                }
+                if(params.getFinancialAmountMax() != null) {
+                    predicates.add(criteriaBuilder.lessThanOrEqualTo(projectJoin.get(Project_.totalProjectAmount), params.getFinancialAmountMax()));
                 }
             }
         }
