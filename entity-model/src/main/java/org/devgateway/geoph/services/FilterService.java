@@ -44,5 +44,5 @@ public interface FilterService {
 
     List<GrantSubType> findAllGrantSubTypes();
 
-    List<Double> findFinancialAmountBoundaries();
+    List<Double> findFinancialAmountPeriod();
 }

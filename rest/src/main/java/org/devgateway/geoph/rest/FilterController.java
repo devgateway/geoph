@@ -67,17 +67,17 @@ public class FilterController extends CrossOriginSupport {
         return resp;
     }
 
-    @RequestMapping(value = "/financialAmountBoundaries", method = GET)
-    public GenericResponse findFinancialAmountBoundaries() {
-        LOGGER.debug("findFinancialAmountBoundaries");
-        List<Double> financialAmountBoundaries = service.findFinancialAmountBoundaries();
+    @RequestMapping(value = "/financialAmountPeriod", method = GET)
+    public GenericResponse findFinancialAmountPeriod() {
+        LOGGER.debug("findFinancialAmountPeriod");
+        List<Double> financialAmountPeriod = service.findFinancialAmountPeriod();
         GenericResponse resp = new GenericResponse(
-                "Financial Amount Boundaries",
-                FILTER_FINANCIAL_AMOUNT_MAX + "/" +FILTER_FINANCIAL_AMOUNT_MIN,
+                "Financial Amount Period",
+                FILTER_FINANCIAL_AMOUNT_MAX + SLASH +FILTER_FINANCIAL_AMOUNT_MIN,
                 "FINANCIAL_AMOUNT_SECTION",
                 1,
-                financialAmountBoundaries,
-                financialAmountBoundaries!=null?financialAmountBoundaries.size():0
+                financialAmountPeriod,
+                financialAmountPeriod!=null?financialAmountPeriod.size():0
         );
 
         return resp;
@@ -237,7 +237,7 @@ public class FilterController extends CrossOriginSupport {
 
         GenericResponse resp = new GenericResponse(
                 "Implementation Period",
-                null,
+                FILTER_START_DATE + SLASH + FILTER_END_DATE,
                 "IMP_PERIOD_SECTION",
                 1,
                 maxDates,
@@ -257,8 +257,8 @@ public class FilterController extends CrossOriginSupport {
         maxDates.add(maxDatesMap);
 
         GenericResponse resp = new GenericResponse(
-                "Load Validity Grant Period",
-                null,
+                "Performance Period",
+                FILTER_PERFORMANCE_START + SLASH + FILTER_PERFORMANCE_END,
                 "GRANT_PERIOD_SECTION",
                 1,
                 maxDates,

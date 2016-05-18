@@ -57,4 +57,5 @@ public class Constants {
             "Closing Date", "Revised Closing Date", "Sectors", "Period of Performance Start",
             "Period of Performance End", "Status", "Physical Status", "Physical Progress (Actual)",
             "Physical Progress (Target)", "Grant Classification", "Total Disbursements", "Total Commitments"};
+    public static final String SLASH = "/";
 }

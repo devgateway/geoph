@@ -67,7 +67,10 @@ public class Project extends GenericPersistable implements Serializable {
     private Currency originalCurrency;
 
     @Column(name = "total_project_amount")
-    private double totalProjectAmount;
+    private Double totalProjectAmount;
+
+    @Column(name = "total_project_amount_usd")
+    private Double totalProjectAmountUsd;
 
     @Column(name = "start_date")
     private Date startDate;
@@ -77,6 +80,9 @@ public class Project extends GenericPersistable implements Serializable {
 
     @Column(name = "revised_closing_date")
     private Date revisedClosingDate;
+
+    @Column(name = "revised_period_performance_end")
+    private Date revisedPeriodPerformanceEndDate;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade= CascadeType.MERGE)
     private Status status;
@@ -188,12 +194,20 @@ public class Project extends GenericPersistable implements Serializable {
         this.originalCurrency = originalCurrency;
     }
 
-    public double getTotalProjectAmount() {
+    public Double getTotalProjectAmount() {
         return totalProjectAmount;
     }
 
-    public void setTotalProjectAmount(double totalProjectAmount) {
+    public void setTotalProjectAmount(Double totalProjectAmount) {
         this.totalProjectAmount = totalProjectAmount;
+    }
+
+    public Double getTotalProjectAmountUsd() {
+        return totalProjectAmountUsd;
+    }
+
+    public void setTotalProjectAmountUsd(Double totalProjectAmountUsd) {
+        this.totalProjectAmountUsd = totalProjectAmountUsd;
     }
 
     public Date getStartDate() {
@@ -242,6 +256,14 @@ public class Project extends GenericPersistable implements Serializable {
 
     public void setPeriodPerformanceStart(Date periodPerformanceStart) {
         this.periodPerformanceStart = periodPerformanceStart;
+    }
+
+    public Date getRevisedPeriodPerformanceEndDate() {
+        return revisedPeriodPerformanceEndDate;
+    }
+
+    public void setRevisedPeriodPerformanceEndDate(Date revisedPeriodPerformanceEndDate) {
+        this.revisedPeriodPerformanceEndDate = revisedPeriodPerformanceEndDate;
     }
 
     public Date getPeriodPerformanceEnd() {

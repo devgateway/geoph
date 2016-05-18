@@ -472,6 +472,10 @@ public class MapController {
                     ExecutingAgency ea = eaMap.get(tokens[4].toLowerCase().trim());
                     p.setExecutingAgency(ea != null ? ea : eaDef);
                 }
+
+                if(StringUtils.isNotBlank(tokens[9])) {
+                    p.setTotalProjectAmount(Double.parseDouble(tokens[9].replace(".", "").replace(COMMA, ".")));
+                }
                 if(StringUtils.isNotBlank(tokens[9])) {
                     p.setTotalProjectAmount(Double.parseDouble(tokens[9].replace(".", "").replace(COMMA, ".")));
                 }

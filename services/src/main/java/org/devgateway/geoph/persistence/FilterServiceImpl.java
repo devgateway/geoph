@@ -177,7 +177,7 @@ public class FilterServiceImpl implements FilterService {
     }
 
     @Override
-    public List<Double> findFinancialAmountBoundaries() {
+    public List<Double> findFinancialAmountPeriod() {
         List<Double> financialAmountBounds = new ArrayList<>();
         double minFinancialAmount = projectRepository.getMinFinancialAmount();
         double maxFinancialAmount = projectRepository.getMaxFinancialAmount();
