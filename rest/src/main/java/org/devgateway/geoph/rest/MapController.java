@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.devgateway.geoph.model.*;
+import org.devgateway.geoph.model.Currency;
 import org.devgateway.geoph.services.AppMapService;
 import org.devgateway.geoph.services.FilterService;
 import org.devgateway.geoph.services.GeoJsonService;
@@ -388,6 +389,12 @@ public class MapController {
             //Create the file reader
             BufferedReader fileReader = new BufferedReader(new FileReader("grantsMarina.csv"));
 
+            List<Currency> currList = filterService.findAllCurrencies();
+            Map<String, Currency> currMap = new HashMap<>();
+            for(Currency c : currList){
+                currMap.put(c.getCode().toLowerCase().trim(), c);
+            }
+
             List<Sector> sList = filterService.findAllSectors();
             Map<String, Sector> sMap = new HashMap<>();
             for (Sector s : sList){
@@ -473,11 +480,31 @@ public class MapController {
                     p.setExecutingAgency(ea != null ? ea : eaDef);
                 }
 
-                if(StringUtils.isNotBlank(tokens[9])) {
-                    p.setTotalProjectAmount(Double.parseDouble(tokens[9].replace(".", "").replace(COMMA, ".")));
+                if(StringUtils.isNotBlank(tokens[7])) {
+                    Currency c = currMap.get(tokens[7].toLowerCase().trim());
+                    p.setOriginalCurrency(c != null ? c : null);
+                }
+                if(StringUtils.isNotBlank(tokens[8])) {
+                    p.setTotalProjectAmountOriginal(Double.parseDouble(tokens[8].replace(".", "").replace(COMMA, ".").replaceAll("[^0-9?!\\.]", "")));
                 }
                 if(StringUtils.isNotBlank(tokens[9])) {
                     p.setTotalProjectAmount(Double.parseDouble(tokens[9].replace(".", "").replace(COMMA, ".")));
+                }
+
+                if(StringUtils.isNotBlank(tokens[11])) {
+                    Grant grant = new Grant();
+                    if(tokens[11].trim().equals("-") || tokens[11].trim().toLowerCase().equals("n/a")){
+                        grant.setAmount(0);
+                    } else {
+                        grant.setAmount(Double.parseDouble(tokens[11].replace(".", "").replace(COMMA, ".")));
+                    }
+                    grant.setTransactionStatusId(2);
+                    grant.setTransactionTypeId(2);
+                    grant.setDate(formatter2.parse("12/31/2015"));
+                    grant.setProject(p);
+                    Set<Transaction> tSet = new HashSet<>();
+                    tSet.add(grant);
+                    p.setTransactions(tSet);
                 }
 
                 if(StringUtils.isNotBlank(tokens[12])) {

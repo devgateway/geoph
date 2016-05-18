@@ -44,7 +44,7 @@ public class Project extends GenericPersistable implements Serializable {
 
     private String title;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
+    @OneToMany(cascade=CascadeType.PERSIST, fetch = FetchType.LAZY, mappedBy = "project")
     private Set<Transaction> transactions;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
@@ -69,8 +69,8 @@ public class Project extends GenericPersistable implements Serializable {
     @Column(name = "total_project_amount")
     private Double totalProjectAmount;
 
-    @Column(name = "total_project_amount_usd")
-    private Double totalProjectAmountUsd;
+    @Column(name = "total_project_amount_original")
+    private Double totalProjectAmountOriginal;
 
     @Column(name = "start_date")
     private Date startDate;
@@ -202,12 +202,12 @@ public class Project extends GenericPersistable implements Serializable {
         this.totalProjectAmount = totalProjectAmount;
     }
 
-    public Double getTotalProjectAmountUsd() {
-        return totalProjectAmountUsd;
+    public Double getTotalProjectAmountOriginal() {
+        return totalProjectAmountOriginal;
     }
 
-    public void setTotalProjectAmountUsd(Double totalProjectAmountUsd) {
-        this.totalProjectAmountUsd = totalProjectAmountUsd;
+    public void setTotalProjectAmountOriginal(Double totalProjectAmountOriginal) {
+        this.totalProjectAmountOriginal = totalProjectAmountOriginal;
     }
 
     public Date getStartDate() {
