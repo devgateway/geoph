@@ -387,12 +387,18 @@ public class MapController {
         try {
             String line = "";
             //Create the file reader
-            BufferedReader fileReader = new BufferedReader(new FileReader("grantsMarina.csv"));
+            BufferedReader fileReader = new BufferedReader(new FileReader("grants3.csv"));
 
             List<Currency> currList = filterService.findAllCurrencies();
             Map<String, Currency> currMap = new HashMap<>();
             for(Currency c : currList){
                 currMap.put(c.getCode().toLowerCase().trim(), c);
+            }
+
+            List<GrantSubType> gstList = filterService.findAllGrantSubTypes();
+            Map<String, GrantSubType> gstMap = new HashMap<>();
+            for(GrantSubType g : gstList){
+                gstMap.put(g.getName().toLowerCase(), g);
             }
 
             List<Sector> sList = filterService.findAllSectors();
@@ -481,87 +487,91 @@ public class MapController {
                 }
 
                 if(StringUtils.isNotBlank(tokens[7])) {
-                    Currency c = currMap.get(tokens[7].toLowerCase().trim());
+                    Currency c = currMap.get("usd".toLowerCase().trim());
                     p.setOriginalCurrency(c != null ? c : null);
                 }
-                if(StringUtils.isNotBlank(tokens[8])) {
-                    p.setTotalProjectAmountOriginal(Double.parseDouble(tokens[8].replace(".", "").replace(COMMA, ".").replaceAll("[^0-9?!\\.]", "")));
+                if(StringUtils.isNotBlank(tokens[7])) {
+                    p.setTotalProjectAmountOriginal(Double.parseDouble(tokens[7].replace(".", "").replace(COMMA, ".").replaceAll("[^0-9?!\\.]", "")));
                 }
-                if(StringUtils.isNotBlank(tokens[9])) {
-                    p.setTotalProjectAmount(Double.parseDouble(tokens[9].replace(".", "").replace(COMMA, ".")));
+                if(StringUtils.isNotBlank(tokens[8])) {
+                    p.setTotalProjectAmount(Double.parseDouble(tokens[8].replace(".", "").replace(COMMA, ".")));
                 }
 
-                if(StringUtils.isNotBlank(tokens[11])) {
+                if(StringUtils.isNotBlank(tokens[10])) {
                     Grant grant = new Grant();
-                    if(tokens[11].trim().equals("-") || tokens[11].trim().toLowerCase().equals("n/a")){
+                    if(tokens[10].trim().equals("-") || tokens[10].trim().toLowerCase().equals("n/a")){
                         grant.setAmount(0);
                     } else {
-                        grant.setAmount(Double.parseDouble(tokens[11].replace(".", "").replace(COMMA, ".")));
+                        grant.setAmount(Double.parseDouble(tokens[10].replace(".", "").replace(COMMA, ".")));
                     }
                     grant.setTransactionStatusId(2);
                     grant.setTransactionTypeId(2);
                     grant.setDate(formatter2.parse("12/31/2015"));
                     grant.setProject(p);
+                    if(StringUtils.isNotBlank(tokens[18])) {
+                        GrantSubType gst = gstMap.get(tokens[18].toLowerCase().trim());
+                        grant.setGrantSubTypeId(gst != null ? gst.getId() : null);
+                    }
                     Set<Transaction> tSet = new HashSet<>();
                     tSet.add(grant);
                     p.setTransactions(tSet);
                 }
 
+                if(StringUtils.isNotBlank(tokens[11])) {
+                    if(tokens[11].indexOf("/")<0){
+                        p.setStartDate(formatter1.parse(tokens[11]));
+                    } else{
+                        p.setStartDate(formatter2.parse(tokens[11]));
+                    }
+                }
                 if(StringUtils.isNotBlank(tokens[12])) {
                     if(tokens[12].indexOf("/")<0){
-                        p.setStartDate(formatter1.parse(tokens[12]));
+                        p.setEndDate(formatter1.parse(tokens[12]));
                     } else{
-                        p.setStartDate(formatter2.parse(tokens[12]));
+                        p.setEndDate(formatter2.parse(tokens[12]));
                     }
                 }
                 if(StringUtils.isNotBlank(tokens[13])) {
                     if(tokens[13].indexOf("/")<0){
-                        p.setEndDate(formatter1.parse(tokens[13]));
+                        p.setRevisedClosingDate(formatter1.parse(tokens[13]));
                     } else{
-                        p.setEndDate(formatter2.parse(tokens[13]));
+                        p.setRevisedClosingDate(formatter2.parse(tokens[13]));
                     }
                 }
                 if(StringUtils.isNotBlank(tokens[14])) {
-                    if(tokens[14].indexOf("/")<0){
-                        p.setRevisedClosingDate(formatter1.parse(tokens[14]));
-                    } else{
-                        p.setRevisedClosingDate(formatter2.parse(tokens[14]));
-                    }
-                }
-                if(StringUtils.isNotBlank(tokens[15])) {
                     Set<Sector> ss = new HashSet<>();
-                    Sector s = sMap.get(tokens[15].toLowerCase().trim());
+                    Sector s = sMap.get(tokens[14].toLowerCase().trim());
                     if(s!=null){
                         ss.add(s);
                         p.setSectors(ss);
                     }
                 }
-                if(tokens.length>16 &&StringUtils.isNotBlank(tokens[16])) {
-                    String[] locs = tokens[16].split(COMMA);
+                if(tokens.length>15 &&StringUtils.isNotBlank(tokens[15])) {
+                    String[] locs = tokens[15].split(COMMA);
                     Set<Location> ls = new HashSet<>();
                     for(String loc : locs){
                         ls.add(lMap.get(loc.trim()));
                     }
                     p.setLocations(ls);
                 }
-                if(tokens.length>19 && StringUtils.isNotBlank(tokens[20])) {
-                    p.setStatus(stMap.get(tokens[20].toLowerCase().trim()));
+                if(tokens.length>18 && StringUtils.isNotBlank(tokens[19])) {
+                    p.setStatus(stMap.get(tokens[19].toLowerCase().trim()));
+                }
+                if(tokens.length>19 &&StringUtils.isNotBlank(tokens[20])) {
+                    p.setPhysicalStatus(psMap.get(tokens[20].toLowerCase().trim()));
                 }
                 if(tokens.length>20 &&StringUtils.isNotBlank(tokens[21])) {
-                    p.setPhysicalStatus(psMap.get(tokens[21].toLowerCase().trim()));
+                    if(tokens[21].indexOf("/")<0){
+                        p.setPeriodPerformanceStart(formatter1.parse(tokens[21]));
+                    } else{
+                        p.setPeriodPerformanceStart(formatter2.parse(tokens[21]));
+                    }
                 }
                 if(tokens.length>21 &&StringUtils.isNotBlank(tokens[22])) {
                     if(tokens[22].indexOf("/")<0){
-                        p.setPeriodPerformanceStart(formatter1.parse(tokens[22]));
+                        p.setPeriodPerformanceEnd(formatter1.parse(tokens[22]));
                     } else{
-                        p.setPeriodPerformanceStart(formatter2.parse(tokens[22]));
-                    }
-                }
-                if(tokens.length>22 &&StringUtils.isNotBlank(tokens[23])) {
-                    if(tokens[23].indexOf("/")<0){
-                        p.setPeriodPerformanceEnd(formatter1.parse(tokens[23]));
-                    } else{
-                        p.setPeriodPerformanceEnd(formatter2.parse(tokens[23]));
+                        p.setPeriodPerformanceEnd(formatter2.parse(tokens[22]));
                     }
                 }
                 projectService.save(p);
