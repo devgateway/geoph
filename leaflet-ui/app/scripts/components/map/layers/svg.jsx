@@ -5,7 +5,7 @@ import React from 'react';
 import d3 from 'd3';
 import { render, unmountComponentAtNode } from 'react-dom';
 import ProjectPopup from '../popups/projectLayerPopup';
-import { fetchPopupChartData } from '../../../actions/charts.js'
+import { fetchPopupData } from '../../../actions/popup.js'
 import { connect } from 'react-redux'
 import {collectValues} from '../../../util/filterUtil';
 
@@ -176,7 +176,7 @@ class D3Layer extends MapLayer {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onGetPopupData: (filters) => {
-      dispatch(fetchPopupChartData(filters));
+      dispatch(fetchPopupData(filters));
     }
   }
 }
@@ -184,7 +184,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 const mapStateToProps = (state, props) => {
   return {
     fundingType: state.settings.fundingType,
-    charts: state.charts.popupCharts,
+    charts: state.popup,
     filters: state.filters
   }
 }

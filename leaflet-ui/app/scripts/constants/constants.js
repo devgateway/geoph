@@ -27,6 +27,13 @@
 	export const RESET_FILTER = 'RESET_FILTER';
 	
 
+	/*POPUP events*/
+
+	export const REQUEST_POPUP_DATA = 'REQUEST_POPUP_DATA';
+
+	export const RECEIVE_POPUP_DATA = 'RECEIVE_POPUP_DATA';
+
+
 	/*CHARTS events*/
 
 	export const REQUEST_CHART_DATA = 'REQUEST_CHART_DATA';

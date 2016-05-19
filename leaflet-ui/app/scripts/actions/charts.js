@@ -29,7 +29,7 @@ export const fetchChartData = (filters) => {
 export const fetchPopupChartData = (filters) => {
   return dispatch => {
     dispatch(requestChartData(true));
-    return Connector.getChartData(filters)
+    return Connector.getProjectPopupData(filters)
     .then(req => dispatch(receiveChartData(req, true)))
   }
 }

@@ -140,6 +140,21 @@ class Connector {
 			}
 		});
 	}
+
+	getProjectPopupData(filters) {
+		return new Promise( (resolve, reject) => {
+			let path = Settings.get('API','PROJECT_POPUP');
+			if (path.mock) {
+				this.call(GET,path.path, {}, true).then((data) => {
+					resolve(data);		
+				}).catch(reject)
+			} else {
+				this.call(GET, path, filters).then((data) => {
+					resolve(data); 	
+				}).catch(reject)
+			}
+		});
+	}
 }
 
 
