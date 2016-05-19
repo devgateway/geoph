@@ -1,1340 +1,442 @@
 DELETE FROM transaction;
 
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',4,26310.8,{ts '2015-12-31 00:00:00.0'},null,2,2,null,3);
 
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',6,69000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,5);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',8,227000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,7);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',10,230000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,9);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',12,1248000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,11);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',14,1181000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,13);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',16,3000000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,15);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',18,3642000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,17);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',20,1.4748E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,19);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',22,490000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,21);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',24,1673000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,23);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',26,598000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,25);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',28,68000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,27);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',30,125480.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,29);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',32,907730.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,31);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',34,243770.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,33);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',36,351880.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,35);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',38,1465.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,37);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',40,679610.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,39);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',42,219410.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,41);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',44,868790.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,43);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',46,1696770.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,45);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',48,762340.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,47);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',50,417640.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,49);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',52,162000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,51);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',54,503000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,53);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',56,870510.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,55);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',58,567350.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,57);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',60,891430.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,59);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',62,316880.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,61);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',64,331820.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,63);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',66,3312430.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,65);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',68,2034700.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,67);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',70,285640.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,69);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',72,180250.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,71);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',74,1591.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,73);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',76,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,75);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',78,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,77);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',80,206390.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,79);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',82,952340.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,81);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',84,299670.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,83);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',86,1024880.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,85);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',88,395740.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,87);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',90,816130.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,89);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',92,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,91);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',94,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,93);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',96,69174.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,95);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',98,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,97);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',100,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,99);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',102,130000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,101);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',104,4106914.75,{ts '2015-12-31 00:00:00.0'},null,2,2,null,103);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',106,1875255.43,{ts '2015-12-31 00:00:00.0'},null,2,2,null,105);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',108,22788.53,{ts '2015-12-31 00:00:00.0'},null,2,2,null,107);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',110,1.179311753E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,109);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',112,3.413952016E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,111);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',114,80099.43,{ts '2015-12-31 00:00:00.0'},null,2,2,null,113);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',116,539326.17,{ts '2015-12-31 00:00:00.0'},null,2,2,null,115);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',118,1.195391184E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,117);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',120,7186547.26,{ts '2015-12-31 00:00:00.0'},null,2,2,null,119);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',122,1128182.44,{ts '2015-12-31 00:00:00.0'},null,2,2,null,121);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',124,1651109.38,{ts '2015-12-31 00:00:00.0'},null,2,2,null,123);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',126,30179.54,{ts '2015-12-31 00:00:00.0'},null,2,2,null,125);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',128,5.378585498E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,127);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',130,5.703044413E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,129);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',132,3115259.87,{ts '2015-12-31 00:00:00.0'},null,2,2,null,131);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',134,2.354984083E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,133);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',136,2.119014726E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,135);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',138,822296.33,{ts '2015-12-31 00:00:00.0'},null,2,2,null,137);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',140,3.162926382E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,139);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',142,207635.55,{ts '2015-12-31 00:00:00.0'},null,2,2,null,141);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',144,1297722.22,{ts '2015-12-31 00:00:00.0'},null,2,2,null,143);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',146,1.026953716E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,145);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',148,4333165.14,{ts '2015-12-31 00:00:00.0'},null,2,2,null,147);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',150,4.20428689E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,149);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',152,1.563929104E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,151);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',154,759373.88,{ts '2015-12-31 00:00:00.0'},null,2,2,null,153);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',156,1710272.25,{ts '2015-12-31 00:00:00.0'},null,2,2,null,155);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',158,50.26,{ts '2015-12-31 00:00:00.0'},null,2,2,null,157);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',160,762902.07,{ts '2015-12-31 00:00:00.0'},null,2,2,null,159);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',162,2.030251998E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,161);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',164,1.900222009E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,163);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',166,9484047.19,{ts '2015-12-31 00:00:00.0'},null,2,2,null,165);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',168,1.630212579E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,167);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',170,1215452.97,{ts '2015-12-31 00:00:00.0'},null,2,2,null,169);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',172,3494959.39,{ts '2015-12-31 00:00:00.0'},null,2,2,null,171);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',174,1775249.15,{ts '2015-12-31 00:00:00.0'},null,2,2,null,173);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',176,7030.17,{ts '2015-12-31 00:00:00.0'},null,2,2,null,175);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',178,1036085.72,{ts '2015-12-31 00:00:00.0'},null,2,2,null,177);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',180,11212.32,{ts '2015-12-31 00:00:00.0'},null,2,2,null,179);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',182,29028.43,{ts '2015-12-31 00:00:00.0'},null,2,2,null,181);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',184,163429.05,{ts '2015-12-31 00:00:00.0'},null,2,2,null,183);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',186,126195.42,{ts '2015-12-31 00:00:00.0'},null,2,2,null,185);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',188,7986349.15,{ts '2015-12-31 00:00:00.0'},null,2,2,null,187);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',190,960004.79,{ts '2015-12-31 00:00:00.0'},null,2,2,null,189);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',192,44394.39,{ts '2015-12-31 00:00:00.0'},null,2,2,null,191);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',194,131433.6,{ts '2015-12-31 00:00:00.0'},null,2,2,null,193);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',196,6016396.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,195);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',198,53817.84,{ts '2015-12-31 00:00:00.0'},null,2,2,null,197);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',200,86575.77,{ts '2015-12-31 00:00:00.0'},null,2,2,null,199);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',202,13770.13,{ts '2015-12-31 00:00:00.0'},null,2,2,null,201);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',204,3.012952223E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,203);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',206,455426.46,{ts '2015-12-31 00:00:00.0'},null,2,2,null,205);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',208,4302497.24,{ts '2015-12-31 00:00:00.0'},null,2,2,null,207);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',210,794428.34,{ts '2015-12-31 00:00:00.0'},null,2,2,null,209);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',212,311453.33,{ts '2015-12-31 00:00:00.0'},null,2,2,null,211);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',214,201957.94,{ts '2015-12-31 00:00:00.0'},null,2,2,null,213);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',216,456528.07,{ts '2015-12-31 00:00:00.0'},null,2,2,null,215);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',218,577067.57,{ts '2015-12-31 00:00:00.0'},null,2,2,null,217);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',220,21425.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,219);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',222,1202755.38,{ts '2015-12-31 00:00:00.0'},null,2,2,null,221);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',224,95333.56,{ts '2015-12-31 00:00:00.0'},null,2,2,null,223);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',226,190291.93,{ts '2015-12-31 00:00:00.0'},null,2,2,null,225);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',228,897564.9,{ts '2015-12-31 00:00:00.0'},null,2,2,null,227);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',230,34197.58,{ts '2015-12-31 00:00:00.0'},null,2,2,null,229);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',232,419487.77,{ts '2015-12-31 00:00:00.0'},null,2,2,null,231);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',234,1227554.38,{ts '2015-12-31 00:00:00.0'},null,2,2,null,233);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',236,769592.62,{ts '2015-12-31 00:00:00.0'},null,2,2,null,235);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',238,989291.75,{ts '2015-12-31 00:00:00.0'},null,2,2,null,237);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',240,361070.19,{ts '2015-12-31 00:00:00.0'},null,2,2,null,239);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',242,1016.88,{ts '2015-12-31 00:00:00.0'},null,2,2,null,241);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',244,21891.74,{ts '2015-12-31 00:00:00.0'},null,2,2,null,243);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',246,315686.76,{ts '2015-12-31 00:00:00.0'},null,2,2,null,245);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',248,5450.43,{ts '2015-12-31 00:00:00.0'},null,2,2,null,247);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',250,427195.56,{ts '2015-12-31 00:00:00.0'},null,2,2,null,249);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',252,139765.7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,251);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',254,211018.98,{ts '2015-12-31 00:00:00.0'},null,2,2,null,253);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',256,301795.17,{ts '2015-12-31 00:00:00.0'},null,2,2,null,255);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',258,203920.18,{ts '2015-12-31 00:00:00.0'},null,2,2,null,257);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',260,197094.68,{ts '2015-12-31 00:00:00.0'},null,2,2,null,259);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',262,127045.71,{ts '2015-12-31 00:00:00.0'},null,2,2,null,261);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',264,243234.15,{ts '2015-12-31 00:00:00.0'},null,2,2,null,263);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',266,61649.07,{ts '2015-12-31 00:00:00.0'},null,2,2,null,265);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',268,1093750.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,267);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',270,1.22078E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,269);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',272,820213.03,{ts '2015-12-31 00:00:00.0'},null,2,2,null,271);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',274,455559.43,{ts '2015-12-31 00:00:00.0'},null,2,2,null,273);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',276,499035.35,{ts '2015-12-31 00:00:00.0'},null,2,2,null,275);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',278,582640.46,{ts '2015-12-31 00:00:00.0'},null,2,2,null,277);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',280,94512.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,279);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',282,346544.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,281);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',284,1.22078E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,283);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',286,196912.5,{ts '2015-12-31 00:00:00.0'},null,2,2,null,285);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',288,1181475.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,287);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',290,1.2161316E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,289);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',292,295824.01,{ts '2015-12-31 00:00:00.0'},null,2,2,null,291);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',294,1605959.28,{ts '2015-12-31 00:00:00.0'},null,2,2,null,293);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',296,6987423.34,{ts '2015-12-31 00:00:00.0'},null,2,2,null,295);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',298,1.31523996E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,297);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',300,9939103.32,{ts '2015-12-31 00:00:00.0'},null,2,2,null,299);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',302,7723286.67,{ts '2015-12-31 00:00:00.0'},null,2,2,null,301);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',304,3.920980443E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,303);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',306,3.112098873E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,305);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',308,7541005.03,{ts '2015-12-31 00:00:00.0'},null,2,2,null,307);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',310,3539372.57,{ts '2015-12-31 00:00:00.0'},null,2,2,null,309);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',312,2099258.68,{ts '2015-12-31 00:00:00.0'},null,2,2,null,311);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',314,1.260438295E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,313);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',316,3.17849657E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,315);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',318,1.094918084E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,317);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',320,5471398.23,{ts '2015-12-31 00:00:00.0'},null,2,2,null,319);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',322,314806.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,321);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',324,302246.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,323);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',326,97155.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,325);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',328,14293.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,327);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',330,397350.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,329);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',332,52000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,331);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',334,27500.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,333);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',336,27667.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,335);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',338,2878520.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,337);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',340,5339032.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,339);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',342,223456.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,341);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',344,1063443.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,343);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',346,870929.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,345);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',348,133585.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,347);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',350,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,349);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',352,165255.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,351);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',354,17697.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,353);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',356,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,355);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',358,124326.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,357);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',360,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,359);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',362,517197.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,361);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',364,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,363);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',366,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,365);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',368,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,367);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',370,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,369);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',372,1930517.74,{ts '2015-12-31 00:00:00.0'},null,2,2,null,371);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',374,2797438.47,{ts '2015-12-31 00:00:00.0'},null,2,2,null,373);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',376,3273763.58,{ts '2015-12-31 00:00:00.0'},null,2,2,null,375);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',378,2.467028459E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,377);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',380,1.128976215E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,379);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',382,3825021.2,{ts '2015-12-31 00:00:00.0'},null,2,2,null,381);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',384,165385.2,{ts '2015-12-31 00:00:00.0'},null,2,2,null,383);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',386,5620023.78,{ts '2015-12-31 00:00:00.0'},null,2,2,null,385);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',388,262580.93,{ts '2015-12-31 00:00:00.0'},null,2,2,null,387);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',390,460764.47,{ts '2015-12-31 00:00:00.0'},null,2,2,null,389);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',392,3468379.05,{ts '2015-12-31 00:00:00.0'},null,2,2,null,391);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',394,1.101079229E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,393);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',396,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,395);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',398,1638976.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,397);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',400,5540000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,399);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',402,722530.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,401);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',404,2379851.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,403);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',406,311873.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,405);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',408,102861.78,{ts '2015-12-31 00:00:00.0'},null,2,2,null,407);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',410,301913.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,409);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',412,18927.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,411);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',414,1528830.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,413);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',416,87574.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,415);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',418,11014.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,417);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',420,201864.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,419);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',422,2875483.86,{ts '2015-12-31 00:00:00.0'},null,2,2,null,421);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',426,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,425);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',428,1062569.81,{ts '2015-12-31 00:00:00.0'},null,2,2,null,427);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',430,3843916.45,{ts '2015-12-31 00:00:00.0'},null,2,2,null,429);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',432,1899759.33,{ts '2015-12-31 00:00:00.0'},null,2,2,null,431);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',434,1892.93,{ts '2015-12-31 00:00:00.0'},null,2,2,null,433);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',436,4.604689267E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,435);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',438,2801.8,{ts '2015-12-31 00:00:00.0'},null,2,2,null,437);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',440,997633.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,439);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',442,1208653.33,{ts '2015-12-31 00:00:00.0'},null,2,2,null,441);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',444,7583.89,{ts '2015-12-31 00:00:00.0'},null,2,2,null,443);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',446,9196633.33,{ts '2015-12-31 00:00:00.0'},null,2,2,null,445);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',448,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,447);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',450,1966943.33,{ts '2015-12-31 00:00:00.0'},null,2,2,null,449);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',452,1.5141841E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,451);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',454,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,453);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',456,2517586.67,{ts '2015-12-31 00:00:00.0'},null,2,2,null,455);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',458,3355711.44,{ts '2015-12-31 00:00:00.0'},null,2,2,null,457);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',460,720404.94,{ts '2015-12-31 00:00:00.0'},null,2,2,null,459);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',462,2572584.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,461);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',464,3336112.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,463);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',466,4109690.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,465);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',468,3093995.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,467);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',470,3493504.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,469);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',472,4436815.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,471);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',474,4687444.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,473);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',476,3743647.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,475);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',478,1876062.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,477);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',480,2807790.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,479);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',482,2191312.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,481);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',484,1331384.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,483);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',486,2600000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,485);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',488,907507.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,487);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',490,747054.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,489);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',492,390333.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,491);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',494,170104.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,493);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',496,468810.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,495);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',498,2.803328141E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,497);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',500,1.2558269697E8,{ts '2015-12-31 00:00:00.0'},null,2,2,null,499);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',502,2.1778303037E8,{ts '2015-12-31 00:00:00.0'},null,2,2,null,501);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',504,5777946.8,{ts '2015-12-31 00:00:00.0'},null,2,2,null,503);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',506,2.155430794E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,505);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',508,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,507);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',510,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,509);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',512,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,511);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',514,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,513);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',516,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,515);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',518,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,517);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',520,2640000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,519);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',522,1430000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,521);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',524,1595000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,523);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',526,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,525);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',528,55000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,527);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',530,11000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,529);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',532,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,531);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',534,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,533);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',536,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,535);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',538,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,537);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',543,286911.58,{ts '2015-12-31 00:00:00.0'},null,2,2,null,542);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',545,595742.47,{ts '2015-12-31 00:00:00.0'},null,2,2,null,544);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',547,188805.9,{ts '2015-12-31 00:00:00.0'},null,2,2,null,546);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',549,166890.84,{ts '2015-12-31 00:00:00.0'},null,2,2,null,548);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',551,166696.33,{ts '2015-12-31 00:00:00.0'},null,2,2,null,550);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',553,699717.37,{ts '2015-12-31 00:00:00.0'},null,2,2,null,552);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',555,583151.53,{ts '2015-12-31 00:00:00.0'},null,2,2,null,554);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',557,180328.14,{ts '2015-12-31 00:00:00.0'},null,2,2,null,556);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',559,299655.48,{ts '2015-12-31 00:00:00.0'},null,2,2,null,558);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',561,387959.17,{ts '2015-12-31 00:00:00.0'},null,2,2,null,560);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',563,203757.43,{ts '2015-12-31 00:00:00.0'},null,2,2,null,562);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',565,203757.43,{ts '2015-12-31 00:00:00.0'},null,2,2,null,564);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',567,327628.17,{ts '2015-12-31 00:00:00.0'},null,2,2,null,566);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',569,331517.81,{ts '2015-12-31 00:00:00.0'},null,2,2,null,568);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',571,571570.63,{ts '2015-12-31 00:00:00.0'},null,2,2,null,570);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',573,3552401.12,{ts '2015-12-31 00:00:00.0'},null,2,2,null,572);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',575,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,574);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',577,1257468.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,576);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',579,1402501.98,{ts '2015-12-31 00:00:00.0'},null,2,2,null,578);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',581,708576.32,{ts '2015-12-31 00:00:00.0'},null,2,2,null,580);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',583,231574.74,{ts '2015-12-31 00:00:00.0'},null,2,2,null,582);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',585,304355.32,{ts '2015-12-31 00:00:00.0'},null,2,2,null,584);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',587,829611.86,{ts '2015-12-31 00:00:00.0'},null,2,2,null,586);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',589,2560977.75,{ts '2015-12-31 00:00:00.0'},null,2,2,null,588);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',591,2445780.06,{ts '2015-12-31 00:00:00.0'},null,2,2,null,590);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',593,376607.37,{ts '2015-12-31 00:00:00.0'},null,2,2,null,592);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',595,2498961.11,{ts '2015-12-31 00:00:00.0'},null,2,2,null,594);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',597,360962.73,{ts '2015-12-31 00:00:00.0'},null,2,2,null,596);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',599,1105422.05,{ts '2015-12-31 00:00:00.0'},null,2,2,null,598);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',601,351469.38,{ts '2015-12-31 00:00:00.0'},null,2,2,null,600);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',603,2078310.8,{ts '2015-12-31 00:00:00.0'},null,2,2,null,602);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',605,267340.86,{ts '2015-12-31 00:00:00.0'},null,2,2,null,604);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',607,660177.82,{ts '2015-12-31 00:00:00.0'},null,2,2,null,606);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',609,6561605.1,{ts '2015-12-31 00:00:00.0'},null,2,2,null,608);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',611,1.767693637E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,610);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',613,311791.07,{ts '2015-12-31 00:00:00.0'},null,2,2,null,612);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',615,3941606.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,614);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',617,3448127.29,{ts '2015-12-31 00:00:00.0'},null,2,2,null,616);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',619,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,618);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',621,40000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,620);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',623,1397069.78,{ts '2015-12-31 00:00:00.0'},null,2,2,null,622);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',625,3046292.46,{ts '2015-12-31 00:00:00.0'},null,2,2,null,624);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',627,1407218.66,{ts '2015-12-31 00:00:00.0'},null,2,2,null,626);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',629,183315.57,{ts '2015-12-31 00:00:00.0'},null,2,2,null,628);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',631,164705.15,{ts '2015-12-31 00:00:00.0'},null,2,2,null,630);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',633,378395.24,{ts '2015-12-31 00:00:00.0'},null,2,2,null,632);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',635,323488.15,{ts '2015-12-31 00:00:00.0'},null,2,2,null,634);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',637,179842.29,{ts '2015-12-31 00:00:00.0'},null,2,2,null,636);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',639,179842.29,{ts '2015-12-31 00:00:00.0'},null,2,2,null,638);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',641,1687000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,640);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',643,274000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,642);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',645,337000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,644);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',647,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,646);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',649,151000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,648);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',651,411000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,650);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',653,2152000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,652);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',655,323000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,654);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',657,39000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,656);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',659,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,658);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',661,569000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,660);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',663,33000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,662);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',665,185866.62,{ts '2015-12-31 00:00:00.0'},null,2,2,null,664);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',667,4100000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,666);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',669,2015068.26,{ts '2015-12-31 00:00:00.0'},null,2,2,null,668);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',671,602000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,670);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',673,2220000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,672);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',675,520000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,674);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',677,5563.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,676);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',679,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,678);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',681,146381.6,{ts '2015-12-31 00:00:00.0'},null,2,2,null,680);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',683,67454.72,{ts '2015-12-31 00:00:00.0'},null,2,2,null,682);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',685,90507.14,{ts '2015-12-31 00:00:00.0'},null,2,2,null,684);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',687,80488.62,{ts '2015-12-31 00:00:00.0'},null,2,2,null,686);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',689,880000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,688);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',691,1000000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,690);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',693,1385000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,692);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',695,6223000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,694);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',697,1999000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,696);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',699,1.75E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,698);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',701,1290000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,700);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',703,4740000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,702);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',705,1.37E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,704);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',707,9110000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,706);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',709,1.341E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,708);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',711,9180000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,710);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',713,2450000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,712);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',715,750000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,714);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',717,1.315E8,{ts '2015-12-31 00:00:00.0'},null,2,2,null,716);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',719,6230000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,718);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',721,918000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,720);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',723,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,722);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',725,405000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,724);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',727,1410000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,726);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',729,9270000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,728);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',731,854000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,730);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',733,238000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,732);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',735,650000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,734);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',737,800000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,736);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',739,1150000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,738);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',741,1.408E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,740);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',743,1130000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,742);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',745,673000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,744);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',747,1240000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,746);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',749,8580000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,748);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',751,3900000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,750);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',753,996000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,752);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',755,2.025E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,754);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',757,256000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,756);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',759,5210000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,758);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',761,3840000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,760);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',763,528000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,762);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',765,3072000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,764);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',767,1.183E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,766);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',769,622000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,768);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',771,38000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,770);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',773,9601000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,772);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',775,1.138E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,774);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',777,6330000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,776);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',779,9800000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,778);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',781,4588000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,780);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',783,632000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,782);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',785,1854000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,784);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',787,1557000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,786);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',789,1000000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,788);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',791,1380000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,790);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',793,260000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,792);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',795,260000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,794);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',797,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,796);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',799,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,798);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',801,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,800);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',803,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,802);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',805,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,804);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',807,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,806);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',809,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,808);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',811,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,810);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',813,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,812);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',815,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,814);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',817,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,816);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',819,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,818);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',821,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,820);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',823,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,822);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',825,3310000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,824);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',827,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,826);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',829,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,828);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',831,1500000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,830);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',833,1500000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,832);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',835,1500000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,834);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',837,650000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,836);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',839,5000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,838);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',841,295000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,840);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',843,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,842);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',845,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,844);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',847,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,846);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',849,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,848);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',851,1075092.38,{ts '2015-12-31 00:00:00.0'},null,2,2,null,850);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',853,260516.42,{ts '2015-12-31 00:00:00.0'},null,2,2,null,852);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',855,440000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,854);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',857,65726.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,856);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',859,50000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,858);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',861,139431.89,{ts '2015-12-31 00:00:00.0'},null,2,2,null,860);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',863,2051059.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,862);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',865,1472192.47,{ts '2015-12-31 00:00:00.0'},null,2,2,null,864);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',867,300000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,866);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',869,180000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,868);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',871,250000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,870);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',873,435000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,872);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',875,4808962.63,{ts '2015-12-31 00:00:00.0'},null,2,2,null,874);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',877,3440944.78,{ts '2015-12-31 00:00:00.0'},null,2,2,null,876);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',879,3000000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,878);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',881,638150.84,{ts '2015-12-31 00:00:00.0'},null,2,2,null,880);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',883,1234205.22,{ts '2015-12-31 00:00:00.0'},null,2,2,null,882);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',885,210000.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,884);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',887,121211.25,{ts '2015-12-31 00:00:00.0'},null,2,2,null,886);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',889,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,888);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',891,6.7143544E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,890);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',893,1.00916482E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,892);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',895,3807154.46,{ts '2015-12-31 00:00:00.0'},null,2,2,null,894);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',897,974941.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,896);
-
-INSERT INTO transaction (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) 
-    VALUES ('grant',899,2.5833555E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,898);
-
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',4,3234030.0,{ts '2015-12-31 00:00:00.0'},1,2,2,null,3);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',6,1.063949E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,5);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',8,1.07801E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,7);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',10,5.849376E7,{ts '2015-12-31 00:00:00.0'},3,2,2,null,9);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',12,5.535347E7,{ts '2015-12-31 00:00:00.0'},3,2,2,null,11);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',14,1.4061E8,{ts '2015-12-31 00:00:00.0'},4,2,2,null,13);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',16,1.7070054E8,{ts '2015-12-31 00:00:00.0'},4,2,2,null,15);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',18,6.9123876E8,{ts '2015-12-31 00:00:00.0'},5,2,2,null,17);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',20,2.29663E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,19);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',22,7.841351E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,21);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',24,2.802826E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,23);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',26,3187160.0,{ts '2015-12-31 00:00:00.0'},5,2,2,null,25);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',28,5881247.6,{ts '2015-12-31 00:00:00.0'},5,2,2,null,27);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',30,4.25453051E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,29);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',32,1.14254999E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,31);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',34,1.64926156E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,33);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',36,68664.55,{ts '2015-12-31 00:00:00.0'},5,2,2,null,35);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',38,3.18533207E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,37);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',40,1.02837467E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,39);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',42,4.07201873E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,41);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',44,7.95276099E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,43);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',46,3.57308758E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,45);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',48,1.95747868E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,47);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',50,7592940.0,{ts '2015-12-31 00:00:00.0'},5,2,2,null,49);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',52,2.357561E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,51);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',54,4.08008037E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,53);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',56,2.65916945E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,55);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',58,4.17813241E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,57);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',60,1.48521656E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,59);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',62,1.55524034E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,61);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',64,1.552535941E8,{ts '2015-12-31 00:00:00.0'},5,2,2,null,63);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',66,9.5366389E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,65);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',68,1.33879468E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,67);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',70,8448317.5,{ts '2015-12-31 00:00:00.0'},5,2,2,null,69);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',72,74570.17,{ts '2015-12-31 00:00:00.0'},5,2,2,null,71);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',74,0.0,{ts '2015-12-31 00:00:00.0'},5,2,2,null,73);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',76,0.0,{ts '2015-12-31 00:00:00.0'},5,2,2,null,75);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',78,9673499.3,{ts '2015-12-31 00:00:00.0'},5,2,2,null,77);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',80,4.46361758E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,79);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',82,1.40455329E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,81);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',84,4.80361256E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,83);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',86,1.85483338E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,85);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',88,3.82520131E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,87);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',90,0.0,{ts '2015-12-31 00:00:00.0'},5,2,2,null,89);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',92,0.0,{ts '2015-12-31 00:00:00.0'},5,2,2,null,91);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',94,3242185.38,{ts '2015-12-31 00:00:00.0'},5,2,2,null,93);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',96,0.0,{ts '2015-12-31 00:00:00.0'},5,2,2,null,95);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',98,0.0,{ts '2015-12-31 00:00:00.0'},5,2,2,null,97);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',100,6093100.0,{ts '2015-12-31 00:00:00.0'},5,2,2,null,99);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',102,1.9249109449E8,{ts '2015-12-31 00:00:00.0'},6,2,2,null,101);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',104,8.789322191E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,103);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',106,1068098.24,{ts '2015-12-31 00:00:00.0'},5,2,2,null,105);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',108,5.5274341862E8,{ts '2015-12-31 00:00:00.0'},1,2,2,null,107);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',110,1.60011930973E9,{ts '2015-12-31 00:00:00.0'},6,2,2,null,109);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',112,3754260.27,{ts '2015-12-31 00:00:00.0'},6,2,2,null,111);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',114,2.527821752E7,{ts '2015-12-31 00:00:00.0'},6,2,2,null,113);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',116,5.6027984817E8,{ts '2015-12-31 00:00:00.0'},6,2,2,null,115);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',118,3.3683347028E8,{ts '2015-12-31 00:00:00.0'},6,2,2,null,117);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',120,5.2877911E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,119);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',122,7.738749654E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,121);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',124,1414515.04,{ts '2015-12-31 00:00:00.0'},5,2,2,null,123);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',126,2.52094302312E9,{ts '2015-12-31 00:00:00.0'},null,2,2,null,125);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',128,2.67301691631E9,{ts '2015-12-31 00:00:00.0'},1,2,2,null,127);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',130,1.4601223003E8,{ts '2015-12-31 00:00:00.0'},5,2,2,null,129);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',132,1.1037810399E9,{ts '2015-12-31 00:00:00.0'},6,2,2,null,131);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',134,9.9318220224E8,{ts '2015-12-31 00:00:00.0'},1,2,2,null,133);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',136,3.854102883E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,135);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',138,1.48246359539E9,{ts '2015-12-31 00:00:00.0'},1,2,2,null,137);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',140,9731878.25,{ts '2015-12-31 00:00:00.0'},6,2,2,null,139);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',142,6.082424068E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,141);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',144,4.8133320656E8,{ts '2015-12-31 00:00:00.0'},1,2,2,null,143);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',146,2.0309545E8,{ts '2015-12-31 00:00:00.0'},1,2,2,null,145);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',148,1.97054926523E9,{ts '2015-12-31 00:00:00.0'},1,2,2,null,147);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',150,7.3301357082E8,{ts '2015-12-31 00:00:00.0'},6,2,2,null,149);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',152,3.55918536E7,{ts '2015-12-31 00:00:00.0'},6,2,2,null,151);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',154,8.016046041E7,{ts '2015-12-31 00:00:00.0'},6,2,2,null,153);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',156,2355.72,{ts '2015-12-31 00:00:00.0'},6,2,2,null,155);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',158,3.575722024E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,157);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',160,9.5157911144E8,{ts '2015-12-31 00:00:00.0'},1,2,2,null,159);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',162,8.9063405557E8,{ts '2015-12-31 00:00:00.0'},1,2,2,null,161);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',164,4.4451729164E8,{ts '2015-12-31 00:00:00.0'},6,2,2,null,163);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',166,7.6408063557E8,{ts '2015-12-31 00:00:00.0'},1,2,2,null,165);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',168,5.696828078E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,167);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',170,1.6380874682E8,{ts '2015-12-31 00:00:00.0'},1,2,2,null,169);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',172,8.320592766E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,171);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',174,329504.13,{ts '2015-12-31 00:00:00.0'},null,2,2,null,173);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',176,4.856133769E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,175);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',178,525521.44,{ts '2015-12-31 00:00:00.0'},null,2,2,null,177);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',180,1360562.6,{ts '2015-12-31 00:00:00.0'},5,2,2,null,179);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',182,7659919.35,{ts '2015-12-31 00:00:00.0'},5,2,2,null,181);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',184,5914779.55,{ts '2015-12-31 00:00:00.0'},5,2,2,null,183);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',186,3.7432018487E8,{ts '2015-12-31 00:00:00.0'},6,2,2,null,185);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',188,4.499542474E7,{ts '2015-12-31 00:00:00.0'},6,2,2,null,187);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',190,2080764.91,{ts '2015-12-31 00:00:00.0'},1,2,2,null,189);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',192,6160292.95,{ts '2015-12-31 00:00:00.0'},1,2,2,null,191);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',194,2.8198848044E8,{ts '2015-12-31 00:00:00.0'},6,2,2,null,193);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',196,2522442.32,{ts '2015-12-31 00:00:00.0'},1,2,2,null,195);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',198,4057806.49,{ts '2015-12-31 00:00:00.0'},6,2,2,null,197);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',200,645406.02,{ts '2015-12-31 00:00:00.0'},1,2,2,null,199);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',202,1.41217070687E9,{ts '2015-12-31 00:00:00.0'},1,2,2,null,201);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',204,2.134583817E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,203);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',206,2.0165804559E8,{ts '2015-12-31 00:00:00.0'},1,2,2,null,205);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',208,3.723485624E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,207);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',210,1.459781773E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,209);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',212,9465768.79,{ts '2015-12-31 00:00:00.0'},1,2,2,null,211);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',214,2.139747065E7,{ts '2015-12-31 00:00:00.0'},6,2,2,null,213);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',216,2.704715712E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,215);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',218,1004189.72,{ts '2015-12-31 00:00:00.0'},6,2,2,null,217);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',220,5.637314453E7,{ts '2015-12-31 00:00:00.0'},6,2,2,null,219);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',222,4468283.98,{ts '2015-12-31 00:00:00.0'},1,2,2,null,221);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',224,8918982.71,{ts '2015-12-31 00:00:00.0'},1,2,2,null,223);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',226,1233187.15,{ts '2015-12-31 00:00:00.0'},1,2,2,null,225);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',228,4.206886701E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,227);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',230,1602840.39,{ts '2015-12-31 00:00:00.0'},1,2,2,null,229);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',232,1.966139197E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,231);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',234,5.753547387E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,233);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',236,3.607080618E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,235);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',238,4.636810425E7,{ts '2015-12-31 00:00:00.0'},6,2,2,null,237);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',240,1.692335958E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,239);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',242,47661.15,{ts '2015-12-31 00:00:00.0'},null,2,2,null,241);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',244,1026066.01,{ts '2015-12-31 00:00:00.0'},5,2,2,null,243);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',246,1.479623857E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,245);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',248,255461.81,{ts '2015-12-31 00:00:00.0'},5,2,2,null,247);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',250,2.002265584E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,249);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',252,6550818.15,{ts '2015-12-31 00:00:00.0'},5,2,2,null,251);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',254,9890459.45,{ts '2015-12-31 00:00:00.0'},5,2,2,null,253);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',256,1.414513941E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,255);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',258,9557738.69,{ts '2015-12-31 00:00:00.0'},5,2,2,null,257);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',260,9237827.51,{ts '2015-12-31 00:00:00.0'},5,2,2,null,259);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',262,5954632.33,{ts '2015-12-31 00:00:00.0'},5,2,2,null,261);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',264,1.140038473E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,263);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',266,2889492.04,{ts '2015-12-31 00:00:00.0'},1,2,2,null,265);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',268,5.12640625E7,{ts '2015-12-31 00:00:00.0'},6,2,2,null,267);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',270,5.72179586E8,{ts '2015-12-31 00:00:00.0'},5,2,2,null,269);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',272,3.844338454E7,{ts '2015-12-31 00:00:00.0'},4,2,2,null,271);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',274,2.135207056E7,{ts '2015-12-31 00:00:00.0'},4,2,2,null,273);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',276,2.33897868E7,{ts '2015-12-31 00:00:00.0'},4,2,2,null,275);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',278,2.730835827E7,{ts '2015-12-31 00:00:00.0'},4,2,2,null,277);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',280,4429777.44,{ts '2015-12-31 00:00:00.0'},5,2,2,null,279);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',282,1.624251728E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,281);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',284,5.72179586E8,{ts '2015-12-31 00:00:00.0'},5,2,2,null,283);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',286,9229288.88,{ts '2015-12-31 00:00:00.0'},4,2,2,null,285);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',288,5.537573325E7,{ts '2015-12-31 00:00:00.0'},6,2,2,null,287);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',290,5.7000088092E8,{ts '2015-12-31 00:00:00.0'},5,2,2,null,289);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',292,1.386527143E7,{ts '2015-12-31 00:00:00.0'},6,2,2,null,291);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',294,7.527131128E7,{ts '2015-12-31 00:00:00.0'},6,2,2,null,293);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',296,3.2750053193E8,{ts '2015-12-31 00:00:00.0'},6,2,2,null,295);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',298,6.1645296925E8,{ts '2015-12-31 00:00:00.0'},1,2,2,null,297);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',300,4.6584577238E8,{ts '2015-12-31 00:00:00.0'},1,2,2,null,299);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',302,3.6199044626E8,{ts '2015-12-31 00:00:00.0'},1,2,2,null,301);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',304,1.83776353374E9,{ts '2015-12-31 00:00:00.0'},6,2,2,null,303);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',306,1.45864074163E9,{ts '2015-12-31 00:00:00.0'},6,2,2,null,305);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',308,3.534469059E8,{ts '2015-12-31 00:00:00.0'},6,2,2,null,307);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',310,1.6589039238E8,{ts '2015-12-31 00:00:00.0'},6,2,2,null,309);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',312,9.839225415E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,311);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',314,5.9076742887E8,{ts '2015-12-31 00:00:00.0'},null,2,2,null,313);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',316,1.48976134236E9,{ts '2015-12-31 00:00:00.0'},null,2,2,null,315);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',318,5.1318810594E8,{ts '2015-12-31 00:00:00.0'},null,2,2,null,317);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',320,2.5644443521E8,{ts '2015-12-31 00:00:00.0'},null,2,2,null,319);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',322,1.475495722E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,321);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',324,1.416627002E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,323);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',326,4553654.85,{ts '2015-12-31 00:00:00.0'},5,2,2,null,325);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',328,669912.91,{ts '2015-12-31 00:00:00.0'},5,2,2,null,327);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',330,1.86237945E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,329);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',332,2437240.0,{ts '2015-12-31 00:00:00.0'},5,2,2,null,331);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',334,1288925.0,{ts '2015-12-31 00:00:00.0'},5,2,2,null,333);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',336,1296752.29,{ts '2015-12-31 00:00:00.0'},5,2,2,null,335);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',338,1.349162324E8,{ts '2015-12-31 00:00:00.0'},4,2,2,null,337);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',340,2.5024042984E8,{ts '2015-12-31 00:00:00.0'},4,2,2,null,339);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',342,1.047338272E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,341);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',344,4.984357341E7,{ts '2015-12-31 00:00:00.0'},4,2,2,null,343);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',346,4.082044223E7,{ts '2015-12-31 00:00:00.0'},4,2,2,null,345);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',348,6261128.95,{ts '2015-12-31 00:00:00.0'},4,2,2,null,347);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',351,7745501.85,{ts '2015-12-31 00:00:00.0'},5,2,2,null,350);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',353,829458.39,{ts '2015-12-31 00:00:00.0'},5,2,2,null,352);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',356,5827159.62,{ts '2015-12-31 00:00:00.0'},5,2,2,null,355);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',359,2.424102339E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,358);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',365,9.048336637E7,{ts '2015-12-31 00:00:00.0'},6,2,2,null,364);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',367,1.3111594107E8,{ts '2015-12-31 00:00:00.0'},6,2,2,null,366);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',369,1.5344129907E8,{ts '2015-12-31 00:00:00.0'},6,2,2,null,368);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',371,1.15629623884E9,{ts '2015-12-31 00:00:00.0'},6,2,2,null,370);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',373,5.2915115194E8,{ts '2015-12-31 00:00:00.0'},6,2,2,null,372);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',375,1.7927874375E8,{ts '2015-12-31 00:00:00.0'},6,2,2,null,374);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',377,7751604.51,{ts '2015-12-31 00:00:00.0'},6,2,2,null,376);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',379,2.6341051438E8,{ts '2015-12-31 00:00:00.0'},6,2,2,null,378);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',381,1.230716802E7,{ts '2015-12-31 00:00:00.0'},6,2,2,null,380);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',383,2.159603068E7,{ts '2015-12-31 00:00:00.0'},3,2,2,null,382);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',385,1.6256292615E8,{ts '2015-12-31 00:00:00.0'},3,2,2,null,384);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',387,5.1607583463E8,{ts '2015-12-31 00:00:00.0'},5,2,2,null,386);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',389,0.0,{ts '2015-12-31 00:00:00.0'},5,2,2,null,388);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',391,7.681880512E7,{ts '2015-12-31 00:00:00.0'},6,2,2,null,390);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',393,2.596598E8,{ts '2015-12-31 00:00:00.0'},6,2,2,null,392);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',395,3.38649811E7,{ts '2015-12-31 00:00:00.0'},6,2,2,null,394);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',397,1.1154361637E8,{ts '2015-12-31 00:00:00.0'},6,2,2,null,396);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',399,1.461748751E7,{ts '2015-12-31 00:00:00.0'},6,2,2,null,398);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',401,4821131.63,{ts '2015-12-31 00:00:00.0'},6,2,2,null,400);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',403,1.415066231E7,{ts '2015-12-31 00:00:00.0'},6,2,2,null,402);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',405,887108.49,{ts '2015-12-31 00:00:00.0'},6,2,2,null,404);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',407,7.16562621E7,{ts '2015-12-31 00:00:00.0'},6,2,2,null,406);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',409,4104593.38,{ts '2015-12-31 00:00:00.0'},6,2,2,null,408);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',411,516226.18,{ts '2015-12-31 00:00:00.0'},6,2,2,null,410);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',413,9461365.68,{ts '2015-12-31 00:00:00.0'},6,2,2,null,412);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',415,1.3477392852E8,{ts '2015-12-31 00:00:00.0'},6,2,2,null,414);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',419,0.0,{ts '2015-12-31 00:00:00.0'},1,2,2,null,418);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',421,4.980264717E7,{ts '2015-12-31 00:00:00.0'},6,2,2,null,420);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',423,1.8016436407E8,{ts '2015-12-31 00:00:00.0'},null,2,2,null,422);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',425,8.904171995E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,424);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',427,88721.43,{ts '2015-12-31 00:00:00.0'},null,2,2,null,426);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',429,2.15821785929E9,{ts '2015-12-31 00:00:00.0'},6,2,2,null,428);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',431,131320.52,{ts '2015-12-31 00:00:00.0'},3,2,2,null,430);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',433,4.675905871E7,{ts '2015-12-31 00:00:00.0'},null,2,2,null,432);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',435,5.664958173E7,{ts '2015-12-31 00:00:00.0'},3,2,2,null,434);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',437,355456.83,{ts '2015-12-31 00:00:00.0'},3,2,2,null,436);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',439,4.3104620433E8,{ts '2015-12-31 00:00:00.0'},3,2,2,null,438);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',441,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,440);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',443,9.219063403E7,{ts '2015-12-31 00:00:00.0'},3,2,2,null,442);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',445,7.0969808767E8,{ts '2015-12-31 00:00:00.0'},3,2,2,null,444);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',447,0.0,{ts '2015-12-31 00:00:00.0'},3,2,2,null,446);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',449,1.1799928712E8,{ts '2015-12-31 00:00:00.0'},1,2,2,null,448);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',451,1.572821951E8,{ts '2015-12-31 00:00:00.0'},1,2,2,null,450);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',453,3.376537977E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,452);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',455,1.2057701208E8,{ts '2015-12-31 00:00:00.0'},1,2,2,null,454);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',457,1.5636356944E8,{ts '2015-12-31 00:00:00.0'},1,2,2,null,456);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',459,1.926211703E8,{ts '2015-12-31 00:00:00.0'},1,2,2,null,458);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',461,1.4501554565E8,{ts '2015-12-31 00:00:00.0'},1,2,2,null,460);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',463,1.6374053248E8,{ts '2015-12-31 00:00:00.0'},1,2,2,null,462);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',465,2.0795351905E8,{ts '2015-12-31 00:00:00.0'},1,2,2,null,464);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',467,2.1970050028E8,{ts '2015-12-31 00:00:00.0'},1,2,2,null,466);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',469,1.7546473489E8,{ts '2015-12-31 00:00:00.0'},1,2,2,null,468);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',471,8.793102594E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,470);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',473,1.316011173E8,{ts '2015-12-31 00:00:00.0'},1,2,2,null,472);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',475,1.0270679344E8,{ts '2015-12-31 00:00:00.0'},1,2,2,null,474);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',477,6.240196808E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,476);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',479,1.21862E8,{ts '2015-12-31 00:00:00.0'},1,2,2,null,478);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',481,4.253485309E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,480);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',483,3.501442098E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,482);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',485,1.829490771E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,484);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',487,7972774.48,{ts '2015-12-31 00:00:00.0'},3,2,2,null,486);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',489,2.19731247E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,488);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',491,1.31391989969E9,{ts '2015-12-31 00:00:00.0'},1,2,2,null,490);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',493,5.88606100698E9,{ts '2015-12-31 00:00:00.0'},1,2,2,null,492);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',495,1.020749063344E10,{ts '2015-12-31 00:00:00.0'},3,2,2,null,494);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',497,2.7081236652E8,{ts '2015-12-31 00:00:00.0'},null,2,2,null,496);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',499,1.01025041315E9,{ts '2015-12-31 00:00:00.0'},null,2,2,null,498);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',501,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,500);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',503,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,502);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',505,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,504);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',507,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,506);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',509,0.0,{ts '2015-12-31 00:00:00.0'},1,2,2,null,508);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',511,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,510);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',513,1.237368E8,{ts '2015-12-31 00:00:00.0'},6,2,2,null,512);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',515,6.70241E7,{ts '2015-12-31 00:00:00.0'},6,2,2,null,514);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',517,7.475765E7,{ts '2015-12-31 00:00:00.0'},6,2,2,null,516);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',519,0.0,{ts '2015-12-31 00:00:00.0'},6,2,2,null,518);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',521,2577850.0,{ts '2015-12-31 00:00:00.0'},6,2,2,null,520);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',523,515570.0,{ts '2015-12-31 00:00:00.0'},6,2,2,null,522);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',525,0.0,{ts '2015-12-31 00:00:00.0'},6,2,2,null,524);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',527,0.0,{ts '2015-12-31 00:00:00.0'},6,2,2,null,526);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',529,0.0,{ts '2015-12-31 00:00:00.0'},6,2,2,null,528);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',531,0.0,{ts '2015-12-31 00:00:00.0'},6,2,2,null,530);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',536,1.344754575E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,535);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',538,2.792244957E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,537);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',540,8849332.53,{ts '2015-12-31 00:00:00.0'},1,2,2,null,539);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',542,7822173.67,{ts '2015-12-31 00:00:00.0'},1,2,2,null,541);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',544,7813056.99,{ts '2015-12-31 00:00:00.0'},1,2,2,null,543);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',546,3.279575313E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,545);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',548,2.733231221E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,547);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',550,8451979.92,{ts '2015-12-31 00:00:00.0'},1,2,2,null,549);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',552,1.404485235E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,551);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',554,1.81836463E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,553);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',556,9550110.74,{ts '2015-12-31 00:00:00.0'},1,2,2,null,555);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',558,9550110.74,{ts '2015-12-31 00:00:00.0'},1,2,2,null,557);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',560,1.535593233E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,559);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',562,1.553823975E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,561);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',564,2.678951543E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,563);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',566,1.6650104049E8,{ts '2015-12-31 00:00:00.0'},1,2,2,null,565);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',568,0.0,{ts '2015-12-31 00:00:00.0'},1,2,2,null,567);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',570,5.893752516E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,569);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',572,6.57352678E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,571);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',574,3.321097212E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,573);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',576,1.085390806E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,575);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',578,1.426513385E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,577);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',580,3.888390788E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,579);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',582,1.2003302714E8,{ts '2015-12-31 00:00:00.0'},1,2,2,null,581);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',584,1.1463371141E8,{ts '2015-12-31 00:00:00.0'},1,2,2,null,583);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',586,1.765158743E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,585);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',588,1.1712630723E8,{ts '2015-12-31 00:00:00.0'},1,2,2,null,587);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',590,1.691832316E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,589);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',592,5.181113148E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,591);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',594,1.647336984E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,593);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',596,9.74104272E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,595);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',598,1.253026611E7,{ts '2015-12-31 00:00:00.0'},4,2,2,null,597);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',600,3.094253442E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,599);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',602,3.0754243104E8,{ts '2015-12-31 00:00:00.0'},4,2,2,null,601);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',604,8.2851800766E8,{ts '2015-12-31 00:00:00.0'},4,2,2,null,603);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',606,1.461364745E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,605);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',608,1.8474307322E8,{ts '2015-12-31 00:00:00.0'},1,2,2,null,607);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',610,1.6161372608E8,{ts '2015-12-31 00:00:00.0'},1,2,2,null,609);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',612,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,611);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',614,1874800.0,{ts '2015-12-31 00:00:00.0'},5,2,2,null,613);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',616,6.548066059E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,615);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',618,1.427797276E8,{ts '2015-12-31 00:00:00.0'},1,2,2,null,617);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',620,6.595633859E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,619);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',622,8592000.77,{ts '2015-12-31 00:00:00.0'},1,2,2,null,621);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',624,7719730.38,{ts '2015-12-31 00:00:00.0'},1,2,2,null,623);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',626,1.77353849E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,625);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',628,1.516188959E7,{ts '2015-12-31 00:00:00.0'},3,2,2,null,627);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',630,8429208.13,{ts '2015-12-31 00:00:00.0'},3,2,2,null,629);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',632,8429208.13,{ts '2015-12-31 00:00:00.0'},3,2,2,null,631);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',634,7.906969E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,633);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',636,1.284238E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,635);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',638,1.579519E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,637);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',640,0.0,{ts '2015-12-31 00:00:00.0'},1,2,2,null,639);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',642,7077370.0,{ts '2015-12-31 00:00:00.0'},1,2,2,null,641);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',644,1.926357E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,643);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',646,1.0086424E8,{ts '2015-12-31 00:00:00.0'},1,2,2,null,645);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',648,1.513901E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,647);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',650,1827930.0,{ts '2015-12-31 00:00:00.0'},1,2,2,null,649);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',652,0.0,{ts '2015-12-31 00:00:00.0'},1,2,2,null,651);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',654,2.666903E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,653);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',656,1546710.0,{ts '2015-12-31 00:00:00.0'},1,2,2,null,655);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',658,8711568.48,{ts '2015-12-31 00:00:00.0'},5,2,2,null,657);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',660,1.92167E8,{ts '2015-12-31 00:00:00.0'},1,2,2,null,659);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',662,9.444624935E7,{ts '2015-12-31 00:00:00.0'},6,2,2,null,661);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',664,2.821574E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,663);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',666,1.040514E8,{ts '2015-12-31 00:00:00.0'},6,2,2,null,665);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',668,2.43724E7,{ts '2015-12-31 00:00:00.0'},6,2,2,null,667);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',670,260737.81,{ts '2015-12-31 00:00:00.0'},6,2,2,null,669);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',672,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,671);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',674,6860905.59,{ts '2015-12-31 00:00:00.0'},1,2,2,null,673);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',676,3161602.73,{ts '2015-12-31 00:00:00.0'},1,2,2,null,675);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',678,4242069.65,{ts '2015-12-31 00:00:00.0'},5,2,2,null,677);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',680,3772501.62,{ts '2015-12-31 00:00:00.0'},5,2,2,null,679);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',682,4.12456E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,681);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',684,4.687E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,683);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',686,6.491495E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,685);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',688,2.9167201E8,{ts '2015-12-31 00:00:00.0'},5,2,2,null,687);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',690,9.369313E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,689);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',692,8.20225E8,{ts '2015-12-31 00:00:00.0'},5,2,2,null,691);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',694,6.04623E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,693);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',696,2.221638E8,{ts '2015-12-31 00:00:00.0'},5,2,2,null,695);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',698,6.42119E8,{ts '2015-12-31 00:00:00.0'},5,2,2,null,697);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',700,4.269857E8,{ts '2015-12-31 00:00:00.0'},5,2,2,null,699);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',702,6.285267E8,{ts '2015-12-31 00:00:00.0'},5,2,2,null,701);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',704,4.302666E8,{ts '2015-12-31 00:00:00.0'},5,2,2,null,703);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',706,1.148315E8,{ts '2015-12-31 00:00:00.0'},5,2,2,null,705);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',708,3.51525E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,707);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',710,6.163405E9,{ts '2015-12-31 00:00:00.0'},5,2,2,null,709);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',712,2.920001E8,{ts '2015-12-31 00:00:00.0'},5,2,2,null,711);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',714,4.302666E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,713);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',716,0.0,{ts '2015-12-31 00:00:00.0'},5,2,2,null,715);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',718,1.898235E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,717);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',720,6.60867E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,719);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',722,4.344849E8,{ts '2015-12-31 00:00:00.0'},5,2,2,null,721);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',724,4.002698E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,723);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',726,1.115506E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,725);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',728,3.04655E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,727);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',730,3.7496E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,729);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',732,5.39005E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,731);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',734,6.599296E8,{ts '2015-12-31 00:00:00.0'},5,2,2,null,733);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',736,5.29631E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,735);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',738,3.154351E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,737);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',740,5.81188E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,739);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',742,4.021446E8,{ts '2015-12-31 00:00:00.0'},5,2,2,null,741);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',744,1.82793E8,{ts '2015-12-31 00:00:00.0'},5,2,2,null,743);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',746,4.668252E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,745);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',748,9.491175E8,{ts '2015-12-31 00:00:00.0'},5,2,2,null,747);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',750,1.199872E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,749);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',752,2.441927E8,{ts '2015-12-31 00:00:00.0'},5,2,2,null,751);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',754,1.799808E8,{ts '2015-12-31 00:00:00.0'},5,2,2,null,753);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',756,2.474736E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,755);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',758,1.4398464E8,{ts '2015-12-31 00:00:00.0'},5,2,2,null,757);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',760,5.544721E8,{ts '2015-12-31 00:00:00.0'},5,2,2,null,759);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',762,2.915314E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,761);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',764,1781060.0,{ts '2015-12-31 00:00:00.0'},5,2,2,null,763);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',766,4.4999887E8,{ts '2015-12-31 00:00:00.0'},5,2,2,null,765);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',768,5.333806E8,{ts '2015-12-31 00:00:00.0'},5,2,2,null,767);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',770,2.966871E8,{ts '2015-12-31 00:00:00.0'},5,2,2,null,769);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',772,4.59326E8,{ts '2015-12-31 00:00:00.0'},5,2,2,null,771);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',774,2.1503956E8,{ts '2015-12-31 00:00:00.0'},5,2,2,null,773);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',776,2.962184E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,775);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',778,8.689698E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,777);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',780,7.297659E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,779);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',782,4.687E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,781);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',784,6.46806E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,783);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',786,1.21862E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,785);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',788,1.21862E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,787);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',790,0.0,{ts '2015-12-31 00:00:00.0'},5,2,2,null,789);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',792,0.0,{ts '2015-12-31 00:00:00.0'},5,2,2,null,791);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',794,0.0,{ts '2015-12-31 00:00:00.0'},5,2,2,null,793);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',796,0.0,{ts '2015-12-31 00:00:00.0'},5,2,2,null,795);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',798,0.0,{ts '2015-12-31 00:00:00.0'},5,2,2,null,797);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',800,0.0,{ts '2015-12-31 00:00:00.0'},5,2,2,null,799);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',802,0.0,{ts '2015-12-31 00:00:00.0'},5,2,2,null,801);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',804,0.0,{ts '2015-12-31 00:00:00.0'},5,2,2,null,803);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',806,0.0,{ts '2015-12-31 00:00:00.0'},5,2,2,null,805);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',808,0.0,{ts '2015-12-31 00:00:00.0'},4,2,2,null,807);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',810,0.0,{ts '2015-12-31 00:00:00.0'},4,2,2,null,809);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',812,0.0,{ts '2015-12-31 00:00:00.0'},4,2,2,null,811);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',814,0.0,{ts '2015-12-31 00:00:00.0'},4,2,2,null,813);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',816,0.0,{ts '2015-12-31 00:00:00.0'},4,2,2,null,815);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',818,1.551397E8,{ts '2015-12-31 00:00:00.0'},4,2,2,null,817);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',820,0.0,{ts '2015-12-31 00:00:00.0'},4,2,2,null,819);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',822,0.0,{ts '2015-12-31 00:00:00.0'},4,2,2,null,821);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',824,7.0305E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,823);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',826,7.0305E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,825);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',828,7.0305E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,827);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',830,3.04655E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,829);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',832,234350.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,831);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',834,1.382665E7,{ts '2015-12-31 00:00:00.0'},5,2,2,null,833);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',836,0.0,{ts '2015-12-31 00:00:00.0'},7,2,2,null,835);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',838,0.0,{ts '2015-12-31 00:00:00.0'},7,2,2,null,837);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',840,0.0,{ts '2015-12-31 00:00:00.0'},7,2,2,null,839);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',842,0.0,{ts '2015-12-31 00:00:00.0'},7,2,2,null,841);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',844,5.038957985E7,{ts '2015-12-31 00:00:00.0'},7,2,2,null,843);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',846,1.221040461E7,{ts '2015-12-31 00:00:00.0'},7,2,2,null,845);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',848,2.06228E7,{ts '2015-12-31 00:00:00.0'},7,2,2,null,847);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',850,3080577.62,{ts '2015-12-31 00:00:00.0'},7,2,2,null,849);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',852,2343500.0,{ts '2015-12-31 00:00:00.0'},7,2,2,null,851);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',854,6535172.68,{ts '2015-12-31 00:00:00.0'},7,2,2,null,853);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',856,9.613313533E7,{ts '2015-12-31 00:00:00.0'},7,2,2,null,855);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',858,6.900166107E7,{ts '2015-12-31 00:00:00.0'},7,2,2,null,857);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',860,1.4061E7,{ts '2015-12-31 00:00:00.0'},7,2,2,null,859);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',862,8436600.0,{ts '2015-12-31 00:00:00.0'},7,2,2,null,861);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',864,1.17175E7,{ts '2015-12-31 00:00:00.0'},7,2,2,null,863);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',866,2.038845E7,{ts '2015-12-31 00:00:00.0'},7,2,2,null,865);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',868,2.2539607847E8,{ts '2015-12-31 00:00:00.0'},7,2,2,null,867);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',870,1.6127708184E8,{ts '2015-12-31 00:00:00.0'},7,2,2,null,869);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',872,1.4061E8,{ts '2015-12-31 00:00:00.0'},7,2,2,null,871);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',874,2.991012987E7,{ts '2015-12-31 00:00:00.0'},7,2,2,null,873);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',876,5.784719866E7,{ts '2015-12-31 00:00:00.0'},7,2,2,null,875);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',878,9842700.0,{ts '2015-12-31 00:00:00.0'},7,2,2,null,877);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',880,5681171.29,{ts '2015-12-31 00:00:00.0'},7,2,2,null,879);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',882,0.0,{ts '2015-12-31 00:00:00.0'},null,2,2,null,881);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',884,3.14701790728E9,{ts '2015-12-31 00:00:00.0'},1,2,2,null,883);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',886,4.7299555113E8,{ts '2015-12-31 00:00:00.0'},4,2,2,null,885);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',888,1.7844132954E8,{ts '2015-12-31 00:00:00.0'},4,2,2,null,887);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',890,4.569548467E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,889);
+INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',892,1.21081872285E9,{ts '2015-12-31 00:00:00.0'},1,2,2,null,891);
