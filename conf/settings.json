@@ -56,6 +56,11 @@
 		"CHARTS": {
 			"development": "/charts",				
 			"production": "/charts"		
+		},
+
+		"PROJECT_POPUP": {
+			"development": "/charts/projects",				
+			"production": "/charts/projects"		
 		}
 		
 	},
