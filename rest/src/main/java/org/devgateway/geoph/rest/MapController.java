@@ -546,11 +546,21 @@ public class MapController {
                         p.setSectors(ss);
                     }
                 }
-                if(tokens.length>15 &&StringUtils.isNotBlank(tokens[15])) {
-                    String[] locs = tokens[15].split(COMMA);
+                String locationsArray = "";
+                if(tokens.length>16 &&StringUtils.isNotBlank(tokens[17])) {
+                    locationsArray = tokens[17];
+                } else if(tokens.length>15 &&StringUtils.isNotBlank(tokens[16])) {
+                    locationsArray = tokens[16];
+                } else if (tokens.length>15 &&StringUtils.isNotBlank(tokens[15])) {
+                    locationsArray = tokens[15];
+                }
+                if(StringUtils.isNotBlank(locationsArray)) {
+                    String[] locs = locationsArray.split(COMMA);
                     Set<Location> ls = new HashSet<>();
                     for(String loc : locs){
-                        ls.add(lMap.get(loc.trim()));
+                        if(StringUtils.isNotBlank(loc)){
+                            ls.add(lMap.get(loc.trim()));
+                        }
                     }
                     p.setLocations(ls);
                 }

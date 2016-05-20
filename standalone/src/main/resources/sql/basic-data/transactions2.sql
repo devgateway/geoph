@@ -1,6 +1,7 @@
 DELETE FROM transaction;
 
 
+
 INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',4,3234030.0,{ts '2015-12-31 00:00:00.0'},1,2,2,null,3);
 INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',6,1.063949E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,5);
 INSERT INTO "public"."transaction" (flow_type,id,amount,date,grant_sub_type_id,transaction_status_id,transaction_type_id,funding_support,project_id) VALUES ('grant',8,1.07801E7,{ts '2015-12-31 00:00:00.0'},1,2,2,null,7);
