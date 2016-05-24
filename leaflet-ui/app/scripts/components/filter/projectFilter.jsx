@@ -12,17 +12,26 @@ class ProjectFilter extends React.Component {
 
 	constructor() {
 	    super();
-	    this.state = {'keyword': ''};
+	    this.state = {'keyword': '', 'idsSelected': []};
 	}
 
 	componentDidMount() {
 				
 	}
 
-	validationState() {
+	validateState() {
     	const length = this.state.keyword.length;
     	if (length > 3) return 'success';
     	else if (length > 0) return 'error';
+  	}
+
+  	validateSelection(id) {
+    	let idsSelected = this.state.idsSelected;
+    	if (idsSelected.indexOf(id)==-1){
+  			return 'selectable';
+  		} else {
+  			return 'selectable selected';
+  		}
   	}
 
   	handleChange(e) {
@@ -30,12 +39,28 @@ class ProjectFilter extends React.Component {
 		this.setState({ keyword: keyword });
   		if (keyword.length>3){
   			let filters = collectValues(this.props.filters);
-  			Object.assign(filters,{'page':1, 'size': 3, 'pt': keyword});
-  			debugger;			
+  			Object.assign(filters,{'page':1, 'size': 10, 'pt': keyword});
   			this.props.onTriggerSearch(filters);
   		} else {
 			//should clear here?
 		}
+  	}
+
+  	handleSelection(id){
+  		let idsSelected = this.state.idsSelected;
+  		if (idsSelected.indexOf(id)==-1){
+  			idsSelected.push(id);
+  		} else {
+  			idsSelected.splice(idsSelected.indexOf(id), 1);
+  		}
+  		this.setState({'idsSelected': idsSelected});
+  		this.applySelection();
+  	}
+
+	applySelection(){
+  		let filters = collectValues(this.props.filters);
+		Object.assign(filters, {'pr': this.state.idsSelected});
+		this.props.onFilterByProjects(filters);
   	}
 
 	render() {
@@ -46,7 +71,7 @@ class ProjectFilter extends React.Component {
         			<div className="">
 			          	<Input className={this.state.keyword.length==0? 'keyword-input-empty' : 'keyword-input-filled'} type="text" value={this.state.keyword}  
 				            placeholder="Search for Projects (Please enter at least 3 characters)"  
-				            bsStyle={this.validationState()}   
+				            bsStyle={this.validateState()}   
 				            bsSize="small"  ref="keyword"   
 				            onChange={this.handleChange.bind(this)}/>
 			        </div>	        	
@@ -58,14 +83,15 @@ class ProjectFilter extends React.Component {
 	        		projectSearchResults.content.length==0?
 	        			<div>No Results</div>
 	        		: 
-		        		<ul>
-		        		{projectSearchResults.content.map((item) => {
-		        			return <li key={item.id}> 
-					        	{item.title}
-					        </li>
-		        		})}
-		        		</ul>
-	        	: null}
+		        		projectSearchResults.content.map((item) => {
+		        			return <div className="filterItemInfo">
+				        		<div className={this.validateSelection(item.id)} onClick={this.handleSelection.bind(this, item.id)} />
+					        	<div className="toggle-nav item-text" onClick={this.handleSelection.bind(this, item.id)}>
+					        		{item.title}
+					        	</div>
+					        </div>
+		        		})
+		        : null}
 		        </div>			     		        
 		    </div>   
 	    );
