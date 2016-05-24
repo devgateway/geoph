@@ -24,7 +24,11 @@
 
 	export const OPEN_FILTER = 'OPEN_FILTER';
 
-	export const RESET_FILTER = 'RESET_FILTER';
+	export const RESET_FILTER = 'RESET_FILTER';	
+
+	export const REQUEST_PROJECT_BY_TEXT = 'REQUEST_PROJECT_BY_TEXT';
+
+	export const RECEIVE_PROJECT_BY_TEXT = 'RECEIVE_PROJECT_BY_TEXT';
 	
 
 	/*POPUP events*/

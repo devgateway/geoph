@@ -155,6 +155,15 @@ class Connector {
 			}
 		});
 	}
+
+	getProjectsWithFilters(filters) {
+		return new Promise( (resolve, reject) => {
+			let path = Settings.get('API','PROJECT_LIST');
+			this.call(GET, path, filters).then((data) => {
+				resolve(data); 	
+			}).catch(reject)
+		});
+	}
 }
 
 

@@ -61,6 +61,11 @@
 		"PROJECT_POPUP": {
 			"development": "/charts/projects",				
 			"production": "/charts/projects"		
+		},
+
+		"PROJECT_LIST": {
+			"development": "/projects",				
+			"production": "/projects"		
 		}
 		
 	},

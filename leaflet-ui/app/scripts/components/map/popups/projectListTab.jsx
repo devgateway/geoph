@@ -2,8 +2,7 @@
 import React from 'react';
 import { Pagination, Grid, Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux'
-import { fetchPopupChartData } from '../../../actions/charts.js'
-import { sumarizeValues } from '../../../util/transactionUtil.js'
+import { sumarizeValues } from '../../../util/transactionUtil'
 
 require('./projectLayerPopup.scss');
 
@@ -82,6 +81,7 @@ export default class ProjectListTab extends React.Component {
             last
             ellipsis
             boundaryLinks
+            maxButtons={5}
             items={this.getPageAmount()}
             activePage={this.state.activePage}
             onSelect={(eventKey) => {this.handleSelect(eventKey)}} />

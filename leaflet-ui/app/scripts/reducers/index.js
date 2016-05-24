@@ -5,7 +5,7 @@ import map from './map';
 import charts from './charts';
 import settings from './settings';
 import popup from './popup';
-
+import projectSearch from './projectSearch';
 import {routerReducer}  from 'react-router-redux';
 
 /*reducer names should match with a state property*/
@@ -17,6 +17,7 @@ const geophApp = combineReducers({
   charts,
   settings,
   popup,
+  projectSearch,
   routing: routerReducer
 })
 

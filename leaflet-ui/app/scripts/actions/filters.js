@@ -4,9 +4,9 @@ import {applyFiltersToLayers} from './map';
 import {fetchChartData} from './charts';
 import {collectValues} from '../util/filterUtil';
 
-export const applyFilter = (filterType) => {
+export const applyFilter = (filtersToApply) => {
   return (dispatch, getState) => {
-    let filters = collectValues(getState().filters.filterMain);
+    let filters = collectValues(filtersToApply || getState().filters.filterMain);
     dispatch(applyFiltersToLayers(filters));
     dispatch(fetchChartData(filters));
   }
@@ -107,5 +107,4 @@ export const setFilterRange = (filter) => {
     filter: filter
   }
 }
-
 
