@@ -1,18 +1,14 @@
-package org.devgateway.geoph.model;
+package org.devgateway.geoph.request;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.Entity;
-import java.io.Serializable;
+import org.devgateway.geoph.model.Indicator;
 
 /**
  * @author dbianco
- *         created on mar 25 2016.
+ *         created on may 24 2016.
  */
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@Entity
-public class Indicator extends GenericPersistable implements Serializable {
+public class IndicatorRequest {
+
+    private Long id;
 
     private String name;
 
@@ -20,11 +16,12 @@ public class Indicator extends GenericPersistable implements Serializable {
 
     private String unit;
 
-    public Indicator() {
+    public Long getId() {
+        return id;
     }
 
-    public void setId(Long id){
-        super.setId(id);
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -49,5 +46,14 @@ public class Indicator extends GenericPersistable implements Serializable {
 
     public void setUnit(String unit) {
         this.unit = unit;
+    }
+
+    public Indicator getIndicator(){
+        Indicator indicator = new Indicator();
+        indicator.setId(this.id);
+        indicator.setName(this.name);
+        indicator.setDescription(this.description);
+        indicator.setUnit(this.unit);
+        return indicator;
     }
 }

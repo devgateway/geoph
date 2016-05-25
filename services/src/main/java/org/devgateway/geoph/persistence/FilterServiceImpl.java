@@ -102,6 +102,12 @@ public class FilterServiceImpl implements FilterService {
     }
 
     @Override
+    public Location findLocationByCode(String code){
+        LOGGER.debug("Getting location by code");
+        return locationRepository.findByCode(code);
+    }
+
+    @Override
     public List<Location> findLocationsByLevel(LocationAdmLevelEnum level) {
         LOGGER.debug("Getting all locations of level: {}", level);
         List<Location> locationList = locationRepository.findLocationsByLevel(level.getLevel());
@@ -192,6 +198,11 @@ public class FilterServiceImpl implements FilterService {
     @Override
     public List<Currency> findAllCurrencies(){
         return currencyRepository.findAll();
+    }
+
+    @Override
+    public Location findLocationById(Long locId) {
+        return locationRepository.findById(locId);
     }
 
 }

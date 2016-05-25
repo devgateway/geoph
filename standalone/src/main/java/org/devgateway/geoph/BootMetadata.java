@@ -73,7 +73,8 @@ public class BootMetadata {
                 "/sql/basic-data/indicator.sql",
                 "/sql/basic-data/indicator_detail.sql",
                 "/sql/basic-data/geophoto_source.sql",
-                "/sql/basic-data/geophoto_geometry.sql"
+                "/sql/basic-data/geophoto_geometry.sql",
+                "/sql/basic-data/hibernate_sequence.sql"
                 );
 
         //The princess is in another castle

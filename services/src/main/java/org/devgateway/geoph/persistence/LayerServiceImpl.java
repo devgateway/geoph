@@ -8,6 +8,7 @@ import org.devgateway.geoph.persistence.repository.GeoPhotoRepository;
 import org.devgateway.geoph.persistence.repository.IndicatorDetailRepository;
 import org.devgateway.geoph.persistence.repository.IndicatorRepository;
 import org.devgateway.geoph.persistence.repository.LocationRepository;
+import org.devgateway.geoph.response.IndicatorResponse;
 import org.devgateway.geoph.services.LayerService;
 import org.devgateway.geoph.util.GeoPhotoGeometryHelper;
 import org.geojson.Feature;
@@ -39,6 +40,16 @@ public class LayerServiceImpl implements LayerService{
 
 
     @Override
+    public Indicator saveIndicator(Indicator indicator) {
+        return indicatorRepository.save(indicator);
+    }
+
+    @Override
+    public IndicatorDetail saveIndicatorDetail(IndicatorDetail indicatorDetail) {
+        return indicatorDetailRepository.save(indicatorDetail);
+    }
+
+    @Override
     public List<Indicator> getIndicatorsList() {
         return indicatorRepository.findAll();
     }
@@ -49,7 +60,6 @@ public class LayerServiceImpl implements LayerService{
         List<IndicatorDetail> indicatorDetails = indicatorDetailRepository.findByIndicatorId(indicatorId);
         for(IndicatorDetail indicatorDetail:indicatorDetails){
             Feature feature = new Feature();
-            feature.setProperty("id", indicatorDetail.getId());
             feature.setProperty("value", indicatorDetail.getValue());
             feature.setProperty("indicatorId", indicatorDetail.getIndicatorId());
             Location l = locationRepository.findById(indicatorDetail.getLocationId());
@@ -87,5 +97,12 @@ public class LayerServiceImpl implements LayerService{
             featureCollection.add(feature);
         }
         return featureCollection;
+    }
+
+    @Override
+    public IndicatorResponse getIndicatorResponse(Long id) {
+        IndicatorResponse response = new IndicatorResponse(indicatorRepository.findOne(id));
+        response.addDetails(indicatorDetailRepository.findByIndicatorId(id));
+        return response;
     }
 }

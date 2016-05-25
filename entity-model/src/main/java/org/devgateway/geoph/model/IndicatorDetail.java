@@ -12,11 +12,14 @@ import java.io.Serializable;
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
-public class IndicatorDetail extends GenericPersistable implements Serializable {
+@IdClass(IndicatorDetailId.class)
+public class IndicatorDetail implements Serializable {
 
+    @Id
     @Column(name = "indicator_id")
     private long indicatorId;
 
+    @Id
     @Column(name = "location_id")
     private long locationId;
 
