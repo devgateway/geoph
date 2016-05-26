@@ -164,6 +164,15 @@ class Connector {
 			}).catch(reject)
 		});
 	}
+
+	getStats(filters) {
+		return new Promise( (resolve, reject) => {
+			let path = Settings.get('API','STATS');
+			this.call(GET, path, filters).then((data) => {
+				resolve(data); 	
+			}).catch(reject)
+		});
+	}
 }
 
 

@@ -11,6 +11,25 @@ export const requestProjectsByText = (filters) => {
   }
 }
 
+export const toggleProjectSelection = (project) => {
+  return {
+    type: Constants.TOGGLE_PROJECT_SELECTION,
+    project: project
+  }
+}
+
+export const selectAllMatchedProject = () => {
+  return {
+    type: Constants.SELECT_ALL_MATCHED_PROJECT
+  }
+}
+
+export const clearAllProjectSelected = () => {
+  return {
+    type: Constants.CLEAR_ALL_PROJECT_SELECTED
+  }
+}
+
 export const receiveProjectsByText = (filters, data) => {
   return {
     type: Constants.RECEIVE_PROJECT_BY_TEXT,

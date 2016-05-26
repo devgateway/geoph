@@ -64,8 +64,13 @@
 		},
 
 		"PROJECT_LIST": {
-			"development": "/projects",				
-			"production": "/projects"		
+			"development": "/projects/all",				
+			"production": "/projects/all"		
+		},
+
+		"STATS": {
+			"development": "/projects/count",				
+			"production": "/projects/count"		
 		}
 		
 	},
