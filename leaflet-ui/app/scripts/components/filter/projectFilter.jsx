@@ -77,21 +77,23 @@ class ProjectFilter extends React.Component {
 			        </div>	        	
 		        </div>	        	
 	        	<div className="project-search-results">
-	        	{projectSearchResults.isFetching?
+	        	{this.state.keyword.length>3?
+	        		projectSearchResults.isFetching?
 	        		<div>Loading Data</div>
-	        	: projectSearchResults.content?
-	        		projectSearchResults.content.length==0?
-	        			<div>No Results</div>
-	        		: 
-		        		projectSearchResults.content.map((item) => {
-		        			return <div className="filterItemInfo">
-				        		<div className={this.validateSelection(item.id)} onClick={this.handleSelection.bind(this, item.id)} />
-					        	<div className="toggle-nav item-text" onClick={this.handleSelection.bind(this, item.id)}>
-					        		{item.title}
-					        	</div>
-					        </div>
-		        		})
-		        : null}
+		        	: projectSearchResults.content?
+		        		projectSearchResults.content.length==0?
+		        			<div>No Results</div>
+		        		: 
+			        		projectSearchResults.content.map((item) => {
+			        			return <div className="filterItemInfo">
+					        		<div className={this.validateSelection(item.id)} onClick={this.handleSelection.bind(this, item.id)} />
+						        	<div className="toggle-nav item-text" onClick={this.handleSelection.bind(this, item.id)}>
+						        		{item.title}
+						        	</div>
+						        </div>
+			        		})
+			        : null
+			    : null}
 		        </div>			     		        
 		    </div>   
 	    );

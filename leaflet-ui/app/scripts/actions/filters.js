@@ -6,7 +6,7 @@ import {collectValues} from '../util/filterUtil';
 
 export const applyFilter = (filtersToApply) => {
   return (dispatch, getState) => {
-    let filters = collectValues(filtersToApply || getState().filters.filterMain);
+    let filters = filtersToApply || collectValues(getState().filters.filterMain);
     dispatch(applyFiltersToLayers(filters));
     dispatch(fetchChartData(filters));
   }
