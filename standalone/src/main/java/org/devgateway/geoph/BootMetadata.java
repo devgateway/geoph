@@ -63,17 +63,18 @@ public class BootMetadata {
                 "/sql/basic-data/climate_change.sql",
                 "/sql/basic-data/gender_responsiveness.sql",
                 "/sql/basic-data/sector_items.sql",
-                "/sql/basic-data/projects.sql",
-                "/sql/basic-data/project_agencies.sql",
-                "/sql/basic-data/project_sectors.sql",
-                "/sql/basic-data/project_locations.sql",
-                "/sql/basic-data/project_climate_change.sql",
-                "/sql/basic-data/project_gender_responsiveness.sql",
-                "/sql/basic-data/transactions.sql",
+                "/sql/basic-data/projects2.sql",
+                "/sql/basic-data/project_agencies2.sql",
+                "/sql/basic-data/project_sectors2.sql",
+                "/sql/basic-data/project_locations2.sql",
+                "/sql/basic-data/project_climate_change2.sql",
+                "/sql/basic-data/project_gender_responsiveness2.sql",
+                "/sql/basic-data/transactions2.sql",
                 "/sql/basic-data/indicator.sql",
                 "/sql/basic-data/indicator_detail.sql",
                 "/sql/basic-data/geophoto_source.sql",
-                "/sql/basic-data/geophoto_geometry.sql"
+                "/sql/basic-data/geophoto_geometry.sql",
+                "/sql/basic-data/hibernate_sequence.sql"
                 );
 
         //The princess is in another castle

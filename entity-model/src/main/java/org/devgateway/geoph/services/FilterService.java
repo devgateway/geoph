@@ -26,6 +26,8 @@ public interface FilterService {
 
     List<Location> findAllLocations();
 
+    Location findLocationByCode(String code);
+
     List<Location> findLocationsByLevel(LocationAdmLevelEnum level);
 
     List<Location> findLocationsByParentId(long parentId);
@@ -45,4 +47,8 @@ public interface FilterService {
     List<GrantSubType> findAllGrantSubTypes();
 
     List<Double> findFinancialAmountPeriod();
+
+    List<Currency> findAllCurrencies();
+
+    Location findLocationById(Long locId);
 }

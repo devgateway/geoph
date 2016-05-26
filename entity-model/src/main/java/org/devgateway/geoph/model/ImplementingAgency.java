@@ -39,4 +39,5 @@ public class ImplementingAgency extends Agency implements Serializable {
     public void setType(ImplementingAgencyType type) {
         this.type = type;
     }
+
 }

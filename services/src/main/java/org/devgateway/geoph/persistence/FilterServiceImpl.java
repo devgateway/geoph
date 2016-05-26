@@ -7,6 +7,7 @@ import org.devgateway.geoph.util.LocationAdmLevelEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -62,6 +63,9 @@ public class FilterServiceImpl implements FilterService {
     @Autowired
     ProjectRepository projectRepository;
 
+    @Autowired
+    CurrencyRepository currencyRepository;
+
     @Override
     public List<ImplementingAgency> findAllImpAgencies() {
         LOGGER.debug("Getting all implementing agencies");
@@ -96,6 +100,12 @@ public class FilterServiceImpl implements FilterService {
     public List<Location> findAllLocations() {
         LOGGER.debug("Getting all locations");
         return locationRepository.findAll();
+    }
+
+    @Override
+    public Location findLocationByCode(String code){
+        LOGGER.debug("Getting location by code");
+        return locationRepository.findByCode(code);
     }
 
     @Override
@@ -186,5 +196,14 @@ public class FilterServiceImpl implements FilterService {
         return financialAmountBounds;
     }
 
+    @Override
+    public List<Currency> findAllCurrencies(){
+        return currencyRepository.findAll();
+    }
+
+    @Override
+    public Location findLocationById(Long locId) {
+        return locationRepository.findById(locId);
+    }
 
 }
