@@ -10,14 +10,15 @@ import org.devgateway.geoph.persistence.repository.IndicatorRepository;
 import org.devgateway.geoph.persistence.repository.LocationRepository;
 import org.devgateway.geoph.response.IndicatorResponse;
 import org.devgateway.geoph.services.LayerService;
-import org.devgateway.geoph.util.GeoPhotoGeometryHelper;
-import org.geojson.Feature;
-import org.geojson.FeatureCollection;
-import org.geojson.Point;
+import org.devgateway.geoph.util.*;
+import org.geojson.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author dbianco
@@ -57,19 +58,47 @@ public class LayerServiceImpl implements LayerService{
     @Override
     public FeatureCollection getIndicatorsData(long indicatorId) {
         FeatureCollection featureCollection = new FeatureCollection();
+        Indicator indicator = indicatorRepository.findOne(indicatorId);
         List<IndicatorDetail> indicatorDetails = indicatorDetailRepository.findByIndicatorId(indicatorId);
+        Map<Long, PostGisHelper> postGisHelperMap = new HashMap<>();
+        if(indicator.getAdmLevel().toUpperCase().equals(LocationAdmLevelEnum.REGION.name())){
+            List<PostGisHelper> gisHelperList = locationRepository.getRegionShapesWithDetail(GeometryDetailLevelEnum.MEDIUM.getLevel());
+            for(PostGisHelper helper:gisHelperList){
+                postGisHelperMap.put(helper.getLocationId(), helper);
+            }
+        }
         for(IndicatorDetail indicatorDetail:indicatorDetails){
-            Feature feature = new Feature();
+            Feature feature;
+            if(postGisHelperMap.get(indicatorDetail.getLocationId()) != null) {
+                feature = parseGeoJson(postGisHelperMap.get(indicatorDetail.getLocationId()));
+            } else {
+                feature = new Feature();
+            }
             feature.setProperty("value", indicatorDetail.getValue());
             feature.setProperty("indicatorId", indicatorDetail.getIndicatorId());
-            Location l = locationRepository.findById(indicatorDetail.getLocationId());
-            if(l!=null){
-                Point point = new Point(l.getLongitude(), l.getLatitude());
-                feature.setGeometry(point);
-            }
+            feature.setProperty("colorScheme", indicator.getColorScheme());
+            feature.setProperty("locationId", indicatorDetail.getLocationId());
             featureCollection.add(feature);
         }
         return featureCollection;
+    }
+
+    private Feature parseGeoJson(PostGisHelper helper){
+        Feature feature = new Feature();
+        MultiPolygon multiPolygon = new MultiPolygon();
+        for(Double[][][] inner:helper.getCoordinates()){
+            Polygon polygon = new Polygon();
+            for(Double[][] inner2:inner){
+                List<LngLatAlt> pointList = new ArrayList<>();
+                for(Double[] inner3:inner2){
+                    pointList.add(new LngLatAlt(inner3[0], inner3[1]));
+                }
+                polygon.add(pointList);
+            }
+            multiPolygon.add(polygon);
+        }
+        feature.setGeometry(multiPolygon);
+        return feature;
     }
 
     @Override

@@ -12,6 +12,10 @@ public class IndicatorRequest {
 
     private String name;
 
+    private String colorScheme;
+
+    private String admLevel;
+
     private String description;
 
     private String unit;
@@ -32,6 +36,14 @@ public class IndicatorRequest {
         this.name = name;
     }
 
+    public String getColorScheme() {
+        return colorScheme;
+    }
+
+    public void setColorScheme(String colorScheme) {
+        this.colorScheme = colorScheme;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -48,12 +60,22 @@ public class IndicatorRequest {
         this.unit = unit;
     }
 
+    public String getAdmLevel() {
+        return admLevel;
+    }
+
+    public void setAdmLevel(String admLevel) {
+        this.admLevel = admLevel;
+    }
+
     public Indicator getIndicator(){
         Indicator indicator = new Indicator();
         indicator.setId(this.id);
         indicator.setName(this.name);
+        indicator.setColorScheme(this.getColorScheme());
         indicator.setDescription(this.description);
         indicator.setUnit(this.unit);
+        indicator.setAdmLevel(this.admLevel);
         return indicator;
     }
 }

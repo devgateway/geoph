@@ -19,6 +19,10 @@ public class IndicatorResponse {
 
     private String name;
 
+    private String colorScheme;
+
+    private String admLevel;
+
     private String description;
 
     private String unit;
@@ -37,8 +41,10 @@ public class IndicatorResponse {
         if(indicator!=null) {
             this.id = indicator.getId();
             this.name = indicator.getName();
+            this.colorScheme = indicator.getColorScheme();
             this.description = indicator.getDescription();
             this.unit = indicator.getUnit();
+            this.admLevel = indicator.getAdmLevel();
         }
     }
 
@@ -59,6 +65,14 @@ public class IndicatorResponse {
         this.name = name;
     }
 
+    public String getColorScheme() {
+        return colorScheme;
+    }
+
+    public void setColorScheme(String colorScheme) {
+        this.colorScheme = colorScheme;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -73,6 +87,14 @@ public class IndicatorResponse {
 
     public void setUnit(String unit) {
         this.unit = unit;
+    }
+
+    public String getAdmLevel() {
+        return admLevel;
+    }
+
+    public void setAdmLevel(String admLevel) {
+        this.admLevel = admLevel;
     }
 
     public String getFilename() {

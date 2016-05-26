@@ -2,6 +2,7 @@ package org.devgateway.geoph.persistence.repository;
 
 import org.devgateway.geoph.model.*;
 import org.devgateway.geoph.persistence.util.FilterHelper;
+import org.devgateway.geoph.response.StatsResponse;
 import org.devgateway.geoph.util.Parameters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -46,23 +47,7 @@ public class DefaultProjectRepository implements ProjectRepository {
 
     @Override
     public Page<Project> findProjectsByParams(Parameters params) {
-        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-        CriteriaQuery<Project> criteriaQuery = criteriaBuilder
-                .createQuery(Project.class);
-        Root<Project> projectRoot = criteriaQuery.from(Project.class);
-        List<Predicate> predicates = new ArrayList();
-
-        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);
-
-        if(predicates.size()>0) {
-            Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
-            criteriaQuery.where(other);
-        }
-
-        CriteriaQuery<Project> cq = criteriaQuery.select(projectRoot).distinct(true);
-        TypedQuery<Project> query = em.createQuery(cq);
-
-
+        TypedQuery<Project> query = getProjectTypedQuery(params);
         int count = query.getResultList().size();
 
         List<Project> projectList = new ArrayList<>();
@@ -95,6 +80,34 @@ public class DefaultProjectRepository implements ProjectRepository {
     @Override
     public double getMinFinancialAmount() {
         return (Double)em.createNativeQuery("select min(p.total_project_amount) from Project p").getSingleResult();
+    }
+
+    @Override
+    public StatsResponse countProjectsByParams(Parameters params) {
+        TypedQuery<Project> query = getProjectTypedQuery(params);
+
+        int count = query.getResultList().size();
+        StatsResponse response = new StatsResponse();
+        response.setProjectCount(count);
+        return response;
+    }
+
+    private TypedQuery<Project> getProjectTypedQuery(Parameters params) {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<Project> criteriaQuery = criteriaBuilder
+                .createQuery(Project.class);
+        Root<Project> projectRoot = criteriaQuery.from(Project.class);
+        List<Predicate> predicates = new ArrayList();
+
+        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);
+
+        if(predicates.size()>0) {
+            Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+            criteriaQuery.where(other);
+        }
+
+        CriteriaQuery<Project> cq = criteriaQuery.select(projectRoot).distinct(true);
+        return em.createQuery(cq);
     }
 
 

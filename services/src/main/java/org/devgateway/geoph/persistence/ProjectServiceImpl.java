@@ -2,6 +2,7 @@ package org.devgateway.geoph.persistence;
 
 import org.devgateway.geoph.model.Project;
 import org.devgateway.geoph.persistence.repository.ProjectRepository;
+import org.devgateway.geoph.response.StatsResponse;
 import org.devgateway.geoph.services.ProjectService;
 import org.devgateway.geoph.util.Parameters;
 import org.slf4j.Logger;
@@ -42,5 +43,10 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public Project save(Project project) {
         return projectRepository.save(project);
+    }
+
+    @Override
+    public StatsResponse countProjectsByParams(Parameters params) {
+        return projectRepository.countProjectsByParams(params);
     }
 }

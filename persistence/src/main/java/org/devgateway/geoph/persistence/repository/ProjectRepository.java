@@ -1,6 +1,7 @@
 package org.devgateway.geoph.persistence.repository;
 
 import org.devgateway.geoph.model.Project;
+import org.devgateway.geoph.response.StatsResponse;
 import org.devgateway.geoph.util.Parameters;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,4 +29,5 @@ public interface ProjectRepository {
 
     double getMinFinancialAmount();
 
+    StatsResponse countProjectsByParams(Parameters params);
 }

@@ -18,6 +18,10 @@ public class Indicator extends GenericPersistable implements Serializable {
 
     private String description;
 
+    private String colorScheme;
+
+    private String admLevel;
+
     private String unit;
 
     public Indicator() {
@@ -35,12 +39,28 @@ public class Indicator extends GenericPersistable implements Serializable {
         this.name = name;
     }
 
+    public String getColorScheme() {
+        return colorScheme;
+    }
+
+    public void setColorScheme(String colorScheme) {
+        this.colorScheme = colorScheme;
+    }
+
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getAdmLevel() {
+        return admLevel;
+    }
+
+    public void setAdmLevel(String admLevel) {
+        this.admLevel = admLevel;
     }
 
     public String getUnit() {
