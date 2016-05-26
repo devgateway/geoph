@@ -13,7 +13,7 @@ import java.io.Serializable;
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
-public class Status extends GenericPersistable implements Serializable {
+public class Status extends GenericPersistable implements Serializable, Comparable {
 
     @Column(name = "code")
     private String code;
@@ -42,5 +42,10 @@ public class Status extends GenericPersistable implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return this.name.compareTo(((Status)o).getName());
     }
 }

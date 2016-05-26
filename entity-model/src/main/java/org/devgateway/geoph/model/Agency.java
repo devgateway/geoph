@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="Discriminator", discriminatorType=DiscriminatorType.STRING)
 @DiscriminatorValue(value="Agency")
-public class Agency extends GenericPersistable implements Serializable {
+public class Agency extends GenericPersistable implements Serializable, Comparable {
 
     private String name;
 
@@ -45,4 +45,8 @@ public class Agency extends GenericPersistable implements Serializable {
         this.code = code;
     }
 
+    @Override
+    public int compareTo(Object o) {
+        return this.name.compareTo(((Agency)o).getName());
+    }
 }

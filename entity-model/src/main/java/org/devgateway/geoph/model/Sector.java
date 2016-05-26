@@ -1,7 +1,6 @@
 package org.devgateway.geoph.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -35,7 +34,7 @@ import java.util.Set;
 })
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
-public class Sector extends GenericPersistable implements Serializable {
+public class Sector extends GenericPersistable implements Serializable, Comparable {
 
     @Column(name = "code")
     private String code;
@@ -102,5 +101,10 @@ public class Sector extends GenericPersistable implements Serializable {
 
     public void setProjects(Set<Project> projects) {
         this.projects = projects;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return this.name.compareTo(((Sector)o).getName());
     }
 }
