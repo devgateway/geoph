@@ -168,15 +168,19 @@ public class GeoJsonServiceImpl implements GeoJsonService {
         List<Location> locations = locationRepository.findLocationsByLevel(level.getLevel());
 
         Map<Long, PostGisHelper> postGisHelperMap = new HashMap<>();
+        List<PostGisHelper> gisHelperList = null;
         if(level == LocationAdmLevelEnum.REGION){
-            List<PostGisHelper> gisHelperList = locationRepository.getRegionShapesWithDetail(detail);
-            for(PostGisHelper helper:gisHelperList){
+            gisHelperList = locationRepository.getRegionShapesWithDetail(detail);
+        } else if(level == LocationAdmLevelEnum.PROVINCE) {
+            gisHelperList = locationRepository.getProvinceShapesWithDetail(detail);
+        } else if(level == LocationAdmLevelEnum.MUNICIPALITY) {
+            gisHelperList = locationRepository.getMunicipalityShapesWithDetail(detail);
+        }
+        if(gisHelperList!=null) {
+            for (PostGisHelper helper : gisHelperList) {
                 postGisHelperMap.put(helper.getLocationId(), helper);
             }
         }
-        //TODO Implement shapes for provinces and municipalities!
-
-
         Map<Long, LocationProperty> locationPropertyMap = new HashMap<>();
         for(Location location:locations){
             locationPropertyMap.put(location.getId(), new LocationProperty(location));

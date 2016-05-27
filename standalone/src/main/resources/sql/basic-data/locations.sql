@@ -1411,7 +1411,7 @@ INSERT INTO location (id,code,latitude,level,longitude,name,region_id,province_i
 INSERT INTO location (id,code,latitude,level,longitude,name,region_id,province_id) VALUES (1409,'148105',18.33204516,3,121.2393559,'Luna',1328,1404);
 INSERT INTO location (id,code,latitude,level,longitude,name,region_id,province_id) VALUES (1410,'148106',18.15733743,3,121.3091472,'Pudtol',1328,1404);
 INSERT INTO location (id,code,latitude,level,longitude,name,region_id,province_id) VALUES (1411,'148107',18.29185784,3,121.4382563,'Santa Marcela',1328,1404);
-INSERT INTO location (id,code,latitude,level,longitude,name,region_id,province_id) VALUES (1412,'15',6.922795271,1,123.2899323,'Autonomous Region of Muslim Mindanao (ARMM)',1412,null);
+INSERT INTO location (id,code,latitude,level,longitude,name,region_id,province_id) VALUES (1412,'15',7.09544,1,124.38721,'Autonomous Region of Muslim Mindanao (ARMM)',1412,null);
 INSERT INTO location (id,code,latitude,level,longitude,name,region_id,province_id) VALUES (1413,'1507',6.565218684,2,122.027811,'Basilan',1412,1413);
 INSERT INTO location (id,code,latitude,level,longitude,name,region_id,province_id) VALUES (1414,'150702',6.646882318,3,122.1048695,'Lamitan City',1412,1413);
 INSERT INTO location (id,code,latitude,level,longitude,name,region_id,province_id) VALUES (1415,'150703',6.625586915,3,121.8625894,'Lantawan',1412,1413);
@@ -1614,7 +1614,7 @@ INSERT INTO location (id,code,latitude,level,longitude,name,region_id,province_i
 INSERT INTO location (id,code,latitude,level,longitude,name,region_id,province_id) VALUES (1612,'168505',10.36857029,3,125.6177018,'Loreto',1536,1607);
 INSERT INTO location (id,code,latitude,level,longitude,name,region_id,province_id) VALUES (1613,'168506',10.02200916,3,125.5975737,'San Jose',1536,1607);
 INSERT INTO location (id,code,latitude,level,longitude,name,region_id,province_id) VALUES (1614,'168507',10.28483678,3,125.5806377,'Tubajon',1536,1607);
-INSERT INTO location (id,code,latitude,level,longitude,name,region_id,province_id) VALUES (1615,'17',11.35778918,1,119.9048941,'MIMAROPA (Region IV-B)',1615,null);
+INSERT INTO location (id,code,latitude,level,longitude,name,region_id,province_id) VALUES (1615,'17',10.4312,1,119.81465,'MIMAROPA (Region IV-B)',1615,null);
 INSERT INTO location (id,code,latitude,level,longitude,name,region_id,province_id) VALUES (1616,'1740',13.39157303,2,121.9721057,'Marinduque',1615,1616);
 INSERT INTO location (id,code,latitude,level,longitude,name,region_id,province_id) VALUES (1617,'174001',13.40691619,3,121.901097,'Boac',1615,1616);
 INSERT INTO location (id,code,latitude,level,longitude,name,region_id,province_id) VALUES (1618,'174002',13.25714158,3,121.9734915,'Buenavista',1615,1616);
