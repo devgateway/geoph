@@ -28,6 +28,10 @@ public interface LocationRepository {
 
     List<PostGisHelper> getRegionShapesWithDetail(double detail);
 
+    List<PostGisHelper> getProvinceShapesWithDetail(double detail);
+
+    List<PostGisHelper> getMunicipalityShapesWithDetail(double detail);
+
     Location findParentLocation(long locationId);
 
     Location findGrandParentLocation(long locationId);
