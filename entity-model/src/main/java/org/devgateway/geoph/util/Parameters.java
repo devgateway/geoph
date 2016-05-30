@@ -125,7 +125,7 @@ public class Parameters {
     }
 
     public void setStartDateMin(String startDateMin) {
-        this.startDateMax = convertStringToDate(startDateMin);
+        this.startDateMin = convertStringToDate(startDateMin);
     }
 
     public Date getEndDateMax() {
