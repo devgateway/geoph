@@ -57,3 +57,20 @@
 	
 	export const API_BASE_URL ='API_BASE_URL';
 
+
+	/*Security events*/
+
+	export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+
+	export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+
+
+	export const CHANGE_PROPERTY = 'CHANGE_PROPERTY';
+
+	export const CHANGE_STEP = 'CHANGE_STEP';
+
+	export const UPDATE_ERRORS = 'UPDATE_ERRORS';
+
+
+
+   

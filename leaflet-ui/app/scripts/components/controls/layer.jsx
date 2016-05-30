@@ -38,13 +38,13 @@ class Settings extends React.Component {
                 </ul>
                 </li>:null}
                 {(settings['css'])?<li>
-			    	<ul  className="css">
+			    	<ul  className="css colors">
                     <li>Colors</li>
 					<li className={settings['css']=="red"?"scheme red active":"scheme red "}  onClick={()=>{this.set('css','red')}} ></li>
 					<li className={settings['css']=="yellow"?"scheme yellow active":"scheme yellow "} onClick={()=>{this.set('css','yellow')}}></li>
 					<li className={settings['css']=="green"?"scheme green active":"scheme green "} onClick={()=>{this.set('css','green')}}></li>
-                        <li className={settings['css']=="orange"?"scheme orange active":"scheme orange "} onClick={()=>{this.set('css','orange')}}></li>
-                        <li className={settings['css']=="blue"?"scheme blue active":"scheme blue "} onClick={()=>{this.set('css','blue')}}></li>
+                     <li className={settings['css']=="orange"?"scheme orange active":"scheme orange "} onClick={()=>{this.set('css','orange')}}></li>
+                     <li className={settings['css']=="blue"?"scheme blue active":"scheme blue "} onClick={()=>{this.set('css','blue')}}></li>
 				</ul>
 			</li>:null}
 			</ul>);

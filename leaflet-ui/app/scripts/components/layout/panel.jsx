@@ -29,6 +29,12 @@ export default class Panel extends React.Component {
               <span>Chart View</span>
               </Link>
           </li>
+          <li className={(this.props.currentView=='/admin')?"active":""}>
+            <Link to="/admin">
+              <div className="icon chart"/>
+              <span>Admin</span>
+              </Link>
+          </li>
           </ul>
           
               {this.props.children}

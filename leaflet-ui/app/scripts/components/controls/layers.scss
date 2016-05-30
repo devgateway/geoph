@@ -71,31 +71,6 @@
 				cursor: pointer;
 				clear: none;
 			}
-
-			li.scheme{
-				@include  box-sizing(22px,18px)
-				margin: 3px 15px;
-				cursor: pointer;
-			}
-			li.scheme.active{
-				border: 1px solid #000;
-			}
-			li.red{
-				background-color: #f28f8f
-			}
-			li.yellow{
-				background-color: #eff28f
-			}
-			li.green{
-				background-color: #bcf1a9
-			}
-		  li.blue{
-			background-color: #008aea
-		  }
-		  li.orange{
-			background-color: #ce7b05
-		  }
-
 		}
 	}
 

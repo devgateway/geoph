@@ -84,7 +84,7 @@ public class BootMetadata {
         commonAuthorities.add(readPermission);
 
         SystemUser geophUser = new SystemUser();
-        geophUser.setEmail("admin@geoph.org");
+        geophUser.setEmail("admin");
         geophUser.setName("Admin");
         geophUser.setLastName("Geoph");
         geophUser.setPassword(encoder.encode("hello123"));

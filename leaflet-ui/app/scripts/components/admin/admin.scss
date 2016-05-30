@@ -1,0 +1,54 @@
+@import '../../../stylesheets/base.scss';
+
+#admin-main {
+  label {
+    font-size: 80%;
+  }
+  margin: 0px;
+  ul.menu {
+    font-size: 80%;
+    margin: 2vw;
+    list-style: none;
+    padding: 0px;
+    margin: 3px;
+    li {
+      padding: 5px;
+    }
+    li:before {
+      content: "|";
+    }
+    li.active {
+      font-weight: bold;
+    }
+  }
+
+  form {
+    margin: 10px 2vw;
+  }
+
+  #add-indicator-form {
+    ul {
+      float: right;
+    }
+
+    .drop-zone {
+      border: 1px dashed #4CAF50;
+      min-height: 50px;
+      line-height: 30px;
+      padding: 5px;
+      text-align: center;
+      font-size: 85%;
+    }
+    .has-error {
+      .drop-zone {
+        border: 1px solid #a94442;
+      }
+    }
+    li.scheme.active {
+      box-sizing: border-box;
+      border: 2px solid #2c7eae;
+
+    }
+  }
+
+}

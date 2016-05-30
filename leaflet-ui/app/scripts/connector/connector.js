@@ -52,7 +52,7 @@ class Connector {
 		
 		return new Promise(
 			function(resolve, reject) {
-				Axios.put(url, body)
+				Axios.post(url, body)
 				.then(function(response) {
 					resolve(response);
 				})
@@ -64,7 +64,7 @@ class Connector {
 
 	/*A method should always return a promise*/
 	call(verb,endpoint, params, absolute) {
-		
+
 		let apiRoot = absolute? "" : Settings.get('API',API_BASE_URL);		
 		let url = `${apiRoot}${endpoint}`; 
 
@@ -91,7 +91,7 @@ class Connector {
 			let url=Settings.get('API',options.ep);
 			const {level,quality} = options.settings;
 			const {id, filters}=options;
-	
+
 			if (level){
 				url=url.replace('${level}',level);
 			}
@@ -139,6 +139,37 @@ class Connector {
 				}).catch(reject)
 			}
 		});
+	}
+
+
+	login(options){
+		return new Promise( (resolve, reject) => {
+			const {username,password} = options;
+			let url = Settings.get('API','LOGIN');
+			debugger;
+			this.call(POST,url, {username:username,password:password}).then((data) => {
+				resolve(data);	
+			})
+			.catch((response)=>{
+				reject(response.status);	
+			})
+		})
+	}
+
+
+	uploadIndicator(options){
+		debugger;
+		return new Promise( (resolve, reject) => {
+			const {file,name,template,color} = options;
+			let url = Settings.get('API','INDICATOR_UPLOAD');
+			debugger;
+			this.call(PUT,url,file, {name,template,color}).then((data) => {
+				resolve(data);
+			})
+				.catch((response)=>{
+					reject(response.status);
+				})
+		})
 	}
 }
 
