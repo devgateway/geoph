@@ -27,20 +27,22 @@ class FilterSlider extends React.Component {
   		//
   		return (
 	        <div className="range-filter-container">
-        		<div className="">
-	        		<span>Min: <b>{minSelected  + this.props.valueSymbol} </b></span>
-		        </div>
-	        	<div className="">
-	        		<span>Max: <b>{maxSelected + this.props.valueSymbol}</b></span>
-		        </div>
-	        	<div className="range-filter">
+        		<div className="range-filter">
 	        		<InputRange
 				        maxValue={this.props.items? this.props.items[0].maxValue : 10}
 				        minValue={this.props.items? this.props.items[0].minValue : 0}
 				        value={values}
 				        onChange={this.handleValuesChange.bind(this)} />
-		        </div>			     
-		        {this.state.errorMessage.length>0?
+		        </div>	
+		        <div className="range-filter-selection">		     
+			        <div className="">
+		        		<span>Minimun: <b>{minSelected  + this.props.valueSymbol} </b></span>
+			        </div>
+		        	<div className="">
+		        		<span>Maximum: <b>{maxSelected + this.props.valueSymbol}</b></span>
+			        </div>
+	        	</div>
+	        	{this.state.errorMessage.length>0?
 					<div className="error-message">
 		        		<b>Error: </b>
 		        		{this.state.errorMessage}

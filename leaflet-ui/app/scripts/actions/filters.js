@@ -58,7 +58,7 @@ export const fetchFilterData = (filterType) => {
 }
 
 export const shouldFetchFilterData = (state, filterType) => {
-  const list = state.filters.filterMain[filterType]
+  const list = state.filters.filterMain[filterType];
   if (!list) {
     return true
   } else if (list.isFetching) {

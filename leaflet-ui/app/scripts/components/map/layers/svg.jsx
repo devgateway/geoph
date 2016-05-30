@@ -128,8 +128,8 @@ class D3Layer extends MapLayer {
 
   getPopupContent(feature) {
     this.setState({popupFeature: feature});
-    let filters = collectValues(this.props.filters.filterMain);
-    Object.assign(filters, {'lo': [feature.properties.id]})
+    let filters = collectValues(this.props.filters, this.props.projectSearch);
+    Object.assign(filters, {'lo': [feature.properties.id]});
     this.props.onGetPopupData(filters);
   }
 
@@ -185,7 +185,8 @@ const mapStateToProps = (state, props) => {
   return {
     fundingType: state.settings.fundingType,
     charts: state.popup,
-    filters: state.filters
+    filters: state.filters.filterMain,
+    projectSearch: state.projectSearch
   }
 }
 

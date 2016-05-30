@@ -1,8 +1,5 @@
 import * as Constants from '../constants/constants';
 import Connector from '../connector/connector';
-import {applyFiltersToLayers} from './map';
-import {fetchChartData} from './charts';
-import {collectValues} from '../util/filterUtil';
 
 export const requestProjectsByText = (filters) => {
   return {
@@ -47,3 +44,8 @@ export const searchProjectsByText = (filters) => {
   }
 }
 
+export const clearAllResults = () => {
+  return {
+    type: Constants.CLEAR_ALL_RESULTS
+  }
+}

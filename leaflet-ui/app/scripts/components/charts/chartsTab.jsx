@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import Chart from '../charts/chartComponent'
 import { fetchChartData } from '../../actions/charts.js'
+import {collectValues} from '../../util/filterUtil';
 
 class Charts extends React.Component {
 
@@ -10,7 +11,8 @@ class Charts extends React.Component {
   }
 
   componentDidMount() {
-    this.props.onLoadChartData();    
+    let filters = collectValues(this.props.filters, this.props.projectSearch);
+    this.props.onLoadChartData(filters);    
   }
 
   render() {
@@ -47,8 +49,8 @@ class Charts extends React.Component {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    onLoadChartData: () => {
-      dispatch(fetchChartData());
+    onLoadChartData: (filters) => {
+      dispatch(fetchChartData(filters));
     }
   }
 }
@@ -57,7 +59,9 @@ const mapStateToProps = (state, props) => {
   return {
     charts: state.charts, 
     language: state.language,
-    fundingType: state.settings.fundingType
+    fundingType: state.settings.fundingType,
+    filters: state.filters.filterMain,
+    projectsSelected: state.projectSearch
   }
 }
 

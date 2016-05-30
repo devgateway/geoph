@@ -1,13 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import InputRange from 'react-input-range';
-import { searchProjectsByText, toggleProjectSelection, selectAllMatchedProject, clearAllProjectSelected } from '../../actions/projectSearch';
+import { clearAllResults, searchProjectsByText, toggleProjectSelection, selectAllMatchedProject, clearAllProjectSelected } from '../../actions/projectSearch';
 import { applyFilter } from '../../actions/filters';
 import { fetchStats } from '../../actions/stats';
 import { Input } from 'react-bootstrap';
 import { cloneDeep,collectValues } from '../../util/filterUtil';
 require('./projectFilter.scss');
 
+var typingTimer;                //timer identifier
+var doneTypingInterval = 1500;  //time in ms (5 seconds)
 
 class ProjectFilter extends React.Component {
 
@@ -23,9 +25,15 @@ class ProjectFilter extends React.Component {
 
 	validateState() {
     	const length = this.state.keyword.length;
-    	if (length > 3) return 'success';
-    	else if (length > 0) return 'error';
-  	}
+    	const tiping = this.state.tiping;
+    	if (length>0){
+    		if (tiping){
+    			return 'error';
+    		} else {
+    			return 'success';
+    		}
+    	}
+    }
 
   	validateSelection(id) {
   		let selected = false;
@@ -43,15 +51,17 @@ class ProjectFilter extends React.Component {
 
   	handleChange(e) {
     	let keyword = e.target.value;
-		this.setState({ keyword: keyword });
-  		if (keyword.length>3){
-  			let filters = collectValues(this.props.filters);
-  			Object.assign(filters, {'pt': keyword});
-  			this.props.onTriggerSearch(filters);
-  		} else {
-			//should clear here?
-		}
+		this.setState({keyword: keyword, tiping: true});
+		clearTimeout(typingTimer);
+	    typingTimer = setTimeout(this.doneTyping.bind(this), doneTypingInterval);	    
   	}
+
+  	doneTyping () {
+	    this.setState({tiping: false});
+		let filters = collectValues(this.props.filters);
+		Object.assign(filters, {'pt': this.state.keyword});
+		this.props.onTriggerSearch(filters);
+	}
 
   	handleSelection(project){
   		this.props.onToggleSelection(project);  		
@@ -63,6 +73,10 @@ class ProjectFilter extends React.Component {
 
 	clearAllSelection(){
   		this.props.onClearAll();
+  	}
+
+  	clearResults(){
+  		this.props.onClearResults();
   	}
 
   	showSelected(){
@@ -81,11 +95,8 @@ class ProjectFilter extends React.Component {
   	}
 
 	applySelection(){
-  		let filters = collectValues(this.props.filters);
-  		let idsSelected = [];
-  		this.props.projectSearch.selected.map(it => idsSelected.push(it.id));
-		Object.assign(filters, {'pr': idsSelected});
-		this.props.onFilterByProjects(filters);
+  		let filters = collectValues(this.props.filters, this.props.projectSearch);
+  		this.props.onFilterByProjects(filters);
   	}
 
 	render() {
@@ -115,7 +126,7 @@ class ProjectFilter extends React.Component {
 		        </div>	        		        		        	
 	        	<div className="project-search-results">
 	        	{this.state.showResults?
-	        		this.state.keyword.length>3?
+	        		this.state.keyword.length>0?
 		        		projectSearchResults.isFetching?
 		        		<div>Loading Data</div>
 			        	: projectSearchResults.content?
@@ -141,7 +152,7 @@ class ProjectFilter extends React.Component {
 	        			<div>No Projects Selected</div>
 	        		: 
 		        		this.props.projectSearch.selected.map((item, idx) => {
-		        			if (idx<9){
+		        			if (idx<10){
 			        			return <div className="filterItemInfo">
 					        		<div className={this.validateSelection(item.id)} onClick={this.handleSelection.bind(this, item)} />
 						        	<div className="toggle-nav item-text" onClick={this.handleSelection.bind(this, item)}>
@@ -178,6 +189,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(clearAllProjectSelected());
     },
 
+    onClearResults: () => {
+      dispatch(clearAllResults());
+    },
+    
     onFilterByProjects: (filters) => {
       dispatch(applyFilter(filters));
     },

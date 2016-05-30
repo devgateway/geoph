@@ -30,6 +30,11 @@ const projectSearch = (state = {'selected': [], 'results': {}}, action) => {
       Object.assign(stateCloned, {'selected':[]});
       return stateCloned;
 
+    case Constants.CLEAR_ALL_RESULTS:
+      stateCloned = cloneDeep(state);
+      Object.assign(stateCloned, {'results': {}});
+      return stateCloned;
+
     case Constants.REQUEST_PROJECT_BY_TEXT:
       projectSearchResults = {isFetching: true};
       return Object.assign({}, state, {'results': projectSearchResults});

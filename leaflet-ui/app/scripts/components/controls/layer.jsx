@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import {Message} from '../lan/'
 import {loadProjects,loadFunding,toggleVisibility,setSetting} from '../../actions/map.js'
 import * as Constants from '../../constants/constants.js';
+import {collectValues} from '../../util/filterUtil';
 require('./layers.scss');
 const prefix="control.layers";
 
@@ -10,7 +11,8 @@ import InputRange from 'react-input-range';
 
 class Settings extends React.Component {
 	set(setting,value){
-		this.props.onSettingChanged(this.props.id,setting,value)
+		let filters = collectValues(this.props.filters, this.props.projectSearch);
+		this.props.onSettingChanged(this.props.id, setting, value, filters);
 	}
 	setQuality(slider,value){
 		this.set('quality',value)
@@ -61,11 +63,17 @@ class Settings extends React.Component {
  	}
 
  	onChange(){
- 		this.props.onToggleLayer(this.props.id);
+ 		let filters = collectValues(this.props.filters, this.props.projectSearch);
+ 		this.props.onToggleLayer(this.props.id, true, filters);
  	}
 
  	getChildProperties(){
- 		return {onToggleLayer:this.props.onToggleLayer,onSettingChanged :this.props.onSettingChanged};
+ 		return {
+ 			onToggleLayer: this.props.onToggleLayer,
+ 			onSettingChanged: this.props.onSettingChanged,
+ 			filters: this.props.filters,
+ 			projectSearch: this.props.projectSearch
+ 		};
  	}
 
  	getCheckbox(){
@@ -166,7 +174,11 @@ class Settings extends React.Component {
 
 
  const stateToProps = (state, props) => {
- 	return {layers:state.map.get('layers')};
+ 	return {
+ 		layers: state.map.get('layers'),
+ 		filters: state.filters.filterMain,
+ 		projectSearch: state.projectSearch
+ 	};
  }
 
 
@@ -179,12 +191,12 @@ class Settings extends React.Component {
  			dispatch(loadFunding(level));
  		},
 
- 		onToggleLayer:(name,visible)=>{
- 			dispatch(toggleVisibility(name,visible));
+ 		onToggleLayer:(name, visible, filters)=>{
+ 			dispatch(toggleVisibility(name, visible, filters));
  		},
 
- 		onSettingChanged:(name,setting,value)=>{
- 			dispatch(setSetting(name,setting,value));
+ 		onSettingChanged:(name, setting, value, filters)=>{
+ 			dispatch(setSetting(name, setting, value, filters));
  		}
  	}
  }

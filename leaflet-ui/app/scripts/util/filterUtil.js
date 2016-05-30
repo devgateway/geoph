@@ -19,7 +19,7 @@ const collectRange=(options)=>{
 	return {'minSelected': options.minSelected, 'maxSelected': options.maxSelected};
 }
 
-export const collectValues=filters=>{
+export const collectValues = (filters, projectSearch)=>{
 	let params={};
 	let selection;
 	for(let param in filters){
@@ -39,7 +39,12 @@ export const collectValues=filters=>{
 			}
 		}
 	}
-	console.log(params)
+	//console.log(params)
+	if (projectSearch){
+		let idsSelected = [];
+	  	projectSearch.selected.map(it => idsSelected.push(it.id));
+	  	Object.assign(params, {'pr': idsSelected});		
+	}
 	return params;
 }
 
