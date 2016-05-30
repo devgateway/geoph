@@ -23,7 +23,7 @@ public class Constants {
     public static final String FILTER_LOCATION = "lo";
     public static final String FILTER_PERFORMANCE_START_MAX = "pp_start_max";
     public static final String FILTER_PERFORMANCE_START_MIN = "pp_start_min";
-    public static final String FILTER_PERFORMANCE_END_MAX = "pp_end_start";
+    public static final String FILTER_PERFORMANCE_END_MAX = "pp_end_max";
     public static final String FILTER_PERFORMANCE_END_MIN = "pp_end_min";
     public static final String FILTER_PHYSICAL_STATUS = "ph";
     public static final String FILTER_PROJECT = "pr";
