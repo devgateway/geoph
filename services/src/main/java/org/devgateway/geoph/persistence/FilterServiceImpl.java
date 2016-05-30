@@ -1,18 +1,17 @@
 package org.devgateway.geoph.persistence;
 
 import org.devgateway.geoph.model.*;
+import org.devgateway.geoph.model.Currency;
 import org.devgateway.geoph.persistence.repository.*;
 import org.devgateway.geoph.services.FilterService;
 import org.devgateway.geoph.util.LocationAdmLevelEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author dbianco
@@ -102,6 +101,12 @@ public class FilterServiceImpl implements FilterService {
     }
 
     @Override
+    public Location findLocationByCode(String code){
+        LOGGER.debug("Getting location by code");
+        return locationRepository.findByCode(code);
+    }
+
+    @Override
     public List<Location> findLocationsByLevel(LocationAdmLevelEnum level) {
         LOGGER.debug("Getting all locations of level: {}", level);
         List<Location> locationList = locationRepository.findLocationsByLevel(level.getLevel());
@@ -181,17 +186,27 @@ public class FilterServiceImpl implements FilterService {
 
     @Override
     public List<Double> findFinancialAmountPeriod() {
-        List<Double> financialAmountBounds = new ArrayList<>();
-        double minFinancialAmount = projectRepository.getMinFinancialAmount();
-        double maxFinancialAmount = projectRepository.getMaxFinancialAmount();
-        financialAmountBounds.add(maxFinancialAmount);
-        financialAmountBounds.add(minFinancialAmount);
-        return financialAmountBounds;
+        return projectRepository.getFinancialAmountBoundaries();
+    }
+
+    @Override
+    public List<String> findImpPeriodBoundaries(){
+        return projectRepository.getImpPeriodBoundaries();
+    }
+
+    @Override
+    public List<String> findGrantPeriodBoundaries(){
+        return projectRepository.getGrantPeriodBoundaries();
     }
 
     @Override
     public List<Currency> findAllCurrencies(){
         return currencyRepository.findAll();
+    }
+
+    @Override
+    public Location findLocationById(Long locId) {
+        return locationRepository.findById(locId);
     }
 
 }

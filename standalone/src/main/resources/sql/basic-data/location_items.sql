@@ -1693,7 +1693,7 @@ INSERT INTO location_items (location_id, items_id) VALUES (1676, 1691);
 INSERT INTO location_items (location_id, items_id) VALUES (1676, 1692);
 INSERT INTO location_items (location_id, items_id) VALUES (1676, 1693);
 
-INSERT INTO location_items (location_id, items_id) VALUES (637, 1695);
+INSERT INTO location_items (location_id, items_id) VALUES (1694, 1695);
 INSERT INTO location_items (location_id, items_id) VALUES (1695, 1696);
 INSERT INTO location_items (location_id, items_id) VALUES (1695, 1697);
 INSERT INTO location_items (location_id, items_id) VALUES (1695, 1698);
@@ -1726,7 +1726,7 @@ INSERT INTO location_items (location_id, items_id) VALUES (1695, 1724);
 INSERT INTO location_items (location_id, items_id) VALUES (1695, 1725);
 INSERT INTO location_items (location_id, items_id) VALUES (1695, 1726);
 INSERT INTO location_items (location_id, items_id) VALUES (1695, 1727);
-INSERT INTO location_items (location_id, items_id) VALUES (744, 1728);
+INSERT INTO location_items (location_id, items_id) VALUES (1694, 1728);
 INSERT INTO location_items (location_id, items_id) VALUES (1728, 1729);
 INSERT INTO location_items (location_id, items_id) VALUES (1728, 1730);
 INSERT INTO location_items (location_id, items_id) VALUES (1728, 1731);

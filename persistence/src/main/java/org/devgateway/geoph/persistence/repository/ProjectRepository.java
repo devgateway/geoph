@@ -1,12 +1,14 @@
 package org.devgateway.geoph.persistence.repository;
 
 import org.devgateway.geoph.model.Project;
+import org.devgateway.geoph.response.StatsResponse;
 import org.devgateway.geoph.util.Parameters;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -24,8 +26,11 @@ public interface ProjectRepository {
 
     Project save(Project project);
 
-    double getMaxFinancialAmount();
+    List<Double> getFinancialAmountBoundaries();
 
-    double getMinFinancialAmount();
+    StatsResponse countProjectsByParams(Parameters params);
 
+    List<String> getImpPeriodBoundaries();
+
+    List<String> getGrantPeriodBoundaries();
 }

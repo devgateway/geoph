@@ -161,10 +161,24 @@ public class DefaultLocationRepository implements LocationRepository {
 
 
     @Override
-    @Cacheable("shapesWithDetail")
     public List<PostGisHelper> getRegionShapesWithDetail(double detail) {
-        Query q = em.createNativeQuery("SELECT locationId, region, ST_AsGeoJSON(ST_Simplify(geom, :detail)) " +
-                "as geoJsonObject from region_geometry")
+        return getShapesWithDetail(detail, "region_geometry");
+    }
+
+    @Override
+    public List<PostGisHelper> getProvinceShapesWithDetail(double detail) {
+        return getShapesWithDetail(detail, "province_geometry");
+    }
+
+    @Override
+    public List<PostGisHelper> getMunicipalityShapesWithDetail(double detail) {
+        return getShapesWithDetail(detail, "municipality_geometry");
+    }
+
+    @Cacheable("shapesWithDetail")
+    private List<PostGisHelper> getShapesWithDetail(double detail, String admLevel) {
+        Query q = em.createNativeQuery("SELECT locationId, name, ST_AsGeoJSON(ST_Simplify(geom, :detail)) " +
+                "as geoJsonObject from " + admLevel)
                 .setParameter("detail", detail);
         List<Object[]> resultList = q.getResultList();
         Gson g = new Gson();
@@ -172,7 +186,7 @@ public class DefaultLocationRepository implements LocationRepository {
         for(Object[] o:resultList){
             PostGisHelper helper = g.fromJson((String)o[2], PostGisHelper.class);
             helper.setLocationId(((BigDecimal) o[0]).longValue());
-            helper.setRegionName((String)o[1]);
+            helper.setName((String) o[1]);
             resp.add(helper);
         }
         return resp;

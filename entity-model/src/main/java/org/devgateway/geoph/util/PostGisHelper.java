@@ -11,7 +11,7 @@ public class PostGisHelper {
 
     private long locationId;
 
-    private String regionName;
+    private String name;
 
     private Double[][][][] coordinates;
 
@@ -44,11 +44,11 @@ public class PostGisHelper {
         this.locationId = locationId;
     }
 
-    public String getRegionName() {
-        return regionName;
+    public String getName() {
+        return name;
     }
 
-    public void setRegionName(String regionName) {
-        this.regionName = regionName;
+    public void setName(String name) {
+        this.name = name;
     }
 }

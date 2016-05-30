@@ -10,8 +10,10 @@ public class Constants {
     public static final String PARAM_SEPARATOR = ",";
 
     public static final String FILTER_CLIMATE_CHANGE = "cc";
-    public static final String FILTER_START_DATE = "dt_s";
-    public static final String FILTER_END_DATE = "dt_e";
+    public static final String FILTER_START_DATE_MAX = "dt_start_max";
+    public static final String FILTER_START_DATE_MIN = "dt_start_min";
+    public static final String FILTER_END_DATE_MAX = "dt_end_max";
+    public static final String FILTER_END_DATE_MIN = "dt_end_min";
     public static final String FILTER_FLOW_TYPE = "ft";
     public static final String FILTER_FUNDING_AGENCY = "fa";
     public static final String FILTER_GENDER_RESPONSIVENESS = "gr";
@@ -19,8 +21,10 @@ public class Constants {
     public static final String FILTER_FINANCIAL_AMOUNT_MIN = "fin_amount_min";
     public static final String FILTER_IMPLEMENTING_AGENCY = "ia";
     public static final String FILTER_LOCATION = "lo";
-    public static final String FILTER_PERFORMANCE_START = "pp_s";
-    public static final String FILTER_PERFORMANCE_END = "pp_e";
+    public static final String FILTER_PERFORMANCE_START_MAX = "pp_start_max";
+    public static final String FILTER_PERFORMANCE_START_MIN = "pp_start_min";
+    public static final String FILTER_PERFORMANCE_END_MAX = "pp_end_max";
+    public static final String FILTER_PERFORMANCE_END_MIN = "pp_end_min";
     public static final String FILTER_PHYSICAL_STATUS = "ph";
     public static final String FILTER_PROJECT = "pr";
     public static final String FILTER_SECTOR = "st";
@@ -57,5 +61,8 @@ public class Constants {
             "Closing Date", "Revised Closing Date", "Sectors", "Period of Performance Start",
             "Period of Performance End", "Status", "Physical Status", "Physical Progress (Actual)",
             "Physical Progress (Target)", "Grant Classification", "Total Disbursements", "Total Commitments"};
+
+    public static final String[] INDICATORS_ENGLISH_TITLE_ARRAY = {"Location Name", "UACS Code", "Indicator Value"};
+
     public static final String SLASH = "/";
 }

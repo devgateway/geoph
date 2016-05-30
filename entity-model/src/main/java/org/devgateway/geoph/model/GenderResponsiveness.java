@@ -14,7 +14,7 @@ import java.util.Set;
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity(name = "gender_responsiveness")
-public class GenderResponsiveness extends GenericPersistable implements Serializable {
+public class GenderResponsiveness extends GenericPersistable implements Serializable, Comparable {
 
     private String name;
 
@@ -50,5 +50,10 @@ public class GenderResponsiveness extends GenericPersistable implements Serializ
 
     public void setProjects(Set<Project> projects) {
         this.projects = projects;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return this.name.compareTo(((GenderResponsiveness)o).getName());
     }
 }
