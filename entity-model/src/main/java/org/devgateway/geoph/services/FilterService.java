@@ -4,6 +4,7 @@ import org.devgateway.geoph.model.*;
 import org.devgateway.geoph.util.LocationAdmLevelEnum;
 
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -47,6 +48,10 @@ public interface FilterService {
     List<GrantSubType> findAllGrantSubTypes();
 
     List<Double> findFinancialAmountPeriod();
+
+    List<String> findImpPeriodBoundaries();
+
+    List<String> findGrantPeriodBoundaries();
 
     List<Currency> findAllCurrencies();
 

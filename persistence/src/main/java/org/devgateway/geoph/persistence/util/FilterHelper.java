@@ -42,17 +42,29 @@ public class FilterHelper {
                     Join<Project, Location> locationJoin = projectRoot.join(Project_.locations);
                     predicates.add(locationJoin.get(Location_.id).in(params.getLocations()));
                 }
-                if (params.getStartDate() != null) {
-                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectRoot.get(Project_.startDate), params.getStartDate()));
+                if (params.getStartDateMin() != null) {
+                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectRoot.get(Project_.startDate), params.getStartDateMin()));
                 }
-                if (params.getEndDate() != null) {
-                    predicates.add(criteriaBuilder.lessThanOrEqualTo(projectRoot.get(Project_.endDate), params.getEndDate()));
+                if (params.getStartDateMax() != null) {
+                    predicates.add(criteriaBuilder.lessThanOrEqualTo(projectRoot.get(Project_.startDate), params.getStartDateMax()));
                 }
-                if (params.getPeriodPerformanceStart() != null) {
-                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectRoot.get(Project_.periodPerformanceStart), params.getPeriodPerformanceStart()));
+                if (params.getEndDateMin() != null) {
+                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectRoot.get(Project_.endDate), params.getEndDateMin()));
                 }
-                if (params.getPeriodPerformanceEnd() != null) {
-                    predicates.add(criteriaBuilder.lessThanOrEqualTo(projectRoot.get(Project_.periodPerformanceEnd), params.getPeriodPerformanceEnd()));
+                if (params.getEndDateMax() != null) {
+                    predicates.add(criteriaBuilder.lessThanOrEqualTo(projectRoot.get(Project_.endDate), params.getEndDateMax()));
+                }
+                if (params.getPeriodPerformanceStartMin() != null) {
+                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectRoot.get(Project_.periodPerformanceStart), params.getPeriodPerformanceStartMin()));
+                }
+                if (params.getPeriodPerformanceStartMax() != null) {
+                    predicates.add(criteriaBuilder.lessThanOrEqualTo(projectRoot.get(Project_.periodPerformanceStart), params.getPeriodPerformanceStartMax()));
+                }
+                if (params.getPeriodPerformanceEndMin() != null) {
+                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectRoot.get(Project_.periodPerformanceEnd), params.getPeriodPerformanceEndMin()));
+                }
+                if (params.getPeriodPerformanceEndMax() != null) {
+                    predicates.add(criteriaBuilder.lessThanOrEqualTo(projectRoot.get(Project_.periodPerformanceEnd), params.getPeriodPerformanceEndMax()));
                 }
                 if (params.getFundingAgencies() != null) {
                     Join<Project, Agency> fundingAgencyJoin = projectRoot.join(Project_.fundingAgency);
@@ -115,17 +127,29 @@ public class FilterHelper {
                     Join<Project, PhysicalStatus> physicalStatusJoin = projectJoin.join(Project_.physicalStatus);
                     predicates.add(physicalStatusJoin.get(PhysicalStatus_.id).in(params.getPhysicalStatuses()));
                 }
-                if (params.getStartDate() != null) {
-                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectJoin.get(Project_.startDate), params.getStartDate()));
+                if (params.getStartDateMin() != null) {
+                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectJoin.get(Project_.startDate), params.getStartDateMin()));
                 }
-                if (params.getEndDate() != null) {
-                    predicates.add(criteriaBuilder.lessThanOrEqualTo(projectJoin.get(Project_.endDate), params.getEndDate()));
+                if (params.getStartDateMax() != null) {
+                    predicates.add(criteriaBuilder.lessThanOrEqualTo(projectJoin.get(Project_.startDate), params.getStartDateMax()));
                 }
-                if (params.getPeriodPerformanceStart() != null) {
-                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectJoin.get(Project_.periodPerformanceStart), params.getPeriodPerformanceStart()));
+                if (params.getEndDateMin() != null) {
+                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectJoin.get(Project_.endDate), params.getEndDateMin()));
                 }
-                if (params.getPeriodPerformanceEnd() != null) {
-                    predicates.add(criteriaBuilder.lessThanOrEqualTo(projectJoin.get(Project_.periodPerformanceEnd), params.getPeriodPerformanceEnd()));
+                if (params.getEndDateMax() != null) {
+                    predicates.add(criteriaBuilder.lessThanOrEqualTo(projectJoin.get(Project_.endDate), params.getEndDateMax()));
+                }
+                if (params.getPeriodPerformanceStartMin() != null) {
+                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectJoin.get(Project_.periodPerformanceStart), params.getPeriodPerformanceStartMin()));
+                }
+                if (params.getPeriodPerformanceStartMax() != null) {
+                    predicates.add(criteriaBuilder.lessThanOrEqualTo(projectJoin.get(Project_.periodPerformanceStart), params.getPeriodPerformanceStartMax()));
+                }
+                if (params.getPeriodPerformanceEndMin() != null) {
+                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectJoin.get(Project_.periodPerformanceEnd), params.getPeriodPerformanceEndMin()));
+                }
+                if (params.getPeriodPerformanceEndMax() != null) {
+                    predicates.add(criteriaBuilder.lessThanOrEqualTo(projectJoin.get(Project_.periodPerformanceEnd), params.getPeriodPerformanceEndMax()));
                 }
                 if (params.getFundingAgencies() != null) {
                     Join<Project, Agency> fundingAgencyJoin = projectJoin.join(Project_.fundingAgency, JoinType.LEFT);

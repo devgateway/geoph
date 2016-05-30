@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -25,9 +26,11 @@ public interface ProjectRepository {
 
     Project save(Project project);
 
-    double getMaxFinancialAmount();
-
-    double getMinFinancialAmount();
+    List<Double> getFinancialAmountBoundaries();
 
     StatsResponse countProjectsByParams(Parameters params);
+
+    List<String> getImpPeriodBoundaries();
+
+    List<String> getGrantPeriodBoundaries();
 }
