@@ -22,13 +22,21 @@ public class Parameters {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Parameters.class);
 
-    private Date startDate;
+    private Date startDateMax;
 
-    private Date endDate;
+    private Date startDateMin;
 
-    private Date periodPerformanceStart;
+    private Date endDateMax;
 
-    private Date periodPerformanceEnd;
+    private Date endDateMin;
+
+    private Date periodPerformanceStartMax;
+
+    private Date periodPerformanceStartMin;
+
+    private Date periodPerformanceEndMax;
+
+    private Date periodPerformanceEndMin;
 
     private List<Long> sectors;
 
@@ -65,16 +73,21 @@ public class Parameters {
     public Parameters() {
     }
 
-    public Parameters(String startDate, String endDate, String periodPerformanceStart,
-                      String periodPerformanceEnd, String sectors, String statuses,
+    public Parameters(String startDateMax, String startDateMin, String endDateMax, String endDateMin,
+                      String periodPerformanceStartMax, String periodPerformanceStartMin, String periodPerformanceEndMax,
+                      String periodPerformanceEndMin, String sectors, String statuses,
                       String locations, String projects, String impAgencies, String fundingAgencies,
                       String flowTypes, String projectTitle, String physicalStatuses,
                       String climateChanges, String genderResponsiveness,
                       Double financialAmountMin, Double financialAmountMax, Pageable pageable) {
-        this.setStartDate(startDate);
-        this.setEndDate(endDate);
-        this.setPeriodPerformanceStart(periodPerformanceStart);
-        this.setPeriodPerformanceEnd(periodPerformanceEnd);
+        this.setStartDateMax(startDateMax);
+        this.setStartDateMin(startDateMin);
+        this.setEndDateMax(endDateMax);
+        this.setEndDateMin(endDateMin);
+        this.setPeriodPerformanceStartMax(periodPerformanceStartMax);
+        this.setPeriodPerformanceStartMin(periodPerformanceStartMin);
+        this.setPeriodPerformanceEndMax(periodPerformanceEndMax);
+        this.setPeriodPerformanceEndMin(periodPerformanceEndMin);
         this.setSectors(sectors);
         this.setStatuses(statuses);
         this.setLocations(locations);
@@ -91,52 +104,101 @@ public class Parameters {
         this.setPageable(pageable);
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public Date getStartDateMax() {
+        return startDateMax;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public void setStartDateMax(Date startDateMax) {
+        this.startDateMax = startDateMax;
     }
 
-    public void setStartDate(String startDate) {
-        this.startDate = convertStringToDate(startDate);
+    public void setStartDateMax(String startDateMax) {
+        this.startDateMax = convertStringToDate(startDateMax);
     }
 
-    public Date getEndDate() {
-        return endDate;
+    public Date getStartDateMin() {
+        return startDateMin;
     }
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setStartDateMin(Date startDateMin) {
+        this.startDateMin = startDateMin;
     }
 
-    public void setEndDate(String endDate) {
-        this.endDate = convertStringToDate(endDate);
+    public void setStartDateMin(String startDateMin) {
+        this.startDateMin = convertStringToDate(startDateMin);
     }
 
-    public Date getPeriodPerformanceStart() {
-        return periodPerformanceStart;
+    public Date getEndDateMax() {
+        return endDateMax;
     }
 
-    public void setPeriodPerformanceStart(Date periodPerformanceStart) {
-        this.periodPerformanceStart = periodPerformanceStart;
+    public void setEndDateMax(Date endDateMax) {
+        this.endDateMax = endDateMax;
     }
 
-    public void setPeriodPerformanceStart(String periodPerformanceStart) {
-        this.periodPerformanceStart = convertStringToDate(periodPerformanceStart);
+    public void setEndDateMax(String endDateMax) {
+        this.endDateMax = convertStringToDate(endDateMax);
     }
 
-    public Date getPeriodPerformanceEnd() {
-        return periodPerformanceEnd;
+    public Date getEndDateMin() {
+        return endDateMin;
     }
 
-    public void setPeriodPerformanceEnd(Date periodPerformanceEnd) {
-        this.periodPerformanceEnd = periodPerformanceEnd;
+    public void setEndDateMin(Date endDateMin) {
+        this.endDateMin = endDateMin;
     }
 
-    public void setPeriodPerformanceEnd(String periodPerformanceEnd) {
-        this.periodPerformanceEnd = convertStringToDate(periodPerformanceEnd);
+    public void setEndDateMin(String endDateMin) {
+        this.endDateMin = convertStringToDate(endDateMin);
+    }
+
+    public Date getPeriodPerformanceStartMax() {
+        return periodPerformanceStartMax;
+    }
+
+    public void setPeriodPerformanceStartMax(Date periodPerformanceStartMax) {
+        this.periodPerformanceStartMax = periodPerformanceStartMax;
+    }
+
+    public void setPeriodPerformanceStartMax(String periodPerformanceStartMax) {
+        this.periodPerformanceStartMax = convertStringToDate(periodPerformanceStartMax);
+    }
+
+    public Date getPeriodPerformanceStartMin() {
+        return periodPerformanceStartMin;
+    }
+
+    public void setPeriodPerformanceStartMin(Date periodPerformanceStartMin) {
+        this.periodPerformanceStartMin = periodPerformanceStartMin;
+    }
+
+    public void setPeriodPerformanceStartMin(String periodPerformanceStartMin) {
+        this.periodPerformanceStartMin = convertStringToDate(periodPerformanceStartMin);
+    }
+
+
+    public Date getPeriodPerformanceEndMax() {
+        return periodPerformanceEndMax;
+    }
+
+    public void setPeriodPerformanceEndMax(Date periodPerformanceEndMax) {
+        this.periodPerformanceEndMax = periodPerformanceEndMax;
+    }
+
+    public void setPeriodPerformanceEndMax(String periodPerformanceEndMax) {
+        this.periodPerformanceEndMax = convertStringToDate(periodPerformanceEndMax);
+    }
+
+    public Date getPeriodPerformanceEndMin() {
+        return periodPerformanceEndMin;
+    }
+
+    public void setPeriodPerformanceEndMin(Date periodPerformanceEndMin) {
+        this.periodPerformanceEndMin = periodPerformanceEndMin;
+    }
+
+    public void setPeriodPerformanceEndMin(String periodPerformanceEndMin) {
+        this.periodPerformanceEndMin = convertStringToDate(periodPerformanceEndMin);
     }
 
     public List<Long> getSectors() {

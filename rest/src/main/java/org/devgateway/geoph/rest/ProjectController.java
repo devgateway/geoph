@@ -39,10 +39,14 @@ public class ProjectController  extends CrossOriginSupport {
 
     @RequestMapping(method = GET)
     public Page<Project> findProjectsByParams(
-            @RequestParam(value = FILTER_START_DATE, required = false) String startDate,
-            @RequestParam(value = FILTER_END_DATE, required = false) String endDate,
-            @RequestParam(value = FILTER_PERFORMANCE_START, required = false) String performanceStart,
-            @RequestParam(value = FILTER_PERFORMANCE_END, required = false) String performanceEnd,
+            @RequestParam(value = FILTER_START_DATE_MAX, required = false) String startDateMax,
+            @RequestParam(value = FILTER_START_DATE_MIN, required = false) String startDateMin,
+            @RequestParam(value = FILTER_END_DATE_MAX, required = false) String endDateMax,
+            @RequestParam(value = FILTER_END_DATE_MIN, required = false) String endDateMin,
+            @RequestParam(value = FILTER_PERFORMANCE_START_MAX, required = false) String performanceStartMax,
+            @RequestParam(value = FILTER_PERFORMANCE_START_MIN, required = false) String performanceStartMin,
+            @RequestParam(value = FILTER_PERFORMANCE_END_MAX, required = false) String performanceEndMax,
+            @RequestParam(value = FILTER_PERFORMANCE_END_MIN, required = false) String performanceEndMin,
             @RequestParam(value = FILTER_SECTOR, required = false) String sectors,
             @RequestParam(value = FILTER_STATUS, required = false) String statuses,
             @RequestParam(value = FILTER_LOCATION, required = false) String locations,
@@ -58,8 +62,8 @@ public class ProjectController  extends CrossOriginSupport {
             @RequestParam(value = FILTER_FINANCIAL_AMOUNT_MIN, required = false) Double financialAmountMin,
             @PageableDefault(page = 0, size = 20, sort = "id") final Pageable pageable) {
         LOGGER.debug("findProjectsByParams");
-        Parameters params = new Parameters(startDate, endDate, performanceStart,
-                performanceEnd, sectors, statuses, locations,
+        Parameters params = new Parameters(startDateMax, startDateMin, endDateMax, endDateMin, performanceStartMax,
+                performanceStartMin, performanceEndMax, performanceEndMin, sectors, statuses, locations,
                 projects, impAgencies, fundingAgencies, flowTypes,
                 projectTitle, physicalStatuses, climateChange, genderResponsiveness,
                 financialAmountMin, financialAmountMax, pageable);
@@ -74,26 +78,30 @@ public class ProjectController  extends CrossOriginSupport {
 
     @RequestMapping(value = "/all", method = GET)
     public Page<Project> findAllProjects(
-           @RequestParam(value = FILTER_START_DATE, required = false) String startDate,
-           @RequestParam(value = FILTER_END_DATE, required = false) String endDate,
-           @RequestParam(value = FILTER_PERFORMANCE_START, required = false) String performanceStart,
-           @RequestParam(value = FILTER_PERFORMANCE_END, required = false) String performanceEnd,
-           @RequestParam(value = FILTER_SECTOR, required = false) String sectors,
-           @RequestParam(value = FILTER_STATUS, required = false) String statuses,
-           @RequestParam(value = FILTER_LOCATION, required = false) String locations,
-           @RequestParam(value = FILTER_PROJECT, required = false) String projects,
-           @RequestParam(value = FILTER_IMPLEMENTING_AGENCY, required = false) String impAgencies,
-           @RequestParam(value = FILTER_FUNDING_AGENCY, required = false) String fundingAgencies,
-           @RequestParam(value = FILTER_FLOW_TYPE, required = false) String flowTypes,
-           @RequestParam(value = FILTER_PROJECT_TITLE, required = false) String projectTitle,
-           @RequestParam(value = FILTER_PHYSICAL_STATUS, required = false) String physicalStatuses,
-           @RequestParam(value = FILTER_CLIMATE_CHANGE, required = false) String climateChange,
-           @RequestParam(value = FILTER_GENDER_RESPONSIVENESS, required = false) String genderResponsiveness,
-           @RequestParam(value = FILTER_FINANCIAL_AMOUNT_MAX, required = false) Double financialAmountMax,
-           @RequestParam(value = FILTER_FINANCIAL_AMOUNT_MIN, required = false) Double financialAmountMin) {
+            @RequestParam(value = FILTER_START_DATE_MAX, required = false) String startDateMax,
+            @RequestParam(value = FILTER_START_DATE_MIN, required = false) String startDateMin,
+            @RequestParam(value = FILTER_END_DATE_MAX, required = false) String endDateMax,
+            @RequestParam(value = FILTER_END_DATE_MIN, required = false) String endDateMin,
+            @RequestParam(value = FILTER_PERFORMANCE_START_MAX, required = false) String performanceStartMax,
+            @RequestParam(value = FILTER_PERFORMANCE_START_MIN, required = false) String performanceStartMin,
+            @RequestParam(value = FILTER_PERFORMANCE_END_MAX, required = false) String performanceEndMax,
+            @RequestParam(value = FILTER_PERFORMANCE_END_MIN, required = false) String performanceEndMin,
+            @RequestParam(value = FILTER_SECTOR, required = false) String sectors,
+            @RequestParam(value = FILTER_STATUS, required = false) String statuses,
+            @RequestParam(value = FILTER_LOCATION, required = false) String locations,
+            @RequestParam(value = FILTER_PROJECT, required = false) String projects,
+            @RequestParam(value = FILTER_IMPLEMENTING_AGENCY, required = false) String impAgencies,
+            @RequestParam(value = FILTER_FUNDING_AGENCY, required = false) String fundingAgencies,
+            @RequestParam(value = FILTER_FLOW_TYPE, required = false) String flowTypes,
+            @RequestParam(value = FILTER_PROJECT_TITLE, required = false) String projectTitle,
+            @RequestParam(value = FILTER_PHYSICAL_STATUS, required = false) String physicalStatuses,
+            @RequestParam(value = FILTER_CLIMATE_CHANGE, required = false) String climateChange,
+            @RequestParam(value = FILTER_GENDER_RESPONSIVENESS, required = false) String genderResponsiveness,
+            @RequestParam(value = FILTER_FINANCIAL_AMOUNT_MAX, required = false) Double financialAmountMax,
+            @RequestParam(value = FILTER_FINANCIAL_AMOUNT_MIN, required = false) Double financialAmountMin) {
         LOGGER.debug("findAllProjects");
-        Parameters params = new Parameters(startDate, endDate, performanceStart,
-                performanceEnd, sectors, statuses, locations,
+        Parameters params = new Parameters(startDateMax, startDateMin, endDateMax, endDateMin, performanceStartMax,
+                performanceStartMin, performanceEndMax, performanceEndMin, sectors, statuses, locations,
                 projects, impAgencies, fundingAgencies, flowTypes,
                 projectTitle, physicalStatuses, climateChange, genderResponsiveness,
                 financialAmountMin, financialAmountMax, null);
@@ -103,10 +111,14 @@ public class ProjectController  extends CrossOriginSupport {
 
     @RequestMapping(value = "/count", method = GET)
     public StatsResponse countProjects(
-            @RequestParam(value = FILTER_START_DATE, required = false) String startDate,
-            @RequestParam(value = FILTER_END_DATE, required = false) String endDate,
-            @RequestParam(value = FILTER_PERFORMANCE_START, required = false) String performanceStart,
-            @RequestParam(value = FILTER_PERFORMANCE_END, required = false) String performanceEnd,
+            @RequestParam(value = FILTER_START_DATE_MAX, required = false) String startDateMax,
+            @RequestParam(value = FILTER_START_DATE_MIN, required = false) String startDateMin,
+            @RequestParam(value = FILTER_END_DATE_MAX, required = false) String endDateMax,
+            @RequestParam(value = FILTER_END_DATE_MIN, required = false) String endDateMin,
+            @RequestParam(value = FILTER_PERFORMANCE_START_MAX, required = false) String performanceStartMax,
+            @RequestParam(value = FILTER_PERFORMANCE_START_MIN, required = false) String performanceStartMin,
+            @RequestParam(value = FILTER_PERFORMANCE_END_MAX, required = false) String performanceEndMax,
+            @RequestParam(value = FILTER_PERFORMANCE_END_MIN, required = false) String performanceEndMin,
             @RequestParam(value = FILTER_SECTOR, required = false) String sectors,
             @RequestParam(value = FILTER_STATUS, required = false) String statuses,
             @RequestParam(value = FILTER_LOCATION, required = false) String locations,
@@ -121,8 +133,8 @@ public class ProjectController  extends CrossOriginSupport {
             @RequestParam(value = FILTER_FINANCIAL_AMOUNT_MAX, required = false) Double financialAmountMax,
             @RequestParam(value = FILTER_FINANCIAL_AMOUNT_MIN, required = false) Double financialAmountMin) {
         LOGGER.debug("countProjects");
-        Parameters params = new Parameters(startDate, endDate, performanceStart,
-                performanceEnd, sectors, statuses, locations,
+        Parameters params = new Parameters(startDateMax, startDateMin, endDateMax, endDateMin, performanceStartMax,
+                performanceStartMin, performanceEndMax, performanceEndMin, sectors, statuses, locations,
                 projects, impAgencies, fundingAgencies, flowTypes,
                 projectTitle, physicalStatuses, climateChange, genderResponsiveness,
                 financialAmountMin, financialAmountMax, null);

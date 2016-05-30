@@ -14,6 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static org.devgateway.geoph.util.Constants.*;
@@ -73,13 +74,12 @@ public class DefaultProjectRepository implements ProjectRepository {
     }
 
     @Override
-    public double getMaxFinancialAmount() {
-        return (Double)em.createNativeQuery("select max(p.total_project_amount) from Project p").getSingleResult();
-    }
-
-    @Override
-    public double getMinFinancialAmount() {
-        return (Double)em.createNativeQuery("select min(p.total_project_amount) from Project p").getSingleResult();
+    public List<Double> getFinancialAmountBoundaries() {
+        List<Double> ret = new ArrayList<>();
+        Object[] o = (Object[]) em.createNativeQuery("select max(p.total_project_amount), min(p.total_project_amount) from Project p").getSingleResult();
+        ret.add((Double)o[0]);
+        ret.add((Double)o[1]);
+        return ret;
     }
 
     @Override
@@ -91,6 +91,27 @@ public class DefaultProjectRepository implements ProjectRepository {
         response.setProjectCount(count);
         return response;
     }
+
+    @Override
+    public List<String> getImpPeriodBoundaries() {
+        List<String> ret = new ArrayList<>();
+        Object[] o = (Object[]) em.createNativeQuery("select max(p.start_date) as max_start_date, min(p.start_date) as min_start_date, max(p.end_date) as max_end_date, min(p.end_date) as min_end_date from project p").getSingleResult();
+        ret.add(((Date)o[0]).toString());
+        ret.add(((Date)o[1]).toString());
+        ret.add(((Date)o[2]).toString());
+        ret.add(((Date)o[3]).toString());
+        return ret;
+    }
+
+    @Override
+    public List<String> getGrantPeriodBoundaries() {
+        List<String> ret = new ArrayList<>();
+        Object[] o = (Object[]) em.createNativeQuery("select max(p.period_performance_start) as max_start_period, min(p.period_performance_start) as min_start_period, max(p.period_performance_end) as max_end_period, min(p.period_performance_end) as min_end_period from project p").getSingleResult();
+        ret.add(((Date)o[0]).toString());
+        ret.add(((Date)o[1]).toString());
+        ret.add(((Date)o[2]).toString());
+        ret.add(((Date)o[3]).toString());
+        return ret;    }
 
     private TypedQuery<Project> getProjectTypedQuery(Parameters params) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
