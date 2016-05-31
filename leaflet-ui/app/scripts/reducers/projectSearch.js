@@ -22,7 +22,11 @@ const projectSearch = (state = {'selected': [], 'results': {}}, action) => {
     case Constants.SELECT_ALL_MATCHED_PROJECT:
       stateCloned = cloneDeep(state);
       stateCloned.results.content.forEach((item) => {
-        stateCloned.selected.push(item);
+        let isAlreadyAdded = false;
+        stateCloned.selected.forEach((it) => {it.id==item.id? isAlreadyAdded=true : null;});
+        if (!isAlreadyAdded){
+          stateCloned.selected.push(item);
+        }
       })
       return stateCloned;
     case Constants.CLEAR_ALL_PROJECT_SELECTED:
