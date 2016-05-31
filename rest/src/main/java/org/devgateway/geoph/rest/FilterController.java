@@ -241,19 +241,15 @@ public class FilterController extends CrossOriginSupport {
     @RequestMapping(value = "/impPeriod", method = GET)
     public GenericResponse findImpPeriod() {
         LOGGER.debug("findImpPeriod");
-        List<Map<String, String>> maxDates = new ArrayList<>();
-        Map<String, String> maxDatesMap = new HashMap<>();
-        maxDatesMap.put("minDate", "2010-01-01");
-        maxDatesMap.put("maxDate", "2020-12-31");
-        maxDates.add(maxDatesMap);
+        List<String> impPeriodList = service.findImpPeriodBoundaries();
 
         GenericResponse resp = new GenericResponse(
                 "Implementation Period",
-                FILTER_START_DATE + SLASH + FILTER_END_DATE,
+                FILTER_START_DATE_MAX + SLASH + FILTER_START_DATE_MIN + SLASH + FILTER_END_DATE_MAX + SLASH + FILTER_END_DATE_MIN,
                 "IMP_PERIOD_SECTION",
                 1,
-                maxDates,
-                maxDates!=null?maxDates.size():0
+                impPeriodList,
+                impPeriodList!=null?impPeriodList.size():0
         );
 
         return resp;
@@ -262,19 +258,15 @@ public class FilterController extends CrossOriginSupport {
     @RequestMapping(value = "/grantPeriod", method = GET)
     public GenericResponse findGrantPeriod() {
         LOGGER.debug("findGrantPeriod");
-        List<Map<String, String>> maxDates = new ArrayList<>();
-        Map<String, String> maxDatesMap = new HashMap<>();
-        maxDatesMap.put("minDate", "2010-01-01");
-        maxDatesMap.put("maxDate", "2020-12-31");
-        maxDates.add(maxDatesMap);
+        List<String> grantPeriodList = service.findGrantPeriodBoundaries();
 
         GenericResponse resp = new GenericResponse(
                 "Performance Period",
-                FILTER_PERFORMANCE_START + SLASH + FILTER_PERFORMANCE_END,
+                FILTER_PERFORMANCE_START_MAX + SLASH + FILTER_PERFORMANCE_START_MIN + SLASH + FILTER_PERFORMANCE_END_MAX + SLASH + FILTER_PERFORMANCE_END_MIN,
                 "GRANT_PERIOD_SECTION",
                 1,
-                maxDates,
-                maxDates!=null?maxDates.size():0
+                grantPeriodList,
+                grantPeriodList!=null?grantPeriodList.size():0
         );
 
         return resp;

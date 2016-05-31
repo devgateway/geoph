@@ -61,9 +61,16 @@ public class LayerServiceImpl implements LayerService{
         Indicator indicator = indicatorRepository.findOne(indicatorId);
         List<IndicatorDetail> indicatorDetails = indicatorDetailRepository.findByIndicatorId(indicatorId);
         Map<Long, PostGisHelper> postGisHelperMap = new HashMap<>();
+        List<PostGisHelper> gisHelperList = null;
         if(indicator.getAdmLevel().toUpperCase().equals(LocationAdmLevelEnum.REGION.name())){
-            List<PostGisHelper> gisHelperList = locationRepository.getRegionShapesWithDetail(GeometryDetailLevelEnum.MEDIUM.getLevel());
-            for(PostGisHelper helper:gisHelperList){
+            gisHelperList = locationRepository.getRegionShapesWithDetail(GeometryDetailLevelEnum.MEDIUM.getLevel());
+        }else if(indicator.getAdmLevel().toUpperCase().equals(LocationAdmLevelEnum.PROVINCE.name())) {
+            gisHelperList = locationRepository.getProvinceShapesWithDetail(GeometryDetailLevelEnum.MEDIUM.getLevel());
+        } else if(indicator.getAdmLevel().toUpperCase().equals(LocationAdmLevelEnum.MUNICIPALITY.name())) {
+            gisHelperList = locationRepository.getMunicipalityShapesWithDetail(GeometryDetailLevelEnum.MEDIUM.getLevel());
+        }
+        if(gisHelperList!=null) {
+            for (PostGisHelper helper : gisHelperList) {
                 postGisHelperMap.put(helper.getLocationId(), helper);
             }
         }
