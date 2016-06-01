@@ -27,10 +27,10 @@ export const collectValues = (filters, projectSearch)=>{
 		if (filters[param].isRange){
 			selection=collectRange(filters[param]);
 			if(selection.minSelected){				
-				params[param+'_s']=selection.minSelected;			
+				params[param+'_min']=selection.minSelected;			
 			}
 			if(selection.maxSelected){				
-				params[param+'_e']=selection.maxSelected;			
+				params[param+'_max']=selection.maxSelected;			
 			}
 		} else {
 			selection=collect(options);

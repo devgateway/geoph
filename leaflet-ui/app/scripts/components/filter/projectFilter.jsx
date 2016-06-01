@@ -134,7 +134,7 @@ class ProjectFilter extends React.Component {
 			        			<div>No Results</div>
 			        		: 
 				        		projectSearchResults.content.map((item, idx) => {
-				        			if (idx<9){
+				        			if (idx<10){
 					        			return <div className="filterItemInfo">
 							        		<div className={this.validateSelection(item.id)} onClick={this.handleSelection.bind(this, item)} />
 								        	<div className="toggle-nav item-text" onClick={this.handleSelection.bind(this, item)}>

@@ -125,6 +125,10 @@
     border-bottom: none;
 }
 
+.modal-title{
+    font-weight: bold;
+}
+
 .modal-header .close {
     margin-top: -2px;
     color: #e1ebf1;
@@ -132,18 +136,6 @@
     font-weight: bolder;
     text-shadow: 0 0 0;
     opacity: 1;
-}
-
-.date-picker-container{
-  display: inline-flex;
-  width: 100%;
-}
-
-.date-picker-div{
-  width: 50%;
-  height: 90%;
-  padding-left: 20px;
-  padding-right: 20px;
 }
 
 .range-filter-container{
@@ -295,6 +287,23 @@
     width: 5px;
     background: #EDF2F5;
     height: 100%;
+}
+
+.date-picker-container{
+  display: inline-flex;
+  width: 100%;
+}
+
+.date-picker-div{
+  width: 50%;
+  height: 90%;
+  padding-left: 20px;
+  padding-right: 20px;
+  >span{
+    text-transform: uppercase;
+    color: #0746A9;
+    font-size: 12px;
+  }
 }
 
 
