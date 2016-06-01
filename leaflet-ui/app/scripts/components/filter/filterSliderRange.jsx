@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-//import InputRange from 'react-input-range';
+import InputRange from 'react-input-range';
 import { setFilterRange, fetchFilterDataIfNeeded } from '../../actions/filters';
 import { formatValue } from '../../util/transactionUtil';
-require('../extra/react-input-range');
+//require('../extra/react-input-range');
 
 
 class FilterSlider extends React.Component {
