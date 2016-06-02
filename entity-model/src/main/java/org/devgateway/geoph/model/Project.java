@@ -133,7 +133,7 @@ public class Project extends GenericPersistable implements Serializable {
     @Column(name = "target_owpa")
     private float targetOwpa;
 
-    @Column(name = "issue_type")
+    @Column(name = "issue_type", columnDefinition = "TEXT")
     private String issueType;
 
     @Column(name = "issue_detail", columnDefinition = "TEXT")

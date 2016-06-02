@@ -364,16 +364,16 @@ public class ImportDataController {
                 if(StringUtils.isNotBlank(tokens[7])) {
                     p.setTotalProjectAmountOriginal(Double.parseDouble(tokens[7].replace(".", "").replace(COMMA, ".").replaceAll("[^0-9?!\\.]", "")));
                 }*/
-                if(StringUtils.isNotBlank(tokens[28])) {
-                    p.setTotalProjectAmount(Double.parseDouble(tokens[28].replace(".", "").replace(COMMA, ".")));
+                if(tokens.length>35 && StringUtils.isNotBlank(tokens[35])) {
+                    p.setTotalProjectAmount(Double.parseDouble(tokens[35].replace(".", "").replace(COMMA, ".")));
                 }
 
-                if(StringUtils.isNotBlank(tokens[13])) {
+                if(StringUtils.isNotBlank(tokens[14])) {
                     Loan loan = new Loan();
-                    if(tokens[13].trim().equals("-") || tokens[13].trim().toLowerCase().equals("n/a")){
+                    if(tokens[14].trim().equals("-") || tokens[14].trim().toLowerCase().equals("n/a")){
                         loan.setAmount(0);
                     } else {
-                        loan.setAmount(Double.parseDouble(tokens[13].replace(".", "").replace(COMMA, ".")));
+                        loan.setAmount(Double.parseDouble(tokens[14].replace(".", "").replace(COMMA, ".")));
                     }
                     loan.setTransactionStatusId(2);
                     loan.setTransactionTypeId(2);
@@ -431,83 +431,83 @@ public class ImportDataController {
                     }
                     p.setLocations(ls);
                 }
-                if(tokens.length>25 && StringUtils.isNotBlank(tokens[25])) {
-                    p.setStatus(stMap.get(tokens[25].toLowerCase().trim()));
+                if(tokens.length>32 && StringUtils.isNotBlank(tokens[32])) {
+                    p.setStatus(stMap.get(tokens[32].toLowerCase().trim()));
                 }
-                if(tokens.length>31 &&StringUtils.isNotBlank(tokens[31])) {
-                    p.setPhysicalStatus(psMap.get(tokens[31].toLowerCase().trim()));
+                if(tokens.length>38 &&StringUtils.isNotBlank(tokens[38])) {
+                    p.setPhysicalStatus(psMap.get(tokens[38].toLowerCase().trim()));
                 }
-                if(tokens.length>26 &&StringUtils.isNotBlank(tokens[26])) {
-                    if(tokens[26].indexOf("/")<0){
-                        p.setPeriodPerformanceStart(formatter1.parse(tokens[26]));
+                if(tokens.length>33 &&StringUtils.isNotBlank(tokens[33])) {
+                    if(tokens[33].indexOf("/")<0){
+                        p.setPeriodPerformanceStart(formatter1.parse(tokens[33]));
                     } else{
-                        p.setPeriodPerformanceStart(formatter2.parse(tokens[26]));
+                        p.setPeriodPerformanceStart(formatter2.parse(tokens[33]));
                     }
                 }
-                if(tokens.length>27 &&StringUtils.isNotBlank(tokens[27])) {
-                    if(tokens[27].indexOf("/")<0){
-                        p.setPeriodPerformanceEnd(formatter1.parse(tokens[27]));
+                if(tokens.length>34 &&StringUtils.isNotBlank(tokens[34])) {
+                    if(tokens[34].indexOf("/")<0){
+                        p.setPeriodPerformanceEnd(formatter1.parse(tokens[34]));
                     } else{
-                        p.setPeriodPerformanceEnd(formatter2.parse(tokens[27]));
+                        p.setPeriodPerformanceEnd(formatter2.parse(tokens[34]));
                     }
                 }
-                int newFieldsHelp = 29;
+                int newFieldsHelp = 36;
                 if(tokens.length>newFieldsHelp+1 && StringUtils.isNotBlank(tokens[newFieldsHelp])) {
                     p.setActualOwpa(Float.parseFloat(tokens[newFieldsHelp].replace(".", "").replace(COMMA, ".")));
                 }
-                newFieldsHelp = 30;
+                newFieldsHelp = 37;
                 if(tokens.length>newFieldsHelp+1 && StringUtils.isNotBlank(tokens[newFieldsHelp])) {
                     p.setTargetOwpa(Float.parseFloat(tokens[newFieldsHelp].replace(".", "").replace(COMMA, ".")));
                 }
-                newFieldsHelp = 32;
+                newFieldsHelp = 39;
                 if(tokens.length>newFieldsHelp+1 && StringUtils.isNotBlank(tokens[newFieldsHelp])) {
                     p.setIssueType(tokens[newFieldsHelp]);
                 }
-                newFieldsHelp = 33;
+                newFieldsHelp = 40;
                 if(tokens.length>newFieldsHelp+1 && StringUtils.isNotBlank(tokens[newFieldsHelp])) {
                     p.setIssueDetail(tokens[newFieldsHelp]);
                 }
-                newFieldsHelp = 34;
+                newFieldsHelp = 41;
                 if(tokens.length>newFieldsHelp+1 && StringUtils.isNotBlank(tokens[newFieldsHelp])) {
                     p.setActionTakenIa(tokens[newFieldsHelp]);
                 }
-                newFieldsHelp = 35;
+                newFieldsHelp = 42;
                 if(tokens.length>newFieldsHelp+1 && StringUtils.isNotBlank(tokens[newFieldsHelp])) {
                     p.setActionToBeTakenIa(tokens[newFieldsHelp]);
                 }
-                newFieldsHelp = 36;
+                newFieldsHelp = 43;
                 if(tokens.length>newFieldsHelp+1 && StringUtils.isNotBlank(tokens[newFieldsHelp])) {
                     p.setActionTakenNeda(tokens[newFieldsHelp]);
                 }
-                newFieldsHelp = 37;
+                newFieldsHelp = 44;
                 if(tokens.length>newFieldsHelp+1 && StringUtils.isNotBlank(tokens[newFieldsHelp])) {
                     p.setAccomplishmentUpdate(tokens[newFieldsHelp]);
                 }
-                newFieldsHelp = 38;
+                newFieldsHelp = 45;
                 if(tokens.length>newFieldsHelp+1 && StringUtils.isNotBlank(tokens[newFieldsHelp])) {
                     p.setNatureRre(tokens[newFieldsHelp]);
                 }
-                newFieldsHelp = 39;
+                newFieldsHelp = 46;
                 if(tokens.length>newFieldsHelp+1 && StringUtils.isNotBlank(tokens[newFieldsHelp])) {
                     p.setReasonRre(tokens[newFieldsHelp]);
                 }
-                newFieldsHelp = 40;
+                newFieldsHelp = 47;
                 if(tokens.length>newFieldsHelp+1 && StringUtils.isNotBlank(tokens[newFieldsHelp])) {
                     p.setLevelRre(tokens[newFieldsHelp]);
                 }
-                newFieldsHelp = 41;
+                newFieldsHelp = 48;
                 if(tokens.length>newFieldsHelp+1 && StringUtils.isNotBlank(tokens[newFieldsHelp])) {
                     p.setDateRre(tokens[newFieldsHelp]);
                 }
-                newFieldsHelp = 42;
+                newFieldsHelp = 49;
                 if(tokens.length>newFieldsHelp+1 && StringUtils.isNotBlank(tokens[newFieldsHelp])) {
                     p.setIccNbAction(tokens[newFieldsHelp]);
                 }
-                newFieldsHelp = 43;
+                newFieldsHelp = 50;
                 if(tokens.length>newFieldsHelp+1 && StringUtils.isNotBlank(tokens[newFieldsHelp])) {
                     p.setIccNbConditions(tokens[newFieldsHelp]);
                 }
-                newFieldsHelp = 44;
+                newFieldsHelp = 51;
                 if(tokens.length>newFieldsHelp+1 && StringUtils.isNotBlank(tokens[newFieldsHelp])) {
                     p.setComplianceToConditions(tokens[newFieldsHelp]);
                 }
