@@ -65,9 +65,9 @@ const Layers=React.createClass({
 	
 	var children=this.props.layers.map((l)=>{
 			if (l.get('layers')){
-				return <Layers map={this.props.map} layers={l.get('layers')}/>
-			}else{ 
-				return <Layer map={this.props.map} layer={l}/>
+				return <Layers key={l.get('id')} map={this.props.map} layers={l.get('layers')}/>
+			} else { 
+				return <Layer key={l.get('id')} map={this.props.map} layer={l}/>
 			}
 		})
 			

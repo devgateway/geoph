@@ -134,6 +134,9 @@ class D3Layer extends MapLayer {
   }
 
   renderPopupContent(charts) {
+    if (!this.state){
+      return null;
+    }
     let feature = this.state.popupFeature;
     let popup = L.popup({maxWidth:"400", minWidth:"400", maxHeight:"280"})
     .setLatLng(L.latLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]))

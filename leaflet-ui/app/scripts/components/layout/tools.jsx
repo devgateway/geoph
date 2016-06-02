@@ -3,29 +3,53 @@ import { connect } from 'react-redux'
 import {LayerControl} from '../controls/layer';
 import ExpandableControl from '../controls/expandableControl';
 import ProjectFilter from '../filter/projectFilter';
+import { loadDefaultLayers } from '../../actions/map';
+import { collectValues } from '../../util/filterUtil';
+require('./tools.scss');
 
-export default class Tools extends React.Component {
+class Tools extends React.Component {
 
   constructor() {
     super();
   }
 
+  componentDidMount(){
+    let filters = collectValues(this.props.filters, this.props.projectSearch);
+    this.props.onLoadDefaultLayers(this.props.layers, filters);
+  }
 
   render() {
-  	
     return (
     	<div className="tools-view">
-            <hr/>
-            <ExpandableControl title="Project Search">
-              <div><ProjectFilter/></div>
-            </ExpandableControl>
-            <LayerControl/>
-            
-        </div>
-      )
+        <hr/>
+        <ExpandableControl title="Project Search" iconPath="url('../../../assets/sprites.png') -30px -3px">
+          <div><ProjectFilter/></div>
+        </ExpandableControl>
+        <ExpandableControl title="Adjust layers to see detailed data" defaultExpanded={true}  iconPath="url('../../../assets/sprites.png') 0px 0px">
+          <div><LayerControl/></div>
+        </ExpandableControl>        
+      </div>
+    )
   }
 }
 
- 
+const stateToProps = (state, props) => {
+  return {
+    layers: state.map.get('layers'),
+    filters: state.filters.filterMain,
+    projectSearch: state.projectSearch
+  };
+ }
+
+
+ const dispatchToProps = (dispatch, ownProps) => {
+  return {
+    onLoadDefaultLayers: (layers, filters) => {
+      dispatch(loadDefaultLayers(layers, filters));
+    }
+  }
+ }
+
+export default connect(stateToProps,dispatchToProps)(Tools);
 
 

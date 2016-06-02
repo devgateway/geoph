@@ -4,99 +4,94 @@ import Immutable from 'immutable';
 
 const defaultState = Immutable.fromJS({
   basemap: {name: 'street', url: '//server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}'},
-  layers: [{
-    id: '0',
-    keyName: 'projects',
-    layers: [{
-      id: '02',
+  layers: [
+    {
+      id: '0',
+      defaultLoaded: true,
       ep:'PROJECT_GEOJSON',
-      settings:{'level':'region','css':'yellow'},
-      keyName: 'project',
+      settings:{'level': 'region','css': 'yellow'},
+      keyName: 'projects',
       'cssPrefix':'points',
       'zIndex':100, 
-    }]
-  }, {
-    id: '1',
-    keyName: 'stats',
-    layers: [{
-      id: '10',
-      ep:'FUNDING_GEOJSON',
-      settings:{'quality':0.1,'css':'red'},
-      keyName: 'funding',
-      'cssPrefix':'shapes',
-      'zIndex':99,
-    }, {
-      id: '11',
-      keyName: 'indicators',
+    }, 
+    {
+      id: '1',
+      keyName: 'stats',
       layers: [{
-        id: '111',
-        keyName: 'poverty'
+        id: '10',
+        ep:'FUNDING_GEOJSON',
+        settings:{'quality':0.1,'css':'red'},
+        keyName: 'funding',
+        'cssPrefix':'shapes',
+        'zIndex':99,
       }, {
-        id: '112',
-        keyName: 'population'
+        id: '11',
+        keyName: 'indicators',
+        layers: [{
+          id: '111',
+          keyName: 'poverty'
+        }, {
+          id: '112',
+          keyName: 'population'
+        }]
       }]
-    }]
-  }, {
-    id: '2',
-    keyName: 'geophotos'
-  }]
+    }, 
+    {
+      id: '2',
+      keyName: 'geophotos'
+    }
+  ]
 });
 
 
 
-const setPropsToLayer=(layers,id,properties)=>{
+const setPropsToLayer=(layers, id, properties)=>{
   return layers.map((l)=>{
-
     if (l.get('id')==id){
       return l.merge(properties);
-    }else if(l.get('layers')){
-     l=l.set('layers', setPropsToLayer(l.get('layers'),id,properties))
-     return l;
-   }
-
-   return l;
-
- });
+    } else if (l.get('layers')){
+      l=l.set('layers', setPropsToLayer(l.get('layers'), id, properties))
+      return l;
+    }
+    return l;
+  });
 }
 
-const setSettingToLayer=(layers,id,name,value)=>{
+const setSettingToLayer=(layers, id, name, value)=>{
   return layers.map((l)=>{
     if (l.get('id')==id){
-      return l.setIn(['settings',name],value);
-    }else if(l.get('layers')){
-     return l.set('layers', setSettingToLayer(l.get('layers'),id,name,value));
-   }
-   return l;
- });
+      return l.setIn(['settings', name], value);
+    } else if (l.get('layers')){
+      return l.set('layers', setSettingToLayer(l.get('layers'), id, name, value));
+    }
+    return l;
+  });
 }
 
-const setProps=(layers,props)=>{
+const setProps=(layers, props)=>{
   return layers.map((l)=>{
     if (l.get('layers')){
-      l=l.set('layers',setProps(l.get('layers'),props));
+      l=l.set('layers', setProps(l.get('layers'), props));
     }
     return l.merge(props);
-
   })
 }
 
 
-const toogle=(layers,id,property)=>{
-
+const toogle=(layers, id, property)=>{
   return layers.map((l)=>{
     if (l.get('id')==id || id==null){
-            l=l.set(property,!l.get(property)); //toggle property of current layer
-            if (l.get('layers')){
-              //if it is a group update child with curren parrent value
-              l=l.set('layers', setProps(l.get('layers'),{'visible':l.get('visible')})) 
-            }
-            return l;
-
-          }else if(l.get('layers')){
-           return l.set('layers',toogle(l.get('layers'),id,property))
-         }
-         return l;
-       })
+      l=l.set(property, !l.get(property)); //toggle property of current layer
+      if (l.get('layers')){
+          //if it is a group update child with curren parrent value
+        l=l.set('layers', setProps(l.get('layers'), {'visible':l.get('visible')})) 
+      }
+      return l;
+    } else if (l.get('layers')){
+       return l.set('layers', toogle(l.get('layers'), id, property))
+    }
+    return l;
+  })
 }
 
 
@@ -105,14 +100,14 @@ const map = (state = defaultState, action) => {
   switch (action.type) {
 
     case TOGGLE_LAYER:
-    return state.set('layers',toogle(state.get('layers'),action.id,'visible'));
+    return state.set('layers', toogle(state.get('layers'), action.id,'visible'));
 
     case SET_LAYER_SETTING:
     console.log(action.name+'--'+action.value);
-    return state.set('layers',setSettingToLayer(state.get('layers'),action.id,action.name,action.value));
+    return state.set('layers', setSettingToLayer(state.get('layers'), action.id, action.name, action.value));
 
     case LAYER_LOAD_SUCCESS:
-    newState= state.set('layers',setPropsToLayer(state.get('layers'),action.id,{data:action.data}));    
+    newState= state.set('layers', setPropsToLayer(state.get('layers'), action.id, {data:action.data}));    
     return newState;
     
     case SET_BASEMAP:
