@@ -22,10 +22,10 @@ class Tools extends React.Component {
     return (
     	<div className="tools-view">
         <hr/>
-        <ExpandableControl title="Project Search" iconPath="url('../../../assets/sprites.png') -30px -3px">
+        <ExpandableControl title="Project Search" iconClass="search-icon">
           <div><ProjectFilter/></div>
         </ExpandableControl>
-        <ExpandableControl title="Adjust layers to see detailed data" defaultExpanded={true}  iconPath="url('../../../assets/sprites.png') 0px 0px">
+        <ExpandableControl title="Adjust layers to see detailed data" defaultExpanded={true}  iconClass="layers-icon">
           <div><LayerControl/></div>
         </ExpandableControl>        
       </div>

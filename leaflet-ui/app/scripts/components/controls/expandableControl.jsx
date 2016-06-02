@@ -15,7 +15,7 @@ const Expandable = React.createClass({
     return (
       <div className={(this.state.expanded==true)?"expandable-control":"expandable-control collapsed"}>
         <div className="title" onClick={this.toggleView}>
-          <div className="icon"><div style={{background: this.props.iconPath}}/></div>
+          <div className="icon"><div className={this.props.iconClass}/></div>
           {this.props.title}
           <div className="toggle">
             <span>{(this.state.expanded==true)?'-':'+'}</span>

@@ -19,7 +19,6 @@
 			margin-top: 1px;
 			padding-top: 3px;
 			>div{
-				
 				@include box-sizing(26px,26px)
 				margin: 0 auto;
 			}
@@ -32,6 +31,14 @@
 			}
 		}
 	}
+}
+
+.search-icon{
+	background: url('../../../assets/sprites.png') -30px -3px;				
+}
+
+.layers-icon{
+	background: url('../../../assets/sprites.png') 0px 0px;				
 }
 
 .expandable-control.collapsed{
