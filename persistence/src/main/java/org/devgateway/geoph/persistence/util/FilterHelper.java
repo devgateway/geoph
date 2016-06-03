@@ -40,7 +40,12 @@ public class FilterHelper {
                 }
                 if (params.getLocations() != null) {
                     Join<Project, Location> locationJoin = projectRoot.join(Project_.locations);
-                    predicates.add(locationJoin.get(Location_.id).in(params.getLocations()));
+                    Predicate findInAnyAdmLevel = criteriaBuilder.or(
+                            locationJoin.get(Location_.id).in(params.getLocations()),
+                            locationJoin.get(Location_.regionId).in(params.getLocations()),
+                            locationJoin.get(Location_.provinceId
+                            ).in(params.getLocations()));
+                    predicates.add(findInAnyAdmLevel);
                 }
                 if (params.getStartDateMin() != null) {
                     predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectRoot.get(Project_.startDate), params.getStartDateMin()));
