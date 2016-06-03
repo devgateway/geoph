@@ -147,8 +147,12 @@ public class GeoJsonServiceImpl implements GeoJsonService {
                             }
                         }
                         lp.addTransactionCount((Long)objectList[2]);
-                        lp.setActualPhysicalProgressAverage((Double)objectList[3]/(Long)objectList[4]);
-                        lp.setTargetPhysicalProgressAverage((Double)objectList[5]/(Long)objectList[6]);
+                        if(objectList[3]!=null && objectList[4]!=null){
+                            lp.setActualPhysicalProgressAverage((Double)objectList[3]/(Long)objectList[4]);
+                        }
+                        if(objectList[5]!=null && objectList[6]!=null){
+                            lp.setTargetPhysicalProgressAverage((Double)objectList[5]/(Long)objectList[6]);
+                        }
                     }
                 }
             }
