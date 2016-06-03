@@ -92,7 +92,7 @@ public class ChartServiceImpl implements ChartService {
         List<Map<String, Object>> impAgenciesList = new ArrayList<>();
         boolean showAll = false;
         Set<Long> iaParamsSet = new HashSet<>();
-        if(params.getImpAgencies()==null && params.getImpAgencies().size()>0) {
+        if(params==null || params.getImpAgencies()==null || params.getImpAgencies().size()>0) {
             showAll = true;
         } else {
             for(Long iaId : params.getImpAgencies()){
