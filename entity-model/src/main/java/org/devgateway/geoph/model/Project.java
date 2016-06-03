@@ -128,10 +128,10 @@ public class Project extends GenericPersistable implements Serializable {
     private Set<GenderResponsiveness> genderResponsiveness;
 
     @Column(name = "actual_owpa")
-    private float actualOwpa;
+    private Float actualOwpa;
 
     @Column(name = "target_owpa")
-    private float targetOwpa;
+    private Float targetOwpa;
 
     @Column(name = "issue_type", columnDefinition = "TEXT")
     private String issueType;
@@ -361,19 +361,19 @@ public class Project extends GenericPersistable implements Serializable {
         this.genderResponsiveness = genderResponsiveness;
     }
 
-    public float getActualOwpa() {
+    public Float getActualOwpa() {
         return actualOwpa;
     }
 
-    public void setActualOwpa(float actualOwpa) {
+    public void setActualOwpa(Float actualOwpa) {
         this.actualOwpa = actualOwpa;
     }
 
-    public float getTargetOwpa() {
+    public Float getTargetOwpa() {
         return targetOwpa;
     }
 
-    public void setTargetOwpa(float targetOwpa) {
+    public void setTargetOwpa(Float targetOwpa) {
         this.targetOwpa = targetOwpa;
     }
 
