@@ -147,6 +147,12 @@ public class GeoJsonServiceImpl implements GeoJsonService {
                             }
                         }
                         lp.addTransactionCount((Long)objectList[2]);
+                        if(objectList[3]!=null && objectList[4]!=null){
+                            lp.setActualPhysicalProgressAverage((Double)objectList[3]/(Long)objectList[4]);
+                        }
+                        if(objectList[5]!=null && objectList[6]!=null){
+                            lp.setTargetPhysicalProgressAverage((Double)objectList[5]/(Long)objectList[6]);
+                        }
                     }
                 }
             }
@@ -204,6 +210,8 @@ public class GeoJsonServiceImpl implements GeoJsonService {
             feature.setProperty(PROPERTY_LOC_COMMITMENTS, location.getCommitments());
             feature.setProperty(PROPERTY_LOC_DISBURSEMENTS, location.getDisbursements());
             feature.setProperty(PROPERTY_LOC_EXPENDITURES, location.getExpenditures());
+            feature.setProperty(PROPERTY_LOC_ACTUAL_PHY_AVG, location.getActualPhysicalProgressAverage());
+            feature.setProperty(PROPERTY_LOC_TARGET_PHY_AVG, location.getTargetPhysicalProgressAverage());
             featureCollection.add(feature);
         }
 

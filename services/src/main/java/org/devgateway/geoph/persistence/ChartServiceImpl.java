@@ -90,15 +90,26 @@ public class ChartServiceImpl implements ChartService {
     public List<Map<String, Object>> getFundingByImplementingAgency(Parameters params) {
         List<Object> impAgenciesResults = implementingAgencyRepository.findFundingByImplementingAgency(params);
         List<Map<String, Object>> impAgenciesList = new ArrayList<>();
+        boolean showAll = false;
+        Set<Long> iaParamsSet = new HashSet<>();
+        if(params==null || params.getImpAgencies()==null || params.getImpAgencies().size()==0) {
+            showAll = true;
+        } else {
+            for(Long iaId : params.getImpAgencies()){
+                iaParamsSet.add(iaId);
+            }
+        }
         for(Object o:impAgenciesResults) {
-            Map<String, Object> impAgencyMap = new HashMap<>();
             Object[] objectList = ((Object[]) o);
-            ImplementingAgency ia = (ImplementingAgency)objectList[0];
-            impAgencyMap.put("id", ia.getId().toString());
-            impAgencyMap.put("name", ia.getName());
-            impAgencyMap.put("code", ia.getCode());
-            addFundingValues(impAgencyMap, objectList);
-            impAgenciesList.add(impAgencyMap);
+            ImplementingAgency ia = (ImplementingAgency) objectList[0];
+            if(showAll || iaParamsSet.contains(ia.getId())) {
+                Map<String, Object> impAgencyMap = new HashMap<>();
+                impAgencyMap.put("id", ia.getId().toString());
+                impAgencyMap.put("name", ia.getName());
+                impAgencyMap.put("code", ia.getCode());
+                addFundingValues(impAgencyMap, objectList);
+                impAgenciesList.add(impAgencyMap);
+            }
         }
         return impAgenciesList;
     }

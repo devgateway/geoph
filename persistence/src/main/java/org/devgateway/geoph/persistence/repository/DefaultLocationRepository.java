@@ -138,6 +138,11 @@ public class DefaultLocationRepository implements LocationRepository {
             addTransactionJoin(criteriaBuilder, multiSelect, projectJoin, trxTypeId, trxStatusId);
         }
 
+        multiSelect.add(criteriaBuilder.sum(projectJoin.get(Project_.actualOwpa)));
+        multiSelect.add(criteriaBuilder.countDistinct(projectJoin.get(Project_.actualOwpa)));
+        multiSelect.add(criteriaBuilder.sum(projectJoin.get(Project_.targetOwpa)));
+        multiSelect.add(criteriaBuilder.countDistinct(projectJoin.get(Project_.targetOwpa)));
+
         FilterHelper.filterLocationQuery(params, criteriaBuilder, locationRoot, predicates, projectJoin);
 
         Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));

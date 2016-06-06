@@ -25,6 +25,10 @@ public class LocationProperty {
 
     private long transactionCount = 0;
 
+    private double actualPhysicalProgressAverage;
+
+    private double targetPhysicalProgressAverage;
+
     private Map<String, Double> commitments = new HashMap<>();
 
     private Map<String, Double> disbursements = new HashMap<>();
@@ -147,11 +151,26 @@ public class LocationProperty {
         }
     }
 
-
-
     public void addExpenditure(String type, Double addValue){
         if(addValue!=null){
             expenditures.put(type, expenditures.get(type)!=null?expenditures.get(type) + addValue:addValue);
         }
     }
+
+    public double getActualPhysicalProgressAverage() {
+        return actualPhysicalProgressAverage;
+    }
+
+    public void setActualPhysicalProgressAverage(double actualPhysicalProgressAverage) {
+        this.actualPhysicalProgressAverage = actualPhysicalProgressAverage;
+    }
+
+    public double getTargetPhysicalProgressAverage() {
+        return targetPhysicalProgressAverage;
+    }
+
+    public void setTargetPhysicalProgressAverage(double targetPhysicalProgressAverage) {
+        this.targetPhysicalProgressAverage = targetPhysicalProgressAverage;
+    }
+
 }
