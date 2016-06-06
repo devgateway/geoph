@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Modal, Button} from 'react-bootstrap';
 import FilterTabs from './filterTabs.jsx';
-import {applyFilter, openFilter, cancelFilter, resetFilter}  from '../../actions/filters.js'
+import {applyFilter, openFilter, cancelFilter, resetFilter}  from '../../actions/filters';
+import { clearAllResults, clearAllProjectSelected } from '../../actions/projectSearch';
 import { connect } from 'react-redux'
 require('./filters.scss');
 
@@ -44,8 +45,8 @@ class FilterPopup extends React.Component {
 		return (
     	<li onClick={this.showFilterPopup.bind(this)}><div className="options-icons filters"></div>Filters
 			<Modal bsSize='large' aria-labelledby='contained-modal-title-lg'
-			 show={this.state.showModal} onHide={this.cancel.bind(this)}>
-				<Modal.Header>
+			 show={this.state.showModal} onHide={this.cancel.bind(this)} >
+				<Modal.Header closeButton >
 					<Modal.Title>
 						Filters
 					</Modal.Title>
@@ -69,14 +70,19 @@ class FilterPopup extends React.Component {
 const mapDispatchToProps = (dispatch, ownProps) => {
  return {
     onFilterApply: () => {
+      dispatch(clearAllResults());
+      dispatch(clearAllProjectSelected());
       dispatch(applyFilter());
     },
+
     onFilterCancel: () => {
       dispatch(cancelFilter());
     },
+
     onFilterOpen: () => {
       dispatch(openFilter());
     },
+
     onFilterReset: () => {
       dispatch(resetFilter());
     }

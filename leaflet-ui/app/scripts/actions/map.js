@@ -17,16 +17,16 @@ const loadLayerFailed=(type,error)=>{
 
 export const applyFiltersToLayers=(filters)=>{
 	return (dispatch, getState) => {		
-		loadLayerTree(dispatch,getState,getState().map.get('layers'), filters, true);
+		loadLayerTree(dispatch, getState, getState().map.get('layers'), filters, true);
 	}	
 }
 
-const loadLayerTree=(dispatch,getState,layers,filters,force)=>{
+const loadLayerTree=(dispatch, getState, layers, filters, force)=>{
 	layers.forEach((l)=>{
 		if (l.get('layers')){ //it is a group 
-			loadLayerTree(dispatch,getState,l.get('layers'),filters,force);
+			loadLayerTree(dispatch, getState, l.get('layers'), filters, force);
 		}else if (l.get('visible') && (!l.get('data')||force)){
-			const options={id:l.get('id'),ep:l.get('ep'),settings:l.get('settings').toObject(), filters: filters};
+			const options={id:l.get('id'), ep:l.get('ep'), settings:l.get('settings').toObject(), filters: filters};
 			dispatch(loadLayer(options,getState));
 		}
 	})
@@ -46,20 +46,20 @@ const loadLayerById=(dispatch,getState,layers,filters,id)=>{
 }
 
 
-export const toggleVisibility=(id,visible,params)=>{
+export const toggleVisibility=(id, visible, filters)=>{
 	return (dispatch, getState) => {
 		dispatch({
 			type: TOGGLE_LAYER,
 			id
 		});
-		loadLayerById(dispatch,getState,getState().map.get('layers'),{},id);
+		loadLayerById(dispatch, getState, getState().map.get('layers'), filters, id);
 	}
 }
 
 
 
 
-export const setSetting=(id,name,value)=>{
+export const setSetting=(id, name, value, filters)=>{
 	//TODO:reload layer if setting is quality or level
 	return (dispatch, getState) => {
 		dispatch({
@@ -68,7 +68,7 @@ export const setSetting=(id,name,value)=>{
 			name,
 			value
 		});
-		loadLayerTree(dispatch,getState,getState().map.get('layers'),{},true);
+		loadLayerTree(dispatch, getState, getState().map.get('layers'), filters, true);
 	}
 
 

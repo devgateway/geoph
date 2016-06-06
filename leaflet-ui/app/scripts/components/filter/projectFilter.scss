@@ -1,0 +1,29 @@
+
+.project-search{
+	padding: 20px;
+
+}
+
+.keyword-input-empty {
+	background-color: #eee !important;
+}
+
+.item-text {
+	font-size: 14px;
+	color: #333;
+	font-weight: bold;
+}
+
+.filterItemInfo div{
+  padding-bottom: 1px;
+}
+
+.project-search-actions{
+	padding-bottom: 10px;
+	>a{
+		font-size: 13px;
+	    margin-bottom: 15px;
+	    padding-left: 3px;
+	    padding-right: 3px;
+	}
+}

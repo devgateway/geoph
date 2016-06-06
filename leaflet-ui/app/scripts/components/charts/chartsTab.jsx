@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import Chart from '../charts/chartComponent'
 import { fetchChartData } from '../../actions/charts.js'
+import {collectValues} from '../../util/filterUtil';
 
 class Charts extends React.Component {
 
@@ -10,11 +11,12 @@ class Charts extends React.Component {
   }
 
   componentDidMount() {
-    this.props.onLoadChartData();    
+    let filters = collectValues(this.props.filters, this.props.projectSearch);
+    this.props.onLoadChartData(filters);    
   }
 
   render() {
-    let charts = this.props.charts && this.props.charts.sideCharts? this.props.charts.sideCharts : {}
+    let charts = this.props.charts? this.props.charts : {}
     return (
       <div className="chart-view">
         <p>Explore this in-depth profile of Philippines to find out overall lorem ipsum dolor sit amet, consectetur elit. </p>
@@ -47,8 +49,8 @@ class Charts extends React.Component {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    onLoadChartData: () => {
-      dispatch(fetchChartData());
+    onLoadChartData: (filters) => {
+      dispatch(fetchChartData(filters));
     }
   }
 }
@@ -57,7 +59,9 @@ const mapStateToProps = (state, props) => {
   return {
     charts: state.charts, 
     language: state.language,
-    fundingType: state.settings.fundingType
+    fundingType: state.settings.fundingType,
+    filters: state.filters.filterMain,
+    projectsSelected: state.projectSearch
   }
 }
 

@@ -25,11 +25,3 @@ export const fetchChartData = (filters) => {
     .then(req => dispatch(receiveChartData(req, false)))
   }
 }
-
-export const fetchPopupChartData = (filters) => {
-  return dispatch => {
-    dispatch(requestChartData(true));
-    return Connector.getChartData(filters)
-    .then(req => dispatch(receiveChartData(req, true)))
-  }
-}

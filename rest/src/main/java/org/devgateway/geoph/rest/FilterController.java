@@ -41,7 +41,7 @@ public class FilterController extends CrossOriginSupport {
         List<ClimateChange> climateChanges = service.findAllClimateChanges();
         Collections.sort(climateChanges);
         GenericResponse resp = new GenericResponse(
-                "Climate Change",
+                "Relevance to Climate",
                 FILTER_CLIMATE_CHANGE,
                 "CLIMATE_CHANGE_SECTION",
                 1,
@@ -57,7 +57,7 @@ public class FilterController extends CrossOriginSupport {
         LOGGER.debug("findAllGenderResponsiveness");
         List<GenderResponsiveness> genderResponsiveness = service.findAllGenderResponsiveness();
         GenericResponse resp = new GenericResponse(
-                "Gender Responsiveness",
+                "Gender",
                 FILTER_GENDER_RESPONSIVENESS,
                 "GENDER_RESPONSIVENESS_SECTION",
                 1,
@@ -89,7 +89,7 @@ public class FilterController extends CrossOriginSupport {
         LOGGER.debug("findAllFlowTypes");
         List<Map<String, Object>> flowTypes = service.findAllFlowTypes();
         GenericResponse resp = new GenericResponse(
-                "Flow Types",
+                "Funding Type",
                 FILTER_FLOW_TYPE,
                 "FLOW_TYPE_SECTION",
                 1,
@@ -106,7 +106,7 @@ public class FilterController extends CrossOriginSupport {
         List<FundingAgency> fundingAgencies = service.findAllFundingAgencies();
         Collections.sort(fundingAgencies);
         GenericResponse resp = new GenericResponse(
-                "Funding Agencies",
+                "Financing Institution",
                 FILTER_FUNDING_AGENCY,
                 "FUNDING_ORG_SECTION",
                 1,
@@ -123,7 +123,7 @@ public class FilterController extends CrossOriginSupport {
         List<ImplementingAgency> impAgencies = service.findAllImpAgencies();
         Collections.sort(impAgencies);
         GenericResponse resp = new GenericResponse(
-                "Implementing Agencies",
+                "Implementing Agency",
                 FILTER_IMPLEMENTING_AGENCY,
                 "IMPLEMENTING_AGENCY_SECTION",
                 1,
@@ -140,7 +140,7 @@ public class FilterController extends CrossOriginSupport {
         List<PhysicalStatus> physicalStatuses = service.findAllPhysicalStatus();
         Collections.sort(physicalStatuses);
         GenericResponse resp = new GenericResponse(
-                "Physical Statuses",
+                "Physical Status",
                 FILTER_PHYSICAL_STATUS,
                 "PHYSICAL_STATUS_SECTION",
                 1,
@@ -204,7 +204,7 @@ public class FilterController extends CrossOriginSupport {
         List<Sector> sectors = service.findAllSectorByLevel(1);
         sortSectors(sectors);
         GenericResponse resp = new GenericResponse(
-                "Sectors",
+                "Sector",
                 FILTER_SECTOR,
                 "SECTORS_SECTION",
                 1,
@@ -227,7 +227,7 @@ public class FilterController extends CrossOriginSupport {
         LOGGER.debug("findAllStatuses");
         List<Status> statuses = service.findAllStatuses();
         GenericResponse resp = new GenericResponse(
-                "Statuses",
+                "Financing Status",
                 FILTER_STATUS,
                 "STATUSES_SECTION",
                 1,

@@ -3,7 +3,7 @@ import React from 'react';
 import {Tabs, Tab, Button, Label} from 'react-bootstrap';
 import { connect } from 'react-redux'
 import Chart from '../../charts/chartComponent'
-import { fetchPopupChartData } from '../../../actions/charts.js'
+import ProjectList from './projectListTab'
 
 require('./projectLayerPopup.scss');
 
@@ -121,7 +121,7 @@ export default class ProjectLayerPopup extends React.Component {
         {this.state.tabSelected==4?
           <div className="popup-tab-content">
             <div className="">
-              Project List
+              <ProjectList projects={charts.project? charts.project.data.content : []}/>
             </div>
           </div>
         :null}

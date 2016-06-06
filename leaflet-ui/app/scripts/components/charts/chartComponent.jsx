@@ -153,6 +153,14 @@ export default class ChartComponent extends React.Component {
 		this.setState({'measType': ev.target.value});
 	}
 
+	hasValuesOK(chartData){
+		if (chartData.data[0].type == 'bar'){
+			return chartData.data[0].x && chartData.data[0].x.length>0
+		} else {
+			return chartData.data[0].values && chartData.data[0].values.length>0
+		}
+	}
+
 	render() {
 		var chartData;
 		if (this.props.chartType){
@@ -160,15 +168,7 @@ export default class ChartComponent extends React.Component {
 		} else {
 			chartData = this.state.chartType=='bar'? this.parseDataForBarchart() : this.parseDataForPiechart();
 		}
-		this.props.chartType || (this.state.chartType=='bar'? this.parseDataForBarchart() : this.parseDataForPiechart());
-		if (chartData.data[0].values && chartData.data[0].values.length==0){
-			return (
-	    	<div className="no-data">
-	    		<h4>No data to show</h4>
-	    	</div>
-	    	)
-		}
-	    return (
+		return (
 	    	<div className="chart">
 	    		<div className="chart-title">
 	    			{this.props.title || ""}
@@ -200,10 +200,16 @@ export default class ChartComponent extends React.Component {
 							onChange={this.setMeasType.bind(this)} />Project Count
                         </div>					  
 					</div>
-	    		: null}		    			  			   
-	    		<div>
-		      		<Plotly className="" data={chartData.data} layout={chartData.layout} config={chartData.config}/>
-		      	</div>		      	
+	    		: null}	
+	    		{!this.hasValuesOK(chartData)?
+	    			<div className="no-data">
+			    		<h4>No data to show</h4>
+			    	</div>
+	    		:
+	    			<div>
+			      		<Plotly className="" data={chartData.data} layout={chartData.layout} config={chartData.config}/>
+			      	</div>	
+	    		}	    			  			   	    			      
 	      	</div>
 	    );
   	}

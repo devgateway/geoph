@@ -44,10 +44,10 @@ class FilterDate extends React.Component {
 	}
 
   	render() {
-  		let startMinDate = this.props.items && this.props.items[0]? this.props.items[0].minDate : '';
-  		let startMaxDate = this.props.maxSelected ||  Date.now();//(this.props.items? this.props.items[0].maxDate : '');
-  		let endMinDate = this.props.minSelected || Date.now();//(this.props.items? this.props.items[0].minDate : '');
-  		let endMaxDate = this.props.items && this.props.items[0]? this.props.items[0].maxDate : '';
+  		let startMinDate = this.props.dateMin;
+  		let startMaxDate = this.props.maxSelected ||  Date.now();
+  		let endMinDate = this.props.minSelected || Date.now();
+  		let endMaxDate = this.props.dateMax;
   		return (
 	        <div className="date-picker-container">
 	        	<div className="date-picker-div">
