@@ -72,10 +72,8 @@ class AddIndicator extends BaseForm {
     }
 
     submit() {
-        debugger;
         var errors = this.validate();
         let hasError = false;
-        debugger;
         Object.keys(errors).forEach(key => hasError = hasError || errors[key]);
         if (hasError) {
             this.setErrors(errors);

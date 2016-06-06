@@ -146,7 +146,7 @@ class Connector {
 		return new Promise( (resolve, reject) => {
 			const {username,password} = options;
 			let url = Settings.get('API','LOGIN');
-			debugger;
+
 			this.call(POST,url, {username:username,password:password}).then((data) => {
 				resolve(data);	
 			})
@@ -158,12 +158,12 @@ class Connector {
 
 
 	uploadIndicator(options){
-		debugger;
+		const URL=Settings.get('API','INDICATOR_UPLOAD');
 		return new Promise( (resolve, reject) => {
 			const {file,name,template,color} = options;
 			let url = Settings.get('API','INDICATOR_UPLOAD');
 			debugger;
-			this.call(PUT,url,file, {name,template,color}).then((data) => {
+			this.call(POST,URL,file, {name,template,color}).then((data) => {
 				resolve(data);
 			})
 				.catch((response)=>{

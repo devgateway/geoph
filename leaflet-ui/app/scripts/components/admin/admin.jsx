@@ -69,7 +69,7 @@ class Admin extends React.Component {
 
 class Error extends React.Component{
 	render(){
-		debugger;
+
 		return (<div className="error">
 			{this.props.error==401?<p>Bad Credentials</p>:<p>There was an error please try again</p>}
 			</div>)
@@ -90,7 +90,7 @@ class AdminView extends React.Component {
 		const logged=this.props.accountNonExpired && this.props.accountNonLocked&& this.props.enabled && this.props.credentialsNonExpired;
 		
 		let view;
-		if (true){
+		if (logged){
 			view=<Admin {...this.props}>{this.props.children}</Admin>
 		}else{
 			view =<Login {...this.props}>{this.props.error?<Error error={this.props.error}/>:null}</Login>

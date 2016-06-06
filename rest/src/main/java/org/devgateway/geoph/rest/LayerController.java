@@ -103,6 +103,7 @@ public class LayerController {
         return response;
     }
 
+    //TODO:we should all the code used to parse to services
     @RequestMapping(value = "/indicators", headers = "content-type=multipart/*", method = POST)
     //@Secured("ROLE_READ")
     public IndicatorResponse putIndicator(IndicatorRequest indicatorParam,
