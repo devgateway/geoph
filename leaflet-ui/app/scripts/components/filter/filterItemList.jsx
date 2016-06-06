@@ -12,7 +12,7 @@ class FilterList extends React.Component {
 		        	<ul style={{left: '25', listStyleType: 'none'}}>	        	
 		        	{this.props.items.map((item) => {
 				        return <li key={item.id}> 
-				        	<ItemConnected filterType={this.props.filterType} {...item} />
+				        	<ItemConnected filterType={this.props.filterType} showCode={this.props.showCode} {...item} />
 				        </li>
 				    })}
 				    </ul>
@@ -61,7 +61,11 @@ class FilterItem extends React.Component {
 	        	<div className="filterItemInfo">
 	        		<div className={selectionClass} onClick={this.handleChange.bind(this)} />
 		        	<div className="toggle-nav" onClick={this.handleChange.bind(this)}>
-		        		{this.props.name || this.props.description}
+		        		{this.props.showCode && this.props.code?
+		        			(this.props.name || this.props.description) + " (" + this.props.code + ")"
+		        			:
+		        			(this.props.name || this.props.description)
+		        		}
 		        	</div>
 		        	{this.props.items && this.props.items.length>0? 
 		        		<div>

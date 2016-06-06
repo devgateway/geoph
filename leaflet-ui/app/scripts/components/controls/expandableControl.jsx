@@ -18,7 +18,7 @@ const Expandable = React.createClass({
           <div className="icon"><div className={this.props.iconClass}/></div>
           {this.props.title}
           <div className="toggle">
-            <span>{(this.state.expanded==true)?'-':'+'}</span>
+            <span>{(this.state.expanded==true)?'–':'+'}</span>
           </div>
         </div>
         {(this.state.expanded==true)? 

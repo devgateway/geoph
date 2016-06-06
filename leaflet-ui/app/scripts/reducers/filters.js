@@ -18,9 +18,11 @@ const filters = (state = {filterMain: {}}, action) => {
         filterMain: filterMain
       })
     case Constants.OPEN_FILTER:
-      filterMain = cloneDeep(state.filterMain);      
+      filterMain = cloneDeep(state.filterMain);
+      makeAllOptionsVisible(filterMain); 
       return Object.assign({}, state, {
-        filterBackup: filterMain
+        filterBackup: filterMain,
+        filterMain: filterMain
       })
     case Constants.CANCEL_FILTER:
       let filterBackup = cloneDeep(state.filterBackup);  
@@ -177,6 +179,27 @@ const itemMatchs = (item, keyword) => {
     return pattern.test(item.name);
   } else {
     return true;
+  }
+}
+
+const makeAllOptionsVisible = (filters) => { 
+  for (var fltr in filters) {
+    if (!filters[fltr].isRange){
+      if (filters[fltr].items && filters[fltr].items.length>0){
+        filters[fltr].items.forEach((it) => {
+          makeVisibleIntoChildren(it);
+        });
+      }
+    } 
+  }
+}
+
+const makeVisibleIntoChildren = (item) => { 
+  Object.assign(item, {'hide': false});
+  if (item.items && item.items.length>0){
+    item.items.forEach((it) => {
+      makeVisibleIntoChildren(it);
+    });
   }
 }
 

@@ -49,10 +49,10 @@ class FilterTabContent extends React.Component {
 								NOT YET IMPLEMENTED
 						    </Tab>
 						    <Tab className="filter-list-content" eventKey={3} title="Relevance to Climate">
-								<FilterList filterType="cc" {...this.props.filters["cc"]} />
+								<FilterList filterType="cc" {...this.props.filters["cc"]}  showCode={true}/>
 						    </Tab>
 						    <Tab className="filter-list-content" eventKey={4} title="Gender">
-								<FilterList filterType="gr" {...this.props.filters["gr"]} />
+								<FilterList filterType="gr" {...this.props.filters["gr"]} showCode={true}/>
 						    </Tab>
 						</Tabs>
 	                </Tab>
