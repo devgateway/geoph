@@ -37,6 +37,8 @@ public class GeoJsonController extends CrossOriginSupport {
     @RequestMapping(value = "/{level}/projects", method = GET)
     public FeatureCollection getGeoJsonByLocationType(
             @PathVariable final String level,
+            @RequestParam(value = FILTER_REACHED_OWPA_MAX, required = false) Float reachedOwpaMax,
+            @RequestParam(value = FILTER_REACHED_OWPA_MIN, required = false) Float reachedOwpaMin,
             @RequestParam(value = FILTER_START_DATE_MAX, required = false) String startDateMax,
             @RequestParam(value = FILTER_START_DATE_MIN, required = false) String startDateMin,
             @RequestParam(value = FILTER_END_DATE_MAX, required = false) String endDateMax,
@@ -59,7 +61,8 @@ public class GeoJsonController extends CrossOriginSupport {
             @RequestParam(value = FILTER_FINANCIAL_AMOUNT_MAX, required = false) Double financialAmountMax,
             @RequestParam(value = FILTER_FINANCIAL_AMOUNT_MIN, required = false) Double financialAmountMin){
         LOGGER.debug("getGeoJsonByLocationType");
-        Parameters params = new Parameters(startDateMax, startDateMin, endDateMax, endDateMin, performanceStartMax,
+        Parameters params = new Parameters(reachedOwpaMax, reachedOwpaMin,
+                startDateMax, startDateMin, endDateMax, endDateMin, performanceStartMax,
                 performanceStartMin, performanceEndMax, performanceEndMin, sectors, statuses, locations,
                 projects, impAgencies, fundingAgencies, flowTypes,
                 projectTitle, physicalStatuses, climateChange, genderResponsiveness,
@@ -71,6 +74,8 @@ public class GeoJsonController extends CrossOriginSupport {
     @RequestMapping(value = "/stats/{level}/funding", method = GET)
     public FeatureCollection getGeoJsonStatistical(
             @PathVariable final String level,
+            @RequestParam(value = FILTER_REACHED_OWPA_MAX, required = false) Float reachedOwpaMax,
+            @RequestParam(value = FILTER_REACHED_OWPA_MIN, required = false) Float reachedOwpaMin,
             @RequestParam(value = FILTER_START_DATE_MAX, required = false) String startDateMax,
             @RequestParam(value = FILTER_START_DATE_MIN, required = false) String startDateMin,
             @RequestParam(value = FILTER_END_DATE_MAX, required = false) String endDateMax,
@@ -93,7 +98,8 @@ public class GeoJsonController extends CrossOriginSupport {
             @RequestParam(value = FILTER_FINANCIAL_AMOUNT_MAX, required = false) Double financialAmountMax,
             @RequestParam(value = FILTER_FINANCIAL_AMOUNT_MIN, required = false) Double financialAmountMin){
         LOGGER.debug("getGeoJsonForShapes");
-        Parameters params = new Parameters(startDateMax, startDateMin, endDateMax, endDateMin, performanceStartMax,
+        Parameters params = new Parameters(reachedOwpaMax, reachedOwpaMin,
+                startDateMax, startDateMin, endDateMax, endDateMin, performanceStartMax,
                 performanceStartMin, performanceEndMax, performanceEndMin, sectors, statuses, locations,
                 projects, impAgencies, fundingAgencies, flowTypes,
                 projectTitle, physicalStatuses, climateChange, genderResponsiveness,
@@ -106,6 +112,8 @@ public class GeoJsonController extends CrossOriginSupport {
     public FeatureCollection getGeoJsonStatisticalDetailed(
             @PathVariable final String level,
             @PathVariable final double detail,
+            @RequestParam(value = FILTER_REACHED_OWPA_MAX, required = false) Float reachedOwpaMax,
+            @RequestParam(value = FILTER_REACHED_OWPA_MIN, required = false) Float reachedOwpaMin,
             @RequestParam(value = FILTER_START_DATE_MAX, required = false) String startDateMax,
             @RequestParam(value = FILTER_START_DATE_MIN, required = false) String startDateMin,
             @RequestParam(value = FILTER_END_DATE_MAX, required = false) String endDateMax,
@@ -128,7 +136,8 @@ public class GeoJsonController extends CrossOriginSupport {
             @RequestParam(value = FILTER_FINANCIAL_AMOUNT_MAX, required = false) Double financialAmountMax,
             @RequestParam(value = FILTER_FINANCIAL_AMOUNT_MIN, required = false) Double financialAmountMin){
         LOGGER.debug("getGeoJsonForShapes2");
-        Parameters params = new Parameters(startDateMax, startDateMin, endDateMax, endDateMin, performanceStartMax,
+        Parameters params = new Parameters(reachedOwpaMax, reachedOwpaMin,
+                startDateMax, startDateMin, endDateMax, endDateMin, performanceStartMax,
                 performanceStartMin, performanceEndMax, performanceEndMin, sectors, statuses, locations,
                 projects, impAgencies, fundingAgencies, flowTypes,
                 projectTitle, physicalStatuses, climateChange, genderResponsiveness,

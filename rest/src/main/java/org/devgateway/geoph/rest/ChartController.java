@@ -37,6 +37,8 @@ public class ChartController {
 
     @RequestMapping(method = GET)
     public Map<String, Object> getAllCharts(
+            @RequestParam(value = FILTER_REACHED_OWPA_MAX, required = false) Float reachedOwpaMax,
+            @RequestParam(value = FILTER_REACHED_OWPA_MIN, required = false) Float reachedOwpaMin,
             @RequestParam(value = FILTER_START_DATE_MAX, required = false) String startDateMax,
             @RequestParam(value = FILTER_START_DATE_MIN, required = false) String startDateMin,
             @RequestParam(value = FILTER_END_DATE_MAX, required = false) String endDateMax,
@@ -59,7 +61,8 @@ public class ChartController {
             @RequestParam(value = FILTER_FINANCIAL_AMOUNT_MAX, required = false) Double financialAmountMax,
             @RequestParam(value = FILTER_FINANCIAL_AMOUNT_MIN, required = false) Double financialAmountMin) {
         LOGGER.debug("getAllCharts");
-        Parameters params = new Parameters(startDateMax, startDateMin, endDateMax, endDateMin, performanceStartMax,
+        Parameters params = new Parameters(reachedOwpaMax, reachedOwpaMin,
+                startDateMax, startDateMin, endDateMax, endDateMin, performanceStartMax,
                 performanceStartMin, performanceEndMax, performanceEndMin, sectors, statuses, locations,
                 projects, impAgencies, fundingAgencies, flowTypes,
                 projectTitle, physicalStatuses, climateChange, genderResponsiveness,
@@ -76,6 +79,8 @@ public class ChartController {
 
     @RequestMapping(value = "/projects", method = GET)
     public Map<String, Object> getAllChartsProjects(
+            @RequestParam(value = FILTER_REACHED_OWPA_MAX, required = false) Float reachedOwpaMax,
+            @RequestParam(value = FILTER_REACHED_OWPA_MIN, required = false) Float reachedOwpaMin,
             @RequestParam(value = FILTER_START_DATE_MAX, required = false) String startDateMax,
             @RequestParam(value = FILTER_START_DATE_MIN, required = false) String startDateMin,
             @RequestParam(value = FILTER_END_DATE_MAX, required = false) String endDateMax,
@@ -98,7 +103,8 @@ public class ChartController {
             @RequestParam(value = FILTER_FINANCIAL_AMOUNT_MAX, required = false) Double financialAmountMax,
             @RequestParam(value = FILTER_FINANCIAL_AMOUNT_MIN, required = false) Double financialAmountMin) {
         LOGGER.debug("getAllChartsProjects");
-        Parameters params = new Parameters(startDateMax, startDateMin, endDateMax, endDateMin, performanceStartMax,
+        Parameters params = new Parameters(reachedOwpaMax, reachedOwpaMin,
+                startDateMax, startDateMin, endDateMax, endDateMin, performanceStartMax,
                 performanceStartMin, performanceEndMax, performanceEndMin, sectors, statuses, locations,
                 projects, impAgencies, fundingAgencies, flowTypes,
                 projectTitle, physicalStatuses, climateChange, genderResponsiveness,
@@ -114,6 +120,8 @@ public class ChartController {
 
     @RequestMapping(value = "/fundingAgency", method = GET)
     public List<Map<String, Object>> getByFundingAgency(
+            @RequestParam(value = FILTER_REACHED_OWPA_MAX, required = false) Float reachedOwpaMax,
+            @RequestParam(value = FILTER_REACHED_OWPA_MIN, required = false) Float reachedOwpaMin,
             @RequestParam(value = FILTER_START_DATE_MAX, required = false) String startDateMax,
             @RequestParam(value = FILTER_START_DATE_MIN, required = false) String startDateMin,
             @RequestParam(value = FILTER_END_DATE_MAX, required = false) String endDateMax,
@@ -136,7 +144,8 @@ public class ChartController {
             @RequestParam(value = FILTER_FINANCIAL_AMOUNT_MAX, required = false) Double financialAmountMax,
             @RequestParam(value = FILTER_FINANCIAL_AMOUNT_MIN, required = false) Double financialAmountMin) {
         LOGGER.debug("getByFundingAgency");
-        Parameters params = new Parameters(startDateMax, startDateMin, endDateMax, endDateMin, performanceStartMax,
+        Parameters params = new Parameters(reachedOwpaMax, reachedOwpaMin,
+                startDateMax, startDateMin, endDateMax, endDateMin, performanceStartMax,
                 performanceStartMin, performanceEndMax, performanceEndMin, sectors, statuses, locations,
                 projects, impAgencies, fundingAgencies, flowTypes,
                 projectTitle, physicalStatuses, climateChange, genderResponsiveness,
@@ -146,6 +155,8 @@ public class ChartController {
 
     @RequestMapping(value = "/impAgency", method = GET)
     public List<Map<String, Object>> getByImplementingAgency(
+            @RequestParam(value = FILTER_REACHED_OWPA_MAX, required = false) Float reachedOwpaMax,
+            @RequestParam(value = FILTER_REACHED_OWPA_MIN, required = false) Float reachedOwpaMin,
             @RequestParam(value = FILTER_START_DATE_MAX, required = false) String startDateMax,
             @RequestParam(value = FILTER_START_DATE_MIN, required = false) String startDateMin,
             @RequestParam(value = FILTER_END_DATE_MAX, required = false) String endDateMax,
@@ -168,7 +179,8 @@ public class ChartController {
             @RequestParam(value = FILTER_FINANCIAL_AMOUNT_MAX, required = false) Double financialAmountMax,
             @RequestParam(value = FILTER_FINANCIAL_AMOUNT_MIN, required = false) Double financialAmountMin) {
         LOGGER.debug("getByImplementingAgency");
-        Parameters params = new Parameters(startDateMax, startDateMin, endDateMax, endDateMin, performanceStartMax,
+        Parameters params = new Parameters(reachedOwpaMax, reachedOwpaMin,
+                startDateMax, startDateMin, endDateMax, endDateMin, performanceStartMax,
                 performanceStartMin, performanceEndMax, performanceEndMin, sectors, statuses, locations,
                 projects, impAgencies, fundingAgencies, flowTypes,
                 projectTitle, physicalStatuses, climateChange, genderResponsiveness,
@@ -178,6 +190,8 @@ public class ChartController {
 
     @RequestMapping(value = "/sector", method = GET)
     public List<Map<String, Object>> getBySector(
+            @RequestParam(value = FILTER_REACHED_OWPA_MAX, required = false) Float reachedOwpaMax,
+            @RequestParam(value = FILTER_REACHED_OWPA_MIN, required = false) Float reachedOwpaMin,
             @RequestParam(value = FILTER_START_DATE_MAX, required = false) String startDateMax,
             @RequestParam(value = FILTER_START_DATE_MIN, required = false) String startDateMin,
             @RequestParam(value = FILTER_END_DATE_MAX, required = false) String endDateMax,
@@ -200,7 +214,8 @@ public class ChartController {
             @RequestParam(value = FILTER_FINANCIAL_AMOUNT_MAX, required = false) Double financialAmountMax,
             @RequestParam(value = FILTER_FINANCIAL_AMOUNT_MIN, required = false) Double financialAmountMin) {
         LOGGER.debug("getBySector");
-        Parameters params = new Parameters(startDateMax, startDateMin, endDateMax, endDateMin, performanceStartMax,
+        Parameters params = new Parameters(reachedOwpaMax, reachedOwpaMin,
+                startDateMax, startDateMin, endDateMax, endDateMin, performanceStartMax,
                 performanceStartMin, performanceEndMax, performanceEndMin, sectors, statuses, locations,
                 projects, impAgencies, fundingAgencies, flowTypes,
                 projectTitle, physicalStatuses, climateChange, genderResponsiveness,
@@ -210,6 +225,8 @@ public class ChartController {
 
     @RequestMapping(value = "/physicalStatus", method = GET)
     public List<Map<String, Object>> getByPhysicalStatus(
+            @RequestParam(value = FILTER_REACHED_OWPA_MAX, required = false) Float reachedOwpaMax,
+            @RequestParam(value = FILTER_REACHED_OWPA_MIN, required = false) Float reachedOwpaMin,
             @RequestParam(value = FILTER_START_DATE_MAX, required = false) String startDateMax,
             @RequestParam(value = FILTER_START_DATE_MIN, required = false) String startDateMin,
             @RequestParam(value = FILTER_END_DATE_MAX, required = false) String endDateMax,
@@ -232,7 +249,8 @@ public class ChartController {
             @RequestParam(value = FILTER_FINANCIAL_AMOUNT_MAX, required = false) Double financialAmountMax,
             @RequestParam(value = FILTER_FINANCIAL_AMOUNT_MIN, required = false) Double financialAmountMin) {
         LOGGER.debug("getBySector");
-        Parameters params = new Parameters(startDateMax, startDateMin, endDateMax, endDateMin, performanceStartMax,
+        Parameters params = new Parameters(reachedOwpaMax, reachedOwpaMin,
+                startDateMax, startDateMin, endDateMax, endDateMin, performanceStartMax,
                 performanceStartMin, performanceEndMax, performanceEndMin, sectors, statuses, locations,
                 projects, impAgencies, fundingAgencies, flowTypes,
                 projectTitle, physicalStatuses, climateChange, genderResponsiveness,

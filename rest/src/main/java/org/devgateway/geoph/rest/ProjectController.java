@@ -39,6 +39,8 @@ public class ProjectController  extends CrossOriginSupport {
 
     @RequestMapping(method = GET)
     public Page<Project> findProjectsByParams(
+            @RequestParam(value = FILTER_REACHED_OWPA_MAX, required = false) Float reachedOwpaMax,
+            @RequestParam(value = FILTER_REACHED_OWPA_MIN, required = false) Float reachedOwpaMin,
             @RequestParam(value = FILTER_START_DATE_MAX, required = false) String startDateMax,
             @RequestParam(value = FILTER_START_DATE_MIN, required = false) String startDateMin,
             @RequestParam(value = FILTER_END_DATE_MAX, required = false) String endDateMax,
@@ -62,7 +64,8 @@ public class ProjectController  extends CrossOriginSupport {
             @RequestParam(value = FILTER_FINANCIAL_AMOUNT_MIN, required = false) Double financialAmountMin,
             @PageableDefault(page = 0, size = 20, sort = "id") final Pageable pageable) {
         LOGGER.debug("findProjectsByParams");
-        Parameters params = new Parameters(startDateMax, startDateMin, endDateMax, endDateMin, performanceStartMax,
+        Parameters params = new Parameters(reachedOwpaMax, reachedOwpaMin,
+                startDateMax, startDateMin, endDateMax, endDateMin, performanceStartMax,
                 performanceStartMin, performanceEndMax, performanceEndMin, sectors, statuses, locations,
                 projects, impAgencies, fundingAgencies, flowTypes,
                 projectTitle, physicalStatuses, climateChange, genderResponsiveness,
@@ -78,6 +81,8 @@ public class ProjectController  extends CrossOriginSupport {
 
     @RequestMapping(value = "/all", method = GET)
     public Page<Project> findAllProjects(
+            @RequestParam(value = FILTER_REACHED_OWPA_MAX, required = false) Float reachedOwpaMax,
+            @RequestParam(value = FILTER_REACHED_OWPA_MIN, required = false) Float reachedOwpaMin,
             @RequestParam(value = FILTER_START_DATE_MAX, required = false) String startDateMax,
             @RequestParam(value = FILTER_START_DATE_MIN, required = false) String startDateMin,
             @RequestParam(value = FILTER_END_DATE_MAX, required = false) String endDateMax,
@@ -100,7 +105,8 @@ public class ProjectController  extends CrossOriginSupport {
             @RequestParam(value = FILTER_FINANCIAL_AMOUNT_MAX, required = false) Double financialAmountMax,
             @RequestParam(value = FILTER_FINANCIAL_AMOUNT_MIN, required = false) Double financialAmountMin) {
         LOGGER.debug("findAllProjects");
-        Parameters params = new Parameters(startDateMax, startDateMin, endDateMax, endDateMin, performanceStartMax,
+        Parameters params = new Parameters(reachedOwpaMax, reachedOwpaMin,
+                startDateMax, startDateMin, endDateMax, endDateMin, performanceStartMax,
                 performanceStartMin, performanceEndMax, performanceEndMin, sectors, statuses, locations,
                 projects, impAgencies, fundingAgencies, flowTypes,
                 projectTitle, physicalStatuses, climateChange, genderResponsiveness,
@@ -111,6 +117,8 @@ public class ProjectController  extends CrossOriginSupport {
 
     @RequestMapping(value = "/count", method = GET)
     public StatsResponse countProjects(
+            @RequestParam(value = FILTER_REACHED_OWPA_MAX, required = false) Float reachedOwpaMax,
+            @RequestParam(value = FILTER_REACHED_OWPA_MIN, required = false) Float reachedOwpaMin,
             @RequestParam(value = FILTER_START_DATE_MAX, required = false) String startDateMax,
             @RequestParam(value = FILTER_START_DATE_MIN, required = false) String startDateMin,
             @RequestParam(value = FILTER_END_DATE_MAX, required = false) String endDateMax,
@@ -133,7 +141,8 @@ public class ProjectController  extends CrossOriginSupport {
             @RequestParam(value = FILTER_FINANCIAL_AMOUNT_MAX, required = false) Double financialAmountMax,
             @RequestParam(value = FILTER_FINANCIAL_AMOUNT_MIN, required = false) Double financialAmountMin) {
         LOGGER.debug("countProjects");
-        Parameters params = new Parameters(startDateMax, startDateMin, endDateMax, endDateMin, performanceStartMax,
+        Parameters params = new Parameters(reachedOwpaMax, reachedOwpaMin,
+                startDateMax, startDateMin, endDateMax, endDateMin, performanceStartMax,
                 performanceStartMin, performanceEndMax, performanceEndMin, sectors, statuses, locations,
                 projects, impAgencies, fundingAgencies, flowTypes,
                 projectTitle, physicalStatuses, climateChange, genderResponsiveness,

@@ -38,6 +38,10 @@ public class Parameters {
 
     private Date periodPerformanceEndMin;
 
+    private Float reachedOwpaMax;
+
+    private Float reachedOwpaMin;
+
     private List<Long> sectors;
 
     private List<Long> statuses;
@@ -73,8 +77,9 @@ public class Parameters {
     public Parameters() {
     }
 
-    public Parameters(String startDateMax, String startDateMin, String endDateMax, String endDateMin,
-                      String periodPerformanceStartMax, String periodPerformanceStartMin, String periodPerformanceEndMax,
+    public Parameters(Float reachedOwpaMax, Float reachedOwpaMin, String startDateMax, String startDateMin,
+                      String endDateMax, String endDateMin, String periodPerformanceStartMax,
+                      String periodPerformanceStartMin, String periodPerformanceEndMax,
                       String periodPerformanceEndMin, String sectors, String statuses,
                       String locations, String projects, String impAgencies, String fundingAgencies,
                       String flowTypes, String projectTitle, String physicalStatuses,
@@ -101,7 +106,25 @@ public class Parameters {
         this.setGenderResponsiveness(genderResponsiveness);
         this.financialAmountMin = financialAmountMin;
         this.financialAmountMax = financialAmountMax;
+        this.reachedOwpaMax = reachedOwpaMax;
+        this.reachedOwpaMin = reachedOwpaMin;
         this.setPageable(pageable);
+    }
+
+    public Float getReachedOwpaMax() {
+        return reachedOwpaMax;
+    }
+
+    public void setReachedOwpaMax(Float reachedOwpaMax) {
+        this.reachedOwpaMax = reachedOwpaMax;
+    }
+
+    public Float getReachedOwpaMin() {
+        return reachedOwpaMin;
+    }
+
+    public void setReachedOwpaMin(Float reachedOwpaMin) {
+        this.reachedOwpaMin = reachedOwpaMin;
     }
 
     public Date getStartDateMax() {

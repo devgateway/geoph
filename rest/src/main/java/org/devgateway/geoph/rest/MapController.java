@@ -125,6 +125,8 @@ public class MapController {
     public String exportData(
             @PathVariable final String fileType,
             @PathVariable final String language,
+            @RequestParam(value = FILTER_REACHED_OWPA_MAX, required = false) Float reachedOwpaMax,
+            @RequestParam(value = FILTER_REACHED_OWPA_MIN, required = false) Float reachedOwpaMin,
             @RequestParam(value = FILTER_START_DATE_MAX, required = false) String startDateMax,
             @RequestParam(value = FILTER_START_DATE_MIN, required = false) String startDateMin,
             @RequestParam(value = FILTER_END_DATE_MAX, required = false) String endDateMax,
@@ -147,7 +149,8 @@ public class MapController {
             @RequestParam(value = FILTER_FINANCIAL_AMOUNT_MAX, required = false) Double financialAmountMax,
             @RequestParam(value = FILTER_FINANCIAL_AMOUNT_MIN, required = false) Double financialAmountMin){
         LOGGER.debug("exportData");
-        Parameters params = new Parameters(startDateMax, startDateMin, endDateMax, endDateMin, performanceStartMax,
+        Parameters params = new Parameters(reachedOwpaMax, reachedOwpaMin,
+                startDateMax, startDateMin, endDateMax, endDateMin, performanceStartMax,
                 performanceStartMin, performanceEndMax, performanceEndMin, sectors, statuses, locations,
                 projects, impAgencies, fundingAgencies, flowTypes,
                 projectTitle, physicalStatuses, climateChange, genderResponsiveness,

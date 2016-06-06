@@ -101,6 +101,12 @@ public class FilterHelper {
                 if(params.getFinancialAmountMax() != null) {
                     predicates.add(criteriaBuilder.lessThanOrEqualTo(projectRoot.get(Project_.totalProjectAmount), params.getFinancialAmountMax()));
                 }
+                if(params.getReachedOwpaMin() != null) {
+                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectRoot.get(Project_.reachedOwpa), params.getReachedOwpaMin()));
+                }
+                if(params.getReachedOwpaMax() != null) {
+                    predicates.add(criteriaBuilder.lessThanOrEqualTo(projectRoot.get(Project_.reachedOwpa), params.getReachedOwpaMax()));
+                }
             }
         }
     }
@@ -185,6 +191,12 @@ public class FilterHelper {
                 }
                 if(params.getFinancialAmountMax() != null) {
                     predicates.add(criteriaBuilder.lessThanOrEqualTo(projectJoin.get(Project_.totalProjectAmount), params.getFinancialAmountMax()));
+                }
+                if(params.getReachedOwpaMin() != null) {
+                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectJoin.get(Project_.reachedOwpa), params.getReachedOwpaMin()));
+                }
+                if(params.getReachedOwpaMax() != null) {
+                    predicates.add(criteriaBuilder.lessThanOrEqualTo(projectJoin.get(Project_.reachedOwpa), params.getReachedOwpaMax()));
                 }
             }
         }
