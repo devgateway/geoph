@@ -98,8 +98,8 @@ public class DefaultProjectRepository implements ProjectRepository {
         Object[] o = (Object[]) em.createNativeQuery("select max(p.start_date) as max_start_date, min(p.start_date) as min_start_date, max(p.end_date) as max_end_date, min(p.end_date) as min_end_date from project p").getSingleResult();
         ret.add(((Date)o[0]).toString());
         ret.add(((Date)o[1]).toString());
-        ret.add(((Date)o[2]).toString());
-        ret.add(((Date)o[3]).toString());
+        ret.add(((Date) o[2]).toString());
+        ret.add(((Date) o[3]).toString());
         return ret;
     }
 
@@ -125,6 +125,14 @@ public class DefaultProjectRepository implements ProjectRepository {
         if(predicates.size()>0) {
             Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
             criteriaQuery.where(other);
+        }
+
+        if(params!=null && params.getProjectOrder()!=null && params.getProjectOrder().getColumn()!=null){
+            if(params.getProjectOrder().getAscending()){
+                criteriaQuery.orderBy(criteriaBuilder.asc(projectRoot.get(params.getProjectOrder().getAttribute())));
+            } else {
+                criteriaQuery.orderBy(criteriaBuilder.desc(projectRoot.get(params.getProjectOrder().getAttribute())));
+            }
         }
 
         CriteriaQuery<Project> cq = criteriaQuery.select(projectRoot).distinct(true);

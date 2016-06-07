@@ -74,6 +74,8 @@ public class Parameters {
 
     private Double financialAmountMax;
 
+    private ProjectOrder projectOrder;
+
     public Parameters() {
     }
 
@@ -447,5 +449,13 @@ public class Parameters {
             }
         }
         return ret;
+    }
+
+    public ProjectOrder getProjectOrder() {
+        return projectOrder;
+    }
+
+    public void setProjectOrder(ProjectOrder projectOrder) {
+        this.projectOrder = projectOrder;
     }
 }

@@ -4,6 +4,8 @@ import org.devgateway.geoph.model.Project;
 import org.devgateway.geoph.response.StatsResponse;
 import org.devgateway.geoph.services.ProjectService;
 import org.devgateway.geoph.util.Parameters;
+import org.devgateway.geoph.util.ProjectOrder;
+import org.hibernate.jpa.criteria.OrderImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+
+import javax.persistence.criteria.Order;
 
 import static org.devgateway.geoph.util.Constants.*;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -103,7 +107,8 @@ public class ProjectController  extends CrossOriginSupport {
             @RequestParam(value = FILTER_CLIMATE_CHANGE, required = false) String climateChange,
             @RequestParam(value = FILTER_GENDER_RESPONSIVENESS, required = false) String genderResponsiveness,
             @RequestParam(value = FILTER_FINANCIAL_AMOUNT_MAX, required = false) Double financialAmountMax,
-            @RequestParam(value = FILTER_FINANCIAL_AMOUNT_MIN, required = false) Double financialAmountMin) {
+            @RequestParam(value = FILTER_FINANCIAL_AMOUNT_MIN, required = false) Double financialAmountMin,
+            ProjectOrder projectOrder) {
         LOGGER.debug("findAllProjects");
         Parameters params = new Parameters(reachedOwpaMax, reachedOwpaMin,
                 startDateMax, startDateMin, endDateMax, endDateMin, performanceStartMax,
@@ -111,6 +116,7 @@ public class ProjectController  extends CrossOriginSupport {
                 projects, impAgencies, fundingAgencies, flowTypes,
                 projectTitle, physicalStatuses, climateChange, genderResponsiveness,
                 financialAmountMin, financialAmountMax, null);
+        params.setProjectOrder(projectOrder);
         return service.findProjectsByParams(params);
     }
 
