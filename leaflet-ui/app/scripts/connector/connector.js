@@ -170,6 +170,7 @@ class Connector {
 					reject(response.status);
 				})
 		})
+	}
 
 	getProjectPopupData(filters) {
 		return new Promise( (resolve, reject) => {

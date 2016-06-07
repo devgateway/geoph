@@ -11,13 +11,11 @@ class Login extends React.Component {
 	validate(){
 		let username=this.state.data.get('username') || '';
 		let password=this.state.data.get('password') || '';
-
 		if((username=='' || username.length < 1) || (password=='' || password.length < 1)) {
 			this.setState({data:this.state.data.set('error','Please enter a user name and password')});
 		}else{
 			this.props.onLogin({username,password}) 	
 		}
-		
 	}
 
 	constructor(props) {
