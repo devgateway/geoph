@@ -170,6 +170,39 @@ class Connector {
 					reject(response.status);
 				})
 		})
+
+	getProjectPopupData(filters) {
+		return new Promise( (resolve, reject) => {
+			let path = Settings.get('API','PROJECT_POPUP');
+			if (path.mock) {
+				this.call(GET,path.path, {}, true).then((data) => {
+					resolve(data);		
+				}).catch(reject)
+			} else {
+				this.call(GET, path, filters).then((data) => {
+					resolve(data); 	
+				}).catch(reject)
+			}
+		});
+	}
+
+	getProjectsWithFilters(filters) {
+		return new Promise( (resolve, reject) => {
+			let path = Settings.get('API','PROJECT_LIST');
+			this.call(GET, path, filters).then((data) => {
+				resolve(data); 	
+			}).catch(reject)
+		});
+	}
+
+	getStats(filters) {
+		return new Promise( (resolve, reject) => {
+			let path = Settings.get('API','STATS');
+			this.call(GET, path, filters).then((data) => {
+				resolve(data); 	
+			}).catch(reject)
+		});
+
 	}
 }
 

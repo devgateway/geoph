@@ -3,11 +3,6 @@
     "param": null,
     "group": "FIN_AMOUNT_SECTION",
     "index": 1,
-    "items": [
-        {
-            "minValue": 0,
-            "maxValue": 100
-        }
-    ],
+    "items": ["100", "0"],
     "count": 1
 }

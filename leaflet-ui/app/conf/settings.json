@@ -20,15 +20,18 @@
 				"st": "/filters/sector",
 				"fa": "/filters/fundingAgency",
 				"ia": "/filters/impAgency",
-				"dt": "/filters/impPeriod",
-				"pp": "/filters/grantPeriod",
+				"dt_start": "/filters/impPeriod",
+				"dt_end": "/filters/impPeriod",
+				"pp_start": "/filters/grantPeriod",
+				"pp_end": "/filters/grantPeriod",
 				"sa": "/filters/status",	
 				"ft": "/filters/flowType",
 				"gr": "/filters/genderResponsiveness",
 				"cc": "/filters/climateChange",
 				"fs": "/filters/fsource",
 				"ph": "/filters/physicalStatus",
-
+				"fin_amount": "/filters/financialAmountPeriod",
+				
 				"dp": "/filters/devprio",
 				"cs": "/filters/cscope",
 				"co": "/filters/coverage",
@@ -38,14 +41,17 @@
 				"st": "/filters/sector",
 				"fa": "/filters/fundingAgency",
 				"ia": "/filters/impAgency",
-				"dt": "/filters/impPeriod",
-				"pp": "/filters/grantPeriod",
+				"dt_start": "/filters/impPeriod",
+				"dt_end": "/filters/impPeriod",
+				"pp_start": "/filters/grantPeriod",
+				"pp_end": "/filters/grantPeriod",
 				"sa": "/filters/status",
 				"ft": "/filters/flowType",
 				"gr": "/filters/genderResponsiveness",
 				"cc": "/filters/climateChange",
 				"fs": "/filters/fsource",
 				"ph": "/filters/physicalStatus",
+				"fin_amount": "/filters/financialAmountPeriod",
 				
 				"dp": "/filters/devprio",
 				"cs": "/filters/cscope",
@@ -57,6 +63,21 @@
 		"CHARTS": {
 			"development": "/charts",				
 			"production": "/charts"		
+		},
+
+		"PROJECT_POPUP": {
+			"development": "/charts/projects",				
+			"production": "/charts/projects"		
+		},
+
+		"PROJECT_LIST": {
+			"development": "/projects/all",				
+			"production": "/projects/all"		
+		},
+
+		"STATS": {
+			"development": "/projects/count",				
+			"production": "/projects/count"		
 		}
 		
 	},

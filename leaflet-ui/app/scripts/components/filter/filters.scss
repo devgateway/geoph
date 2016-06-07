@@ -33,7 +33,7 @@
     cursor: pointer;
     border: 2px solid #ddd;
     margin-right: 5px;
-    margin-top: 1px;
+    margin-top: 2px;
     float: left;
     width: 14px;
     height: 14px;
@@ -119,29 +119,37 @@
 }
 
 .modal-header {
-    background-color: #6F7F8C;
+    background-color: #003a6c;
     color: #EFF6F9;
     padding: 15px;
     border-bottom: none;
 }
 
-
-.date-picker-container{
-  display: inline-flex;
-  width: 100%;
+.modal-title{
+    font-weight: bold;
 }
 
-.date-picker-div{
-  width: 50%;
-  height: 90%;
-  padding-left: 20px;
-  padding-right: 20px;
+.modal-header .close {
+    margin-top: -2px;
+    color: #e1ebf1;
+    font-size: 23px;
+    font-weight: bolder;
+    text-shadow: 0 0 0;
+    opacity: 1;
 }
 
 .range-filter-container{
-  width: 80%;
+  width: 100%;
   height: 80%;
   padding: 20px;
+}
+
+.range-filter-selection{
+  display: inline-flex;
+  padding-top: 40px;
+  >div {
+    padding-right: 40px;
+  }
 }
 
 .range-filter{
@@ -279,6 +287,23 @@
     width: 5px;
     background: #EDF2F5;
     height: 100%;
+}
+
+.date-picker-container{
+  display: inline-flex;
+  width: 100%;
+}
+
+.date-picker-div{
+  width: 50%;
+  height: 90%;
+  padding-left: 20px;
+  padding-right: 20px;
+  >span{
+    text-transform: uppercase;
+    color: #0746A9;
+    font-size: 12px;
+  }
 }
 
 

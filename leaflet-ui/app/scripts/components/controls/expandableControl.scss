@@ -1,0 +1,45 @@
+@import '../../../stylesheets/base.scss';
+
+.expandable-control{
+  	@include box-sizing(auto,auto)
+	@include font(15px,$regular)
+	border: 1px solid #edf0f4;
+	border-radius: 2px;
+	margin: 22px;
+	.title{
+		color: rgb( 61, 77, 101 );
+		height: 34px;
+		line-height: 2;
+		cursor: pointer;
+		border-bottom: 1px;
+	    border-bottom-style: solid;
+	    border-bottom-color: #eee;
+		.icon{
+			@include box-sizing(45px,34px)
+			margin-top: 1px;
+			padding-top: 3px;
+			>div{
+				background: url('../../../assets/sprites.png') 0px 0px;
+				@include box-sizing(26px,26px)
+				margin: 0 auto;
+			}
+		}
+		.toggle{
+			float: right;
+			margin-right: 12px;
+			>a{
+				text-decoration: none;
+			}
+		}
+	}
+}
+
+.expandable-control.collapsed{
+	.title{
+		border-bottom-style: none;
+	    .icon{
+			border-right: 1px solid #edf0f4;
+			border-radius: 2px;
+		}
+	}
+}

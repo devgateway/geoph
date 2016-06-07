@@ -23,7 +23,7 @@ const filters = (state = {filterMain: {}}, action) => {
         filterBackup: filterMain
       })
     case Constants.CANCEL_FILTER:
-      let filterBackup = cloneDeep(state.filterBackup);      
+      let filterBackup = cloneDeep(state.filterBackup);  
       return Object.assign({}, state, {
         filterMain: filterBackup
       })
@@ -95,7 +95,7 @@ const filter = (state = {
 const filterItem = (state = {
   selected: false
 }, action) => {
-  let copyState = Object.assign({}, state, {updatedAt: Date.now()}); 
+  let copyState = cloneDeep(state);//Object.assign({}, state, {updatedAt: Date.now()}); 
   switch (action.type) {
     case Constants.SELECT_FILTER_ITEM:
       updateFilterSelection(copyState, action.item.id, action.item.selected); 
