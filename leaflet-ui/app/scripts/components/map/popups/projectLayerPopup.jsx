@@ -4,23 +4,25 @@ import {Tabs, Tab, Button, Label} from 'react-bootstrap';
 import { connect } from 'react-redux'
 import Chart from '../../charts/chartComponent'
 import ProjectList from './projectListTab'
+import onClickOutside from 'react-onclickoutside'
 
 require('./projectLayerPopup.scss');
 
-export default class ProjectLayerPopup extends React.Component {
+const ProjectLayerPopup = onClickOutside(React.createClass({
 
-  constructor() {
-    super();
-    this.state = {'tabSelected': 0};
-  }
-
-  componentDidMount() {
-    //this.props.onLoadChartData(this.props.filters);    
-  }
+  getInitialState() {
+    return {'tabSelected': 0};
+  },
 
   changeTab(tabSelected){
     this.setState({'tabSelected': tabSelected});
-  }
+  },
+
+  handleClickOutside (evt) {
+    if (this.props.onClosePopup){
+      this.props.onClosePopup();
+    }
+  },
 
   render() {
     let charts = this.props.charts || {}
@@ -128,7 +130,7 @@ export default class ProjectLayerPopup extends React.Component {
       </div>
     )
   }
-}
+}));
 
-
+export default ProjectLayerPopup;
 
