@@ -34,6 +34,10 @@ const PathInitializer=React.createClass({
 
 const Layer=React.createClass({
 	
+	closePopup(){
+	    this.props.map.closePopup();
+	},
+
 	render(){
 			let prefix=this.props.layer.get('cssPrefix')
 			let css=(this.props.layer.get('settings')?this.props.layer.get('settings').get('css'):'');
@@ -52,22 +56,22 @@ const Layer=React.createClass({
 				visible={this.props.layer.get('visible')} 
 				key={this.props.layer.get('keName')} 
 				data={this.props.layer.get('data')?this.props.layer.get('data').toJS():null}>
-					<ProjectPopup/>
+					<ProjectPopup onClosePopup={this.closePopup}/>
 				</SvgLayer>:null;
 	
 	}
 })
 
-
+  
 const Layers=React.createClass({
 
 	render(){
 	
 	var children=this.props.layers.map((l)=>{
 			if (l.get('layers')){
-				return <Layers map={this.props.map} layers={l.get('layers')}/>
-			}else{ 
-				return <Layer map={this.props.map} layer={l}/>
+				return <Layers key={l.get('id')} map={this.props.map} layers={l.get('layers')}/>
+			} else { 
+				return <Layer key={l.get('id')} map={this.props.map} layer={l}/>
 			}
 		})
 			

@@ -45,8 +45,8 @@ class Settings extends React.Component {
 					<li className={settings['css']=="red"?"scheme red active":"scheme red "}  onClick={()=>{this.set('css','red')}} ></li>
 					<li className={settings['css']=="yellow"?"scheme yellow active":"scheme yellow "} onClick={()=>{this.set('css','yellow')}}></li>
 					<li className={settings['css']=="green"?"scheme green active":"scheme green "} onClick={()=>{this.set('css','green')}}></li>
-                        <li className={settings['css']=="orange"?"scheme orange active":"scheme orange "} onClick={()=>{this.set('css','orange')}}></li>
-                        <li className={settings['css']=="blue"?"scheme blue active":"scheme blue "} onClick={()=>{this.set('css','blue')}}></li>
+                    <li className={settings['css']=="orange"?"scheme orange active":"scheme orange "} onClick={()=>{this.set('css','orange')}}></li>
+                    <li className={settings['css']=="blue"?"scheme blue active":"scheme blue "} onClick={()=>{this.set('css','blue')}}></li>
 				</ul>
 			</li>:null}
 			</ul>);
@@ -77,9 +77,10 @@ class Settings extends React.Component {
  	}
 
  	getCheckbox(){
-		return(	
+		let selectionClass = "selectable " + (this.props.visible? "selected" : "");
+  		return(	
  			<div className="group-title" onClick={this.onChange.bind(this)}> 
- 				<input type="checkbox" checked={this.props.visible}/>
+ 				<div className={selectionClass}/>
  				<Message prefix={prefix} k={this.props.keyName}/>
  			</div>
  			)
@@ -91,9 +92,7 @@ class Settings extends React.Component {
  	}
 
  	renderChildren(){
- 		let childProperties=this.getChildProperties();
-
- 			
+ 		let childProperties = this.getChildProperties();	
  		return this.props.layers.map((l)=>{
  			if (l.get('layers')){
  				return 	<LayerGroup key={l.get('id')} id={l.get('id')}  visible={l.get('visible')} keyName={l.get('keyName')} layers={l.get('layers')}   {...childProperties} />
@@ -115,9 +114,9 @@ class Settings extends React.Component {
 				<div className="breadcrums">
 					({this.props.layers.filter(l=>l.get('visible')).size}/{this.props.layers.size})
 				</div>
- 			<ul>
- 				{this.renderChildren()}
- 			</ul>
+	 			<ul>
+	 				{this.renderChildren()}
+	 			</ul>
  			</li>)
  	}
  }
@@ -156,6 +155,7 @@ class Settings extends React.Component {
          this.setState({expanded:!this.state.expanded})
      }
  	render(){
+ 		/*
  		return (
  			<div className={(this.state.expanded==true)?"layers-control":"layers-control collapsed"}>
 			    <div className="title"><div className="icon"><div/></div>Adjust layers to see detailed data
@@ -169,6 +169,8 @@ class Settings extends React.Component {
                 </div>
  			</div>
  			)
+ 		*/
+ 		return (<div className="layers-control"><ul>{this.renderChildren()}</ul></div>);
  	}
  }
 

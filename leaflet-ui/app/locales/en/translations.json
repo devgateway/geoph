@@ -14,12 +14,12 @@
 	"control": {
 		"layers": {
 			"stats": "Statistical",
-			"projects": "Projects & Statistical",
+			"projects": "Projects",
 			"project": "Projects points",
 			"poverty": "Poverty",
 			"population": "Population",
 			"funding": "Total Funding",
-			"indicators": "Indicators",
+			"indicators": "Statistical Indicators",
 			"geophotos": "Geotagged Photos"
 		}
 	},

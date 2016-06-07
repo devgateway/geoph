@@ -19,7 +19,6 @@
 			margin-top: 1px;
 			padding-top: 3px;
 			>div{
-				background: url('../../../assets/sprites.png') 0px 0px;
 				@include box-sizing(26px,26px)
 				margin: 0 auto;
 			}
@@ -27,11 +26,20 @@
 		.toggle{
 			float: right;
 			margin-right: 12px;
+			font-size: 17px;
 			>a{
 				text-decoration: none;
 			}
 		}
 	}
+}
+
+.search-icon{
+	background: url('../../../assets/sprites.png') -30px -3px;				
+}
+
+.layers-icon{
+	background: url('../../../assets/sprites.png') 0px 0px;				
 }
 
 .expandable-control.collapsed{

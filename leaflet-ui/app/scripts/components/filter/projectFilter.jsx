@@ -9,7 +9,7 @@ import { cloneDeep,collectValues } from '../../util/filterUtil';
 require('./projectFilter.scss');
 
 var typingTimer;                //timer identifier
-var doneTypingInterval = 1500;  //time in ms (5 seconds)
+var doneTypingInterval = 900;  //time in ms (5 seconds)
 
 class ProjectFilter extends React.Component {
 

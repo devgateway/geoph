@@ -29,7 +29,7 @@ const Settings = onClickOutside(React.createClass({
     //this.setState({'fundingType': ev.target.value});
   },
 
-   handleClickOutside (evt) {
+  handleClickOutside (evt) {
     if (this.state.showSettings){
       this.setState({'showSettings': false});
     }
@@ -79,4 +79,4 @@ const mapStateToProps = (state, props) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Settings);;
+export default connect(mapStateToProps, mapDispatchToProps)(Settings);

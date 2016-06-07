@@ -3,9 +3,7 @@
 .layers-control{
   	@include box-sizing(auto,auto)
 	@include font(15px,$regular)
-	border: 1px solid #edf0f4;
-	border-radius: 2px;
-	margin: 22px;
+	margin-top: 22px;
 	.title{
 		color: rgb( 61, 77, 101 );
 		height: 34px;
@@ -124,25 +122,7 @@
   .InputRange-labelContainer{
 	display: none;
   }
-  .InputRange-slider {
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	appearance: none;
-	background: rgb(255, 174, 0);
-	 border: 0px solid #775820;
-	border-radius: 50%;
-	cursor: pointer;
-	display: block;
-	height: 15px;
-	margin-left: -1rem;
-	margin-top: -1.15rem;
-	outline: none;
-	position: absolute;
-	top: 50%;
-	transition: -webkit-transform 0.3s ease-out, box-shadow 0.3s ease-out;
-	transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
-	width: 15px;
-  }
+  
 }
 .layers-control.collapsed{
 	.title{

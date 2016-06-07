@@ -203,7 +203,7 @@ export default class ChartComponent extends React.Component {
 	    		: null}	
 	    		{!this.hasValuesOK(chartData)?
 	    			<div className="no-data">
-			    		<h4>No data to show</h4>
+			    		NO DATA AVALABLE
 			    	</div>
 	    		:
 	    			<div>
