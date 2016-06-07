@@ -11,7 +11,7 @@ import javax.persistence.metamodel.SingularAttribute;
  */
 public class ProjectOrder {
 
-    private boolean ascending;
+    private boolean ascending = true;
 
     private String column;
 

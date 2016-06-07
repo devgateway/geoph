@@ -6,9 +6,8 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.devgateway.geoph.model.*;
 import org.devgateway.geoph.services.AppMapService;
-import org.devgateway.geoph.services.FilterService;
 import org.devgateway.geoph.services.GeoJsonService;
-import org.devgateway.geoph.services.ProjectService;
+import org.devgateway.geoph.util.AppRequestParams;
 import org.devgateway.geoph.util.Parameters;
 import org.devgateway.geoph.util.PropsHelper;
 import org.devgateway.geoph.util.TransactionTypeEnum;
@@ -32,7 +31,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static org.devgateway.geoph.util.Constants.*;
-import static org.devgateway.geoph.util.Constants.FILTER_GENDER_RESPONSIVENESS;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -50,10 +48,6 @@ public class MapController {
 
     private final AppMapService service;
 
-    private final FilterService filterService;
-
-    private final ProjectService projectService;
-
     private final GeoJsonService geoJsonService;
 
     @RequestMapping(method = GET)
@@ -63,11 +57,8 @@ public class MapController {
     }
 
     @Autowired
-    public MapController(AppMapService service, FilterService filterService,
-                         ProjectService projectService, GeoJsonService geoJsonService) {
+    public MapController(AppMapService service, GeoJsonService geoJsonService) {
         this.service = service;
-        this.filterService = filterService;
-        this.projectService = projectService;
         this.geoJsonService = geoJsonService;
     }
 
@@ -125,36 +116,9 @@ public class MapController {
     public String exportData(
             @PathVariable final String fileType,
             @PathVariable final String language,
-            @RequestParam(value = FILTER_REACHED_OWPA_MAX, required = false) Float reachedOwpaMax,
-            @RequestParam(value = FILTER_REACHED_OWPA_MIN, required = false) Float reachedOwpaMin,
-            @RequestParam(value = FILTER_START_DATE_MAX, required = false) String startDateMax,
-            @RequestParam(value = FILTER_START_DATE_MIN, required = false) String startDateMin,
-            @RequestParam(value = FILTER_END_DATE_MAX, required = false) String endDateMax,
-            @RequestParam(value = FILTER_END_DATE_MIN, required = false) String endDateMin,
-            @RequestParam(value = FILTER_PERFORMANCE_START_MAX, required = false) String performanceStartMax,
-            @RequestParam(value = FILTER_PERFORMANCE_START_MIN, required = false) String performanceStartMin,
-            @RequestParam(value = FILTER_PERFORMANCE_END_MAX, required = false) String performanceEndMax,
-            @RequestParam(value = FILTER_PERFORMANCE_END_MIN, required = false) String performanceEndMin,
-            @RequestParam(value = FILTER_SECTOR, required = false) String sectors,
-            @RequestParam(value = FILTER_STATUS, required = false) String statuses,
-            @RequestParam(value = FILTER_LOCATION, required = false) String locations,
-            @RequestParam(value = FILTER_PROJECT, required = false) String projects,
-            @RequestParam(value = FILTER_IMPLEMENTING_AGENCY, required = false) String impAgencies,
-            @RequestParam(value = FILTER_FUNDING_AGENCY, required = false) String fundingAgencies,
-            @RequestParam(value = FILTER_FLOW_TYPE, required = false) String flowTypes,
-            @RequestParam(value = FILTER_PROJECT_TITLE, required = false) String projectTitle,
-            @RequestParam(value = FILTER_PHYSICAL_STATUS, required = false) String physicalStatuses,
-            @RequestParam(value = FILTER_CLIMATE_CHANGE, required = false) String climateChange,
-            @RequestParam(value = FILTER_GENDER_RESPONSIVENESS, required = false) String genderResponsiveness,
-            @RequestParam(value = FILTER_FINANCIAL_AMOUNT_MAX, required = false) Double financialAmountMax,
-            @RequestParam(value = FILTER_FINANCIAL_AMOUNT_MIN, required = false) Double financialAmountMin){
+            AppRequestParams filters){
         LOGGER.debug("exportData");
-        Parameters params = new Parameters(reachedOwpaMax, reachedOwpaMin,
-                startDateMax, startDateMin, endDateMax, endDateMin, performanceStartMax,
-                performanceStartMin, performanceEndMax, performanceEndMin, sectors, statuses, locations,
-                projects, impAgencies, fundingAgencies, flowTypes,
-                projectTitle, physicalStatuses, climateChange, genderResponsiveness,
-                financialAmountMin, financialAmountMax, null);
+        Parameters params = new Parameters(filters);
         List<Location> locationList = geoJsonService.getLocationsForExport(params);
 
         String filename = null;

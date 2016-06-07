@@ -11,8 +11,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static org.devgateway.geoph.util.Constants.FLOW_TYPE_ID_SEPARATOR;
-import static org.devgateway.geoph.util.Constants.PARAM_SEPARATOR;
+import static org.devgateway.geoph.util.Constants.*;
 
 /**
  * @author dbianco
@@ -79,38 +78,36 @@ public class Parameters {
     public Parameters() {
     }
 
-    public Parameters(Float reachedOwpaMax, Float reachedOwpaMin, String startDateMax, String startDateMin,
-                      String endDateMax, String endDateMin, String periodPerformanceStartMax,
-                      String periodPerformanceStartMin, String periodPerformanceEndMax,
-                      String periodPerformanceEndMin, String sectors, String statuses,
-                      String locations, String projects, String impAgencies, String fundingAgencies,
-                      String flowTypes, String projectTitle, String physicalStatuses,
-                      String climateChanges, String genderResponsiveness,
-                      Double financialAmountMin, Double financialAmountMax, Pageable pageable) {
-        this.setStartDateMax(startDateMax);
-        this.setStartDateMin(startDateMin);
-        this.setEndDateMax(endDateMax);
-        this.setEndDateMin(endDateMin);
-        this.setPeriodPerformanceStartMax(periodPerformanceStartMax);
-        this.setPeriodPerformanceStartMin(periodPerformanceStartMin);
-        this.setPeriodPerformanceEndMax(periodPerformanceEndMax);
-        this.setPeriodPerformanceEndMin(periodPerformanceEndMin);
-        this.setSectors(sectors);
-        this.setStatuses(statuses);
-        this.setLocations(locations);
-        this.setProjects(projects);
-        this.setImpAgencies(impAgencies);
-        this.setFundingAgencies(fundingAgencies);
-        this.setFlowTypes(flowTypes);
-        this.projectTitle = projectTitle;
-        this.setPhysicalStatuses(physicalStatuses);
-        this.setClimateChanges(climateChanges);
-        this.setGenderResponsiveness(genderResponsiveness);
-        this.financialAmountMin = financialAmountMin;
-        this.financialAmountMax = financialAmountMax;
-        this.reachedOwpaMax = reachedOwpaMax;
-        this.reachedOwpaMin = reachedOwpaMin;
-        this.setPageable(pageable);
+    public Parameters(AppRequestParams filters, Pageable pageable) {
+        this(filters);
+        this.pageable = pageable;
+    }
+
+    public Parameters(AppRequestParams filters) {
+        this.setStartDateMax(filters.getDt_start_max());
+        this.setStartDateMin(filters.getDt_start_min());
+        this.setEndDateMax(filters.getDt_end_max());
+        this.setEndDateMin(filters.getDt_end_min());
+        this.setLocations(filters.getLo());
+        this.setProjects(filters.getPr());
+        this.setPeriodPerformanceStartMax(filters.getPp_start_max());
+        this.setPeriodPerformanceStartMin(filters.getPp_start_min());
+        this.setPeriodPerformanceEndMax(filters.getPp_end_max());
+        this.setPeriodPerformanceEndMin(filters.getPp_end_min());
+        this.setSectors(filters.getSt());
+        this.setStatuses(filters.getSa());
+        this.setLocations(filters.getLo());
+        this.setImpAgencies(filters.getIa());
+        this.setFundingAgencies(filters.getFa());
+        this.setFlowTypes(filters.getFt());
+        this.projectTitle = filters.getPt();
+        this.setPhysicalStatuses(filters.getPh());
+        this.setClimateChanges(filters.getCc());
+        this.setGenderResponsiveness(filters.getGr());
+        this.financialAmountMin = filters.getFin_amount_min();
+        this.financialAmountMax = filters.getFin_amount_max();
+        this.reachedOwpaMax = filters.getRo_max();
+        this.reachedOwpaMin = filters.getRo_min();
     }
 
     public Float getReachedOwpaMax() {

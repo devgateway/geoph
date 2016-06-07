@@ -113,6 +113,15 @@ public class DefaultProjectRepository implements ProjectRepository {
         ret.add(((Date)o[3]).toString());
         return ret;    }
 
+    @Override
+    public List<Float> getTargetReachedPeriodBoundaries() {
+        List<Float> ret = new ArrayList<>();
+        Object[] o = (Object[]) em.createNativeQuery("select max(p.reached_owpa) as max_reached_owpa, min(p.reached_owpa) as min_reached_owpa from project p").getSingleResult();
+        ret.add(((Float)o[0]));
+        ret.add(((Float)o[1]));
+        return ret;
+    }
+
     private TypedQuery<Project> getProjectTypedQuery(Parameters params) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<Project> criteriaQuery = criteriaBuilder
@@ -127,7 +136,7 @@ public class DefaultProjectRepository implements ProjectRepository {
             criteriaQuery.where(other);
         }
 
-        if(params!=null && params.getProjectOrder()!=null && params.getProjectOrder().getColumn()!=null){
+        if(params!=null && params.getProjectOrder()!=null){
             if(params.getProjectOrder().getAscending()){
                 criteriaQuery.orderBy(criteriaBuilder.asc(projectRoot.get(params.getProjectOrder().getAttribute())));
             } else {
