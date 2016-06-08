@@ -28,4 +28,6 @@ public interface ProjectRepository {
     List<String> getImpPeriodBoundaries();
 
     List<String> getGrantPeriodBoundaries();
+
+    List<Float> getTargetReachedPeriodBoundaries();
 }

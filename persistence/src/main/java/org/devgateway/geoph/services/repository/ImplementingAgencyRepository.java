@@ -13,5 +13,7 @@ public interface ImplementingAgencyRepository  {
 
     List<ImplementingAgency> findAll();
 
+    Integer count();
+
     List<Object> findFundingByImplementingAgency(Parameters params);
 }
