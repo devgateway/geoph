@@ -1,6 +1,6 @@
 package org.devgateway.geoph;
 
-import org.devgateway.geoph.persistence.spring.PersistenceApplication;
+import org.devgateway.geoph.services.spring.PersistenceApplication;
 import org.devgateway.geoph.util.PropsHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -22,7 +22,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <start-class>org.devgateway.geoph.persistence.spring.PersistenceApplication</start-class>
+        <start-class>org.devgateway.geoph.services.spring.PersistenceApplication</start-class>
         <java.version>1.8</java.version>
         <joda.time.version>2.7</joda.time.version>
         <jadira.usertype.version>3.2.0.GA</jadira.usertype.version>
