@@ -37,5 +37,13 @@
 .charts-container{
 	overflow-y: scroll;
     overflow-x: hidden;
-    height: 335px;
+    height: 70%;
+}
+
+.no-data{
+    font-weight: 600;
+    color: #C10505;
+    padding: 15px;
+    text-transform: capitalize;
+    font-size: 16px;
 }
