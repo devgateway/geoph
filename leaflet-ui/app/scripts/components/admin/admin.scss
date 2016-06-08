@@ -1,29 +1,54 @@
 @import '../../../stylesheets/base.scss';
 
-#admin-main {
+.admin-view {
+
+  form {
+    clear:both;
+    width: 75%;
+    margin: 10px 2vw;
+  }
+
   label {
     font-size: 80%;
+    margin: 5px 5px;
   }
-  margin: 0px;
-  ul.menu {
-    font-size: 80%;
-    margin: 2vw;
-    list-style: none;
-    padding: 0px;
-    margin: 3px;
-    li {
-      padding: 5px;
+
+  /*Login*/
+  #login-form {
+    max-width: 500px;
+    label {
+      width: 80px;
+
     }
-    li:before {
-      content: "|";
+    input[type='text'], input[type='password'] {
+      width: 20vw;
     }
-    li.active {
-      font-weight: bold;
+    .form-group {
+      border: 0px solid red;
     }
   }
 
-  form {
-    margin: 10px 2vw;
+  /*admin index */
+  #admin-index {
+    margin: 0px;
+    ul.menu {
+      clear: both;
+      font-size: 80%;
+      margin: 2vw;
+      list-style: none;
+      padding: 0px;
+      li {
+        padding: 5px;
+        float: left;
+      }
+      li:before {
+        content: "|";
+      }
+      li.active {
+        font-weight: bold;
+      }
+    }
+
   }
 
   #add-indicator-form {

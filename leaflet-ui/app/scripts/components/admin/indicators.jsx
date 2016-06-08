@@ -3,8 +3,10 @@ import { connect } from 'react-redux'
 import {changeStep, changeProperty, updateErrors, upload} from '../../actions/indicators.js'
 import {Map} from 'immutable'
 import { Link } from 'react-router'
-var Dropzone = require('react-dropzone');
+import BaseForm from './baseForm.jsx'
 
+var Dropzone = require('react-dropzone');
+/*
 class BaseForm extends React.Component {
 
     constructor(props) {
@@ -37,7 +39,7 @@ class BaseForm extends React.Component {
         this.props.onValidate(errors);
     }
 
-}
+}*/
 
 class SelectTemplate extends BaseForm {
 
@@ -93,6 +95,7 @@ class AddIndicator extends BaseForm {
     }
 
     onDrop(files) {
+        debugger;
         this.handleChangeValue('file', files[0])
     }
 

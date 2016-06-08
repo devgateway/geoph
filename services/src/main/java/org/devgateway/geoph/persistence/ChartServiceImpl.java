@@ -53,7 +53,7 @@ public class ChartServiceImpl implements ChartService {
         }
         return fundingAgenciesList;
     }
-
+    //TODO:this method should be reviewed
     private void addFundingValues(Map<String, Object> chartMap, Object[] objectList) {
         chartMap.put("projectCount", objectList[1]!=null?objectList[1].toString():"");
         long[] transactions = new long[]{(Long)objectList[3], (Long)objectList[5], (Long)objectList[7],

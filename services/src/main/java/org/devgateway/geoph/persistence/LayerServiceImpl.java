@@ -114,6 +114,7 @@ public class LayerServiceImpl implements LayerService{
     }
 
     @Override
+
     public FeatureCollection getGeoPhotoData(long kmlId) {
         FeatureCollection featureCollection = new FeatureCollection();
         List<GeoPhotoGeometryHelper> geometryHelpers = geoPhotoRepository.getGeoPhotoGeometryByKmlId(kmlId);

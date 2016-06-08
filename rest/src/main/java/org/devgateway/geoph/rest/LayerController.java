@@ -102,9 +102,9 @@ public class LayerController {
         }
         return response;
     }
-
+        // headers = "content-type=multipart/*",
     //TODO:we should all the code used to parse to services
-    @RequestMapping(value = "/indicators", headers = "content-type=multipart/*", method = POST)
+    @RequestMapping(value = "/indicators", method = POST)
     //@Secured("ROLE_READ")
     public IndicatorResponse putIndicator(IndicatorRequest indicatorParam,
                                   @RequestParam(value = "file", required = false) final MultipartFile file) {

@@ -63,9 +63,8 @@ class Connector {
 	}
 
 	/*A method should always return a promise*/
-	call(verb,endpoint, params, absolute) {
-
-		let apiRoot = absolute? "" : Settings.get('API',API_BASE_URL);		
+	call(verb,endpoint, params) {
+		let apiRoot = Settings.get('API',API_BASE_URL);
 		let url = `${apiRoot}${endpoint}`; 
 
 		let caller;
@@ -158,17 +157,30 @@ class Connector {
 
 
 	uploadIndicator(options){
-		const URL=Settings.get('API','INDICATOR_UPLOAD');
-		return new Promise( (resolve, reject) => {
+		const URL=Settings.get('API',API_BASE_URL) + Settings.get('API','INDICATOR_UPLOAD');
+
+			return new Promise( (resolve, reject) => {
 			const {file,name,template,color} = options;
 			let url = Settings.get('API','INDICATOR_UPLOAD');
-			debugger;
-			this.call(POST,URL,file, {name,template,color}).then((data) => {
-				resolve(data);
-			})
-				.catch((response)=>{
-					reject(response.status);
+			var data = new FormData();
+			data.append('name', name);
+			data.append('template', template);
+			data.append('color', color);
+			data.append('file',file);
+			var config = {
+				progress: function(progressEvent) {
+					debugger;
+					var percentCompleted = progressEvent.loaded / progressEvent.total;
+				}
+			};
+
+			Axios.post(URL, data, config)
+				.then(function (res) {
+					resolve(data);
 				})
+				.catch(function (res) {
+					debugger;
+				});
 		})
 	}
 

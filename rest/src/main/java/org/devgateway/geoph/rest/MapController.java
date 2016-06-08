@@ -275,8 +275,8 @@ public class MapController {
         short rowNumber = 0;
         CreationHelper createHelper = wb.getCreationHelper();
         CellStyle dataStyle = wb.createCellStyle();
-        dataStyle.setDataFormat(
-                createHelper.createDataFormat().getFormat("m/d/yy h:mm"));
+        dataStyle.setDataFormat(createHelper.createDataFormat().getFormat("m/d/yy h:mm"));
+
         for(Location l : locationList){
             for(Project p : l.getProjects()){
                 rowNumber ++;
