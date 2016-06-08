@@ -10,28 +10,29 @@ export default class Panel extends React.Component {
     super();
   }
 
+  testa(){
+
+  }
 
   render() {
     return (
 
-      <div className="panel">
+      <div className={this.props.panel.expanded? "panel panel-expanded" : "panel"}>
         <ul>
           <li className={(this.props.currentView=='/tools')?"active":""}>
-              <Link to="/tools">
-             
-                  <div className="icon tools"/>
-                 <span>Tool View</span>
-              </Link>
+            <Link to="/tools" >             
+              <div className="icon tools"/>
+              <span>Tool View</span>
+            </Link>
           </li>
           <li className={(this.props.currentView=='/charts')?"active":""}>
             <Link to="/charts">
               <div className="icon chart"/>
               <span>Chart View</span>
-              </Link>
+            </Link>
           </li>
-          </ul>
-          
-              {this.props.children}
+        </ul>
+        {this.props.children}
       </div>
       )
   }
@@ -39,12 +40,15 @@ export default class Panel extends React.Component {
 
  
 const mapStateToProps = (state, props) => {
-      return {currentView:state.routing.locationBeforeTransitions.pathname}
+  return {
+    currentView: state.routing.locationBeforeTransitions.pathname,
+    panel: state.panel
+  }
 }
 
 
 const mapDispatchToProps = (dispatch, ownProps) => {
- return {}
+  return {}
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Panel);;

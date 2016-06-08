@@ -42,6 +42,7 @@
 
 	export const RECEIVE_STATS = 'RECEIVE_STATS';
 
+	export const TOGGLE_PANEL_EXPANDED = 'TOGGLE_PANEL_EXPANDED';
 
 	/*POPUP events*/
 

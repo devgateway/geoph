@@ -8,7 +8,7 @@
 
 
 .panel{
-	@include absolute(102px,0px,40px,initial)
+	@include absolute(101px,0px,40px,initial)
 	@include font(16px,$regular);
 	@include col2size();
 	overflow:hidden;
@@ -62,4 +62,8 @@
 	p{
 		margin: 15px;
 	}
+}
+
+.panel-expanded{
+	width: 67% !important; 
 }

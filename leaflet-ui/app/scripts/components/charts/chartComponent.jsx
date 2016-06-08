@@ -58,8 +58,8 @@ export default class ChartComponent extends React.Component {
 			    }
 		    ],
 			'layout': {         
-		      	'height': height || 250,
-				'width': width || 550,
+		      	'height': height || 250, 
+				'width': width || (this.refs.chartContainer? this.refs.chartContainer.offsetWidth : 550),
 				'margin':{
 					't':20,
 					'b':20,
@@ -121,11 +121,13 @@ export default class ChartComponent extends React.Component {
 					showticklabels:false,
 				},                
 		      	'height': height || 250,
-				'width': width || 550,
+				'width': width || (this.refs.chartContainer? this.refs.chartContainer.offsetWidth : 550),
 				'autosize': false,
 				'margin':{
 					't':20,
-					'b':35
+					'b':35,
+					'l':40, 
+					'r':20
 				}
 		    },
 			'config': {
@@ -161,6 +163,18 @@ export default class ChartComponent extends React.Component {
 		}
 	}
 
+	handleResize(e) {
+		this.forceUpdate();
+	}
+
+	componentDidMount() {
+		window.addEventListener('resize', this.handleResize.bind(this));
+	}
+
+	componentWillUnmount() {
+		window.removeEventListener('resize', this.handleResize.bind(this));
+	}
+  
 	render() {
 		var chartData;
 		if (this.props.chartType){
@@ -169,7 +183,7 @@ export default class ChartComponent extends React.Component {
 			chartData = this.state.chartType=='bar'? this.parseDataForBarchart() : this.parseDataForPiechart();
 		}
 		return (
-	    	<div className="chart">
+	    	<div className="chart" ref="chartContainer">
 	    		<div className="chart-title">
 	    			{this.props.title || ""}
 	    		</div>

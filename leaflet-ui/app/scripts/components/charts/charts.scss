@@ -37,7 +37,7 @@
 .charts-container{
 	overflow-y: scroll;
     overflow-x: hidden;
-    height: 70%;
+    height: 63%;
 }
 
 .no-data{
@@ -46,4 +46,44 @@
     padding: 15px;
     text-transform: capitalize;
     font-size: 16px;
+}
+
+.expand-button{
+    padding: 0 5px;
+    position: relative;
+    display: inline-block;
+    margin: 5px 10px;
+}
+
+.expand-button-arrow{
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+}
+
+.left{
+    top: 50%;
+    left: 0;
+    margin-top: -5px;
+    border-width: 5px 5px 5px 0;
+    border-right-color: #778393;
+}
+
+.right{
+    top: 50%;
+    right: 0;
+    margin-top: -5px;
+    border-width: 5px 0 5px 5px;
+    border-left-color: #778393;
+}
+
+.expand-button-inner{
+    padding: 8px 14px;
+    color: #fff;
+    text-align: center;
+    background-color: #778393;
+    border-radius: 4px;
+    font-size: 14px;
 }
