@@ -1,9 +1,10 @@
-package org.devgateway.geoph.persistence.repository;
+package org.devgateway.geoph.services.repository;
 
 import com.google.gson.Gson;
 import org.devgateway.geoph.model.*;
-import org.devgateway.geoph.persistence.util.FilterHelper;
+import org.devgateway.geoph.services.util.FilterHelper;
 import org.devgateway.geoph.util.*;
+import org.devgateway.geoph.util.queries.LocationResultsQueryHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -68,26 +69,6 @@ public class DefaultLocationRepository implements LocationRepository {
     }
 
     @Override
-    public Location findParentLocation(long locationId) {
-        return (Location) em.createNativeQuery("Select l.* from location l inner join location_items li " +
-                        "on l.id=li.location_id where li.items_id = :locationId",
-                Location.class)
-                .setParameter("locationId", locationId)
-                .getSingleResult();
-    }
-
-    @Override
-    public Location findGrandParentLocation(long locationId) {
-        return (Location) em.createNativeQuery("Select l.* from location l inner join location_items li " +
-                        "on l.id=li.location_id " +
-                        "inner join location_items li2 on li2.location_id = li.items_id " +
-                        "where li2.items_id = :locationId",
-                    Location.class)
-                .setParameter("locationId", locationId)
-                .getSingleResult();
-    }
-
-    @Override
     @Cacheable("countLocationProjectsByParams")
     public List<Object> countLocationProjectsByParams(Parameters params) {
 
@@ -119,14 +100,14 @@ public class DefaultLocationRepository implements LocationRepository {
 
     @Override
     @Cacheable("locationsByParams")
-    public List<Object> findLocationsByParams(Parameters params, int trxTypeId, int trxStatusId) {
+    public List<LocationResultsQueryHelper> findLocationsByParams(Parameters params, int trxTypeId, int trxStatusId) {
 
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-        CriteriaQuery<Object> criteriaQuery = criteriaBuilder.createQuery();
+        CriteriaQuery<LocationResultsQueryHelper> criteriaQuery = criteriaBuilder.createQuery(LocationResultsQueryHelper.class);
 
         Root<Location> locationRoot = criteriaQuery.from(Location.class);
         List<Selection<?>> multiSelect = new ArrayList<>();
-        multiSelect.add(locationRoot);
+        multiSelect.add(locationRoot.alias("location"));
 
         List<Predicate> predicates = new ArrayList();
         List<Expression<?>> groupByList = new ArrayList<>();
@@ -138,10 +119,10 @@ public class DefaultLocationRepository implements LocationRepository {
             addTransactionJoin(criteriaBuilder, multiSelect, projectJoin, trxTypeId, trxStatusId);
         }
 
-        multiSelect.add(criteriaBuilder.sum(projectJoin.get(Project_.actualOwpa)));
-        multiSelect.add(criteriaBuilder.countDistinct(projectJoin.get(Project_.actualOwpa)));
-        multiSelect.add(criteriaBuilder.sum(projectJoin.get(Project_.targetOwpa)));
-        multiSelect.add(criteriaBuilder.countDistinct(projectJoin.get(Project_.targetOwpa)));
+        multiSelect.add(criteriaBuilder.sum(projectJoin.get(Project_.actualOwpa)).alias("actualPhysicalProgressAmount"));
+        multiSelect.add(criteriaBuilder.countDistinct(projectJoin.get(Project_.actualOwpa)).alias("actualPhysicalProgressCount"));
+        multiSelect.add(criteriaBuilder.sum(projectJoin.get(Project_.targetOwpa)).alias("targetPhysicalProgressAmount"));
+        multiSelect.add(criteriaBuilder.countDistinct(projectJoin.get(Project_.targetOwpa)).alias("targetPhysicalProgressCount"));
 
         FilterHelper.filterLocationQuery(params, criteriaBuilder, locationRoot, predicates, projectJoin);
 
@@ -150,8 +131,7 @@ public class DefaultLocationRepository implements LocationRepository {
 
 
         criteriaQuery.groupBy(groupByList);
-        //TODO:create a type for this result avoiding using object type prevent us from cast errors
-        TypedQuery<Object> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
+        TypedQuery<LocationResultsQueryHelper> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
 
         return query.getResultList();
     }
@@ -161,8 +141,8 @@ public class DefaultLocationRepository implements LocationRepository {
         Join<Project, Transaction> transactionJoin = projectJoin.join(Project_.transactions, JoinType.LEFT);
         transactionJoin.on(transactionJoin.get(Transaction_.transactionTypeId).in(trxType),
                 transactionJoin.get(Transaction_.transactionStatusId).in(trxStatus));
-        multiSelect.add(criteriaBuilder.sum(transactionJoin.get(Transaction_.amount)));
-        multiSelect.add(criteriaBuilder.countDistinct(transactionJoin));
+        multiSelect.add(criteriaBuilder.sum(transactionJoin.get(Transaction_.amount)).alias("trxAmount"));
+        multiSelect.add(criteriaBuilder.countDistinct(transactionJoin).alias("trxCount"));
     }
 
 

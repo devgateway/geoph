@@ -1,7 +1,9 @@
 package org.devgateway.geoph.persistence;
 
+import org.devgateway.geoph.response.ChartResponse;
 import org.devgateway.geoph.util.Parameters;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -10,11 +12,11 @@ import java.util.Map;
  *         created on abr 04 2016.
  */
 public interface ChartService {
-    List<Map<String, Object>> getFundingByFundingAgency(Parameters params);
+    Collection<ChartResponse> getFundingByFundingAgency(Parameters params);
 
-    List<Map<String, Object>> getFundingByImplementingAgency(Parameters params);
+    Collection<ChartResponse> getFundingByImplementingAgency(Parameters params);
 
-    List<Map<String, Object>> getFundingBySector(Parameters params);
+    Collection<ChartResponse> getFundingBySector(Parameters params);
 
-    List<Map<String, Object>> getFundingByPhysicalStatus(Parameters params);
+    Collection<ChartResponse> getFundingByPhysicalStatus(Parameters params);
 }

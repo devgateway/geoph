@@ -26,6 +26,8 @@ import static org.devgateway.geoph.util.Constants.*;
 @RequestMapping(value = "/filters")
 public class FilterController extends CrossOriginSupport {
 
+    private static final int DEFAULT_INDEX = 1;
+
     private final FilterService service;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FilterController.class);
@@ -44,7 +46,7 @@ public class FilterController extends CrossOriginSupport {
                 "Relevance to Climate",
                 FILTER_CLIMATE_CHANGE,
                 "CLIMATE_CHANGE_SECTION",
-                1,
+                DEFAULT_INDEX,
                 climateChanges,
                 climateChanges!=null?climateChanges.size():0
         );
@@ -60,7 +62,7 @@ public class FilterController extends CrossOriginSupport {
                 "Gender",
                 FILTER_GENDER_RESPONSIVENESS,
                 "GENDER_RESPONSIVENESS_SECTION",
-                1,
+                DEFAULT_INDEX,
                 genderResponsiveness,
                 genderResponsiveness!=null?genderResponsiveness.size():0
         );
@@ -76,7 +78,7 @@ public class FilterController extends CrossOriginSupport {
                 "Financial Amount Period",
                 FILTER_FINANCIAL_AMOUNT_MAX + SLASH +FILTER_FINANCIAL_AMOUNT_MIN,
                 "FINANCIAL_AMOUNT_SECTION",
-                1,
+                DEFAULT_INDEX,
                 financialAmountPeriod,
                 financialAmountPeriod!=null?financialAmountPeriod.size():0
         );
@@ -92,7 +94,7 @@ public class FilterController extends CrossOriginSupport {
                 "Funding Type",
                 FILTER_FLOW_TYPE,
                 "FLOW_TYPE_SECTION",
-                1,
+                DEFAULT_INDEX,
                 flowTypes,
                 flowTypes!=null?flowTypes.size():0
         );
@@ -109,7 +111,7 @@ public class FilterController extends CrossOriginSupport {
                 "Financing Institution",
                 FILTER_FUNDING_AGENCY,
                 "FUNDING_ORG_SECTION",
-                1,
+                DEFAULT_INDEX,
                 fundingAgencies,
                 fundingAgencies!=null?fundingAgencies.size():0
         );
@@ -126,7 +128,7 @@ public class FilterController extends CrossOriginSupport {
                 "Implementing Agency",
                 FILTER_IMPLEMENTING_AGENCY,
                 "IMPLEMENTING_AGENCY_SECTION",
-                1,
+                DEFAULT_INDEX,
                 impAgencies,
                 impAgencies!=null?impAgencies.size():0
         );
@@ -143,7 +145,7 @@ public class FilterController extends CrossOriginSupport {
                 "Physical Status",
                 FILTER_PHYSICAL_STATUS,
                 "PHYSICAL_STATUS_SECTION",
-                1,
+                DEFAULT_INDEX,
                 physicalStatuses,
                 physicalStatuses!=null?physicalStatuses.size():0
         );
@@ -159,7 +161,7 @@ public class FilterController extends CrossOriginSupport {
                 "Locations",
                 FILTER_LOCATION,
                 "LOCATIONS_SECTION",
-                1,
+                DEFAULT_INDEX,
                 locations,
                 locations!=null?locations.size():0
         );
@@ -176,7 +178,7 @@ public class FilterController extends CrossOriginSupport {
                 "Region Locations",
                 FILTER_LOCATION,
                 "LOCATIONS_SECTION",
-                1,
+                DEFAULT_INDEX,
                 locations,
                 locations!=null?locations.size():0
         );
@@ -191,7 +193,7 @@ public class FilterController extends CrossOriginSupport {
                 "Children locations of parentId " + parentId,
                 FILTER_LOCATION,
                 "LOCATIONS_SECTION",
-                1,
+                DEFAULT_INDEX,
                 locations,
                 locations!=null?locations.size():0
         );
@@ -201,13 +203,13 @@ public class FilterController extends CrossOriginSupport {
     @RequestMapping(value = "/sector", method = GET)
     public GenericResponse findAllSectors() {
         LOGGER.debug("findAllSectors");
-        List<Sector> sectors = service.findAllSectorByLevel(1);
+        List<Sector> sectors = service.findAllSectorByLevel(DEFAULT_INDEX);
         sortSectors(sectors);
         GenericResponse resp = new GenericResponse(
                 "Sector",
                 FILTER_SECTOR,
                 "SECTORS_SECTION",
-                1,
+                DEFAULT_INDEX,
                 sectors,
                 sectors!=null?sectors.size():0
         );
@@ -230,7 +232,7 @@ public class FilterController extends CrossOriginSupport {
                 "Financing Status",
                 FILTER_STATUS,
                 "STATUSES_SECTION",
-                1,
+                DEFAULT_INDEX,
                 statuses,
                 statuses!=null?statuses.size():0
         );
@@ -247,12 +249,25 @@ public class FilterController extends CrossOriginSupport {
                 "Implementation Period",
                 FILTER_START_DATE_MAX + SLASH + FILTER_START_DATE_MIN + SLASH + FILTER_END_DATE_MAX + SLASH + FILTER_END_DATE_MIN,
                 "IMP_PERIOD_SECTION",
-                1,
+                DEFAULT_INDEX,
                 impPeriodList,
                 impPeriodList!=null?impPeriodList.size():0
         );
 
         return resp;
+    }
+
+    @RequestMapping(value = "/config", method = GET)
+    public Map<String, Object> findAppConfig() {
+        LOGGER.debug("findAppConfig");
+        Map<String, Object> allConfig = new HashMap<>();
+        allConfig.put("financialAmountPeriod", service.findFinancialAmountPeriod());
+        allConfig.put("impPeriod", service.findImpPeriodBoundaries());
+        allConfig.put("impAgenciesCount", service.countImpAgencies());
+        allConfig.put("targetReachedPeriod", service.findTargetReachedPeriodBoundaries());
+        allConfig.put("grantPeriod", service.findGrantPeriodBoundaries());
+
+        return allConfig;
     }
 
     @RequestMapping(value = "/grantPeriod", method = GET)
@@ -264,7 +279,7 @@ public class FilterController extends CrossOriginSupport {
                 "Performance Period",
                 FILTER_PERFORMANCE_START_MAX + SLASH + FILTER_PERFORMANCE_START_MIN + SLASH + FILTER_PERFORMANCE_END_MAX + SLASH + FILTER_PERFORMANCE_END_MIN,
                 "GRANT_PERIOD_SECTION",
-                1,
+                DEFAULT_INDEX,
                 grantPeriodList,
                 grantPeriodList!=null?grantPeriodList.size():0
         );

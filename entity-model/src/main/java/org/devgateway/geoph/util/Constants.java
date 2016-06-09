@@ -27,6 +27,8 @@ public class Constants {
     public static final String FILTER_PERFORMANCE_END_MIN = "pp_end_min";
     public static final String FILTER_PHYSICAL_STATUS = "ph";
     public static final String FILTER_PROJECT = "pr";
+    public static final String FILTER_REACHED_OWPA_MAX = "ro_max";
+    public static final String FILTER_REACHED_OWPA_MIN = "ro_min";
     public static final String FILTER_SECTOR = "st";
     public static final String FILTER_STATUS = "sa";
     public static final String FILTER_PROJECT_TITLE = "pt";

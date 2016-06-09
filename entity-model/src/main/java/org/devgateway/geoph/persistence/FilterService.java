@@ -16,6 +16,8 @@ public interface FilterService {
 
     List<ImplementingAgency> findAllImpAgencies();
 
+    Integer countImpAgencies();
+
     List<FundingAgency> findAllFundingAgencies();
 
     List<ExecutingAgency> findAllExecutingAgencies();
@@ -51,6 +53,8 @@ public interface FilterService {
     List<String> findImpPeriodBoundaries();
 
     List<String> findGrantPeriodBoundaries();
+
+    List<Float> findTargetReachedPeriodBoundaries();
 
     List<Currency> findAllCurrencies();
 

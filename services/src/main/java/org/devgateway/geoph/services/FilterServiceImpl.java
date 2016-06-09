@@ -70,6 +70,12 @@ public class FilterServiceImpl implements FilterService {
     }
 
     @Override
+    public Integer countImpAgencies(){
+        LOGGER.debug("Count implementing agencies");
+        return impAgencyRepository.count();
+    }
+
+    @Override
     public List<FundingAgency> findAllFundingAgencies() {
         LOGGER.debug("Getting all funding agencies");
         return fundingAgencyRepository.findAll();
@@ -196,6 +202,11 @@ public class FilterServiceImpl implements FilterService {
     @Override
     public List<String> findGrantPeriodBoundaries(){
         return projectRepository.getGrantPeriodBoundaries();
+    }
+
+    @Override
+    public List<Float> findTargetReachedPeriodBoundaries() {
+        return projectRepository.getTargetReachedPeriodBoundaries();
     }
 
     @Override

@@ -2,6 +2,7 @@ package org.devgateway.geoph.persistence.repository;
 
 import org.devgateway.geoph.model.PhysicalStatus;
 import org.devgateway.geoph.util.Parameters;
+import org.devgateway.geoph.util.queries.PhysicalStatusQueryHelper;
 
 import java.util.List;
 
@@ -17,5 +18,5 @@ public interface PhysicalStatusRepository {
 
     PhysicalStatus findByCode(String code);
 
-    List<Object> findFundingByPhysicalStatus(Parameters params);
+    List<PhysicalStatusQueryHelper> findFundingByPhysicalStatus(Parameters params, int trxTypeId, int trxStatusId);
 }

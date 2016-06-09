@@ -5,6 +5,7 @@ import org.devgateway.geoph.persistence.util.FilterHelper;
 import org.devgateway.geoph.util.Parameters;
 import org.devgateway.geoph.util.TransactionStatusEnum;
 import org.devgateway.geoph.util.TransactionTypeEnum;
+import org.devgateway.geoph.util.queries.PhysicalStatusQueryHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,9 +46,9 @@ public class DefaultPhysicalStatusRepository implements PhysicalStatusRepository
     }
 
     @Override
-    public List<Object> findFundingByPhysicalStatus(Parameters params) {
+    public List<PhysicalStatusQueryHelper> findFundingByPhysicalStatus(Parameters params, int trxTypeId, int trxStatusId) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-        CriteriaQuery<Object> criteriaQuery = criteriaBuilder.createQuery();
+        CriteriaQuery<PhysicalStatusQueryHelper> criteriaQuery = criteriaBuilder.createQuery(PhysicalStatusQueryHelper.class);
 
         Root<Project> projectRoot = criteriaQuery.from(Project.class);
 
@@ -57,13 +58,11 @@ public class DefaultPhysicalStatusRepository implements PhysicalStatusRepository
 
         Join<Project, PhysicalStatus> physicalStatusJoin = projectRoot.join(Project_.physicalStatus);
         multiSelect.add(physicalStatusJoin);
-        multiSelect.add(criteriaBuilder.countDistinct(projectRoot).alias("projectCount"));
+        multiSelect.add(criteriaBuilder.countDistinct(projectRoot));
         groupByList.add(physicalStatusJoin);
 
-        for(TransactionTypeEnum t:TransactionTypeEnum.values()){
-            for(TransactionStatusEnum s:TransactionStatusEnum.values()){
-                FilterHelper.addTransactionJoin(criteriaBuilder, multiSelect, projectRoot, t.getId(), s.getId());
-            }
+        if(trxTypeId!=0 && trxStatusId!=0) {
+            FilterHelper.addTransactionJoin(criteriaBuilder, multiSelect, projectRoot, trxTypeId, trxStatusId);
         }
 
         FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);
@@ -73,7 +72,7 @@ public class DefaultPhysicalStatusRepository implements PhysicalStatusRepository
 
 
         criteriaQuery.groupBy(groupByList);
-        TypedQuery<Object> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
+        TypedQuery<PhysicalStatusQueryHelper> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
 
         return query.getResultList();
     }

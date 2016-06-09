@@ -21,13 +21,13 @@ public class LocationProperty {
 
     private double longitude;
 
-    private long projectCount = 0;
+    private Long projectCount = 0L;
 
-    private long transactionCount = 0;
+    private Long transactionCount = 0L;
 
-    private double actualPhysicalProgressAverage;
+    private Double actualPhysicalProgressAverage;
 
-    private double targetPhysicalProgressAverage;
+    private Double targetPhysicalProgressAverage;
 
     private Map<String, Double> commitments = new HashMap<>();
 
@@ -86,19 +86,19 @@ public class LocationProperty {
         this.longitude = longitude;
     }
 
-    public long getProjectCount() {
+    public Long getProjectCount() {
         return projectCount;
     }
 
-    public long getTransactionCount() {
+    public Long getTransactionCount() {
         return transactionCount;
     }
 
-    public void setProjectCount(long projectCount) {
+    public void setProjectCount(Long projectCount) {
         this.projectCount = projectCount;
     }
 
-    public void setTransactionCount(long transactionCount) {
+    public void setTransactionCount(Long transactionCount) {
         this.transactionCount = transactionCount;
     }
 
@@ -127,15 +127,11 @@ public class LocationProperty {
     }
 
     public void addProjectCount(Long projectCount){
-        if(projectCount!=null){
-            this.projectCount += projectCount;
-        }
+        this.projectCount += projectCount;
     }
 
     public void addTransactionCount(Long transactionCount){
-        if(transactionCount!=null){
-            this.transactionCount += transactionCount;
-        }
+        this.transactionCount += transactionCount;
     }
 
     public void addCommitment(String type, Double addValue){
@@ -157,19 +153,19 @@ public class LocationProperty {
         }
     }
 
-    public double getActualPhysicalProgressAverage() {
+    public Double getActualPhysicalProgressAverage() {
         return actualPhysicalProgressAverage;
     }
 
-    public void setActualPhysicalProgressAverage(double actualPhysicalProgressAverage) {
+    public void setActualPhysicalProgressAverage(Double actualPhysicalProgressAverage) {
         this.actualPhysicalProgressAverage = actualPhysicalProgressAverage;
     }
 
-    public double getTargetPhysicalProgressAverage() {
+    public Double getTargetPhysicalProgressAverage() {
         return targetPhysicalProgressAverage;
     }
 
-    public void setTargetPhysicalProgressAverage(double targetPhysicalProgressAverage) {
+    public void setTargetPhysicalProgressAverage(Double targetPhysicalProgressAverage) {
         this.targetPhysicalProgressAverage = targetPhysicalProgressAverage;
     }
 
