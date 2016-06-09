@@ -44,7 +44,7 @@ public class FilterController extends CrossOriginSupport {
     public GenericResponse findAllClimateChanges() {
         LOGGER.debug("findAllClimateChanges");
         List<ClimateChange> climateChanges = service.findAllClimateChanges();
-        Collections.sort(climateChanges);
+        Collections.sort(climateChanges); //TODO:sort while querying
         GenericResponse resp = new GenericResponse(
                 "Relevance to Climate",
                 FILTER_CLIMATE_CHANGE,
@@ -247,7 +247,7 @@ public class FilterController extends CrossOriginSupport {
     public GenericResponse findImpPeriod() {
         LOGGER.debug("findImpPeriod");
         List<String> impPeriodList = service.findImpPeriodBoundaries();
-
+        //TODO: review this data structure
         GenericResponse resp = new GenericResponse(
                 "Implementation Period",
                 FILTER_START_DATE_MAX + SLASH + FILTER_START_DATE_MIN + SLASH + FILTER_END_DATE_MAX + SLASH + FILTER_END_DATE_MIN,

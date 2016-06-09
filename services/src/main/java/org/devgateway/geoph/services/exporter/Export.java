@@ -24,7 +24,7 @@ public class Export {
 
         SimpleValueExtractor<Long,Location> longExtractor=new SimpleValueExtractor<>();
 
-    List list=    locationList.stream().map(location ->columnsDef.stream().map(columnDefinition -> columnDefinition.getCell(longExtractor.extract(location,columnDefinition.getGetter()))).collect(Collectors.toList())).collect(Collectors.toList());
+        List list = locationList.stream().map(location -> columnsDef.stream().map(columnDefinition -> columnDefinition.getCell(longExtractor.extract(location, columnDefinition.getGetter()))).collect(Collectors.toList())).collect(Collectors.toList());
 
         System.out.print(list);
     }

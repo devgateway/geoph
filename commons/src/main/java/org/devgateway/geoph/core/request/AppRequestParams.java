@@ -235,4 +235,9 @@ public class AppRequestParams {
     public void setPp_end_min(String pp_end_min) {
         this.pp_end_min = pp_end_min;
     }
+
+
+    public Parameters getParameters() {
+        return new Parameters(this);
+    }
 }
