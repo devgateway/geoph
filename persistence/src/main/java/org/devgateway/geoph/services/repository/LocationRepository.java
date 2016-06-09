@@ -3,6 +3,7 @@ package org.devgateway.geoph.services.repository;
 import org.devgateway.geoph.model.Location;
 import org.devgateway.geoph.util.PostGisHelper;
 import org.devgateway.geoph.util.Parameters;
+import org.devgateway.geoph.util.queries.LocationResultsQueryHelper;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ public interface LocationRepository {
 
     List<Location> findLocationsByParentId(long parentId);
 
-    List<Object> findLocationsByParams(Parameters params, int trxTypeId, int trxStatusId);
+    List<LocationResultsQueryHelper> findLocationsByParams(Parameters params, int trxTypeId, int trxStatusId);
 
     List<Object> countLocationProjectsByParams(Parameters params);
 
@@ -31,9 +32,5 @@ public interface LocationRepository {
     List<PostGisHelper> getProvinceShapesWithDetail(double detail);
 
     List<PostGisHelper> getMunicipalityShapesWithDetail(double detail);
-
-    Location findParentLocation(long locationId);
-
-    Location findGrandParentLocation(long locationId);
 
 }

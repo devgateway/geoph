@@ -5,6 +5,7 @@ import org.devgateway.geoph.services.util.FilterHelper;
 import org.devgateway.geoph.util.Parameters;
 import org.devgateway.geoph.util.TransactionStatusEnum;
 import org.devgateway.geoph.util.TransactionTypeEnum;
+import org.devgateway.geoph.util.queries.SectorResultsQueryHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,9 +46,9 @@ public class DefaultSectorRepository implements SectorRepository {
     }
 
     @Override
-    public List<Object> findFundingBySector(Parameters params) {
+    public List<SectorResultsQueryHelper> findFundingBySector(Parameters params, int trxTypeId, int trxStatusId) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-        CriteriaQuery<Object> criteriaQuery = criteriaBuilder.createQuery();
+        CriteriaQuery<SectorResultsQueryHelper> criteriaQuery = criteriaBuilder.createQuery(SectorResultsQueryHelper.class);
 
         Root<Project> projectRoot = criteriaQuery.from(Project.class);
 
@@ -57,13 +58,11 @@ public class DefaultSectorRepository implements SectorRepository {
 
         Join<Project, Sector> sectorJoin = projectRoot.join(Project_.sectors);
         multiSelect.add(sectorJoin);
-        multiSelect.add(criteriaBuilder.countDistinct(projectRoot).alias("projectCount"));
+        multiSelect.add(criteriaBuilder.countDistinct(projectRoot));
         groupByList.add(sectorJoin);
 
-        for(TransactionTypeEnum t:TransactionTypeEnum.values()){
-            for(TransactionStatusEnum s:TransactionStatusEnum.values()){
-                FilterHelper.addTransactionJoin(criteriaBuilder, multiSelect, projectRoot, t.getId(), s.getId());
-            }
+        if(trxTypeId!=0 && trxStatusId!=0) {
+            FilterHelper.addTransactionJoin(criteriaBuilder, multiSelect, projectRoot, trxTypeId, trxStatusId);
         }
 
         FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);
@@ -73,7 +72,7 @@ public class DefaultSectorRepository implements SectorRepository {
 
 
         criteriaQuery.groupBy(groupByList);
-        TypedQuery<Object> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
+        TypedQuery<SectorResultsQueryHelper> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
 
         return query.getResultList();
     }

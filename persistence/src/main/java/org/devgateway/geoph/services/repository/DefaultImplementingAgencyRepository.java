@@ -5,6 +5,7 @@ import org.devgateway.geoph.services.util.FilterHelper;
 import org.devgateway.geoph.util.Parameters;
 import org.devgateway.geoph.util.TransactionStatusEnum;
 import org.devgateway.geoph.util.TransactionTypeEnum;
+import org.devgateway.geoph.util.queries.AgencyResultsQueryHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,9 +37,9 @@ public class DefaultImplementingAgencyRepository implements ImplementingAgencyRe
     }
 
     @Override
-    public List<Object> findFundingByImplementingAgency(Parameters params) {
+    public List<AgencyResultsQueryHelper> findFundingByImplementingAgency(Parameters params, int trxTypeId, int trxStatusId) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-        CriteriaQuery<Object> criteriaQuery = criteriaBuilder.createQuery();
+        CriteriaQuery<AgencyResultsQueryHelper> criteriaQuery = criteriaBuilder.createQuery(AgencyResultsQueryHelper.class);
 
         Root<Project> projectRoot = criteriaQuery.from(Project.class);
 
@@ -48,13 +49,11 @@ public class DefaultImplementingAgencyRepository implements ImplementingAgencyRe
 
         Join<Project, Agency> agencyJoin = projectRoot.join(Project_.implementingAgencies);
         multiSelect.add(agencyJoin);
-        multiSelect.add(criteriaBuilder.countDistinct(projectRoot).alias("projectCount"));
+        multiSelect.add(criteriaBuilder.countDistinct(projectRoot));
         groupByList.add(agencyJoin);
 
-        for(TransactionTypeEnum t:TransactionTypeEnum.values()){
-            for(TransactionStatusEnum s:TransactionStatusEnum.values()){
-                FilterHelper.addTransactionJoin(criteriaBuilder, multiSelect, projectRoot, t.getId(), s.getId());
-            }
+        if(trxTypeId!=0 && trxStatusId!=0) {
+            FilterHelper.addTransactionJoin(criteriaBuilder, multiSelect, projectRoot, trxTypeId, trxStatusId);
         }
 
         FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);
@@ -64,7 +63,7 @@ public class DefaultImplementingAgencyRepository implements ImplementingAgencyRe
 
 
         criteriaQuery.groupBy(groupByList);
-        TypedQuery<Object> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
+        TypedQuery<AgencyResultsQueryHelper> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
 
         return query.getResultList();
     }

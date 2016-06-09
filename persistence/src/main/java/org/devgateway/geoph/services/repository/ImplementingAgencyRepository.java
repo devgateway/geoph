@@ -2,6 +2,7 @@ package org.devgateway.geoph.services.repository;
 
 import org.devgateway.geoph.model.ImplementingAgency;
 import org.devgateway.geoph.util.Parameters;
+import org.devgateway.geoph.util.queries.AgencyResultsQueryHelper;
 
 import java.util.List;
 
@@ -15,5 +16,5 @@ public interface ImplementingAgencyRepository  {
 
     Integer count();
 
-    List<Object> findFundingByImplementingAgency(Parameters params);
+    List<AgencyResultsQueryHelper> findFundingByImplementingAgency(Parameters params, int trxTypeId, int trxStatusId);
 }

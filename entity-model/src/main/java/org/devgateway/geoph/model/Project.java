@@ -60,7 +60,7 @@ public class Project extends GenericPersistable implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, cascade= CascadeType.MERGE)
     private Agency executingAgency;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade= CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.EAGER, cascade= CascadeType.MERGE)
     private Agency fundingAgency;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade= CascadeType.MERGE)

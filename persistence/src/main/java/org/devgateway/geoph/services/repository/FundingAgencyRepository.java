@@ -2,6 +2,7 @@ package org.devgateway.geoph.services.repository;
 
 import org.devgateway.geoph.model.FundingAgency;
 import org.devgateway.geoph.util.Parameters;
+import org.devgateway.geoph.util.queries.AgencyResultsQueryHelper;
 
 import java.util.List;
 
@@ -13,6 +14,6 @@ public interface FundingAgencyRepository {
 
     List<FundingAgency> findAll();
 
-    List<Object> findFundingByFundingAgency(Parameters params);
+    List<AgencyResultsQueryHelper> findFundingByFundingAgency(Parameters params, int trxTypeId, int trxStatusId);
 
 }

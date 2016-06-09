@@ -175,9 +175,11 @@ public class MapController {
                     writer.append(p.getOriginalCurrency()!=null? COMMA +p.getOriginalCurrency().getName(): COMMA);
                     writer.append(COMMA +p.getTotalProjectAmount());
 
-                    writer.append(COMMA + formatter.format(p.getStartDate()));
-                    writer.append(COMMA + formatter.format(p.getEndDate()));
-                    writer.append(COMMA + formatter.format(p.getRevisedClosingDate()));
+                    writer.append(p.getStartDate() != null ? COMMA + formatter.format(p.getStartDate()):COMMA);
+
+                    writer.append(p.getEndDate() != null ? COMMA + formatter.format(p.getEndDate()) : COMMA);
+
+                    writer.append(p.getRevisedClosingDate() != null ? COMMA + formatter.format(p.getRevisedClosingDate()):COMMA);
 
                     writer.append(COMMA);
                     StringBuilder sectorSb = new StringBuilder();
@@ -188,10 +190,10 @@ public class MapController {
                         writer.append(sectorSb.toString().substring(0, sectorSb.length()-2));
                     }
 
-                    writer.append(COMMA + formatter.format(p.getPeriodPerformanceStart()));
-                    writer.append(COMMA + formatter.format(p.getPeriodPerformanceEnd()));
+                    writer.append(p.getPeriodPerformanceStart() != null ? COMMA + formatter.format(p.getPeriodPerformanceStart()):COMMA);
+                    writer.append(p.getPeriodPerformanceEnd() != null ? COMMA + formatter.format(p.getPeriodPerformanceEnd()):COMMA);
 
-                    writer.append(p.getStatus()!=null?COMMA+p.getStatus().getName():COMMA);
+                    writer.append(p.getStatus() != null? COMMA + p.getStatus().getName():COMMA);
                     writer.append(p.getPhysicalStatus()!=null?COMMA+p.getPhysicalStatus().getName():COMMA);
 
                     writer.append(COMMA); //TODO Physical performance

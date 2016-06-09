@@ -1,5 +1,6 @@
 package org.devgateway.geoph.rest;
 
+import org.devgateway.geoph.response.ChartResponse;
 import org.devgateway.geoph.services.ChartService;
 import org.devgateway.geoph.services.ProjectService;
 import org.devgateway.geoph.util.AppRequestParams;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,28 +61,28 @@ public class ChartController {
     }
 
     @RequestMapping(value = "/fundingAgency", method = GET)
-    public List<Map<String, Object>> getByFundingAgency(AppRequestParams filters) {
+    public Collection<ChartResponse> getByFundingAgency(AppRequestParams filters) {
         LOGGER.debug("getByFundingAgency info");
         Parameters params = new Parameters(filters);
         return chartService.getFundingByFundingAgency(params);
     }
 
     @RequestMapping(value = "/impAgency", method = GET)
-    public List<Map<String, Object>> getByImplementingAgency(AppRequestParams filters) {
+    public Collection<ChartResponse> getByImplementingAgency(AppRequestParams filters) {
         LOGGER.debug("getByImplementingAgency info");
         Parameters params = new Parameters(filters);
         return chartService.getFundingByImplementingAgency(params);
     }
 
     @RequestMapping(value = "/sector", method = GET)
-    public List<Map<String, Object>> getBySector(AppRequestParams filters) {
+    public Collection<ChartResponse> getBySector(AppRequestParams filters) {
         LOGGER.debug("getBySector info");
         Parameters params = new Parameters(filters);
         return chartService.getFundingBySector(params);
     }
 
     @RequestMapping(value = "/physicalStatus", method = GET)
-    public List<Map<String, Object>> getByPhysicalStatus(AppRequestParams filters) {
+    public Collection<ChartResponse> getByPhysicalStatus(AppRequestParams filters) {
         LOGGER.debug("getBySector info");
         Parameters params = new Parameters(filters);
         return chartService.getFundingByPhysicalStatus(params);

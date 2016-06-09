@@ -2,6 +2,7 @@ package org.devgateway.geoph.services.repository;
 
 import org.devgateway.geoph.model.Sector;
 import org.devgateway.geoph.util.Parameters;
+import org.devgateway.geoph.util.queries.SectorResultsQueryHelper;
 
 import java.util.List;
 
@@ -17,5 +18,5 @@ public interface SectorRepository {
 
     List<Sector> findByLevel(int level);
 
-    List<Object> findFundingBySector(Parameters params);
+    List<SectorResultsQueryHelper> findFundingBySector(Parameters params, int trxTypeId, int trxStatusId);
 }
