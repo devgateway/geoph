@@ -1,11 +1,12 @@
 package org.devgateway.geoph.persistence.repository;
 
-import org.devgateway.geoph.model.*;
+import org.devgateway.geoph.core.repositories.SectorRepository;
+import org.devgateway.geoph.core.request.Parameters;
+import org.devgateway.geoph.dao.SectorResultsQueryHelper;
+import org.devgateway.geoph.model.Project;
+import org.devgateway.geoph.model.Project_;
+import org.devgateway.geoph.model.Sector;
 import org.devgateway.geoph.persistence.util.FilterHelper;
-import org.devgateway.geoph.util.Parameters;
-import org.devgateway.geoph.util.TransactionStatusEnum;
-import org.devgateway.geoph.util.TransactionTypeEnum;
-import org.devgateway.geoph.util.queries.SectorResultsQueryHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -61,7 +62,7 @@ public class DefaultSectorRepository implements SectorRepository {
         multiSelect.add(criteriaBuilder.countDistinct(projectRoot));
         groupByList.add(sectorJoin);
 
-        if(trxTypeId!=0 && trxStatusId!=0) {
+        if (trxTypeId != 0 && trxStatusId != 0) {
             FilterHelper.addTransactionJoin(criteriaBuilder, multiSelect, projectRoot, trxTypeId, trxStatusId);
         }
 
@@ -77,9 +78,9 @@ public class DefaultSectorRepository implements SectorRepository {
         return query.getResultList();
     }
 
-    private List<Sector> sectorInitializer(List<Sector> sectors){
-        for(Sector sector:sectors){
-            if(sector.getItems()!=null){
+    private List<Sector> sectorInitializer(List<Sector> sectors) {
+        for (Sector sector : sectors) {
+            if (sector.getItems() != null) {
                 sectorInitializer(sector.getItems());
             }
         }

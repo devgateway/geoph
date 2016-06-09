@@ -1,13 +1,14 @@
 package org.devgateway.geoph.persistence.repository;
 
+import org.devgateway.geoph.core.repositories.ExecutingAgencyRepository;
+import org.devgateway.geoph.core.request.Parameters;
+import org.devgateway.geoph.enums.TransactionStatusEnum;
+import org.devgateway.geoph.enums.TransactionTypeEnum;
 import org.devgateway.geoph.model.Agency;
 import org.devgateway.geoph.model.ExecutingAgency;
 import org.devgateway.geoph.model.Project;
 import org.devgateway.geoph.model.Project_;
 import org.devgateway.geoph.persistence.util.FilterHelper;
-import org.devgateway.geoph.util.Parameters;
-import org.devgateway.geoph.util.TransactionStatusEnum;
-import org.devgateway.geoph.util.TransactionTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +34,7 @@ public class DefaultExecutingAgencyRepository implements ExecutingAgencyReposito
     }
 
     @Override
-    public List<Object> findFundingByExecutingAgency(Parameters params){
+    public List<Object> findFundingByExecutingAgency(Parameters params) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<Object> criteriaQuery = criteriaBuilder.createQuery();
 
@@ -48,8 +49,8 @@ public class DefaultExecutingAgencyRepository implements ExecutingAgencyReposito
         multiSelect.add(criteriaBuilder.countDistinct(projectRoot).alias("projectCount"));
         groupByList.add(agencyJoin);
 
-        for(TransactionTypeEnum t:TransactionTypeEnum.values()){
-            for(TransactionStatusEnum s:TransactionStatusEnum.values()){
+        for (TransactionTypeEnum t : TransactionTypeEnum.values()) {
+            for (TransactionStatusEnum s : TransactionStatusEnum.values()) {
                 FilterHelper.addTransactionJoin(criteriaBuilder, multiSelect, projectRoot, t.getId(), s.getId());
             }
         }

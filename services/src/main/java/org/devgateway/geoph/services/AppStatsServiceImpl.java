@@ -1,7 +1,7 @@
 package org.devgateway.geoph.services;
 
-import org.devgateway.geoph.persistence.AppStatsService;
-import org.devgateway.geoph.persistence.repository.AppStatsRepository;
+import org.devgateway.geoph.core.repositories.AppStatsRepository;
+import org.devgateway.geoph.core.services.AppStatsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

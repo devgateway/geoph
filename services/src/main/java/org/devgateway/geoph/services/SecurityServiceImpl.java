@@ -1,8 +1,8 @@
 package org.devgateway.geoph.services;
 
+import org.devgateway.geoph.core.services.SecurityService;
 import org.devgateway.geoph.model.security.GrantedAuthority;
 import org.devgateway.geoph.model.security.SystemUser;
-import org.devgateway.geoph.persistence.SecurityService;
 import org.devgateway.geoph.persistence.repository.security.GrantedAuthorityRepository;
 import org.devgateway.geoph.persistence.repository.security.UserRepository;
 import org.slf4j.Logger;

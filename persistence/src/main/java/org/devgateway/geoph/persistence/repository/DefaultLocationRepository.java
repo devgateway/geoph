@@ -1,10 +1,12 @@
 package org.devgateway.geoph.services.repository;
 
 import com.google.gson.Gson;
+import org.devgateway.geoph.core.repositories.LocationRepository;
+import org.devgateway.geoph.core.request.Parameters;
+import org.devgateway.geoph.dao.LocationResultsQueryHelper;
+import org.devgateway.geoph.dao.PostGisHelper;
 import org.devgateway.geoph.model.*;
-import org.devgateway.geoph.services.util.FilterHelper;
-import org.devgateway.geoph.util.*;
-import org.devgateway.geoph.util.queries.LocationResultsQueryHelper;
+import org.devgateway.geoph.persistence.util.FilterHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -17,7 +19,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.devgateway.geoph.util.Constants.*;
+import static org.devgateway.geoph.core.constants.Constants.*;
 
 /**
  * @author dbianco
@@ -115,7 +117,7 @@ public class DefaultLocationRepository implements LocationRepository {
 
         Join<Location, Project> projectJoin = locationRoot.join(Location_.projects, JoinType.LEFT);
 
-        if(trxTypeId!=0 && trxStatusId!=0) {
+        if (trxTypeId != 0 && trxStatusId != 0) {
             addTransactionJoin(criteriaBuilder, multiSelect, projectJoin, trxTypeId, trxStatusId);
         }
 
@@ -169,8 +171,8 @@ public class DefaultLocationRepository implements LocationRepository {
         List<Object[]> resultList = q.getResultList();
         Gson g = new Gson();
         List<PostGisHelper> resp = new ArrayList<>();
-        for(Object[] o:resultList){
-            PostGisHelper helper = g.fromJson((String)o[2], PostGisHelper.class);
+        for (Object[] o : resultList) {
+            PostGisHelper helper = g.fromJson((String) o[2], PostGisHelper.class);
             helper.setLocationId(((BigDecimal) o[0]).longValue());
             helper.setName((String) o[1]);
             resp.add(helper);

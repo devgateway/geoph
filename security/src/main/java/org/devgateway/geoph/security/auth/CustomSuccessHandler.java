@@ -1,11 +1,11 @@
 package org.devgateway.geoph.security.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.devgateway.geoph.core.services.SecurityService;
+import org.devgateway.geoph.core.services.TokenService;
 import org.devgateway.geoph.model.security.PersistentToken;
 import org.devgateway.geoph.model.security.SystemUser;
 import org.devgateway.geoph.security.NotAllowException;
-import org.devgateway.geoph.persistence.SecurityService;
-import org.devgateway.geoph.persistence.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.Authentication;
@@ -62,7 +62,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
                 mapper.writeValue(res.getWriter(), publicView);
                 res.setStatus(HttpServletResponse.SC_OK);
                 res.getWriter().flush();
-            } catch(Exception e){
+            } catch (Exception e) {
                 throw new NotAllowException("User not logged in:" + e);
             }
 

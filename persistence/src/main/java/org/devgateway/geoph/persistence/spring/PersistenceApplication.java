@@ -27,7 +27,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication
 @EnableTransactionManagement
 @EntityScan("org.devgateway.geoph")
-@PropertySource("classpath:/org/devgateway/geoph/services/application.properties")
+@PropertySource("classpath:/org/devgateway/geoph/persistence/application.properties")
 @ComponentScan("org.devgateway.geoph")
 @EnableCaching
 public class PersistenceApplication {

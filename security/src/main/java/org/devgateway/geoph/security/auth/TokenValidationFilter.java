@@ -1,8 +1,8 @@
 package org.devgateway.geoph.security.auth;
 
+import org.devgateway.geoph.core.services.SecurityService;
+import org.devgateway.geoph.core.services.TokenService;
 import org.devgateway.geoph.model.security.PersistentToken;
-import org.devgateway.geoph.persistence.SecurityService;
-import org.devgateway.geoph.persistence.TokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;

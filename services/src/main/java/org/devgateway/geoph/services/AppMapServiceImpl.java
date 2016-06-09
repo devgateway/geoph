@@ -1,9 +1,9 @@
 package org.devgateway.geoph.services;
 
 import org.apache.commons.lang3.StringUtils;
+import org.devgateway.geoph.core.repositories.AppMapRepository;
+import org.devgateway.geoph.core.services.AppMapService;
 import org.devgateway.geoph.model.AppMap;
-import org.devgateway.geoph.persistence.AppMapService;
-import org.devgateway.geoph.persistence.repository.AppMapRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,7 +23,7 @@ public class AppMapServiceImpl implements AppMapService {
 
     @Override
     public List<AppMap> findByNameOrDescription(String name) {
-        if(StringUtils.isNotBlank(name)){
+        if (StringUtils.isNotBlank(name)) {
             return repository.findByNameOrDescription(name.toLowerCase());
         }
         return null;
@@ -50,7 +50,7 @@ public class AppMapServiceImpl implements AppMapService {
     }
 
     @Override
-    public Page<AppMap> findAll(Pageable pageable){
+    public Page<AppMap> findAll(Pageable pageable) {
         return repository.findAll(pageable);
     }
 }

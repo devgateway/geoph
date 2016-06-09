@@ -1,9 +1,13 @@
 package org.devgateway.geoph.persistence.repository;
 
-import org.devgateway.geoph.model.*;
+import org.devgateway.geoph.core.repositories.FundingAgencyRepository;
+import org.devgateway.geoph.core.request.Parameters;
+import org.devgateway.geoph.dao.AgencyResultsQueryHelper;
+import org.devgateway.geoph.model.Agency;
+import org.devgateway.geoph.model.FundingAgency;
+import org.devgateway.geoph.model.Project;
+import org.devgateway.geoph.model.Project_;
 import org.devgateway.geoph.persistence.util.FilterHelper;
-import org.devgateway.geoph.util.Parameters;
-import org.devgateway.geoph.util.queries.AgencyResultsQueryHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +33,7 @@ public class DefaultFundingAgencyRepository implements FundingAgencyRepository {
     }
 
     @Override
-    public List<AgencyResultsQueryHelper> findFundingByFundingAgency(Parameters params, int trxTypeId, int trxStatusId){
+    public List<AgencyResultsQueryHelper> findFundingByFundingAgency(Parameters params, int trxTypeId, int trxStatusId) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<AgencyResultsQueryHelper> criteriaQuery = criteriaBuilder.createQuery(AgencyResultsQueryHelper.class);
 
@@ -44,7 +48,7 @@ public class DefaultFundingAgencyRepository implements FundingAgencyRepository {
         multiSelect.add(criteriaBuilder.countDistinct(projectRoot));
         groupByList.add(agencyJoin);
 
-        if(trxTypeId!=0 && trxStatusId!=0) {
+        if (trxTypeId != 0 && trxStatusId != 0) {
             FilterHelper.addTransactionJoin(criteriaBuilder, multiSelect, projectRoot, trxTypeId, trxStatusId);
         }
 

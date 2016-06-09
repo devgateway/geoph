@@ -1,10 +1,10 @@
 package org.devgateway.geoph.rest;
 
-import org.devgateway.geoph.response.ChartResponse;
-import org.devgateway.geoph.services.ChartService;
-import org.devgateway.geoph.services.ProjectService;
-import org.devgateway.geoph.util.AppRequestParams;
-import org.devgateway.geoph.util.Parameters;
+import org.devgateway.geoph.core.request.AppRequestParams;
+import org.devgateway.geoph.core.request.Parameters;
+import org.devgateway.geoph.core.response.ChartResponse;
+import org.devgateway.geoph.core.services.ChartService;
+import org.devgateway.geoph.core.services.ProjectService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;

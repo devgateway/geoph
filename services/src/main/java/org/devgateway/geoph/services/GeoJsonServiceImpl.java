@@ -1,17 +1,23 @@
 package org.devgateway.geoph.services;
 
-import org.devgateway.geoph.model.*;
-import org.devgateway.geoph.persistence.GeoJsonService;
-import org.devgateway.geoph.persistence.repository.LocationRepository;
-import org.devgateway.geoph.util.*;
-import org.devgateway.geoph.util.queries.LocationResultsQueryHelper;
+import org.devgateway.geoph.core.repositories.LocationRepository;
+import org.devgateway.geoph.core.request.Parameters;
+import org.devgateway.geoph.core.services.GeoJsonService;
+import org.devgateway.geoph.dao.LocationProperty;
+import org.devgateway.geoph.dao.LocationResultsQueryHelper;
+import org.devgateway.geoph.dao.PostGisHelper;
+import org.devgateway.geoph.enums.LocationAdmLevelEnum;
+import org.devgateway.geoph.enums.TransactionStatusEnum;
+import org.devgateway.geoph.enums.TransactionTypeEnum;
+import org.devgateway.geoph.model.Location;
+import org.devgateway.geoph.model.Project;
 import org.geojson.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-import static org.devgateway.geoph.util.Constants.*;
+import static org.devgateway.geoph.core.constants.Constants.*;
 
 /**
  * @author dbianco

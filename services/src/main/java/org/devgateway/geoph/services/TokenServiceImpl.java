@@ -1,7 +1,7 @@
 package org.devgateway.geoph.services;
 
+import org.devgateway.geoph.core.services.TokenService;
 import org.devgateway.geoph.model.security.PersistentToken;
-import org.devgateway.geoph.persistence.TokenService;
 import org.devgateway.geoph.persistence.repository.security.PersistentTokenRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

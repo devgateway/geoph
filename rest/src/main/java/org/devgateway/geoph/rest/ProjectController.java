@@ -1,18 +1,20 @@
 package org.devgateway.geoph.rest;
 
+import org.devgateway.geoph.core.request.AppRequestParams;
+import org.devgateway.geoph.core.request.Parameters;
+import org.devgateway.geoph.core.request.ProjectOrder;
+import org.devgateway.geoph.core.response.StatsResponse;
+import org.devgateway.geoph.core.services.ProjectService;
 import org.devgateway.geoph.model.Project;
-import org.devgateway.geoph.response.StatsResponse;
-import org.devgateway.geoph.services.ProjectService;
-import org.devgateway.geoph.util.AppRequestParams;
-import org.devgateway.geoph.util.Parameters;
-import org.devgateway.geoph.util.ProjectOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
@@ -23,7 +25,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
  */
 @RestController
 @RequestMapping(value = "/projects")
-public class ProjectController  extends CrossOriginSupport {
+public class ProjectController extends CrossOriginSupport {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FilterController.class);
 
@@ -36,7 +38,7 @@ public class ProjectController  extends CrossOriginSupport {
 
     @RequestMapping(method = GET)
     public Page<Project> findProjectsByParams(AppRequestParams filters,
-            @PageableDefault(page = 0, size = 20, sort = "id") final Pageable pageable) {
+                                              @PageableDefault(page = 0, size = 20, sort = "id") final Pageable pageable) {
         LOGGER.debug("findProjectsByParams");
         Parameters params = new Parameters(filters, pageable);
         return service.findProjectsByParams(params);
@@ -50,7 +52,7 @@ public class ProjectController  extends CrossOriginSupport {
 
     @RequestMapping(value = "/all", method = GET)
     public Page<Project> findAllProjects(AppRequestParams filters,
-            ProjectOrder projectOrder) {
+                                         ProjectOrder projectOrder) {
         LOGGER.debug("findAllProjects");
         Parameters params = new Parameters(filters);
         params.setProjectOrder(projectOrder);

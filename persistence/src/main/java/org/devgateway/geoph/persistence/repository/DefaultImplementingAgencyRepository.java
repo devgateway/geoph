@@ -1,11 +1,13 @@
 package org.devgateway.geoph.persistence.repository;
 
-import org.devgateway.geoph.model.*;
+import org.devgateway.geoph.core.repositories.ImplementingAgencyRepository;
+import org.devgateway.geoph.core.request.Parameters;
+import org.devgateway.geoph.dao.AgencyResultsQueryHelper;
+import org.devgateway.geoph.model.Agency;
+import org.devgateway.geoph.model.ImplementingAgency;
+import org.devgateway.geoph.model.Project;
+import org.devgateway.geoph.model.Project_;
 import org.devgateway.geoph.persistence.util.FilterHelper;
-import org.devgateway.geoph.util.Parameters;
-import org.devgateway.geoph.util.TransactionStatusEnum;
-import org.devgateway.geoph.util.TransactionTypeEnum;
-import org.devgateway.geoph.util.queries.AgencyResultsQueryHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -52,7 +54,7 @@ public class DefaultImplementingAgencyRepository implements ImplementingAgencyRe
         multiSelect.add(criteriaBuilder.countDistinct(projectRoot));
         groupByList.add(agencyJoin);
 
-        if(trxTypeId!=0 && trxStatusId!=0) {
+        if (trxTypeId != 0 && trxStatusId != 0) {
             FilterHelper.addTransactionJoin(criteriaBuilder, multiSelect, projectRoot, trxTypeId, trxStatusId);
         }
 
@@ -67,7 +69,6 @@ public class DefaultImplementingAgencyRepository implements ImplementingAgencyRe
 
         return query.getResultList();
     }
-
 
 
 }

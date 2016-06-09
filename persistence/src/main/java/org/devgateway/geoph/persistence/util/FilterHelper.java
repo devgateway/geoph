@@ -1,8 +1,8 @@
 package org.devgateway.geoph.persistence.util;
 
 import org.apache.commons.lang3.StringUtils;
+import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.model.*;
-import org.devgateway.geoph.util.Parameters;
 
 import javax.persistence.criteria.*;
 import java.util.List;

@@ -32,14 +32,14 @@
     </properties>
 
     <modules>
-        <module>rest</module>
         <module>persistence</module>
+        <module>entity-model</module>
+        <module>commons</module>
+        <module>services</module>
+        <module>security</module>
+        <module>rest</module>
         <module>standalone</module>
         <module>war</module>
-        <module>security</module>
-        <module>services</module>
-        <module>entity-model</module>
-        <module>core</module>
     </modules>
 
     <dependencyManagement>

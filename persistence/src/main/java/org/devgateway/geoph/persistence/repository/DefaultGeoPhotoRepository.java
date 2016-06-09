@@ -1,8 +1,9 @@
 package org.devgateway.geoph.persistence.repository;
 
 import com.google.gson.Gson;
+import org.devgateway.geoph.core.repositories.GeoPhotoRepository;
+import org.devgateway.geoph.dao.GeoPhotoGeometryHelper;
 import org.devgateway.geoph.model.GeoPhotoSource;
-import org.devgateway.geoph.util.GeoPhotoGeometryHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,7 @@ import java.util.List;
  *         created on abr 29 2016.
  */
 @Service
-public class DefaultGeoPhotoRepository implements GeoPhotoRepository{
+public class DefaultGeoPhotoRepository implements GeoPhotoRepository {
 
     @Autowired
     EntityManager em;
@@ -42,14 +43,14 @@ public class DefaultGeoPhotoRepository implements GeoPhotoRepository{
         List<Object[]> resultList = q.getResultList();
         Gson g = new Gson();
         List<GeoPhotoGeometryHelper> resp = new ArrayList<>();
-        for(Object[] o:resultList){
-            GeoPhotoGeometryHelper helper = g.fromJson((String)o[6], GeoPhotoGeometryHelper.class);
+        for (Object[] o : resultList) {
+            GeoPhotoGeometryHelper helper = g.fromJson((String) o[6], GeoPhotoGeometryHelper.class);
             helper.setGid(((Integer) o[0]));
-            helper.setKmlId(((BigDecimal)o[1]).longValue());
-            helper.setName((String)o[2]);
-            helper.setSymbolId(((BigDecimal)o[3]).longValue());
-            helper.setDescription((String)o[4]);
-            helper.setImagePath((String)o[5]);
+            helper.setKmlId(((BigDecimal) o[1]).longValue());
+            helper.setName((String) o[2]);
+            helper.setSymbolId(((BigDecimal) o[3]).longValue());
+            helper.setDescription((String) o[4]);
+            helper.setImagePath((String) o[5]);
             resp.add(helper);
         }
         return resp;

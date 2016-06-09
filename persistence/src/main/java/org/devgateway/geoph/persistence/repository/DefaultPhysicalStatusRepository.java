@@ -1,11 +1,12 @@
 package org.devgateway.geoph.persistence.repository;
 
-import org.devgateway.geoph.model.*;
+import org.devgateway.geoph.core.repositories.PhysicalStatusRepository;
+import org.devgateway.geoph.core.request.Parameters;
+import org.devgateway.geoph.dao.PhysicalStatusQueryHelper;
+import org.devgateway.geoph.model.PhysicalStatus;
+import org.devgateway.geoph.model.Project;
+import org.devgateway.geoph.model.Project_;
 import org.devgateway.geoph.persistence.util.FilterHelper;
-import org.devgateway.geoph.util.Parameters;
-import org.devgateway.geoph.util.TransactionStatusEnum;
-import org.devgateway.geoph.util.TransactionTypeEnum;
-import org.devgateway.geoph.util.queries.PhysicalStatusQueryHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

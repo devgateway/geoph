@@ -1,15 +1,18 @@
 package org.devgateway.geoph.services;
 
+import org.devgateway.geoph.core.repositories.GeoPhotoRepository;
+import org.devgateway.geoph.core.repositories.IndicatorDetailRepository;
+import org.devgateway.geoph.core.repositories.IndicatorRepository;
+import org.devgateway.geoph.core.repositories.LocationRepository;
+import org.devgateway.geoph.core.response.IndicatorResponse;
+import org.devgateway.geoph.core.services.LayerService;
+import org.devgateway.geoph.dao.GeoPhotoGeometryHelper;
+import org.devgateway.geoph.dao.PostGisHelper;
+import org.devgateway.geoph.enums.GeometryDetailLevelEnum;
+import org.devgateway.geoph.enums.LocationAdmLevelEnum;
 import org.devgateway.geoph.model.GeoPhotoSource;
 import org.devgateway.geoph.model.Indicator;
 import org.devgateway.geoph.model.IndicatorDetail;
-import org.devgateway.geoph.persistence.LayerService;
-import org.devgateway.geoph.persistence.repository.GeoPhotoRepository;
-import org.devgateway.geoph.persistence.repository.IndicatorDetailRepository;
-import org.devgateway.geoph.persistence.repository.IndicatorRepository;
-import org.devgateway.geoph.persistence.repository.LocationRepository;
-import org.devgateway.geoph.response.IndicatorResponse;
-import org.devgateway.geoph.util.*;
 import org.geojson.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,21 +64,21 @@ public class LayerServiceImpl implements LayerService {
         List<IndicatorDetail> indicatorDetails = indicatorDetailRepository.findByIndicatorId(indicatorId);
         Map<Long, PostGisHelper> postGisHelperMap = new HashMap<>();
         List<PostGisHelper> gisHelperList = null;
-        if(indicator.getAdmLevel().toUpperCase().equals(LocationAdmLevelEnum.REGION.name())){
+        if (indicator.getAdmLevel().toUpperCase().equals(LocationAdmLevelEnum.REGION.name())) {
             gisHelperList = locationRepository.getRegionShapesWithDetail(GeometryDetailLevelEnum.MEDIUM.getLevel());
-        }else if(indicator.getAdmLevel().toUpperCase().equals(LocationAdmLevelEnum.PROVINCE.name())) {
+        } else if (indicator.getAdmLevel().toUpperCase().equals(LocationAdmLevelEnum.PROVINCE.name())) {
             gisHelperList = locationRepository.getProvinceShapesWithDetail(GeometryDetailLevelEnum.MEDIUM.getLevel());
-        } else if(indicator.getAdmLevel().toUpperCase().equals(LocationAdmLevelEnum.MUNICIPALITY.name())) {
+        } else if (indicator.getAdmLevel().toUpperCase().equals(LocationAdmLevelEnum.MUNICIPALITY.name())) {
             gisHelperList = locationRepository.getMunicipalityShapesWithDetail(GeometryDetailLevelEnum.MEDIUM.getLevel());
         }
-        if(gisHelperList!=null) {
+        if (gisHelperList != null) {
             for (PostGisHelper helper : gisHelperList) {
                 postGisHelperMap.put(helper.getLocationId(), helper);
             }
         }
-        for(IndicatorDetail indicatorDetail:indicatorDetails){
+        for (IndicatorDetail indicatorDetail : indicatorDetails) {
             Feature feature;
-            if(postGisHelperMap.get(indicatorDetail.getLocationId()) != null) {
+            if (postGisHelperMap.get(indicatorDetail.getLocationId()) != null) {
                 feature = parseGeoJson(postGisHelperMap.get(indicatorDetail.getLocationId()));
             } else {
                 feature = new Feature();
@@ -89,14 +92,14 @@ public class LayerServiceImpl implements LayerService {
         return featureCollection;
     }
 
-    private Feature parseGeoJson(PostGisHelper helper){
+    private Feature parseGeoJson(PostGisHelper helper) {
         Feature feature = new Feature();
         MultiPolygon multiPolygon = new MultiPolygon();
-        for(Double[][][] inner:helper.getCoordinates()){
+        for (Double[][][] inner : helper.getCoordinates()) {
             Polygon polygon = new Polygon();
-            for(Double[][] inner2:inner){
+            for (Double[][] inner2 : inner) {
                 List<LngLatAlt> pointList = new ArrayList<>();
-                for(Double[] inner3:inner2){
+                for (Double[] inner3 : inner2) {
                     pointList.add(new LngLatAlt(inner3[0], inner3[1]));
                 }
                 polygon.add(pointList);
@@ -116,7 +119,7 @@ public class LayerServiceImpl implements LayerService {
     public FeatureCollection getGeoPhotoData(long kmlId) {
         FeatureCollection featureCollection = new FeatureCollection();
         List<GeoPhotoGeometryHelper> geometryHelpers = geoPhotoRepository.getGeoPhotoGeometryByKmlId(kmlId);
-        for(GeoPhotoGeometryHelper geometryHelper:geometryHelpers){
+        for (GeoPhotoGeometryHelper geometryHelper : geometryHelpers) {
             Feature feature = new Feature();
             feature.setProperty("gid", geometryHelper.getGid());
             feature.setProperty("kmlId", geometryHelper.getKmlId());
@@ -125,7 +128,7 @@ public class LayerServiceImpl implements LayerService {
             feature.setProperty("type", geometryHelper.getType());
             feature.setProperty("description", geometryHelper.getDescription());
             feature.setProperty("imagePath", geometryHelper.getImagePath());
-            if(geometryHelper.getCoordinates()!=null && geometryHelper.getCoordinates().length>1){
+            if (geometryHelper.getCoordinates() != null && geometryHelper.getCoordinates().length > 1) {
                 Point point = new Point(geometryHelper.getCoordinates()[0], geometryHelper.getCoordinates()[1]);
                 feature.setGeometry(point);
             }

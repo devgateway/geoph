@@ -1,5 +1,6 @@
 package org.devgateway.geoph.persistence.repository;
 
+import org.devgateway.geoph.core.repositories.AppStatsRepository;
 import org.devgateway.geoph.persistence.spring.CacheConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Service;
  *         created on mar 28 2016.
  */
 @Service
-public class DefaultAppStatsRepository implements AppStatsRepository{
+public class DefaultAppStatsRepository implements AppStatsRepository {
 
     @Autowired
     private CacheConfiguration conf;

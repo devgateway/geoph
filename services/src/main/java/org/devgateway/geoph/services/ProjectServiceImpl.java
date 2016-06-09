@@ -1,10 +1,10 @@
 package org.devgateway.geoph.services;
 
+import org.devgateway.geoph.core.repositories.ProjectRepository;
+import org.devgateway.geoph.core.request.Parameters;
+import org.devgateway.geoph.core.response.StatsResponse;
+import org.devgateway.geoph.core.services.ProjectService;
 import org.devgateway.geoph.model.Project;
-import org.devgateway.geoph.persistence.ProjectService;
-import org.devgateway.geoph.persistence.repository.ProjectRepository;
-import org.devgateway.geoph.response.StatsResponse;
-import org.devgateway.geoph.util.Parameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +31,12 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Project findById(long id){
+    public Project findById(long id) {
         return projectRepository.findById(id);
     }
 
     @Override
-    public Page<Project> findProjectsByParams(Parameters params){
+    public Page<Project> findProjectsByParams(Parameters params) {
         return projectRepository.findProjectsByParams(params);
     }
 

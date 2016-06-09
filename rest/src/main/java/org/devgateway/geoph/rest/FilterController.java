@@ -1,9 +1,9 @@
 package org.devgateway.geoph.rest;
 
+import org.devgateway.geoph.core.response.GenericResponse;
+import org.devgateway.geoph.core.services.FilterService;
+import org.devgateway.geoph.enums.LocationAdmLevelEnum;
 import org.devgateway.geoph.model.*;
-import org.devgateway.geoph.response.GenericResponse;
-import org.devgateway.geoph.persistence.FilterService;
-import org.devgateway.geoph.util.LocationAdmLevelEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +11,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import static org.springframework.web.bind.annotation.RequestMethod.*;
-import static org.devgateway.geoph.util.Constants.*;
+import static org.devgateway.geoph.core.constants.Constants.*;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 
 /**
@@ -48,7 +51,7 @@ public class FilterController extends CrossOriginSupport {
                 "CLIMATE_CHANGE_SECTION",
                 DEFAULT_INDEX,
                 climateChanges,
-                climateChanges!=null?climateChanges.size():0
+                climateChanges != null ? climateChanges.size() : 0
         );
 
         return resp;
@@ -64,7 +67,7 @@ public class FilterController extends CrossOriginSupport {
                 "GENDER_RESPONSIVENESS_SECTION",
                 DEFAULT_INDEX,
                 genderResponsiveness,
-                genderResponsiveness!=null?genderResponsiveness.size():0
+                genderResponsiveness != null ? genderResponsiveness.size() : 0
         );
 
         return resp;
@@ -76,11 +79,11 @@ public class FilterController extends CrossOriginSupport {
         List<Double> financialAmountPeriod = service.findFinancialAmountPeriod();
         GenericResponse resp = new GenericResponse(
                 "Financial Amount Period",
-                FILTER_FINANCIAL_AMOUNT_MAX + SLASH +FILTER_FINANCIAL_AMOUNT_MIN,
+                FILTER_FINANCIAL_AMOUNT_MAX + SLASH + FILTER_FINANCIAL_AMOUNT_MIN,
                 "FINANCIAL_AMOUNT_SECTION",
                 DEFAULT_INDEX,
                 financialAmountPeriod,
-                financialAmountPeriod!=null?financialAmountPeriod.size():0
+                financialAmountPeriod != null ? financialAmountPeriod.size() : 0
         );
 
         return resp;
@@ -96,7 +99,7 @@ public class FilterController extends CrossOriginSupport {
                 "FLOW_TYPE_SECTION",
                 DEFAULT_INDEX,
                 flowTypes,
-                flowTypes!=null?flowTypes.size():0
+                flowTypes != null ? flowTypes.size() : 0
         );
 
         return resp;
@@ -113,12 +116,12 @@ public class FilterController extends CrossOriginSupport {
                 "FUNDING_ORG_SECTION",
                 DEFAULT_INDEX,
                 fundingAgencies,
-                fundingAgencies!=null?fundingAgencies.size():0
+                fundingAgencies != null ? fundingAgencies.size() : 0
         );
 
         return resp;
     }
-    
+
     @RequestMapping(value = "/impAgency", method = GET)
     public GenericResponse findAllImpAgencies() {
         LOGGER.debug("findAllImpAgencies");
@@ -130,7 +133,7 @@ public class FilterController extends CrossOriginSupport {
                 "IMPLEMENTING_AGENCY_SECTION",
                 DEFAULT_INDEX,
                 impAgencies,
-                impAgencies!=null?impAgencies.size():0
+                impAgencies != null ? impAgencies.size() : 0
         );
 
         return resp;
@@ -147,7 +150,7 @@ public class FilterController extends CrossOriginSupport {
                 "PHYSICAL_STATUS_SECTION",
                 DEFAULT_INDEX,
                 physicalStatuses,
-                physicalStatuses!=null?physicalStatuses.size():0
+                physicalStatuses != null ? physicalStatuses.size() : 0
         );
 
         return resp;
@@ -163,7 +166,7 @@ public class FilterController extends CrossOriginSupport {
                 "LOCATIONS_SECTION",
                 DEFAULT_INDEX,
                 locations,
-                locations!=null?locations.size():0
+                locations != null ? locations.size() : 0
         );
         return resp;
     }
@@ -180,14 +183,14 @@ public class FilterController extends CrossOriginSupport {
                 "LOCATIONS_SECTION",
                 DEFAULT_INDEX,
                 locations,
-                locations!=null?locations.size():0
+                locations != null ? locations.size() : 0
         );
         return resp;
     }
 
     @RequestMapping(value = "/location/parent/{parentId}", method = GET)
     public GenericResponse findLocationsByParentId(@PathVariable final long parentId) {
-        LOGGER.debug("findLocationsByParentId {}" , parentId);
+        LOGGER.debug("findLocationsByParentId {}", parentId);
         List<Location> locations = service.findLocationsByParentId(parentId);
         GenericResponse resp = new GenericResponse(
                 "Children locations of parentId " + parentId,
@@ -195,7 +198,7 @@ public class FilterController extends CrossOriginSupport {
                 "LOCATIONS_SECTION",
                 DEFAULT_INDEX,
                 locations,
-                locations!=null?locations.size():0
+                locations != null ? locations.size() : 0
         );
         return resp;
     }
@@ -211,14 +214,14 @@ public class FilterController extends CrossOriginSupport {
                 "SECTORS_SECTION",
                 DEFAULT_INDEX,
                 sectors,
-                sectors!=null?sectors.size():0
+                sectors != null ? sectors.size() : 0
         );
 
         return resp;
     }
 
-    private void sortSectors(List<Sector> sectors){
-        for(Sector sector : sectors){
+    private void sortSectors(List<Sector> sectors) {
+        for (Sector sector : sectors) {
             sortSectors(sector.getItems());
         }
         Collections.sort(sectors);
@@ -234,7 +237,7 @@ public class FilterController extends CrossOriginSupport {
                 "STATUSES_SECTION",
                 DEFAULT_INDEX,
                 statuses,
-                statuses!=null?statuses.size():0
+                statuses != null ? statuses.size() : 0
         );
 
         return resp;
@@ -251,7 +254,7 @@ public class FilterController extends CrossOriginSupport {
                 "IMP_PERIOD_SECTION",
                 DEFAULT_INDEX,
                 impPeriodList,
-                impPeriodList!=null?impPeriodList.size():0
+                impPeriodList != null ? impPeriodList.size() : 0
         );
 
         return resp;
@@ -281,7 +284,7 @@ public class FilterController extends CrossOriginSupport {
                 "GRANT_PERIOD_SECTION",
                 DEFAULT_INDEX,
                 grantPeriodList,
-                grantPeriodList!=null?grantPeriodList.size():0
+                grantPeriodList != null ? grantPeriodList.size() : 0
         );
 
         return resp;

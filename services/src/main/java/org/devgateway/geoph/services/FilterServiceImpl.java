@@ -1,16 +1,18 @@
 package org.devgateway.geoph.services;
 
+import org.devgateway.geoph.core.repositories.*;
+import org.devgateway.geoph.core.services.FilterService;
+import org.devgateway.geoph.enums.LocationAdmLevelEnum;
 import org.devgateway.geoph.model.*;
-import org.devgateway.geoph.model.Currency;
-import org.devgateway.geoph.persistence.FilterService;
-import org.devgateway.geoph.persistence.repository.*;
-import org.devgateway.geoph.util.LocationAdmLevelEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author dbianco
@@ -70,7 +72,7 @@ public class FilterServiceImpl implements FilterService {
     }
 
     @Override
-    public Integer countImpAgencies(){
+    public Integer countImpAgencies() {
         LOGGER.debug("Count implementing agencies");
         return impAgencyRepository.count();
     }
@@ -106,7 +108,7 @@ public class FilterServiceImpl implements FilterService {
     }
 
     @Override
-    public Location findLocationByCode(String code){
+    public Location findLocationByCode(String code) {
         LOGGER.debug("Getting location by code");
         return locationRepository.findByCode(code);
     }
@@ -120,15 +122,15 @@ public class FilterServiceImpl implements FilterService {
     }
 
     private void expandLocationItems(List<Location> locationList) {
-        for(Location loc : locationList){
+        for (Location loc : locationList) {
             List<Location> items = loc.getItems();
-            if(items!=null){
+            if (items != null) {
                 expandLocationItems(items);
             }
         }
     }
 
-    public List<Location> findLocationsByParentId(long parentId){
+    public List<Location> findLocationsByParentId(long parentId) {
         LOGGER.debug("Getting all children locations for parentId {}", parentId);
         return locationRepository.findLocationsByParentId(parentId);
     }
@@ -149,16 +151,16 @@ public class FilterServiceImpl implements FilterService {
     public List<Map<String, Object>> findAllFlowTypes() {
         List<Map<String, Object>> retList = new ArrayList<>();
         List<FlowType> flowTypes = flowTypeRepository.findAll();
-        for(FlowType flowType : flowTypes){
+        for (FlowType flowType : flowTypes) {
             Map<String, Object> flowTypesMap = new HashMap<>();
             flowTypesMap.put("id", String.valueOf(flowType.getId()));
             flowTypesMap.put("name", flowType.getName());
-            if(flowType.getName().toLowerCase().equals("grant")){
+            if (flowType.getName().toLowerCase().equals("grant")) {
                 List<GrantSubType> grantSubTypes = grantSubTypeRepository.findAll();
                 List<Map<String, Object>> grantSubTypeList = new ArrayList<>();
-                for(GrantSubType grantSubType:grantSubTypes){
+                for (GrantSubType grantSubType : grantSubTypes) {
                     Map<String, Object> grantSubTypeMap = new HashMap<>();
-                    grantSubTypeMap.put("id", String.valueOf(flowType.getId()) +"."+ String.valueOf(grantSubType.getId()));
+                    grantSubTypeMap.put("id", String.valueOf(flowType.getId()) + "." + String.valueOf(grantSubType.getId()));
                     grantSubTypeMap.put("name", grantSubType.getName());
                     grantSubTypeList.add(grantSubTypeMap);
                 }
@@ -195,12 +197,12 @@ public class FilterServiceImpl implements FilterService {
     }
 
     @Override
-    public List<String> findImpPeriodBoundaries(){
+    public List<String> findImpPeriodBoundaries() {
         return projectRepository.getImpPeriodBoundaries();
     }
 
     @Override
-    public List<String> findGrantPeriodBoundaries(){
+    public List<String> findGrantPeriodBoundaries() {
         return projectRepository.getGrantPeriodBoundaries();
     }
 
@@ -210,7 +212,7 @@ public class FilterServiceImpl implements FilterService {
     }
 
     @Override
-    public List<Currency> findAllCurrencies(){
+    public List<Currency> findAllCurrencies() {
         return currencyRepository.findAll();
     }
 

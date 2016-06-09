@@ -8,8 +8,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Random;
 
-import static org.devgateway.geoph.util.Constants.*;
-
 /**
  * @author dbianco
  *         created on abr 20 2016.
@@ -17,6 +15,9 @@ import static org.devgateway.geoph.util.Constants.*;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 public class AppMap extends GenericPersistable implements Serializable {
+
+    public static final String ALPHABET = "BCDFGHIJKLMNPQRSTVWXZ";
+    public static final int ALPHABET_NUMBER = ALPHABET.length();
 
     private String name;
 

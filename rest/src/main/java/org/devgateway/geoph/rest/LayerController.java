@@ -2,16 +2,16 @@ package org.devgateway.geoph.rest;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.*;
+import org.devgateway.geoph.core.request.IndicatorRequest;
+import org.devgateway.geoph.core.response.IndicatorResponse;
+import org.devgateway.geoph.core.services.FilterService;
+import org.devgateway.geoph.core.services.LayerService;
+import org.devgateway.geoph.dao.PropsHelper;
 import org.devgateway.geoph.model.GeoPhotoSource;
 import org.devgateway.geoph.model.Indicator;
 import org.devgateway.geoph.model.IndicatorDetail;
 import org.devgateway.geoph.model.Location;
-import org.devgateway.geoph.request.IndicatorRequest;
-import org.devgateway.geoph.response.IndicatorResponse;
 import org.devgateway.geoph.security.NotAllowException;
-import org.devgateway.geoph.persistence.FilterService;
-import org.devgateway.geoph.persistence.LayerService;
-import org.devgateway.geoph.util.PropsHelper;
 import org.geojson.FeatureCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,9 +27,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import static org.devgateway.geoph.core.constants.Constants.INDICATORS_ENGLISH_TITLE_ARRAY;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
-import static org.devgateway.geoph.util.Constants.INDICATORS_ENGLISH_TITLE_ARRAY;
 
 /**
  * @author dbianco
@@ -81,23 +81,23 @@ public class LayerController {
         try {
             FileWriter writer = new FileWriter(PropsHelper.getExportDir() + filename);
             String[] titles = INDICATORS_ENGLISH_TITLE_ARRAY;
-            for(int i=0; i<titles.length; i++) {
+            for (int i = 0; i < titles.length; i++) {
                 writer.append(titles[i]);
-                if(i!=titles.length-1){
+                if (i != titles.length - 1) {
                     writer.append(';');
                 }
             }
             writer.append(System.getProperty("line.separator"));
-            for(Long locId:response.getDetails().keySet()){
+            for (Long locId : response.getDetails().keySet()) {
                 Location location = filterService.findLocationById(locId);
-                if(location!=null){
+                if (location != null) {
                     writer.append(location.getName() + ';' + location.getCode() + ';' + response.getDetails().get(locId));
                     writer.append(System.getProperty("line.separator"));
                 }
             }
             writer.flush();
             writer.close();
-        } catch(Exception e){
+        } catch (Exception e) {
             LOGGER.error(e.getMessage());
         }
         return response;
@@ -106,24 +106,24 @@ public class LayerController {
     @RequestMapping(value = "/indicators", headers = "content-type=multipart/*", method = POST)
     //@Secured("ROLE_READ")
     public IndicatorResponse putIndicator(IndicatorRequest indicatorParam,
-                                  @RequestParam(value = "file", required = false) final MultipartFile file) {
+                                          @RequestParam(value = "file", required = false) final MultipartFile file) {
         LOGGER.debug("putIndicator");
-        IndicatorResponse indicator =  new IndicatorResponse(layerService.saveIndicator(indicatorParam.getIndicator()));
+        IndicatorResponse indicator = new IndicatorResponse(layerService.saveIndicator(indicatorParam.getIndicator()));
 
-        if(file.getOriginalFilename().toLowerCase().endsWith(".csv") || file.getOriginalFilename().toLowerCase().endsWith(".txt")) {
+        if (file.getOriginalFilename().toLowerCase().endsWith(".csv") || file.getOriginalFilename().toLowerCase().endsWith(".txt")) {
             try {
                 byte[] byteArr = file.getBytes();
-                if(byteArr.length>0) {
+                if (byteArr.length > 0) {
                     String line = "";
                     BufferedReader br = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(byteArr)));
                     generateIndicatorDetailFromCSV(indicator, br);
                 } else {
                     indicator.addError("File is empty");
                 }
-            } catch (Exception e){
+            } catch (Exception e) {
                 LOGGER.error(e.getMessage());
             }
-        } else if(file.getOriginalFilename().toLowerCase().endsWith(".xls") || file.getOriginalFilename().toLowerCase().endsWith(".xlsx")) {
+        } else if (file.getOriginalFilename().toLowerCase().endsWith(".xls") || file.getOriginalFilename().toLowerCase().endsWith(".xlsx")) {
             try {
                 byte[] byteArr = file.getBytes();
                 InputStream inputStream = new ByteArrayInputStream(byteArr);
@@ -134,7 +134,7 @@ public class LayerController {
                 indicator.addError("File is empty or corrupted");
                 LOGGER.error(e.getMessage());
             }
-        } else{
+        } else {
             indicator.addError("File type not allowed - It should be an excel or csv file");
         }
         return indicator;
@@ -149,14 +149,14 @@ public class LayerController {
             rowNumber++;
             String[] values = line.split(";");
             Location location = null;
-            if(StringUtils.isNotBlank(values[1]) && StringUtils.isNumeric(values[1])){
+            if (StringUtils.isNotBlank(values[1]) && StringUtils.isNumeric(values[1])) {
                 try {
                     location = filterService.findLocationByCode(values[1]);
-                } catch (Exception e){
+                } catch (Exception e) {
                     LOGGER.error(e.getMessage());
                 }
             }
-            if(location!=null) {
+            if (location != null) {
                 IndicatorDetail detail = new IndicatorDetail();
                 detail.setLocationId(location.getId());
                 detail.setValue(values[2]);
@@ -169,7 +169,7 @@ public class LayerController {
     }
 
     private void generateIndicatorDetailFromSheet(IndicatorResponse indicator, Sheet sheet) {
-        if(sheet.getLastRowNum()>0) {
+        if (sheet.getLastRowNum() > 0) {
             Iterator<Row> rowIterator = sheet.iterator();
             //Avoid labels
             rowIterator.next();
@@ -238,7 +238,7 @@ public class LayerController {
     @ExceptionHandler(NotAllowException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
     @ResponseBody
-    public Map<String,Object> handleNotAllowException(NotAllowException nae) {
+    public Map<String, Object> handleNotAllowException(NotAllowException nae) {
         Map<String, Object> result = new HashMap<>();
         result.put("error", "Not Allowed");
         result.put("message", nae.getMessage());
