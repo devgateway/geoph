@@ -238,6 +238,6 @@ public class AppRequestParams {
 
 
     public Parameters getParameters() {
-        return new Parameters(this);
+        return Parameters.getParameters(this);
     }
 }

@@ -40,7 +40,8 @@ public class ProjectController extends CrossOriginSupport {
     public Page<Project> findProjectsByParams(AppRequestParams filters,
                                               @PageableDefault(page = 0, size = 20, sort = "id") final Pageable pageable) {
         LOGGER.debug("findProjectsByParams");
-        Parameters params = new Parameters(filters, pageable);
+        Parameters params = filters.getParameters();
+        params.setPageable(pageable);
         return service.findProjectsByParams(params);
     }
 
@@ -54,7 +55,7 @@ public class ProjectController extends CrossOriginSupport {
     public Page<Project> findAllProjects(AppRequestParams filters,
                                          ProjectOrder projectOrder) {
         LOGGER.debug("findAllProjects");
-        Parameters params = new Parameters(filters);
+        Parameters params = filters.getParameters();
         params.setProjectOrder(projectOrder);
         return service.findProjectsByParams(params);
     }
@@ -63,7 +64,6 @@ public class ProjectController extends CrossOriginSupport {
     @RequestMapping(value = "/count", method = GET)
     public StatsResponse countProjects(AppRequestParams filters) {
         LOGGER.debug("countProjects");
-        Parameters params = new Parameters(filters);
-        return service.countProjectsByParams(params);
+        return service.countProjectsByParams(filters.getParameters());
     }
 }

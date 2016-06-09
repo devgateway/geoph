@@ -7,25 +7,20 @@ import org.devgateway.geoph.core.response.IndicatorResponse;
 import org.devgateway.geoph.core.services.FilterService;
 import org.devgateway.geoph.core.services.LayerService;
 import org.devgateway.geoph.dao.PropsHelper;
-import org.devgateway.geoph.model.GeoPhotoSource;
 import org.devgateway.geoph.model.Indicator;
 import org.devgateway.geoph.model.IndicatorDetail;
 import org.devgateway.geoph.model.Location;
-import org.devgateway.geoph.security.NotAllowException;
 import org.geojson.FeatureCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import static org.devgateway.geoph.core.constants.Constants.INDICATORS_ENGLISH_TITLE_ARRAY;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -36,17 +31,17 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
  *         created on abr 04 2016.
  */
 @RestController
-@RequestMapping(value = "/layers")
-public class LayerController {
+@RequestMapping(value = "/indicators")
+public class IndicatorController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(LayerController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(IndicatorController.class);
 
     private final LayerService layerService;
 
     private final FilterService filterService;
 
     @Autowired
-    public LayerController(LayerService layerService, FilterService filterService) {
+    public IndicatorController(LayerService layerService, FilterService filterService) {
         this.filterService = filterService;
         this.layerService = layerService;
     }
@@ -58,23 +53,17 @@ public class LayerController {
         return "Secured Hello World";
     }
 
-    @RequestMapping(value = "/notSecure", method = GET)
-    public String notSecureHelloWorld() {
-        LOGGER.debug("notSecureHelloWorld");
-        return "Hello World";
-    }
-
-    @RequestMapping(value = "/indicators/list", method = GET)
+    @RequestMapping(value = "/list", method = GET)
     //@Secured("ROLE_READ")
     public List<Indicator> getIndicatorsList() {
         LOGGER.debug("getIndicatorsList");
         return layerService.getIndicatorsList();
     }
 
-    @RequestMapping(value = "/indicators", method = GET)
+    @RequestMapping(value = "/file/id/{id}", method = GET)
     //@Secured("ROLE_READ")
-    public IndicatorResponse getIndicator(@RequestParam(value = "id") Long id) {
-        LOGGER.debug("getIndicator");
+    public IndicatorResponse getIndicatorFile(@PathVariable final Long id) {
+        LOGGER.debug("getIndicatorFile");
         String filename = "NEDA_indicator_" + id + ".csv";
         IndicatorResponse response = layerService.getIndicatorResponse(id);
         response.setFilename(filename);
@@ -103,7 +92,7 @@ public class LayerController {
         return response;
     }
 
-    @RequestMapping(value = "/indicators", headers = "content-type=multipart/*", method = POST)
+    @RequestMapping(value = "/file", headers = "content-type=multipart/*", method = POST)
     //@Secured("ROLE_READ")
     public IndicatorResponse putIndicator(IndicatorRequest indicatorParam,
                                           @RequestParam(value = "file", required = false) final MultipartFile file) {
@@ -214,38 +203,9 @@ public class LayerController {
         }
     }
 
-    @RequestMapping(value = "/indicators/id/{indicatorId}", method = GET)
-    //@Secured("ROLE_READ")
-    public FeatureCollection getIndicatorsData(@PathVariable final long indicatorId) {
-        LOGGER.debug("getIndicatorsData for indicator id:" + indicatorId);
-        return layerService.getIndicatorsData(indicatorId);
-    }
 
-    @RequestMapping(value = "/geophotos/list", method = GET)
-    //@Secured("ROLE_READ")
-    public List<GeoPhotoSource> getGeoPhotosList() {
-        LOGGER.debug("getGeoPhotosList");
-        return layerService.getGeoPhotoSourceList();
-    }
 
-    @RequestMapping(value = "/geophotos/id/{kmlId}", method = GET)
-    //@Secured("ROLE_READ")
-    public FeatureCollection getGeoPhotosData(@PathVariable final long kmlId) {
-        LOGGER.debug("getGeoPhotosData for kml id:" + kmlId);
-        return layerService.getGeoPhotoData(kmlId);
-    }
 
-    @ExceptionHandler(NotAllowException.class)
-    @ResponseStatus(HttpStatus.FORBIDDEN)
-    @ResponseBody
-    public Map<String, Object> handleNotAllowException(NotAllowException nae) {
-        Map<String, Object> result = new HashMap<>();
-        result.put("error", "Not Allowed");
-        result.put("message", nae.getMessage());
-        result.put("status", 401);
-        result.put("timestamp", System.currentTimeMillis());
-        return result;
-    }
 
 
 }

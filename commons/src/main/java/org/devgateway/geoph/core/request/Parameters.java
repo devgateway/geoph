@@ -81,15 +81,15 @@ public class Parameters {
 
     private ProjectOrder projectOrder;
 
-    public Parameters() {
+    private Parameters() {
     }
 
-    public Parameters(AppRequestParams filters, Pageable pageable) {
+    private Parameters(AppRequestParams filters, Pageable pageable) {
         this(filters);
         this.pageable = pageable;
     }
 
-    public Parameters(AppRequestParams filters) {
+    private Parameters(AppRequestParams filters) {
         this.setStartDateMax(filters.getDt_start_max());
         this.setStartDateMin(filters.getDt_start_min());
         this.setEndDateMax(filters.getDt_end_max());
@@ -114,6 +114,10 @@ public class Parameters {
         this.financialAmountMax = filters.getFin_amount_max();
         this.reachedOwpaMax = filters.getRo_max();
         this.reachedOwpaMin = filters.getRo_min();
+    }
+
+    public static Parameters getParameters(AppRequestParams filters) {
+        return new Parameters(filters);
     }
 
     public Float getReachedOwpaMax() {

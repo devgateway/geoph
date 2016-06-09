@@ -32,9 +32,9 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Random;
 
 import static org.devgateway.geoph.core.constants.Constants.EXPORT_ENGLISH_TITLE_ARRAY;
+import static org.devgateway.geoph.util.KeyGenerator.*;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -45,12 +45,12 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RestController
 @RequestMapping(value = "/maps")
 public class MapController {
-    public static final String ALPHABET = "BCDFGHIJKLMNPQRSTVWXZ";
-    public static final int ALPHABET_NUMBER = ALPHABET.length();
+
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MapController.class);
 
     public static final String COMMA = ",";
+    public static final int FILENAME_LENGTH = 8;
 
     private final AppMapService service;
 
@@ -107,7 +107,7 @@ public class MapController {
                 WebDriver driver = new FirefoxDriver(ffBinary, firefoxProfile);
                 driver.get(url);
                 Thread.sleep(PropsHelper.getScreenCaptureTimeToWait());
-                filename = getRandomKey() + ".png";
+                filename = getRandomKey(FILENAME_LENGTH) + ".png";
                 File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
                 FileUtils.copyFile(scrFile, new File(PropsHelper.getScreenCaptureDir() + filename));
                 driver.close();
@@ -124,8 +124,7 @@ public class MapController {
             @PathVariable final String language,
             AppRequestParams filters) {
         LOGGER.debug("exportData");
-        Parameters params = new Parameters(filters);
-        List<Location> locationList = geoJsonService.getLocationsForExport(params);
+        List<Location> locationList = geoJsonService.getLocationsForExport(filters.getParameters());
 
         String filename = null;
 
@@ -138,7 +137,7 @@ public class MapController {
     }
 
     private String getCsvFile(String language, List<Location> locationList) {
-        String filename = "NEDA_data_" + getRandomKey() + ".csv";
+        String filename = "NEDA_data_" + getRandomKey(FILENAME_LENGTH) + ".csv";
         try {
             FileWriter writer = new FileWriter(PropsHelper.getExportDir() + filename);
             String[] titles = null;
@@ -327,7 +326,7 @@ public class MapController {
         }
 
         try {
-            filename = "NEDA_data_" + getRandomKey() + ".xls";
+            filename = "NEDA_data_" + getRandomKey(FILENAME_LENGTH) + ".xls";
             FileOutputStream fileOut = new FileOutputStream(PropsHelper.getExportDir() + filename);
             wb.write(fileOut);
             fileOut.close();
@@ -350,14 +349,5 @@ public class MapController {
         return style;
     }
 
-    //TODO:move to utils or use a key generator lib
-    private static String getRandomKey() {
-        Random r = new Random();
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < 7; i++) {
-            sb.append(ALPHABET.charAt(r.nextInt(ALPHABET_NUMBER)));
-        }
-        return sb.toString().toLowerCase();
-    }
 
 }

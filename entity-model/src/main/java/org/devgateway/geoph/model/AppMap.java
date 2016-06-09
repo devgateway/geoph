@@ -1,12 +1,12 @@
 package org.devgateway.geoph.model;
 
+import org.devgateway.geoph.util.KeyGenerator;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Random;
 
 /**
  * @author dbianco
@@ -16,8 +16,7 @@ import java.util.Random;
 @Entity
 public class AppMap extends GenericPersistable implements Serializable {
 
-    public static final String ALPHABET = "BCDFGHIJKLMNPQRSTVWXZ";
-    public static final int ALPHABET_NUMBER = ALPHABET.length();
+    public static final int FILENAME_LENGTH = 10;
 
     private String name;
 
@@ -38,16 +37,7 @@ public class AppMap extends GenericPersistable implements Serializable {
         this.description = description;
         this.jsonAppMap = jsonAppMap;
         this.creationDate = new Date();
-        this.setKey(getRandomKey()+getRandomKey());
-    }
-
-    private static String getRandomKey(){
-        Random r = new Random();
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < 5; i++) {
-            sb.append(ALPHABET.charAt(r.nextInt(ALPHABET_NUMBER)));
-        }
-        return sb.toString();
+        this.setKey(KeyGenerator.getRandomKey(FILENAME_LENGTH));
     }
 
     public String getName() {
