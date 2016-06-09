@@ -1,6 +1,6 @@
 package org.devgateway.geoph.rest;
 
-import org.devgateway.geoph.services.GeoJsonService;
+import org.devgateway.geoph.persistence.GeoJsonService;
 import org.devgateway.geoph.util.GeometryDetailLevelEnum;
 import org.devgateway.geoph.util.LocationAdmLevelEnum;
 import org.devgateway.geoph.util.Parameters;

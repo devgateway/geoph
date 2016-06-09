@@ -5,10 +5,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.devgateway.geoph.model.*;
-import org.devgateway.geoph.services.AppMapService;
-import org.devgateway.geoph.services.FilterService;
-import org.devgateway.geoph.services.GeoJsonService;
-import org.devgateway.geoph.services.ProjectService;
+import org.devgateway.geoph.persistence.AppMapService;
+import org.devgateway.geoph.persistence.FilterService;
+import org.devgateway.geoph.persistence.GeoJsonService;
+import org.devgateway.geoph.persistence.ProjectService;
 import org.devgateway.geoph.util.Parameters;
 import org.devgateway.geoph.util.PropsHelper;
 import org.devgateway.geoph.util.TransactionTypeEnum;
@@ -152,7 +152,8 @@ public class MapController {
                 projects, impAgencies, fundingAgencies, flowTypes,
                 projectTitle, physicalStatuses, climateChange, genderResponsiveness,
                 financialAmountMin, financialAmountMax, null);
-        List<Location> locationList = geoJsonService.getLocationsForExport(params);
+
+                List<Location> locationList = geoJsonService.getLocationsForExport(params);
 
         String filename = null;
 

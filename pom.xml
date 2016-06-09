@@ -39,9 +39,8 @@
         <module>security</module>
         <module>services</module>
         <module>entity-model</module>
+        <module>core</module>
     </modules>
-
-
 
     <dependencyManagement>
         <dependencies>

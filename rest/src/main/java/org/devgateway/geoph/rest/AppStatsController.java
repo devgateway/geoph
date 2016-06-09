@@ -1,6 +1,6 @@
 package org.devgateway.geoph.rest;
 
-import org.devgateway.geoph.services.AppStatsService;
+import org.devgateway.geoph.persistence.AppStatsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

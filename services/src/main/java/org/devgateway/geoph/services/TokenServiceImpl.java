@@ -1,7 +1,8 @@
 package org.devgateway.geoph.services;
 
 import org.devgateway.geoph.model.security.PersistentToken;
-import org.devgateway.geoph.services.repository.security.PersistentTokenRepository;
+import org.devgateway.geoph.persistence.TokenService;
+import org.devgateway.geoph.persistence.repository.security.PersistentTokenRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import java.security.SecureRandom;
  *         created on mar 31 2016.
  */
 @Service
-public class TokenServiceImpl implements TokenService{
+public class TokenServiceImpl implements TokenService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TokenServiceImpl.class);
 

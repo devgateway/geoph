@@ -1,7 +1,7 @@
 package org.devgateway.geoph.rest;
 
-import org.devgateway.geoph.services.ChartService;
-import org.devgateway.geoph.services.ProjectService;
+import org.devgateway.geoph.persistence.ChartService;
+import org.devgateway.geoph.persistence.ProjectService;
 import org.devgateway.geoph.util.Parameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -2,7 +2,7 @@ package org.devgateway.geoph.rest;
 
 import org.devgateway.geoph.model.*;
 import org.devgateway.geoph.response.GenericResponse;
-import org.devgateway.geoph.services.FilterService;
+import org.devgateway.geoph.persistence.FilterService;
 import org.devgateway.geoph.util.LocationAdmLevelEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

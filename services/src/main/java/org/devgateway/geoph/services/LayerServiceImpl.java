@@ -3,10 +3,11 @@ package org.devgateway.geoph.services;
 import org.devgateway.geoph.model.GeoPhotoSource;
 import org.devgateway.geoph.model.Indicator;
 import org.devgateway.geoph.model.IndicatorDetail;
-import org.devgateway.geoph.services.repository.GeoPhotoRepository;
-import org.devgateway.geoph.services.repository.IndicatorDetailRepository;
-import org.devgateway.geoph.services.repository.IndicatorRepository;
-import org.devgateway.geoph.services.repository.LocationRepository;
+import org.devgateway.geoph.persistence.LayerService;
+import org.devgateway.geoph.persistence.repository.GeoPhotoRepository;
+import org.devgateway.geoph.persistence.repository.IndicatorDetailRepository;
+import org.devgateway.geoph.persistence.repository.IndicatorRepository;
+import org.devgateway.geoph.persistence.repository.LocationRepository;
 import org.devgateway.geoph.response.IndicatorResponse;
 import org.devgateway.geoph.util.*;
 import org.geojson.*;
@@ -23,7 +24,7 @@ import java.util.Map;
  *         created on abr 25 2016.
  */
 @Service
-public class LayerServiceImpl implements LayerService{
+public class LayerServiceImpl implements LayerService {
 
     @Autowired
     IndicatorRepository indicatorRepository;

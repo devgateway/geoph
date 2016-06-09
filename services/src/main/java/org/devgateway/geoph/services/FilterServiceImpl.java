@@ -2,7 +2,8 @@ package org.devgateway.geoph.services;
 
 import org.devgateway.geoph.model.*;
 import org.devgateway.geoph.model.Currency;
-import org.devgateway.geoph.services.repository.*;
+import org.devgateway.geoph.persistence.FilterService;
+import org.devgateway.geoph.persistence.repository.*;
 import org.devgateway.geoph.util.LocationAdmLevelEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

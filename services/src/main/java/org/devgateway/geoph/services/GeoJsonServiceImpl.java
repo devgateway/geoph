@@ -1,7 +1,8 @@
 package org.devgateway.geoph.services;
 
 import org.devgateway.geoph.model.*;
-import org.devgateway.geoph.services.repository.LocationRepository;
+import org.devgateway.geoph.persistence.GeoJsonService;
+import org.devgateway.geoph.persistence.repository.LocationRepository;
 import org.devgateway.geoph.util.*;
 import org.geojson.*;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,9 +1,13 @@
 package org.devgateway.geoph;
 
-import org.devgateway.geoph.services.spring.PersistenceApplication;
+import org.devgateway.geoph.persistence.repository.LocationRepository;
+import org.devgateway.geoph.persistence.spring.PersistenceApplication;
+import org.devgateway.geoph.services.LocationService;
+import org.devgateway.geoph.services.exporter.Export;
 import org.devgateway.geoph.util.PropsHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -33,7 +37,8 @@ public class Main {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
-    public static void main(String[] args) {
+
+     public static void main(String[] args) {
         ApplicationContext ctx = SpringApplication.run(Main.class, args);
 
         LOGGER.info("Let's inspect the beans provided by Spring Boot:");
@@ -55,6 +60,8 @@ public class Main {
             BootMetadata bootMetadata = ctx.getBean(BootMetadata.class);
             bootMetadata.boot();
         }
+
+
 
         LOGGER.info("******GeoPH app started******");
         LOGGER.info("*****************************");

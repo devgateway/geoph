@@ -2,7 +2,7 @@ package org.devgateway.geoph;
 
 import org.devgateway.geoph.model.security.GrantedAuthority;
 import org.devgateway.geoph.model.security.SystemUser;
-import org.devgateway.geoph.services.SecurityService;
+import org.devgateway.geoph.persistence.SecurityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

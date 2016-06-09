@@ -1,7 +1,8 @@
 package org.devgateway.geoph.services;
 
 import org.devgateway.geoph.model.Project;
-import org.devgateway.geoph.services.repository.ProjectRepository;
+import org.devgateway.geoph.persistence.ProjectService;
+import org.devgateway.geoph.persistence.repository.ProjectRepository;
 import org.devgateway.geoph.response.StatsResponse;
 import org.devgateway.geoph.util.Parameters;
 import org.slf4j.Logger;
