@@ -1,17 +1,14 @@
 package org.devgateway.geoph.core.services;
 
+import org.devgateway.geoph.core.export.Generator;
 import org.devgateway.geoph.core.request.Parameters;
-import org.devgateway.geoph.model.Location;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
 
 /**
  * Created by Sebastian Dimunzio on 6/9/2016.
  */
 public interface ExportService {
 
-    File export(Parameters params) throws IOException;
+    String export(Generator generator, Parameters parameters) throws Exception;
+
 
 }

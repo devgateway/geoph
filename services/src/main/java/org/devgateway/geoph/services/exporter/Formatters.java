@@ -1,5 +1,6 @@
 package org.devgateway.geoph.services.exporter;
 
+import org.devgateway.geoph.core.export.Formatter;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.text.SimpleDateFormat;

@@ -1,4 +1,4 @@
-package org.devgateway.geoph.services.exporter;
+package org.devgateway.geoph.core.export;
 
 import java.util.Map;
 

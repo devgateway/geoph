@@ -1,19 +1,23 @@
-package org.devgateway.geoph.services.exporter;
+package org.devgateway.geoph.services.exporter.generators;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
+import org.devgateway.geoph.core.export.ColumnDefinition;
+import org.devgateway.geoph.core.export.Generator;
+import org.devgateway.geoph.core.export.RawCell;
+import org.devgateway.geoph.core.export.RawRow;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
 /**
  * Created by Sebastian Dimunzio on 6/9/2016.
  */
-public class XLSGenerator {
+
+public class XLSGenerator implements Generator {
     private static int START_ROW = 0;
     private static int START_COLUMN = 0;
 
@@ -22,6 +26,7 @@ public class XLSGenerator {
     private Workbook wb;
     private Sheet sheet;
     private int rowNumber = 0;
+
 
 
     public XLSGenerator() {
@@ -60,6 +65,7 @@ public class XLSGenerator {
         }
     }
 
+
     public void writeRow(RawRow rawRow) {
         Row row = sheet.createRow(rowNumber++);
         int colNumber = START_COLUMN;
@@ -86,12 +92,15 @@ public class XLSGenerator {
     }
 
 
-    public File writeFile() throws IOException {
-        File file=new File("/temp/test.xls");
+    public File toFile(File file) throws Exception {
         FileOutputStream fileOut = new FileOutputStream(file);
         wb.write(fileOut);
         fileOut.close();
         return file;
+    }
 
+    @Override
+    public String toOutputStream() throws Exception {
+        return null;
     }
 }

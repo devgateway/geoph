@@ -1,5 +1,7 @@
 package org.devgateway.geoph.services.exporter;
 
+import org.devgateway.geoph.core.export.Extractor;
+
 import java.util.Map;
 
 /**

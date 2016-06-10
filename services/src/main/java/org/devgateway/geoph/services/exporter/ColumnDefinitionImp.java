@@ -1,9 +1,14 @@
 package org.devgateway.geoph.services.exporter;
 
+import org.devgateway.geoph.core.export.ColumnDefinition;
+import org.devgateway.geoph.core.export.Extractor;
+import org.devgateway.geoph.core.export.Formatter;
+import org.devgateway.geoph.core.export.RawCell;
+
 /**
  * Created by Sebastian Dimunzio on 6/8/2016.
  */
-public class ColumnDefinition<T> {
+public class ColumnDefinitionImp<T> implements ColumnDefinition {
 
     String title;
     String getter;
@@ -11,22 +16,21 @@ public class ColumnDefinition<T> {
     Extractor<T> extractor;
 
 
-    public ColumnDefinition(String title, Formatter<T> formatter, Extractor<T> extractor) {
+    public ColumnDefinitionImp(String title, Formatter<T> formatter, Extractor<T> extractor) {
         this.title = title;
         this.formatter = formatter;
         this.extractor = extractor;
     }
 
-
-    public RawCell<T> getCell(T value) {
-        return new RawCell<T>(this, value);
+    public RawCell getCell(Object value) {
+        return new RawCellImpl(this, value);
     }
 
     public Extractor<T> getExtractor() {
         return extractor;
     }
 
-    public void setExtractor(Extractor<T> extractor) {
+    public void setExtractor(Extractor extractor) {
         this.extractor = extractor;
     }
 
@@ -50,7 +54,8 @@ public class ColumnDefinition<T> {
         return formatter;
     }
 
-    public void setFormatter(Formatter<T> formatter) {
+
+    public void setFormatter(Formatter formatter) {
         this.formatter = formatter;
     }
 }

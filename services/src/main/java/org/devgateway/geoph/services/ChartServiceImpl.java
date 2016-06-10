@@ -41,6 +41,7 @@ public class ChartServiceImpl implements ChartService {
     PhysicalStatusRepository physicalStatusRepository;
 
     @Override
+
     public Collection<ChartResponse> getFundingByFundingAgency(Parameters params) {
         Map<Long, ChartResponse> faMap = new HashMap<>();
         for (TransactionTypeEnum trxTypeId : TransactionTypeEnum.values()) {
@@ -123,9 +124,11 @@ public class ChartServiceImpl implements ChartService {
     @Override
     public Collection<ChartResponse> getFundingByPhysicalStatus(Parameters params) {
         Map<Long, ChartResponse> phyStatusMap = new HashMap<>();
+
         for (TransactionTypeEnum trxTypeId : TransactionTypeEnum.values()) {
             for (TransactionStatusEnum trxStatusId : TransactionStatusEnum.values()) {
-                List<PhysicalStatusQueryHelper> phyStatusResults = physicalStatusRepository.findFundingByPhysicalStatus(params, trxTypeId.getId(), trxStatusId.getId());
+                List<PhysicalStatusQueryHelper> phyStatusResults = physicalStatusRepository
+                        .findFundingByPhysicalStatus(params, trxTypeId.getId(), trxStatusId.getId());
 
                 for (PhysicalStatusQueryHelper phyStatusHelper : phyStatusResults) {
                     PhysicalStatus physicalStatus = phyStatusHelper.getPhysicalStatus();
@@ -140,6 +143,8 @@ public class ChartServiceImpl implements ChartService {
                 }
             }
         }
+
+
         return phyStatusMap.values();
     }
 }
