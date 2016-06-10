@@ -1,4 +1,4 @@
-package org.devgateway.geoph.services.repository;
+package org.devgateway.geoph.persistence.repository;
 
 import com.google.gson.Gson;
 import org.devgateway.geoph.core.repositories.LocationRepository;
@@ -102,14 +102,39 @@ public class DefaultLocationRepository implements LocationRepository {
 
     @Override
     @Cacheable("locationsByParams")
-    public List<LocationResultsQueryHelper> findLocationsByParams(Parameters params, int trxTypeId, int trxStatusId) {
+    public List<Location> findLocationsByParams(Parameters params) {
+
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<Location> criteriaQuery = criteriaBuilder.createQuery(Location.class);
+
+        Root<Location> locationRoot = criteriaQuery.from(Location.class);
+        Join<Location, Project> projectJoin = locationRoot.join(Location_.projects, JoinType.LEFT);
+
+        List<Expression<?>> groupByList = new ArrayList<>();
+        groupByList.add(locationRoot);;
+
+        List<Predicate> predicates = new ArrayList();
+        FilterHelper.filterLocationQuery(params, criteriaBuilder, locationRoot, predicates, projectJoin);
+
+        Predicate predicate = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+        criteriaQuery.where(predicate);
+
+        criteriaQuery.groupBy(groupByList);
+        TypedQuery<Location> query = em.createQuery(criteriaQuery.select(locationRoot));
+
+        return query.getResultList();
+    }
+
+    @Override
+    @Cacheable("findLocationsByParamsTypeStatus")
+    public List<LocationResultsQueryHelper> findLocationsByParamsTypeStatus(Parameters params, int trxTypeId, int trxStatusId) {
 
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<LocationResultsQueryHelper> criteriaQuery = criteriaBuilder.createQuery(LocationResultsQueryHelper.class);
 
         Root<Location> locationRoot = criteriaQuery.from(Location.class);
         List<Selection<?>> multiSelect = new ArrayList<>();
-        multiSelect.add(locationRoot.alias("location"));
+        multiSelect.add(locationRoot);
 
         List<Predicate> predicates = new ArrayList();
         List<Expression<?>> groupByList = new ArrayList<>();

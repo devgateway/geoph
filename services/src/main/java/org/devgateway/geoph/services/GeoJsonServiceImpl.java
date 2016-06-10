@@ -10,12 +10,14 @@ import org.devgateway.geoph.enums.LocationAdmLevelEnum;
 import org.devgateway.geoph.enums.TransactionStatusEnum;
 import org.devgateway.geoph.enums.TransactionTypeEnum;
 import org.devgateway.geoph.model.Location;
-import org.devgateway.geoph.model.Project;
 import org.geojson.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static org.devgateway.geoph.core.constants.Constants.*;
 
@@ -78,16 +80,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
     }
 
     public List<Location> getLocationsForExport(Parameters params){
-        List<Location> locationList = new ArrayList<>();
-        List<LocationResultsQueryHelper> locationResults = locationRepository.findLocationsByParams(params, 0, 0);
-        for(LocationResultsQueryHelper locHelper:locationResults) {
-            Set<Project> projects = locHelper.getLocation().getProjects();
-            for(Project p : projects){
-                p.getTransactions();
-            }
-            locationList.add(locHelper.getLocation());
-        }
-        return locationList;
+        return locationRepository.findLocationsByParams(params);
     }
 
     private void addProjectCount(Parameters params, int level, Map<Long, LocationProperty> locationPropertyMap) {
@@ -114,7 +107,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
 
         for(TransactionTypeEnum tt:TransactionTypeEnum.values()){
             for(TransactionStatusEnum ts:TransactionStatusEnum.values()){
-                List<LocationResultsQueryHelper> locationResults = locationRepository.findLocationsByParams(params, tt.getId(), ts.getId());
+                List<LocationResultsQueryHelper> locationResults = locationRepository.findLocationsByParamsTypeStatus(params, tt.getId(), ts.getId());
                 for(LocationResultsQueryHelper locHelper:locationResults){
                     LocationProperty lp = null;
                     if(level== REGION_LEVEL){
