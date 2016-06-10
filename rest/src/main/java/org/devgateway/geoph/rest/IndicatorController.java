@@ -10,19 +10,21 @@ import org.devgateway.geoph.dao.PropsHelper;
 import org.devgateway.geoph.model.Indicator;
 import org.devgateway.geoph.model.IndicatorDetail;
 import org.devgateway.geoph.model.Location;
-import org.geojson.FeatureCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.util.Iterator;
 import java.util.List;
 
-import static org.devgateway.geoph.core.constants.Constants.INDICATORS_ENGLISH_TITLE_ARRAY;
+import static org.devgateway.geoph.core.constants.Constants.*;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -60,11 +62,11 @@ public class IndicatorController {
         return layerService.getIndicatorsList();
     }
 
-    @RequestMapping(value = "/file/id/{id}", method = GET)
+    @RequestMapping(value = "/download/id/{id}", method = GET)
     //@Secured("ROLE_READ")
     public IndicatorResponse getIndicatorFile(@PathVariable final Long id) {
         LOGGER.debug("getIndicatorFile");
-        String filename = "NEDA_indicator_" + id + ".csv";
+        String filename = INDICATOR_FILENAME + id + ".csv";
         IndicatorResponse response = layerService.getIndicatorResponse(id);
         response.setFilename(filename);
         try {
@@ -76,12 +78,12 @@ public class IndicatorController {
                     writer.append(';');
                 }
             }
-            writer.append(System.getProperty("line.separator"));
+            writer.append(System.getProperty(LINE_SEPARATOR));
             for (Long locId : response.getDetails().keySet()) {
                 Location location = filterService.findLocationById(locId);
                 if (location != null) {
                     writer.append(location.getName() + ';' + location.getCode() + ';' + response.getDetails().get(locId));
-                    writer.append(System.getProperty("line.separator"));
+                    writer.append(System.getProperty(LINE_SEPARATOR));
                 }
             }
             writer.flush();
@@ -92,7 +94,7 @@ public class IndicatorController {
         return response;
     }
 
-    @RequestMapping(value = "/file", headers = "content-type=multipart/*", method = POST)
+    @RequestMapping(value = "/upload", headers = "content-type=multipart/*", method = POST)
     //@Secured("ROLE_READ")
     public IndicatorResponse putIndicator(IndicatorRequest indicatorParam,
                                           @RequestParam(value = "file", required = false) final MultipartFile file) {

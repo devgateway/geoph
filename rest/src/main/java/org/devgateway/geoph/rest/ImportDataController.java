@@ -17,6 +17,7 @@ import java.io.FileReader;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static org.devgateway.geoph.core.constants.Constants.*;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 /**
@@ -28,8 +29,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 public class ImportDataController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MapController.class);
-
-    public static final String COMMA = ",";
 
     private final FilterService filterService;
 
@@ -108,8 +107,8 @@ public class ImportDataController {
                 eaMap.put(ea.getName().toLowerCase().trim(), ea);
             }
             ExecutingAgency eaDef = eaMap.get("several agencies");
-            SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd");
-            SimpleDateFormat formatter2 = new SimpleDateFormat("MM/dd/yyyy");
+            SimpleDateFormat formatter1 = new SimpleDateFormat(DATE_FORMAT_YYYYMMDD);
+            SimpleDateFormat formatter2 = new SimpleDateFormat(DATE_FORMAT_MMDDYYYY);
 
             //Read the file line by line
             while ((line = fileReader.readLine()) != null) {
@@ -319,8 +318,8 @@ public class ImportDataController {
                 eaMap.put(ea.getName().toLowerCase().trim(), ea);
             }
             ExecutingAgency eaDef = eaMap.get("several agencies");
-            SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd");
-            SimpleDateFormat formatter2 = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat formatter1 = new SimpleDateFormat(DATE_FORMAT_YYYYMMDD);
+            SimpleDateFormat formatter2 = new SimpleDateFormat(DATE_FORMAT_DDMMYYYY);
 
             //Read the file line by line
             while ((line = fileReader.readLine()) != null) {
