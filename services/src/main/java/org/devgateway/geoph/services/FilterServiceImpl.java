@@ -78,7 +78,19 @@ public class FilterServiceImpl implements FilterService {
     @Override
     public Integer countImpAgencies() {
         LOGGER.debug("Count implementing agencies");
-        return impAgencyRepository.count();
+        return impAgencyRepository.countAll();
+    }
+
+    @Override
+    public Integer countFundingAgencies() {
+        LOGGER.debug("Count funding agencies");
+        return fundingAgencyRepository.countAll();
+    }
+
+    @Override
+    public Integer countExecutingAgencies() {
+        LOGGER.debug("Count executing agencies");
+        return executingAgencyRepository.countAll();
     }
 
     @Override

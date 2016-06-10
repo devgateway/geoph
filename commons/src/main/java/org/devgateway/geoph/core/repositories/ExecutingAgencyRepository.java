@@ -15,4 +15,5 @@ public interface ExecutingAgencyRepository {
 
     List<Object> findFundingByExecutingAgency(Parameters params);
 
+    Integer countAll();
 }

@@ -34,7 +34,7 @@ public class DefaultImplementingAgencyRepository implements ImplementingAgencyRe
     }
 
     @Override
-    public Integer count() {
+    public Integer countAll() {
         return ((BigInteger) em.createNativeQuery("select count(*) from agency a where a.discriminator like 'implementing_agency'").getSingleResult()).intValue();
     }
 
