@@ -23,7 +23,9 @@ public interface LocationRepository {
 
     List<Location> findLocationsByParentId(long parentId);
 
-    List<LocationResultsQueryHelper> findLocationsByParams(Parameters params, int trxTypeId, int trxStatusId);
+    List<Location> findLocationsByParams(Parameters params);
+
+    List<LocationResultsQueryHelper> findLocationsByParamsTypeStatus(Parameters params, int trxTypeId, int trxStatusId);
 
     List<Object> countLocationProjectsByParams(Parameters params);
 

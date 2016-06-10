@@ -16,4 +16,5 @@ public interface FundingAgencyRepository {
 
     List<AgencyResultsQueryHelper> findFundingByFundingAgency(Parameters params, int trxTypeId, int trxStatusId);
 
+    Integer countAll();
 }

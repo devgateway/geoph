@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +31,12 @@ public class DefaultFundingAgencyRepository implements FundingAgencyRepository {
     @Override
     public List<FundingAgency> findAll() {
         return em.createNamedQuery("findAllFundingAgency", FundingAgency.class).getResultList();
+    }
+
+
+    @Override
+    public Integer countAll() {
+        return ((BigInteger) em.createNativeQuery("select count(*) from agency a where a.discriminator like 'funding_agency'").getSingleResult()).intValue();
     }
 
     @Override

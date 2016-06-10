@@ -2,10 +2,15 @@ package org.devgateway.geoph.rest;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.*;
+import org.devgateway.geoph.core.constants.Constants;
+import org.devgateway.geoph.core.request.AppRequestParams;
 import org.devgateway.geoph.core.services.AppMapService;
 import org.devgateway.geoph.core.services.GeoJsonService;
 import org.devgateway.geoph.dao.PropsHelper;
-import org.devgateway.geoph.model.AppMap;
+import org.devgateway.geoph.enums.TransactionTypeEnum;
+import org.devgateway.geoph.model.*;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -21,8 +26,14 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
+import static org.devgateway.geoph.core.constants.Constants.*;
 import static org.devgateway.geoph.util.KeyGenerator.getRandomKey;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -38,8 +49,7 @@ public class MapController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MapController.class);
 
-    public static final String COMMA = ",";
-    public static final int FILENAME_LENGTH = 8;
+    private static final int FILENAME_LENGTH = 8;
 
     private final AppMapService service;
 
@@ -106,7 +116,7 @@ public class MapController {
         }
         return filename;
     }
-/*
+
     @RequestMapping(value = "/export/fileType/{fileType}/language/{language}", method = GET)
     public String exportData(
             @PathVariable final String fileType,
@@ -126,11 +136,11 @@ public class MapController {
     }
 
     private String getCsvFile(String language, List<Location> locationList) {
-        String filename = "NEDA_data_" + getRandomKey(FILENAME_LENGTH) + ".csv";
+        String filename = EXPORT_DATA_FILENAME + getRandomKey(FILENAME_LENGTH) + ".csv";
         try {
             FileWriter writer = new FileWriter(PropsHelper.getExportDir() + filename);
             String[] titles = null;
-            if (language.toLowerCase().trim().equals("ph")) {
+            if (language.toLowerCase().trim().equals(PHILIPPINES_LANGUAJE)) {
                 //TODO
                 titles = EXPORT_ENGLISH_TITLE_ARRAY;
             } else {
@@ -142,8 +152,8 @@ public class MapController {
                     writer.append(',');
                 }
             }
-            writer.append(System.getProperty("line.separator"));
-            DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+            writer.append(System.getProperty(LINE_SEPARATOR));
+            DateFormat formatter = new SimpleDateFormat(DATE_FORMAT_MMDDYYYY);
             for (Location l : locationList) {
                 for (Project p : l.getProjects()) {
                     writer.append("" + l.getId());
@@ -206,7 +216,7 @@ public class MapController {
                     }
                     writer.append(COMMA + disbursements);
                     writer.append(COMMA + commitments);
-                    writer.append(System.getProperty("line.separator"));
+                    writer.append(System.getProperty(LINE_SEPARATOR));
                 }
             }
             writer.flush();
@@ -220,10 +230,10 @@ public class MapController {
     private String getExcelFile(String language, List<Location> locationList) {
         String filename = "";
         Workbook wb = new HSSFWorkbook();
-        Sheet sheet = wb.createSheet("Geoph export");
+        Sheet sheet = wb.createSheet(GEOPH_EXPORT_SHEET_NAME);
         Row row = sheet.createRow((short) 0);
         String[] titles = null;
-        if (language.toLowerCase().trim().equals("ph")) {
+        if (language.toLowerCase().trim().equals(PHILIPPINES_LANGUAJE)) {
             //TODO
             titles = EXPORT_ENGLISH_TITLE_ARRAY;
         } else {
@@ -239,7 +249,7 @@ public class MapController {
         CreationHelper createHelper = wb.getCreationHelper();
         CellStyle dataStyle = wb.createCellStyle();
         dataStyle.setDataFormat(
-                createHelper.createDataFormat().getFormat("m/d/yy h:mm"));
+                createHelper.createDataFormat().getFormat(DATE_FORMAT_MDYY_HMM));
         for (Location l : locationList) {
             for (Project p : l.getProjects()) {
                 rowNumber++;
@@ -315,7 +325,7 @@ public class MapController {
         }
 
         try {
-            filename = "NEDA_data_" + getRandomKey(FILENAME_LENGTH) + ".xls";
+            filename = Constants.EXPORT_DATA_FILENAME + getRandomKey(FILENAME_LENGTH) + ".xls";
             FileOutputStream fileOut = new FileOutputStream(PropsHelper.getExportDir() + filename);
             wb.write(fileOut);
             fileOut.close();
@@ -338,5 +348,5 @@ public class MapController {
         return style;
     }
 
-*/
+
 }

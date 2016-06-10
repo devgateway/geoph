@@ -34,6 +34,8 @@ public class ConfigController {
         allConfig.put("financialAmountPeriod", service.findFinancialAmountPeriod());
         allConfig.put("impPeriod", service.findImpPeriodBoundaries());
         allConfig.put("impAgenciesCount", service.countImpAgencies());
+        allConfig.put("fundingAgenciesCount", service.countFundingAgencies());
+        allConfig.put("executingAgenciesCount", service.countExecutingAgencies());
         allConfig.put("targetReachedPeriod", service.findTargetReachedPeriodBoundaries());
         allConfig.put("grantPeriod", service.findGrantPeriodBoundaries());
 

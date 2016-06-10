@@ -1,6 +1,8 @@
 package org.devgateway.geoph.rest;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.ss.usermodel.*;
+import org.devgateway.geoph.core.request.IndicatorRequest;
 import org.devgateway.geoph.core.response.IndicatorResponse;
 import org.devgateway.geoph.core.services.FilterService;
 import org.devgateway.geoph.core.services.LayerService;
@@ -14,16 +16,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.io.BufferedReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.Iterator;
 import java.util.List;
 
-import static org.devgateway.geoph.core.constants.Constants.INDICATORS_ENGLISH_TITLE_ARRAY;
+import static org.devgateway.geoph.core.constants.Constants.*;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 /**
  * @author dbianco
@@ -59,11 +62,11 @@ public class IndicatorController {
         return layerService.getIndicatorsList();
     }
 
-    @RequestMapping(value = "/file/id/{id}", method = GET)
+    @RequestMapping(value = "/download/id/{id}", method = GET)
     //@Secured("ROLE_READ")
     public IndicatorResponse getIndicatorFile(@PathVariable final Long id) {
         LOGGER.debug("getIndicatorFile");
-        String filename = "NEDA_indicator_" + id + ".csv";
+        String filename = INDICATOR_FILENAME + id + ".csv";
         IndicatorResponse response = layerService.getIndicatorResponse(id);
         response.setFilename(filename);
         try {
@@ -75,12 +78,12 @@ public class IndicatorController {
                     writer.append(';');
                 }
             }
-            writer.append(System.getProperty("line.separator"));
+            writer.append(System.getProperty(LINE_SEPARATOR));
             for (Long locId : response.getDetails().keySet()) {
                 Location location = filterService.findLocationById(locId);
                 if (location != null) {
                     writer.append(location.getName() + ';' + location.getCode() + ';' + response.getDetails().get(locId));
-                    writer.append(System.getProperty("line.separator"));
+                    writer.append(System.getProperty(LINE_SEPARATOR));
                 }
             }
             writer.flush();
@@ -91,44 +94,43 @@ public class IndicatorController {
         return response;
     }
 
-    /*
-        @RequestMapping(value = "/file", headers = "content-type=multipart/*", method = POST)
-        //@Secured("ROLE_READ")
-        public IndicatorResponse putIndicator(IndicatorRequest indicatorParam,
-                                              @RequestParam(value = "file", required = false) final MultipartFile file) {
-            LOGGER.debug("putIndicator");
-            IndicatorResponse indicator = new IndicatorResponse(layerService.saveIndicator(indicatorParam.getIndicator()));
+    @RequestMapping(value = "/upload", headers = "content-type=multipart/*", method = POST)
+    //@Secured("ROLE_READ")
+    public IndicatorResponse putIndicator(IndicatorRequest indicatorParam,
+                                          @RequestParam(value = "file", required = false) final MultipartFile file) {
+        LOGGER.debug("putIndicator");
+        IndicatorResponse indicator = new IndicatorResponse(layerService.saveIndicator(indicatorParam.getIndicator()));
 
-            if (file.getOriginalFilename().toLowerCase().endsWith(".csv") || file.getOriginalFilename().toLowerCase().endsWith(".txt")) {
-                try {
-                    byte[] byteArr = file.getBytes();
-                    if (byteArr.length > 0) {
-                        String line = "";
-                        BufferedReader br = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(byteArr)));
-                        generateIndicatorDetailFromCSV(indicator, br);
-                    } else {
-                        indicator.addError("File is empty");
-                    }
-                } catch (Exception e) {
-                    LOGGER.error(e.getMessage());
+        if (file.getOriginalFilename().toLowerCase().endsWith(".csv") || file.getOriginalFilename().toLowerCase().endsWith(".txt")) {
+            try {
+                byte[] byteArr = file.getBytes();
+                if (byteArr.length > 0) {
+                    String line = "";
+                    BufferedReader br = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(byteArr)));
+                    generateIndicatorDetailFromCSV(indicator, br);
+                } else {
+                    indicator.addError("File is empty");
                 }
-            } else if (file.getOriginalFilename().toLowerCase().endsWith(".xls") || file.getOriginalFilename().toLowerCase().endsWith(".xlsx")) {
-                try {
-                    byte[] byteArr = file.getBytes();
-                    InputStream inputStream = new ByteArrayInputStream(byteArr);
-                    Workbook wb = WorkbookFactory.create(inputStream);
-                    Sheet sheet = wb.getSheetAt(0);
-                    generateIndicatorDetailFromSheet(indicator, sheet);
-                } catch (Exception e) {
-                    indicator.addError("File is empty or corrupted");
-                    LOGGER.error(e.getMessage());
-                }
-            } else {
-                indicator.addError("File type not allowed - It should be an excel or csv file");
+            } catch (Exception e) {
+                LOGGER.error(e.getMessage());
             }
-            return indicator;
+        } else if (file.getOriginalFilename().toLowerCase().endsWith(".xls") || file.getOriginalFilename().toLowerCase().endsWith(".xlsx")) {
+            try {
+                byte[] byteArr = file.getBytes();
+                InputStream inputStream = new ByteArrayInputStream(byteArr);
+                Workbook wb = WorkbookFactory.create(inputStream);
+                Sheet sheet = wb.getSheetAt(0);
+                generateIndicatorDetailFromSheet(indicator, sheet);
+            } catch (Exception e) {
+                indicator.addError("File is empty or corrupted");
+                LOGGER.error(e.getMessage());
+            }
+        } else {
+            indicator.addError("File type not allowed - It should be an excel or csv file");
         }
-    */
+        return indicator;
+    }
+
     private void generateIndicatorDetailFromCSV(IndicatorResponse indicator, BufferedReader br) throws IOException {
         String line;
         //Avoid labels
@@ -156,7 +158,7 @@ public class IndicatorController {
             }
         }
     }
-/*
+
     private void generateIndicatorDetailFromSheet(IndicatorResponse indicator, Sheet sheet) {
         if (sheet.getLastRowNum() > 0) {
             Iterator<Row> rowIterator = sheet.iterator();
@@ -203,5 +205,9 @@ public class IndicatorController {
         }
     }
 
-*/
+
+
+
+
+
 }

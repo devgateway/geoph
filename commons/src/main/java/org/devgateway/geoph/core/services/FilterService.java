@@ -1,8 +1,7 @@
 package org.devgateway.geoph.core.services;
 
-import org.devgateway.geoph.model.*;
 import org.devgateway.geoph.enums.LocationAdmLevelEnum;
-
+import org.devgateway.geoph.model.*;
 
 import java.util.List;
 import java.util.Map;
@@ -59,4 +58,8 @@ public interface FilterService {
     List<Currency> findAllCurrencies();
 
     Location findLocationById(Long locId);
+
+    Integer countFundingAgencies();
+
+    Integer countExecutingAgencies();
 }

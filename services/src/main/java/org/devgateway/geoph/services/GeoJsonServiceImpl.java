@@ -77,6 +77,9 @@ public class GeoJsonServiceImpl implements GeoJsonService {
         return featureCollection;
     }
 
+    public List<Location> getLocationsForExport(Parameters params){
+        return locationRepository.findLocationsByParams(params);
+    }
 
     private void addProjectCount(Parameters params, int level, Map<Long, LocationProperty> locationPropertyMap) {
         List<Object> locationResults = locationRepository.countLocationProjectsByParams(params);
@@ -102,7 +105,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
 
         for(TransactionTypeEnum tt:TransactionTypeEnum.values()){
             for(TransactionStatusEnum ts:TransactionStatusEnum.values()){
-                List<LocationResultsQueryHelper> locationResults = locationRepository.findLocationsByParams(params, tt.getId(), ts.getId());
+                List<LocationResultsQueryHelper> locationResults = locationRepository.findLocationsByParamsTypeStatus(params, tt.getId(), ts.getId());
                 for(LocationResultsQueryHelper locHelper:locationResults){
                     LocationProperty lp = null;
                     if(level== REGION_LEVEL){
