@@ -4,6 +4,7 @@ import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.model.Location;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -11,6 +12,6 @@ import java.util.List;
  */
 public interface ExportService {
 
-    File export(Parameters params);
+    File export(Parameters params) throws IOException;
 
 }

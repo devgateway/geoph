@@ -1,8 +1,6 @@
 package org.devgateway.geoph.rest;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.poi.ss.usermodel.*;
-import org.devgateway.geoph.core.request.IndicatorRequest;
 import org.devgateway.geoph.core.response.IndicatorResponse;
 import org.devgateway.geoph.core.services.FilterService;
 import org.devgateway.geoph.core.services.LayerService;
@@ -10,21 +8,22 @@ import org.devgateway.geoph.dao.PropsHelper;
 import org.devgateway.geoph.model.Indicator;
 import org.devgateway.geoph.model.IndicatorDetail;
 import org.devgateway.geoph.model.Location;
-import org.geojson.FeatureCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
 import static org.devgateway.geoph.core.constants.Constants.INDICATORS_ENGLISH_TITLE_ARRAY;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 /**
  * @author dbianco
@@ -92,43 +91,44 @@ public class IndicatorController {
         return response;
     }
 
-    @RequestMapping(value = "/file", headers = "content-type=multipart/*", method = POST)
-    //@Secured("ROLE_READ")
-    public IndicatorResponse putIndicator(IndicatorRequest indicatorParam,
-                                          @RequestParam(value = "file", required = false) final MultipartFile file) {
-        LOGGER.debug("putIndicator");
-        IndicatorResponse indicator = new IndicatorResponse(layerService.saveIndicator(indicatorParam.getIndicator()));
+    /*
+        @RequestMapping(value = "/file", headers = "content-type=multipart/*", method = POST)
+        //@Secured("ROLE_READ")
+        public IndicatorResponse putIndicator(IndicatorRequest indicatorParam,
+                                              @RequestParam(value = "file", required = false) final MultipartFile file) {
+            LOGGER.debug("putIndicator");
+            IndicatorResponse indicator = new IndicatorResponse(layerService.saveIndicator(indicatorParam.getIndicator()));
 
-        if (file.getOriginalFilename().toLowerCase().endsWith(".csv") || file.getOriginalFilename().toLowerCase().endsWith(".txt")) {
-            try {
-                byte[] byteArr = file.getBytes();
-                if (byteArr.length > 0) {
-                    String line = "";
-                    BufferedReader br = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(byteArr)));
-                    generateIndicatorDetailFromCSV(indicator, br);
-                } else {
-                    indicator.addError("File is empty");
+            if (file.getOriginalFilename().toLowerCase().endsWith(".csv") || file.getOriginalFilename().toLowerCase().endsWith(".txt")) {
+                try {
+                    byte[] byteArr = file.getBytes();
+                    if (byteArr.length > 0) {
+                        String line = "";
+                        BufferedReader br = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(byteArr)));
+                        generateIndicatorDetailFromCSV(indicator, br);
+                    } else {
+                        indicator.addError("File is empty");
+                    }
+                } catch (Exception e) {
+                    LOGGER.error(e.getMessage());
                 }
-            } catch (Exception e) {
-                LOGGER.error(e.getMessage());
+            } else if (file.getOriginalFilename().toLowerCase().endsWith(".xls") || file.getOriginalFilename().toLowerCase().endsWith(".xlsx")) {
+                try {
+                    byte[] byteArr = file.getBytes();
+                    InputStream inputStream = new ByteArrayInputStream(byteArr);
+                    Workbook wb = WorkbookFactory.create(inputStream);
+                    Sheet sheet = wb.getSheetAt(0);
+                    generateIndicatorDetailFromSheet(indicator, sheet);
+                } catch (Exception e) {
+                    indicator.addError("File is empty or corrupted");
+                    LOGGER.error(e.getMessage());
+                }
+            } else {
+                indicator.addError("File type not allowed - It should be an excel or csv file");
             }
-        } else if (file.getOriginalFilename().toLowerCase().endsWith(".xls") || file.getOriginalFilename().toLowerCase().endsWith(".xlsx")) {
-            try {
-                byte[] byteArr = file.getBytes();
-                InputStream inputStream = new ByteArrayInputStream(byteArr);
-                Workbook wb = WorkbookFactory.create(inputStream);
-                Sheet sheet = wb.getSheetAt(0);
-                generateIndicatorDetailFromSheet(indicator, sheet);
-            } catch (Exception e) {
-                indicator.addError("File is empty or corrupted");
-                LOGGER.error(e.getMessage());
-            }
-        } else {
-            indicator.addError("File type not allowed - It should be an excel or csv file");
+            return indicator;
         }
-        return indicator;
-    }
-
+    */
     private void generateIndicatorDetailFromCSV(IndicatorResponse indicator, BufferedReader br) throws IOException {
         String line;
         //Avoid labels
@@ -156,7 +156,7 @@ public class IndicatorController {
             }
         }
     }
-
+/*
     private void generateIndicatorDetailFromSheet(IndicatorResponse indicator, Sheet sheet) {
         if (sheet.getLastRowNum() > 0) {
             Iterator<Row> rowIterator = sheet.iterator();
@@ -203,9 +203,5 @@ public class IndicatorController {
         }
     }
 
-
-
-
-
-
+*/
 }
