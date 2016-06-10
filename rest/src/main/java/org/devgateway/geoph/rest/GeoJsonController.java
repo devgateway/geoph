@@ -3,6 +3,7 @@ package org.devgateway.geoph.rest;
 import org.devgateway.geoph.core.request.AppRequestParams;
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.core.services.GeoJsonService;
+import org.devgateway.geoph.core.services.LayerService;
 import org.devgateway.geoph.enums.GeometryDetailLevelEnum;
 import org.devgateway.geoph.enums.LocationAdmLevelEnum;
 import org.geojson.FeatureCollection;
@@ -25,11 +26,14 @@ public class GeoJsonController extends CrossOriginSupport {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GeoJsonController.class);
 
-    private final GeoJsonService service;
+    private final GeoJsonService geoJsonService;
+
+    private final LayerService layerService;
 
     @Autowired
-    public GeoJsonController(GeoJsonService service) {
-        this.service = service;
+    public GeoJsonController(GeoJsonService geoJsonService, LayerService layerService) {
+        this.geoJsonService = geoJsonService;
+        this.layerService = layerService;
     }
 
     @RequestMapping(value = "/{level}/projects", method = GET)
@@ -37,18 +41,19 @@ public class GeoJsonController extends CrossOriginSupport {
             @PathVariable final String level,
             AppRequestParams filters) {
         LOGGER.debug("getGeoJsonByLocationType");
-        Parameters params = new Parameters(filters);
+        Parameters params = filters.getParameters();
         params.setLocationLevel(level);
-        return service.getLocationsByParams(params);
+        return geoJsonService.getLocationsByParams(params);
     }
 
     @RequestMapping(value = "/stats/{level}/funding", method = GET)
     public FeatureCollection getGeoJsonStatistical(
             @PathVariable final String level, AppRequestParams filters) {
         LOGGER.debug("getGeoJsonForShapes");
-        Parameters params = new Parameters(filters);
-        return service.getShapesByLevelAndDetail(LocationAdmLevelEnum.valueOf(level.toUpperCase()),
-                GeometryDetailLevelEnum.MEDIUM.getLevel(), params);
+        return geoJsonService.getShapesByLevelAndDetail(
+                LocationAdmLevelEnum.valueOf(level.toUpperCase()),
+                GeometryDetailLevelEnum.MEDIUM.getLevel(),
+                filters.getParameters());
     }
 
     @RequestMapping(value = "/stats/{level}/funding/detail/{detail:.+}", method = GET)
@@ -57,8 +62,22 @@ public class GeoJsonController extends CrossOriginSupport {
             @PathVariable final double detail,
             AppRequestParams filters) {
         LOGGER.debug("getGeoJsonForShapes with detail from param");
-        Parameters params = new Parameters(filters);
-        return service.getShapesByLevelAndDetail(LocationAdmLevelEnum.valueOf(level.toUpperCase()), detail, params);
+        return geoJsonService.getShapesByLevelAndDetail(
+                LocationAdmLevelEnum.valueOf(level.toUpperCase()),
+                detail,
+                filters.getParameters());
+    }
+
+    @RequestMapping(value = "/indicators/id/{indicatorId}", method = GET)
+    public FeatureCollection getIndicatorsData(@PathVariable final long indicatorId) {
+        LOGGER.debug("getIndicatorsData for indicator id:" + indicatorId);
+        return layerService.getIndicatorsData(indicatorId);
+    }
+
+    @RequestMapping(value = "/geophotos/id/{kmlId}", method = GET)
+    public FeatureCollection getGeoPhotosData(@PathVariable final long kmlId) {
+        LOGGER.debug("getGeoPhotosData for kml id:" + kmlId);
+        return layerService.getGeoPhotoData(kmlId);
     }
 
 }

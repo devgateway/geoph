@@ -36,7 +36,7 @@ public class ChartController {
     @RequestMapping(method = GET)
     public Map<String, Object> getAllCharts(AppRequestParams filters) {
         LOGGER.debug("getAllCharts info");
-        Parameters params = new Parameters(filters);
+        Parameters params = filters.getParameters();
         Map<String, Object> allCharts = new HashMap<>();
         allCharts.put("fundingAgency", chartService.getFundingByFundingAgency(params));
         allCharts.put("implementingAgency", chartService.getFundingByImplementingAgency(params));
@@ -49,41 +49,32 @@ public class ChartController {
     @RequestMapping(value = "/projects", method = GET)
     public Map<String, Object> getAllChartsAndProjects(AppRequestParams filters) {
         LOGGER.debug("getAllChartsAndProjects info");
-        Parameters params = new Parameters(filters);
-        Map<String, Object> allCharts = new HashMap<>();
-        allCharts.put("fundingAgency", chartService.getFundingByFundingAgency(params));
-        allCharts.put("implementingAgency", chartService.getFundingByImplementingAgency(params));
-        allCharts.put("sector", chartService.getFundingBySector(params));
-        allCharts.put("physicalStatus", chartService.getFundingByPhysicalStatus(params));
-        allCharts.put("project", projectService.findProjectsByParams(params));
+        Map<String, Object> allCharts = getAllCharts(filters);
+        allCharts.put("project", projectService.findProjectsByParams(filters.getParameters()));
         return allCharts;
     }
 
     @RequestMapping(value = "/fundingAgency", method = GET)
     public Collection<ChartResponse> getByFundingAgency(AppRequestParams filters) {
         LOGGER.debug("getByFundingAgency info");
-        Parameters params = new Parameters(filters);
-        return chartService.getFundingByFundingAgency(params);
+        return chartService.getFundingByFundingAgency(filters.getParameters());
     }
 
     @RequestMapping(value = "/impAgency", method = GET)
     public Collection<ChartResponse> getByImplementingAgency(AppRequestParams filters) {
         LOGGER.debug("getByImplementingAgency info");
-        Parameters params = new Parameters(filters);
-        return chartService.getFundingByImplementingAgency(params);
+        return chartService.getFundingByImplementingAgency(filters.getParameters());
     }
 
     @RequestMapping(value = "/sector", method = GET)
     public Collection<ChartResponse> getBySector(AppRequestParams filters) {
         LOGGER.debug("getBySector info");
-        Parameters params = new Parameters(filters);
-        return chartService.getFundingBySector(params);
+        return chartService.getFundingBySector(filters.getParameters());
     }
 
     @RequestMapping(value = "/physicalStatus", method = GET)
     public Collection<ChartResponse> getByPhysicalStatus(AppRequestParams filters) {
         LOGGER.debug("getBySector info");
-        Parameters params = new Parameters(filters);
-        return chartService.getFundingByPhysicalStatus(params);
+        return chartService.getFundingByPhysicalStatus(filters.getParameters());
     }
 }

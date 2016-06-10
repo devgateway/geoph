@@ -7,6 +7,7 @@ import org.devgateway.geoph.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,6 +23,9 @@ import java.util.Map;
 public class FilterServiceImpl implements FilterService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FilterServiceImpl.class);
+
+
+    private static final Sort SORT_BY_NAME = new Sort(Sort.Direction.ASC, "name");
 
     @Autowired
     ImplementingAgencyRepository impAgencyRepository;
@@ -173,7 +177,7 @@ public class FilterServiceImpl implements FilterService {
 
     @Override
     public List<ClimateChange> findAllClimateChanges() {
-        return climateChangeRepository.findAll();
+        return climateChangeRepository.findAll(SORT_BY_NAME);
     }
 
     @Override
