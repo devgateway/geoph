@@ -6,13 +6,13 @@ package org.devgateway.geoph.dao;
  */
 public class PropsHelper {
 
-    private static String screenCaptureDir = "/tmp/";
+    private static String screenCaptureDir = "/temp/";
 
     private static long screenCaptureTimeToWait = 25000;
 
     private static String screenFirefoxExe = null;
 
-    private static String exportDir = "/tmp/";
+    private static String exportDir = "/temp/";
 
     private PropsHelper(){
 

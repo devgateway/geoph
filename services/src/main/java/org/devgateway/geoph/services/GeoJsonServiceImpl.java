@@ -77,18 +77,6 @@ public class GeoJsonServiceImpl implements GeoJsonService {
         return featureCollection;
     }
 
-    public List<Location> getLocationsForExport(Parameters params){
-        List<Location> locationList = new ArrayList<>();
-        List<LocationResultsQueryHelper> locationResults = locationRepository.findLocationsByParams(params, 0, 0);
-        for(LocationResultsQueryHelper locHelper:locationResults) {
-            Set<Project> projects = locHelper.getLocation().getProjects();
-            for(Project p : projects){
-                p.getTransactions();
-            }
-            locationList.add(locHelper.getLocation());
-        }
-        return locationList;
-    }
 
     private void addProjectCount(Parameters params, int level, Map<Long, LocationProperty> locationPropertyMap) {
         List<Object> locationResults = locationRepository.countLocationProjectsByParams(params);

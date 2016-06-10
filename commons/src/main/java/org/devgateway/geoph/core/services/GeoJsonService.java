@@ -14,11 +14,10 @@ import java.util.List;
  */
 public interface GeoJsonService {
 
-    public FeatureCollection getLocationsByLevel(LocationAdmLevelEnum level);
+    FeatureCollection getLocationsByLevel(LocationAdmLevelEnum level);
 
     FeatureCollection getLocationsByParams(Parameters params);
 
-    List<Location> getLocationsForExport(Parameters params);
 
     FeatureCollection getShapesByLevelAndDetail(LocationAdmLevelEnum level, double detail, Parameters params);
 

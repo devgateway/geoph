@@ -3,9 +3,11 @@ package org.devgateway.geoph.services.exporter;
 /**
  * Created by Sebastian Dimunzio on 6/8/2016.
  */
-public class Cell <T> {
+public class RawCell<T> {
 
     private T value;
+
+    private ColumnDefinition<T> tColumnDefinition;
 
     public T getValue() {
         return value;
@@ -15,11 +17,12 @@ public class Cell <T> {
         this.value = value;
     }
 
-    private String format(Formatter<T> formatter){
+    private String format(Formatter<T> formatter) {
         return formatter.format(value);
     }
 
-    public Cell(T value) {
+    public RawCell(ColumnDefinition<T> tColumnDefinition, T value) {
+        this.tColumnDefinition = tColumnDefinition;
         this.value = value;
     }
 }
