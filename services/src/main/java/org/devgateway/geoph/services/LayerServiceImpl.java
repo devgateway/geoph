@@ -29,6 +29,16 @@ import java.util.Map;
 @Service
 public class LayerServiceImpl implements LayerService {
 
+    private static final int LONG = 0;
+    private static final int LAT = 1;
+    private static final String GID = "gid";
+    private static final String KML_ID = "kmlId";
+    private static final String NAME = "name";
+    private static final String SYMBOL_ID = "symbolId";
+    private static final String TYPE = "type";
+    private static final String DESCRIPTION = "description";
+    private static final String IMAGE_PATH = "imagePath";
+
     @Autowired
     IndicatorRepository indicatorRepository;
 
@@ -121,15 +131,15 @@ public class LayerServiceImpl implements LayerService {
         List<GeoPhotoGeometryDao> geometryHelpers = geoPhotoRepository.getGeoPhotoGeometryByKmlId(kmlId);
         for (GeoPhotoGeometryDao geometryHelper : geometryHelpers) {
             Feature feature = new Feature();
-            feature.setProperty("gid", geometryHelper.getGid());
-            feature.setProperty("kmlId", geometryHelper.getKmlId());
-            feature.setProperty("name", geometryHelper.getName());
-            feature.setProperty("symbolId", geometryHelper.getSymbolId());
-            feature.setProperty("type", geometryHelper.getType());
-            feature.setProperty("description", geometryHelper.getDescription());
-            feature.setProperty("imagePath", geometryHelper.getImagePath());
-            if (geometryHelper.getCoordinates() != null && geometryHelper.getCoordinates().length > 1) {
-                Point point = new Point(geometryHelper.getCoordinates()[0], geometryHelper.getCoordinates()[1]);
+            feature.setProperty(GID, geometryHelper.getGid());
+            feature.setProperty(KML_ID, geometryHelper.getKmlId());
+            feature.setProperty(NAME, geometryHelper.getName());
+            feature.setProperty(SYMBOL_ID, geometryHelper.getSymbolId());
+            feature.setProperty(TYPE, geometryHelper.getType());
+            feature.setProperty(DESCRIPTION, geometryHelper.getDescription());
+            feature.setProperty(IMAGE_PATH, geometryHelper.getImagePath());
+            if (geometryHelper.getCoordinates() != null && geometryHelper.getCoordinates().length > LAT) {
+                Point point = new Point(geometryHelper.getCoordinates()[LONG], geometryHelper.getCoordinates()[LAT]);
                 feature.setGeometry(point);
             }
             featureCollection.add(feature);

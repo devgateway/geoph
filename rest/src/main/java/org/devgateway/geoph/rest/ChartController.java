@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -59,6 +58,12 @@ public class ChartController {
     public Collection<ChartResponse> getByFundingAgency(AppRequestParams filters) {
         LOGGER.debug("getByFundingAgency info");
         return chartService.getFundingByFundingAgency(filters.getParameters());
+    }
+
+    @RequestMapping(value = "/executingAgency", method = GET)
+    public Collection<ChartResponse> getByExecutingAgency(AppRequestParams filters) {
+        LOGGER.debug("getByExecutingAgency info");
+        return chartService.getFundingByExecutingAgency(filters.getParameters());
     }
 
     @RequestMapping(value = "/impAgency", method = GET)

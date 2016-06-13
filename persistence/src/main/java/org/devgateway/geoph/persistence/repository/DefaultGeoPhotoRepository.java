@@ -43,6 +43,7 @@ public class DefaultGeoPhotoRepository implements GeoPhotoRepository {
         List<Object[]> resultList = q.getResultList();
         Gson g = new Gson();
         List<GeoPhotoGeometryDao> resp = new ArrayList<>();
+        //Native queries cant be mapped to a class, only to an entity, that is why we create the DAO from objects
         for (Object[] o : resultList) {
             GeoPhotoGeometryDao helper = g.fromJson((String) o[6], GeoPhotoGeometryDao.class);
             helper.setGid(((Integer) o[0]));

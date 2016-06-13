@@ -27,7 +27,7 @@ public interface LocationRepository {
 
     List<LocationResultsDao> findLocationsByParamsTypeStatus(Parameters params, int trxTypeId, int trxStatusId);
 
-    List<Object> countLocationProjectsByParams(Parameters params);
+    List<LocationResultsDao> countLocationProjectsByParams(Parameters params);
 
     List<PostGisDao> getRegionShapesWithDetail(double detail);
 

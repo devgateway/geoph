@@ -72,10 +72,10 @@ public class DefaultLocationRepository implements LocationRepository {
 
     @Override
     @Cacheable("countLocationProjectsByParams")
-    public List<Object> countLocationProjectsByParams(Parameters params) {
+    public List<LocationResultsDao> countLocationProjectsByParams(Parameters params) {
 
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-        CriteriaQuery<Object> criteriaQuery = criteriaBuilder.createQuery();
+        CriteriaQuery<LocationResultsDao> criteriaQuery = criteriaBuilder.createQuery(LocationResultsDao.class);
 
         Root<Location> locationRoot = criteriaQuery.from(Location.class);
         List<Selection<?>> multiSelect = new ArrayList<>();
@@ -93,9 +93,8 @@ public class DefaultLocationRepository implements LocationRepository {
         Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         criteriaQuery.where(other);
 
-
         criteriaQuery.groupBy(groupByList);
-        TypedQuery<Object> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
+        TypedQuery<LocationResultsDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
 
         return query.getResultList();
     }
@@ -196,6 +195,7 @@ public class DefaultLocationRepository implements LocationRepository {
         List<Object[]> resultList = q.getResultList();
         Gson g = new Gson();
         List<PostGisDao> resp = new ArrayList<>();
+        //Native queries cant be mapped to a class, only to an entity, that is why we create the DAO from objects
         for (Object[] o : resultList) {
             PostGisDao helper = g.fromJson((String) o[2], PostGisDao.class);
             helper.setLocationId(((BigDecimal) o[0]).longValue());

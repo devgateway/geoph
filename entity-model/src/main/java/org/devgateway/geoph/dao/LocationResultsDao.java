@@ -10,6 +10,8 @@ public class LocationResultsDao {
 
     private Location location;
 
+    private Long projectCount;
+
     private Double trxAmount;
 
     private Long trxCount;
@@ -22,7 +24,9 @@ public class LocationResultsDao {
 
     private Long targetPhysicalProgressCount;
 
-    public LocationResultsDao() {
+    public LocationResultsDao(Location location, Long projectCount) {
+        this.location = location;
+        this.projectCount = projectCount;
     }
 
     public LocationResultsDao(Location location, Double actualPhysicalProgressAmount, Long actualPhysicalProgressCount, Double targetPhysicalProgressAmount, Long targetPhysicalProgressCount) {
@@ -49,6 +53,14 @@ public class LocationResultsDao {
 
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    public Long getProjectCount() {
+        return projectCount;
+    }
+
+    public void setProjectCount(Long projectCount) {
+        this.projectCount = projectCount;
     }
 
     public Double getTrxAmount() {

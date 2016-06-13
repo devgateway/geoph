@@ -1,9 +1,6 @@
 package org.devgateway.geoph.services;
 
-import org.devgateway.geoph.core.repositories.FundingAgencyRepository;
-import org.devgateway.geoph.core.repositories.ImplementingAgencyRepository;
-import org.devgateway.geoph.core.repositories.PhysicalStatusRepository;
-import org.devgateway.geoph.core.repositories.SectorRepository;
+import org.devgateway.geoph.core.repositories.*;
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.core.response.ChartResponse;
 import org.devgateway.geoph.core.services.ChartService;
@@ -32,6 +29,9 @@ public class ChartServiceImpl implements ChartService {
     FundingAgencyRepository fundingAgencyRepository;
 
     @Autowired
+    ExecutingAgencyRepository executingAgencyRepository;
+
+    @Autowired
     ImplementingAgencyRepository implementingAgencyRepository;
 
     @Autowired
@@ -46,7 +46,6 @@ public class ChartServiceImpl implements ChartService {
         for (TransactionTypeEnum trxTypeId : TransactionTypeEnum.values()) {
             for (TransactionStatusEnum trxStatusId : TransactionStatusEnum.values()) {
                 List<AgencyResultsDao> fundingAgenciesResults = fundingAgencyRepository.findFundingByFundingAgency(params, trxTypeId.getId(), trxStatusId.getId());
-
                 for (AgencyResultsDao faHelper : fundingAgenciesResults) {
                     Agency fa = faHelper.getAgency();
                     ChartResponse fundingAgencyResponse;
@@ -62,6 +61,31 @@ public class ChartServiceImpl implements ChartService {
         }
 
         List ret = new ArrayList(faMap.values());
+        Collections.sort(ret);
+        return ret;
+    }
+
+    @Override
+    public Collection<ChartResponse> getFundingByExecutingAgency(Parameters params) {
+        Map<Long, ChartResponse> eaMap = new HashMap<>();
+        for (TransactionTypeEnum trxTypeId : TransactionTypeEnum.values()) {
+            for (TransactionStatusEnum trxStatusId : TransactionStatusEnum.values()) {
+                List<AgencyResultsDao> agencyResults = executingAgencyRepository.findFundingByExecutingAgency(params, trxTypeId.getId(), trxStatusId.getId());
+                for (AgencyResultsDao eaHelper : agencyResults) {
+                    Agency ea = eaHelper.getAgency();
+                    ChartResponse executingAgencyResponse;
+                    if (eaMap.get(ea.getId()) != null) {
+                        executingAgencyResponse = eaMap.get(ea.getId());
+                    } else {
+                        executingAgencyResponse = new ChartResponse(ea, params.getTrxTypeSort(), params.getTrxStatusSort());
+                        eaMap.put(ea.getId(), executingAgencyResponse);
+                    }
+                    executingAgencyResponse.add(eaHelper, trxTypeId, trxStatusId);
+                }
+            }
+        }
+
+        List ret = new ArrayList(eaMap.values());
         Collections.sort(ret);
         return ret;
     }
