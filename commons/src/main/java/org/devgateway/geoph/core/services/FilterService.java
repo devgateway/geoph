@@ -62,4 +62,6 @@ public interface FilterService {
     Integer countFundingAgencies();
 
     Integer countExecutingAgencies();
+
+    Map findAllTrxFunding();
 }

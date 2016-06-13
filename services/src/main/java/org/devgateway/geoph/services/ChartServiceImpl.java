@@ -7,9 +7,9 @@ import org.devgateway.geoph.core.repositories.SectorRepository;
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.core.response.ChartResponse;
 import org.devgateway.geoph.core.services.ChartService;
-import org.devgateway.geoph.dao.AgencyResultsQueryHelper;
-import org.devgateway.geoph.dao.PhysicalStatusQueryHelper;
-import org.devgateway.geoph.dao.SectorResultsQueryHelper;
+import org.devgateway.geoph.dao.AgencyResultsDao;
+import org.devgateway.geoph.dao.PhysicalStatusDao;
+import org.devgateway.geoph.dao.SectorResultsDao;
 import org.devgateway.geoph.enums.TransactionStatusEnum;
 import org.devgateway.geoph.enums.TransactionTypeEnum;
 import org.devgateway.geoph.model.Agency;
@@ -45,22 +45,25 @@ public class ChartServiceImpl implements ChartService {
         Map<Long, ChartResponse> faMap = new HashMap<>();
         for (TransactionTypeEnum trxTypeId : TransactionTypeEnum.values()) {
             for (TransactionStatusEnum trxStatusId : TransactionStatusEnum.values()) {
-                List<AgencyResultsQueryHelper> fundingAgenciesResults = fundingAgencyRepository.findFundingByFundingAgency(params, trxTypeId.getId(), trxStatusId.getId());
+                List<AgencyResultsDao> fundingAgenciesResults = fundingAgencyRepository.findFundingByFundingAgency(params, trxTypeId.getId(), trxStatusId.getId());
 
-                for (AgencyResultsQueryHelper faHelper : fundingAgenciesResults) {
+                for (AgencyResultsDao faHelper : fundingAgenciesResults) {
                     Agency fa = faHelper.getAgency();
                     ChartResponse fundingAgencyResponse;
                     if (faMap.get(fa.getId()) != null) {
                         fundingAgencyResponse = faMap.get(fa.getId());
                     } else {
-                        fundingAgencyResponse = new ChartResponse(fa);
+                        fundingAgencyResponse = new ChartResponse(fa, params.getTrxTypeSort(), params.getTrxStatusSort());
                         faMap.put(fa.getId(), fundingAgencyResponse);
                     }
                     fundingAgencyResponse.add(faHelper, trxTypeId, trxStatusId);
                 }
             }
         }
-        return faMap.values();
+
+        List ret = new ArrayList(faMap.values());
+        Collections.sort(ret);
+        return ret;
     }
 
     @Override
@@ -77,16 +80,16 @@ public class ChartServiceImpl implements ChartService {
         Map<Long, ChartResponse> iaMap = new HashMap<>();
         for (TransactionTypeEnum trxTypeId : TransactionTypeEnum.values()) {
             for (TransactionStatusEnum trxStatusId : TransactionStatusEnum.values()) {
-                List<AgencyResultsQueryHelper> impAgenciesResults = implementingAgencyRepository.findFundingByImplementingAgency(params, trxTypeId.getId(), trxStatusId.getId());
+                List<AgencyResultsDao> impAgenciesResults = implementingAgencyRepository.findFundingByImplementingAgency(params, trxTypeId.getId(), trxStatusId.getId());
 
-                for (AgencyResultsQueryHelper iaHelper : impAgenciesResults) {
+                for (AgencyResultsDao iaHelper : impAgenciesResults) {
                     Agency ia = iaHelper.getAgency();
                     if (showAll || iaParamsSet.contains(ia.getId())) {
                         ChartResponse iaResponse;
                         if (iaMap.get(ia.getId()) != null) {
                             iaResponse = iaMap.get(ia.getId());
                         } else {
-                            iaResponse = new ChartResponse(ia);
+                            iaResponse = new ChartResponse(ia, params.getTrxTypeSort(), params.getTrxStatusSort());
                             iaMap.put(ia.getId(), iaResponse);
                         }
                         iaResponse.add(iaHelper, trxTypeId, trxStatusId);
@@ -94,7 +97,10 @@ public class ChartServiceImpl implements ChartService {
                 }
             }
         }
-        return iaMap.values();
+
+        List ret = new ArrayList(iaMap.values());
+        Collections.sort(ret);
+        return ret;
     }
 
     @Override
@@ -102,44 +108,50 @@ public class ChartServiceImpl implements ChartService {
         Map<Long, ChartResponse> sectorMap = new HashMap<>();
         for (TransactionTypeEnum trxTypeId : TransactionTypeEnum.values()) {
             for (TransactionStatusEnum trxStatusId : TransactionStatusEnum.values()) {
-                List<SectorResultsQueryHelper> sectorResults = sectorRepository.findFundingBySector(params, trxTypeId.getId(), trxStatusId.getId());
+                List<SectorResultsDao> sectorResults = sectorRepository.findFundingBySector(params, trxTypeId.getId(), trxStatusId.getId());
 
-                for (SectorResultsQueryHelper sectorHelper : sectorResults) {
+                for (SectorResultsDao sectorHelper : sectorResults) {
                     Sector sector = sectorHelper.getSector();
-                    ChartResponse fundingAgencyResponse;
+                    ChartResponse chartResponse;
                     if (sectorMap.get(sector.getId()) != null) {
-                        fundingAgencyResponse = sectorMap.get(sector.getId());
+                        chartResponse = sectorMap.get(sector.getId());
                     } else {
-                        fundingAgencyResponse = new ChartResponse(sector);
-                        sectorMap.put(sector.getId(), fundingAgencyResponse);
+                        chartResponse = new ChartResponse(sector, params.getTrxTypeSort(), params.getTrxStatusSort());
+                        sectorMap.put(sector.getId(), chartResponse);
                     }
-                    fundingAgencyResponse.add(sectorHelper, trxTypeId, trxStatusId);
+                    chartResponse.add(sectorHelper, trxTypeId, trxStatusId);
                 }
             }
         }
-        return sectorMap.values();
+        List ret = new ArrayList(sectorMap.values());
+        Collections.sort(ret);
+        return ret;
     }
+
 
     @Override
     public Collection<ChartResponse> getFundingByPhysicalStatus(Parameters params) {
         Map<Long, ChartResponse> phyStatusMap = new HashMap<>();
         for (TransactionTypeEnum trxTypeId : TransactionTypeEnum.values()) {
             for (TransactionStatusEnum trxStatusId : TransactionStatusEnum.values()) {
-                List<PhysicalStatusQueryHelper> phyStatusResults = physicalStatusRepository.findFundingByPhysicalStatus(params, trxTypeId.getId(), trxStatusId.getId());
+                List<PhysicalStatusDao> phyStatusResults = physicalStatusRepository.findFundingByPhysicalStatus(params, trxTypeId.getId(), trxStatusId.getId());
 
-                for (PhysicalStatusQueryHelper phyStatusHelper : phyStatusResults) {
+                for (PhysicalStatusDao phyStatusHelper : phyStatusResults) {
                     PhysicalStatus physicalStatus = phyStatusHelper.getPhysicalStatus();
-                    ChartResponse fundingAgencyResponse;
+                    ChartResponse chartResponse;
                     if (phyStatusMap.get(physicalStatus.getId()) != null) {
-                        fundingAgencyResponse = phyStatusMap.get(physicalStatus.getId());
+                        chartResponse = phyStatusMap.get(physicalStatus.getId());
                     } else {
-                        fundingAgencyResponse = new ChartResponse(physicalStatus);
-                        phyStatusMap.put(physicalStatus.getId(), fundingAgencyResponse);
+                        chartResponse = new ChartResponse(physicalStatus, params.getTrxTypeSort(), params.getTrxStatusSort());
+                        phyStatusMap.put(physicalStatus.getId(), chartResponse);
                     }
-                    fundingAgencyResponse.add(phyStatusHelper, trxTypeId, trxStatusId);
+                    chartResponse.add(phyStatusHelper, trxTypeId, trxStatusId);
                 }
             }
         }
-        return phyStatusMap.values();
+
+        List ret = new ArrayList(phyStatusMap.values());
+        Collections.sort(ret);
+        return ret;
     }
 }

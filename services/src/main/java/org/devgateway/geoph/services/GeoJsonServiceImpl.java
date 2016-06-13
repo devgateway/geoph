@@ -4,8 +4,8 @@ import org.devgateway.geoph.core.repositories.LocationRepository;
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.core.services.GeoJsonService;
 import org.devgateway.geoph.dao.LocationProperty;
-import org.devgateway.geoph.dao.LocationResultsQueryHelper;
-import org.devgateway.geoph.dao.PostGisHelper;
+import org.devgateway.geoph.dao.LocationResultsDao;
+import org.devgateway.geoph.dao.PostGisDao;
 import org.devgateway.geoph.enums.LocationAdmLevelEnum;
 import org.devgateway.geoph.enums.TransactionStatusEnum;
 import org.devgateway.geoph.enums.TransactionTypeEnum;
@@ -107,8 +107,8 @@ public class GeoJsonServiceImpl implements GeoJsonService {
 
         for(TransactionTypeEnum tt:TransactionTypeEnum.values()){
             for(TransactionStatusEnum ts:TransactionStatusEnum.values()){
-                List<LocationResultsQueryHelper> locationResults = locationRepository.findLocationsByParamsTypeStatus(params, tt.getId(), ts.getId());
-                for(LocationResultsQueryHelper locHelper:locationResults){
+                List<LocationResultsDao> locationResults = locationRepository.findLocationsByParamsTypeStatus(params, tt.getId(), ts.getId());
+                for(LocationResultsDao locHelper:locationResults){
                     LocationProperty lp = null;
                     if(level== REGION_LEVEL){
                         lp = locationPropertyMap.get(locHelper.getLocation().getRegionId());
@@ -169,8 +169,8 @@ public class GeoJsonServiceImpl implements GeoJsonService {
     public FeatureCollection getShapesByLevelAndDetail(LocationAdmLevelEnum level, double detail, Parameters params) {
         List<Location> locations = locationRepository.findLocationsByLevel(level.getLevel());
 
-        Map<Long, PostGisHelper> postGisHelperMap = new HashMap<>();
-        List<PostGisHelper> gisHelperList = null;
+        Map<Long, PostGisDao> postGisHelperMap = new HashMap<>();
+        List<PostGisDao> gisHelperList = null;
         if(level == LocationAdmLevelEnum.REGION){
             gisHelperList = locationRepository.getRegionShapesWithDetail(detail);
         } else if(level == LocationAdmLevelEnum.PROVINCE) {
@@ -179,7 +179,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
             gisHelperList = locationRepository.getMunicipalityShapesWithDetail(detail);
         }
         if(gisHelperList!=null) {
-            for (PostGisHelper helper : gisHelperList) {
+            for (PostGisDao helper : gisHelperList) {
                 postGisHelperMap.put(helper.getLocationId(), helper);
             }
         }
@@ -216,7 +216,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
 
 
 
-    private Feature parseGeoJson(PostGisHelper helper){
+    private Feature parseGeoJson(PostGisDao helper){
         Feature feature = new Feature();
         MultiPolygon multiPolygon = new MultiPolygon();
         for(Double[][][] inner:helper.getCoordinates()){

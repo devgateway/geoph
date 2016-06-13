@@ -6,8 +6,8 @@ import org.devgateway.geoph.core.repositories.IndicatorRepository;
 import org.devgateway.geoph.core.repositories.LocationRepository;
 import org.devgateway.geoph.core.response.IndicatorResponse;
 import org.devgateway.geoph.core.services.LayerService;
-import org.devgateway.geoph.dao.GeoPhotoGeometryHelper;
-import org.devgateway.geoph.dao.PostGisHelper;
+import org.devgateway.geoph.dao.GeoPhotoGeometryDao;
+import org.devgateway.geoph.dao.PostGisDao;
 import org.devgateway.geoph.enums.GeometryDetailLevelEnum;
 import org.devgateway.geoph.enums.LocationAdmLevelEnum;
 import org.devgateway.geoph.model.GeoPhotoSource;
@@ -62,8 +62,8 @@ public class LayerServiceImpl implements LayerService {
         FeatureCollection featureCollection = new FeatureCollection();
         Indicator indicator = indicatorRepository.findOne(indicatorId);
         List<IndicatorDetail> indicatorDetails = indicatorDetailRepository.findByIndicatorId(indicatorId);
-        Map<Long, PostGisHelper> postGisHelperMap = new HashMap<>();
-        List<PostGisHelper> gisHelperList = null;
+        Map<Long, PostGisDao> postGisHelperMap = new HashMap<>();
+        List<PostGisDao> gisHelperList = null;
         if (indicator.getAdmLevel().toUpperCase().equals(LocationAdmLevelEnum.REGION.name())) {
             gisHelperList = locationRepository.getRegionShapesWithDetail(GeometryDetailLevelEnum.MEDIUM.getLevel());
         } else if (indicator.getAdmLevel().toUpperCase().equals(LocationAdmLevelEnum.PROVINCE.name())) {
@@ -72,7 +72,7 @@ public class LayerServiceImpl implements LayerService {
             gisHelperList = locationRepository.getMunicipalityShapesWithDetail(GeometryDetailLevelEnum.MEDIUM.getLevel());
         }
         if (gisHelperList != null) {
-            for (PostGisHelper helper : gisHelperList) {
+            for (PostGisDao helper : gisHelperList) {
                 postGisHelperMap.put(helper.getLocationId(), helper);
             }
         }
@@ -92,7 +92,7 @@ public class LayerServiceImpl implements LayerService {
         return featureCollection;
     }
 
-    private Feature parseGeoJson(PostGisHelper helper) {
+    private Feature parseGeoJson(PostGisDao helper) {
         Feature feature = new Feature();
         MultiPolygon multiPolygon = new MultiPolygon();
         for (Double[][][] inner : helper.getCoordinates()) {
@@ -118,8 +118,8 @@ public class LayerServiceImpl implements LayerService {
     @Override
     public FeatureCollection getGeoPhotoData(long kmlId) {
         FeatureCollection featureCollection = new FeatureCollection();
-        List<GeoPhotoGeometryHelper> geometryHelpers = geoPhotoRepository.getGeoPhotoGeometryByKmlId(kmlId);
-        for (GeoPhotoGeometryHelper geometryHelper : geometryHelpers) {
+        List<GeoPhotoGeometryDao> geometryHelpers = geoPhotoRepository.getGeoPhotoGeometryByKmlId(kmlId);
+        for (GeoPhotoGeometryDao geometryHelper : geometryHelpers) {
             Feature feature = new Feature();
             feature.setProperty("gid", geometryHelper.getGid());
             feature.setProperty("kmlId", geometryHelper.getKmlId());

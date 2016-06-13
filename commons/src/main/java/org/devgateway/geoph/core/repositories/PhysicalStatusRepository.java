@@ -1,7 +1,7 @@
 package org.devgateway.geoph.core.repositories;
 
 import org.devgateway.geoph.core.request.Parameters;
-import org.devgateway.geoph.dao.PhysicalStatusQueryHelper;
+import org.devgateway.geoph.dao.PhysicalStatusDao;
 import org.devgateway.geoph.model.PhysicalStatus;
 
 import java.util.List;
@@ -18,5 +18,5 @@ public interface PhysicalStatusRepository {
 
     PhysicalStatus findByCode(String code);
 
-    List<PhysicalStatusQueryHelper> findFundingByPhysicalStatus(Parameters params, int trxTypeId, int trxStatusId);
+    List<PhysicalStatusDao> findFundingByPhysicalStatus(Parameters params, int trxTypeId, int trxStatusId);
 }

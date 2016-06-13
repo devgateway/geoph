@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -110,6 +111,22 @@ public class FilterController extends CrossOriginSupport {
         return resp;
     }
 
+
+
+    @RequestMapping(value = "/trxFunding", method = GET)
+    public GenericResponse findTrxFunding() {
+        LOGGER.debug("findTrxFunding");
+        Map<String, Map<String, String>> fundingMap = service.findAllTrxFunding();
+        List response = new ArrayList<>();
+        response.add(fundingMap);
+        GenericResponse resp = new GenericResponse(
+                response,
+                response != null ? response.size() : 0
+        );
+
+        return resp;
+    }
+
     @RequestMapping(value = "/physicalStatus", method = GET)
     public GenericResponse findAllPhysicalStatus() {
         LOGGER.debug("findAllPhysicalStatus");
@@ -161,7 +178,7 @@ public class FilterController extends CrossOriginSupport {
     public GenericResponse findAllSectors() {
         LOGGER.debug("findAllSectors");
         List<Sector> sectors = service.findAllSectorByLevel(DEFAULT_INDEX);
-        sortInnerSectors(sectors);
+        sortSectorTree(sectors);
         GenericResponse resp = new GenericResponse(
                 sectors,
                 sectors != null ? sectors.size() : 0
@@ -170,9 +187,9 @@ public class FilterController extends CrossOriginSupport {
         return resp;
     }
 
-    private void sortInnerSectors(List<Sector> sectors) {
+    private void sortSectorTree(List<Sector> sectors) {
         for (Sector sector : sectors) {
-            sortInnerSectors(sector.getItems());
+            sortSectorTree(sector.getItems());
         }
         Collections.sort(sectors);
     }

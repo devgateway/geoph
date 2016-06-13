@@ -79,6 +79,11 @@ public class Parameters {
 
     private Double financialAmountMax;
 
+    private int trxTypeSort;
+
+    private int trxStatusSort;
+
+
     private ProjectOrder projectOrder;
 
     private Parameters() {
@@ -114,6 +119,8 @@ public class Parameters {
         this.financialAmountMax = filters.getFin_amount_max();
         this.reachedOwpaMax = filters.getRo_max();
         this.reachedOwpaMin = filters.getRo_min();
+        this.trxTypeSort = filters.getTrx_type_sort();
+        this.trxStatusSort = filters.getTrx_status_sort();
     }
 
     public static Parameters getParameters(AppRequestParams filters) {
@@ -417,6 +424,22 @@ public class Parameters {
 
     public void setPageable(Pageable pageable) {
         this.pageable = pageable;
+    }
+
+    public int getTrxTypeSort() {
+        return trxTypeSort;
+    }
+
+    public void setTrxTypeSort(int trxTypeSort) {
+        this.trxTypeSort = trxTypeSort;
+    }
+
+    public int getTrxStatusSort() {
+        return trxStatusSort;
+    }
+
+    public void setTrxStatusSort(int trxStatusSort) {
+        this.trxStatusSort = trxStatusSort;
     }
 
     private static List<Integer> convertAdmStringToIntegerList(final String values) {

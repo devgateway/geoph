@@ -2,7 +2,7 @@ package org.devgateway.geoph.persistence.repository;
 
 import org.devgateway.geoph.core.repositories.FundingAgencyRepository;
 import org.devgateway.geoph.core.request.Parameters;
-import org.devgateway.geoph.dao.AgencyResultsQueryHelper;
+import org.devgateway.geoph.dao.AgencyResultsDao;
 import org.devgateway.geoph.model.Agency;
 import org.devgateway.geoph.model.FundingAgency;
 import org.devgateway.geoph.model.Project;
@@ -40,9 +40,9 @@ public class DefaultFundingAgencyRepository implements FundingAgencyRepository {
     }
 
     @Override
-    public List<AgencyResultsQueryHelper> findFundingByFundingAgency(Parameters params, int trxTypeId, int trxStatusId) {
+    public List<AgencyResultsDao> findFundingByFundingAgency(Parameters params, int trxTypeId, int trxStatusId) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-        CriteriaQuery<AgencyResultsQueryHelper> criteriaQuery = criteriaBuilder.createQuery(AgencyResultsQueryHelper.class);
+        CriteriaQuery<AgencyResultsDao> criteriaQuery = criteriaBuilder.createQuery(AgencyResultsDao.class);
 
         Root<Project> projectRoot = criteriaQuery.from(Project.class);
 
@@ -66,7 +66,7 @@ public class DefaultFundingAgencyRepository implements FundingAgencyRepository {
 
 
         criteriaQuery.groupBy(groupByList);
-        TypedQuery<AgencyResultsQueryHelper> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
+        TypedQuery<AgencyResultsDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
 
         return query.getResultList();
     }

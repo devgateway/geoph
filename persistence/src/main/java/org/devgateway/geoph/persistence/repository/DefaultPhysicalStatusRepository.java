@@ -2,7 +2,7 @@ package org.devgateway.geoph.persistence.repository;
 
 import org.devgateway.geoph.core.repositories.PhysicalStatusRepository;
 import org.devgateway.geoph.core.request.Parameters;
-import org.devgateway.geoph.dao.PhysicalStatusQueryHelper;
+import org.devgateway.geoph.dao.PhysicalStatusDao;
 import org.devgateway.geoph.model.PhysicalStatus;
 import org.devgateway.geoph.model.Project;
 import org.devgateway.geoph.model.Project_;
@@ -47,9 +47,9 @@ public class DefaultPhysicalStatusRepository implements PhysicalStatusRepository
     }
 
     @Override
-    public List<PhysicalStatusQueryHelper> findFundingByPhysicalStatus(Parameters params, int trxTypeId, int trxStatusId) {
+    public List<PhysicalStatusDao> findFundingByPhysicalStatus(Parameters params, int trxTypeId, int trxStatusId) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-        CriteriaQuery<PhysicalStatusQueryHelper> criteriaQuery = criteriaBuilder.createQuery(PhysicalStatusQueryHelper.class);
+        CriteriaQuery<PhysicalStatusDao> criteriaQuery = criteriaBuilder.createQuery(PhysicalStatusDao.class);
 
         Root<Project> projectRoot = criteriaQuery.from(Project.class);
 
@@ -73,7 +73,7 @@ public class DefaultPhysicalStatusRepository implements PhysicalStatusRepository
 
 
         criteriaQuery.groupBy(groupByList);
-        TypedQuery<PhysicalStatusQueryHelper> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
+        TypedQuery<PhysicalStatusDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
 
         return query.getResultList();
     }

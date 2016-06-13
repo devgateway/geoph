@@ -1,8 +1,8 @@
 package org.devgateway.geoph.core.repositories;
 
 import org.devgateway.geoph.core.request.Parameters;
-import org.devgateway.geoph.dao.LocationResultsQueryHelper;
-import org.devgateway.geoph.dao.PostGisHelper;
+import org.devgateway.geoph.dao.LocationResultsDao;
+import org.devgateway.geoph.dao.PostGisDao;
 import org.devgateway.geoph.model.Location;
 
 import java.util.List;
@@ -25,14 +25,14 @@ public interface LocationRepository {
 
     List<Location> findLocationsByParams(Parameters params);
 
-    List<LocationResultsQueryHelper> findLocationsByParamsTypeStatus(Parameters params, int trxTypeId, int trxStatusId);
+    List<LocationResultsDao> findLocationsByParamsTypeStatus(Parameters params, int trxTypeId, int trxStatusId);
 
     List<Object> countLocationProjectsByParams(Parameters params);
 
-    List<PostGisHelper> getRegionShapesWithDetail(double detail);
+    List<PostGisDao> getRegionShapesWithDetail(double detail);
 
-    List<PostGisHelper> getProvinceShapesWithDetail(double detail);
+    List<PostGisDao> getProvinceShapesWithDetail(double detail);
 
-    List<PostGisHelper> getMunicipalityShapesWithDetail(double detail);
+    List<PostGisDao> getMunicipalityShapesWithDetail(double detail);
 
 }

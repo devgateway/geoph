@@ -1,6 +1,7 @@
 package org.devgateway.geoph.core.response;
 
-import org.devgateway.geoph.dao.ResultQueryHelper;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.devgateway.geoph.dao.ResultDao;
 import org.devgateway.geoph.enums.TransactionStatusEnum;
 import org.devgateway.geoph.enums.TransactionTypeEnum;
 import org.devgateway.geoph.model.Agency;
@@ -14,7 +15,7 @@ import java.util.Map;
  * @author dbianco
  *         created on jun 08 2016.
  */
-public class ChartResponse {
+public class ChartResponse implements Comparable {
 
     private Long id;
 
@@ -28,22 +29,30 @@ public class ChartResponse {
 
     private Long transactionCount = 0L;
 
+    @JsonIgnore
+    private int orderType;
+
+    @JsonIgnore
+    private int orderStatus;
+
     public ChartResponse() {
     }
 
-    public ChartResponse(Agency agency) {
+    public ChartResponse(Agency agency, int orderType, int orderStatus) {
         this.id = agency.getId();
         this.code = agency.getCode();
         this.name = agency.getName();
     }
 
-    public ChartResponse(Sector sector) {
+    public ChartResponse(Sector sector, int orderType, int orderStatus) {
         this.id = sector.getId();
         this.code = sector.getCode();
         this.name = sector.getName();
+        this.orderType = orderType;
+        this.orderStatus = orderStatus;
     }
 
-    public ChartResponse(PhysicalStatus physicalStatus) {
+    public ChartResponse(PhysicalStatus physicalStatus, int orderType, int orderStatus) {
         this.id = physicalStatus.getId();
         this.code = physicalStatus.getCode();
         this.name = physicalStatus.getName();
@@ -97,15 +106,15 @@ public class ChartResponse {
         this.transactionCount = transactionCount;
     }
 
-    public void add(ResultQueryHelper helper, TransactionTypeEnum trxType, TransactionStatusEnum trxStatus) {
+    public void add(ResultDao helper, TransactionTypeEnum trxType, TransactionStatusEnum trxStatus) {
         this.projectCount = helper.getProjectCount();
         this.transactionCount += helper.getTransactionCount();
         Map<String, Double> trxStatusMap;
         Double newAmount = 0D;
-        if (trxAmounts.get(trxType.name().toLowerCase()) != null) {
-            trxStatusMap = trxAmounts.get(trxType.name().toLowerCase());
-            if (trxStatusMap.get(trxStatus.name().toLowerCase()) != null) {
-                newAmount = trxStatusMap.get(trxStatus.name().toLowerCase()) + helper.getTransactionAmount();
+        if (trxAmounts.get(trxType.getName()) != null) {
+            trxStatusMap = trxAmounts.get(trxType.getName());
+            if (trxStatusMap.get(trxStatus.getName()) != null) {
+                newAmount = trxStatusMap.get(trxStatus.getName()) + helper.getTransactionAmount();
             } else {
                 newAmount = helper.getTransactionAmount();
             }
@@ -113,8 +122,32 @@ public class ChartResponse {
             trxStatusMap = new HashMap<>();
             newAmount = helper.getTransactionAmount();
         }
-        trxStatusMap.put(trxStatus.name().toLowerCase(), newAmount);
-        trxAmounts.put(trxType.name().toLowerCase(), trxStatusMap);
+        trxStatusMap.put(trxStatus.getName(), newAmount);
+        trxAmounts.put(trxType.getName(), trxStatusMap);
     }
 
+    public Double retrieveMaxFunding(){
+        Double maxFunding = 0D;
+        if(orderType>0 && orderStatus>0) {
+            Map<String, Double> typeMap = trxAmounts.get(TransactionTypeEnum.getEnumById(orderType).getName());
+            if(typeMap.get(TransactionStatusEnum.getEnumById(orderStatus).getName())!=null){
+                maxFunding = typeMap.get(TransactionStatusEnum.getEnumById(orderStatus).getName());
+            }
+        } else {
+            for(Map<String, Double> typeMap : trxAmounts.values()){
+                for(Double fundingValue : typeMap.values()){
+                    if(fundingValue!=null && fundingValue>maxFunding){
+                        maxFunding=fundingValue;
+                    }
+                }
+            }
+        }
+
+        return maxFunding;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return ((ChartResponse)o).retrieveMaxFunding().compareTo(retrieveMaxFunding());
+    }
 }
