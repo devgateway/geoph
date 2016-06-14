@@ -52,6 +52,10 @@ public class AppRequestParams {
 
     private String pp_end_min;
 
+    private int trx_type_sort;
+
+    private int trx_status_sort;
+
     public String getLo() {
         return lo;
     }
@@ -236,6 +240,21 @@ public class AppRequestParams {
         this.pp_end_min = pp_end_min;
     }
 
+    public int getTrx_type_sort() {
+        return trx_type_sort;
+    }
+
+    public void setTrx_type_sort(int trx_type_sort) {
+        this.trx_type_sort = trx_type_sort;
+    }
+
+    public int getTrx_status_sort() {
+        return trx_status_sort;
+    }
+
+    public void setTrx_status_sort(int trx_status_sort) {
+        this.trx_status_sort = trx_status_sort;
+    }
 
     public Parameters getParameters() {
         return Parameters.getParameters(this);

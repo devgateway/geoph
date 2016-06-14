@@ -5,7 +5,7 @@ package org.devgateway.geoph.dao;
  * @author dbianco
  *         created on mar 22 2016.
  */
-public class PostGisHelper {
+public class PostGisDao {
 
     private String type;
 
@@ -15,7 +15,7 @@ public class PostGisHelper {
 
     private Double[][][][] coordinates;
 
-    public PostGisHelper(String type, Double[][][][] coordinates) {
+    public PostGisDao(String type, Double[][][][] coordinates) {
         this.type = type;
         this.coordinates = coordinates;
     }

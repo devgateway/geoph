@@ -4,7 +4,7 @@ package org.devgateway.geoph.dao;
  * @author dbianco
  *         created on jun 08 2016.
  */
-public interface ResultQueryHelper {
+public interface ResultDao {
 
     Long getProjectCount();
 

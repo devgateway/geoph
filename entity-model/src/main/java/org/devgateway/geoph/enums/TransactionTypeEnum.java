@@ -26,4 +26,8 @@ public enum TransactionTypeEnum {
         }
         return null;
     }
+
+    public String getName(){
+        return name().toLowerCase();
+    }
 }

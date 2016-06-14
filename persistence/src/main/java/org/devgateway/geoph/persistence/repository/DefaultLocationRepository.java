@@ -3,8 +3,8 @@ package org.devgateway.geoph.persistence.repository;
 import com.google.gson.Gson;
 import org.devgateway.geoph.core.repositories.LocationRepository;
 import org.devgateway.geoph.core.request.Parameters;
-import org.devgateway.geoph.dao.LocationResultsQueryHelper;
-import org.devgateway.geoph.dao.PostGisHelper;
+import org.devgateway.geoph.dao.LocationResultsDao;
+import org.devgateway.geoph.dao.PostGisDao;
 import org.devgateway.geoph.model.*;
 import org.devgateway.geoph.persistence.util.FilterHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,10 +72,10 @@ public class DefaultLocationRepository implements LocationRepository {
 
     @Override
     @Cacheable("countLocationProjectsByParams")
-    public List<Object> countLocationProjectsByParams(Parameters params) {
+    public List<LocationResultsDao> countLocationProjectsByParams(Parameters params) {
 
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-        CriteriaQuery<Object> criteriaQuery = criteriaBuilder.createQuery();
+        CriteriaQuery<LocationResultsDao> criteriaQuery = criteriaBuilder.createQuery(LocationResultsDao.class);
 
         Root<Location> locationRoot = criteriaQuery.from(Location.class);
         List<Selection<?>> multiSelect = new ArrayList<>();
@@ -93,9 +93,8 @@ public class DefaultLocationRepository implements LocationRepository {
         Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         criteriaQuery.where(other);
 
-
         criteriaQuery.groupBy(groupByList);
-        TypedQuery<Object> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
+        TypedQuery<LocationResultsDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
 
         return query.getResultList();
     }
@@ -127,10 +126,10 @@ public class DefaultLocationRepository implements LocationRepository {
 
     @Override
     @Cacheable("findLocationsByParamsTypeStatus")
-    public List<LocationResultsQueryHelper> findLocationsByParamsTypeStatus(Parameters params, int trxTypeId, int trxStatusId) {
+    public List<LocationResultsDao> findLocationsByParamsTypeStatus(Parameters params, int trxTypeId, int trxStatusId) {
 
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-        CriteriaQuery<LocationResultsQueryHelper> criteriaQuery = criteriaBuilder.createQuery(LocationResultsQueryHelper.class);
+        CriteriaQuery<LocationResultsDao> criteriaQuery = criteriaBuilder.createQuery(LocationResultsDao.class);
 
         Root<Location> locationRoot = criteriaQuery.from(Location.class);
         List<Selection<?>> multiSelect = new ArrayList<>();
@@ -158,7 +157,7 @@ public class DefaultLocationRepository implements LocationRepository {
 
 
         criteriaQuery.groupBy(groupByList);
-        TypedQuery<LocationResultsQueryHelper> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
+        TypedQuery<LocationResultsDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
 
         return query.getResultList();
     }
@@ -174,30 +173,31 @@ public class DefaultLocationRepository implements LocationRepository {
 
 
     @Override
-    public List<PostGisHelper> getRegionShapesWithDetail(double detail) {
+    public List<PostGisDao> getRegionShapesWithDetail(double detail) {
         return getShapesWithDetail(detail, "region_geometry");
     }
 
     @Override
-    public List<PostGisHelper> getProvinceShapesWithDetail(double detail) {
+    public List<PostGisDao> getProvinceShapesWithDetail(double detail) {
         return getShapesWithDetail(detail, "province_geometry");
     }
 
     @Override
-    public List<PostGisHelper> getMunicipalityShapesWithDetail(double detail) {
+    public List<PostGisDao> getMunicipalityShapesWithDetail(double detail) {
         return getShapesWithDetail(detail, "municipality_geometry");
     }
 
     @Cacheable("shapesWithDetail")
-    private List<PostGisHelper> getShapesWithDetail(double detail, String admLevel) {
+    private List<PostGisDao> getShapesWithDetail(double detail, String admLevel) {
         Query q = em.createNativeQuery("SELECT locationId, name, ST_AsGeoJSON(ST_Simplify(geom, :detail)) " +
                 "as geoJsonObject from " + admLevel)
                 .setParameter("detail", detail);
         List<Object[]> resultList = q.getResultList();
         Gson g = new Gson();
-        List<PostGisHelper> resp = new ArrayList<>();
+        List<PostGisDao> resp = new ArrayList<>();
+        //Native queries cant be mapped to a class, only to an entity, that is why we create the DAO from objects
         for (Object[] o : resultList) {
-            PostGisHelper helper = g.fromJson((String) o[2], PostGisHelper.class);
+            PostGisDao helper = g.fromJson((String) o[2], PostGisDao.class);
             helper.setLocationId(((BigDecimal) o[0]).longValue());
             helper.setName((String) o[1]);
             resp.add(helper);

@@ -6,9 +6,11 @@ import org.devgateway.geoph.model.Location;
  * @author dbianco
  *         created on jun 08 2016.
  */
-public class LocationResultsQueryHelper {
+public class LocationResultsDao {
 
     private Location location;
+
+    private Long projectCount;
 
     private Double trxAmount;
 
@@ -22,10 +24,12 @@ public class LocationResultsQueryHelper {
 
     private Long targetPhysicalProgressCount;
 
-    public LocationResultsQueryHelper() {
+    public LocationResultsDao(Location location, Long projectCount) {
+        this.location = location;
+        this.projectCount = projectCount;
     }
 
-    public LocationResultsQueryHelper(Location location, Double actualPhysicalProgressAmount, Long actualPhysicalProgressCount, Double targetPhysicalProgressAmount, Long targetPhysicalProgressCount) {
+    public LocationResultsDao(Location location, Double actualPhysicalProgressAmount, Long actualPhysicalProgressCount, Double targetPhysicalProgressAmount, Long targetPhysicalProgressCount) {
         this.location = location;
         this.actualPhysicalProgressAmount = actualPhysicalProgressAmount;
         this.actualPhysicalProgressCount = actualPhysicalProgressCount;
@@ -33,7 +37,7 @@ public class LocationResultsQueryHelper {
         this.targetPhysicalProgressCount = targetPhysicalProgressCount;
     }
 
-    public LocationResultsQueryHelper(Location location, Double trxAmount, Long trxCount, Double actualPhysicalProgressAmount, Long actualPhysicalProgressCount, Double targetPhysicalProgressAmount, Long targetPhysicalProgressCount) {
+    public LocationResultsDao(Location location, Double trxAmount, Long trxCount, Double actualPhysicalProgressAmount, Long actualPhysicalProgressCount, Double targetPhysicalProgressAmount, Long targetPhysicalProgressCount) {
         this.location = location;
         this.trxAmount = trxAmount;
         this.trxCount = trxCount;
@@ -49,6 +53,14 @@ public class LocationResultsQueryHelper {
 
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    public Long getProjectCount() {
+        return projectCount;
+    }
+
+    public void setProjectCount(Long projectCount) {
+        this.projectCount = projectCount;
     }
 
     public Double getTrxAmount() {

@@ -1,6 +1,6 @@
 package org.devgateway.geoph.core.repositories;
 
-import org.devgateway.geoph.dao.GeoPhotoGeometryHelper;
+import org.devgateway.geoph.dao.GeoPhotoGeometryDao;
 import org.devgateway.geoph.model.GeoPhotoSource;
 
 import java.util.List;
@@ -14,5 +14,5 @@ public interface GeoPhotoRepository {
 
     GeoPhotoSource findByCode(String name);
 
-    List<GeoPhotoGeometryHelper> getGeoPhotoGeometryByKmlId(long kmlId);
+    List<GeoPhotoGeometryDao> getGeoPhotoGeometryByKmlId(long kmlId);
 }

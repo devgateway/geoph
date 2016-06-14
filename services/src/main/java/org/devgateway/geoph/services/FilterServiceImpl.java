@@ -3,6 +3,8 @@ package org.devgateway.geoph.services;
 import org.devgateway.geoph.core.repositories.*;
 import org.devgateway.geoph.core.services.FilterService;
 import org.devgateway.geoph.enums.LocationAdmLevelEnum;
+import org.devgateway.geoph.enums.TransactionStatusEnum;
+import org.devgateway.geoph.enums.TransactionTypeEnum;
 import org.devgateway.geoph.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +28,8 @@ public class FilterServiceImpl implements FilterService {
 
 
     private static final Sort SORT_BY_NAME = new Sort(Sort.Direction.ASC, "name");
+    private static final String TYPE = "type";
+    private static final String STATUS = "status";
 
     @Autowired
     ImplementingAgencyRepository impAgencyRepository;
@@ -91,6 +95,24 @@ public class FilterServiceImpl implements FilterService {
     public Integer countExecutingAgencies() {
         LOGGER.debug("Count executing agencies");
         return executingAgencyRepository.countAll();
+    }
+
+    @Override
+    public Map findAllTrxFunding() {
+        Map<String, Map<String, String>> fundingMap = new HashMap<>();
+        Map<String, String> keyValue = new HashMap<>();
+        for (TransactionTypeEnum trxTypeId : TransactionTypeEnum.values()) {
+            keyValue.put(trxTypeId.name().toLowerCase(), String.valueOf(trxTypeId.getId()));
+        }
+        fundingMap.put(TYPE, keyValue);
+        Map<String, Map<String, String>> statusMap = new HashMap<>();
+        keyValue = new HashMap<>();
+        for (TransactionStatusEnum trxStatusId : TransactionStatusEnum.values()) {
+            keyValue.put(trxStatusId.name().toLowerCase(), String.valueOf(trxStatusId.getId()));
+        }
+        fundingMap.put(STATUS, keyValue);
+
+        return fundingMap;
     }
 
     @Override

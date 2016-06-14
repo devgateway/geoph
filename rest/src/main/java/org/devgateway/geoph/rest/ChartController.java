@@ -60,6 +60,12 @@ public class ChartController {
         return chartService.getFundingByFundingAgency(filters.getParameters());
     }
 
+    @RequestMapping(value = "/executingAgency", method = GET)
+    public Collection<ChartResponse> getByExecutingAgency(AppRequestParams filters) {
+        LOGGER.debug("getByExecutingAgency info");
+        return chartService.getFundingByExecutingAgency(filters.getParameters());
+    }
+
     @RequestMapping(value = "/impAgency", method = GET)
     public Collection<ChartResponse> getByImplementingAgency(AppRequestParams filters) {
         LOGGER.debug("getByImplementingAgency info");

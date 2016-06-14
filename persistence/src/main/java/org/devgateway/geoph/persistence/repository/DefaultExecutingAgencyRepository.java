@@ -2,8 +2,7 @@ package org.devgateway.geoph.persistence.repository;
 
 import org.devgateway.geoph.core.repositories.ExecutingAgencyRepository;
 import org.devgateway.geoph.core.request.Parameters;
-import org.devgateway.geoph.enums.TransactionStatusEnum;
-import org.devgateway.geoph.enums.TransactionTypeEnum;
+import org.devgateway.geoph.dao.AgencyResultsDao;
 import org.devgateway.geoph.model.Agency;
 import org.devgateway.geoph.model.ExecutingAgency;
 import org.devgateway.geoph.model.Project;
@@ -40,9 +39,9 @@ public class DefaultExecutingAgencyRepository implements ExecutingAgencyReposito
     }
 
     @Override
-    public List<Object> findFundingByExecutingAgency(Parameters params) {
+    public List<AgencyResultsDao> findFundingByExecutingAgency(Parameters params, int trxTypeId, int trxStatusId) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-        CriteriaQuery<Object> criteriaQuery = criteriaBuilder.createQuery();
+        CriteriaQuery<AgencyResultsDao> criteriaQuery = criteriaBuilder.createQuery(AgencyResultsDao.class);
 
         Root<Project> projectRoot = criteriaQuery.from(Project.class);
 
@@ -52,13 +51,11 @@ public class DefaultExecutingAgencyRepository implements ExecutingAgencyReposito
 
         Join<Project, Agency> agencyJoin = projectRoot.join(Project_.executingAgency);
         multiSelect.add(agencyJoin);
-        multiSelect.add(criteriaBuilder.countDistinct(projectRoot).alias("projectCount"));
+        multiSelect.add(criteriaBuilder.countDistinct(projectRoot));
         groupByList.add(agencyJoin);
 
-        for (TransactionTypeEnum t : TransactionTypeEnum.values()) {
-            for (TransactionStatusEnum s : TransactionStatusEnum.values()) {
-                FilterHelper.addTransactionJoin(criteriaBuilder, multiSelect, projectRoot, t.getId(), s.getId());
-            }
+        if (trxTypeId != 0 && trxStatusId != 0) {
+            FilterHelper.addTransactionJoin(criteriaBuilder, multiSelect, projectRoot, trxTypeId, trxStatusId);
         }
 
         FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);
@@ -68,7 +65,7 @@ public class DefaultExecutingAgencyRepository implements ExecutingAgencyReposito
 
 
         criteriaQuery.groupBy(groupByList);
-        TypedQuery<Object> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
+        TypedQuery<AgencyResultsDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
 
         return query.getResultList();
     }

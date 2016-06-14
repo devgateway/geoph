@@ -11,11 +11,15 @@ import java.util.Collection;
  *         created on abr 04 2016.
  */
 public interface ChartService {
+
     Collection<ChartResponse> getFundingByFundingAgency(Parameters params);
+
+    Collection<ChartResponse> getFundingByExecutingAgency(Parameters params);
 
     Collection<ChartResponse> getFundingByImplementingAgency(Parameters params);
 
     Collection<ChartResponse> getFundingBySector(Parameters params);
 
     Collection<ChartResponse> getFundingByPhysicalStatus(Parameters params);
+    
 }

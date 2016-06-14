@@ -4,7 +4,7 @@ package org.devgateway.geoph.dao;
  * @author dbianco
  *         created on abr 29 2016.
  */
-public class GeoPhotoGeometryHelper {
+public class GeoPhotoGeometryDao {
 
 
     private long gid;
@@ -23,7 +23,7 @@ public class GeoPhotoGeometryHelper {
 
     private Double[] coordinates;
 
-    public GeoPhotoGeometryHelper(String type, Double[] coordinates) {
+    public GeoPhotoGeometryDao(String type, Double[] coordinates) {
         this.type = type;
         this.coordinates = coordinates;
     }

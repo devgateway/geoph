@@ -2,7 +2,7 @@ package org.devgateway.geoph.persistence.repository;
 
 import org.devgateway.geoph.core.repositories.SectorRepository;
 import org.devgateway.geoph.core.request.Parameters;
-import org.devgateway.geoph.dao.SectorResultsQueryHelper;
+import org.devgateway.geoph.dao.SectorResultsDao;
 import org.devgateway.geoph.model.Project;
 import org.devgateway.geoph.model.Project_;
 import org.devgateway.geoph.model.Sector;
@@ -47,9 +47,9 @@ public class DefaultSectorRepository implements SectorRepository {
     }
 
     @Override
-    public List<SectorResultsQueryHelper> findFundingBySector(Parameters params, int trxTypeId, int trxStatusId) {
+    public List<SectorResultsDao> findFundingBySector(Parameters params, int trxTypeId, int trxStatusId) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-        CriteriaQuery<SectorResultsQueryHelper> criteriaQuery = criteriaBuilder.createQuery(SectorResultsQueryHelper.class);
+        CriteriaQuery<SectorResultsDao> criteriaQuery = criteriaBuilder.createQuery(SectorResultsDao.class);
 
         Root<Project> projectRoot = criteriaQuery.from(Project.class);
 
@@ -73,7 +73,7 @@ public class DefaultSectorRepository implements SectorRepository {
 
 
         criteriaQuery.groupBy(groupByList);
-        TypedQuery<SectorResultsQueryHelper> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
+        TypedQuery<SectorResultsDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
 
         return query.getResultList();
     }

@@ -1,37 +1,38 @@
 package org.devgateway.geoph.dao;
 
-import org.devgateway.geoph.model.Sector;
+import org.devgateway.geoph.model.Agency;
 
 /**
  * @author dbianco
  *         created on jun 08 2016.
  */
-public class SectorResultsQueryHelper implements ResultQueryHelper {
+public class AgencyResultsDao implements ResultDao {
 
-        private Sector sector;
+    private Agency agency;
 
-        private Long projectCount;
+    private Long projectCount;
 
-        private Long transactionCount;
+    private Long transactionCount;
 
-        private Double transactionAmount;
+    private Double transactionAmount;
 
-        public SectorResultsQueryHelper() {
-        }
+    public AgencyResultsDao() {
+    }
 
-        public SectorResultsQueryHelper(Sector sector, Long projectCount, Double transactionAmount, Long transactionCount) {
-        this.sector = sector;
+    public AgencyResultsDao(Agency agency, Long projectCount, Double transactionAmount, Long transactionCount) {
+        this.agency = agency;
         this.projectCount = projectCount;
-        this.transactionCount = transactionCount;
         this.transactionAmount = transactionAmount;
+        this.transactionCount = transactionCount;
+
     }
 
-    public Sector getSector() {
-        return sector;
+    public Agency getAgency() {
+        return agency;
     }
 
-    public void setSector(Sector sector) {
-        this.sector = sector;
+    public void setAgency(Agency agency) {
+        this.agency = agency;
     }
 
     public Long getProjectCount() {
