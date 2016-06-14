@@ -13,6 +13,7 @@ import java.io.FileOutputStream;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * Created by Sebastian Dimunzio on 6/9/2016.
@@ -83,6 +84,12 @@ public class XLSGenerator implements Generator {
         }
         if (value instanceof Boolean) {
             cell.setCellValue((Boolean) value);
+        }
+        //TODO:we can just send it as string
+        if (value instanceof List) {
+            List<String> values = (List<String>) value;
+            cell.setCellValue((String) ((List) value).stream().collect(Collectors.joining(",")));
+
         }
         cell.setCellStyle(style);
         return cell;

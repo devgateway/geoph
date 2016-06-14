@@ -46,7 +46,8 @@ public class Definitions implements DefinitionsProvider {
         columnsDef.add(new ColumnDefinitionImp<String>("Title", regularStylist, Formatters.stringFormatter(), Extractors.stringExtractor("project.getTitle")));
 
 
-        // columnsDef.add(new ColumnDefinitionImp<String>("Implementing Agency", regularStyle, Formatters.stringFormatter(), Extractors.agencyExtractor("project.getExecutingAgency")));
+        columnsDef.add(new ColumnDefinitionImp<List<String>>("Implementing Agency", regularStylist, Formatters.stringFormatter(), Extractors.implementingAgencyExtractor("project.getImplementingAgencies")));
+
         columnsDef.add(new ColumnDefinitionImp<String>("Executing Agency", regularStylist, Formatters.stringFormatter(), Extractors.agencyExtractor("project.getExecutingAgency")));
         columnsDef.add(new ColumnDefinitionImp<String>("Funding Institution", regularStylist, Formatters.stringFormatter(), Extractors.agencyExtractor("project.getFundingAgency")));
         columnsDef.add(new ColumnDefinitionImp<String>("Original Currency (OC)", regularStylist, Formatters.stringFormatter(), Extractors.currencyExtractor("project.getOriginalCurrency")));
@@ -57,7 +58,7 @@ public class Definitions implements DefinitionsProvider {
         columnsDef.add(new ColumnDefinitionImp<String>("Closing Date", dateStylist, Formatters.stringFormatter(), Extractors.stringExtractor("project.getEndDate")));
         columnsDef.add(new ColumnDefinitionImp<String>("Revised Closing Date", dateStylist, Formatters.stringFormatter(), Extractors.stringExtractor("project.getRevisedClosingDate")));
 
-        //columnsDef.add(new ColumnDefinitionImp<String>("Sectors", regularStyle, Formatters.stringFormatter(), Extractors.stringExtractor("project.getName")));
+        columnsDef.add(new ColumnDefinitionImp<List<String>>("Sectors", regularStylist, Formatters.stringFormatter(), Extractors.sectorExtractor("project.getSectors")));
 
 
         columnsDef.add(new ColumnDefinitionImp<String>("Period of Performance Start", dateStylist, Formatters.stringFormatter(), Extractors.stringExtractor("project.getPeriodPerformanceStart")));
