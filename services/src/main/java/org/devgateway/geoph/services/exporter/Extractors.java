@@ -75,8 +75,15 @@ public class Extractors {
         return new Extractor<String>() {
             @Override
             public String extract(Map<String, Object> properties) {
-                Status status = (Status) properties.get(getter);
-                return status.getName();
+                Object value = properties.get(getter);
+
+                if (value instanceof Status) {
+                    Status status = (Status) properties.get(getter);
+                    return status.getName();
+                } else {
+                    return "";
+
+                }
             }
         };
     }
