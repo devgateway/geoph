@@ -50,7 +50,7 @@ public class Stylists {
 
     }
 
-    public Stylist getRegularStyle() {
+    public Stylist getRegularStylist() {
         return new Stylist() {
             @Override
             public CellStyle getStyle(Workbook wb) {
@@ -70,7 +70,7 @@ public class Stylists {
 
     }
 
-    public Stylist getDecimalStyle() {
+    public Stylist getDecimalStylist() {
         return new Stylist() {
 
             @Override
@@ -85,9 +85,8 @@ public class Stylists {
 
     }
 
-    public Stylist getNumberStyle() {
+    public Stylist getNumberStylist() {
         return new Stylist() {
-
             @Override
             public CellStyle getStyle(Workbook wb) {
                 CreationHelper createHelper = wb.getCreationHelper();

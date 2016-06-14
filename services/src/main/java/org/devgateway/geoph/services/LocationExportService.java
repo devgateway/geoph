@@ -14,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -92,8 +89,9 @@ public class LocationExportService implements ExportService {
         });
 
 
+        // String name = generator.getFileName();
         LOGGER.info("Writing file");
-        String name = generator.getFileName();
+        String name = UUID.randomUUID() + ".xls";
 
         File file = fileService.createFile(name, true);
         generator.toFile(file);

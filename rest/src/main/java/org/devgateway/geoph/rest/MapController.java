@@ -253,6 +253,7 @@ public class MapController {
                 dataRow.createCell(7).setCellValue(l.getProvinceId() != null ? l.getProvinceId().toString() : "");
                 dataRow.createCell(8).setCellValue(p.getPhId());
                 dataRow.createCell(9).setCellValue(p.getTitle());
+
                 StringBuilder iaSb = new StringBuilder();
                 for (Agency ia : p.getImplementingAgencies()) {
                     iaSb.append(ia.getCode() + ", ");
@@ -260,8 +261,11 @@ public class MapController {
                 if (iaSb.length() > 3) {
                     dataRow.createCell(10).setCellValue(iaSb.toString().substring(0, iaSb.length() - 3));
                 }
+
                 dataRow.createCell(11).setCellValue(p.getExecutingAgency() != null ? p.getExecutingAgency().getName() : "");
                 dataRow.createCell(12).setCellValue(p.getFundingAgency() != null ? p.getFundingAgency().getName() : "");
+
+
                 dataRow.createCell(13).setCellValue(p.getOriginalCurrency() != null ? p.getOriginalCurrency().getName() : "");
                 dataRow.createCell(14).setCellValue(p.getTotalProjectAmount());
 
