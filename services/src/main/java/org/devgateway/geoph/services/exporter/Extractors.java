@@ -1,10 +1,7 @@
 package org.devgateway.geoph.services.exporter;
 
 import org.devgateway.geoph.core.export.Extractor;
-import org.devgateway.geoph.model.Agency;
-import org.devgateway.geoph.model.Currency;
-import org.devgateway.geoph.model.ImplementingAgency;
-import org.devgateway.geoph.model.Sector;
+import org.devgateway.geoph.model.*;
 import org.hibernate.collection.internal.PersistentSet;
 
 import java.util.ArrayList;
@@ -70,6 +67,16 @@ public class Extractors {
             public String extract(Map<String, Object> properties) {
                 Agency agency = (Agency) properties.get(getter);
                 return agency.getName();
+            }
+        };
+    }
+
+    public static Extractor<String> getStatusExtractor(final String getter) {
+        return new Extractor<String>() {
+            @Override
+            public String extract(Map<String, Object> properties) {
+                Status status = (Status) properties.get(getter);
+                return status.getName();
             }
         };
     }

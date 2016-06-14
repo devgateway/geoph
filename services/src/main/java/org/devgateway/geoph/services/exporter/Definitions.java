@@ -66,7 +66,7 @@ public class Definitions implements DefinitionsProvider {
         columnsDef.add(new ColumnDefinitionImp<String>("Period of Performance End", dateStylist, Formatters.stringFormatter(), Extractors.stringExtractor("project.getPeriodPerformanceEnd")));
 
 
-        columnsDef.add(new ColumnDefinitionImp<String>("Status", regularStylist, Formatters.stringFormatter(), Extractors.stringExtractor("project.getStatus")));
+        columnsDef.add(new ColumnDefinitionImp<String>("Status", regularStylist, Formatters.stringFormatter(), Extractors.getStatusExtractor("project.getStatus")));
         columnsDef.add(new ColumnDefinitionImp<String>("Physical Status", regularStylist, Formatters.stringFormatter(), Extractors.stringExtractor("project.getPhysicalStatus")));
         // columnsDef.add(new ColumnDefinitionImp<String>("Physical Progress(Actual)", regularStyle, Formatters.stringFormatter(), Extractors.stringExtractor("location.getName")));
         //  columnsDef.add(new ColumnDefinitionImp<String>("Physical Progress(Target)", regularStyle, Formatters.stringFormatter(), Extractors.stringExtractor("location.getName")));
