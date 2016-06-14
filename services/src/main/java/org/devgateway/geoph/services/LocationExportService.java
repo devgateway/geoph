@@ -15,9 +15,9 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
@@ -38,7 +38,8 @@ public class LocationExportService implements ExportService {
 
 
     private Map<String, Object> toKeyValuePairs(Object instance) {
-        return Arrays.stream(instance.getClass().getDeclaredMethods())
+        Map<String, Object> ret = new HashMap<>();
+        ret.putAll(Arrays.stream(instance.getClass().getDeclaredMethods())
                 .collect(Collectors.toMap(method -> {
                     return instance.getClass().getSimpleName().toLowerCase() + '.' + method.getName();
                 }, m -> {
@@ -48,9 +49,20 @@ public class LocationExportService implements ExportService {
                     } catch (Exception e) {
                         return "";
                     }
-                }));
+                })));
+        ret.putAll(Arrays.stream(instance.getClass().getSuperclass().getDeclaredMethods())
+                .collect(Collectors.toMap(method -> {
+                    return instance.getClass().getSimpleName().toLowerCase() + '.' + method.getName();
+                }, m -> {
+                    try {
+                        Object result = m.invoke(instance);
+                        return result != null ? result : "";
+                    } catch (Exception e) {
+                        return "";
+                    }
+                })));
 
-        //TODO:add methods from base class
+        return ret;
     }
 
 
@@ -69,7 +81,7 @@ public class LocationExportService implements ExportService {
 
         LOGGER.info("Writing header");
         generator.writeHeaders(columnsDef);
-    /*Collect data into a raw format*/
+        /*Collect data into a raw format*/
         locationList.forEach(location -> {
             Map<String, Object> properties = this.toKeyValuePairs(location);
             location.getProjects().forEach(project -> {
@@ -81,7 +93,7 @@ public class LocationExportService implements ExportService {
 
 
         LOGGER.info("Writing file");
-        String name = UUID.randomUUID() + ".xls";
+        String name = generator.getFileName();
 
         File file = fileService.createFile(name, true);
         generator.toFile(file);
