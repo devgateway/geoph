@@ -28,6 +28,7 @@ public class Definitions implements DefinitionsProvider {
         Stylist regularStylist = stylists.getRegularStylist();
         Stylist decimalStylist = stylists.getDecimalStylist();
         Stylist dateStylist = stylists.getDateStylist();
+        Stylist boldStyle = stylists.getBoldStylist();
 
 
         columnsDef.add(new ColumnDefinitionImp<Long>("Location ID", numberStyleStylist, Formatters.longFormatter(), Extractors.longExtractor("location.getId")));
@@ -43,7 +44,7 @@ public class Definitions implements DefinitionsProvider {
 
         columnsDef.add(new ColumnDefinitionImp<String>("Project ID", numberStyleStylist, Formatters.stringFormatter(), Extractors.stringExtractor("project.getPhId")));
 
-        columnsDef.add(new ColumnDefinitionImp<String>("Title", regularStylist, Formatters.stringFormatter(), Extractors.stringExtractor("project.getTitle")));
+        columnsDef.add(new ColumnDefinitionImp<String>("Title", boldStyle, Formatters.stringFormatter(), Extractors.stringExtractor("project.getTitle")));
 
 
         columnsDef.add(new ColumnDefinitionImp<List<String>>("Implementing Agency", regularStylist, Formatters.stringFormatter(), Extractors.implementingAgencyExtractor("project.getImplementingAgencies")));

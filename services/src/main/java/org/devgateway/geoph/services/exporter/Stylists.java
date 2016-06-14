@@ -70,6 +70,26 @@ public class Stylists {
 
     }
 
+    public Stylist getBoldStylist() {
+        return new Stylist() {
+            @Override
+            public CellStyle getStyle(Workbook wb) {
+                CellStyle style = wb.createCellStyle();
+                Font font = wb.createFont();
+                font.setFontName("Open Sans");
+                font.setBoldweight(Font.BOLDWEIGHT_BOLD);
+                style.setFont(font);
+                style.setBorderBottom(CellStyle.BORDER_NONE);
+                style.setBorderTop(CellStyle.BORDER_NONE);
+                style.setBorderRight(CellStyle.BORDER_NONE);
+                style.setBorderLeft(CellStyle.BORDER_NONE);
+                style.setWrapText(true);
+                return style;
+            }
+        };
+
+    }
+
     public Stylist getDecimalStylist() {
         return new Stylist() {
 
