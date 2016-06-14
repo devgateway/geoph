@@ -5,6 +5,7 @@ import org.devgateway.geoph.core.export.Generator;
 import org.devgateway.geoph.core.request.AppRequestParams;
 import org.devgateway.geoph.core.services.ExportService;
 import org.devgateway.geoph.core.services.LocationService;
+import org.devgateway.geoph.services.exporter.generators.CSVGenerator;
 import org.devgateway.geoph.services.exporter.generators.XLSGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,7 +46,7 @@ public class ExportController {
     public String getCSV(AppRequestParams filters) throws Exception {
         LOGGER.debug("CSV export Called");
         // exportService.export(new CSVGenerator(),  filters.getParameters());
-        return "";
+        return exportService.export(definitionsProvider.getColumnsDefinitions(), new CSVGenerator(), filters.getParameters());
     }
 
 

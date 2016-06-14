@@ -17,4 +17,6 @@ public interface Generator {
 
     String toOutputStream() throws Exception;
 
+    String getFileName();
+
 }

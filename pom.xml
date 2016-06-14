@@ -30,6 +30,7 @@
 		<selenium.version>2.53.0</selenium.version>
         <poi.version>3.14</poi.version>
         <fileupload.version>1.3.1</fileupload.version>
+        <commonscsv.version>1.3</commonscsv.version>
     </properties>
 
     <modules>
@@ -117,6 +118,11 @@
                 <groupId>commons-fileupload</groupId>
                 <artifactId>commons-fileupload</artifactId>
                 <version>${fileupload.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-csv</artifactId>
+                <version>${commonscsv.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

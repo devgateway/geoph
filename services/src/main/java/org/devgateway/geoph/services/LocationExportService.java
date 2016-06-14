@@ -47,7 +47,7 @@ public class LocationExportService implements ExportService {
                         return "";
                     }
                 })));
-        ret.putAll(Arrays.stream(instance.getClass().getSuperclass().getDeclaredMethods())
+        ret.putAll(Arrays.stream(instance.getClass().getSuperclass().getSuperclass().getDeclaredMethods())
                 .collect(Collectors.toMap(method -> {
                     return instance.getClass().getSimpleName().toLowerCase() + '.' + method.getName();
                 }, m -> {
