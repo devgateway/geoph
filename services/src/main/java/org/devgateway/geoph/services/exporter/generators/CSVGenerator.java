@@ -1,39 +1,62 @@
 package org.devgateway.geoph.services.exporter.generators;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
 import org.devgateway.geoph.core.export.ColumnDefinition;
 import org.devgateway.geoph.core.export.Generator;
 import org.devgateway.geoph.core.export.RawRow;
 
-import java.io.File;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
+import static org.devgateway.geoph.core.constants.Constants.LINE_SEPARATOR;
 
 /**
  * Created by Sebastian Dimunzio on 6/10/2016.
  */
 public class CSVGenerator implements Generator {
+
+    List<String> csvHeaderIterable;
+
+    List<List<String>> csvDataIterable;
+
     public CSVGenerator() {
-
-        // CSVWriter writer = new CSVWriter(new FileWriter("yourfile.csv"), '\t');
-
+        csvHeaderIterable = new ArrayList<>();
+        csvDataIterable = new ArrayList<>();
     }
 
     @Override
     public void writeHeaders(List<ColumnDefinition> columnDefinitions) {
-
+        columnDefinitions.stream().forEach(def -> csvHeaderIterable.add(def.getTitle()));
     }
 
     @Override
     public void writeRow(RawRow rawRow) {
-
+        List<String> data = new ArrayList<>();
+        rawRow.getCells().stream().forEach(cell -> data.add("" + cell.getValue()));
+        csvDataIterable.add(data);
     }
 
     @Override
     public File toFile(File file) throws Exception {
-        return null;
+        Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)));
+        CSVPrinter csvPrinter = new CSVPrinter(out, CSVFormat.DEFAULT.withRecordSeparator(System.getProperty(LINE_SEPARATOR)));
+        csvPrinter.printRecord(csvHeaderIterable);
+        csvPrinter.printRecords(csvDataIterable);
+        csvPrinter.flush();
+        csvPrinter.close();
+        return file;
     }
 
     @Override
     public String toOutputStream() throws Exception {
         return null;
+    }
+
+    @Override
+    public String getFileName() {
+        return UUID.randomUUID() + ".csv";
     }
 }

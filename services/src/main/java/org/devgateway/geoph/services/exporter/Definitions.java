@@ -29,6 +29,9 @@ public class Definitions implements DefinitionsProvider {
         columnsDef.add(new ColumnDefinitionImp<String>("Name", stylists.getRegularStyle(), Formatters.stringFormatter(), Extractors.stringExtractor("location.getName")));
         columnsDef.add(new ColumnDefinitionImp<Double>("Latitude", stylists.getDecimalStyle(), Formatters.stringFormatter(), Extractors.doubleExtractor("location.getLatitude")));
 
+        columnsDef.add(new ColumnDefinitionImp<Long>("Project ID", stylists.getNumberStyle(), Formatters.longFormatter(), Extractors.longExtractor("project.getId")));
+        columnsDef.add(new ColumnDefinitionImp<String>("Project Title", stylists.getRegularStyle(), Formatters.stringFormatter(), Extractors.stringExtractor("project.getTitle")));
+
 
 
     /*      columnsDef.add(new ColumnDefinitionImp<Double>("Latitude"));

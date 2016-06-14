@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by Sebastian Dimunzio on 6/9/2016.
@@ -98,5 +99,10 @@ public class XLSGenerator implements Generator {
     @Override
     public String toOutputStream() throws Exception {
         return null;
+    }
+
+    @Override
+    public String getFileName() {
+        return UUID.randomUUID() + ".xls";
     }
 }
