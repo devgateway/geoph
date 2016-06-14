@@ -3,15 +3,26 @@ package org.devgateway.geoph.services.exporter;
 import org.apache.poi.ss.usermodel.*;
 import org.devgateway.geoph.core.export.Stylist;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by Sebastian Dimunzio on 6/13/2016.
  */
+@Service
 public class Stylists {
-    public static Stylist getDateStylist() {
+    @Value("${export.style.number}")
+    String numberFormat; //#,##0.0000
+    @Value("${export.style.date}")
+    String dateFormat;
+    @Value("${export.style.amount}")
+    String amountFormat; //#,##0.0000
+
+    @Value("${export.style.decimal}")
+    String decimalFormat; //#,##0.0000
+
+
+    public Stylist getDateStylist() {
         return new Stylist() {
-            @Value("${export.style.date}")
-            String dateFormat;
 
             @Override
             public CellStyle getStyle(Workbook wb) {
@@ -24,10 +35,8 @@ public class Stylists {
 
     }
 
-    public static Stylist getAmountStylist() {
+    public Stylist getAmountStylist() {
         return new Stylist() {
-            @Value("${export.style.amount}")
-            String amountFormat; //#,##0.0000
 
             @Override
             public CellStyle getStyle(Workbook wb) {
@@ -41,8 +50,7 @@ public class Stylists {
 
     }
 
-
-    public static Stylist getRegularStyle() {
+    public Stylist getRegularStyle() {
         return new Stylist() {
             @Override
             public CellStyle getStyle(Workbook wb) {
@@ -62,10 +70,8 @@ public class Stylists {
 
     }
 
-    public static Stylist getDecimalStyle() {
+    public Stylist getDecimalStyle() {
         return new Stylist() {
-            @Value("${export.style.decimal}")
-            String decimalFormat; //#,##0.0000
 
             @Override
             public CellStyle getStyle(Workbook wb) {
@@ -79,10 +85,8 @@ public class Stylists {
 
     }
 
-    public static Stylist getNumberStyle() {
+    public Stylist getNumberStyle() {
         return new Stylist() {
-            @Value("${export.style.number}")
-            String numberFormat; //#,##0.0000
 
             @Override
             public CellStyle getStyle(Workbook wb) {

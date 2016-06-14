@@ -4,6 +4,7 @@ import org.devgateway.geoph.core.export.ColumnDefinition;
 import org.devgateway.geoph.core.export.DefinitionsProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,14 +18,16 @@ public class Definitions implements DefinitionsProvider {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Definitions.class);
 
+    @Autowired
+    Stylists stylists;
     public List<ColumnDefinition> getColumnsDefinitions() {
         List<ColumnDefinition> columnsDef = new ArrayList<>();
 
-        columnsDef.add(new ColumnDefinitionImp<Long>("Location ID", Stylists.getNumberStyle(), Formatters.longFormatter(), Extractors.longExtractor("location.getId")));
-        columnsDef.add(new ColumnDefinitionImp<String>("UACS Code", Stylists.getNumberStyle(), Formatters.longFormatter(), Extractors.stringExtractor("location.getCode")));
-        columnsDef.add(new ColumnDefinitionImp<String>("ADM Level", Stylists.getNumberStyle(), Formatters.longFormatter(), Extractors.stringExtractor("location.getLevel")));
-        columnsDef.add(new ColumnDefinitionImp<String>("Name", Stylists.getRegularStyle(), Formatters.stringFormatter(), Extractors.stringExtractor("location.getName")));
-        columnsDef.add(new ColumnDefinitionImp<Double>("Latitude", Stylists.getDecimalStyle(), Formatters.stringFormatter(), Extractors.doubleExtractor("location.getLatitude")));
+        columnsDef.add(new ColumnDefinitionImp<Long>("Location ID", stylists.getNumberStyle(), Formatters.longFormatter(), Extractors.longExtractor("location.getId")));
+        columnsDef.add(new ColumnDefinitionImp<String>("UACS Code", stylists.getNumberStyle(), Formatters.longFormatter(), Extractors.stringExtractor("location.getCode")));
+        columnsDef.add(new ColumnDefinitionImp<String>("ADM Level", stylists.getNumberStyle(), Formatters.longFormatter(), Extractors.stringExtractor("location.getLevel")));
+        columnsDef.add(new ColumnDefinitionImp<String>("Name", stylists.getRegularStyle(), Formatters.stringFormatter(), Extractors.stringExtractor("location.getName")));
+        columnsDef.add(new ColumnDefinitionImp<Double>("Latitude", stylists.getDecimalStyle(), Formatters.stringFormatter(), Extractors.doubleExtractor("location.getLatitude")));
 
 
 

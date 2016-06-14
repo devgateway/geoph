@@ -52,6 +52,7 @@ public class ExportController {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR)
     public String handleAppException(Exception ex) {
+        LOGGER.error("Can't complete this request", ex);
         return ex.getMessage();
     }
 
