@@ -2,7 +2,10 @@ package org.devgateway.geoph.services.exporter.generators;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
-import org.devgateway.geoph.core.export.*;
+import org.devgateway.geoph.core.export.ColumnDefinition;
+import org.devgateway.geoph.core.export.Generator;
+import org.devgateway.geoph.core.export.RawCell;
+import org.devgateway.geoph.core.export.RawRow;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.io.File;
@@ -62,11 +65,11 @@ public class XLSGenerator implements Generator {
         Row row = sheet.createRow(rowNumber++);
         int colNumber = START_COLUMN;
         for (RawCell rawcell : rawRow.getCells()) {
-            createCell(row, colNumber++, rawcell.getValue(), rawcell.getStylist());
+            createCell(row, colNumber++, rawcell.getValue(), rawcell.getCellStyle(this.wb));
         }
     }
 
-    private Cell createCell(Row row, int position, Object value, Stylist stylist) {
+    private Cell createCell(Row row, int position, Object value, CellStyle style) {
         Cell cell = row.createCell(position);
         if (value instanceof String) {
             cell.setCellValue((String) value);
@@ -80,7 +83,7 @@ public class XLSGenerator implements Generator {
         if (value instanceof Boolean) {
             cell.setCellValue((Boolean) value);
         }
-        cell.setCellStyle(stylist.getStyle(this.wb));
+        cell.setCellStyle(style);
         return cell;
     }
 

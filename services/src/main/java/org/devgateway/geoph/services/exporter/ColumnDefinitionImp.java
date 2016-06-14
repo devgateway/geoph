@@ -1,5 +1,7 @@
 package org.devgateway.geoph.services.exporter;
 
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.devgateway.geoph.core.export.*;
 
 /**
@@ -36,6 +38,15 @@ public class ColumnDefinitionImp<T> implements ColumnDefinition {
         this.formatter = formatter;
     }
 
+    private CellStyle cellStyle = null;
+
+    public CellStyle getCellStyle(Workbook wb) {
+        if (cellStyle == null) {
+            cellStyle = this.stylist.getStyle(wb);
+        }
+        return cellStyle;
+    }
+
 
     @Override
     public RawCell getCell(Object value) {
@@ -65,9 +76,5 @@ public class ColumnDefinitionImp<T> implements ColumnDefinition {
         return formatter;
     }
 
-
-    public Stylist getStylist() {
-        return stylist;
-    }
 
 }
