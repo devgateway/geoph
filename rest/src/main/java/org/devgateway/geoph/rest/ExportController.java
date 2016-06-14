@@ -1,5 +1,7 @@
 package org.devgateway.geoph.rest;
 
+import org.devgateway.geoph.core.export.DefinitionsProvider;
+import org.devgateway.geoph.core.export.Generator;
 import org.devgateway.geoph.core.request.AppRequestParams;
 import org.devgateway.geoph.core.services.ExportService;
 import org.devgateway.geoph.core.services.LocationService;
@@ -28,12 +30,14 @@ public class ExportController {
     @Autowired
     ExportService exportService;
 
-    public static final String COMMA = ",";
+    @Autowired
+    DefinitionsProvider definitionsProvider;
+
 
     @RequestMapping(value = "/xls", method = GET)
-    public String getXLS(AppRequestParams filters) throws Exception {
+    public String getXLS(Generator xlsGenerator, AppRequestParams filters) throws Exception {
         LOGGER.debug("XLS export called");
-        return exportService.export(new XLSGenerator(), filters.getParameters());
+        return exportService.export(definitionsProvider.getColumnsDefinitions(), new XLSGenerator(), filters.getParameters());
 
     }
 

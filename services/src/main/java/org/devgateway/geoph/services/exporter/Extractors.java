@@ -27,4 +27,13 @@ public class Extractors {
             }
         };
     }
+
+    public static Extractor<Double> doubleExtractor(final String getter) {
+        return new Extractor<Double>() {
+            @Override
+            public Double extract(Map<String, Object> properties) {
+                return (Double) properties.get(getter);
+            }
+        };
+    }
 }

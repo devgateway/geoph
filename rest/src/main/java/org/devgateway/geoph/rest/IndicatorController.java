@@ -1,14 +1,10 @@
 package org.devgateway.geoph.rest;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.poi.ss.usermodel.*;
-import org.devgateway.geoph.core.request.IndicatorRequest;
 import org.devgateway.geoph.core.response.IndicatorResponse;
 import org.devgateway.geoph.core.services.FilterService;
 import org.devgateway.geoph.core.services.LayerService;
 import org.devgateway.geoph.dao.PropsHelper;
 import org.devgateway.geoph.model.Indicator;
-import org.devgateway.geoph.model.IndicatorDetail;
 import org.devgateway.geoph.model.Location;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,17 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.*;
-import java.util.Iterator;
+import java.io.FileWriter;
 import java.util.List;
 
 import static org.devgateway.geoph.core.constants.Constants.*;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 /**
  * @author dbianco
@@ -93,7 +85,7 @@ public class IndicatorController {
         }
         return response;
     }
-
+/*
     @RequestMapping(value = "/upload", headers = "content-type=multipart/*", method = POST)
     //@Secured("ROLE_READ")
     public IndicatorResponse putIndicator(IndicatorRequest indicatorParam,
@@ -209,5 +201,5 @@ public class IndicatorController {
 
 
 
-
+*/
 }

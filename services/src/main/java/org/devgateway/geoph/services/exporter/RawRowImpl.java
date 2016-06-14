@@ -27,8 +27,7 @@ public class RawRowImpl implements RawRow {
         return cells;
     }
 
-    public void setCells(List<RawCell
-            > cells) {
+    public void setCells(List<RawCell> cells) {
         this.cells = cells;
     }
 }

@@ -1,9 +1,6 @@
 package org.devgateway.geoph.services.exporter;
 
-import org.devgateway.geoph.core.export.ColumnDefinition;
-import org.devgateway.geoph.core.export.Extractor;
-import org.devgateway.geoph.core.export.Formatter;
-import org.devgateway.geoph.core.export.RawCell;
+import org.devgateway.geoph.core.export.*;
 
 /**
  * Created by Sebastian Dimunzio on 6/8/2016.
@@ -12,9 +9,12 @@ public class ColumnDefinitionImp<T> implements ColumnDefinition {
 
     String title;
     String getter;
+
     Formatter<T> formatter;
+
     Extractor<T> extractor;
 
+    Stylist stylist;
 
     public ColumnDefinitionImp(String title, Formatter<T> formatter, Extractor<T> extractor) {
         this.title = title;
@@ -22,40 +22,52 @@ public class ColumnDefinitionImp<T> implements ColumnDefinition {
         this.extractor = extractor;
     }
 
-    public RawCell getCell(Object value) {
-        return new RawCellImpl(this, value);
+    public ColumnDefinitionImp(String title, Stylist stylist, Extractor<T> extractor) {
+        this.title = title;
+        this.stylist = stylist;
+        this.extractor = extractor;
+
     }
 
-    public Extractor<T> getExtractor() {
+    public ColumnDefinitionImp(String title, Stylist stylist, Formatter<T> formatter, Extractor<T> extractor) {
+        this.title = title;
+        this.stylist = stylist;
+        this.extractor = extractor;
+        this.formatter = formatter;
+    }
+
+
+    @Override
+    public RawCell getCell(Object value) {
+        return new RawCellImpl<T>(this, (T) value);
+    }
+
+    @Override
+    public Extractor getExtractor() {
         return extractor;
     }
 
-    public void setExtractor(Extractor extractor) {
-        this.extractor = extractor;
-    }
 
+    @Override
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
+    @Override
     public String getGetter() {
         return getter;
     }
 
-    public void setGetter(String getter) {
-        this.getter = getter;
-    }
 
-    public Formatter<T> getFormatter() {
+    @Override
+    public Formatter getFormatter() {
         return formatter;
     }
 
 
-    public void setFormatter(Formatter formatter) {
-        this.formatter = formatter;
+    public Stylist getStylist() {
+        return stylist;
     }
+
 }

@@ -5,4 +5,7 @@ package org.devgateway.geoph.core.export;
  */
 public interface RawCell<T> {
     T getValue();
+
+    Stylist getStylist();
+
 }

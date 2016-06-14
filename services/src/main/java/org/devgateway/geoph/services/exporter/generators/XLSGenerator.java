@@ -2,10 +2,7 @@ package org.devgateway.geoph.services.exporter.generators;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
-import org.devgateway.geoph.core.export.ColumnDefinition;
-import org.devgateway.geoph.core.export.Generator;
-import org.devgateway.geoph.core.export.RawCell;
-import org.devgateway.geoph.core.export.RawRow;
+import org.devgateway.geoph.core.export.*;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.io.File;
@@ -28,7 +25,7 @@ public class XLSGenerator implements Generator {
     private int rowNumber = 0;
 
 
-
+    /*This service uses instance variables ensure*/
     public XLSGenerator() {
         wb = new HSSFWorkbook();
         sheet = wb.createSheet("TEST");
@@ -48,12 +45,7 @@ public class XLSGenerator implements Generator {
         return style;
     }
 
-    public CellStyle getDateStyle() {
-        CreationHelper createHelper = wb.getCreationHelper();
-        CellStyle dataStyle = wb.createCellStyle();
-        dataStyle.setDataFormat(createHelper.createDataFormat().getFormat("m/d/yy h:mm"));
-        return dataStyle;
-    }
+
 
     public void writeHeaders(List<ColumnDefinition> columnDefinitions) {
         Row row = sheet.createRow(rowNumber++);
@@ -70,11 +62,11 @@ public class XLSGenerator implements Generator {
         Row row = sheet.createRow(rowNumber++);
         int colNumber = START_COLUMN;
         for (RawCell rawcell : rawRow.getCells()) {
-            createCell(row, colNumber++, rawcell.getValue());
+            createCell(row, colNumber++, rawcell.getValue(), rawcell.getStylist());
         }
     }
 
-    private Cell createCell(Row row, int position, Object value) {
+    private Cell createCell(Row row, int position, Object value, Stylist stylist) {
         Cell cell = row.createCell(position);
         if (value instanceof String) {
             cell.setCellValue((String) value);
@@ -88,6 +80,7 @@ public class XLSGenerator implements Generator {
         if (value instanceof Boolean) {
             cell.setCellValue((Boolean) value);
         }
+        cell.setCellStyle(stylist.getStyle(this.wb));
         return cell;
     }
 

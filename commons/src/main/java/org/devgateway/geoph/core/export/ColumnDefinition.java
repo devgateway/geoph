@@ -9,17 +9,11 @@ public interface ColumnDefinition<T> {
 
     Extractor<T> getExtractor();
 
-    void setExtractor(Extractor<T> extractor);
-
     String getTitle();
-
-    void setTitle(String title);
 
     String getGetter();
 
-    void setGetter(String getter);
-
     Formatter<T> getFormatter();
 
-    void setFormatter(Formatter<T> formatter);
+    Stylist getStylist();
 }

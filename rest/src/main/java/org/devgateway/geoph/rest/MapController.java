@@ -2,15 +2,10 @@ package org.devgateway.geoph.rest;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.*;
-import org.devgateway.geoph.core.constants.Constants;
-import org.devgateway.geoph.core.request.AppRequestParams;
 import org.devgateway.geoph.core.services.AppMapService;
 import org.devgateway.geoph.core.services.GeoJsonService;
 import org.devgateway.geoph.dao.PropsHelper;
-import org.devgateway.geoph.enums.TransactionTypeEnum;
-import org.devgateway.geoph.model.*;
+import org.devgateway.geoph.model.AppMap;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -26,14 +21,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
-import static org.devgateway.geoph.core.constants.Constants.*;
 import static org.devgateway.geoph.util.KeyGenerator.getRandomKey;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -116,7 +105,7 @@ public class MapController {
         }
         return filename;
     }
-
+/*
     @RequestMapping(value = "/export/fileType/{fileType}/language/{language}", method = GET)
     public String exportData(
             @PathVariable final String fileType,
@@ -347,6 +336,6 @@ public class MapController {
         style.setWrapText(true);
         return style;
     }
-
+*/
 
 }

@@ -8,6 +8,7 @@ import java.util.List;
  */
 public interface Generator {
 
+
     void writeHeaders(List<ColumnDefinition> columnDefinitions);
 
     void writeRow(RawRow rawRow);
