@@ -8,6 +8,7 @@
 }
 
 .chart-type-selector{
+    margin-bottom: 6px;
 	margin-left: 15px;
 	font-size: 11px;
     align-items: center;
@@ -22,7 +23,7 @@
 }
 
 .chart-measure-selector{
-	margin-right: 15px;
+	margin-right: 5px;
     font-size: 11px;
     align-items: center;
     display: inline-flex;
@@ -80,10 +81,27 @@
 }
 
 .expand-button-inner{
+    cursor: pointer;
     padding: 8px 14px;
     color: #fff;
     text-align: center;
     background-color: #778393;
     border-radius: 4px;
     font-size: 14px;
+}
+
+.chart-items-selector{
+    margin-right: 15px;
+    float: right;
+}
+
+.item-qty-selector{
+    margin-left: 2px;
+    cursor: pointer;
+}
+
+.item-qty-selector-disabled{
+    background-color: #CADDE2 !important;
+    margin-left: 2px;
+    cursor: pointer;
 }

@@ -1,8 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux'
-import Chart from '../charts/chartComponent'
-import { fetchChartData } from '../../actions/charts'
-import { togglePanelExpand } from '../../actions/panel'
+import { connect } from 'react-redux';
+import Chart from '../charts/chartComponent';
+import { fetchChartData, changeItemsToShow, changeMeasureType, changeChartType } from '../../actions/charts';
+import { togglePanelExpand } from '../../actions/panel';
 import {collectValues} from '../../util/filterUtil';
 import { Button } from 'react-bootstrap';
 
@@ -22,31 +22,55 @@ class Charts extends React.Component {
     this.forceUpdate();
   }
 
+  changeItemToShow(chart, value){
+    this.props.onChangeItemsToShow(chart, value);
+  }
+
+  changeMeasure(chart, value){
+    this.props.onChangeMeasureType(chart, value);
+  }
+
+  changeType(chart, value){
+    this.props.onChangeChartType(chart, value);
+  }
+
   render() {
     let charts = this.props.charts? this.props.charts : {}
     return (
       <div className="chart-view">
         <p>Explore this in-depth profile of Philippines to find out overall lorem ipsum dolor sit amet, consectetur elit. </p>
         <div className="charts-container">
-          <Chart chartData={charts.fundingAgency? charts.fundingAgency.data : []}
+          <Chart chartData={charts.fundingAgency || {}}
             title="Funding Agency Chart" 
+            chart='fundingAgency'
             measure={this.props.fundingType} 
-            showMeasureSelector={true}
+            onChangeItemToShow={this.changeItemToShow.bind(this)}
+            onChangeMeasure={this.changeMeasure.bind(this)}
+            onChangeType={this.changeType.bind(this)}
             dimension="name"/>
-          <Chart chartData={charts.implementingAgency? charts.implementingAgency.data : []}
+          <Chart chartData={charts.implementingAgency || {}}
             title="Implementing Agency Chart" 
+            chart='implementingAgency'
             measure={this.props.fundingType} 
-            showMeasureSelector={true}
+            onChangeItemToShow={this.changeItemToShow.bind(this)}
+            onChangeMeasure={this.changeMeasure.bind(this)}
+            onChangeType={this.changeType.bind(this)}
             dimension="name"/>
-          <Chart chartData={charts.physicalStatus? charts.physicalStatus.data : []}
+          <Chart chartData={charts.physicalStatus || {}}
             title="Physical Status Chart" 
+            chart='physicalStatus'
             measure={this.props.fundingType} 
-            showMeasureSelector={true}
+            onChangeItemToShow={this.changeItemToShow.bind(this)}
+            onChangeMeasure={this.changeMeasure.bind(this)}
+            onChangeType={this.changeType.bind(this)}
             dimension="name"/>
-          <Chart chartData={charts.sector? charts.sector.data : []}
+          <Chart chartData={charts.sector || {}}
             title="Sector Chart" 
+            chart='sector'
             measure={this.props.fundingType} 
-            showMeasureSelector={true}
+            onChangeItemToShow={this.changeItemToShow.bind(this)}
+            onChangeMeasure={this.changeMeasure.bind(this)}
+            onChangeType={this.changeType.bind(this)}
             dimension="name"/>
         </div>
         <div className="expand-button" >
@@ -67,6 +91,15 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     onTogglePanel: () => {
       dispatch(togglePanelExpand());
+    },
+    onChangeItemsToShow: (chart, value) => {
+      dispatch(changeItemsToShow(chart, value));
+    },
+    onChangeMeasureType: (chart, value) => {
+      dispatch(changeMeasureType(chart, value));
+    },
+    onChangeChartType: (chart, value) => {
+      dispatch(changeChartType(chart, value));
     }
   }
 }

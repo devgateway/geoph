@@ -50,6 +50,7 @@ export const toggleVisibility=(id, visible, filters)=>{
 	return (dispatch, getState) => {
 		dispatch({
 			type: TOGGLE_LAYER,
+			visible,
 			id
 		});
 		loadLayerById(dispatch, getState, getState().map.get('layers'), filters, id);

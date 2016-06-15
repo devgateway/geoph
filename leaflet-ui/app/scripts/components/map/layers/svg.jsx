@@ -4,7 +4,6 @@ import {MapLayer} from 'react-leaflet';
 import React from 'react';
 import d3 from 'd3';
 import { render, unmountComponentAtNode } from 'react-dom';
-import ProjectPopup from '../popups/projectLayerPopup';
 import { fetchPopupData } from '../../../actions/popup.js'
 import { connect } from 'react-redux'
 import {collectValues} from '../../../util/filterUtil';
