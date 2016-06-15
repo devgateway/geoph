@@ -3,6 +3,7 @@ package org.devgateway.geoph.core.repositories;
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.dao.LocationResultsDao;
 import org.devgateway.geoph.dao.PostGisDao;
+import org.devgateway.geoph.dao.ProjectLocationDao;
 import org.devgateway.geoph.model.Location;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public interface LocationRepository {
 
     List<Location> findLocationsByParentId(long parentId);
 
-    List<Location> findLocationsByParams(Parameters params);
+    List<ProjectLocationDao> findProjectLocationsByParams(Parameters params);
 
     List<LocationResultsDao> findLocationsByParamsTypeStatus(Parameters params, int trxTypeId, int trxStatusId);
 

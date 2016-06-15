@@ -1,7 +1,7 @@
 package org.devgateway.geoph.core.services;
 
 import org.devgateway.geoph.core.request.Parameters;
-import org.devgateway.geoph.model.Location;
+import org.devgateway.geoph.dao.ProjectLocationDao;
 
 import java.util.List;
 
@@ -10,6 +10,6 @@ import java.util.List;
  */
 public interface LocationService {
 
-    List<Location> getLocationsForExport(Parameters params);
+    List<ProjectLocationDao> getLocationsForExport(Parameters params);
 
 }

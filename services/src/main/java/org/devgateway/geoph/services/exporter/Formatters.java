@@ -31,14 +31,21 @@ public class Formatters {
         };
     }
 
+    public static Formatter doubleFormatter() {
+        return new Formatter<Double>() {
+            @Override
+            public String format(Double value) {
+                return value.toString();
+            }
+        };
+    }
 
-
-    public static Formatter dateFormmater() {
-        final SimpleDateFormat simpleFormater=new SimpleDateFormat(dateFormat);
+    public static Formatter dateFormatter() {
+        final SimpleDateFormat simpleFormatter=new SimpleDateFormat(dateFormat);
         return new Formatter<Date>() {
             @Override
             public String format(Date value) {
-                return simpleFormater.format(value);
+                return simpleFormatter.format(value);
             }
         };
     }

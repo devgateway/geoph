@@ -5,6 +5,7 @@ import org.devgateway.geoph.core.repositories.LocationRepository;
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.dao.LocationResultsDao;
 import org.devgateway.geoph.dao.PostGisDao;
+import org.devgateway.geoph.dao.ProjectLocationDao;
 import org.devgateway.geoph.model.*;
 import org.devgateway.geoph.persistence.util.FilterHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,16 +102,21 @@ public class DefaultLocationRepository implements LocationRepository {
 
     @Override
     @Cacheable("locationsByParams")
-    public List<Location> findLocationsByParams(Parameters params) {
+    public List<ProjectLocationDao> findProjectLocationsByParams(Parameters params) {
 
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-        CriteriaQuery<Location> criteriaQuery = criteriaBuilder.createQuery(Location.class);
+        CriteriaQuery<ProjectLocationDao> criteriaQuery = criteriaBuilder.createQuery(ProjectLocationDao.class);
 
         Root<Location> locationRoot = criteriaQuery.from(Location.class);
         Join<Location, Project> projectJoin = locationRoot.join(Location_.projects, JoinType.LEFT);
 
+        List<Selection<?>> multiSelect = new ArrayList<>();
+        multiSelect.add(locationRoot);
+        multiSelect.add(projectJoin);
+
         List<Expression<?>> groupByList = new ArrayList<>();
-        groupByList.add(locationRoot);;
+        groupByList.add(locationRoot);
+        groupByList.add(projectJoin);
 
         List<Predicate> predicates = new ArrayList();
         FilterHelper.filterLocationQuery(params, criteriaBuilder, locationRoot, predicates, projectJoin);
@@ -119,7 +125,7 @@ public class DefaultLocationRepository implements LocationRepository {
         criteriaQuery.where(predicate);
 
         criteriaQuery.groupBy(groupByList);
-        TypedQuery<Location> query = em.createQuery(criteriaQuery.select(locationRoot));
+        TypedQuery<ProjectLocationDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
 
         return query.getResultList();
     }

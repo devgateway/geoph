@@ -43,7 +43,10 @@ public class Constants {
 
     public static final String[] INDICATORS_ENGLISH_TITLE_ARRAY = {"Location Name", "UACS Code", "Indicator Value"};
 
-    public static final String LINE_SEPARATOR = "line.separator";
+    public static final String CSV_LINE_SEPARATOR = "line.separator";
+    public static final char CSV_RECORD_SEPARATOR =  '|';
+    public static final Character CSV_DOUBLE_QUOTE_CHAR = Character.valueOf('"');
+
     public static final String COMMA = ",";
     public static final String GEOPH_EXPORT_SHEET_NAME = "Geoph export";
     public static final String PHILIPPINES_LANGUAJE = "ph";

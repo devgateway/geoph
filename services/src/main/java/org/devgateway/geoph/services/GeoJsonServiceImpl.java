@@ -6,16 +6,19 @@ import org.devgateway.geoph.core.services.GeoJsonService;
 import org.devgateway.geoph.dao.LocationProperty;
 import org.devgateway.geoph.dao.LocationResultsDao;
 import org.devgateway.geoph.dao.PostGisDao;
+import org.devgateway.geoph.dao.ProjectLocationDao;
 import org.devgateway.geoph.enums.LocationAdmLevelEnum;
 import org.devgateway.geoph.enums.TransactionStatusEnum;
 import org.devgateway.geoph.enums.TransactionTypeEnum;
 import org.devgateway.geoph.model.Location;
-import org.devgateway.geoph.model.Project;
 import org.geojson.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static org.devgateway.geoph.core.constants.Constants.*;
 
@@ -78,8 +81,8 @@ public class GeoJsonServiceImpl implements GeoJsonService {
         return featureCollection;
     }
 
-    public List<Location> getLocationsForExport(Parameters params){
-        return locationRepository.findLocationsByParams(params);
+    public List<ProjectLocationDao> getLocationsForExport(Parameters params){
+        return locationRepository.findProjectLocationsByParams(params);
     }
 
     private void addProjectCount(Parameters params, int level, Map<Long, LocationProperty> locationPropertyMap) {

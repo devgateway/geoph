@@ -70,12 +70,12 @@ public class IndicatorController {
                     writer.append(';');
                 }
             }
-            writer.append(System.getProperty(LINE_SEPARATOR));
+            writer.append(System.getProperty(CSV_LINE_SEPARATOR));
             for (Long locId : response.getDetails().keySet()) {
                 Location location = filterService.findLocationById(locId);
                 if (location != null) {
                     writer.append(location.getName() + ';' + location.getCode() + ';' + response.getDetails().get(locId));
-                    writer.append(System.getProperty(LINE_SEPARATOR));
+                    writer.append(System.getProperty(CSV_LINE_SEPARATOR));
                 }
             }
             writer.flush();

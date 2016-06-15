@@ -3,7 +3,7 @@ package org.devgateway.geoph.services;
 import org.devgateway.geoph.core.repositories.LocationRepository;
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.core.services.LocationService;
-import org.devgateway.geoph.model.Location;
+import org.devgateway.geoph.dao.ProjectLocationDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +17,8 @@ public class LocationServiceImpl implements LocationService {
     @Autowired
     LocationRepository locationRepository;
 
-    public List<Location> getLocationsForExport(Parameters params) {
-        return locationRepository.findLocationsByParams(params);
+    public List<ProjectLocationDao> getLocationsForExport(Parameters params) {
+        return locationRepository.findProjectLocationsByParams(params);
     }
 }
 

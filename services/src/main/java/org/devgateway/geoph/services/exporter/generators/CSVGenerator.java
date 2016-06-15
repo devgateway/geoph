@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static org.devgateway.geoph.core.constants.Constants.LINE_SEPARATOR;
+import static org.devgateway.geoph.core.constants.Constants.*;
 
 /**
  * Created by Sebastian Dimunzio on 6/10/2016.
@@ -42,7 +42,10 @@ public class CSVGenerator implements Generator {
     @Override
     public File toFile(File file) throws Exception {
         Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)));
-        CSVPrinter csvPrinter = new CSVPrinter(out, CSVFormat.DEFAULT.withRecordSeparator(System.getProperty(LINE_SEPARATOR)));
+        CSVPrinter csvPrinter = new CSVPrinter(out, CSVFormat.DEFAULT
+                .withRecordSeparator(System.getProperty(CSV_LINE_SEPARATOR))
+                .withDelimiter(CSV_RECORD_SEPARATOR)
+                .withQuote(CSV_DOUBLE_QUOTE_CHAR));
         csvPrinter.printRecord(csvHeaderIterable);
         csvPrinter.printRecords(csvDataIterable);
         csvPrinter.flush();
