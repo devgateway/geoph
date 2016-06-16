@@ -11,6 +11,7 @@ import java.util.List;
  */
 public interface ExportService {
 
-    String export(List<ColumnDefinition> columnsDef, Generator generator, Parameters parameters) throws Exception;
+    String exportLocationProject(List<ColumnDefinition> columnsDef, Generator generator, Parameters parameters) throws Exception;
 
+    String exportIndicator(List<ColumnDefinition> columnsDefinitions, Generator generator, Long id) throws Exception;
 }

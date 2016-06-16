@@ -1,19 +1,15 @@
 package org.devgateway.geoph.rest;
 
 import org.devgateway.geoph.core.export.DefinitionsProvider;
-import org.devgateway.geoph.core.export.Generator;
 import org.devgateway.geoph.core.request.AppRequestParams;
 import org.devgateway.geoph.core.services.ExportService;
-import org.devgateway.geoph.core.services.LocationService;
 import org.devgateway.geoph.services.exporter.generators.CSVGenerator;
 import org.devgateway.geoph.services.exporter.generators.XLSGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
@@ -26,27 +22,34 @@ public class ExportController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ExportController.class);
 
     @Autowired
-    LocationService locationService;
-
-    @Autowired
     ExportService exportService;
 
     @Autowired
-    DefinitionsProvider definitionsProvider;
+    @Qualifier("locationProjectDefinitions")
+    DefinitionsProvider locationProjectDefProvider;
+
+    @Autowired
+    @Qualifier("indicatorDefinitions")
+    DefinitionsProvider indicatorDefProvider;
 
 
-    @RequestMapping(value = "/xls", method = GET)
-    public String getXLS(Generator xlsGenerator, AppRequestParams filters) throws Exception {
+    @RequestMapping(value = "/data/xls", method = GET)
+    public String getDataXLS(AppRequestParams filters) throws Exception {
         LOGGER.debug("XLS export called");
-        return exportService.export(definitionsProvider.getColumnsDefinitions(), new XLSGenerator(), filters.getParameters());
+        return exportService.exportLocationProject(locationProjectDefProvider.getColumnsDefinitions(), new XLSGenerator(), filters.getParameters());
 
     }
 
-    @RequestMapping(value = "/csv", method = GET)
-    public String getCSV(AppRequestParams filters) throws Exception {
+    @RequestMapping(value = "/data/csv", method = GET)
+    public String getDataCSV(AppRequestParams filters) throws Exception {
         LOGGER.debug("CSV export Called");
-        // exportService.export(new CSVGenerator(),  filters.getParameters());
-        return exportService.export(definitionsProvider.getColumnsDefinitions(), new CSVGenerator(), filters.getParameters());
+        return exportService.exportLocationProject(locationProjectDefProvider.getColumnsDefinitions(), new CSVGenerator(), filters.getParameters());
+    }
+
+    @RequestMapping(value = "/indicator/{id}", method = GET)
+    public String getCSV(@PathVariable final Long id) throws Exception {
+        LOGGER.debug("CSV indicators export Called");
+        return exportService.exportIndicator(indicatorDefProvider.getColumnsDefinitions(), new CSVGenerator(), id);
     }
 
 

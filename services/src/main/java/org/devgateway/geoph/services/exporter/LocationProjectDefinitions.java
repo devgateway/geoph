@@ -15,10 +15,10 @@ import java.util.List;
 /**
  * Created by Sebastian Dimunzio on 6/13/2016.
  */
-@Service
-public class Definitions implements DefinitionsProvider {
+@Service("locationProjectDefinitions")
+public class LocationProjectDefinitions implements DefinitionsProvider {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Definitions.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LocationProjectDefinitions.class);
 
     @Autowired
     Stylists stylists;

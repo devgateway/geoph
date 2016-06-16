@@ -2,11 +2,13 @@ package org.devgateway.geoph.services;
 
 import org.devgateway.geoph.core.export.ColumnDefinition;
 import org.devgateway.geoph.core.export.Generator;
+import org.devgateway.geoph.core.repositories.IndicatorDetailRepository;
+import org.devgateway.geoph.core.repositories.LocationRepository;
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.core.services.ExportService;
 import org.devgateway.geoph.core.services.FileService;
-import org.devgateway.geoph.core.services.LocationService;
 import org.devgateway.geoph.dao.ProjectLocationDao;
+import org.devgateway.geoph.model.IndicatorDetail;
 import org.devgateway.geoph.model.Location;
 import org.devgateway.geoph.model.Project;
 import org.devgateway.geoph.services.exporter.RawRowImpl;
@@ -27,14 +29,17 @@ import java.util.stream.Collectors;
  * Created by Sebastian Dimunzio on 6/8/2016.
  */
 @Service
-public class LocationExportService implements ExportService {
+public class ExportServiceImpl implements ExportService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ExportService.class);
 
     private Generator generator;
 
     @Autowired
-    LocationService locationService;
+    LocationRepository locationRepository;
+
+    @Autowired
+    IndicatorDetailRepository indicatorDetailRepository;
 
     @Autowired
     FileService fileService;
@@ -66,10 +71,10 @@ public class LocationExportService implements ExportService {
         return row;
     }
 
-    public String export(List<ColumnDefinition> columnsDef, Generator generator, Parameters parameters) throws Exception {
+    public String exportLocationProject(List<ColumnDefinition> columnsDef, Generator generator, Parameters parameters) throws Exception {
 
         LOGGER.info("Querying Locations");
-        List<ProjectLocationDao> projectLocationList = locationService.getLocationsForExport(parameters);
+        List<ProjectLocationDao> projectLocationList = locationRepository.findProjectLocationsByParams(parameters);
 
         LOGGER.info("Writing header");
         generator.writeHeaders(columnsDef);
@@ -84,8 +89,6 @@ public class LocationExportService implements ExportService {
             generator.writeRow(getRow(columnsDef, properties));
         });
 
-
-        // String name = generator.getFileName();
         LOGGER.info("Writing file");
         String name = generator.getFileName();
 
@@ -94,6 +97,30 @@ public class LocationExportService implements ExportService {
 
         return name;
 
+    }
+
+    @Override
+    public String exportIndicator(List<ColumnDefinition> columnsDef, Generator generator, Long id) throws Exception {
+        LOGGER.info("Querying Indicators");
+        List<IndicatorDetail> indicatorDetails = indicatorDetailRepository.findByIndicatorId(id);
+
+        LOGGER.info("Writing header");
+        generator.writeHeaders(columnsDef);
+
+        indicatorDetails.forEach(indicatorDetail -> {
+            Location loc = locationRepository.findById(indicatorDetail.getLocationId());
+            Map<String, Object> properties = this.toKeyValuePairs(indicatorDetail, IndicatorDetail.class, IndicatorDetail.class.getSimpleName().toLowerCase());
+            properties.putAll(this.toKeyValuePairs(loc, Location.class, Location.class.getSimpleName().toLowerCase()));
+            LOGGER.info("Writing row");
+            generator.writeRow(getRow(columnsDef, properties));
+        });
+
+        LOGGER.info("Writing file");
+        String name = generator.getFileName();
+
+        File file = fileService.createFile(name, true);
+        generator.toFile(file);
+        return name;
     }
 
 
