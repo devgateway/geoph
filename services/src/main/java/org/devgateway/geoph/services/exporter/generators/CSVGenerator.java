@@ -5,6 +5,7 @@ import org.apache.commons.csv.CSVPrinter;
 import org.devgateway.geoph.core.export.ColumnDefinition;
 import org.devgateway.geoph.core.export.Generator;
 import org.devgateway.geoph.core.export.RawRow;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import static org.devgateway.geoph.core.constants.Constants.*;
 /**
  * Created by Sebastian Dimunzio on 6/10/2016.
  */
+@Component("csvGenerator")
 public class CSVGenerator implements Generator {
 
     List<String> csvHeaderIterable;
@@ -25,6 +27,10 @@ public class CSVGenerator implements Generator {
     public CSVGenerator() {
         csvHeaderIterable = new ArrayList<>();
         csvDataIterable = new ArrayList<>();
+    }
+
+    public Generator getNewInstance(){
+        return new CSVGenerator();
     }
 
     @Override

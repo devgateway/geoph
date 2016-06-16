@@ -1,10 +1,9 @@
 package org.devgateway.geoph.rest;
 
 import org.devgateway.geoph.core.export.DefinitionsProvider;
+import org.devgateway.geoph.core.export.Generator;
 import org.devgateway.geoph.core.request.AppRequestParams;
 import org.devgateway.geoph.core.services.ExportService;
-import org.devgateway.geoph.services.exporter.generators.CSVGenerator;
-import org.devgateway.geoph.services.exporter.generators.XLSGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +24,14 @@ public class ExportController {
     ExportService exportService;
 
     @Autowired
+    @Qualifier("xlsGenerator")
+    Generator xlsGenerator;
+
+    @Autowired
+    @Qualifier("csvGenerator")
+    Generator csvGenerator;
+
+    @Autowired
     @Qualifier("locationProjectDefinitions")
     DefinitionsProvider locationProjectDefProvider;
 
@@ -36,20 +43,20 @@ public class ExportController {
     @RequestMapping(value = "/data/xls", method = GET)
     public String getDataXLS(AppRequestParams filters) throws Exception {
         LOGGER.debug("XLS export called");
-        return exportService.exportLocationProject(locationProjectDefProvider.getColumnsDefinitions(), new XLSGenerator(), filters.getParameters());
+        return exportService.exportLocationProject(locationProjectDefProvider.getColumnsDefinitions(), xlsGenerator.getNewInstance(), filters.getParameters());
 
     }
 
     @RequestMapping(value = "/data/csv", method = GET)
     public String getDataCSV(AppRequestParams filters) throws Exception {
         LOGGER.debug("CSV export Called");
-        return exportService.exportLocationProject(locationProjectDefProvider.getColumnsDefinitions(), new CSVGenerator(), filters.getParameters());
+        return exportService.exportLocationProject(locationProjectDefProvider.getColumnsDefinitions(), csvGenerator.getNewInstance(), filters.getParameters());
     }
 
     @RequestMapping(value = "/indicator/{id}", method = GET)
     public String getCSV(@PathVariable final Long id) throws Exception {
         LOGGER.debug("CSV indicators export Called");
-        return exportService.exportIndicator(indicatorDefProvider.getColumnsDefinitions(), new CSVGenerator(), id);
+        return exportService.exportIndicator(indicatorDefProvider.getColumnsDefinitions(), csvGenerator.getNewInstance(), id);
     }
 
 

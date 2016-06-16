@@ -7,6 +7,7 @@ import org.devgateway.geoph.core.export.Generator;
 import org.devgateway.geoph.core.export.RawCell;
 import org.devgateway.geoph.core.export.RawRow;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -20,8 +21,9 @@ import static org.devgateway.geoph.core.constants.Constants.GEOPH_EXPORT_SHEET_N
 /**
  * Created by Sebastian Dimunzio on 6/9/2016.
  */
-
+@Component("xlsGenerator")
 public class XLSGenerator implements Generator {
+
     private static int START_ROW = 0;
     private static int START_COLUMN = 0;
 
@@ -31,12 +33,15 @@ public class XLSGenerator implements Generator {
     private Sheet sheet;
     private int rowNumber = 0;
 
-
     /*This service uses instance variables ensure*/
     public XLSGenerator() {
         wb = new HSSFWorkbook();
         sheet = wb.createSheet(GEOPH_EXPORT_SHEET_NAME);
         rowNumber = START_ROW;
+    }
+
+    public Generator getNewInstance(){
+        return new XLSGenerator();
     }
 
     private CellStyle getHeaderStyle() {
