@@ -54,5 +54,6 @@ public class Constants {
     public static final String DATE_FORMAT_MMDDYYYY = "MM/dd/yyyy";
     public static final String DATE_FORMAT_YYYYMMDD = "yyyy-MM-dd";
     public static final String DATE_FORMAT_DDMMYYYY = "dd/MM/yyyy";
+    public static final String DECIMAL_FORMAT = "#0.00";
 
 }

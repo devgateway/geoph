@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import static org.devgateway.geoph.core.constants.Constants.GEOPH_EXPORT_SHEET_NAME;
+
 /**
  * Created by Sebastian Dimunzio on 6/9/2016.
  */
@@ -33,7 +35,7 @@ public class XLSGenerator implements Generator {
     /*This service uses instance variables ensure*/
     public XLSGenerator() {
         wb = new HSSFWorkbook();
-        sheet = wb.createSheet("TEST");
+        sheet = wb.createSheet(GEOPH_EXPORT_SHEET_NAME);
         rowNumber = START_ROW;
     }
 
@@ -79,8 +81,14 @@ public class XLSGenerator implements Generator {
         if (value instanceof Date) {
             cell.setCellValue((Date) value);
         }
+        if (value instanceof Long) {
+            cell.setCellValue((Long) value);
+        }
         if (value instanceof Double) {
             cell.setCellValue((Double) value);
+        }
+        if (value instanceof Float) {
+            cell.setCellValue((Float) value);
         }
         if (value instanceof Boolean) {
             cell.setCellValue((Boolean) value);

@@ -3,23 +3,26 @@ package org.devgateway.geoph.services.exporter;
 import org.devgateway.geoph.core.export.Extractor;
 import org.devgateway.geoph.enums.TransactionTypeEnum;
 import org.devgateway.geoph.model.*;
+import org.devgateway.geoph.model.Currency;
 import org.hibernate.collection.internal.PersistentSet;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.stream.Collectors;
 
-import static org.devgateway.geoph.core.constants.Constants.CSV_RECORD_SEPARATOR;
+import static org.devgateway.geoph.core.constants.Constants.*;
 
 /**
  * Created by Sebastian Dimunzio on 6/9/2016.
  */
 public class Extractors {
 
-
     private static final char REPLACE_CHAR = '/';
+
+    private static final NumberFormat formatter = new DecimalFormat(DECIMAL_FORMAT);
 
     public static Extractor<String> stringExtractor(final String getter) {
         return new Extractor<String>() {
@@ -30,6 +33,44 @@ public class Extractors {
         };
     }
 
+    public static Extractor<Long> longExtractor(final String getter) {
+        return new Extractor<Long>() {
+            @Override
+            public Long extract(Map<String, Object> properties) {
+                if(properties.get(getter) != null && properties.get(getter) instanceof Long){
+                    return (Long) properties.get(getter);
+                }
+                return null;
+            }
+        };
+    }
+
+    public static Extractor<String> decimalExtractor(final String getter) {
+        return new Extractor<String>() {
+            @Override
+            public String extract(Map<String, Object> properties) {
+                String ret = null;
+                if(properties.get(getter) != null && properties.get(getter) instanceof Number){
+                    ret = formatter.format(properties.get(getter));
+                }
+                return ret;
+            }
+        };
+    }
+
+    public static Extractor<String> dateExtractor(final String getter) {
+        return new Extractor<String>() {
+            @Override
+            public String extract(Map<String, Object> properties) {
+                String ret = "";
+                DateFormat formatter = new SimpleDateFormat(DATE_FORMAT_MMDDYYYY);
+                if(properties.get(getter)!=null && properties.get(getter) instanceof Date){
+                    ret = formatter.format(properties.get(getter));
+                }
+                return ret;
+            }
+        };
+    }
 
     public static Extractor<List<String>> implementingAgencyExtractor(final String getter) {
         return new Extractor<List<String>>() {
@@ -74,22 +115,22 @@ public class Extractors {
         };
     }
 
-    public static Extractor<Double> commitmentExtractor(final String getter) {
+    public static Extractor<String> commitmentExtractor(final String getter) {
         return trxExtractor(getter, TransactionTypeEnum.COMMITMENT);
     }
 
-    public static Extractor<Double> disbursementExtractor(final String getter) {
+    public static Extractor<String> disbursementExtractor(final String getter) {
         return trxExtractor(getter, TransactionTypeEnum.DISBURSEMENT);
     }
 
-    public static Extractor<Double> expenditureExtractor(final String getter) {
+    public static Extractor<String> expenditureExtractor(final String getter) {
         return trxExtractor(getter, TransactionTypeEnum.EXPENDITURE);
     }
 
-    public static Extractor<Double> trxExtractor(final String getter, TransactionTypeEnum trxTypeEnum) {
-        return new Extractor<Double>() {
+    public static Extractor<String> trxExtractor(final String getter, TransactionTypeEnum trxTypeEnum) {
+        return new Extractor<String>() {
             @Override
-            public Double extract(Map<String, Object> properties) {
+            public String extract(Map<String, Object> properties) {
                 Object value = properties.get(getter);
                 List<Double> trxValues = new ArrayList<>();
                 if (value instanceof PersistentSet) {
@@ -104,8 +145,7 @@ public class Extractors {
                             .map(transaction -> transaction.getAmount())
                             .collect(Collectors.toList());
                 }
-                Double ret = trxValues.stream().reduce((p1, p2) -> p1 + p2).orElse(0D);
-                return ret;
+                return formatter.format(trxValues.stream().reduce((p1, p2) -> p1 + p2).orElse(0D));
             }
         };
     }
@@ -152,46 +192,6 @@ public class Extractors {
                 } else {
                     return "";
                 }
-            }
-        };
-    }
-
-
-    public static Extractor<Long> longExtractor(final String getter) {
-        return new Extractor<Long>() {
-            @Override
-            public Long extract(Map<String, Object> properties) {
-                Long ret = null;
-                if(properties.get(getter) instanceof Long){
-                    ret = (Long) properties.get(getter);
-                }
-                return ret;
-            }
-        };
-    }
-
-    public static Extractor<Double> doubleExtractor(final String getter) {
-        return new Extractor<Double>() {
-            @Override
-            public Double extract(Map<String, Object> properties) {
-                Double ret = null;
-                if(properties.get(getter) instanceof Double){
-                    ret = (Double) properties.get(getter);
-                }
-                return ret;
-            }
-        };
-    }
-
-    public static Extractor<Float> floatExtractor(String getter) {
-        return new Extractor<Float>() {
-            @Override
-            public Float extract(Map<String, Object> properties) {
-                Float ret = null;
-                if(properties.get(getter) instanceof Float){
-                    ret = (Float) properties.get(getter);
-                }
-                return ret;
             }
         };
     }
