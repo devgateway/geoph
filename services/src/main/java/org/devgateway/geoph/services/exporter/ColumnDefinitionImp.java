@@ -10,6 +10,7 @@ import org.devgateway.geoph.core.export.*;
 public class ColumnDefinitionImp<T> implements ColumnDefinition {
 
     String title;
+
     String getter;
 
     Formatter<T> formatter;

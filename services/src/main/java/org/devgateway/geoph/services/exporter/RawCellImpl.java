@@ -2,7 +2,7 @@ package org.devgateway.geoph.services.exporter;
 
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.devgateway.geoph.core.export.Formatter;
+import org.devgateway.geoph.core.export.ColumnDefinition;
 import org.devgateway.geoph.core.export.RawCell;
 
 /**
@@ -11,29 +11,32 @@ import org.devgateway.geoph.core.export.RawCell;
 public class RawCellImpl<T> implements RawCell {
 
     private T value;
-    private ColumnDefinitionImp<T> tColumnDefinition;
+    private ColumnDefinition<T> columnDefinition;
     private CellStyle cellStyle = null;
+
+    public RawCellImpl(ColumnDefinition<T> columnDefinition, T value) {
+        this.columnDefinition = columnDefinition;
+        this.value = value;
+
+    }
+
+    @Override
     public T getValue() {
         return value;
     }
 
     @Override
+    public String getFormattedValue() {
+        return columnDefinition.getFormatter().format(value);
+    }
+
+    @Override
     public CellStyle getCellStyle(Workbook wb) {
-        return tColumnDefinition.getCellStyle(wb);
+        return columnDefinition.getCellStyle(wb);
     }
 
     public void setValue(T value) {
         this.value = value;
     }
 
-    private String format(Formatter<T> formatter) {
-        return formatter.format(value);
-    }
-
-
-    public RawCellImpl(ColumnDefinitionImp<T> tColumnDefinition, T value) {
-        this.tColumnDefinition = tColumnDefinition;
-        this.value = value;
-
-    }
 }

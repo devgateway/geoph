@@ -10,15 +10,18 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class Stylists {
+
     @Value("${export.style.number}")
-    String numberFormat; //#,##0.0000
+    String numberFormat;
+
     @Value("${export.style.date}")
     String dateFormat;
+
     @Value("${export.style.amount}")
-    String amountFormat; //#,##0.0000
+    String amountFormat;
 
     @Value("${export.style.decimal}")
-    String decimalFormat; //#,##0.0000
+    String decimalFormat;
 
 
     public Stylist getDateStylist() {

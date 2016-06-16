@@ -10,7 +10,6 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import static org.devgateway.geoph.core.constants.Constants.*;
 
@@ -36,18 +35,8 @@ public class CSVGenerator implements Generator {
     @Override
     public void writeRow(RawRow rawRow) {
         List<String> dataList = new ArrayList<>();
-        rawRow.getCells().stream().forEach(cell -> dataList.add(getDataString(cell.getValue())));
+        rawRow.getCells().stream().forEach(cell -> dataList.add(cell.getFormattedValue()));
         csvDataIterable.add(dataList);
-    }
-
-    private String getDataString(Object value){
-        StringBuilder sb = new StringBuilder("");
-        if (value instanceof List) {
-            sb.append((String) ((List) value).stream().collect(Collectors.joining(COMMA)));
-        } else if (value != null){
-            sb.append((String) value);
-        }
-        return sb.toString();
     }
 
     @Override

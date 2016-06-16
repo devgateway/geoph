@@ -6,14 +6,10 @@ import org.devgateway.geoph.model.*;
 import org.devgateway.geoph.model.Currency;
 import org.hibernate.collection.internal.PersistentSet;
 
-import java.text.DateFormat;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static org.devgateway.geoph.core.constants.Constants.*;
+import static org.devgateway.geoph.core.constants.Constants.CSV_RECORD_SEPARATOR;
 
 /**
  * Created by Sebastian Dimunzio on 6/9/2016.
@@ -22,7 +18,6 @@ public class Extractors {
 
     private static final char REPLACE_CHAR = '/';
 
-    private static final NumberFormat formatter = new DecimalFormat(DECIMAL_FORMAT);
 
     public static Extractor<String> stringExtractor(final String getter) {
         return new Extractor<String>() {
@@ -45,27 +40,51 @@ public class Extractors {
         };
     }
 
-    public static Extractor<String> decimalExtractor(final String getter) {
-        return new Extractor<String>() {
+    public static Extractor<Integer> intExtractor(final String getter) {
+        return new Extractor<Integer>() {
             @Override
-            public String extract(Map<String, Object> properties) {
-                String ret = null;
+            public Integer extract(Map<String, Object> properties) {
+                if(properties.get(getter) != null && properties.get(getter) instanceof Integer){
+                    return (Integer) properties.get(getter);
+                }
+                return null;
+            }
+        };
+    }
+
+    public static Extractor<Float> floatExtractor(final String getter) {
+        return new Extractor<Float>() {
+            @Override
+            public Float extract(Map<String, Object> properties) {
+                Float ret = null;
                 if(properties.get(getter) != null && properties.get(getter) instanceof Number){
-                    ret = formatter.format(properties.get(getter));
+                    ret = (Float) properties.get(getter);
                 }
                 return ret;
             }
         };
     }
 
-    public static Extractor<String> dateExtractor(final String getter) {
-        return new Extractor<String>() {
+    public static Extractor<Double> doubleExtractor(final String getter) {
+        return new Extractor<Double>() {
             @Override
-            public String extract(Map<String, Object> properties) {
-                String ret = "";
-                DateFormat formatter = new SimpleDateFormat(DATE_FORMAT_MMDDYYYY);
+            public Double extract(Map<String, Object> properties) {
+                Double ret = null;
+                if(properties.get(getter) != null && properties.get(getter) instanceof Number){
+                    ret = (Double) properties.get(getter);
+                }
+                return ret;
+            }
+        };
+    }
+
+    public static Extractor<Date> dateExtractor(final String getter) {
+        return new Extractor<Date>() {
+            @Override
+            public Date extract(Map<String, Object> properties) {
+                Date ret = null;
                 if(properties.get(getter)!=null && properties.get(getter) instanceof Date){
-                    ret = formatter.format(properties.get(getter));
+                    ret = (Date) properties.get(getter);
                 }
                 return ret;
             }
@@ -115,22 +134,22 @@ public class Extractors {
         };
     }
 
-    public static Extractor<String> commitmentExtractor(final String getter) {
+    public static Extractor<Double> commitmentExtractor(final String getter) {
         return trxExtractor(getter, TransactionTypeEnum.COMMITMENT);
     }
 
-    public static Extractor<String> disbursementExtractor(final String getter) {
+    public static Extractor<Double> disbursementExtractor(final String getter) {
         return trxExtractor(getter, TransactionTypeEnum.DISBURSEMENT);
     }
 
-    public static Extractor<String> expenditureExtractor(final String getter) {
+    public static Extractor<Double> expenditureExtractor(final String getter) {
         return trxExtractor(getter, TransactionTypeEnum.EXPENDITURE);
     }
 
-    public static Extractor<String> trxExtractor(final String getter, TransactionTypeEnum trxTypeEnum) {
-        return new Extractor<String>() {
+    public static Extractor<Double> trxExtractor(final String getter, TransactionTypeEnum trxTypeEnum) {
+        return new Extractor<Double>() {
             @Override
-            public String extract(Map<String, Object> properties) {
+            public Double extract(Map<String, Object> properties) {
                 Object value = properties.get(getter);
                 List<Double> trxValues = new ArrayList<>();
                 if (value instanceof PersistentSet) {
@@ -145,7 +164,7 @@ public class Extractors {
                             .map(transaction -> transaction.getAmount())
                             .collect(Collectors.toList());
                 }
-                return formatter.format(trxValues.stream().reduce((p1, p2) -> p1 + p2).orElse(0D));
+                return trxValues.stream().reduce((p1, p2) -> p1 + p2).orElse(0D);
             }
         };
     }

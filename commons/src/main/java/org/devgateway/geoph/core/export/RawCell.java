@@ -10,6 +10,8 @@ public interface RawCell<T> {
 
     T getValue();
 
+    String getFormattedValue();
+
     CellStyle getCellStyle(Workbook wb);
 
 }
