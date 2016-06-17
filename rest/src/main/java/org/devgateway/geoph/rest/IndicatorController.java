@@ -1,14 +1,10 @@
 package org.devgateway.geoph.rest;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.poi.ss.usermodel.*;
 import org.devgateway.geoph.core.request.IndicatorRequest;
 import org.devgateway.geoph.core.response.IndicatorResponse;
-import org.devgateway.geoph.core.services.FilterService;
+import org.devgateway.geoph.core.services.ImportService;
 import org.devgateway.geoph.core.services.LayerService;
 import org.devgateway.geoph.model.Indicator;
-import org.devgateway.geoph.model.IndicatorDetail;
-import org.devgateway.geoph.model.Location;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.*;
-import java.util.Iterator;
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -37,12 +31,12 @@ public class IndicatorController {
 
     private final LayerService layerService;
 
-    private final FilterService filterService;
+    private final ImportService importService;
 
     @Autowired
-    public IndicatorController(LayerService layerService, FilterService filterService) {
-        this.filterService = filterService;
+    public IndicatorController(LayerService layerService, ImportService importService) {
         this.layerService = layerService;
+        this.importService = importService;
     }
 
     @RequestMapping(value = "/secure", method = GET)
@@ -64,111 +58,8 @@ public class IndicatorController {
     //@Secured("ROLE_READ")
     public IndicatorResponse putIndicator(IndicatorRequest indicatorParam,
                                           @RequestParam(value = "file", required = false) final MultipartFile file) {
-        LOGGER.debug("putIndicator");
-        IndicatorResponse indicator = new IndicatorResponse(layerService.saveIndicator(indicatorParam.getIndicator()));
-
-        if (file.getOriginalFilename().toLowerCase().endsWith(".csv") || file.getOriginalFilename().toLowerCase().endsWith(".txt")) {
-            try {
-                byte[] byteArr = file.getBytes();
-                if (byteArr.length > 0) {
-                    String line = "";
-                    BufferedReader br = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(byteArr)));
-                    generateIndicatorDetailFromCSV(indicator, br);
-                } else {
-                    indicator.addError("File is empty");
-                }
-            } catch (Exception e) {
-                LOGGER.error(e.getMessage());
-            }
-        } else if (file.getOriginalFilename().toLowerCase().endsWith(".xls") || file.getOriginalFilename().toLowerCase().endsWith(".xlsx")) {
-            try {
-                byte[] byteArr = file.getBytes();
-                InputStream inputStream = new ByteArrayInputStream(byteArr);
-                Workbook wb = WorkbookFactory.create(inputStream);
-                Sheet sheet = wb.getSheetAt(0);
-                generateIndicatorDetailFromSheet(indicator, sheet);
-            } catch (Exception e) {
-                indicator.addError("File is empty or corrupted");
-                LOGGER.error(e.getMessage());
-            }
-        } else {
-            indicator.addError("File type not allowed - It should be an excel or csv file");
-        }
-        return indicator;
-    }
-
-    private void generateIndicatorDetailFromCSV(IndicatorResponse indicator, BufferedReader br) throws IOException {
-        String line;
-        //Avoid labels
-        br.readLine();
-        int rowNumber = 0;
-        while ((line = br.readLine()) != null) {
-            rowNumber++;
-            String[] values = line.split(";");
-            Location location = null;
-            if (StringUtils.isNotBlank(values[1]) && StringUtils.isNumeric(values[1])) {
-                try {
-                    location = filterService.findLocationByCode(values[1]);
-                } catch (Exception e) {
-                    LOGGER.error(e.getMessage());
-                }
-            }
-            if (location != null) {
-                IndicatorDetail detail = new IndicatorDetail();
-                detail.setLocationId(location.getId());
-                detail.setValue(values[2]);
-                detail.setIndicatorId(indicator.getId().longValue());
-                layerService.saveIndicatorDetail(detail);
-            } else {
-                indicator.addError("Error at row #" + rowNumber + " - Missing/Wrong UACS code");
-            }
-        }
-    }
-
-    private void generateIndicatorDetailFromSheet(IndicatorResponse indicator, Sheet sheet) {
-        if (sheet.getLastRowNum() > 0) {
-            Iterator<Row> rowIterator = sheet.iterator();
-            //Avoid labels
-            rowIterator.next();
-            int rowNumber = 0;
-            while (rowIterator.hasNext()) {
-                rowNumber++;
-                IndicatorDetail detail = new IndicatorDetail();
-                Row row = rowIterator.next();
-                Cell locCode = row.getCell(1);
-                Cell value = row.getCell(2);
-                String strCode = "";
-                if (locCode != null && locCode.getCellType() == 0) {
-                    strCode += Double.valueOf(locCode.getNumericCellValue()).intValue();
-                } else if (locCode != null && locCode.getCellType() == 1) {
-                    strCode += locCode.getStringCellValue();
-                }
-                String strValue = "";
-                if (value != null && value.getCellType() == 0) {
-                    strValue += Double.valueOf(value.getNumericCellValue()).intValue();
-                } else if (value != null && value.getCellType() == 1) {
-                    strValue += value.getStringCellValue();
-                }
-                Location location = null;
-                if (StringUtils.isNotBlank(strCode) && StringUtils.isNumeric(strCode)) {
-                    try {
-                        location = filterService.findLocationByCode(strCode);
-                    } catch (Exception e) {
-                        LOGGER.error(e.getMessage());
-                    }
-                }
-                if (location != null) {
-                    detail.setLocationId(location.getId());
-                    detail.setValue(strValue);
-                    detail.setIndicatorId(indicator.getId().longValue());
-                    layerService.saveIndicatorDetail(detail);
-                } else {
-                    indicator.addError("Error at row #" + rowNumber + " - Missing/Wrong UACS code");
-                }
-            }
-        } else {
-            indicator.addError("File is empty");
-        }
+        LOGGER.debug("add indicator from file");
+        return importService.importIndicatorFromFile(indicatorParam, file);
     }
 
 }

@@ -4,7 +4,6 @@ import org.devgateway.geoph.core.repositories.GeoPhotoRepository;
 import org.devgateway.geoph.core.repositories.IndicatorDetailRepository;
 import org.devgateway.geoph.core.repositories.IndicatorRepository;
 import org.devgateway.geoph.core.repositories.LocationRepository;
-import org.devgateway.geoph.core.response.IndicatorResponse;
 import org.devgateway.geoph.core.services.LayerService;
 import org.devgateway.geoph.dao.GeoPhotoGeometryDao;
 import org.devgateway.geoph.dao.PostGisDao;
@@ -50,17 +49,6 @@ public class LayerServiceImpl implements LayerService {
 
     @Autowired
     LocationRepository locationRepository;
-
-
-    @Override
-    public Indicator saveIndicator(Indicator indicator) {
-        return indicatorRepository.save(indicator);
-    }
-
-    @Override
-    public IndicatorDetail saveIndicatorDetail(IndicatorDetail indicatorDetail) {
-        return indicatorDetailRepository.save(indicatorDetail);
-    }
 
     @Override
     public List<Indicator> getIndicatorsList() {
@@ -145,12 +133,5 @@ public class LayerServiceImpl implements LayerService {
             featureCollection.add(feature);
         }
         return featureCollection;
-    }
-
-    @Override
-    public IndicatorResponse getIndicatorResponse(Long id) {
-        IndicatorResponse response = new IndicatorResponse(indicatorRepository.findOne(id));
-        response.addDetails(indicatorDetailRepository.findByIndicatorId(id));
-        return response;
     }
 }
