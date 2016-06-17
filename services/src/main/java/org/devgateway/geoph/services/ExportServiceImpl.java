@@ -1,6 +1,7 @@
 package org.devgateway.geoph.services;
 
 import org.devgateway.geoph.core.export.ColumnDefinition;
+import org.devgateway.geoph.core.export.DefinitionsProvider;
 import org.devgateway.geoph.core.export.Generator;
 import org.devgateway.geoph.core.repositories.IndicatorDetailRepository;
 import org.devgateway.geoph.core.repositories.LocationRepository;
@@ -25,6 +26,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static org.devgateway.geoph.core.constants.Constants.*;
+
 /**
  * Created by Sebastian Dimunzio on 6/8/2016.
  */
@@ -32,8 +35,6 @@ import java.util.stream.Collectors;
 public class ExportServiceImpl implements ExportService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ExportService.class);
-
-    private Generator generator;
 
     @Autowired
     LocationRepository locationRepository;
@@ -44,12 +45,16 @@ public class ExportServiceImpl implements ExportService {
     @Autowired
     FileService fileService;
 
+    private Map<String, Object> toKeyValuePairs(Object instance, Class aClass, List methodsToInvoke) {
+        return toKeyValuePairs(instance, aClass, aClass.getSimpleName().toLowerCase(), methodsToInvoke);
+    }
 
-    private Map<String, Object> toKeyValuePairs(Object instance, Class className, String propertyName) {
+    private Map<String, Object> toKeyValuePairs(Object instance, Class aClass, String className, List methodsToInvoke) {
         Map<String, Object> ret = new HashMap<>();
-        ret.putAll(Arrays.stream(className.getDeclaredMethods())
+        ret.putAll(Arrays.stream(aClass.getDeclaredMethods())
+                .filter(method -> methodsToInvoke.contains(method.getName()))
                 .collect(Collectors.toMap(method -> {
-                    return propertyName + '.' + method.getName();
+                    return className + '.' + method.getName();
                 }, m -> {
                     try {
                         Object result = m.invoke(instance);
@@ -71,22 +76,21 @@ public class ExportServiceImpl implements ExportService {
         return row;
     }
 
-    public String exportLocationProject(List<ColumnDefinition> columnsDef, Generator generator, Parameters parameters) throws Exception {
+    public String exportLocationProject(DefinitionsProvider provider, Generator generator, Parameters parameters) throws Exception {
 
         LOGGER.info("Querying Locations");
         List<ProjectLocationDao> projectLocationList = locationRepository.findProjectLocationsByParams(parameters);
 
         LOGGER.info("Writing header");
-        generator.writeHeaders(columnsDef);
+        generator.writeHeaders(provider.getColumnsDefinitions());
 
         /*Collect data into a raw format*/
         projectLocationList.forEach(projectLocation -> {
-            Map<String, Object> properties = this.toKeyValuePairs(projectLocation.getLocation(), Location.class, Location.class.getSimpleName().toLowerCase());
-            properties.putAll(this.toKeyValuePairs(projectLocation.getLocation(), AbstractPersistable.class, Location.class.getSimpleName().toLowerCase()));
-            properties.putAll(this.toKeyValuePairs(projectLocation.getProject(), Project.class, Project.class.getSimpleName().toLowerCase()));
-            properties.putAll(this.toKeyValuePairs(projectLocation.getProject(), AbstractPersistable.class, Project.class.getSimpleName().toLowerCase()));
+            Map<String, Object> properties = this.toKeyValuePairs(projectLocation.getLocation(), Location.class, provider.getMethodsToInvoke().get(LOCATION_CLASSNAME));
+            properties.putAll(this.toKeyValuePairs(projectLocation.getLocation(), AbstractPersistable.class, LOCATION_CLASSNAME, provider.getMethodsToInvoke().get(ABSTRACT_PERSISTABLE_CLASSNAME)));
+            properties.putAll(this.toKeyValuePairs(projectLocation.getProject(), Project.class, provider.getMethodsToInvoke().get(PROJECT_CLASSNAME)));
             LOGGER.info("Writing row");
-            generator.writeRow(getRow(columnsDef, properties));
+            generator.writeRow(getRow(provider.getColumnsDefinitions(), properties));
         });
 
         LOGGER.info("Writing file");
@@ -100,19 +104,19 @@ public class ExportServiceImpl implements ExportService {
     }
 
     @Override
-    public String exportIndicator(List<ColumnDefinition> columnsDef, Generator generator, Long id) throws Exception {
+    public String exportIndicator(DefinitionsProvider provider, Generator generator, Long id) throws Exception {
         LOGGER.info("Querying Indicators");
         List<IndicatorDetail> indicatorDetails = indicatorDetailRepository.findByIndicatorId(id);
 
         LOGGER.info("Writing header");
-        generator.writeHeaders(columnsDef);
+        generator.writeHeaders(provider.getColumnsDefinitions());
 
         indicatorDetails.forEach(indicatorDetail -> {
             Location loc = locationRepository.findById(indicatorDetail.getLocationId());
-            Map<String, Object> properties = this.toKeyValuePairs(indicatorDetail, IndicatorDetail.class, IndicatorDetail.class.getSimpleName().toLowerCase());
-            properties.putAll(this.toKeyValuePairs(loc, Location.class, Location.class.getSimpleName().toLowerCase()));
+            Map<String, Object> properties = this.toKeyValuePairs(indicatorDetail, IndicatorDetail.class, provider.getMethodsToInvoke().get(INDICATOR_DETAIL_CLASSNAME));
+            properties.putAll(this.toKeyValuePairs(loc, Location.class, provider.getMethodsToInvoke().get(LOCATION_CLASSNAME)));
             LOGGER.info("Writing row");
-            generator.writeRow(getRow(columnsDef, properties));
+            generator.writeRow(getRow(provider.getColumnsDefinitions(), properties));
         });
 
         LOGGER.info("Writing file");

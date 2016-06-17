@@ -33,11 +33,12 @@ public class ConfigController {
         Map<String, Object> allConfig = new HashMap<>();
         allConfig.put("financialAmountPeriod", service.findFinancialAmountPeriod());
         allConfig.put("impPeriod", service.findImpPeriodBoundaries());
+        allConfig.put("grantPeriod", service.findGrantPeriodBoundaries());
         allConfig.put("impAgenciesCount", service.countImpAgencies());
         allConfig.put("fundingAgenciesCount", service.countFundingAgencies());
         allConfig.put("executingAgenciesCount", service.countExecutingAgencies());
-        allConfig.put("targetReachedPeriod", service.findTargetReachedPeriodBoundaries());
-        allConfig.put("grantPeriod", service.findGrantPeriodBoundaries());
+        allConfig.put("targetPhysicalProgressPeriod", service.getTargetPhysicalProgressPeriod());
+        allConfig.put("actualPhysicalProgressPeriod", service.getActualPhysicalProgressPeriod());
 
         return allConfig;
     }

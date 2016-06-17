@@ -55,7 +55,7 @@ public class DefaultProjectRepository implements ProjectRepository {
         TypedQuery<Project> query = getProjectTypedQuery(params);
         int count = query.getResultList().size();
 
-        List<Project> projectList = new ArrayList<>();
+        List<Project> projectList;
         if(params.getPageable()!=null) {
             projectList = query
                     .setFirstResult(params.getPageable().getOffset())
@@ -68,7 +68,7 @@ public class DefaultProjectRepository implements ProjectRepository {
                     .getResultList();
         }
 
-        return new PageImpl<Project>(projectList, params.getPageable(), count);
+        return new PageImpl<>(projectList, params.getPageable(), count);
     }
 
     @Override
@@ -118,7 +118,16 @@ public class DefaultProjectRepository implements ProjectRepository {
         return ret;    }
 
     @Override
-    public List<Float> getTargetReachedPeriodBoundaries() {
+    public List<Float> getTargetPhysicalProgressPeriod() {
+        List<Float> ret = new ArrayList<>();
+        Object[] o = (Object[]) em.createNativeQuery("select max(p.actual_owpa) as max_actual_owpa, min(p.actual_owpa) as min_actual_owpa from project p").getSingleResult();
+        ret.add(((Float)o[0]));
+        ret.add(((Float)o[1]));
+        return ret;
+    }
+
+    @Override
+    public List<Float> getActualPhysicalProgressPeriod() {
         List<Float> ret = new ArrayList<>();
         Object[] o = (Object[]) em.createNativeQuery("select max(p.reached_owpa) as max_reached_owpa, min(p.reached_owpa) as min_reached_owpa from project p").getSingleResult();
         ret.add(((Float)o[0]));
@@ -131,7 +140,7 @@ public class DefaultProjectRepository implements ProjectRepository {
         CriteriaQuery<Project> criteriaQuery = criteriaBuilder
                 .createQuery(Project.class);
         Root<Project> projectRoot = criteriaQuery.from(Project.class);
-        List<Predicate> predicates = new ArrayList();
+        List<Predicate> predicates = new ArrayList<>();
 
         FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);
 

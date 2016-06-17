@@ -7,7 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static org.devgateway.geoph.core.constants.Constants.INDICATOR_DETAIL_CLASSNAME;
+import static org.devgateway.geoph.core.constants.Constants.LOCATION_CLASSNAME;
 
 /**
  * @author dbianco
@@ -31,5 +36,20 @@ public class IndicatorDefinitions implements DefinitionsProvider {
         columnsDef.add(new ColumnDefinitionImp<String>("Indicator Value", regularStylist, Formatters.stringFormatter(), Extractors.stringExtractor("indicatordetail.getValue")));
 
         return columnsDef;
+    }
+
+    @Override
+    public Map<String, List<String>> getMethodsToInvoke(){
+        Map<String, List<String>> classMap = new HashMap<>();
+        List<String> indicatorDetailList = new ArrayList<>();
+        indicatorDetailList.add("getLocationId");
+        indicatorDetailList.add("getValue");
+        classMap.put(INDICATOR_DETAIL_CLASSNAME, indicatorDetailList);
+
+        List<String> locationList = new ArrayList<>();
+        locationList.add("getCode");
+        classMap.put(LOCATION_CLASSNAME, locationList);
+
+        return classMap;
     }
 }

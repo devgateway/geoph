@@ -1,5 +1,10 @@
 package org.devgateway.geoph.core.constants;
 
+import org.devgateway.geoph.model.IndicatorDetail;
+import org.devgateway.geoph.model.Location;
+import org.devgateway.geoph.model.Project;
+import org.springframework.data.jpa.domain.AbstractPersistable;
+
 /**
  * @author dbianco
  *         created on mar 10 2016.
@@ -34,26 +39,18 @@ public class Constants {
     public static final String INDICATOR_FILENAME = "NEDA_indicator_";
     public static final String EXPORT_DATA_FILENAME = "NEDA_data_";
 
-    public static final String[] EXPORT_ENGLISH_TITLE_ARRAY = {"Location ID", "UACS Code", "ADM Level", "Name",
-            "Latitude", "Longitude", "Region", "Province", "Project ID", "Title", "Implementing Agency",
-            "Executing Agency", "Funding Institution", "Original Currency (OC)", "Amount in OC", "Start Date",
-            "Closing Date", "Revised Closing Date", "Sectors", "Period of Performance Start",
-            "Period of Performance End", "Status", "Physical Status", "Physical Progress (Actual)",
-            "Physical Progress (Target)", "Grant Classification", "Total Disbursements", "Total Commitments"};
-
-    public static final String[] INDICATORS_ENGLISH_TITLE_ARRAY = {"Location Name", "UACS Code", "Indicator Value"};
-
     public static final String CSV_LINE_SEPARATOR = "line.separator";
     public static final char CSV_RECORD_SEPARATOR =  '|';
     public static final Character CSV_DOUBLE_QUOTE_CHAR = Character.valueOf('"');
 
     public static final String COMMA = ",";
     public static final String GEOPH_EXPORT_SHEET_NAME = "Geoph export";
-    public static final String PHILIPPINES_LANGUAJE = "ph";
-    public static final String DATE_FORMAT_MDYY_HMM = "m/d/yy h:mm";
     public static final String DATE_FORMAT_MMDDYYYY = "MM/dd/yyyy";
     public static final String DATE_FORMAT_YYYYMMDD = "yyyy-MM-dd";
     public static final String DATE_FORMAT_DDMMYYYY = "dd/MM/yyyy";
-    public static final String DECIMAL_FORMAT = "#0.00";
 
+    public static final String LOCATION_CLASSNAME = Location.class.getSimpleName().toLowerCase();
+    public static final String PROJECT_CLASSNAME = Project.class.getSimpleName().toLowerCase();
+    public static final String ABSTRACT_PERSISTABLE_CLASSNAME = AbstractPersistable.class.getSimpleName().toLowerCase();
+    public static final String INDICATOR_DETAIL_CLASSNAME = IndicatorDetail.class.getSimpleName().toLowerCase();
 }

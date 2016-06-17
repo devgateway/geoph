@@ -29,5 +29,7 @@ public interface ProjectRepository {
 
     List<String> getGrantPeriodBoundaries();
 
-    List<Float> getTargetReachedPeriodBoundaries();
+    List<Float> getTargetPhysicalProgressPeriod();
+
+    List<Float> getActualPhysicalProgressPeriod();
 }
