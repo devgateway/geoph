@@ -236,8 +236,9 @@ export default class ChartComponent extends React.Component {
 	}
   
 	render() {
-		var chartData = this.props.chartData;
-		var chartInfo;
+		let chartData = this.props.chartData;
+		let measure = this.props.measure;
+		let chartInfo;
 		if (this.props.chartType){
 			chartInfo = this.props.chartType=='bar'? this.parseDataForBarchart() : this.parseDataForPiechart();
 		} else {

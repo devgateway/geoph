@@ -2,6 +2,7 @@ import React from 'react';
 import { Link  } from 'react-router';
 import {Tabs,Tab} from 'react-bootstrap';
 import { connect } from 'react-redux'
+import { togglePanelExpand } from '../../actions/panel';
 require("./panel.scss");
 
 export default class Panel extends React.Component {
@@ -10,8 +11,10 @@ export default class Panel extends React.Component {
     super();
   }
 
-  testa(){
-
+  togglePanel(){
+    if (this.props.panel.expanded){
+      this.props.onTogglePanel();
+    }
   }
 
   render() {
@@ -19,13 +22,15 @@ export default class Panel extends React.Component {
 
       <div className={this.props.panel.expanded? "panel panel-expanded" : "panel"}>
         <ul>
-          <li className={(this.props.currentView=='/tools')?"active":""}>
-            <Link to="/tools" >             
-              <div className="icon tools"/>
-              <span>Tool View</span>
-            </Link>
+          <li className={(this.props.currentView=='/tools')?"panel-tab active":"panel-tab"}>
+            <div onClick={this.togglePanel.bind(this)}>
+              <Link to="/tools" >             
+                <div className="icon tools"/>
+                <span>Tool View</span>
+              </Link>
+            </div>
           </li>
-          <li className={(this.props.currentView=='/charts')?"active":""}>
+          <li className={(this.props.currentView=='/charts')?"panel-tab active":"panel-tab"}>
             <Link to="/charts">
               <div className="icon chart"/>
               <span>Chart View</span>
@@ -48,7 +53,11 @@ const mapStateToProps = (state, props) => {
 
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  return {}
+  return {
+    onTogglePanel: () => {
+      dispatch(togglePanelExpand());
+    }
+  }
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Panel);;

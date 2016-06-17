@@ -1,5 +1,9 @@
 @import '../../../stylesheets/base.scss';
 
+.chart-view{
+    height: calc(100% - 88px);
+}
+
 .chart{
 	padding-top: 10px;
     border-bottom: 1px;
@@ -38,7 +42,7 @@
 .charts-container{
 	overflow-y: scroll;
     overflow-x: hidden;
-    height: 63%;
+    height: calc(100% - 118px);
 }
 
 .no-data{
