@@ -1,17 +1,9 @@
 package org.devgateway.geoph.rest;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.StringUtils;
+
 import org.devgateway.geoph.core.services.AppMapService;
-import org.devgateway.geoph.core.services.GeoJsonService;
-import org.devgateway.geoph.dao.PropsHelper;
+import org.devgateway.geoph.core.services.ScreenCaptureService;
 import org.devgateway.geoph.model.AppMap;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxBinary;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxProfile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.File;
 import java.util.List;
 
-import static org.devgateway.geoph.util.KeyGenerator.getRandomKey;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -38,22 +28,21 @@ public class MapController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MapController.class);
 
-    private static final int FILENAME_LENGTH = 8;
+    private final AppMapService appMapService;
 
-    private final AppMapService service;
 
-    private final GeoJsonService geoJsonService;
+    private final ScreenCaptureService screenCaptureService;
+
+    @Autowired
+    public MapController(AppMapService appMapService, ScreenCaptureService screenCaptureService) {
+        this.appMapService = appMapService;
+        this.screenCaptureService = screenCaptureService;
+    }
 
     @RequestMapping(method = GET)
     public Page<AppMap> findMaps(@PageableDefault(page = 0, size = 20, sort = "id") final Pageable pageable) {
         LOGGER.debug("findMaps");
-        return service.findAll(pageable);
-    }
-
-    @Autowired
-    public MapController(AppMapService service, GeoJsonService geoJsonService) {
-        this.service = service;
-        this.geoJsonService = geoJsonService;
+        return appMapService.findAll(pageable);
     }
 
     @RequestMapping(value = "/save", method = POST)
@@ -62,48 +51,38 @@ public class MapController {
                           @RequestBody Object mapVariables) {
         LOGGER.debug("saveMap");
         AppMap appMap = new AppMap(name, description, mapVariables.toString());
-        return service.save(appMap);
+        return appMapService.save(appMap);
     }
 
     @RequestMapping(value = "/id/{id}", method = GET)
     public AppMap findMapById(@PathVariable final long id) {
         LOGGER.debug("findMapById");
-        return service.findById(id);
+        return appMapService.findById(id);
     }
 
     @RequestMapping(value = "/key/{key}", method = GET)
     public AppMap findMapByKey(@PathVariable final String key) {
         LOGGER.debug("findMapByKey");
-        return service.findByKey(key);
+        return appMapService.findByKey(key);
     }
 
 
     @RequestMapping(value = "/search/{name}", method = GET)
     public List<AppMap> findMapByName(@PathVariable final String name) {
         LOGGER.debug("findMapByKey");
-        return service.findByNameOrDescription(name);
+        return appMapService.findByNameOrDescription(name);
     }
 
     @RequestMapping(value = "/print", method = GET)
-    public String printPage(@RequestParam(value = "url", required = true) String url) {
-        String filename = null;
-        try {
-            if (StringUtils.isNotBlank(PropsHelper.getScreenFirefoxExe())) {
-                File pathToBinary = new File(PropsHelper.getScreenFirefoxExe());
-                FirefoxBinary ffBinary = new FirefoxBinary(pathToBinary);
-                FirefoxProfile firefoxProfile = new FirefoxProfile();
-                WebDriver driver = new FirefoxDriver(ffBinary, firefoxProfile);
-                driver.get(url);
-                Thread.sleep(PropsHelper.getScreenCaptureTimeToWait());
-                filename = getRandomKey(FILENAME_LENGTH) + ".png";
-                File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-                FileUtils.copyFile(scrFile, new File(PropsHelper.getScreenCaptureDir() + filename));
-                driver.close();
-            }
-        } catch (Exception e) {
-            LOGGER.error(e.getMessage());
-        }
-        return filename;
+    public String printPage(@RequestParam(value = "url", required = true) String url) throws Exception {
+        return screenCaptureService.captureUrlToImage(url);
+    }
+
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR)
+    public String handleAppException(Exception ex) {
+        LOGGER.error("Can't complete this request", ex);
+        return ex.getMessage();
     }
 
 }

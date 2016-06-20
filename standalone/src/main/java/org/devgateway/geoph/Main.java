@@ -1,6 +1,5 @@
 package org.devgateway.geoph;
 
-import org.devgateway.geoph.dao.PropsHelper;
 import org.devgateway.geoph.persistence.spring.PersistenceApplication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,10 +45,6 @@ public class Main {
 
         Environment environment = ctx.getBean(Environment.class);
         DeployProfile deployProfile = environment.getProperty("geoph.deploy.profile", DeployProfile.class, DeployProfile.DEV);
-        PropsHelper.setScreenCaptureDir(environment.getProperty("screen.capture.dir", "/tmp/"));
-        PropsHelper.setScreenCaptureTimeToWait(Long.parseLong(environment.getProperty("screen.capture.waiting.time", "25000")));
-        PropsHelper.setScreenFirefoxExe(environment.getProperty("screen.firefox.binary"));
-        PropsHelper.setExportDir(environment.getProperty("export.dir"));
         LOGGER.info("Deploying GeoPH using profile: {}", deployProfile);
         if (deployProfile == DeployProfile.DEV) {
             BootMetadata bootMetadata = ctx.getBean(BootMetadata.class);
