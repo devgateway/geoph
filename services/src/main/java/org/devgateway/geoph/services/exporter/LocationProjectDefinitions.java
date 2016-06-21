@@ -8,9 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+
+import static org.devgateway.geoph.core.constants.Constants.*;
 
 /**
  * Created by Sebastian Dimunzio on 6/13/2016.
@@ -73,5 +73,48 @@ public class LocationProjectDefinitions implements DefinitionsProvider {
         columnsDef.add(new ColumnDefinitionImp<Double>("Total Commitments", decimalStylist, Formatters.amountFormatter(), Extractors.commitmentExtractor("project.getTransactions")));
 
         return columnsDef;
+    }
+
+    @Override
+    public Map<String, List<String>> getMethodsToInvoke(){
+        Map<String, List<String>> classMap = new HashMap<>();
+        List<String> locationList = new ArrayList<>();
+        locationList.add("getCode");
+        locationList.add("getLevel");
+        locationList.add("getName");
+        locationList.add("getLatitude");
+        locationList.add("getLongitude");
+        locationList.add("getRegionId");
+        locationList.add("getProvinceId");
+        locationList.add("retrieveMunicipalityId");
+        classMap.put(LOCATION_CLASSNAME, locationList);
+
+        List<String> abstractPersistableList = new ArrayList<>();
+        abstractPersistableList.add("getId");
+        classMap.put(ABSTRACT_PERSISTABLE_CLASSNAME, abstractPersistableList);
+
+        List<String> projectList = new ArrayList<>();
+        projectList.add("getPhId");
+        projectList.add("getTitle");
+        projectList.add("getImplementingAgencies");
+        projectList.add("getExecutingAgency");
+        projectList.add("getFundingAgency");
+        projectList.add("getOriginalCurrency");
+        projectList.add("getTotalProjectAmount");
+        projectList.add("getStartDate");
+        projectList.add("getEndDate");
+        projectList.add("getRevisedClosingDate");
+        projectList.add("getSectors");
+        projectList.add("getPeriodPerformanceStart");
+        projectList.add("getPeriodPerformanceEnd");
+        projectList.add("getStatus");
+        projectList.add("getPhysicalStatus");
+        projectList.add("getActualOwpa");
+        projectList.add("getReachedOwpa");
+        projectList.add("getGrantClassification");
+        projectList.add("getTransactions");
+        classMap.put(PROJECT_CLASSNAME, projectList);
+
+        return classMap;
     }
 }

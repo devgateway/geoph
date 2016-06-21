@@ -65,8 +65,7 @@ public class DefaultLocationRepository implements LocationRepository {
     public List<Location> findLocationsByParentId(long parentId) {
         return em.createNativeQuery("Select l.* from location l " +
                         "inner join location_items li on l.id=li.items_id " +
-                        "where li.location_id = :parentId",
-                Location.class)
+                        "where li.location_id = :parentId", Location.class)
                 .setParameter("parentId", parentId)
                 .getResultList();
     }
@@ -82,7 +81,7 @@ public class DefaultLocationRepository implements LocationRepository {
         List<Selection<?>> multiSelect = new ArrayList<>();
         multiSelect.add(locationRoot);
 
-        List<Predicate> predicates = new ArrayList();
+        List<Predicate> predicates = new ArrayList<>();
         List<Expression<?>> groupByList = new ArrayList<>();
         groupByList.add(locationRoot);
 
@@ -118,7 +117,7 @@ public class DefaultLocationRepository implements LocationRepository {
         groupByList.add(locationRoot);
         groupByList.add(projectJoin);
 
-        List<Predicate> predicates = new ArrayList();
+        List<Predicate> predicates = new ArrayList<>();
         FilterHelper.filterLocationQuery(params, criteriaBuilder, locationRoot, predicates, projectJoin);
 
         Predicate predicate = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
@@ -141,7 +140,7 @@ public class DefaultLocationRepository implements LocationRepository {
         List<Selection<?>> multiSelect = new ArrayList<>();
         multiSelect.add(locationRoot);
 
-        List<Predicate> predicates = new ArrayList();
+        List<Predicate> predicates = new ArrayList<>();
         List<Expression<?>> groupByList = new ArrayList<>();
         groupByList.add(locationRoot);
 

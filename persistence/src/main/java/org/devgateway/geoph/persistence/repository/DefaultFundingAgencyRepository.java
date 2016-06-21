@@ -47,7 +47,7 @@ public class DefaultFundingAgencyRepository implements FundingAgencyRepository {
         Root<Project> projectRoot = criteriaQuery.from(Project.class);
 
         List<Selection<?>> multiSelect = new ArrayList<>();
-        List<Predicate> predicates = new ArrayList();
+        List<Predicate> predicates = new ArrayList<>();
         List<Expression<?>> groupByList = new ArrayList<>();
 
         Join<Project, Agency> agencyJoin = projectRoot.join(Project_.fundingAgency);
