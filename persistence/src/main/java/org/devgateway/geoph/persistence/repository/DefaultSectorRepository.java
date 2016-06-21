@@ -1,11 +1,12 @@
 package org.devgateway.geoph.persistence.repository;
 
-import org.devgateway.geoph.model.*;
+import org.devgateway.geoph.core.repositories.SectorRepository;
+import org.devgateway.geoph.core.request.Parameters;
+import org.devgateway.geoph.dao.SectorResultsDao;
+import org.devgateway.geoph.model.Project;
+import org.devgateway.geoph.model.Project_;
+import org.devgateway.geoph.model.Sector;
 import org.devgateway.geoph.persistence.util.FilterHelper;
-import org.devgateway.geoph.util.FlowTypeEnum;
-import org.devgateway.geoph.util.Parameters;
-import org.devgateway.geoph.util.TransactionStatusEnum;
-import org.devgateway.geoph.util.TransactionTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,9 +47,9 @@ public class DefaultSectorRepository implements SectorRepository {
     }
 
     @Override
-    public List<Object> findFundingBySector(Parameters params) {
+    public List<SectorResultsDao> findFundingBySector(Parameters params, int trxTypeId, int trxStatusId) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-        CriteriaQuery<Object> criteriaQuery = criteriaBuilder.createQuery();
+        CriteriaQuery<SectorResultsDao> criteriaQuery = criteriaBuilder.createQuery(SectorResultsDao.class);
 
         Root<Project> projectRoot = criteriaQuery.from(Project.class);
 
@@ -58,13 +59,11 @@ public class DefaultSectorRepository implements SectorRepository {
 
         Join<Project, Sector> sectorJoin = projectRoot.join(Project_.sectors);
         multiSelect.add(sectorJoin);
-        multiSelect.add(criteriaBuilder.countDistinct(projectRoot).alias("projectCount"));
+        multiSelect.add(criteriaBuilder.countDistinct(projectRoot));
         groupByList.add(sectorJoin);
 
-        for(TransactionTypeEnum t:TransactionTypeEnum.values()){
-            for(TransactionStatusEnum s:TransactionStatusEnum.values()){
-                FilterHelper.addTransactionJoin(criteriaBuilder, multiSelect, projectRoot, t.getId(), s.getId());
-            }
+        if (trxTypeId != 0 && trxStatusId != 0) {
+            FilterHelper.addTransactionJoin(criteriaBuilder, multiSelect, projectRoot, trxTypeId, trxStatusId);
         }
 
         FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);
@@ -74,14 +73,14 @@ public class DefaultSectorRepository implements SectorRepository {
 
 
         criteriaQuery.groupBy(groupByList);
-        TypedQuery<Object> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
+        TypedQuery<SectorResultsDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
 
         return query.getResultList();
     }
 
-    private List<Sector> sectorInitializer(List<Sector> sectors){
-        for(Sector sector:sectors){
-            if(sector.getItems()!=null){
+    private List<Sector> sectorInitializer(List<Sector> sectors) {
+        for (Sector sector : sectors) {
+            if (sector.getItems() != null) {
                 sectorInitializer(sector.getItems());
             }
         }

@@ -1,8 +1,8 @@
 package org.devgateway.geoph.security;
 
+import org.devgateway.geoph.core.services.SecurityService;
+import org.devgateway.geoph.core.services.TokenService;
 import org.devgateway.geoph.security.auth.*;
-import org.devgateway.geoph.services.SecurityService;
-import org.devgateway.geoph.services.TokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static org.devgateway.geoph.util.Constants.PASS_ENCODE;
+import static org.devgateway.geoph.core.constants.Constants.PASS_ENCODE;
 
 /**
  * Created by Sebastian Dimunzio on Jun 6, 2014
@@ -37,7 +37,7 @@ import static org.devgateway.geoph.util.Constants.PASS_ENCODE;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
-@ComponentScan(basePackages = { "org.devgateway.geoph.security.*" })
+@ComponentScan(basePackages = {"org.devgateway.geoph.security.*"})
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SecurityConfig.class);

@@ -29,7 +29,7 @@ import java.util.Set;
         ),
         @NamedQuery(
                 name = "findSectorsByLevel",
-                query = "from Sector s where s.level = :level"
+                query = "from Sector s where s.level = :level order by name asc"
         )
 })
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)

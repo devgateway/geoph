@@ -1,8 +1,8 @@
 package org.devgateway.geoph;
 
+import org.devgateway.geoph.core.services.SecurityService;
 import org.devgateway.geoph.model.security.GrantedAuthority;
 import org.devgateway.geoph.model.security.SystemUser;
-import org.devgateway.geoph.services.SecurityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +19,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static org.devgateway.geoph.util.Constants.PASS_ENCODE;
 import static java.lang.Math.random;
 import static java.lang.System.currentTimeMillis;
 import static java.util.concurrent.TimeUnit.DAYS;
+import static org.devgateway.geoph.core.constants.Constants.PASS_ENCODE;
 
 /**
  * @author dbianco
@@ -41,7 +41,6 @@ public class BootMetadata {
 
     @Autowired
     SecurityService securityService;
-
 
 
     protected void boot() {
@@ -75,12 +74,12 @@ public class BootMetadata {
                 "/sql/basic-data/geophoto_source.sql",
                 "/sql/basic-data/geophoto_geometry.sql",
                 "/sql/basic-data/hibernate_sequence.sql"
-                );
+        );
 
         //The princess is in another castle
 
         GrantedAuthority readPermission = securityService.saveGrantedAuthority(
-                new GrantedAuthority("Login, Search and View Layers", "READ" ));
+                new GrantedAuthority("Login, Search and View Layers", "READ"));
         List<GrantedAuthority> commonAuthorities = new ArrayList<>();
         commonAuthorities.add(readPermission);
 
@@ -102,7 +101,7 @@ public class BootMetadata {
         ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
         populator.setContinueOnError(false);
         populator.setIgnoreFailedDrops(false);
-        for(String script: scriptList) {
+        for (String script : scriptList) {
             populator.addScript(new ClassPathResource(script));
         }
 

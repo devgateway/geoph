@@ -16,7 +16,7 @@ import java.io.Serializable;
 @NamedQueries({
         @NamedQuery(
                 name = "findAllPhysicalStatus",
-                query = "from physical_status s"
+                query = "from physical_status s order by name asc"
         ),
         @NamedQuery(
                 name = "findPhysicalStatusByCode",

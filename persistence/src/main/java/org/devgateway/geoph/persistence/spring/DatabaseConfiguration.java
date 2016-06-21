@@ -14,10 +14,6 @@
  */
 package org.devgateway.geoph.persistence.spring;
 
-import java.sql.Connection;
-
-import javax.naming.NamingException;
-
 import org.apache.log4j.Logger;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
@@ -29,6 +25,9 @@ import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.mock.jndi.SimpleNamingContextBuilder;
+
+import javax.naming.NamingException;
+import java.sql.Connection;
 
 /**
  * @author mpostelnicu

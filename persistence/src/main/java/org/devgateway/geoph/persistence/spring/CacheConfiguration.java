@@ -40,6 +40,7 @@ public class CacheConfiguration {
         caches.add(new ConcurrentMapCache("locationsByCode"));
         caches.add(new ConcurrentMapCache("locationsById"));
         caches.add(new ConcurrentMapCache("locationsByParams"));
+        caches.add(new ConcurrentMapCache("findLocationsByParamsTypeStatus"));
         caches.add(new ConcurrentMapCache("countLocationProjectsByParams"));
         caches.add(new ConcurrentMapCache("shapesWithDetail"));
 

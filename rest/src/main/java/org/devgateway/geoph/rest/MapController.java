@@ -1,23 +1,9 @@
 package org.devgateway.geoph.rest;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.*;
-import org.devgateway.geoph.model.*;
-import org.devgateway.geoph.services.AppMapService;
-import org.devgateway.geoph.services.FilterService;
-import org.devgateway.geoph.services.GeoJsonService;
-import org.devgateway.geoph.services.ProjectService;
-import org.devgateway.geoph.util.Parameters;
-import org.devgateway.geoph.util.PropsHelper;
-import org.devgateway.geoph.util.TransactionTypeEnum;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxBinary;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxProfile;
+
+import org.devgateway.geoph.core.services.AppMapService;
+import org.devgateway.geoph.core.services.ScreenCaptureService;
+import org.devgateway.geoph.model.AppMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.List;
 
-import static org.devgateway.geoph.util.Constants.*;
-import static org.devgateway.geoph.util.Constants.FILTER_GENDER_RESPONSIVENESS;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -44,31 +25,24 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RequestMapping(value = "/maps")
 public class MapController {
 
+
     private static final Logger LOGGER = LoggerFactory.getLogger(MapController.class);
 
-    public static final String COMMA = ",";
+    private final AppMapService appMapService;
 
-    private final AppMapService service;
 
-    private final FilterService filterService;
-
-    private final ProjectService projectService;
-
-    private final GeoJsonService geoJsonService;
-
-    @RequestMapping(method = GET)
-    public Page<AppMap> findMaps( @PageableDefault(page = 0, size = 20, sort = "id") final Pageable pageable) {
-        LOGGER.debug("findMaps");
-        return service.findAll(pageable);
-    }
+    private final ScreenCaptureService screenCaptureService;
 
     @Autowired
-    public MapController(AppMapService service, FilterService filterService,
-                         ProjectService projectService, GeoJsonService geoJsonService) {
-        this.service = service;
-        this.filterService = filterService;
-        this.projectService = projectService;
-        this.geoJsonService = geoJsonService;
+    public MapController(AppMapService appMapService, ScreenCaptureService screenCaptureService) {
+        this.appMapService = appMapService;
+        this.screenCaptureService = screenCaptureService;
+    }
+
+    @RequestMapping(method = GET)
+    public Page<AppMap> findMaps(@PageableDefault(page = 0, size = 20, sort = "id") final Pageable pageable) {
+        LOGGER.debug("findMaps");
+        return appMapService.findAll(pageable);
     }
 
     @RequestMapping(value = "/save", method = POST)
@@ -77,29 +51,30 @@ public class MapController {
                           @RequestBody Object mapVariables) {
         LOGGER.debug("saveMap");
         AppMap appMap = new AppMap(name, description, mapVariables.toString());
-        return service.save(appMap);
+        return appMapService.save(appMap);
     }
 
     @RequestMapping(value = "/id/{id}", method = GET)
     public AppMap findMapById(@PathVariable final long id) {
         LOGGER.debug("findMapById");
-        return service.findById(id);
+        return appMapService.findById(id);
     }
 
     @RequestMapping(value = "/key/{key}", method = GET)
     public AppMap findMapByKey(@PathVariable final String key) {
         LOGGER.debug("findMapByKey");
-        return service.findByKey(key);
+        return appMapService.findByKey(key);
     }
 
 
     @RequestMapping(value = "/search/{name}", method = GET)
-    public List <AppMap> findMapByName(@PathVariable final String name) {
+    public List<AppMap> findMapByName(@PathVariable final String name) {
         LOGGER.debug("findMapByKey");
-        return service.findByNameOrDescription(name);
+        return appMapService.findByNameOrDescription(name);
     }
 
     @RequestMapping(value = "/print", method = GET)
+<<<<<<< HEAD
     public String printPage(@RequestParam(value = "url", required = true) String url){
         String filename = null;
         try {
@@ -373,15 +348,17 @@ public class MapController {
         style.setBorderLeft(CellStyle.BORDER_THIN);
         style.setWrapText(true);
         return style;
+=======
+    public String printPage(@RequestParam(value = "url", required = true) String url) throws Exception {
+        return screenCaptureService.captureUrlToImage(url);
+>>>>>>> master
     }
 
-    private static String getRandomKey(){
-        Random r = new Random();
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < 7; i++) {
-            sb.append(ALPHABET.charAt(r.nextInt(ALPHABET_NUMBER)));
-        }
-        return sb.toString().toLowerCase();
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR)
+    public String handleAppException(Exception ex) {
+        LOGGER.error("Can't complete this request", ex);
+        return ex.getMessage();
     }
 
 }
