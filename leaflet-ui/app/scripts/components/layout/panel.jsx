@@ -19,10 +19,9 @@ export default class Panel extends React.Component {
 
   render() {
     return (
-
       <div className={this.props.panel.expanded? "panel panel-expanded" : "panel"}>
         <ul>
-          <li className={(this.props.currentView=='/tools')?"panel-tab active":"panel-tab"}>
+          <li className={(this.props.currentView=='/' || this.props.currentView=='/tools')?"panel-tab active":"panel-tab"}>
             <div onClick={this.togglePanel.bind(this)}>
               <Link to="/tools" >             
                 <div className="icon tools"/>

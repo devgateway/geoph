@@ -15,7 +15,7 @@
 	height: calc(100% - 141px);
 	margin-bottom: 0px !important;
 	>ul{
-		@include margin(27px,initial,3px,10px)
+		@include margin(0px,initial,3px,10px)
 		@include list-horizontal()
 		padding:0px !important;
 		

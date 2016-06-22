@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Plotly  from 'react-plotlyjs';
 import { connect } from 'react-redux';
-import { Button, Label } from 'react-bootstrap';
+import { ButtonGroup, Button, Label } from 'react-bootstrap';
 import * as Constants from '../../constants/constants';
 
 require("./charts.scss");
@@ -146,7 +146,7 @@ export default class ChartComponent extends React.Component {
 			        y: values,    
 			        //name: meas,
 					"marker":{  
-					 	"color": '#93C364'
+					 	"color": '#2b9ff6'
 					}
 				}
 			],
@@ -181,14 +181,12 @@ export default class ChartComponent extends React.Component {
 		}).slice(1);
 	}
 
-	setChartType(ev){
-		//this.setState({'chartType': ev.target.value});
-		this.props.onChangeType(this.props.chart, ev.target.value);
+	setChartType(type){
+		this.props.onChangeType(this.props.chart, type);
 	}
 
-	setMeasType(ev){
-		//this.setState({'measType': ev.target.value});
-		this.props.onChangeMeasure(this.props.chart, ev.target.value);
+	setMeasType(type){
+		this.props.onChangeMeasure(this.props.chart, type);
 	}
 
 	setItemsToShow(value){ 
@@ -246,43 +244,51 @@ export default class ChartComponent extends React.Component {
 		}
 		return (
 	    	<div className="chart" ref="chartContainer">
-	    		<div className="chart-title">
-	    			{this.props.title || ""}
-	    		</div>
-	    		{this.props.onChangeType?
-	    			<div className="chart-type-selector">
-	    				<div className="chart-type-option"><input type="radio" 
-							value='bar'
-							checked={chartData.chartType ==='bar'} 
-							onChange={this.setChartType.bind(this)} />Bar chart
-                        </div>
-                        <div className="chart-type-option"><input type="radio"  
-							value='pie' 
-							checked={chartData.chartType === 'pie'} 
-							onChange={this.setChartType.bind(this)} />Pie chart
-                        </div>					  
-					</div>
-	    		: null}  
+	    		{this.props.title?
+		    		<div className="chart-title">
+		    			<div className="chart-title-icon"></div>
+		    			<div className="chart-title-text">
+		    				<div className="title">
+		    					{this.props.title || ""}
+		    				</div>
+		    				<div className="subtitle"> 
+		    					{this.props.measure? this.props.measure.type+" "+this.props.measure.measure : ""}
+		    				</div>
+		    			</div>		    			
+		    		</div>
+		    	: <div className="chart-title"/>}
 	    		{this.props.onChangeItemToShow?
 	    			<div className="chart-items-selector">
-	    				<Label className={chartData.itemsToShow > Constants.CHART_ITEMS_STEP_AMOUNT? "item-qty-selector" : "item-qty-selector-disabled"}
-	    					bsStyle="info" onClick={this.setItemsToShow.bind(this, "less")}>–{Constants.CHART_ITEMS_STEP_AMOUNT}</Label>
-	    				<Label className={chartData.data && (chartData.itemsToShow < chartData.data.length)? "item-qty-selector" : "item-qty-selector-disabled"} 
-	    					bsStyle="info" onClick={this.setItemsToShow.bind(this, "more")}>+{Constants.CHART_ITEMS_STEP_AMOUNT}</Label>
+	    				<Button disabled={chartData.itemsToShow > Constants.CHART_ITEMS_STEP_AMOUNT? false : true} onClick={this.setItemsToShow.bind(this, "less")}>
+	    					<span>{"<"}</span><span className="less-items">less</span>
+	    				</Button>
+	    				<Button disabled={chartData.data && (chartData.itemsToShow < chartData.data.length)? false : true} onClick={this.setItemsToShow.bind(this, "more")}>
+	    					<span className="more-items">more</span><span>{">"}</span>
+	    				</Button>
 	    			</div>
 	    		: null}	
+	    		{this.props.onChangeType?
+	    			<div className="chart-type-selector">
+	    				<div className="toggle-button-pair">
+						    <div className={chartData.chartType ==='bar'? "active" : ""} onClick={this.setChartType.bind(this, 'bar')} title="Bar Chart">
+						    	<div className={chartData.chartType ==='bar'? "chart-bar-icon" : "chart-bar-icon-disabled"}></div>
+						    </div>
+						    <div className={chartData.chartType ==='pie'? "active" : ""} onClick={this.setChartType.bind(this, 'pie')} title="Pie Chart">
+						    	<div className={chartData.chartType ==='pie'? "chart-pie-icon" : "chart-pie-icon-disabled"}></div>
+						    </div>
+						</div>	    			    						  
+					</div>
+	    		: null}  
 	    		{this.props.onChangeMeasure?
 	    			<div className="chart-measure-selector">
-	    				<div className="chart-type-option"><input type="radio" 
-							value='funding'
-							checked={chartData.measureType ==='funding'} 
-							onChange={this.setMeasType.bind(this)} />Funding
-                        </div>
-                        <div className="chart-type-option"><input type="radio"  
-							value='projectCount' 
-							checked={chartData.measureType === 'projectCount'} 
-							onChange={this.setMeasType.bind(this)} />Project Count
-                        </div>					  
+	    				<div className="toggle-button-pair">
+						    <div className={chartData.measureType ==='funding'? "active" : ""} onClick={this.setMeasType.bind(this, 'funding')} title="Funding">
+						    	<div className={chartData.measureType ==='funding'? "chart-funding-icon" : "chart-funding-icon-disabled"}></div>
+						    </div>
+						    <div className={chartData.measureType ==='projectCount'? "active" : ""} onClick={this.setMeasType.bind(this, 'projectCount')} title="Project Count">
+						    	<div className={chartData.measureType ==='projectCount'? "chart-projects-icon" : "chart-projects-icon-disabled"}></div>
+						    </div>
+						</div>		  
 					</div>
 	    		: null}	
 	    		{!this.hasValuesOK(chartInfo)?
