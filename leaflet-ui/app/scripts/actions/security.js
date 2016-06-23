@@ -18,12 +18,10 @@ export const login = (options,getState) => {
 
 
 const loginSuccess=(info)=>{
-  debugger;
   return {type:Constants.LOGIN_SUCCESS,info}
 }
 
 const loginFailed=(error)=>{
-  debugger;
   return {type:Constants.LOGIN_FAILURE,error}
 }
 

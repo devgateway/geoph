@@ -6,40 +6,6 @@ import { Link } from 'react-router'
 import BaseForm from './baseForm.jsx'
 
 var Dropzone = require('react-dropzone');
-/*
-class BaseForm extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {data: Map()};
-    }
-
-    handleChangeValue(property, value) {
-        this.props.onPropertyChange(property, value);
-        let newErrors = Object.assign({}, this.props.errors);
-        this.setErrors(this.validateField(newErrors, property, value));
-
-    }
-
-    validateValue(value = '') {
-        if (typeof value == "string") {
-            return (value.trim() != '' && value.length > 0)
-        } else {
-            return value != null && typeof value != 'undefined';
-        }
-    }
-
-    validateField(errors, property, value) {
-        let newErrors = Object.assign({}, errors)
-        newErrors[property] = !this.validateValue(value);
-        return newErrors;
-    }
-
-    setErrors(errors) {
-        this.props.onValidate(errors);
-    }
-
-}*/
 
 class SelectTemplate extends BaseForm {
 
@@ -47,7 +13,7 @@ class SelectTemplate extends BaseForm {
         return (
             <form>
                 <div className="form-group">
-                    <label for="template">Template</label>
+                    <label >Template</label>
                     <select value={this.props.template} className="form-control" name="template"
                             onChange={(e)=>{this.handleChangeValue('template',e.target.value)}}>
                         <option value="region">Regional</option>
@@ -74,7 +40,8 @@ class AddIndicator extends BaseForm {
     }
 
     submit() {
-        var errors = this.validate();
+        
+          var errors = this.validate();
         let hasError = false;
         Object.keys(errors).forEach(key => hasError = hasError || errors[key]);
         if (hasError) {
@@ -95,7 +62,7 @@ class AddIndicator extends BaseForm {
     }
 
     onDrop(files) {
-        debugger;
+        
         this.handleChangeValue('file', files[0])
     }
 
@@ -104,13 +71,13 @@ class AddIndicator extends BaseForm {
         return (
             <form id="add-indicator-form">
                 <div className={errors.name?"form-group has-error":"form-group"}>
-                    <label for="name">Name</label>
+                    <label >Name</label>
                     <input value={this.props.name}
                            onChange={(e)=>{this.handleChangeValue('name',e.target.value)}} type="name"
                            className="form-control" id="name" placeholder="Type Name"/>
                 </div>
                 <div className={errors.color?"form-group has-error":"form-group"}>
-                    <label for="name">Default Color</label>
+                    <label >Default Color</label>
                     <ul className="colors pull-right">
                         <li className={this.props.css=="red"?"scheme red active":"scheme red "}
                             onClick={()=>{this.handleChangeValue('css','red')}}></li>
@@ -125,7 +92,7 @@ class AddIndicator extends BaseForm {
                     </ul>
                 </div>
                 <div className={errors.file?"form-group has-error":"form-group"}>
-                    <label for="file">File</label>
+                    <label>File</label>
 
                     <Dropzone className="drop-zone" multiple={false} onDrop={this.onDrop.bind(this)}>
                         <div>{this.props.file ? this.props.file.name : <div>Drop a file or click this area</div>}</div>
@@ -180,6 +147,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 }
 
 const mapStateToProps = (state, props) => {
+     
     const {indicators} = state;
     return {...indicators.toObject()
 }

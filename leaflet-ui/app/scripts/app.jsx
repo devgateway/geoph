@@ -19,9 +19,14 @@ import routes from './routes';
 
 import AjaxUtil from './util/ajax';
 import Setting from './util/settings';
-
+import Connector from './connector/connector.js';
 
 const store = configureStore({}, browserHistory);
+
+//TODO:not sure if this is the best way.
+Connector.setStore(store);
+
+
 const history = syncHistoryWithStore(hashHistory, store);
 
 AjaxUtil.get('conf/settings.json').then((conf)=>{
@@ -30,7 +35,7 @@ AjaxUtil.get('conf/settings.json').then((conf)=>{
 
   i18next.use(XHR).init(options, (err, t) => {
   	if(err){
-  		console.log(err);
+  		  console.log(err);
   	}
 
     render((

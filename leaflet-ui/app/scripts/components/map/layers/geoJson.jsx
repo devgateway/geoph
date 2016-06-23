@@ -21,7 +21,7 @@ import React from 'react';
   componentWillMount() {
     super.componentWillMount();
     this.props.map.on('zoomend',function(){
-      //console.log(this.getBounds());
+      console.log(this.getBounds());
     })
     this._create();
 

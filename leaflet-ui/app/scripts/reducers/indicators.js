@@ -14,6 +14,14 @@ const indicatorWizard = (state = new Map({step:'template',template:'region',name
     case Constants.UPDATE_ERRORS:
       return state.set('errors',action.errors);
     
+    case Constants.INDICATOR_UPLOAD_FAILURE:
+      
+      return state.set('errors',action.errors);
+    
+    case Constants.INDICATOR_UPLOAD_SUCCESS:
+      
+      return state.set('errors',action.errors);
+    
     default:
       return state
   }

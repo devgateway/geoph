@@ -1,7 +1,10 @@
 import Axios from 'axios';
 import {API_BASE_URL}  from '../constants/constants';
 import Settings from '../util/settings';
+import {connect } from 'react-redux'
+import Store from '../store/configureStore.js';
 import Qs from 'qs';
+
 
 console.log(Settings);
 
@@ -12,6 +15,11 @@ const DELETE= 'DELETE';
 
 class Connector {
 
+
+	setStore(store){
+		debugger;
+		this.store=store;
+	}
 
 	get(url, params = {}) {
 		return new Promise(
@@ -149,14 +157,15 @@ class Connector {
 			this.call(POST,url, {username:username,password:password}).then((data) => {
 				resolve(data);	
 			})
-			.catch((response)=>{
-				reject(response.status);	
+			.catch((error)=>{
+				reject(error);	
 			})
 		})
 	}
 
 
 	uploadIndicator(options){
+		debugger;
 		const URL=Settings.get('API',API_BASE_URL) + Settings.get('API','INDICATOR_UPLOAD');
 
 			return new Promise( (resolve, reject) => {
@@ -169,14 +178,14 @@ class Connector {
 			data.append('file',file);
 			var config = {
 				progress: function(progressEvent) {
-					debugger;
+					
 					var percentCompleted = progressEvent.loaded / progressEvent.total;
 				}
 			};
 
 			Axios.post(URL, data, config)
 				.then(function (res) {
-					resolve(data);
+					resolve(res.data);
 				})
 				.catch(function (res) {
 					debugger;
@@ -220,6 +229,7 @@ class Connector {
 }
 
 
-const connector=new Connector();
-
-export default connector;
+if (!window.__connector){ //singleton connector 
+	window.__connector=new Connector();
+}
+export default window.__connector;

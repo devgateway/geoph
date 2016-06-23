@@ -14,7 +14,7 @@
 		"LOGIN":"/login",
 		"PROJECT_GEOJSON":"/geodata/${level}/projects",
 		"FUNDING_GEOJSON":"/geodata/stats/region/funding",
-	  	"INDICATOR_UPLOAD":"/layers/indicators",
+	  	"INDICATOR_UPLOAD":"/indicators/upload",
 		"FILTER_LIST": {
 			"development": {
 				"st": "/filters/sector",
