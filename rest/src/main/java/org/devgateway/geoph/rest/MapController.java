@@ -78,6 +78,11 @@ public class MapController {
         return screenCaptureService.captureUrlToImage(url);
     }
 
+    @RequestMapping(value = "/pdf", method = GET)
+    public String convertPageToPDF(@RequestParam(value = "url", required = true) String url) throws Exception {
+        return screenCaptureService.captureUrlToPDF(url);
+    }
+
     @ExceptionHandler(Exception.class)
     @ResponseStatus(org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR)
     public String handleAppException(Exception ex) {
@@ -85,4 +90,6 @@ public class MapController {
         return ex.getMessage();
     }
 
+
 }
+
