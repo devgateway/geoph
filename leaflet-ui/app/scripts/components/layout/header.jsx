@@ -4,6 +4,7 @@ import {LangSwitcher} from '../lan/'
 import FilterPopup from '../filter/filterPopup'
 import Settings from '../controls/settings'
 import Basemap from '../map/baseMap/baseMap'
+import SaveMap from '../save-print/'
 
 require('./header.scss');
 export default class Header extends React.Component {
@@ -25,6 +26,7 @@ export default class Header extends React.Component {
             <Settings />
             <Basemap />
             <LangSwitcher/>
+            <SaveMap/>
           </ul>
         </div>
       </div>
