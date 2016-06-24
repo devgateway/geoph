@@ -37,10 +37,11 @@ export default class ChartComponent extends React.Component {
 							values.push(i[meas]);
 						}
 					} else {
-						if (i[meas.measure][meas.type] && i[meas.measure][meas.type].length>0 && parseFloat(i[meas.measure][meas.type])>0){
+						debugger;
+						if (i.trxAmounts[meas.measure][meas.type] && i.trxAmounts[meas.measure][meas.type].length>0 && parseFloat(i.trxAmounts[meas.measure][meas.type])>0){
 							let label = i[dimension].length>35? i[dimension].substr(0,32)+'...' : i[dimension];
 							labels.push(this.capitalizeName(label));
-							values.push(i[meas.measure][meas.type]);
+							values.push(i.trxAmounts[meas.measure][meas.type]);
 						}
 					}
 				} else {
@@ -49,8 +50,8 @@ export default class ChartComponent extends React.Component {
 							others = others + parseInt(i[meas]);
 						}
 					} else {
-						if (i[meas.measure][meas.type] && i[meas.measure][meas.type].length>0 && parseFloat(i[meas.measure][meas.type])>0){
-							others = others + parseInt(i[meas.measure][meas.type]);
+						if (i.trxAmounts[meas.measure][meas.type] && i.trxAmounts[meas.measure][meas.type].length>0 && parseFloat(i.trxAmounts[meas.measure][meas.type])>0){
+							others = others + parseInt(i.trxAmounts[meas.measure][meas.type]);
 						}
 					}
 				}
@@ -120,9 +121,9 @@ export default class ChartComponent extends React.Component {
 							values.push(i[meas]);
 						}
 					} else {
-						if (i[meas.measure][meas.type] && i[meas.measure][meas.type].length>0 && parseFloat(i[meas.measure][meas.type])>0){
+						if (i.trxAmounts[meas.measure][meas.type] && i.trxAmounts[meas.measure][meas.type].length>0 && parseFloat(i.trxAmounts[meas.measure][meas.type])>0){
 							itemNames.push(this.capitalizeName(i[dimension]));
-							values.push(i[meas.measure][meas.type]);
+							values.push(i.trxAmounts[meas.measure][meas.type]);
 						}
 					}
 				} else {
@@ -131,8 +132,8 @@ export default class ChartComponent extends React.Component {
 							others = others + parseInt(i[meas]);
 						}
 					} else {
-						if (i[meas.measure][meas.type] && i[meas.measure][meas.type].length>0 && parseFloat(i[meas.measure][meas.type])>0){
-							others = others + parseInt(i[meas.measure][meas.type]);
+						if (i.trxAmounts[meas.measure][meas.type] && i.trxAmounts[meas.measure][meas.type].length>0 && parseFloat(i.trxAmounts[meas.measure][meas.type])>0){
+							others = others + parseInt(i.trxAmounts[meas.measure][meas.type]);
 						}
 					}
 				}				
@@ -216,7 +217,15 @@ export default class ChartComponent extends React.Component {
 			if (measure=='projectCount'){
 				return parseInt(b[measure]) - parseInt(a[measure]);
 			} else {
-				return parseInt(b[measure.measure][measure.type]) - parseInt(a[measure.measure][measure.type]);				
+				//console.log(b.trxAmounts);
+				//console.log(a.trxAmounts);
+				if (!(b.trxAmounts)||!(a.trxAmounts)||!(b.trxAmounts[measure.measure])||!(a.trxAmounts[measure.measure])){
+					console.log(b.trxAmounts);
+					console.log(a.trxAmounts);
+					return 0;
+				} else {
+					return parseInt(b.trxAmounts[measure.measure][measure.type]) - parseInt(a.trxAmounts[measure.measure][measure.type]);				
+				}
 			}
 		});
 	}
