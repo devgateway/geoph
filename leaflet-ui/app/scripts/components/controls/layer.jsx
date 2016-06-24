@@ -64,7 +64,7 @@ class Settings extends React.Component {
 
  	onChange(){
  		let filters = collectValues(this.props.filters, this.props.projectSearch);
- 		this.props.onToggleLayer(this.props.id, true, filters);
+ 		this.props.onToggleLayer(this.props.id, null, filters);
  	}
 
  	getChildProperties(){

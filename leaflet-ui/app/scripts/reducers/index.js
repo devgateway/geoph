@@ -8,6 +8,7 @@ import popup from './popup';
 import projectSearch from './projectSearch';
 import saveMap from './saveMap';
 import stats from './stats';
+import panel from './panel';
 import {routerReducer}  from 'react-router-redux';
 
 /*reducer names should match with a state property*/
@@ -22,6 +23,7 @@ const geophApp = combineReducers({
   projectSearch,
   saveMap,
   stats,
+  panel,
   routing: routerReducer
 })
 

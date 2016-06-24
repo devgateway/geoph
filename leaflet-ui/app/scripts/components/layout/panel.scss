@@ -8,21 +8,22 @@
 
 
 .panel{
-	@include absolute(102px,0px,40px,initial)
+	@include absolute(101px,0px,40px,initial)
 	@include font(16px,$regular);
 	@include col2size();
 	overflow:hidden;
+	height: calc(100% - 141px);
 	margin-bottom: 0px !important;
 	>ul{
-		@include margin(27px,initial,3px,10px)
+		@include margin(0px,initial,3px,10px)
 		@include list-horizontal()
 		padding:0px !important;
 		
-		li{
+		.panel-tab{
 			@include box-sizing(30%,38px) 	
 			@include border-radius(5px)
 			@include font(15px,$blue)
-			border:1px solid #86a1b9;
+			border:1px solid #D5DBE0;
 			margin:5px;
 			padding-top: 7px;
 		}
@@ -34,7 +35,8 @@
 		float: left;
 	}
 	
-	li.active{
+	.panel-tab.active{
+		border:1px solid #36678F;
 		background-color: #f8fdff;
 	}
 
@@ -43,7 +45,7 @@
 		@include icons(-81,-29)
 
 	}
-	li.active .icon.tools{
+	.panel-tab.active .icon.tools{
 		@include icons(-1,-29)
 	}
 
@@ -51,15 +53,28 @@
 	.icon.chart{
 		@include icons(-55,-29)
 	}
-	li.active .icon.chart{
+	.panel-tab.active .icon.chart{
 		@include icons(-28,-29)
 	}
 
-	li a{
+	.panel-tab span{
+		color: #D5DBE0;
+	}
+
+	.panel-tab.active span{
+		color: #36678F;
+	}
+	
+	.panel-tab a{
 		text-decoration: none;
 	}
 
 	p{
+		height: 40px;
 		margin: 15px;
 	}
+}
+
+.panel-expanded{
+	width: 67% !important; 
 }
