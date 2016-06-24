@@ -135,15 +135,15 @@ public class Extractors {
     }
 
     public static Extractor<Double> commitmentExtractor(final String getter) {
-        return trxExtractor(getter, TransactionTypeEnum.COMMITMENT);
+        return trxExtractor(getter, TransactionTypeEnum.COMMITMENTS);
     }
 
     public static Extractor<Double> disbursementExtractor(final String getter) {
-        return trxExtractor(getter, TransactionTypeEnum.DISBURSEMENT);
+        return trxExtractor(getter, TransactionTypeEnum.DISBURSEMENTS);
     }
 
     public static Extractor<Double> expenditureExtractor(final String getter) {
-        return trxExtractor(getter, TransactionTypeEnum.EXPENDITURE);
+        return trxExtractor(getter, TransactionTypeEnum.EXPENDITURES);
     }
 
     public static Extractor<Double> trxExtractor(final String getter, TransactionTypeEnum trxTypeEnum) {
