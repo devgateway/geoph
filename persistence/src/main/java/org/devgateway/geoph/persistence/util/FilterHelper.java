@@ -1,8 +1,8 @@
 package org.devgateway.geoph.persistence.util;
 
 import org.apache.commons.lang3.StringUtils;
+import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.model.*;
-import org.devgateway.geoph.util.Parameters;
 
 import javax.persistence.criteria.*;
 import java.util.List;
@@ -40,7 +40,12 @@ public class FilterHelper {
                 }
                 if (params.getLocations() != null) {
                     Join<Project, Location> locationJoin = projectRoot.join(Project_.locations);
-                    predicates.add(locationJoin.get(Location_.id).in(params.getLocations()));
+                    Predicate findInAnyAdmLevel = criteriaBuilder.or(
+                            locationJoin.get(Location_.id).in(params.getLocations()),
+                            locationJoin.get(Location_.regionId).in(params.getLocations()),
+                            locationJoin.get(Location_.provinceId
+                            ).in(params.getLocations()));
+                    predicates.add(findInAnyAdmLevel);
                 }
                 if (params.getStartDateMin() != null) {
                     predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectRoot.get(Project_.startDate), params.getStartDateMin()));
@@ -95,6 +100,12 @@ public class FilterHelper {
                 }
                 if(params.getFinancialAmountMax() != null) {
                     predicates.add(criteriaBuilder.lessThanOrEqualTo(projectRoot.get(Project_.totalProjectAmount), params.getFinancialAmountMax()));
+                }
+                if(params.getReachedOwpaMin() != null) {
+                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectRoot.get(Project_.reachedOwpa), params.getReachedOwpaMin()));
+                }
+                if(params.getReachedOwpaMax() != null) {
+                    predicates.add(criteriaBuilder.lessThanOrEqualTo(projectRoot.get(Project_.reachedOwpa), params.getReachedOwpaMax()));
                 }
             }
         }
@@ -180,6 +191,12 @@ public class FilterHelper {
                 }
                 if(params.getFinancialAmountMax() != null) {
                     predicates.add(criteriaBuilder.lessThanOrEqualTo(projectJoin.get(Project_.totalProjectAmount), params.getFinancialAmountMax()));
+                }
+                if(params.getReachedOwpaMin() != null) {
+                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectJoin.get(Project_.reachedOwpa), params.getReachedOwpaMin()));
+                }
+                if(params.getReachedOwpaMax() != null) {
+                    predicates.add(criteriaBuilder.lessThanOrEqualTo(projectJoin.get(Project_.reachedOwpa), params.getReachedOwpaMax()));
                 }
             }
         }

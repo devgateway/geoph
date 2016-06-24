@@ -1,9 +1,9 @@
 package org.devgateway.geoph.rest;
 
+import org.devgateway.geoph.core.response.GenericResponse;
+import org.devgateway.geoph.core.services.FilterService;
+import org.devgateway.geoph.enums.LocationAdmLevelEnum;
 import org.devgateway.geoph.model.*;
-import org.devgateway.geoph.response.GenericResponse;
-import org.devgateway.geoph.services.FilterService;
-import org.devgateway.geoph.util.LocationAdmLevelEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
-import static org.springframework.web.bind.annotation.RequestMethod.*;
-import static org.devgateway.geoph.util.Constants.*;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 
 /**
@@ -25,6 +27,8 @@ import static org.devgateway.geoph.util.Constants.*;
 @RestController
 @RequestMapping(value = "/filters")
 public class FilterController extends CrossOriginSupport {
+
+    private static final int DEFAULT_INDEX = 1;
 
     private final FilterService service;
 
@@ -39,14 +43,9 @@ public class FilterController extends CrossOriginSupport {
     public GenericResponse findAllClimateChanges() {
         LOGGER.debug("findAllClimateChanges");
         List<ClimateChange> climateChanges = service.findAllClimateChanges();
-        Collections.sort(climateChanges);
         GenericResponse resp = new GenericResponse(
-                "Relevance to Climate",
-                FILTER_CLIMATE_CHANGE,
-                "CLIMATE_CHANGE_SECTION",
-                1,
                 climateChanges,
-                climateChanges!=null?climateChanges.size():0
+                climateChanges != null ? climateChanges.size() : 0
         );
 
         return resp;
@@ -57,12 +56,8 @@ public class FilterController extends CrossOriginSupport {
         LOGGER.debug("findAllGenderResponsiveness");
         List<GenderResponsiveness> genderResponsiveness = service.findAllGenderResponsiveness();
         GenericResponse resp = new GenericResponse(
-                "Gender",
-                FILTER_GENDER_RESPONSIVENESS,
-                "GENDER_RESPONSIVENESS_SECTION",
-                1,
                 genderResponsiveness,
-                genderResponsiveness!=null?genderResponsiveness.size():0
+                genderResponsiveness != null ? genderResponsiveness.size() : 0
         );
 
         return resp;
@@ -73,12 +68,8 @@ public class FilterController extends CrossOriginSupport {
         LOGGER.debug("findFinancialAmountPeriod");
         List<Double> financialAmountPeriod = service.findFinancialAmountPeriod();
         GenericResponse resp = new GenericResponse(
-                "Financial Amount Period",
-                FILTER_FINANCIAL_AMOUNT_MAX + SLASH +FILTER_FINANCIAL_AMOUNT_MIN,
-                "FINANCIAL_AMOUNT_SECTION",
-                1,
                 financialAmountPeriod,
-                financialAmountPeriod!=null?financialAmountPeriod.size():0
+                financialAmountPeriod != null ? financialAmountPeriod.size() : 0
         );
 
         return resp;
@@ -89,12 +80,8 @@ public class FilterController extends CrossOriginSupport {
         LOGGER.debug("findAllFlowTypes");
         List<Map<String, Object>> flowTypes = service.findAllFlowTypes();
         GenericResponse resp = new GenericResponse(
-                "Funding Type",
-                FILTER_FLOW_TYPE,
-                "FLOW_TYPE_SECTION",
-                1,
                 flowTypes,
-                flowTypes!=null?flowTypes.size():0
+                flowTypes != null ? flowTypes.size() : 0
         );
 
         return resp;
@@ -104,31 +91,37 @@ public class FilterController extends CrossOriginSupport {
     public GenericResponse findAllFundingAgencies() {
         LOGGER.debug("findAllFundingAgencies");
         List<FundingAgency> fundingAgencies = service.findAllFundingAgencies();
-        Collections.sort(fundingAgencies);
         GenericResponse resp = new GenericResponse(
-                "Financing Institution",
-                FILTER_FUNDING_AGENCY,
-                "FUNDING_ORG_SECTION",
-                1,
                 fundingAgencies,
-                fundingAgencies!=null?fundingAgencies.size():0
+                fundingAgencies != null ? fundingAgencies.size() : 0
         );
 
         return resp;
     }
-    
+
     @RequestMapping(value = "/impAgency", method = GET)
     public GenericResponse findAllImpAgencies() {
         LOGGER.debug("findAllImpAgencies");
         List<ImplementingAgency> impAgencies = service.findAllImpAgencies();
-        Collections.sort(impAgencies);
         GenericResponse resp = new GenericResponse(
-                "Implementing Agency",
-                FILTER_IMPLEMENTING_AGENCY,
-                "IMPLEMENTING_AGENCY_SECTION",
-                1,
                 impAgencies,
-                impAgencies!=null?impAgencies.size():0
+                impAgencies != null ? impAgencies.size() : 0
+        );
+
+        return resp;
+    }
+
+
+
+    @RequestMapping(value = "/trxFunding", method = GET)
+    public GenericResponse findTrxFunding() {
+        LOGGER.debug("findTrxFunding");
+        Map<String, Map<String, String>> fundingMap = service.findAllTrxFunding();
+        List response = new ArrayList<>();
+        response.add(fundingMap);
+        GenericResponse resp = new GenericResponse(
+                response,
+                response != null ? response.size() : 0
         );
 
         return resp;
@@ -138,14 +131,9 @@ public class FilterController extends CrossOriginSupport {
     public GenericResponse findAllPhysicalStatus() {
         LOGGER.debug("findAllPhysicalStatus");
         List<PhysicalStatus> physicalStatuses = service.findAllPhysicalStatus();
-        Collections.sort(physicalStatuses);
         GenericResponse resp = new GenericResponse(
-                "Physical Status",
-                FILTER_PHYSICAL_STATUS,
-                "PHYSICAL_STATUS_SECTION",
-                1,
                 physicalStatuses,
-                physicalStatuses!=null?physicalStatuses.size():0
+                physicalStatuses != null ? physicalStatuses.size() : 0
         );
 
         return resp;
@@ -156,12 +144,8 @@ public class FilterController extends CrossOriginSupport {
         LOGGER.debug("findAllLocations");
         List<Location> locations = service.findLocationsByLevel(LocationAdmLevelEnum.REGION);
         GenericResponse resp = new GenericResponse(
-                "Locations",
-                FILTER_LOCATION,
-                "LOCATIONS_SECTION",
-                1,
                 locations,
-                locations!=null?locations.size():0
+                locations != null ? locations.size() : 0
         );
         return resp;
     }
@@ -173,27 +157,19 @@ public class FilterController extends CrossOriginSupport {
                 LocationAdmLevelEnum.valueOf(level.toUpperCase())
         );
         GenericResponse resp = new GenericResponse(
-                "Region Locations",
-                FILTER_LOCATION,
-                "LOCATIONS_SECTION",
-                1,
                 locations,
-                locations!=null?locations.size():0
+                locations != null ? locations.size() : 0
         );
         return resp;
     }
 
     @RequestMapping(value = "/location/parent/{parentId}", method = GET)
     public GenericResponse findLocationsByParentId(@PathVariable final long parentId) {
-        LOGGER.debug("findLocationsByParentId {}" , parentId);
+        LOGGER.debug("findLocationsByParentId {}", parentId);
         List<Location> locations = service.findLocationsByParentId(parentId);
         GenericResponse resp = new GenericResponse(
-                "Children locations of parentId " + parentId,
-                FILTER_LOCATION,
-                "LOCATIONS_SECTION",
-                1,
                 locations,
-                locations!=null?locations.size():0
+                locations != null ? locations.size() : 0
         );
         return resp;
     }
@@ -201,23 +177,19 @@ public class FilterController extends CrossOriginSupport {
     @RequestMapping(value = "/sector", method = GET)
     public GenericResponse findAllSectors() {
         LOGGER.debug("findAllSectors");
-        List<Sector> sectors = service.findAllSectorByLevel(1);
-        sortSectors(sectors);
+        List<Sector> sectors = service.findAllSectorByLevel(DEFAULT_INDEX);
+        sortSectorTree(sectors);
         GenericResponse resp = new GenericResponse(
-                "Sector",
-                FILTER_SECTOR,
-                "SECTORS_SECTION",
-                1,
                 sectors,
-                sectors!=null?sectors.size():0
+                sectors != null ? sectors.size() : 0
         );
 
         return resp;
     }
 
-    private void sortSectors(List<Sector> sectors){
-        for(Sector sector : sectors){
-            sortSectors(sector.getItems());
+    private void sortSectorTree(List<Sector> sectors) {
+        for (Sector sector : sectors) {
+            sortSectorTree(sector.getItems());
         }
         Collections.sort(sectors);
     }
@@ -227,12 +199,8 @@ public class FilterController extends CrossOriginSupport {
         LOGGER.debug("findAllStatuses");
         List<Status> statuses = service.findAllStatuses();
         GenericResponse resp = new GenericResponse(
-                "Financing Status",
-                FILTER_STATUS,
-                "STATUSES_SECTION",
-                1,
                 statuses,
-                statuses!=null?statuses.size():0
+                statuses != null ? statuses.size() : 0
         );
 
         return resp;
@@ -242,14 +210,9 @@ public class FilterController extends CrossOriginSupport {
     public GenericResponse findImpPeriod() {
         LOGGER.debug("findImpPeriod");
         List<String> impPeriodList = service.findImpPeriodBoundaries();
-
         GenericResponse resp = new GenericResponse(
-                "Implementation Period",
-                FILTER_START_DATE_MAX + SLASH + FILTER_START_DATE_MIN + SLASH + FILTER_END_DATE_MAX + SLASH + FILTER_END_DATE_MIN,
-                "IMP_PERIOD_SECTION",
-                1,
                 impPeriodList,
-                impPeriodList!=null?impPeriodList.size():0
+                impPeriodList != null ? impPeriodList.size() : 0
         );
 
         return resp;
@@ -261,12 +224,8 @@ public class FilterController extends CrossOriginSupport {
         List<String> grantPeriodList = service.findGrantPeriodBoundaries();
 
         GenericResponse resp = new GenericResponse(
-                "Performance Period",
-                FILTER_PERFORMANCE_START_MAX + SLASH + FILTER_PERFORMANCE_START_MIN + SLASH + FILTER_PERFORMANCE_END_MAX + SLASH + FILTER_PERFORMANCE_END_MIN,
-                "GRANT_PERIOD_SECTION",
-                1,
                 grantPeriodList,
-                grantPeriodList!=null?grantPeriodList.size():0
+                grantPeriodList != null ? grantPeriodList.size() : 0
         );
 
         return resp;

@@ -1,9 +1,10 @@
 package org.devgateway.geoph.persistence.repository;
 
-import org.devgateway.geoph.model.*;
+import org.devgateway.geoph.core.repositories.ProjectRepository;
+import org.devgateway.geoph.core.request.Parameters;
+import org.devgateway.geoph.core.response.StatsResponse;
+import org.devgateway.geoph.model.Project;
 import org.devgateway.geoph.persistence.util.FilterHelper;
-import org.devgateway.geoph.response.StatsResponse;
-import org.devgateway.geoph.util.Parameters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -12,12 +13,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import static org.devgateway.geoph.util.Constants.*;
+import static org.devgateway.geoph.core.constants.Constants.*;
+
 
 
 /**
@@ -51,7 +55,7 @@ public class DefaultProjectRepository implements ProjectRepository {
         TypedQuery<Project> query = getProjectTypedQuery(params);
         int count = query.getResultList().size();
 
-        List<Project> projectList = new ArrayList<>();
+        List<Project> projectList;
         if(params.getPageable()!=null) {
             projectList = query
                     .setFirstResult(params.getPageable().getOffset())
@@ -64,7 +68,7 @@ public class DefaultProjectRepository implements ProjectRepository {
                     .getResultList();
         }
 
-        return new PageImpl<Project>(projectList, params.getPageable(), count);
+        return new PageImpl<>(projectList, params.getPageable(), count);
     }
 
     @Override
@@ -96,10 +100,10 @@ public class DefaultProjectRepository implements ProjectRepository {
     public List<String> getImpPeriodBoundaries() {
         List<String> ret = new ArrayList<>();
         Object[] o = (Object[]) em.createNativeQuery("select max(p.start_date) as max_start_date, min(p.start_date) as min_start_date, max(p.end_date) as max_end_date, min(p.end_date) as min_end_date from project p").getSingleResult();
-        ret.add(((Date)o[0]).toString());
-        ret.add(((Date)o[1]).toString());
-        ret.add(((Date)o[2]).toString());
-        ret.add(((Date)o[3]).toString());
+        ret.add(o[0].toString());
+        ret.add(o[1].toString());
+        ret.add(o[2].toString());
+        ret.add(o[3].toString());
         return ret;
     }
 
@@ -107,24 +111,50 @@ public class DefaultProjectRepository implements ProjectRepository {
     public List<String> getGrantPeriodBoundaries() {
         List<String> ret = new ArrayList<>();
         Object[] o = (Object[]) em.createNativeQuery("select max(p.period_performance_start) as max_start_period, min(p.period_performance_start) as min_start_period, max(p.period_performance_end) as max_end_period, min(p.period_performance_end) as min_end_period from project p").getSingleResult();
-        ret.add(((Date)o[0]).toString());
-        ret.add(((Date)o[1]).toString());
-        ret.add(((Date)o[2]).toString());
-        ret.add(((Date)o[3]).toString());
+        ret.add(o[0].toString());
+        ret.add(o[1].toString());
+        ret.add(o[2].toString());
+        ret.add(o[3].toString());
         return ret;    }
+
+    @Override
+    public List<Float> getTargetPhysicalProgressPeriod() {
+        List<Float> ret = new ArrayList<>();
+        Object[] o = (Object[]) em.createNativeQuery("select max(p.actual_owpa) as max_actual_owpa, min(p.actual_owpa) as min_actual_owpa from project p").getSingleResult();
+        ret.add(((Float)o[0]));
+        ret.add(((Float)o[1]));
+        return ret;
+    }
+
+    @Override
+    public List<Float> getActualPhysicalProgressPeriod() {
+        List<Float> ret = new ArrayList<>();
+        Object[] o = (Object[]) em.createNativeQuery("select max(p.reached_owpa) as max_reached_owpa, min(p.reached_owpa) as min_reached_owpa from project p").getSingleResult();
+        ret.add(((Float)o[0]));
+        ret.add(((Float)o[1]));
+        return ret;
+    }
 
     private TypedQuery<Project> getProjectTypedQuery(Parameters params) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<Project> criteriaQuery = criteriaBuilder
                 .createQuery(Project.class);
         Root<Project> projectRoot = criteriaQuery.from(Project.class);
-        List<Predicate> predicates = new ArrayList();
+        List<Predicate> predicates = new ArrayList<>();
 
         FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);
 
         if(predicates.size()>0) {
             Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
             criteriaQuery.where(other);
+        }
+
+        if(params!=null && params.getProjectOrder()!=null){
+            if(params.getProjectOrder().getAscending()){
+                criteriaQuery.orderBy(criteriaBuilder.asc(projectRoot.get(params.getProjectOrder().getAttribute())));
+            } else {
+                criteriaQuery.orderBy(criteriaBuilder.desc(projectRoot.get(params.getProjectOrder().getAttribute())));
+            }
         }
 
         CriteriaQuery<Project> cq = criteriaQuery.select(projectRoot).distinct(true);

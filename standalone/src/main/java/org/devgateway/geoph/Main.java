@@ -1,13 +1,11 @@
 package org.devgateway.geoph;
 
 import org.devgateway.geoph.persistence.spring.PersistenceApplication;
-import org.devgateway.geoph.util.PropsHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
@@ -33,12 +31,13 @@ public class Main {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
+
     public static void main(String[] args) {
         ApplicationContext ctx = SpringApplication.run(Main.class, args);
 
         LOGGER.info("Let's inspect the beans provided by Spring Boot:");
 
-        String[] beanNames = ctx.   getBeanDefinitionNames();
+        String[] beanNames = ctx.getBeanDefinitionNames();
         Arrays.sort(beanNames);
         for (String beanName : beanNames) {
             System.out.println(beanName);
@@ -46,15 +45,12 @@ public class Main {
 
         Environment environment = ctx.getBean(Environment.class);
         DeployProfile deployProfile = environment.getProperty("geoph.deploy.profile", DeployProfile.class, DeployProfile.DEV);
-        PropsHelper.setScreenCaptureDir(environment.getProperty("screen.capture.dir", "/tmp/"));
-        PropsHelper.setScreenCaptureTimeToWait(Long.parseLong(environment.getProperty("screen.capture.waiting.time", "25000")));
-        PropsHelper.setScreenFirefoxExe(environment.getProperty("screen.firefox.binary"));
-        PropsHelper.setExportDir(environment.getProperty("export.dir"));
         LOGGER.info("Deploying GeoPH using profile: {}", deployProfile);
-        if(deployProfile == DeployProfile.DEV) {
+        if (deployProfile == DeployProfile.DEV) {
             BootMetadata bootMetadata = ctx.getBean(BootMetadata.class);
             bootMetadata.boot();
         }
+
 
         LOGGER.info("******GeoPH app started******");
         LOGGER.info("*****************************");

@@ -36,6 +36,7 @@ import java.util.Set;
 @Entity
 public class Location extends GenericPersistable implements Serializable {
 
+    private static final int MUNICIPALITY_LEVEL = 3;
     private String name;
 
     private int level;
@@ -146,5 +147,13 @@ public class Location extends GenericPersistable implements Serializable {
 
     public void setProvinceId(Long provinceId) {
         this.provinceId = provinceId;
+    }
+
+    public Long retrieveMunicipalityId() {
+        Long ret = null;
+        if(level== MUNICIPALITY_LEVEL){
+            ret = getId();
+        }
+        return ret;
     }
 }

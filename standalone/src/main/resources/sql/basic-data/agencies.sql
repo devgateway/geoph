@@ -246,5 +246,7 @@ INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('im
 INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',244,'TJRC','TJRC',null,null);
 INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',245,'Tourism TA','Tourism TA',null,null);
 INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',246,'UN','UN',null,null);
-
+INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('funding_agency',247,'UNDEFINED','UNDEFINED',null,null);
+INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',248,'UNDEFINED','UNDEFINED',null,null);
+INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('executing_agency',249,'UNDEFINED','UNDEFINED',null,null);
 
