@@ -7,7 +7,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
 
-    devtool: "cheap-module-source-map", // source-map or "inline-source-map"
+    //devtool: "cheap-module-source-map", // source-map or "inline-source-map"
     entry: ['./app/scripts/app'],
     output: {
         path: path.join(__dirname, 'dist'),
@@ -37,30 +37,33 @@ module.exports = {
         noParse: [
             /plotly\.js/
         ],
-        loaders: [{
-            test: /\.(js|jsx|es6)$/,
-            loaders: ['babel'],
-            include: path.join(__dirname, 'app')
-        },
 
-            {
-                test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                loader: "url-loader?limit=10000&mimetype=application/font-woff"
-            }, {
-                test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                loader: "file-loader"
-            },
-            {
-                test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.wav$|\.mp3$/,
-                loader: "file"
-            }, {
-                test: /\.css$|\.scss$/,
-                loader: ExtractTextPlugin.extract(
-                    'style', // backup loader when not building .css file
-                    'css!sass' // loaders to preprocess CSS
-                )
-            }
-        ]
+        loaders: [{
+          test: /\.(js|jsx|es6)$/,
+          loaders: ['babel'],
+          include: path.join(__dirname, 'app')
+        }, {
+          test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
+          loader: 'url-loader?limit=10000&mimetype=application/font-woff'
+        }, {
+          test: /\.scss$/,
+          loaders: ['style-loader', 'css-loader', 'sass-loader']
+        }, {
+          test: /\.css$/,
+          loader: "style-loader!css-loader"
+        }, {
+          test: /\.png$/,
+          loader: "url-loader?limit=100000"
+        }, {
+          test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+          loader: 'url-loader?limit=10000&mimetype=application/octet-stream'
+        }, {
+          test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+          loader: 'file-loader'
+        }, {
+          test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+          loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
+        }]
     },
     resolve: {
         alias: {
@@ -68,5 +71,21 @@ module.exports = {
 
         },
         extensions: ["", ".webpack.js", ".web.js", ".js", ".jsx", ".es6"]
-    }
+    },
+    profile: true,
+  stats: {
+    hash: true,
+    version: true,
+    timings: true,
+    assets: true,
+    chunks: true,
+    modules: true,
+    reasons: true,
+    children: true,
+    source: false,
+    errors: true,
+    errorDetails: true,
+    warnings: true,
+    publicPath: true
+  },
 };

@@ -97,7 +97,7 @@ export default class ChartComponent extends React.Component {
 				}
 			},
 			'config': {
-		    	'modeBarButtonsToRemove': ['sendDataToCloud','hoverCompareCartesian'],
+		    	'modeBarButtonsToRemove': ['sendDataToCloud','hoverCompareCartesian', 'zoom2d', 'pan2d', 'select2d', 'lasso2d', 'zoomIn2d', 'zoomOut2d', 'autoScale2d', 'resetScale2d', 'hoverClosestCartesian'],
 				'showLink': false,
 				'displayModeBar': false
 		    }
@@ -165,9 +165,9 @@ export default class ChartComponent extends React.Component {
 				}
 		    },
 			'config': {
-		    	'modeBarButtonsToRemove': ['sendDataToCloud','hoverCompareCartesian'],
+		    	'modeBarButtonsToRemove': ['sendDataToCloud','hoverCompareCartesian', 'zoom2d', 'pan2d', 'select2d', 'lasso2d', 'zoomIn2d', 'zoomOut2d', 'autoScale2d', 'resetScale2d', 'hoverClosestCartesian'],
 				'showLink': false,
-				'displayModeBar': false
+				'displayModeBar': true
 		    }
 		}
 	}

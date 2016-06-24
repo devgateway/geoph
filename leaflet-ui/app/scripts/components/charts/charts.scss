@@ -224,4 +224,10 @@
     padding-right: 6px;
 }
 
+.modebar-btn--logo{
+    display: none !important;
+}
 
+.modebar-btn[data-val="closest"]{
+    display: none !important;
+}

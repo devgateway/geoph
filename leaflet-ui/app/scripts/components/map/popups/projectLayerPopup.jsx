@@ -35,7 +35,7 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
           <ul className='popup-tabs' role='tablist' >
             <li className={this.state.tabSelected==0? 'active' : ''} role='tab' >
               <div onClick={this.changeTab.bind(this, 0)}>
-                <span>Funding Agency</span>
+                <span>Financing Institution</span>
               </div>
             </li>
             <li className={this.state.tabSelected==1? 'active' : ''} role='tab' >

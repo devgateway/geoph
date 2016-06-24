@@ -41,7 +41,7 @@ class Charts extends React.Component {
         <p>Explore this in-depth profile of Philippines to find out overall lorem ipsum dolor sit amet, consectetur elit. </p>
         <div className="charts-container">
           <Chart chartData={charts.fundingAgency || {}}
-            title="Funding Agency Chart" 
+            title="Financing Institution Chart" 
             chart='fundingAgency'
             measure={this.props.fundingType} 
             onChangeItemToShow={this.changeItemToShow.bind(this)}
