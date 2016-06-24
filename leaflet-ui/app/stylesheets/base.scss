@@ -38,12 +38,12 @@ $regular: rgb( 4, 64, 114 );
 }
 
 @mixin col1size(){
-	width: 60%;
-}
-@mixin col2size(){
-	width: 40%;
+	width: 67%;
 }
 
+@mixin col2size(){
+	width: 33%;
+}
 
 @mixin list-horizontal(){
 	list-style: none;
