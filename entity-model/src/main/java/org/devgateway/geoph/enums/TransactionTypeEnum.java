@@ -6,7 +6,7 @@ package org.devgateway.geoph.enums;
  */
 public enum TransactionTypeEnum {
 
-    COMMITMENT(1), DISBURSEMENT(2), EXPENDITURE(3);
+    COMMITMENTS(1), DISBURSEMENTS(2), EXPENDITURES(3);
 
     private final int id;
 

@@ -8,4 +8,6 @@ public interface ScreenCaptureService {
 
     String captureUrlToImage(String url) throws Exception;
 
+    String captureUrlToPDF(String url);
+
 }
