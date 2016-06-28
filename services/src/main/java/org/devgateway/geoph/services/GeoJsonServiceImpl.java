@@ -120,7 +120,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
                     }
 
                     if(lp!=null) {
-                        if (tt.compareTo(TransactionTypeEnum.COMMITMENT) == 0) {
+                        if (tt.compareTo(TransactionTypeEnum.COMMITMENTS) == 0) {
                             if(ts.compareTo(TransactionStatusEnum.TARGET) == 0) {
                                 lp.addCommitment(PROPERTY_LOC_TARGET, locHelper.getTrxAmount());
                             } else if(ts.compareTo(TransactionStatusEnum.ACTUAL) == 0) {
@@ -128,7 +128,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
                             } else if(ts.compareTo(TransactionStatusEnum.CANCELLED) == 0) {
                                 lp.addCommitment(PROPERTY_LOC_CANCELLED, locHelper.getTrxAmount());
                             }
-                        }else if (tt.compareTo(TransactionTypeEnum.DISBURSEMENT) == 0) {
+                        }else if (tt.compareTo(TransactionTypeEnum.DISBURSEMENTS) == 0) {
                             if(ts.compareTo(TransactionStatusEnum.TARGET) == 0) {
                                 lp.addDisbursement(PROPERTY_LOC_TARGET, locHelper.getTrxAmount());
                             } else if(ts.compareTo(TransactionStatusEnum.ACTUAL) == 0) {
@@ -136,7 +136,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
                             } else if(ts.compareTo(TransactionStatusEnum.CANCELLED) == 0) {
                                 lp.addDisbursement(PROPERTY_LOC_CANCELLED, locHelper.getTrxAmount());
                             }
-                        }else if (tt.compareTo(TransactionTypeEnum.EXPENDITURE) == 0) {
+                        }else if (tt.compareTo(TransactionTypeEnum.EXPENDITURES) == 0) {
                             if(ts.compareTo(TransactionStatusEnum.TARGET) == 0) {
                                 lp.addExpenditure(PROPERTY_LOC_TARGET, locHelper.getTrxAmount());
                             } else if(ts.compareTo(TransactionStatusEnum.ACTUAL) == 0) {

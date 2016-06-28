@@ -35,7 +35,7 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
           <ul className='popup-tabs' role='tablist' >
             <li className={this.state.tabSelected==0? 'active' : ''} role='tab' >
               <div onClick={this.changeTab.bind(this, 0)}>
-                <span>Funding Agency</span>
+                <span>Financing Institution</span>
               </div>
             </li>
             <li className={this.state.tabSelected==1? 'active' : ''} role='tab' >
@@ -64,7 +64,7 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
           <div className="popup-tab-content">
             {charts.fundingAgency?
               <div className="">
-                <Chart chartData={charts.fundingAgency.data}
+                <Chart chartData={charts.fundingAgency}
                 measure={this.props.fundingType} 
                 chartType='pie'
                 width='400'
@@ -79,12 +79,11 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
           <div className="popup-tab-content">
             {charts.implementingAgency?
               <div className="">
-                <Chart chartData={charts.implementingAgency.data}
+                <Chart chartData={charts.implementingAgency}
                 measure={this.props.fundingType} 
                 chartType='pie'
                 width='400'
                 height='200'
-                showMeasureSelector={false}
                 dimension="name"/>
               </div>
             :null}
@@ -94,12 +93,11 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
           <div className="popup-tab-content">
             {charts.physicalStatus?
               <div className="">
-                <Chart chartData={charts.physicalStatus.data}
+                <Chart chartData={charts.physicalStatus}
                 measure={this.props.fundingType} 
                 chartType='pie'
                 width='400'
                 height='200'
-                showMeasureSelector={false}
                 dimension="name"/>
               </div>
             :null}
@@ -109,12 +107,11 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
           <div className="popup-tab-content">
             {charts.sector?
               <div className="">
-                <Chart chartData={charts.sector.data}
+                <Chart chartData={charts.sector}
                 measure={this.props.fundingType} 
                 chartType='pie'
                 width='400'
                 height='200'
-                showMeasureSelector={false}
                 dimension="name"/>
               </div>
             :null}

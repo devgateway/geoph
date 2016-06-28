@@ -111,16 +111,17 @@ public class ChartResponse implements Comparable {
         this.transactionCount += helper.getTransactionCount();
         Map<String, Double> trxStatusMap;
         Double newAmount = 0D;
+        Double trxAmount = helper.getTransactionAmount()!=null?helper.getTransactionAmount():0;
         if (trxAmounts.get(trxType.getName()) != null) {
             trxStatusMap = trxAmounts.get(trxType.getName());
             if (trxStatusMap.get(trxStatus.getName()) != null) {
-                newAmount = trxStatusMap.get(trxStatus.getName()) + helper.getTransactionAmount();
+                newAmount = trxStatusMap.get(trxStatus.getName()) + trxAmount;
             } else {
-                newAmount = helper.getTransactionAmount();
+                newAmount = trxAmount;
             }
         } else {
             trxStatusMap = new HashMap<>();
-            newAmount = helper.getTransactionAmount();
+            newAmount = trxAmount;
         }
         trxStatusMap.put(trxStatus.getName(), newAmount);
         trxAmounts.put(trxType.getName(), trxStatusMap);

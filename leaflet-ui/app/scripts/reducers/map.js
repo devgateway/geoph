@@ -78,17 +78,21 @@ const setProps=(layers, props)=>{
 }
 
 
-const toogle=(layers, id, property)=>{
+const toogle=(layers, id, property, visible)=>{
   return layers.map((l)=>{
     if (l.get('id')==id || id==null){
-      l=l.set(property, !l.get(property)); //toggle property of current layer
+      if (visible==null){
+        l=l.set(property, !l.get(property)); //toggle property of current layer
+      } else {
+        l=l.set(property, visible);
+      }
       if (l.get('layers')){
           //if it is a group update child with curren parrent value
         l=l.set('layers', setProps(l.get('layers'), {'visible':l.get('visible')})) 
       }
       return l;
     } else if (l.get('layers')){
-       return l.set('layers', toogle(l.get('layers'), id, property))
+       return l.set('layers', toogle(l.get('layers'), id, property, visible))
     }
     return l;
   })
@@ -100,7 +104,7 @@ const map = (state = defaultState, action) => {
   switch (action.type) {
 
     case TOGGLE_LAYER:
-    return state.set('layers', toogle(state.get('layers'), action.id,'visible'));
+    return state.set('layers', toogle(state.get('layers'), action.id, 'visible', action.visible));
 
     case SET_LAYER_SETTING:
     console.log(action.name+'--'+action.value);

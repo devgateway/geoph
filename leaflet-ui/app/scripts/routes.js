@@ -23,7 +23,7 @@ const NoMatch = React.createClass({
 
 
 export default (
-  	<Route path="/" component={App}>
+  <Route path="/" component={App}>
   	<Route path="tools" component={Tools}/>
   	<Route path="charts" component={Charts}/>
     <Route path="admin" component={Admin}>

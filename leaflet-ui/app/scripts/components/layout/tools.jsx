@@ -39,16 +39,16 @@ const stateToProps = (state, props) => {
     filters: state.filters.filterMain,
     projectSearch: state.projectSearch
   };
- }
+}
 
 
- const dispatchToProps = (dispatch, ownProps) => {
+const dispatchToProps = (dispatch, ownProps) => {
   return {
     onLoadDefaultLayers: (layers, filters) => {
       dispatch(loadDefaultLayers(layers, filters));
     }
   }
- }
+}
 
 export default connect(stateToProps,dispatchToProps)(Tools);
 

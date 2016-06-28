@@ -17,6 +17,9 @@ const popup = (state = {}, action) => {
 
 const chart = (state = {
   isFetching: false,
+  itemsToShow: Constants.CHART_ITEMS_STEP_AMOUNT,
+  chartType:'bar',
+  measureType: 'funding',
   data: []
 }, action) => {
   switch (action.type) {

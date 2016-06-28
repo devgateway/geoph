@@ -42,6 +42,7 @@
 
 	export const RECEIVE_STATS = 'RECEIVE_STATS';
 
+	export const TOGGLE_PANEL_EXPANDED = 'TOGGLE_PANEL_EXPANDED';
 
 	/*POPUP events*/
 
@@ -56,6 +57,13 @@
 
 	export const RECEIVE_CHART_DATA = 'RECEIVE_CHART_DATA';
 
+	export const CHANGE_ITEMS_TO_SHOW = 'CHANGE_ITEMS_TO_SHOW';
+
+	export const CHANGE_MEASURE_TYPE = 'CHANGE_MEASURE_TYPE';
+
+	export const CHANGE_CHART_TYPE = 'CHANGE_CHART_TYPE';
+
+	export const CHART_ITEMS_STEP_AMOUNT = 5;
 
 	/*SETTINGS events*/
 
