@@ -17,7 +17,6 @@ class Connector {
 
 
 	setStore(store){
-		debugger;
 		this.store=store;
 	}
 
@@ -56,6 +55,22 @@ class Connector {
 	}
 
 
+	delete(url) {
+		return new Promise(
+			function(resolve, reject) {
+				Axios.delete(url)
+				.then(function(response) {
+					resolve(response);
+				})
+				.catch(function(response) {
+					reject(response);
+				});
+			});
+	}
+
+
+
+
 	post(url, body = {}) {
 		
 		return new Promise(
@@ -79,6 +94,8 @@ class Connector {
 		if (verb == GET) caller = this.get;
 		if (verb == POST) caller = this.post;
 		if (verb == PUT ) caller = this.put;
+			if (verb == DELETE ) caller = this.delete;
+
 
 		return new Promise((resolve, reject) => {
 			caller(url, params).then((data) => {
@@ -164,8 +181,20 @@ class Connector {
 	}
 
 
-	uploadIndicator(options){
+	getIndicatorList(){
+		
+		return this.call(GET,Settings.get('API','INDICATOR_LIST'),{});
+	}
+
+	removeIndicator(id){
 		debugger;
+		let url=Settings.get('API','INDICATOR');
+		url=url.replace('${id}',id);
+		return this.call(DELETE,url,{});
+	}
+
+	uploadIndicator(options){
+		
 		const URL=Settings.get('API',API_BASE_URL) + Settings.get('API','INDICATOR_UPLOAD');
 
 			return new Promise( (resolve, reject) => {
@@ -178,7 +207,7 @@ class Connector {
 			data.append('file',file);
 			var config = {
 				progress: function(progressEvent) {
-					
+					debugger
 					var percentCompleted = progressEvent.loaded / progressEvent.total;
 				}
 			};
@@ -188,7 +217,7 @@ class Connector {
 					resolve(res.data);
 				})
 				.catch(function (res) {
-					debugger;
+					reject()
 				});
 		})
 	}

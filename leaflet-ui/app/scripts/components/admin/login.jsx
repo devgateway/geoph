@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import {login} from '../../actions/security'
+
 import {Map} from 'immutable'
 import { Link } from 'react-router'
 import BaseForm from './baseForm.jsx'
@@ -22,7 +23,7 @@ export default class Login extends React.Component {
             Object.assign(errors,{password:true})
             
         }
-        debugger;
+        
         if  (errors.username!=true && errors.password!=true){
             this.props.onLogin({username,password})
         }else{

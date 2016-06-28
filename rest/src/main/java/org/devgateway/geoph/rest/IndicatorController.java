@@ -4,7 +4,7 @@ import org.devgateway.geoph.core.request.IndicatorRequest;
 import org.devgateway.geoph.core.response.IndicatorResponse;
 import org.devgateway.geoph.core.services.ImportService;
 import org.devgateway.geoph.core.services.LayerService;
-import org.devgateway.geoph.model.Indicator;
+    import org.devgateway.geoph.model.Indicator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
  */
 @RestController
 @RequestMapping(value = "/indicators")
-public class IndicatorController {
+public class IndicatorController extends BaseController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(IndicatorController.class);
 
@@ -39,14 +39,8 @@ public class IndicatorController {
         this.importService = importService;
     }
 
-    @RequestMapping(value = "/secure", method = GET)
-    @Secured("ROLE_READ")
-    public String secureHelloWorld() {
-        LOGGER.debug("secureHelloWorld");
-        return "Secured Hello World";
-    }
 
-    @RequestMapping(value = "/list", method = GET)
+    @RequestMapping(method = GET)
     //@Secured("ROLE_READ")
     public List<Indicator> getIndicatorsList() {
         LOGGER.debug("getIndicatorsList");

@@ -8,8 +8,8 @@ import BaseForm from './baseForm.jsx'
 var Dropzone = require('react-dropzone');
 
 class SelectTemplate extends BaseForm {
-
     render() {
+        
         return (
             <form>
                 <div className="form-group">
@@ -29,7 +29,7 @@ class SelectTemplate extends BaseForm {
             </form>
         )
     }
-}
+};
 
 
 class AddIndicator extends BaseForm {
@@ -40,8 +40,7 @@ class AddIndicator extends BaseForm {
     }
 
     submit() {
-        
-          var errors = this.validate();
+        var errors = this.validate();
         let hasError = false;
         Object.keys(errors).forEach(key => hasError = hasError || errors[key]);
         if (hasError) {
@@ -62,15 +61,16 @@ class AddIndicator extends BaseForm {
     }
 
     onDrop(files) {
-        
         this.handleChangeValue('file', files[0])
     }
 
     render() {
+        
         const {errors={}}=this.props;
-        return (
+        console.log(this.props.status);
+      return (
             <form id="add-indicator-form">
-                <div className={errors.name?"form-group has-error":"form-group"}>
+                 <div className={errors.name?"form-group has-error":"form-group"}>
                     <label >Name</label>
                     <input value={this.props.name}
                            onChange={(e)=>{this.handleChangeValue('name',e.target.value)}} type="name"
@@ -108,10 +108,13 @@ class AddIndicator extends BaseForm {
             </form>
         )
     }
-}
+};
 
 class Indicator extends React.Component {
+   
     getView() {
+        
+        console.log(this.props.status);
         switch (this.props.step) {
             case 'template':
                 return <SelectTemplate {...this.props}/>
@@ -121,37 +124,37 @@ class Indicator extends React.Component {
     }
 
     render() {
-        return (<div>{this.getView()}</div>)
+        
+        console.log(this.props.status);
+        return (<div className="admin-page">
+                    <h2>Upload new indicator layer</h2>
+                    {this.getView()}
+                </div>)
     }
-}
+};
+
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         onStepChange: (step)=> {
-
             dispatch(changeStep(step));
         },
-
         onPropertyChange: (property, value)=> {
             dispatch(changeProperty(property, value));
         },
-
         onValidate: (errors)=> {
             dispatch(updateErrors(errors));
         },
-
         onUpload: ()=> {
             dispatch(upload());
         }
     }
-}
+};
 
 const mapStateToProps = (state, props) => {
-     
-    const {indicators} = state;
-    return {...indicators.toObject()
-}
-}
+        const {indicators} = state;
+        return {...indicators.toObject()};
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Indicator);
 

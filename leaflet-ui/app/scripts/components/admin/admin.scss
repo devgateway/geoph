@@ -2,6 +2,20 @@
 
 .admin-view {
 
+
+
+  margin: 1vw 1vw;
+  font-size: 90%;
+
+
+  div.admin-page{
+     margin: 1vw 1vw;
+     h2{
+      font-size:100%;
+      margin-bottom: 20px;
+     }
+  }
+
   form {
     clear:both;
     width: 75%;
@@ -9,7 +23,7 @@
   }
 
   label {
-    font-size: 80%;
+
     margin: 5px 5px;
   }
 
@@ -33,8 +47,6 @@
     margin: 0px;
     ul.menu {
       clear: both;
-      font-size: 80%;
-      margin: 2vw;
       list-style: none;
       padding: 0px;
       li {
