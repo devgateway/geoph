@@ -30,3 +30,46 @@ h2{
 	font-weight: bold;
 	
 }
+
+ul.colors{
+	margin: 0px 0px 0px 25px;
+	padding: 0px;
+	list-style: none;
+	display:inline;
+	
+	li{
+			    height: 20px;
+				float:left;
+				margin: 3px 15px;
+
+
+				cursor: pointer;
+				clear: none;
+			}
+
+	li.scheme{
+		@include  box-sizing(22px,18px)
+		margin: 3px 15px;
+		cursor: pointer;
+	}
+
+	li.scheme.red{
+		background-color: #f28f8f
+	}
+	li.scheme.yellow{
+		background-color: #eff28f
+	}
+	li.scheme.green{
+		background-color: #bcf1a9
+	}
+	li.scheme.blue{
+		background-color: #008aea
+	}
+	li.scheme.orange{
+		background-color: #ce7b05
+	}
+
+	li.scheme.active{
+		border: 1px solid #000;
+	}
+}

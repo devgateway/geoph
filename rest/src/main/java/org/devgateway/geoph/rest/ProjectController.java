@@ -25,7 +25,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
  */
 @RestController
 @RequestMapping(value = "/projects")
-public class ProjectController extends CrossOriginSupport {
+public class ProjectController extends BaseController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FilterController.class);
 
