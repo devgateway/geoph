@@ -9,7 +9,7 @@ import * as Constants from '../../constants/constants.js';
 import JenksCssProvider from '../../util/jenksUtil.js'
 import {L, Popup, Map, Marker, TileLayer,ZoomControl,MapLayer,ScaleControl,LayerGroup} from 'react-leaflet'; 
 
-import ProjectPopup from './popups/projectLayerPopup'
+import ProjectPopup from './popups/Popup.jsx'
 import Test from '../controls/settings'
 
 require('leaflet/dist/leaflet.css')
@@ -56,7 +56,9 @@ const Layer=React.createClass({
 				visible={this.props.layer.get('visible')} 
 				key={this.props.layer.get('keName')} 
 				data={this.props.layer.get('data')?this.props.layer.get('data').toJS():null}>
-					<ProjectPopup onClosePopup={this.closePopup}/>
+				
+					<ProjectPopup/>
+				
 				</SvgLayer>:null;
 	
 	}

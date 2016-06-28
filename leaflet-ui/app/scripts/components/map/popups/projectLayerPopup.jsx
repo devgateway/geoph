@@ -26,6 +26,8 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
 
   render() {
     let charts = this.props.charts || {}
+    const {tabSelected} =this.state;
+    
     return (
       <div className="popup-container">
         <div className="popup-title">

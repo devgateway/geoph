@@ -11,14 +11,16 @@ import {collectValues} from '../../../util/filterUtil';
 /**
  * @author Sebas
  */
-class D3Layer extends MapLayer {
+ class D3Layer extends MapLayer {
+
 
   static propTypes = {
     higthligthStyleProvider: React.PropTypes.func,
   };
 
 
-  constructor() {
+  constructor(props, context) {
+    debugger;
     super();
   }
 
@@ -33,8 +35,9 @@ class D3Layer extends MapLayer {
     this.mapmove();//trigger first update
   }
 
-  componentDidUpdate(nextProps, nextState) {
+  componentDidUpdate(nextProps, nextState,prevContext) {
     const {data, ...props} = this.props;
+    debugger;
     this.mapmove();
   }
 
@@ -55,8 +58,8 @@ class D3Layer extends MapLayer {
     this.minSize=this.props.minSize;
     this.maxSize=this.props.maxSize;
     this.sizeFactor=this.props.sizeFactor;
-  
-   var  map=this.props.map;
+
+    var  map=this.props.map;
 
     // Use Leaflet to implement a D3 geometric transformation.
     function projectPoint(x, y) {
@@ -106,13 +109,14 @@ class D3Layer extends MapLayer {
     const filtered = data.filter((f)=>bounds.contains(L.geoJson(f).getBounds())).sort((f)=>{f.properties.projectCount})
     console.log('Removed =>'+(data.length - filtered.length));
     return filtered;
-
+    popupFeature
   }
 
 
   onClick(properties){
+    debugger;
     L.DomEvent._getEvent().stopPropagation();
-    this.getPopupContent(properties);
+    this.renderPopupContent(properties);
   }
 
 
@@ -125,24 +129,22 @@ class D3Layer extends MapLayer {
     }
   }
 
-  getPopupContent(feature) {
-    this.setState({popupFeature: feature});
-    let filters = collectValues(this.props.filters, this.props.projectSearch);
-    Object.assign(filters, {'lo': [feature.properties.id]});
-    this.props.onGetPopupData(filters);
-  }
 
-  renderPopupContent(charts) {
-    if (!this.state){
+
+  renderPopupContent(feature) {
+
+    debugger;
+    if (!feature){
       return null;
     }
-    let feature = this.state.popupFeature;
+
     let popup = L.popup({maxWidth:"400", minWidth:"400", maxHeight:"280"})
     .setLatLng(L.latLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]))
     .openOn(this.props.map);
-    Object.assign(feature, {'charts': charts, 'fundingType': this.props.fundingType});
+    
     if (this.props.children) {
-      render(React.cloneElement(React.Children.only(this.props.children), feature), popup._contentNode);
+
+      render(React.cloneElement(React.Children.only(this.props.children), {feature,store:this.context.store}), popup._contentNode);
       popup._updateLayout();
       popup._updatePosition();
       popup._adjustPan();
@@ -151,12 +153,12 @@ class D3Layer extends MapLayer {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.charts && this.props.charts && nextProps.charts.lastUpdate && (nextProps.charts.lastUpdate != this.props.charts.lastUpdate)){
-        this.renderPopupContent(nextProps.charts)
+      this.renderPopupContent(nextProps.charts)
     }
   }
 
   getClass(d){
-    
+
     if (this.props.cssProvider){
       if (!this.cssProvider)
         this.cssProvider=new this.props.cssProvider(this.values,this.props.thresholds);
@@ -174,6 +176,22 @@ class D3Layer extends MapLayer {
   }
 
 }
+
+
+const  storeShape=PropTypes.shape({
+  subscribe: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  getState: PropTypes.func.isRequired
+})
+
+
+D3Layer.contextTypes = {
+  store: storeShape
+}
+D3Layer.propTypes = {
+  store: storeShape
+}
+
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
