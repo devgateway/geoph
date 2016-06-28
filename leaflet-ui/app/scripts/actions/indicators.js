@@ -77,7 +77,7 @@ export const upload=(options)=>{
 
 const uploadOK=(data)=>{
   const {name,id}=data;
-  const url= '/admin/list/indicator';
+  const url= '/admin';
   const {errors}=data;
   return redirect(url,[`Indicator "${name}" was added`],errors);
 

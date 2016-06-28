@@ -6,9 +6,9 @@ class Message extends React.Component {
     render(){
     	const {message:message=""}=this.props;
          return (
-            <p className={this.props.className}>
+            <li className={this.props.className}>
                {message}
-            </p>
+            </li>
         )
     }
 
@@ -16,26 +16,27 @@ class Message extends React.Component {
 
 
 class Messages extends React.Component {
-	debugger;
 	render(){
 		const {messages:messages=[]}=this.props;
 		debugger;
 		return (
 			<div className="bs-callout bs-callout-message">
-			{messages.map(m=><Message className="alert alert-success small"  message={m}/>)}
+				<ul>
+					{messages.map(m=><Message className="message"  message={m}/>)}
+				</ul>
 			</div>
 			)
 	}
 }
 
 class Errors extends React.Component {
-	debugger;
 	render(){
 		const {errors:errors=[]}=this.props;
-		debugger;
 		return (
 			<div className="bs-callout bs-callout-error">
-				{errors.map(e=><Message className="alert alert-error small" message={e}/>)}
+					<ul>
+					{errors.map(e=><Message className="error" message={e}/>)}
+				</ul>
 			</div>
 			)
 	}

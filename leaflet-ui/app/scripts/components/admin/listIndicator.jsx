@@ -2,16 +2,19 @@ import React from 'react'
 import { connect } from 'react-redux'
 import {Map} from 'immutable'
 import {getList,deleteIndicator,editIndicator} from '../../actions/indicators.js'
+import {Messages} from '../messages/messages.jsx'
 
+require('./admin.scss')
 
 const Indicator = class extends React.Component {
 
 
   render() {
     return (
-      <li>{this.props.name}
-          <button onClick={()=>{this.props.onEdit(this.props)}}>Edit</button>
-          <button onClick={()=>{this.props.onDelete(this.props)}}>Remove</button>
+      <li>
+        {this.props.name}
+          <button className="pull-right" onClick={()=>{this.props.onEdit(this.props)}}>Edit</button>
+          <button className="pull-right"  onClick={()=>{this.props.onDelete(this.props)}}>Remove</button>
       </li>
       );
   }
@@ -32,16 +35,22 @@ export default class listIndicator extends React.Component {
     this.props.onLoad() 
   }
 
+    noRecords(){
+        return (<Messages messages={["There are no indicators yet."]}/>)
+    }
+
+    list(indicators){
+        return  (<ul>{indicators.map(indicator=><Indicator {...this.props} {...indicator}/>)}</ul>)
+
+}
 
   render() {
-    const {indicators:indicators=[]}=this.props;
+    const {indicators}=this.props;
     debugger;
     return (
-      <div className="admin-page">
+      <div className="indicator-list">
         <h2>List of indicators</h2>
-      <ul>
-        {indicators.map(indicator=><Indicator {...this.props} {...indicator}/>)}
-      </ul>
+            {(indicators.length > 0)?this.list(indicators):this.noRecords()}
       </div>);
   }
 }

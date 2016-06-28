@@ -19,7 +19,7 @@ class AdminIndex extends React.Component {
 		
 		const {state} = location;
 
-		const {messages:messages=[],errors:errors=[]} = state || {}; 
+		const {messages,errors} = state || {}; 
 		debugger;
 		
 		return (
@@ -29,13 +29,10 @@ class AdminIndex extends React.Component {
 			<li className={(this.props.currentView=='admin/add/indicator')?"active":""}> <Link to="admin/add/indicator">New Indicators</Link></li>
 			</ul>
 			<div className="clearFix"></div>
-				<Messages messages={messages}/>
-				<Errors errors={errors}/>
+				{messages?<Messages messages={messages}/>:null}
 
-
-			{this.props.children}
-
-
+				{errors?<div><h2>Plase review errors below</h2> <Errors errors={errors}/></div>:null}
+				{this.props.children}
 			</div>
 			)
 	}
