@@ -1,25 +1,24 @@
 import * as Constants from '../constants/constants';
 import Connector from '../connector/connector';
 
-export const saveOK = (results) => {
+export const saveOK = () => {
   return {
     type: Constants.REQUEST_SAVE_MAP,
-    results: results
+    saveMap: {message: 'Save map done!'}
   }
 }
 
 export const saveError = (message) => {
   return {
     type: Constants.REQUEST_SAVE_MAP,
-    message: message
+    saveMap: {message: message}
   }
 }
 
 export const requestSaveMap = (dataToSave) => {
   return (dispatch, getState) =>{
-    console.log("--- requestSaveMap ---");
     Connector.saveMap(dataToSave).then((results)=>{
-        dispatch(saveOK(results));
+        dispatch(saveOK());
     }).catch((err)=>{
         dispatch(saveError(err.data.message));
     });

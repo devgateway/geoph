@@ -1,10 +1,11 @@
 import * as Constants from '../constants/constants';
 
 const saveMap = (state = {}, action) => {
-  console.log("--- saveMap action ---" + action);
+  console.log("--- saveMap reducer ---" + action);
   switch (action.type) {
     case Constants.REQUEST_SAVE_MAP:
-      return state
+
+      return Object.assign({}, state, {'message': action.saveMap.message})
     default:
       return state
   }
