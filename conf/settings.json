@@ -65,8 +65,20 @@
 		},
 
 		"PROJECT_POPUP": {
-			"development": "/charts/projects",				
-			"production": "/charts/projects"		
+			"development": {
+				"fundingAgency": "/charts/fundingAgency",
+				"implementingAgency": "/charts/impAgency",
+				"physicalStatus": "/charts/physicalStatus",
+				"sector": "/charts/sector",
+				"projectList": "/projects"				
+			},				
+			"production": {
+				"fundingAgency": "/charts/fundingAgency",
+				"implementingAgency": "/charts/impAgency",
+				"physicalStatus": "/charts/physicalStatus",
+				"sector": "/charts/sector",
+				"projectList": "/projects"			
+			}		
 		},
 
 		"PROJECT_LIST": {
