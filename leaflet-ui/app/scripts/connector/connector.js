@@ -52,7 +52,7 @@ class Connector {
 		
 		return new Promise(
 			function(resolve, reject) {
-				Axios.put(url, body)
+				Axios.post(url, body)
 				.then(function(response) {
 					resolve(response);
 				})
@@ -169,6 +169,17 @@ class Connector {
 		return new Promise( (resolve, reject) => {
 			let path = Settings.get('API','STATS');
 			this.call(GET, path, filters).then((data) => {
+				resolve(data); 	
+			}).catch(reject)
+		});
+	}
+
+
+	saveMap(dataToSave) {
+		return new Promise( (resolve, reject) => {
+			let path = Settings.get('API','SAVE');
+			console.log("---saveMap connector---");
+			this.call(POST, path, dataToSave).then((data) => {
 				resolve(data); 	
 			}).catch(reject)
 		});

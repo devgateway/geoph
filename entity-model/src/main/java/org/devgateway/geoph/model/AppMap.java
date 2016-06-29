@@ -1,8 +1,7 @@
 package org.devgateway.geoph.model;
 
-import org.devgateway.geoph.util.KeyGenerator;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.devgateway.geoph.converter.StringJsonUserType;
+import org.hibernate.annotations.*;
 
 import javax.persistence.Entity;
 import java.io.Serializable;
@@ -14,9 +13,8 @@ import java.util.Date;
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
+@TypeDefs( {@TypeDef( name= "StringJsonObject", typeClass = StringJsonUserType.class)})
 public class AppMap extends GenericPersistable implements Serializable {
-
-    public static final int FILENAME_LENGTH = 10;
 
     private String name;
 
@@ -24,6 +22,7 @@ public class AppMap extends GenericPersistable implements Serializable {
 
     private String key;
 
+    @Type(type = "StringJsonObject")
     private String jsonAppMap;
 
     private Date creationDate;
@@ -32,12 +31,12 @@ public class AppMap extends GenericPersistable implements Serializable {
 
     }
 
-    public AppMap(String name, String description, String jsonAppMap) {
+    public AppMap(String name, String description, String jsonAppMap, String key) {
         this.name = name;
         this.description = description;
         this.jsonAppMap = jsonAppMap;
         this.creationDate = new Date();
-        this.setKey(KeyGenerator.getRandomKey(FILENAME_LENGTH));
+        this.setKey(key);
     }
 
     public String getName() {

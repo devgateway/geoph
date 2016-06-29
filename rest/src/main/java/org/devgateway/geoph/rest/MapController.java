@@ -1,6 +1,9 @@
 package org.devgateway.geoph.rest;
 
-
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.lang3.StringUtils;
+import org.devgateway.geoph.core.exceptions.BadRequestException;
 import org.devgateway.geoph.core.services.AppMapService;
 import org.devgateway.geoph.core.services.ScreenCaptureService;
 import org.devgateway.geoph.model.AppMap;
@@ -10,9 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -25,11 +33,12 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RequestMapping(value = "/maps")
 public class MapController {
 
-
     private static final Logger LOGGER = LoggerFactory.getLogger(MapController.class);
+    private static final String NAME_STR = "name";
+    private static final String DESCRIPTION_STR = "description";
+    private static final String DATA_TO_SAVE_STR = "dataToSave";
 
     private final AppMapService appMapService;
-
 
     private final ScreenCaptureService screenCaptureService;
 
@@ -46,12 +55,27 @@ public class MapController {
     }
 
     @RequestMapping(value = "/save", method = POST)
-    public AppMap saveMap(@RequestParam(value = "name", required = true) String name,
-                          @RequestParam(value = "description", required = true) String description,
-                          @RequestBody Object mapVariables) {
+    public AppMap saveMap(@RequestBody Map<String, Object> mapVariables) throws JsonProcessingException, SQLException {
         LOGGER.debug("saveMap");
-        AppMap appMap = new AppMap(name, description, mapVariables.toString());
-        return appMapService.save(appMap);
+        String mapName = (String) mapVariables.get(NAME_STR);
+        if(checkIfMapNameIsValid(mapName)) {
+            String mapDesc = (String) mapVariables.get(DESCRIPTION_STR);
+            String mapJson = new ObjectMapper().writeValueAsString(mapVariables.get(DATA_TO_SAVE_STR));
+            AppMap appMap = new AppMap(mapName, mapDesc, mapJson, UUID.randomUUID().toString());
+            return appMapService.save(appMap);
+        } else {
+            throw new BadRequestException("The name used to save the map is not valid or it is already in use");
+        }
+    }
+
+    private boolean checkIfMapNameIsValid(String mapName){
+        boolean ret = false;
+        if(StringUtils.isNotBlank(mapName)) {
+            if(appMapService.findByName(mapName)==null){
+                ret = true;
+            }
+        }
+        return ret;
     }
 
     @RequestMapping(value = "/id/{id}", method = GET)
@@ -73,7 +97,7 @@ public class MapController {
         return appMapService.findByNameOrDescription(name);
     }
 
-    @RequestMapping(value = "/print", method = GET)
+    @RequestMapping(value = "/image", method = GET)
     public String printPage(@RequestParam(value = "url", required = true) String url) throws Exception {
         return screenCaptureService.captureUrlToImage(url);
     }
@@ -90,6 +114,16 @@ public class MapController {
         return ex.getMessage();
     }
 
-
+    @ExceptionHandler(BadRequestException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public Map<String,Object> handleBadRequestException(BadRequestException exception) {
+        Map<String, Object> result = new HashMap<>();
+        result.put("error", "Bad Request");
+        result.put("message", exception.getMessage());
+        result.put("status", 400);
+        result.put("timestamp", System.currentTimeMillis());
+        return result;
+    }
 }
 
