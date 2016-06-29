@@ -26,33 +26,33 @@ class FilterTabContent extends React.Component {
 								NOT YET IMPLEMENTED
 						    </Tab>*/}
 						    <Tab className="filter-list-content" eventKey={1} title="Funding Type (ODA)">
-								<FilterList filterType="ft" {...this.props.filters["ft"]} />
+								<FilterList title="Funding Type (ODA)" filterType="ft" {...this.props.filters["ft"]} />
 						    </Tab>
 						    <Tab className="filter-list-content" eventKey={2} title="Financing Institution (ODA)">
-								<FilterList filterType="fa" {...this.props.filters["fa"]} />
+								<FilterList title="Financing Institution (ODA)" filterType="fa" {...this.props.filters["fa"]} />
 						    </Tab>
 						</Tabs>
 	                </Tab>
 	                <Tab className="filter-tab-content" eventKey={2} title="Agency">
 	                  	<Tabs defaultActiveKey={1} position="left" tabWidth={3}>
 							<Tab className="filter-list-content" eventKey={1} title="Implementing Agency">
-								<FilterList filterType="ia" {...this.props.filters["ia"]} />
+								<FilterList title="Implementing Agency" filterType="ia" {...this.props.filters["ia"]} />
 						    </Tab>						   
 						</Tabs>
 	                </Tab>
 	                <Tab className="filter-tab-content" eventKey={3} title="Sectors">
 	                  	<Tabs defaultActiveKey={1} position="left" tabWidth={3}>
 							<Tab className="filter-list-content" eventKey={1} title="Sector">
-								<FilterList filterType="st" {...this.props.filters["st"]} />
+								<FilterList title="Sector" filterType="st" {...this.props.filters["st"]} />
 						    </Tab>
 						    {/*<Tab className="filter-list-content" eventKey={2} title="Philippines Development Priority">
 								NOT YET IMPLEMENTED
 						    </Tab>*/}
 						    <Tab className="filter-list-content" eventKey={2} title="Relevance to Climate">
-								<FilterList filterType="cc" {...this.props.filters["cc"]}  showCode={true}/>
+								<FilterList title="Relevance to Climate" filterType="cc" {...this.props.filters["cc"]}  showCode={true}/>
 						    </Tab>
 						    <Tab className="filter-list-content" eventKey={3} title="Gender">
-								<FilterList filterType="gr" {...this.props.filters["gr"]} showCode={true}/>
+								<FilterList title="Gender" filterType="gr" {...this.props.filters["gr"]} showCode={true}/>
 						    </Tab>
 						</Tabs>
 	                </Tab>
@@ -97,7 +97,7 @@ class FilterTabContent extends React.Component {
 	                <Tab className="filter-tab-content" eventKey={5} title="Status">
 	                  	<Tabs defaultActiveKey={1} position="left" tabWidth={3}>
 							<Tab className="filter-list-content" eventKey={1} title="Financing Status">
-								<FilterList filterType="sa" {...this.props.filters["sa"]}/>
+								<FilterList title="Financing Status" filterType="sa" {...this.props.filters["sa"]}/>
 						    </Tab>
 						</Tabs>
 	                </Tab>
@@ -118,7 +118,7 @@ class FilterTabContent extends React.Component {
 									valueMax={this.props.filters["pr"]? parseInt(this.props.filters["pr"].items[0]) : 100}/>
 						    </Tab>
 						    <Tab className="filter-list-content" eventKey={2} title="Physical Status">
-								<FilterList filterType="ph" {...this.props.filters["ph"]} />
+								<FilterList title="Physical Status" filterType="ph" {...this.props.filters["ph"]} />
 						    </Tab>
 						    {/*<Tab className="filter-list-content" eventKey={3} title="Alert Level">
 								NOT YET IMPLEMENTED
