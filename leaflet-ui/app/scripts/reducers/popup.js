@@ -1,21 +1,20 @@
 import * as Constants from '../constants/constants';
+import {cloneDeep} from '../util/filterUtil';
 
 const popup = (state = {}, action) => {
   switch (action.type) {
     case Constants.RECEIVE_POPUP_DATA:
     case Constants.REQUEST_POPUP_DATA:
-      let chartsObj = {lastUpdate: action.receivedAt};
-      for(var key in action.data){
-          let act = {type: action.type, data: action.data[key]};
-          chartsObj[key] = chart(state[key], act);
-      }
-      return Object.assign({}, state, chartsObj);
+      //let chartsObj = {lastUpdate: action.receivedAt};
+      let clonedState = cloneDeep(state);    
+      clonedState[action.tab] = tab(state[action.tab], action);  
+      return clonedState;
     default:
       return state
   }
 }
 
-const chart = (state = {
+const tab = (state = {
   isFetching: false,
   itemsToShow: Constants.CHART_ITEMS_STEP_AMOUNT,
   chartType:'bar',
@@ -37,4 +36,4 @@ const chart = (state = {
   }
 }
 
-export default popup
+export default popup;

@@ -66,20 +66,53 @@
 }
 
 .project-list{
-    width: 400px !important;
+    margin-top: 5px;
+    width: 410px !important;
     text-align: center;
     font-size: 11px;
+    max-height: 170px;
+    overflow-y: auto; 
+    overflow-x: hidden;  
 }
 
 .project-list-item{
     border-bottom: 1px;
-    border-bottom-style: solid; 
+    border-bottom-style: solid;
+    border-bottom-color: #c6c7ca;
+    font-size: 11px;
+    height: 28px;
+    >div:last-child:not(:first-child){
+        border-right: none; 
+    }
+    >div{
+        padding-bottom: 5px;
+        padding-right: 0px;
+        padding-left: 0px;
+        padding-top: 7px;
+        border-right: 1px; 
+        border-right-style: solid; 
+        border-right-color: #c6c7ca;
+    }
 }
 
 .project-list-header{
-    border-bottom: 2px;
+    border-bottom: 1px;
     border-bottom-style: solid;
-    font-weight: bolder;
+    border-top: 1px;
+    border-top-style: solid;
+    border-bottom-color: #c6c7ca;
+    border-top-color: #c6c7ca;
+    font-size: 9px;
+    color: #3a3b3c;
+    height: 24px;
+    >div:first-child{
+        text-align: left;
+    }
+    >div{
+        padding-right: 0px;
+        padding-left: 0px;
+        padding-top: 5px;
+    }
 }
 
 .project-title {
@@ -88,3 +121,10 @@
     padding-right: 4px !important;
 }
 
+.loading-icon{
+    height: 40px;
+    width: 40px;
+    margin-top: 25%;
+    margin-left: 47%;
+    background: url('../../../../assets/loading.gif') no-repeat;
+}

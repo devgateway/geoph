@@ -4,7 +4,7 @@ import Plotly  from 'react-plotlyjs';
 import { connect } from 'react-redux';
 import { ButtonGroup, Button, Label } from 'react-bootstrap';
 import * as Constants from '../../constants/constants';
-
+import {formatValue} from '../../util/transactionUtil';
 require("./charts.scss");
 
 var pieColors = ["#f6eff7","#d0d1e6","#a6bddb","#67a9cf","#3690c0","#02818a","#016450"];
@@ -25,6 +25,7 @@ export default class ChartComponent extends React.Component {
 		let meas = measure && this.props.chartData.measureType=='funding'? measure : 'projectCount';
 		let labels = [];
 		let values = [];
+		let text = [];
 		if (chartData.data && chartData.data.map){
 			let others = 0;
 			this.sortDataByValue(chartData.data, meas);
@@ -35,12 +36,14 @@ export default class ChartComponent extends React.Component {
 							let label = i[dimension].length>35? i[dimension].substr(0,32)+'...' : i[dimension];
 							labels.push(this.capitalizeName(label));
 							values.push(i[meas]);
+							text.push("Total Projects: " + i[meas]);
 						}
 					} else {
 						if (i.trxAmounts[meas.measure][meas.type] && parseFloat(i.trxAmounts[meas.measure][meas.type])>0){
 							let label = i[dimension].length>35? i[dimension].substr(0,32)+'...' : i[dimension];
 							labels.push(this.capitalizeName(label));
 							values.push(i.trxAmounts[meas.measure][meas.type]);
+							text.push(this.capitalizeName(meas.type + " " +meas.measure) + " PHP: " + formatValue(parseFloat(i.trxAmounts[meas.measure][meas.type])));
 						}
 					}
 				} else {
@@ -55,9 +58,10 @@ export default class ChartComponent extends React.Component {
 					}
 				}
 			});
-			if (others>0){
+			if (others>0){ 
 				labels.push("Others");
 				values.push(others);
+				text.push(this.capitalizeName(meas.type + " " +meas.measure) + " PHP: " + formatValue(parseFloat(others)));
 			}
 		}
 		return {
@@ -66,15 +70,16 @@ export default class ChartComponent extends React.Component {
 			        'type': 'pie',      
 			        'labels': labels,  
 			        'values': values, 
+			        'text': text, 
 			        'marker':{
 			        	'line': {'width': 0.5,'color': 'rgb(102, 102, 102)'}
 			        },
-			        'hole': 0.45,
 			        'textposition': 'none',
 			        'domain':{
 						x:[0.25,1],
 						y:[0,1]
 					},
+					hoverinfo: 'label+text+percent',
 			    }
 		    ],
 			'layout': {         
@@ -90,6 +95,8 @@ export default class ChartComponent extends React.Component {
 				'legend':{
 					x:-0.5,
 					y:1,
+					xanchor:"left",
+					yanchor:"top",
 					bgcolor:"rgba(0, 0, 0, 0)",
 					font:{
 						size:10
@@ -108,6 +115,7 @@ export default class ChartComponent extends React.Component {
 		let meas = measure && this.props.chartData.measureType=='funding'? measure : 'projectCount';
 		let itemNames = [];
 		let values = [];
+		let text = [];
 		if (chartData.data  && chartData.data.map){
 			let others = 0;
 			this.sortDataByValue(chartData.data, meas);
@@ -115,13 +123,17 @@ export default class ChartComponent extends React.Component {
 				if (idx<this.props.chartData.itemsToShow){
 					if (meas=='projectCount'){
 						if (i[meas] && parseInt(i[meas])>0){
-							itemNames.push(this.capitalizeName(i[dimension]));
+							let label = i[dimension].length>35? i[dimension].substr(0,32)+'...' : i[dimension];
+							itemNames.push(this.capitalizeName(label));
 							values.push(i[meas]);
+							text.push("Total Projects: " + i[meas]);
 						}
 					} else {
 						if (i.trxAmounts[meas.measure][meas.type] && parseFloat(i.trxAmounts[meas.measure][meas.type])>0){
-							itemNames.push(this.capitalizeName(i[dimension]));
+							let label = i[dimension].length>35? i[dimension].substr(0,32)+'...' : i[dimension];
+							itemNames.push(this.capitalizeName(label));
 							values.push(i.trxAmounts[meas.measure][meas.type]);
+							text.push(this.capitalizeName(meas.type + " " +meas.measure) + " PHP: " + formatValue(parseFloat(i.trxAmounts[meas.measure][meas.type])));
 						}
 					}
 				} else {
@@ -141,12 +153,13 @@ export default class ChartComponent extends React.Component {
 			'data': [
 				{
 					type: 'bar',   
-			        x: itemNames,  
+			        x: itemNames,
 			        y: values,    
-			        //name: meas,
+			        text: text,
 					"marker":{  
 					 	"color": '#2b9ff6'
-					}
+					},
+					hoverinfo: 'text+x'
 				}
 			],
 			'layout': { 
