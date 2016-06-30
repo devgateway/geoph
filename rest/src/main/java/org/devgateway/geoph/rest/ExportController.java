@@ -17,7 +17,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
  */
 @RestController
 @RequestMapping(value = "/export")
-public class ExportController {
+public class ExportController  extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ExportController.class);
 
     @Autowired
@@ -53,18 +53,11 @@ public class ExportController {
         return exportService.exportLocationProject(locationProjectDefProvider, csvGenerator.getNewInstance(), filters.getParameters());
     }
 
-    @RequestMapping(value = "/indicator/{id}", method = GET)
+    @RequestMapping(value = "/indicators/{id}", method = GET)
     public String getCSV(@PathVariable final Long id) throws Exception {
         LOGGER.debug("CSV indicators export Called");
         return exportService.exportIndicator(indicatorDefProvider, csvGenerator.getNewInstance(), id);
     }
 
-
-    @ExceptionHandler(Exception.class)
-    @ResponseStatus(org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR)
-    public String handleAppException(Exception ex) {
-        LOGGER.error("Can't complete this request", ex);
-        return ex.getMessage();
-    }
 
 }

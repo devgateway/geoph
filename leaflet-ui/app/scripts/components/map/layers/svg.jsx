@@ -69,7 +69,6 @@ class D3Layer extends MapLayer {
 
     this.path.pointRadius((d)=>{
       let size= this.props.map.getZoom()* this.sizeFactor * d.properties[this.filed];
-      //console.log((size < this.minSize)?this.minSize:(size>this.maxSize)?this.maxSize:size)
       return (size < this.minSize)?this.minSize:(size>this.maxSize)?this.maxSize:size;
     });
     

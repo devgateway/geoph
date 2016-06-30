@@ -1,7 +1,10 @@
 import Axios from 'axios';
 import {API_BASE_URL}  from '../constants/constants';
 import Settings from '../util/settings';
+import {connect } from 'react-redux'
+import Store from '../store/configureStore.js';
 import Qs from 'qs';
+
 
 console.log(Settings);
 
@@ -12,6 +15,10 @@ const DELETE= 'DELETE';
 
 class Connector {
 
+
+	setStore(store){
+		this.store=store;
+	}
 
 	get(url, params = {}) {
 		return new Promise(
@@ -48,6 +55,22 @@ class Connector {
 	}
 
 
+	delete(url) {
+		return new Promise(
+			function(resolve, reject) {
+				Axios.delete(url)
+				.then(function(response) {
+					resolve(response);
+				})
+				.catch(function(response) {
+					reject(response);
+				});
+			});
+	}
+
+
+
+
 	post(url, body = {}) {
 		
 		return new Promise(
@@ -63,15 +86,16 @@ class Connector {
 	}
 
 	/*A method should always return a promise*/
-	call(verb,endpoint, params, absolute) {
-		
-		let apiRoot = absolute? "" : Settings.get('API',API_BASE_URL);		
+	call(verb,endpoint, params) {
+		let apiRoot = Settings.get('API',API_BASE_URL);
 		let url = `${apiRoot}${endpoint}`; 
 
 		let caller;
 		if (verb == GET) caller = this.get;
 		if (verb == POST) caller = this.post;
 		if (verb == PUT ) caller = this.put;
+			if (verb == DELETE ) caller = this.delete;
+
 
 		return new Promise((resolve, reject) => {
 			caller(url, params).then((data) => {
@@ -91,7 +115,7 @@ class Connector {
 			let url=Settings.get('API',options.ep);
 			const {level,quality} = options.settings;
 			const {id, filters}=options;
-	
+
 			if (level){
 				url=url.replace('${level}',level);
 			}
@@ -141,6 +165,63 @@ class Connector {
 		});
 	}
 
+
+	login(options){
+		return new Promise( (resolve, reject) => {
+			const {username,password} = options;
+			let url = Settings.get('API','LOGIN');
+
+			this.call(POST,url, {username:username,password:password}).then((data) => {
+				resolve(data);	
+			})
+			.catch((error)=>{
+				reject(error);	
+			})
+		})
+	}
+
+
+	getIndicatorList(){
+		
+		return this.call(GET,Settings.get('API','INDICATOR_LIST'),{});
+	}
+
+	removeIndicator(id){
+		debugger;
+		let url=Settings.get('API','INDICATOR');
+		url=url.replace('${id}',id);
+		return this.call(DELETE,url,{});
+	}
+
+	uploadIndicator(options){
+		
+		const URL=Settings.get('API',API_BASE_URL) + Settings.get('API','INDICATOR_UPLOAD');
+
+			return new Promise( (resolve, reject) => {
+			const {file,name,template,color} = options;
+			let url = Settings.get('API','INDICATOR_UPLOAD');
+			var data = new FormData();
+			data.append('name', name);
+			data.append('template', template);
+			data.append('color', color);
+			data.append('file',file);
+			var config = {
+				progress: function(progressEvent) {
+					debugger
+					var percentCompleted = progressEvent.loaded / progressEvent.total;
+				}
+			};
+
+			Axios.post(URL, data, config)
+				.then(function (res) {
+					resolve(res.data);
+				})
+				.catch(function (res) {
+					reject()
+				});
+		})
+	}
+
 	getProjectPopupData(filters) {
 		return new Promise( (resolve, reject) => {
 			let path = Settings.get('API','PROJECT_POPUP');
@@ -172,6 +253,7 @@ class Connector {
 				resolve(data); 	
 			}).catch(reject)
 		});
+
 	}
 
 
@@ -187,6 +269,7 @@ class Connector {
 }
 
 
-const connector=new Connector();
-
-export default connector;
+if (!window.__connector){ //singleton connector 
+	window.__connector=new Connector();
+}
+export default window.__connector;

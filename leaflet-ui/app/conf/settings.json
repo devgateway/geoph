@@ -11,9 +11,13 @@
 			"production": "http://geoph.developmentgateway.org"
 		},
 
+		"LOGIN":"/login",
 		"PROJECT_GEOJSON":"/geodata/${level}/projects",
 		"FUNDING_GEOJSON":"/geodata/stats/region/funding",
-
+	  	"INDICATOR_UPLOAD":"/indicators/upload",
+	  	"INDICATOR_LIST":"/indicators",
+	  	"INDICATOR":"/indicators/${id}",
+	  	
 		"FILTER_LIST": {
 			"development": {
 				"st": "/filters/sector",
