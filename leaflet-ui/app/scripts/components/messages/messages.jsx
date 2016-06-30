@@ -18,7 +18,7 @@ class Message extends React.Component {
 class Messages extends React.Component {
 	render(){
 		const {messages:messages=[]}=this.props;
-		debugger;
+		
 		return (
 			<div className="bs-callout bs-callout-message">
 				<ul>

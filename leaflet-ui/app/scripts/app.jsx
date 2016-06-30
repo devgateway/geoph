@@ -37,6 +37,8 @@ const redirectMiddleWare = store => next => action => {
 
 
 
+
+
 const store = configureStore({}, browserHistory,redirectMiddleWare);
 const history = syncHistoryWithStore(hashHistory, store);
 

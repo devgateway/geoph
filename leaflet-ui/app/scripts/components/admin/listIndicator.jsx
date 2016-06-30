@@ -13,8 +13,8 @@ const Indicator = class extends React.Component {
     return (
       <li>
         {this.props.name}
-          <button className="pull-right" onClick={()=>{this.props.onEdit(this.props)}}>Edit</button>
-          <button className="pull-right"  onClick={()=>{this.props.onDelete(this.props)}}>Remove</button>
+          <button className="pull-right btn-xs btn-success" onClick={()=>{this.props.onEdit(this.props)}}>Edit</button>
+          <button className="pull-right btn-xs btn-warning"  onClick={()=>{this.props.onDelete(this.props)}}>Remove</button>
       </li>
       );
   }
@@ -46,10 +46,10 @@ export default class listIndicator extends React.Component {
 
   render() {
     const {indicators}=this.props;
-    debugger;
+    
     return (
       <div className="indicator-list">
-        <h2>List of indicators</h2>
+
             {(indicators.length > 0)?this.list(indicators):this.noRecords()}
       </div>);
   }

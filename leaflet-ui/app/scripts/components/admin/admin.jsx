@@ -14,13 +14,13 @@ class AdminIndex extends React.Component {
 	}
 
 	render(){
-		debugger;
+		
 		const {location} = this.props;
 		
 		const {state} = location;
 
 		const {messages,errors} = state || {}; 
-		debugger;
+		
 		
 		return (
 			<div id="admin-index">
@@ -48,7 +48,7 @@ class AdminView extends React.Component {
 	render() {
 		const logged=this.props.accountNonExpired && this.props.accountNonLocked&& this.props.enabled && this.props.credentialsNonExpired;
 		let view=null;
-		if (true){
+		if (logged){
 			view=<AdminIndex {...this.props}> {this.props.children}</AdminIndex>
 		}else{
 			view =<Login {...this.props}></Login>
