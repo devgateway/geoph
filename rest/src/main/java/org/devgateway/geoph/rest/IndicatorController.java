@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,8 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 /**
  * @author dbianco
@@ -45,6 +45,18 @@ public class IndicatorController extends BaseController {
     public List<Indicator> getIndicatorsList() {
         LOGGER.debug("getIndicatorsList");
         return layerService.getIndicatorsList();
+    }
+
+    @RequestMapping(value = "/{id}", method = GET)
+    public IndicatorResponse getIndicatorById(@PathVariable final long id) {
+        LOGGER.debug("getIndicatorById: " + id);
+        return layerService.getIndicatorById(id);
+    }
+
+    @RequestMapping(value = "/{id}", method = DELETE)
+    public void deleteIndicatorById(@PathVariable final long id) {
+        LOGGER.debug("deleteIndicatorById: " + id);
+         layerService.deleteIndicator(id);
     }
 
 

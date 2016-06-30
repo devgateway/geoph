@@ -81,6 +81,11 @@
 		"STATS": {
 			"development": "/projects/count",				
 			"production": "/projects/count"		
+		},
+
+		"SAVE": {
+			"development": "/maps/save",				
+			"production": "/maps/save"		
 		}
 		
 	},

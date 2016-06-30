@@ -4,6 +4,7 @@ import org.devgateway.geoph.core.repositories.GeoPhotoRepository;
 import org.devgateway.geoph.core.repositories.IndicatorDetailRepository;
 import org.devgateway.geoph.core.repositories.IndicatorRepository;
 import org.devgateway.geoph.core.repositories.LocationRepository;
+import org.devgateway.geoph.core.response.IndicatorResponse;
 import org.devgateway.geoph.core.services.LayerService;
 import org.devgateway.geoph.dao.GeoPhotoGeometryDao;
 import org.devgateway.geoph.dao.PostGisDao;
@@ -53,6 +54,21 @@ public class LayerServiceImpl implements LayerService {
     @Override
     public List<Indicator> getIndicatorsList() {
         return indicatorRepository.findAll();
+    }
+
+    @Override
+    public IndicatorResponse getIndicatorById(Long id) {
+        IndicatorResponse response = new IndicatorResponse(indicatorRepository.findOne(id));
+        if(response.getId()!=null){
+            response.addDetails(indicatorDetailRepository.findByIndicatorId(id));
+        }
+        return response;
+    }
+
+    @Override
+    public void deleteIndicator(Long id) {
+        indicatorDetailRepository.delete(indicatorDetailRepository.findByIndicatorId(id));
+        indicatorRepository.delete(id);
     }
 
     @Override
