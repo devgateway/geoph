@@ -37,6 +37,10 @@ public class MapController {
     private static final String NAME_STR = "name";
     private static final String DESCRIPTION_STR = "description";
     private static final String DATA_TO_SAVE_STR = "dataToSave";
+    private static final String BAD_REQUEST_NAME_INVALID = "The name used to save the map is not valid or it is already in use";
+    private static final String URL_STR = "url";
+    private static final String PDF_DESCRIPTION_MSG = "Map created automatically to generate a PDF file";
+    private static final String IMG_DESCRIPTION_MSG = "Map created automatically to generate a IMG file";
 
     private final AppMapService appMapService;
 
@@ -64,8 +68,30 @@ public class MapController {
             AppMap appMap = new AppMap(mapName, mapDesc, mapJson, UUID.randomUUID().toString());
             return appMapService.save(appMap);
         } else {
-            throw new BadRequestException("The name used to save the map is not valid or it is already in use");
+            throw new BadRequestException(BAD_REQUEST_NAME_INVALID);
         }
+    }
+
+    @RequestMapping(value = "/varsToPdf", method = POST)
+    public String saveAndCreatePdf(@RequestBody Map<String, Object> mapVariables) throws Exception {
+        LOGGER.debug("saveAndCreatePdf");
+        String name = UUID.randomUUID().toString();
+        String urlToQuery = (String) mapVariables.get(URL_STR);
+        String mapDesc = (String) mapVariables.get(PDF_DESCRIPTION_MSG);
+        String mapJson = new ObjectMapper().writeValueAsString(mapVariables.get(DATA_TO_SAVE_STR));
+        appMapService.save(new AppMap(name, mapDesc, mapJson, name));
+        return screenCaptureService.captureUrlToPDF(urlToQuery+name);
+    }
+
+    @RequestMapping(value = "/varsToImg", method = POST)
+    public String saveAndCreateImg(@RequestBody Map<String, Object> mapVariables) throws Exception {
+        LOGGER.debug("saveAndCreateImg");
+        String name = UUID.randomUUID().toString();
+        String urlToQuery = (String) mapVariables.get(URL_STR);
+        String mapDesc = (String) mapVariables.get(IMG_DESCRIPTION_MSG);
+        String mapJson = new ObjectMapper().writeValueAsString(mapVariables.get(DATA_TO_SAVE_STR));
+        appMapService.save(new AppMap(name, mapDesc, mapJson, name));
+        return screenCaptureService.captureUrlToImage(urlToQuery+name);
     }
 
     private boolean checkIfMapNameIsValid(String mapName){
@@ -97,12 +123,12 @@ public class MapController {
         return appMapService.findByNameOrDescription(name);
     }
 
-    @RequestMapping(value = "/image", method = GET)
+    @RequestMapping(value = "/urlToImage", method = GET)
     public String printPage(@RequestParam(value = "url", required = true) String url) throws Exception {
         return screenCaptureService.captureUrlToImage(url);
     }
 
-    @RequestMapping(value = "/pdf", method = GET)
+    @RequestMapping(value = "/urlToPdf", method = GET)
     public String convertPageToPDF(@RequestParam(value = "url", required = true) String url) throws Exception {
         return screenCaptureService.captureUrlToPDF(url);
     }
