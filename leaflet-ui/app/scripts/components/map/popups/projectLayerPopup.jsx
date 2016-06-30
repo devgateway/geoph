@@ -46,7 +46,7 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
     return (
       <div className="popup-container">
         <div className="popup-title">
-          <h2>{this.props.feature.properties? this.props.feature.properties.name : ""} </h2>
+          <h2>{this.props.feature? this.props.feature.properties.name : ""} </h2>
         </div>
         <div className="">
           <ul className='popup-tabs' role='tablist' >
