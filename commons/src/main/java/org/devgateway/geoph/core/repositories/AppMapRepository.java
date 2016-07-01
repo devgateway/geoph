@@ -17,6 +17,9 @@ public interface AppMapRepository extends JpaRepository<AppMap, Long> {
     @Query("select a from AppMap a where LOWER(a.name) LIKE LOWER(CONCAT('%',?1, '%')) OR LOWER(a.description) LIKE LOWER(CONCAT('%',?1, '%'))")
     List<AppMap> findByNameOrDescription(String name);
 
+    @Query("select a from AppMap a where LOWER(a.name) LIKE LOWER(CONCAT('%',?1, '%'))")
+    AppMap findByName(String name);
+
     @Query("select a from AppMap a where a.key = ?1")
     AppMap findByKey(String key);
 

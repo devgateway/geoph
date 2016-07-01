@@ -68,6 +68,10 @@
 	/*SETTINGS events*/
 
 	export const SET_FUNDING_TYPE = 'SET_FUNDING_TYPE';
+
+	/*SAVE events*/
+
+	export const REQUEST_SAVE_MAP = 'REQUEST_SAVE_MAP';
 	
 
 	/*LAYERS events*/
@@ -88,3 +92,29 @@
 	
 	export const API_BASE_URL ='API_BASE_URL';
 
+
+	/*Security events*/
+
+	export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+
+	export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+
+
+	export const CHANGE_PROPERTY = 'CHANGE_PROPERTY';
+
+	export const CHANGE_STEP = 'CHANGE_STEP';
+
+	export const UPDATE_ERRORS = 'UPDATE_ERRORS';
+
+	export const INDICATOR_UPLOAD_SUCCESS = 'INDICATOR_UPLOAD_SUCCESS';
+
+	export const INDICATOR_UPLOAD_FAILURE = 'INDICATOR_UPLOAD_FAILURE';
+
+   export const INDICATOR_LIST_LOADED = 'INDICATOR_LIST_LOADED';
+
+   export const INDICATOR_FAILED = 'INDICATOR_FAILED';
+
+
+   export const INDICATOR_REMOVE_SUCCESS = 'INDICATOR_REMOVE_SUCCESS';
+   
+   export const INDICATOR_REMOVE_FAILED = 'INDICATOR_REMOVE_FAILED';

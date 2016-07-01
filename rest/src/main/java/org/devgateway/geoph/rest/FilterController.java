@@ -26,7 +26,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
 @RequestMapping(value = "/filters")
-public class FilterController extends CrossOriginSupport {
+public class FilterController extends BaseController {
 
     private static final int DEFAULT_INDEX = 1;
 

@@ -1,7 +1,10 @@
 import Axios from 'axios';
 import {API_BASE_URL}  from '../constants/constants';
 import Settings from '../util/settings';
+import {connect } from 'react-redux'
+import Store from '../store/configureStore.js';
 import Qs from 'qs';
+
 
 console.log(Settings);
 
@@ -12,6 +15,14 @@ const DELETE= 'DELETE';
 
 class Connector {
 
+
+	setAuthToken(token){
+		this.token=token;
+	}
+
+	getSecurityHeader(){
+		return {'X-Security-token': this.token};
+	}
 
 	get(url, params = {}) {
 		return new Promise(
@@ -48,11 +59,26 @@ class Connector {
 	}
 
 
-	post(url, body = {}) {
-		
+	delete(url) {
 		return new Promise(
 			function(resolve, reject) {
-				Axios.put(url, body)
+				Axios.delete(url)
+				.then(function(response) {
+					resolve(response);
+				})
+				.catch(function(response) {
+					reject(response);
+				});
+			});
+	}
+
+
+
+
+	post(url, data = {},config={}) {
+		return new Promise(
+			function(resolve, reject) {
+				Axios.post(url, data,config)
 				.then(function(response) {
 					resolve(response);
 				})
@@ -63,19 +89,22 @@ class Connector {
 	}
 
 	/*A method should always return a promise*/
-	call(verb,endpoint, params, absolute) {
-		
-		let apiRoot = absolute? "" : Settings.get('API',API_BASE_URL);		
+	call(verb,endpoint, params , config) {
+
+		let apiRoot = Settings.get('API',API_BASE_URL);
 		let url = `${apiRoot}${endpoint}`; 
+
 
 		let caller;
 		if (verb == GET) caller = this.get;
 		if (verb == POST) caller = this.post;
 		if (verb == PUT ) caller = this.put;
+		if (verb == DELETE ) caller = this.delete;
+
 
 		return new Promise((resolve, reject) => {
-			caller(url, params).then((data) => {
-				resolve(data.data);
+			caller(url, params,config).then((response) => {
+				resolve(response.data);
 			}).catch((err) => {
 				console.log('Error when trying to get backend data')
 				reject(err);
@@ -91,7 +120,7 @@ class Connector {
 			let url=Settings.get('API',options.ep);
 			const {level,quality} = options.settings;
 			const {id, filters}=options;
-	
+
 			if (level){
 				url=url.replace('${level}',level);
 			}
@@ -141,6 +170,57 @@ class Connector {
 		});
 	}
 
+
+	login(options){
+		let apiRoot = Settings.get('API',API_BASE_URL);
+		let endpoint = Settings.get('API','LOGIN');
+		let url = `${apiRoot}${endpoint}`; 
+
+		return new Promise( (resolve, reject) => {
+			const {username,password} = options;
+		
+			this.post(url, {username:username,password:password}).then((response) => {
+				console.log(response.headers["x-security-token"]);
+				this.setAuthToken(response.headers["x-security-token"]) ;
+				resolve(response.data);	
+			})
+			.catch((error)=>{
+				reject(error);	
+			})
+		})
+	}
+
+	logout(){
+
+	}
+
+
+	getIndicatorList(){
+		return this.call(GET,Settings.get('API','INDICATOR_LIST'),{});
+	}
+
+	removeIndicator(id){
+		let url=Settings.get('API','INDICATOR');
+		url=url.replace('${id}',id);
+		return this.call(DELETE,url,{});
+	}
+
+	uploadIndicator(options){
+		const URL=Settings.get('API',API_BASE_URL) + Settings.get('API','INDICATOR_UPLOAD');
+		return new Promise( (resolve, reject) => {
+
+			const {file,name,template,color} = options;
+			let url = Settings.get('API','INDICATOR_UPLOAD');
+			var data = new FormData();
+			data.append('name', name);
+			data.append('template', template);
+			data.append('color', color);
+			data.append('file',file);
+			this.call(POST,url,data,{ headers: this.getSecurityHeader()}).then(resolve).catch(reject);
+		})
+	}
+
+
 	getProjectPopupData(filters, tab) {
 		return new Promise( (resolve, reject) => {
 			let path = Settings.get('API','PROJECT_POPUP')[tab];
@@ -166,10 +246,23 @@ class Connector {
 				resolve(data); 	
 			}).catch(reject)
 		});
+
+	}
+
+
+	saveMap(dataToSave) {
+		return new Promise( (resolve, reject) => {
+			let path = Settings.get('API','SAVE');
+			console.log("---saveMap connector---");
+			this.call(POST, path, dataToSave).then((data) => {
+				resolve(data); 	
+			}).catch(reject)
+		});
 	}
 }
 
 
-const connector=new Connector();
-
-export default connector;
+if (!window.__connector){ //singleton connector 
+	window.__connector=new Connector();
+}
+export default window.__connector;

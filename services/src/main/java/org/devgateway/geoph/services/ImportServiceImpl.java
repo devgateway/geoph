@@ -83,7 +83,7 @@ public class ImportServiceImpl implements ImportService {
         int rowNumber = STARTING_ROW;
         while ((line = br.readLine()) != null) {
             rowNumber++;
-            String[] values = line.split(String.valueOf(CSV_RECORD_SEPARATOR));
+            String[] values = line.split(String.valueOf(CSV_RECORD_SEPARATOR)); //TODO:use a CSV reader
             Location location = null;
             if (StringUtils.isNotBlank(values[LOCATION_ID_POS]) && StringUtils.isNumeric(values[LOCATION_ID_POS])) {
                 try {
@@ -105,7 +105,7 @@ public class ImportServiceImpl implements ImportService {
     }
 
     private void generateIndicatorDetailFromSheet(IndicatorResponse indicator, Sheet sheet) {
-        if (sheet.getLastRowNum() > 0) {
+            if (sheet.getLastRowNum() > 0) {
             Iterator<Row> rowIterator = sheet.iterator();
             //Avoid labels
             rowIterator.next();

@@ -1,7 +1,7 @@
 require('bootstrap/dist/css/bootstrap.css');
 //require('font-awesome/css/font-awesome.css');
 require('./app.scss');
- 
+
 import babelPolyfill from 'babel-polyfill';
 
 import React from 'react';
@@ -19,10 +19,35 @@ import routes from './routes';
 
 import AjaxUtil from './util/ajax';
 import Setting from './util/settings';
+import Connector from './connector/connector.js';
 
 
-const store = configureStore({}, browserHistory);
+const redirectMiddleWare = store => next => action => {
+  try {
+    if (action.transition){
+      history.push(action.transition);
+    }else{
+     return next(action)
+   }
+ } catch (err) {
+  console.error('Caught an exception!', err)
+}
+}
+
+
+
+
+
+
+const store = configureStore({}, browserHistory,redirectMiddleWare);
 const history = syncHistoryWithStore(hashHistory, store);
+
+import {push} from 'react-router-redux';
+//TODO:not sure if this is the best way.
+//Connector.setStore(store);
+//store.dispatch(push('#admin'))
+
+
 
 AjaxUtil.get('conf/settings.json').then((conf)=>{
   Setting.initialize(conf.data);
@@ -30,12 +55,12 @@ AjaxUtil.get('conf/settings.json').then((conf)=>{
 
   i18next.use(XHR).init(options, (err, t) => {
   	if(err){
-  		console.log(err);
-  	}
+      console.log(err);
+    }
 
     render((
       <Provider store={store}>
-        <Router history={history} routes={routes} />
+      <Router history={history} routes={routes} />
       </Provider>
       ), document.getElementById('root'))
   });

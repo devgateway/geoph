@@ -53,4 +53,9 @@ public class AppMapServiceImpl implements AppMapService {
     public Page<AppMap> findAll(Pageable pageable) {
         return repository.findAll(pageable);
     }
+
+    @Override
+    public AppMap findByName(String mapName){
+        return repository.findByName(mapName);
+    }
 }

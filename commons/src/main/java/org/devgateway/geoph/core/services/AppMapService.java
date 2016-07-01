@@ -24,4 +24,5 @@ public interface AppMapService {
 
     Page<AppMap> findAll(Pageable pageable);
 
+    AppMap findByName(String mapName);
 }

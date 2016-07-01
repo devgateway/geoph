@@ -21,9 +21,9 @@ public class CORSFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) res;
         // CORS "pre-flight" request
         response.addHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Headers", "X-Requested-With,Content-Type,X-Internal-Token,workspace_id");
+        response.setHeader("Access-Control-Allow-Headers", "X-Requested-With,Content-Type,X-Security-Token");
         response.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-        response.addHeader("Access-Control-Expose-Headers", "X-Internal-Token");
+        response.addHeader("Access-Control-Expose-Headers", "X-Security-Token");
         response.addHeader("Access-Control-Allow-Credentials", "true");
         response.addHeader("Access-Control-Max-Age", "1800");//30 min
 

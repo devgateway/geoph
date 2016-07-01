@@ -27,9 +27,13 @@ public class FilterServiceImpl implements FilterService {
     private static final Logger LOGGER = LoggerFactory.getLogger(FilterServiceImpl.class);
 
 
-    private static final Sort SORT_BY_NAME = new Sort(Sort.Direction.ASC, "name");
+    private static final String NAME = "name";
+    private static final Sort SORT_BY_NAME = new Sort(Sort.Direction.ASC, NAME);
     private static final String TYPE = "type";
     private static final String STATUS = "status";
+    private static final String ID = "id";
+    private static final String GRANT = "grant";
+    private static final String ITEMS = "items";
 
     @Autowired
     ImplementingAgencyRepository impAgencyRepository;
@@ -188,21 +192,21 @@ public class FilterServiceImpl implements FilterService {
     @Override
     public List<Map<String, Object>> findAllFlowTypes() {
         List<Map<String, Object>> retList = new ArrayList<>();
-        List<FlowType> flowTypes = flowTypeRepository.findAll();
+        List<FlowType> flowTypes = flowTypeRepository.findAll(SORT_BY_NAME);
         for (FlowType flowType : flowTypes) {
             Map<String, Object> flowTypesMap = new HashMap<>();
-            flowTypesMap.put("id", String.valueOf(flowType.getId()));
-            flowTypesMap.put("name", flowType.getName());
-            if (flowType.getName().toLowerCase().equals("grant")) {
-                List<GrantSubType> grantSubTypes = grantSubTypeRepository.findAll();
+            flowTypesMap.put(ID, String.valueOf(flowType.getId()));
+            flowTypesMap.put(NAME, flowType.getName());
+            if (flowType.getName().toLowerCase().equals(GRANT)) {
+                List<GrantSubType> grantSubTypes = grantSubTypeRepository.findAll(SORT_BY_NAME);
                 List<Map<String, Object>> grantSubTypeList = new ArrayList<>();
                 for (GrantSubType grantSubType : grantSubTypes) {
                     Map<String, Object> grantSubTypeMap = new HashMap<>();
-                    grantSubTypeMap.put("id", String.valueOf(flowType.getId()) + "." + String.valueOf(grantSubType.getId()));
-                    grantSubTypeMap.put("name", grantSubType.getName());
+                    grantSubTypeMap.put(ID, String.valueOf(flowType.getId()) + "." + String.valueOf(grantSubType.getId()));
+                    grantSubTypeMap.put(NAME, grantSubType.getName());
                     grantSubTypeList.add(grantSubTypeMap);
                 }
-                flowTypesMap.put("items", grantSubTypeList);
+                flowTypesMap.put(ITEMS, grantSubTypeList);
             }
             retList.add(flowTypesMap);
         }

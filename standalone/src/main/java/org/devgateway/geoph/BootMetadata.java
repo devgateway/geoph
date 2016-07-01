@@ -80,11 +80,16 @@ public class BootMetadata {
 
         GrantedAuthority readPermission = securityService.saveGrantedAuthority(
                 new GrantedAuthority("Login, Search and View Layers", "READ"));
+
+        GrantedAuthority admin= securityService.saveGrantedAuthority(
+                new GrantedAuthority("Admin, Search and View Layers", "ADMIN"));
+
         List<GrantedAuthority> commonAuthorities = new ArrayList<>();
         commonAuthorities.add(readPermission);
+        commonAuthorities.add(admin);
 
         SystemUser geophUser = new SystemUser();
-        geophUser.setEmail("admin@geoph.org");
+        geophUser.setEmail("admin");
         geophUser.setName("Admin");
         geophUser.setLastName("Geoph");
         geophUser.setPassword(encoder.encode("hello123"));
