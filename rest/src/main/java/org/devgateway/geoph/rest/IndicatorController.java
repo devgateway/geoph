@@ -5,11 +5,12 @@ import org.devgateway.geoph.core.response.IndicatorResponse;
 import org.devgateway.geoph.core.services.ImportService;
 import org.devgateway.geoph.core.services.LayerService;
     import org.devgateway.geoph.model.Indicator;
+import org.devgateway.geoph.model.security.SystemUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-import static org.springframework.web.bind.annotation.RequestMethod.*;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 /**
  * @author dbianco
@@ -26,11 +28,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 @RestController
 @RequestMapping(value = "/indicators")
 public class IndicatorController extends BaseController {
-
     private static final Logger LOGGER = LoggerFactory.getLogger(IndicatorController.class);
-
     private final LayerService layerService;
-
     private final ImportService importService;
 
     @Autowired
@@ -39,32 +38,18 @@ public class IndicatorController extends BaseController {
         this.importService = importService;
     }
 
-
     @RequestMapping(method = GET)
-    //@Secured("ROLE_READ")
     public List<Indicator> getIndicatorsList() {
         LOGGER.debug("getIndicatorsList");
         return layerService.getIndicatorsList();
     }
 
-    @RequestMapping(value = "/{id}", method = GET)
-    public IndicatorResponse getIndicatorById(@PathVariable final long id) {
-        LOGGER.debug("getIndicatorById: " + id);
-        return layerService.getIndicatorById(id);
-    }
-
-    @RequestMapping(value = "/{id}", method = DELETE)
-    public void deleteIndicatorById(@PathVariable final long id) {
-        LOGGER.debug("deleteIndicatorById: " + id);
-         layerService.deleteIndicator(id);
-    }
-
-
     @RequestMapping(value = "/upload", headers = "content-type=multipart/*", method = POST)
-    //@Secured("ROLE_READ")
-    public IndicatorResponse putIndicator(IndicatorRequest indicatorParam,
+    @Secured("ROLE_ADMIN")
+    public IndicatorResponse putIndicator(@AuthenticationPrincipal SystemUser activeUser, IndicatorRequest indicatorParam,
                                           @RequestParam(value = "file", required = false) final MultipartFile file) {
-        LOGGER.debug("add indicator from file");
+
+             LOGGER.debug("add indicator from file called by "+activeUser.getName());
         return importService.importIndicatorFromFile(indicatorParam, file);
     }
 
