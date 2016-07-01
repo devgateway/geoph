@@ -93,10 +93,10 @@ export default class ChartComponent extends React.Component {
 				},
 				//'autosize': true,
 				'legend':{
-					x:-0.5,
+					x:1.5,
 					y:1,
-					xanchor:"left",
-					yanchor:"top",
+					xanchor:"right",
+					yanchor:"auto",
 					bgcolor:"rgba(0, 0, 0, 0)",
 					font:{
 						size:10

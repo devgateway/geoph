@@ -10,10 +10,12 @@
 
 .popup-title{
 	padding: 6px;
+    h2 {
+        color: #044072;
+    }
 }
 
 .popup-tabs{
-	border-bottom: 1px solid #ddd;
 	padding-left: 0;
     margin-bottom: 0;
     list-style: none;
@@ -34,15 +36,15 @@
     color: #555;
     cursor: default;
     background-color: #fff;
-    border: 1px solid #ddd;
     border-bottom-color: transparent;
 }
 
 .popup-tabs li div{
-	text-align: center;
-	padding-top: 5px;
+	text-align: left;
+	padding-top: 2px;
+    padding-left: 5px;
     cursor: pointer;
-    height: 40px;
+    height: 35px;
     word-spacing: 100px;
 	background-color: #BDDCF0;
     margin-right: 2px;
@@ -50,6 +52,7 @@
     border: 1px solid transparent;
     position: relative;
     display: block;
+    border-radius: 5px
 }
 
 .projects-paginator{
@@ -58,6 +61,11 @@
 
 .projects-paginator ul{
     margin-top: 0px !important;
+    padding-top: 8px;
+}
+
+.project-list {
+    border-bottom: 1px solid #cecece;
 }
 
 .project-list-div{
@@ -78,9 +86,9 @@
 .project-list-item{
     border-bottom: 1px;
     border-bottom-style: solid;
-    border-bottom-color: #c6c7ca;
+    border-bottom-color: #ececec;
     font-size: 11px;
-    height: 28px;
+    height: 30px;
     >div:last-child:not(:first-child){
         border-right: none; 
     }
@@ -88,10 +96,10 @@
         padding-bottom: 5px;
         padding-right: 0px;
         padding-left: 0px;
-        padding-top: 7px;
+        padding-top: 8px;
         border-right: 1px; 
         border-right-style: solid; 
-        border-right-color: #c6c7ca;
+        border-right-color: #ececec;
     }
 }
 
@@ -103,15 +111,15 @@
     border-bottom-color: #c6c7ca;
     border-top-color: #c6c7ca;
     font-size: 9px;
-    color: #3a3b3c;
-    height: 24px;
+    color: #303030;
+    height: 26px;
     >div:first-child{
         text-align: left;
     }
     >div{
         padding-right: 0px;
         padding-left: 0px;
-        padding-top: 5px;
+        padding-top: 6px;
     }
 }
 
@@ -127,4 +135,25 @@
     margin-top: 25%;
     margin-left: 47%;
     background: url('../../../../assets/loading.gif') no-repeat;
+}
+
+.pagination-sm > li > a, .pagination-sm > li > span{
+    height: 22px;
+    width: 22px;
+    font-size: 11px !important;
+    padding: 2px 5px !important;
+    float: none;
+}
+
+.leaflet-popup-content-wrapper{
+    border-radius: 3px !important;
+}
+
+.leaflet-popup-content{
+    margin: 3px 19px !important;
+}
+
+.leaflet-popup-close-button{
+    margin-right: 5px !important;
+    padding-top: 8px !important;
 }

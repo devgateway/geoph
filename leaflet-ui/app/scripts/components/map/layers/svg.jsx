@@ -1,5 +1,6 @@
 import {PropTypes} from 'react';
-import {geoJson, latlng, marker, divIcon} from 'leaflet';
+import {geoJson, latlng, marker, divIcon, DomEvent} from 'leaflet';
+//import L from 'leaflet';
 import {MapLayer} from 'react-leaflet';
 import React from 'react';
 import d3 from 'd3';
@@ -107,6 +108,7 @@ export default class D3Layer extends MapLayer {
   }
 
   onClick(properties){
+    debugger;
     L.DomEvent._getEvent().stopPropagation();
     this.renderPopupContent(properties);
   }
@@ -128,6 +130,7 @@ export default class D3Layer extends MapLayer {
     .setLatLng(L.latLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]))
     .openOn(this.props.map);
     if (this.props.children) {
+      debugger;
       render(React.cloneElement(React.Children.only(this.props.children), {feature, store:this.context.store}), popup._contentNode);
       popup._updateLayout();
       popup._updatePosition();

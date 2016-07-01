@@ -62,7 +62,7 @@ export default class ProjectListTab extends React.Component {
         <div className="project-list-div">
           <Grid className='project-list'>
             <Row className="project-list-header">
-              <Col md={5}>Title</Col>
+              <Col md={5}>Project Title</Col>
               <Col md={3}>Funding Agency</Col>
               <Col md={2}>Commitments</Col>
               <Col md={2}>Disbursements</Col>

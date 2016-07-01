@@ -43,6 +43,7 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
 
   render() {
     let charts = this.props.charts || {}
+    debugger;
     return (
       <div className="popup-container">
         <div className="popup-title">
@@ -145,11 +146,9 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
         {this.state.tabSelected=='projectList'?
           <div className="popup-tab-content">
             {charts.projectList?
-              !charts.projectList.isFetching?
                 <div className="">
                   <ProjectList {...this.props}/>
                 </div>
-                : <div className="loading-icon"></div>
             :null}
           </div>
         :null}
