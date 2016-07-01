@@ -51,7 +51,6 @@ export default class Login extends React.Component {
         return (
             <form id="login-form" className="form">
                 <p>Please provide user name and password</p>
-                    
                     {this.props.httpError?<HttpError error={this.props.httpError}/>:null}
                 <div className={errors.username?"form-group has-error":"form-group"}>
                     <label>User Name</label>

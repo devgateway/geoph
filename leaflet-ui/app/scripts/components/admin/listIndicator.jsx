@@ -50,7 +50,7 @@ export default class listIndicator extends React.Component {
     return (
       <div className="indicator-list">
 
-            {(indicators.length > 0)?this.list(indicators):this.noRecords()}
+            {(indicators && indicators.length > 0)?this.list(indicators):this.noRecords()}
       </div>);
   }
 }

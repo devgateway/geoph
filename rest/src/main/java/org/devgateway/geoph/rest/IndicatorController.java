@@ -49,7 +49,7 @@ public class IndicatorController extends BaseController {
     public IndicatorResponse putIndicator(@AuthenticationPrincipal SystemUser activeUser, IndicatorRequest indicatorParam,
                                           @RequestParam(value = "file", required = false) final MultipartFile file) {
 
-        LOGGER.debug("add indicator from file called by "+activeUser.getName());
+             LOGGER.debug("add indicator from file called by "+activeUser.getName());
         return importService.importIndicatorFromFile(indicatorParam, file);
     }
 

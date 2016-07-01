@@ -76,11 +76,16 @@ public class BootMetadata {
                 "/sql/basic-data/hibernate_sequence.sql"
         );
 
+        //The princess is in another castle
+
+        GrantedAuthority readPermission = securityService.saveGrantedAuthority(
+                new GrantedAuthority("Login, Search and View Layers", "READ"));
 
         GrantedAuthority admin= securityService.saveGrantedAuthority(
                 new GrantedAuthority("Admin, Search and View Layers", "ADMIN"));
 
         List<GrantedAuthority> commonAuthorities = new ArrayList<>();
+        commonAuthorities.add(readPermission);
         commonAuthorities.add(admin);
 
         SystemUser geophUser = new SystemUser();
