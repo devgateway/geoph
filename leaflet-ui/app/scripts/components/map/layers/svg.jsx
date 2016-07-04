@@ -107,8 +107,8 @@ export default class D3Layer extends MapLayer {
   }
 
   onClick(properties){
-    debugger;
-    L.DomEvent._getEvent().stopPropagation();
+    //debugger;
+    d3.event.stopPropagation();
     this.renderPopupContent(properties);
   }
 
