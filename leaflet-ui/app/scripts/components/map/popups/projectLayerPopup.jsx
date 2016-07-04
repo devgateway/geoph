@@ -91,7 +91,7 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
                   showMeasureSelector={false}
                   dimension="name"/>
                 </div>
-              : <div className="loading-icon"></div>
+              : <div className='uil-ring-css'><div></div></div>
             :null}
           </div>
         :null}
@@ -107,7 +107,7 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
                   height='200'
                   dimension="name"/>
                 </div>
-              : <div className="loading-icon"></div>
+              : <div className='uil-ring-css'><div></div></div>
             :null}
           </div>
         :null}
@@ -123,7 +123,7 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
                   height='200'
                   dimension="name"/>
                 </div>
-              : <div className="loading-icon"></div>
+              : <div className='uil-ring-css'><div></div></div>
             :null}
           </div>
         :null}
@@ -139,7 +139,7 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
                   height='200'
                   dimension="name"/>
                 </div>
-              : <div className="loading-icon"></div>
+              : <div className='uil-ring-css'><div></div></div>
             :null}
           </div>
         :null} 
