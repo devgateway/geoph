@@ -13,7 +13,7 @@ export const sumarizeValues=(transactions)=>{
   transactions.map((transaction) => {
     let amount = parseInt(transaction.amount)
     switch(transaction.transactionType) {
-      case "COMMITMENT":
+      case "COMMITMENTS":
         switch(transaction.transactionStatus) {
           case "ACTUAL":
             actualCommitments += amount;
@@ -26,7 +26,7 @@ export const sumarizeValues=(transactions)=>{
             break;
         }
         break;
-      case "DISBURSEMENT":
+      case "DISBURSEMENTS":
         switch(transaction.transactionStatus) {
           case "ACTUAL":
             actualDisbursements += amount;
@@ -39,7 +39,7 @@ export const sumarizeValues=(transactions)=>{
             break;
         }
         break;
-      case "EXPENDITURE":
+      case "EXPENDITURES":
         switch(transaction.transactionStatus) {
           case "ACTUAL":
             actualExpenditures += amount;

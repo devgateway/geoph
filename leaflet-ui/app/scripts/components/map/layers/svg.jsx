@@ -1,17 +1,15 @@
 import {PropTypes} from 'react';
-import {geoJson, latlng, marker, divIcon} from 'leaflet';
+import {geoJson, latlng, marker, divIcon, DomEvent} from 'leaflet';
+//import L from 'leaflet';
 import {MapLayer} from 'react-leaflet';
 import React from 'react';
 import d3 from 'd3';
 import { render, unmountComponentAtNode } from 'react-dom';
-import { fetchPopupData } from '../../../actions/popup.js'
-import { connect } from 'react-redux'
-import {collectValues} from '../../../util/filterUtil';
 
 /**
  * @author Sebas
  */
-class D3Layer extends MapLayer {
+export default class D3Layer extends MapLayer {
 
   static propTypes = {
     higthligthStyleProvider: React.PropTypes.func,
@@ -108,12 +106,11 @@ class D3Layer extends MapLayer {
 
   }
 
-
   onClick(properties){
-    L.DomEvent._getEvent().stopPropagation();
-    this.getPopupContent(properties);
+    //debugger;
+    d3.event.stopPropagation();
+    this.renderPopupContent(properties);
   }
-
 
   mapmove(e) {
     if (this.props.data && this.props.data.features){
@@ -124,38 +121,23 @@ class D3Layer extends MapLayer {
     }
   }
 
-  getPopupContent(feature) {
-    this.setState({popupFeature: feature});
-    let filters = collectValues(this.props.filters, this.props.projectSearch);
-    Object.assign(filters, {'lo': [feature.properties.id]});
-    this.props.onGetPopupData(filters);
-  }
-
-  renderPopupContent(charts) {
-    if (!this.state){
+  renderPopupContent(feature) {
+    if (!feature){
       return null;
     }
-    let feature = this.state.popupFeature;
     let popup = L.popup({maxWidth:"400", minWidth:"400", maxHeight:"280"})
     .setLatLng(L.latLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]))
     .openOn(this.props.map);
-    Object.assign(feature, {'charts': charts, 'fundingType': this.props.fundingType});
     if (this.props.children) {
-      render(React.cloneElement(React.Children.only(this.props.children), feature), popup._contentNode);
+      debugger;
+      render(React.cloneElement(React.Children.only(this.props.children), {feature, store:this.context.store}), popup._contentNode);
       popup._updateLayout();
       popup._updatePosition();
       popup._adjustPan();
     } 
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.charts && this.props.charts && nextProps.charts.lastUpdate && (nextProps.charts.lastUpdate != this.props.charts.lastUpdate)){
-        this.renderPopupContent(nextProps.charts)
-    }
-  }
-
-  getClass(d){
-    
+  getClass(d){    
     if (this.props.cssProvider){
       if (!this.cssProvider)
         this.cssProvider=new this.props.cssProvider(this.values,this.props.thresholds);
@@ -163,7 +145,6 @@ class D3Layer extends MapLayer {
       
       return className;  
     }
-
   }
 
   render() {
@@ -171,24 +152,18 @@ class D3Layer extends MapLayer {
       popupContainer: this.leafletElement,
     });
   }
-
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    onGetPopupData: (filters) => {
-      dispatch(fetchPopupData(filters));
-    }
-  }
+const  storeShape=PropTypes.shape({
+  subscribe: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  getState: PropTypes.func.isRequired
+})
+
+D3Layer.contextTypes = {
+  store: storeShape
 }
 
-const mapStateToProps = (state, props) => {
-  return {
-    fundingType: state.settings.fundingType,
-    charts: state.popup,
-    filters: state.filters.filterMain,
-    projectSearch: state.projectSearch
-  }
+D3Layer.propTypes = {
+  store: storeShape
 }
-
-export default connect(mapStateToProps, mapDispatchToProps)(D3Layer);;
