@@ -76,7 +76,7 @@ export default class ChartComponent extends React.Component {
 			        },
 			        'textposition': 'none',
 			        'domain':{
-						x:[0.25,1],
+						x:[0,0.5],
 						y:[0,1]
 					},
 					hoverinfo: 'label+text+percent',
@@ -88,12 +88,12 @@ export default class ChartComponent extends React.Component {
 				'margin':{
 					't':5,
 					'b':20,
-					'l':0, 
+					'l':10, 
 					'r':10
 				},
 				//'autosize': true,
 				'legend':{
-					x:-0.5,
+					x:0.5,
 					y:1,
 					xanchor:"left",
 					yanchor:"top",
