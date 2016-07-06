@@ -4,6 +4,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -42,6 +43,7 @@ public class Project extends GenericPersistable implements Serializable {
 
     private String phId;
 
+    @Size(max=255)
     private String title;
 
     @OneToMany(cascade=CascadeType.PERSIST, fetch = FetchType.LAZY, mappedBy = "project")
@@ -128,10 +130,10 @@ public class Project extends GenericPersistable implements Serializable {
     private Set<GenderResponsiveness> genderResponsiveness;
 
     @Column(name = "actual_owpa")
-    private Float actualOwpa;
+    private Double actualOwpa;
 
     @Column(name = "target_owpa")
-    private Float targetOwpa;
+    private Double targetOwpa;
 
     @Column(name = "reached_owpa")
     private Float reachedOwpa;
@@ -364,19 +366,19 @@ public class Project extends GenericPersistable implements Serializable {
         this.genderResponsiveness = genderResponsiveness;
     }
 
-    public Float getActualOwpa() {
+    public Double getActualOwpa() {
         return actualOwpa;
     }
 
-    public void setActualOwpa(Float actualOwpa) {
+    public void setActualOwpa(Double actualOwpa) {
         this.actualOwpa = actualOwpa;
     }
 
-    public Float getTargetOwpa() {
+    public Double getTargetOwpa() {
         return targetOwpa;
     }
 
-    public void setTargetOwpa(Float targetOwpa) {
+    public void setTargetOwpa(Double targetOwpa) {
         this.targetOwpa = targetOwpa;
     }
 

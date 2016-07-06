@@ -26,7 +26,7 @@ public class Transaction extends GenericPersistable implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private Project project;
 
-    private double amount;
+    private Double amount;
 
     private Date date;
 
@@ -56,11 +56,11 @@ public class Transaction extends GenericPersistable implements Serializable {
         this.project = project;
     }
 
-    public double getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 

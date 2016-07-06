@@ -8,5 +8,4 @@ INSERT INTO currency (id,code,name) VALUES (5,'CAD','Canadian dollar');
 INSERT INTO currency (id,code,name) VALUES (6,'NOK','Norwegian Krone');
 INSERT INTO currency (id,code,name) VALUES (7,'NZD','New Zealand Dollar');
 INSERT INTO currency (id,code,name) VALUES (8,'SDR','Special Drawing Rights');
-INSERT INTO currency (id,code,name) VALUES (9,'CAD','Canadian dollar');
 
