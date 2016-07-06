@@ -41,7 +41,7 @@ export default class ChartComponent extends React.Component {
 					} else {
 						if (i.trxAmounts[meas.measure][meas.type] && parseFloat(i.trxAmounts[meas.measure][meas.type])>0){
 							let label = i[dimension].length>35? i[dimension].substr(0,32)+'...' : i[dimension];
-							labels.push(this.capitalizeName(label));
+							labels.push(this.capitalizeName(i[dimension]));
 							values.push(i.trxAmounts[meas.measure][meas.type]);
 							text.push(this.capitalizeName(meas.type + " " +meas.measure) + " PHP: " + formatValue(parseFloat(i.trxAmounts[meas.measure][meas.type])));
 						}
@@ -79,7 +79,10 @@ export default class ChartComponent extends React.Component {
 						x:[0,0.5],
 						y:[0,1]
 					},
-					hoverinfo: 'label+text+percent',
+					'hoverinfo': 'label+text+percent',
+					'sort': true,
+					//'direction':"clockwise",
+					//'rotation': 270
 			    }
 		    ],
 			'layout': {         
@@ -91,7 +94,6 @@ export default class ChartComponent extends React.Component {
 					'l':10, 
 					'r':10
 				},
-				//'autosize': true,
 				'legend':{
 					x:0.5,
 					y:1,

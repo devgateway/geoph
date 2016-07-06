@@ -7,6 +7,7 @@ import ProjectList from './projectListTab'
 import onClickOutside from 'react-onclickoutside'
 import {collectValues} from '../../../util/filterUtil';
 import { fetchPopupData } from '../../../actions/popup.js'
+import {formatValue} from '../../../util/transactionUtil';
 
 require('./projectLayerPopup.scss');
 
@@ -31,6 +32,14 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
     this.getTabData('fundingAgency');
   },
 
+  getTotalFundingTab(data, fundingType){
+    let total = 0;
+    data.map((i, idx) => {
+      total = total + parseInt(i.trxAmounts[fundingType.measure][fundingType.type]);
+    });
+    return " PHP "+formatValue(total);
+  },
+
   getTabData(tab){
     const {filtes, projectSearch, feature} = this.props;
     let filters = collectValues(filters, projectSearch);    
@@ -42,12 +51,11 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
   },
 
   render() {
-    let charts = this.props.charts || {}
-    debugger;
+    const {charts, fundingType, feature} = this.props;
     return (
       <div className="popup-container">
         <div className="popup-title">
-          <h2>{this.props.feature? this.props.feature.properties.name : ""} </h2>
+          <h2>{feature? feature.properties.name : ""} </h2>
         </div>
         <div className="">
           <ul className='popup-tabs' role='tablist' >
@@ -83,11 +91,12 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
             {charts.fundingAgency?
               !charts.fundingAgency.isFetching?
                 <div className="">
+                  <div className="total-funding-tab">Project Total Funding: <div>{this.getTotalFundingTab(charts.fundingAgency.data, fundingType)}</div></div>
                   <Chart chartData={charts.fundingAgency}
-                  measure={this.props.fundingType} 
+                  measure={fundingType} 
                   chartType='pie'
                   width='400'
-                  height='200'
+                  height='180'
                   showMeasureSelector={false}
                   dimension="name"/>
                 </div>
@@ -100,11 +109,12 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
             {charts.implementingAgency?
               !charts.implementingAgency.isFetching?
                 <div className="">
+                  <div className="total-funding-tab">Project Total Funding: <div>{this.getTotalFundingTab(charts.implementingAgency.data, fundingType)}</div></div>
                   <Chart chartData={charts.implementingAgency}
-                  measure={this.props.fundingType} 
+                  measure={fundingType} 
                   chartType='pie'
                   width='400'
-                  height='200'
+                  height='180'
                   dimension="name"/>
                 </div>
               : <div className='uil-ring-css'><div></div></div>
@@ -116,11 +126,12 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
             {charts.physicalStatus?
               !charts.physicalStatus.isFetching?
                 <div className="">
+                  <div className="total-funding-tab">Project Total Funding: <div>{this.getTotalFundingTab(charts.physicalStatus.data, fundingType)}</div></div>
                   <Chart chartData={charts.physicalStatus}
-                  measure={this.props.fundingType} 
+                  measure={fundingType} 
                   chartType='pie'
                   width='400'
-                  height='200'
+                  height='180'
                   dimension="name"/>
                 </div>
               : <div className='uil-ring-css'><div></div></div>
@@ -132,11 +143,12 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
             {charts.sector?
               !charts.sector.isFetching?
                 <div className="">
+                  <div className="total-funding-tab">Project Total Funding: <div>{this.getTotalFundingTab(charts.sector.data, fundingType)}</div></div>
                   <Chart chartData={charts.sector}
-                  measure={this.props.fundingType} 
+                  measure={fundingType} 
                   chartType='pie'
                   width='400'
-                  height='200'
+                  height='180'
                   dimension="name"/>
                 </div>
               : <div className='uil-ring-css'><div></div></div>

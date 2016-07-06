@@ -5,7 +5,8 @@
 }
 
 .popup-tab-content{
-	padding-top: 20px;
+	margin-top: 40px;
+    border-top: 1px solid #A7AEBB;
 }
 
 .popup-title{
@@ -69,8 +70,7 @@
 }
 
 .project-list-div{
-    padding-top: 20px;
-    height: 200px;
+    height: 170px;
 }
 
 .project-list{
@@ -150,6 +150,42 @@
     padding-top: 8px !important;
 }
 
+
+.nums{
+    font-size: 11px !important;
+    fill: #333 !important;
+    >tspan{
+        margin: 10px !important;
+    }  
+    >tspan:not(:last-child):not(:first-child){
+        font-weight: bold;
+        fill: #26b154 !important; 
+        font-size: 11px !important;
+    }
+    >tspan:last-child{
+        font-weight: bold;
+        font-size: 11px !important;
+    }  
+}
+
+.hovertext{
+    margin: 20px;
+    >path{
+        stroke: #656565 !important;
+        fill: #F5F5F5 !important;
+    }
+}
+
+.total-funding-tab{
+    display: inline-flex;
+    padding-top: 10px;
+    font-size: 11px;
+    color: #2f2f2f;
+    >div{
+        font-weight: bold;
+        padding-left: 7px;
+    }
+}
 
 /*Loading spinner icon*/
 @-webkit-keyframes uil-ring-anim {
