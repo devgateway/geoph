@@ -68,7 +68,7 @@ public class GeoJsonController extends BaseController {
                 filters.getParameters());
     }
 
-    @RequestMapping(value = "/indicators/id/{indicatorId}", method = GET)
+    @RequestMapping(value = "/indicators/{indicatorId}", method = GET)
     public FeatureCollection getIndicatorsData(@PathVariable final long indicatorId) {
         LOGGER.debug("getIndicatorsData for indicator id:" + indicatorId);
         return layerService.getIndicatorsData(indicatorId);

@@ -119,10 +119,13 @@ class Connector {
 			
 			let url=Settings.get('API',options.ep);
 			const {level,quality} = options.settings;
-			const {id, filters}=options;
+			const {id, filters,indicator_id}=options;
 
 			if (level){
 				url=url.replace('${level}',level);
+			}
+			if (indicator_id){
+				url=url.replace('${indicator_id}',indicator_id);
 			}
 			if (quality){
 				Object.assign(params,{quality})

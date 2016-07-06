@@ -17,11 +17,11 @@ const indicatorWizard = (state = new Map({step:'template',template:'region',name
     return state.set(action.property,action.value);
 
     case Constants.UPDATE_ERRORS:
-    debugger;
+    
     return state.set('errors',action.errors);
     
     case Constants.INDICATOR_UPLOAD_FAILURE:
-    debugger;
+    
     return state.set('httpError',action.httpError);
     
     default:

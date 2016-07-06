@@ -23,16 +23,16 @@ import Connector from './connector/connector.js';
 
 
 const redirectMiddleWare = store => next => action => {
-  try {
+  //try {
     if (action.transition){
       history.push(action.transition);
     }else{
      return next(action)
    }
- } catch (err) {
-  console.error('Caught an exception!', err)
-}
-}
+ //} catch (err) {
+  //console.error('Caught an exception!', err)
+  //}
+};
 
 
 

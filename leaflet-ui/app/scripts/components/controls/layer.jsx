@@ -92,12 +92,16 @@ class Settings extends React.Component {
  	}
 
  	renderChildren(){
+
  		let childProperties = this.getChildProperties();	
  		return this.props.layers.map((l)=>{
+ 			//console.log(l);
+ 			var props={key:l.get('id'), id:l.get('id'), settings:l.get('settings') ,visible:l.get('visible'),name:l.get('name'), keyName:l.get('keyName'), layers:l.get('layers')}
+ 			
  			if (l.get('layers')){
- 				return 	<LayerGroup key={l.get('id')} id={l.get('id')}  visible={l.get('visible')} keyName={l.get('keyName')} layers={l.get('layers')}   {...childProperties} />
+ 				return 	<LayerGroup {...props} {...childProperties} />
  			}else{
- 				return 	<Layer  key={l.get('id')} id={l.get('id')}    visible={l.get('visible')}  keyName={l.get('keyName')}  {...childProperties} settings={l.get('settings')} />
+ 				return 	<Layer {...props} {...childProperties}  />
  			}
  		})
  	}
@@ -126,7 +130,6 @@ class Settings extends React.Component {
  * 
  */
  class Layer extends ControlComponent {
- 	
  	render(){
  		return <li className="layer">
  		{this.getCheckbox()}
@@ -139,8 +142,7 @@ class Settings extends React.Component {
  * 
  */
  class Component extends ControlComponent {
-
- 	constructor(props) {
+	constructor(props) {
  		super(props);
         this.state={expanded:false}
  	}
@@ -155,21 +157,6 @@ class Settings extends React.Component {
          this.setState({expanded:!this.state.expanded})
      }
  	render(){
- 		/*
- 		return (
- 			<div className={(this.state.expanded==true)?"layers-control":"layers-control collapsed"}>
-			    <div className="title"><div className="icon"><div/></div>Adjust layers to see detailed data
-                    <div className="toggle"><a href="#" onClick={this.toggle.bind(this)}>{(this.state.expanded==true)?'-':'+'}</a></div>
-                </div>
-                {(this.state.expanded==true)? <ul>
-                    {this.renderChildren()}
-                </ul>:null}
-                <div>
-
-                </div>
- 			</div>
- 			)
- 		*/
  		return (<div className="layers-control"><ul>{this.renderChildren()}</ul></div>);
  	}
  }

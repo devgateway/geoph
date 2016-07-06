@@ -123,7 +123,7 @@ class Indicator extends React.Component {
     }
 
     render() {
-        debugger;
+        
         console.log(this.props.httpError)
         return (<div className="admin-page">
                 {this.props.httpError?<HttpError error={this.props.httpError}/>:null}

@@ -26,7 +26,8 @@ const loadLayerTree=(dispatch, getState, layers, filters, force)=>{
 		if (l.get('layers')){ //it is a group 
 			loadLayerTree(dispatch, getState, l.get('layers'), filters, force);
 		}else if (l.get('visible') && (!l.get('data')||force)){
-			const options={id:l.get('id'), ep:l.get('ep'), settings:l.get('settings').toObject(), filters: filters};
+			const options={id:l.get('id'), indicator_id:l.get("indicator_id"), ep:l.get('ep'),settings:l.get('settings').toObject(), filters: filters};
+		
 			dispatch(loadLayer(options, getState));
 		}
 	})
@@ -39,7 +40,8 @@ const loadLayerById=(dispatch, getState, layers, filters, id)=>{
 		if (l.get('layers')){ //it is a group 
 			loadLayerTree(dispatch,getState,l.get('layers'),filters,id);
 		}else if (l.get('visible')  && l.get('id')==id){
-			const options={id:l.get('id'),ep:l.get('ep'),settings:l.get('settings').toObject(), filters: filters};
+			const options={id:l.get('id'), indicator_id:l.get("indicator_id"), ep:l.get('ep'),settings:l.get('settings').toObject(), filters: filters};
+			
 			dispatch(loadLayer(options, getState));
 		}
 	})
@@ -88,6 +90,7 @@ const toggleDefaultLayers=(dispatch, layers, filters)=>{
 
 /*Get data of an specif layer passing layer options and getstate in order to take current filters*/
 const loadLayer=(options, getState)=>{
+	
 	return (dispatch, getState) =>{
 		
 		Connector.loadLayerByOptions(options).then(
