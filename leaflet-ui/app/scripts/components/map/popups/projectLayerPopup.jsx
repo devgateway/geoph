@@ -32,14 +32,6 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
     this.getTabData('fundingAgency');
   },
 
-  getTotalFundingTab(data, fundingType){
-    let total = 0;
-    data.map((i, idx) => {
-      total = total + parseInt(i.trxAmounts[fundingType.measure][fundingType.type]);
-    });
-    return " PHP "+formatValue(total);
-  },
-
   getTabData(tab){
     const {filtes, projectSearch, feature} = this.props;
     let filters = collectValues(filters, projectSearch);    
@@ -91,13 +83,12 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
             {charts.fundingAgency?
               !charts.fundingAgency.isFetching?
                 <div className="">
-                  <div className="total-funding-tab">Project Total Funding: <div>{this.getTotalFundingTab(charts.fundingAgency.data, fundingType)}</div></div>
                   <Chart chartData={charts.fundingAgency}
                   measure={fundingType} 
                   chartType='pie'
                   width='400'
                   height='180'
-                  showMeasureSelector={false}
+                  showTotalHeader={true}
                   dimension="name"/>
                 </div>
               : <div className='uil-ring-css'><div></div></div>
@@ -109,12 +100,12 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
             {charts.implementingAgency?
               !charts.implementingAgency.isFetching?
                 <div className="">
-                  <div className="total-funding-tab">Project Total Funding: <div>{this.getTotalFundingTab(charts.implementingAgency.data, fundingType)}</div></div>
                   <Chart chartData={charts.implementingAgency}
                   measure={fundingType} 
                   chartType='pie'
                   width='400'
                   height='180'
+                  showTotalHeader={true}
                   dimension="name"/>
                 </div>
               : <div className='uil-ring-css'><div></div></div>
@@ -126,12 +117,12 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
             {charts.physicalStatus?
               !charts.physicalStatus.isFetching?
                 <div className="">
-                  <div className="total-funding-tab">Project Total Funding: <div>{this.getTotalFundingTab(charts.physicalStatus.data, fundingType)}</div></div>
                   <Chart chartData={charts.physicalStatus}
                   measure={fundingType} 
                   chartType='pie'
                   width='400'
                   height='180'
+                  showTotalHeader={true}
                   dimension="name"/>
                 </div>
               : <div className='uil-ring-css'><div></div></div>
@@ -143,12 +134,12 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
             {charts.sector?
               !charts.sector.isFetching?
                 <div className="">
-                  <div className="total-funding-tab">Project Total Funding: <div>{this.getTotalFundingTab(charts.sector.data, fundingType)}</div></div>
                   <Chart chartData={charts.sector}
                   measure={fundingType} 
                   chartType='pie'
                   width='400'
                   height='180'
+                  showTotalHeader={true}
                   dimension="name"/>
                 </div>
               : <div className='uil-ring-css'><div></div></div>

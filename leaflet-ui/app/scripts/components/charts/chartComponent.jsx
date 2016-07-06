@@ -13,7 +13,7 @@ export default class ChartComponent extends React.Component {
 
 	constructor() {
 	    super();
-	    this.state = {'chartType': 'bar', 'measType': 'funding'};
+	    this.state = {'chartType': 'bar', 'measType': 'funding', 'hiddenlabels': []};
 	}
 
   	componentDidMount() {
@@ -26,6 +26,7 @@ export default class ChartComponent extends React.Component {
 		let labels = [];
 		let values = [];
 		let text = [];
+		let totalAmount = 0;
 		if (chartData.data && chartData.data.map){
 			let others = 0;
 			this.sortDataByValue(chartData.data, meas);
@@ -33,16 +34,22 @@ export default class ChartComponent extends React.Component {
 				if (idx<this.props.chartData.itemsToShow){
 					if (meas=='projectCount'){
 						if (i[meas] && parseInt(i[meas])>0){
-							let label = i[dimension].length>35? i[dimension].substr(0,32)+'...' : i[dimension];
-							labels.push(this.capitalizeName(label));
-							values.push(i[meas]);
+							let label = this.capitalizeName(i[dimension].length>35? i[dimension].substr(0,32)+'...' : i[dimension]);
+							labels.push(label);
+							values.push(label);
+							if(this.state.hiddenlabels.indexOf(label)==-1){
+								totalAmount = totalAmount+parseInt(i[meas]);
+							}
 							text.push("Total Projects: " + i[meas]);
 						}
 					} else {
 						if (i.trxAmounts[meas.measure][meas.type] && parseFloat(i.trxAmounts[meas.measure][meas.type])>0){
-							let label = i[dimension].length>35? i[dimension].substr(0,32)+'...' : i[dimension];
-							labels.push(this.capitalizeName(i[dimension]));
+							let label = this.capitalizeName(i[dimension].length>35? i[dimension].substr(0,32)+'...' : i[dimension]);
+							labels.push(label);
 							values.push(i.trxAmounts[meas.measure][meas.type]);
+							if(this.state.hiddenlabels.indexOf(label)==-1){
+								totalAmount = totalAmount+parseInt(i.trxAmounts[meas.measure][meas.type]);
+							}
 							text.push(this.capitalizeName(meas.type + " " +meas.measure) + " PHP: " + formatValue(parseFloat(i.trxAmounts[meas.measure][meas.type])));
 						}
 					}
@@ -61,6 +68,9 @@ export default class ChartComponent extends React.Component {
 			if (others>0){ 
 				labels.push("Others");
 				values.push(others);
+				if(this.state.hiddenlabels.indexOf("Others")==-1){
+					totalAmount = totalAmount+parseInt(others);
+				}
 				text.push(this.capitalizeName(meas.type + " " +meas.measure) + " PHP: " + formatValue(parseFloat(others)));
 			}
 		}
@@ -68,7 +78,7 @@ export default class ChartComponent extends React.Component {
 			'data': [
 	      		{
 			        'type': 'pie',      
-			        'labels': labels,  
+			        'labels': labels, 
 			        'values': values, 
 			        'text': text, 
 			        'marker':{
@@ -94,7 +104,9 @@ export default class ChartComponent extends React.Component {
 					'l':10, 
 					'r':10
 				},
-				'legend':{
+				//'showlegend':false,
+				'hiddenlabels': this.state.hiddenlabels, 
+			    'legend':{
 					x:0.5,
 					y:1,
 					xanchor:"left",
@@ -108,7 +120,8 @@ export default class ChartComponent extends React.Component {
 			'config': {
 		    	'modeBarButtonsToRemove': ['sendDataToCloud','hoverCompareCartesian', 'zoom2d', 'pan2d', 'select2d', 'lasso2d', 'zoomIn2d', 'zoomOut2d', 'autoScale2d', 'resetScale2d', 'hoverClosestCartesian'],
 				'showLink': false
-		    }
+		    },
+		    'totalAmount': totalAmount
 		}
 	}
 
@@ -118,6 +131,7 @@ export default class ChartComponent extends React.Component {
 		let itemNames = [];
 		let values = [];
 		let text = [];
+		let totalAmount = 0;
 		if (chartData.data  && chartData.data.map){
 			let others = 0;
 			this.sortDataByValue(chartData.data, meas);
@@ -125,16 +139,22 @@ export default class ChartComponent extends React.Component {
 				if (idx<this.props.chartData.itemsToShow){
 					if (meas=='projectCount'){
 						if (i[meas] && parseInt(i[meas])>0){
-							let label = i[dimension].length>35? i[dimension].substr(0,32)+'...' : i[dimension];
-							itemNames.push(this.capitalizeName(label));
+							let label = this.capitalizeName(i[dimension].length>35? i[dimension].substr(0,32)+'...' : i[dimension]);
+							itemNames.push(label);
 							values.push(i[meas]);
+							if(this.state.hiddenlabels.indexOf(label)==-1){
+								totalAmount = totalAmount+parseInt(i[meas]);
+							}
 							text.push("Total Projects: " + i[meas]);
 						}
 					} else {
 						if (i.trxAmounts[meas.measure][meas.type] && parseFloat(i.trxAmounts[meas.measure][meas.type])>0){
-							let label = i[dimension].length>35? i[dimension].substr(0,32)+'...' : i[dimension];
-							itemNames.push(this.capitalizeName(label));
+							let label = this.capitalizeName(i[dimension].length>35? i[dimension].substr(0,32)+'...' : i[dimension]);
+							itemNames.push(label);
 							values.push(i.trxAmounts[meas.measure][meas.type]);
+							if(this.state.hiddenlabels.indexOf(label)==-1){
+								totalAmount = totalAmount+parseInt(i.trxAmounts[meas.measure][meas.type]);
+							}
 							text.push(this.capitalizeName(meas.type + " " +meas.measure) + " PHP: " + formatValue(parseFloat(i.trxAmounts[meas.measure][meas.type])));
 						}
 					}
@@ -150,6 +170,14 @@ export default class ChartComponent extends React.Component {
 					}
 				}				
 			});
+			if (others>0){ 
+				labels.push("Others");
+				values.push(others);
+				if(this.state.hiddenlabels.indexOf("Others")==-1){
+					totalAmount = totalAmount+parseInt(others);
+				}
+				text.push(this.capitalizeName(meas.type + " " +meas.measure) + " PHP: " + formatValue(parseFloat(others)));
+			}
 		}
 		return {
 			'data': [
@@ -181,7 +209,8 @@ export default class ChartComponent extends React.Component {
 			'config': {
 		    	'modeBarButtonsToRemove': ['sendDataToCloud','hoverCompareCartesian', 'zoom2d', 'pan2d', 'select2d', 'lasso2d', 'zoomIn2d', 'zoomOut2d', 'autoScale2d', 'resetScale2d', 'hoverClosestCartesian'],
 				'showLink': false
-		    }
+		    },
+		    'totalAmount': totalAmount
 		}
 	} 
 
@@ -245,7 +274,21 @@ export default class ChartComponent extends React.Component {
 	componentWillUnmount() {
 		window.removeEventListener('resize', this.handleResize.bind(this));
 	}
+
+	onChartClick(evt){
+		if (evt.currentTarget && evt.currentTarget.layout.hiddenlabels.length != this.state.hiddenlabels.length){
+			this.setState({'hiddenlabels': evt.currentTarget.layout.hiddenlabels});
+		}
+	}
   
+  	getTotalFormatted(value){
+  		if (this.props.chartData.measureType=='projectCount'){
+  			return formatValue(value) + " Projects";
+  		} else {
+  			return " PHP "+formatValue(value);
+  		}
+	}
+
 	render() {
 		let chartData = this.props.chartData;
 		let measure = this.props.measure;
@@ -304,13 +347,16 @@ export default class ChartComponent extends React.Component {
 						</div>		  
 					</div>
 	    		: null}	
+	    		{this.props.showTotalHeader?
+	    			<div className="total-funding-chart">Total Amount: <div>{this.getTotalFormatted(chartInfo.totalAmount)}</div></div>
+                : null}	
 	    		{!this.hasValuesOK(chartInfo)?
 	    			<div className="no-data">
 			    		NO DATA AVALABLE
 			    	</div>
 	    		:
 	    			<div>
-			      		<Plotly className="" data={chartInfo.data} layout={chartInfo.layout} config={chartInfo.config}/>
+			      		<Plotly onClick={this.onChartClick.bind(this)} className="" data={chartInfo.data} layout={chartInfo.layout} config={chartInfo.config}/>
 			      	</div>	
 	    		}
 	    		    			  			   	    			      
