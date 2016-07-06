@@ -1,13 +1,19 @@
 package org.devgateway.geoph.model.security;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.base.Predicate;
 import org.devgateway.geoph.model.GenericPersistable;
 import org.hibernate.annotations.Cache;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import java.io.Serializable;
-import java.util.*;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 import static com.google.common.collect.Iterables.any;
 import static javax.persistence.FetchType.EAGER;
@@ -28,6 +34,7 @@ public class SystemUser extends GenericPersistable implements Serializable, Clon
 
     private String lastName;
 
+    @JsonIgnore
     private String password;
 
     private boolean accountNonExpired;

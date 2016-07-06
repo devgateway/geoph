@@ -33,11 +33,6 @@ INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('fu
 INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('funding_agency',32,'WFP','WFP','WFP',null);
 INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('funding_agency',33,'WHO','WHO','WHO',null);
 
-INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',34,'DA','DA',null,4);
-INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',35,'DPWH','DPWH',null,4);
-INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',36,'NIA','NIA',null,4);
-INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',37,'LBP','LBP',null,1);
-
 INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('executing_agency',38,'ADB','ADB',null,null);
 INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('executing_agency',39,'Adventist Development and Relief Agency (ADRA) Haiyan Reconstruction','Adventist Development and Relief Agency (ADRA) Haiyan Reconstruction',null,null);
 INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('executing_agency',40,'AECID','AECID',null,null);
