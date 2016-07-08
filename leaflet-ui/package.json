@@ -52,6 +52,7 @@
     "gulp-jshint": "2.0.0",
     "gulp-nodemon": "2.0.6",
     "gulp-open": "1.0.0",
+	"gulp-rimraf": "0.2.0",
     "gulp-util": "3.0.7",
     "html-webpack-plugin": "2.7.2",
     "i18next": "2.3.5",

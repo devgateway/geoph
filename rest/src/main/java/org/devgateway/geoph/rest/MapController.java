@@ -83,6 +83,14 @@ public class MapController {
         return screenCaptureService.captureUrlToPDF(urlToQuery+name);
     }
 
+
+
+    @RequestMapping(value = "/htmlToPdf", method = GET)
+    public String htmlToPdf(String url) throws Exception {
+        LOGGER.debug("htmlToPdf");
+        return screenCaptureService.htmlToPDF(url);
+    }
+
     @RequestMapping(value = "/varsToImg", method = POST)
     public String saveAndCreateImg(@RequestBody Map<String, Object> mapVariables) throws Exception {
         LOGGER.debug("saveAndCreateImg");
