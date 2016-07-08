@@ -5,32 +5,16 @@
 	height: 100%;
 }
 
-path {
-	
-	-webkit-transition: opacity 200ms ease;
-}
-
-.points{
-
-	fill-opacity: 1;
-	stroke: rgb(204, 204, 204);
-	stroke-opacity: .7;
-	stroke-dasharray: 1, 1;
-	
-	box-sizing: border-box;
-}
-
-.shapes{
-	fill-opacity:.7;
-	stroke: white;
-
-}
-
 
 @mixin breakStyle($color){
-	fill:$color; stroke:$color
+	fill:$color; 
+	stroke:#eee;
+	fill-opacity: .8;
+	stroke-opacity: 1;
+	stroke-dasharray: 0, 0;
+	box-sizing: border-box;
+	cursor:pointer;
 }
-
 
 .green0-9 {	@include breakStyle(#73e767)}
 .green1-9 { @include breakStyle(#73e767)}
@@ -48,7 +32,6 @@ path {
 .yellow5-9 { @include breakStyle(#716801)}
 .yellow6-9 { @include breakStyle(#5b5400)}
 
-
 .red0-9 { @include breakStyle(#f28f8f)}
 .red1-9 { @include breakStyle(#df5c5c)} 
 .red2-9 { @include breakStyle(#c43434)}
@@ -56,8 +39,6 @@ path {
 .red4-9 { @include breakStyle(#7b0909)}
 .red5-9 { @include breakStyle(#650000)}
 .red6-9 { @include breakStyle(#4b0000)}
-
-
 
 .blue0-9 { @include breakStyle(#96e0f5) }
 .blue1-9 { @include breakStyle(#1dc4fa) }
@@ -67,7 +48,6 @@ path {
 .blue5-9 { @include breakStyle(#0f2953)}
 .blue6-9 { @include breakStyle(#11004b) }
 
-
 .orange0-9 { @include breakStyle(#ffd24b)}
 .orange1-9 { @include breakStyle(#ffa904) }
 .orange2-9 { @include breakStyle(#ce7b05) }
@@ -75,14 +55,3 @@ path {
 .orange4-9 { @include breakStyle(#793f07) }
 .orange5-9 { @include breakStyle(#643006) }
 .orange6-9 { @include breakStyle(#4d2607) }
-
-
-
-
-
-
-
-
-
-
-

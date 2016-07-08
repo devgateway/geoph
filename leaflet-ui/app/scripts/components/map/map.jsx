@@ -35,7 +35,6 @@ const Layer=React.createClass({
 			let prefix=layer.get('cssPrefix')
 			let css=layer.getIn(['settings','css']);
 			let classes=prefix+' '+css ;
-			debugger;
 		const layerProps={classes,...layer.toJS()}
 
 		return (	<SvgLayer  
@@ -86,8 +85,10 @@ const view = React.createClass({
 	render(){
 		return (
 			<Map className="map" zoom={13} bounds={bounds}>
-			<TileLayer url={this.props.map.get('basemap').get('url')}/>
-			<Layers layers={this.props.map.get('layers')} charts={this.props.charts} fundingType={this.props.fundingType}/>
+				<TileLayer url={this.props.map.get('basemap').get('url')}/>
+			
+				<Layers layers={this.props.map.get('layers')} charts={this.props.charts} fundingType={this.props.fundingType}/>
+			
 			</Map>
 			)
 	}

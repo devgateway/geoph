@@ -62,9 +62,11 @@ const redirect=(url,messages,errors)=>{
 
 export const upload=(options)=>{
   return (dispatch, getState) =>{
-    const params=getState().indicators.toJS();
-    Connector.uploadIndicator(params).then((data)=>{
+    debugger;
+
+    Connector.uploadIndicator(getState().indicators.toJS()).then((data)=>{
      dispatch(uploadOK(data));
+     dispatch(getList());
    }).catch((httpError)=>{
        dispatch(makeAction(Constants.INDICATOR_UPLOAD_FAILURE,{httpError:httpError}));
    });

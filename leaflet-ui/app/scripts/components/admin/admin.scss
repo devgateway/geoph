@@ -79,6 +79,12 @@ label {
   ul {
     float: right;
   }
+  li.scheme{
+    @include  box-sizing(22px,18px)
+  margin: 3px 15px;
+    cursor: pointer;
+  }
+
 
   .drop-zone {
     border: 1px dashed #4CAF50;

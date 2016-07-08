@@ -23,29 +23,19 @@ import Connector from './connector/connector.js';
 
 
 const redirectMiddleWare = store => next => action => {
-  //try {
-    if (action.transition){
-      history.push(action.transition);
-    }else{
-     return next(action)
-   }
- //} catch (err) {
-  //console.error('Caught an exception!', err)
-  //}
+  
+  if (action.transition){
+    history.push(action.transition);
+  }else{
+   return next(action)
+ }
+ 
 };
-
-
-
-
-
 
 const store = configureStore({}, browserHistory,redirectMiddleWare);
 const history = syncHistoryWithStore(hashHistory, store);
 
 import {push} from 'react-router-redux';
-//TODO:not sure if this is the best way.
-//Connector.setStore(store);
-//store.dispatch(push('#admin'))
 
 
 

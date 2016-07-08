@@ -52,8 +52,7 @@ public class GeoJsonController extends BaseController {
         LOGGER.debug("getGeoJsonForShapes");
         return geoJsonService.getShapesByLevelAndDetail(
                 LocationAdmLevelEnum.valueOf(level.toUpperCase()),
-                GeometryDetailLevelEnum.MEDIUM.getLevel(),
-                filters.getParameters());
+                GeometryDetailLevelEnum.MEDIUM.getLevel(),filters.getParameters());
     }
 
     @RequestMapping(value = "/stats/{level}/funding/detail/{detail:.+}", method = GET)

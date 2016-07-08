@@ -55,21 +55,11 @@
 		@include box-sizing(100%,auto);
 		  margin-left: 50px;
 		ul{
-		  font-size: 13.125px;
+		  font-size: 11px;
 		  font-family: "Open Sans";
 		  color: rgb( 0, 0, 0 );
 		}
-		ul.settings{
-			>li>ul>li{
-			    height: 20px;
-				float:left;
-				margin: 3px 15px;
 
-
-				cursor: pointer;
-				clear: none;
-			}
-		}
 	}
 
 	.breadcrums{
@@ -97,8 +87,34 @@
   .InputRange-labelContainer{
 	display: none;
   }
-  
+
+  ul.level{
+	margin-left:0px ;
+	li{
+	  height: 20px;
+	  float:left;
+	  margin: 3px 5px;
+	  cursor: pointer;
+	  clear: none;
+	  margin: 3px 15px;
+	}
+  }
+  ul.colors{
+	margin-left:0px ;
+	li{
+	  height: 10px;
+	  float:left;
+	  cursor: pointer;
+	  clear: none;
+	  @include  box-sizing(20px,15px);
+	   margin: 3px 15px;
+	  cursor: pointer;
+	}
 }
+
+}
+
+
 .layers-control.collapsed{
 	.title{
 		.icon{

@@ -10,9 +10,11 @@ const prefix="control.layers";
 import InputRange from 'react-input-range';
 
 class Settings extends React.Component {
+
 	set(setting,value){
-		let filters = collectValues(this.props.filters, this.props.projectSearch);
-		this.props.onSettingChanged(this.props.id, setting, value, filters);
+		const {id,projectSearch,filters,onSettingChanged} =this.props;
+	
+		onSettingChanged(id, setting, value, collectValues(filters, projectSearch));
 	}
 	setQuality(slider,value){
 		this.set('quality',value)
@@ -24,30 +26,30 @@ class Settings extends React.Component {
 			<ul className="settings">
 			{(settings['level'])?<li>
 			<ul className="level">
-                <li>Level:</li>
+			<li><b>Level:</b></li>
 
-                <li className={settings['level']=="region"?"active":""}  onClick={()=>{this.set('level','region')}}>Region</li>
-				<li className={settings['level']=="province"?"active":""} onClick={()=>{this.set('level','province')}}>Province</li>
-				<li className={settings['level']=="municipality"?"active":""} onClick={()=>{this.set('level','municipality')}}>Municipality</li>
+			<li className={settings['level']=="region"?"active":""}  onClick={()=>{this.set('level','region')}}>Region</li>
+			<li className={settings['level']=="province"?"active":""} onClick={()=>{this.set('level','province')}}>Province</li>
+			<li className={settings['level']=="municipality"?"active":""} onClick={()=>{this.set('level','municipality')}}>Municipality</li>
 			</ul>
 			</li>:null}
 			{(settings['quality'])?<li>
-                <ul>
-                    <li>Quality</li>
-                    <li>
-                        <InputRange maxValue={100} minValue={1} value={settings['quality']} onChange={this.setQuality.bind(this)}/>
-                    </li>
-                </ul>
-                </li>:null}
-                {(settings['css'])?<li>
-			    	<ul  className="css colors">
-                    <li>Colors</li>
-					<li className={settings['css']=="red"?"scheme red active":"scheme red "}  onClick={()=>{this.set('css','red')}} ></li>
-					<li className={settings['css']=="yellow"?"scheme yellow active":"scheme yellow "} onClick={()=>{this.set('css','yellow')}}></li>
-					<li className={settings['css']=="green"?"scheme green active":"scheme green "} onClick={()=>{this.set('css','green')}}></li>
-                    <li className={settings['css']=="orange"?"scheme orange active":"scheme orange "} onClick={()=>{this.set('css','orange')}}></li>
-                    <li className={settings['css']=="blue"?"scheme blue active":"scheme blue "} onClick={()=>{this.set('css','blue')}}></li>
-				</ul>
+			<ul>
+			<li><b>Quality</b></li>
+			<li>
+			<InputRange maxValue={100} minValue={1} value={settings['quality']} onChange={this.setQuality.bind(this)}/>
+			</li>
+			</ul>
+			</li>:null}
+			{(settings['css'])?<li>
+			<ul  className="css colors">
+			<li><b>Colors</b></li>
+			<li className={settings['css']=="red"?"scheme red active":"scheme red "}  onClick={()=>{this.set('css','red')}} ></li>
+			<li className={settings['css']=="yellow"?"scheme yellow active":"scheme yellow "} onClick={()=>{this.set('css','yellow')}}></li>
+			<li className={settings['css']=="green"?"scheme green active":"scheme green "} onClick={()=>{this.set('css','green')}}></li>
+			<li className={settings['css']=="orange"?"scheme orange active":"scheme orange "} onClick={()=>{this.set('css','orange')}}></li>
+			<li className={settings['css']=="blue"?"scheme blue active":"scheme blue "} onClick={()=>{this.set('css','blue')}}></li>
+			</ul>
 			</li>:null}
 			</ul>);
 	}
@@ -62,9 +64,11 @@ class Settings extends React.Component {
  		onToggleLayer:React.PropTypes.func.isRequired
  	}
 
+
  	onChange(){
- 		let filters = collectValues(this.props.filters, this.props.projectSearch);
- 		this.props.onToggleLayer(this.props.id, null, filters);
+ 		const {filters,projectSearch,id,visible:visible=false} = this.props;
+ 		
+ 		this.props.onToggleLayer(id,visible, collectValues(filters,projectSearch));
  	}
 
  	getChildProperties(){
@@ -77,17 +81,18 @@ class Settings extends React.Component {
  	}
 
  	getCheckbox(){
-		let selectionClass = "selectable " + (this.props.visible? "selected" : "");
-  		return(	
+ 		let selectionClass = "selectable " + (this.props.visible? "selected" : "");
+ 		const {keyName,name} = this.props;
+ 		return(	
  			<div className="group-title" onClick={this.onChange.bind(this)}> 
- 				<div className={selectionClass}/>
- 				<Message prefix={prefix} k={this.props.keyName}/>
+ 			<div className={selectionClass}/>
+ 			{keyName?<Message prefix={prefix} k={keyName}/>:<span>{name}</span>}
  			</div>
  			)
  	}
 
  	getSettings(){
- 			let childProperties=this.getChildProperties();
+ 		let childProperties=this.getChildProperties();
  		return <Settings {...this.props} {...childProperties}/>
  	}
 
@@ -114,13 +119,13 @@ class Settings extends React.Component {
  	render(){
  		return( 
  			<li className="group">
-				{this.getCheckbox()}
-				<div className="breadcrums">
-					({this.props.layers.filter(l=>l.get('visible')).size}/{this.props.layers.size})
-				</div>
-	 			<ul>
-	 				{this.renderChildren()}
-	 			</ul>
+ 			{this.getCheckbox()}
+ 			<div className="breadcrums">
+ 			({this.props.layers.filter(l=>l.get('visible')).size}/{this.props.layers.size})
+ 			</div>
+ 			<ul>
+ 			{this.renderChildren()}
+ 			</ul>
  			</li>)
  	}
  }
@@ -142,9 +147,9 @@ class Settings extends React.Component {
  * 
  */
  class Component extends ControlComponent {
-	constructor(props) {
+ 	constructor(props) {
  		super(props);
-        this.state={expanded:false}
+ 		this.state={expanded:false}
  	}
  	static propTypes = {
  		onToggleLayer:React.PropTypes.func,
@@ -153,9 +158,9 @@ class Settings extends React.Component {
  		onSettingChanged:React.PropTypes.func.isRequired
  	}
 
-     toggle(){
-         this.setState({expanded:!this.state.expanded})
-     }
+ 	toggle(){
+ 		this.setState({expanded:!this.state.expanded})
+ 	}
  	render(){
  		return (<div className="layers-control"><ul>{this.renderChildren()}</ul></div>);
  	}
@@ -181,7 +186,7 @@ class Settings extends React.Component {
  		},
 
  		onToggleLayer:(name, visible, filters)=>{
- 			dispatch(toggleVisibility(name, visible, filters));
+ 			dispatch(toggleVisibility(name, visible,filters));
  		},
 
  		onSettingChanged:(name, setting, value, filters)=>{

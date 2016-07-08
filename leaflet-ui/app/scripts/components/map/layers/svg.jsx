@@ -23,14 +23,16 @@ import { render, unmountComponentAtNode } from 'react-dom';
   }
 
   componentWillUnmount() {
-    //this.props.map.off('moveend');
-    this.svg.remove();    
+    this.svg.remove();  
+    //this.svg=null;  
   }
 
 
   componentWillMount() {
+
     super.componentWillMount();
     this.leafletElement = geoJson();
+    
     this.svg = d3.select(this.props.map.getPanes().overlayPane).append("svg"); 
     this.svg.style("z-index",this.props.zIndex);
     this.g = this.svg.append("g").attr("class", "leaflet-zoom-hide");
@@ -47,60 +49,56 @@ import { render, unmountComponentAtNode } from 'react-dom';
 
 
   renderPaths(data){
-
-    const field=this.props.valueProperty;
-    const size=this.props.size;
-    var  map=this.props.map;
-
+    
+   const {features}=data;
+   const {map,size,border,type}=this.props;
+   
     // Use Leaflet to implement a D3 geometric transformation.
     function projectPoint(x, y) {
       var point = map.latLngToLayerPoint(new L.LatLng(y, x));
       this.stream.point(point.x, point.y);
     }
+    const transform = d3.geo.transform({ point: projectPoint});
+    const path = d3.geo.path().projection(transform);
+    this.setSvgSize(path,data); //set svg area 
 
-    var transform = d3.geo.transform({ point: projectPoint});
-    this.path = d3.geo.path().projection(transform);
-
-    this.symbols=d3.svg.symbol()
-    this.path.pointRadius((d)=>{
-      return (size/2 *this.props.map.getZoom()) ;
+    
+    path.pointRadius((d)=>{
+      return (size/2 * map.getZoom()) ;
     });
     
-    let features=data.features;//;this.filter(data.features);
-
-    var shapes = this.g.selectAll("path").data(features);
+    var shapes = this.g.selectAll("path").data((type=="points")? this.filter(features):features);
     shapes.enter().append("path");
     shapes.exit().remove();
     shapes.attr("class", function(f) {return this.getClass(f);}.bind(this));
-    shapes.attr("stroke-width",this.props.border || 0);
-    shapes.attr("d", (feature)=>{
-      return this.path(feature)
-    });
+    shapes.attr("stroke-width",border || 0);
+    shapes.attr("d", (feature)=>{ return path(feature)});
     shapes.on("click",this.onClick.bind(this)); 
-    this.setSvgSize(data);
+
 
   }
 
 
-  setSvgSize(data){
-    debugger;
+  setSvgSize(path,data){
+    debugger
+
+    const {map,size,border}=this.props;
     let markersize=0; //in case of markers we should calculate the size that the markers will takes frm the center to the radio outside of the bounds 
-    let  radio=0;
-    if (this.props.size){
-      markersize=Math.ceil(this.props.size * this.props.map.getZoom()) + (this.props.border || 0); 
+    let radio=0;
+    if (size){
+      markersize=Math.ceil(size * map.getZoom()) + (border || 0); 
       radio=Math.ceil(markersize/2);         
     }
 
-    var bounds = this.path.bounds(data),
+    var bounds = path.bounds(data), //get path area
     topLeft = bounds[0],
     bottomRight = bounds[1];
-    
     
     var width=(bottomRight[0] - topLeft[0]) + markersize; //add 1 marker size to cover the full size of the marker located in the borders;
     var height=(bottomRight[1] - topLeft[1]) + markersize; //add 1 marker size to cover the full size of the marker located in the borders;
     var left=topLeft[0]-radio; //move  left positon half marker size to make room for makers on borders  
     var top=topLeft[1]-radio //move  top  positon half marker size to make  room for makers on borders
-   
+
     var translateX=-(left) ; 
     var translateY=-(top)   ;
     //set SVG size and position
@@ -111,14 +109,12 @@ import { render, unmountComponentAtNode } from 'react-dom';
 
   filter(data){
     var bounds=this.props.map.getBounds();
-    const filtered = data.filter((f)=>bounds.contains(L.geoJson(f).getBounds())).sort((f)=>{f.properties.projectCount})
+    const filtered = data.filter((f)=>f.geometry?bounds.contains(L.geoJson(f).getBounds()):false).sort((f)=>{f.properties[this.props.valueProperty]})
     console.log('Removed =>'+(data.length - filtered.length));
     return filtered;
-
   }
 
   onClick(properties){
-    //
     d3.event.stopPropagation();
     this.renderPopupContent(properties);
   }
@@ -133,6 +129,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
   }
 
   renderPopupContent(feature) {
+    
     if (!feature){
       return null;
     }
@@ -143,7 +140,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
 
       render(React.cloneElement(React.Children.only(this.props.children), {feature, store:this.context.store}), popup._contentNode);
       popup._updateLayout();
-      popup._updatePosition();
+      popup._updatePosition()
       popup._adjustPan();
     } 
   }
@@ -153,7 +150,6 @@ import { render, unmountComponentAtNode } from 'react-dom';
       if (!this.cssProvider)
         this.cssProvider=new this.props.cssProvider(this.values,this.props.thresholds);
       var className=this.props.classes+this.cssProvider.getCssClass(d.properties[this.props.valueProperty]);
-      console.log(className);
       return className;  
     }
   }

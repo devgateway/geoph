@@ -1,13 +1,9 @@
 import  {SET_BASEMAP, TOGGLE_LAYER,LAYER_LOAD_SUCCESS,LAYER_LOAD_FAILURE,SET_LAYER_SETTING }  from '../constants/constants.js';
-
-import {getLayerById} from '../util/layersUtil.js';
-
 import Connector from '../connector/connector.js';
-
+import {getPath} from '../util/layersUtil.js';
 
 
 const loadLayerCompleted=(results)=>{
-	
 	return {type:LAYER_LOAD_SUCCESS,...results}
 }
 
@@ -15,60 +11,32 @@ const loadLayerFailed=(type,error)=>{
 	return {type:LAYER_LOAD_FAILURE,error}
 }
 
+
 export const applyFiltersToLayers=(filters)=>{
 	return (dispatch, getState) => {		
-		loadLayerTree(dispatch, getState, getState().map.get('layers'), filters, true);
+		//loadLayerTree(dispatch, getState, getState().map.get('layers'), filters, true);
 	}	
 }
 
-const loadLayerTree=(dispatch, getState, layers, filters, force)=>{
-	layers.forEach((l)=>{
-		if (l.get('layers')){ //it is a group 
-			loadLayerTree(dispatch, getState, l.get('layers'), filters, force);
-		}else if (l.get('visible') && (!l.get('data')||force)){
-			const options={id:l.get('id'), indicator_id:l.get("indicator_id"), ep:l.get('ep'),settings:l.get('settings').toObject(), filters: filters};
-		
-			dispatch(loadLayer(options, getState));
-		}
-	})
-	
-}
-
-
-const loadLayerById=(dispatch, getState, layers, filters, id)=>{
-	layers.forEach((l)=>{
-		if (l.get('layers')){ //it is a group 
-			loadLayerTree(dispatch,getState,l.get('layers'),filters,id);
-		}else if (l.get('visible')  && l.get('id')==id){
-			const options={id:l.get('id'), indicator_id:l.get("indicator_id"), ep:l.get('ep'),settings:l.get('settings').toObject(), filters: filters};
-			
-			dispatch(loadLayer(options, getState));
-		}
-	})
-}
-
-
-export const toggleVisibility=(id, visible, filters)=>{
-	return (dispatch, getState) => {
-		dispatch({
-			type: TOGGLE_LAYER,
-			visible,
-			id
-		});
-		loadLayerById(dispatch, getState, getState().map.get('layers'), filters, id);
-	}
-}
-
 export const setSetting=(id, name, value, filters)=>{
-	//TODO:reload layer if setting is quality or level
 	return (dispatch, getState) => {
-		dispatch({
+		dispatch( {
 			type: SET_LAYER_SETTING,
 			id,
 			name,
 			value
 		});
-		loadLayerTree(dispatch, getState, getState().map.get('layers'), filters, true);
+		dispatch(loadLayerById(dispatch, getState,id,filters));
+	}
+}
+
+export const toggleVisibility=(id,visibility, filters)=>{
+	debugger;
+	return (dispatch, getState) => {
+		dispatch({type: TOGGLE_LAYER,visible:visibility,id});
+		if (!visibility){
+			loadLayerById(dispatch, getState, id,filters);
+		}
 	}
 }
 
@@ -78,16 +46,25 @@ export const loadDefaultLayers=(layers, filters)=>{
 	}
 }
 
+
+const loadLayerById=(dispatch, getState, id,filters)=>{
+	const layer=getState().map.getIn(getPath(id));
+	const options={id:layer.get('id'), indicator_id:layer.get("indicator_id"), ep:layer.get('ep'),settings:layer.get('settings').toObject(), filters: filters};
+		dispatch(loadLayer(options, getState));
+	}
+
+
+/*
 const toggleDefaultLayers=(dispatch, layers, filters)=>{
 	layers.map((l)=>{
-	    if (l.get('defaultLoaded')){
-	      dispatch(toggleVisibility(l.get('id'), true, filters));
-	    } else if (l.get('layers')){
-	      toggleDefaultLayers(dispatch, l.get('layers'), filters);
-	    }
-   	});
+		if (l.get('defaultLoaded')){
+			dispatch(toggleVisibility(l.get('id'), true, filters));
+		} else if (l.get('layers')){
+			toggleDefaultLayers(dispatch, l.get('layers'), filters);
+		}
+	});
 }
-
+*/
 /*Get data of an specif layer passing layer options and getstate in order to take current filters*/
 const loadLayer=(options, getState)=>{
 	
@@ -101,11 +78,11 @@ const loadLayer=(options, getState)=>{
 				dispatch(loadLayerFailed(err));
 			});
 		} 
-}
-
-export const setBaseMap=(basemap)=>{
-	return {
-	    type: SET_BASEMAP,
-	    basemap: basemap
 	}
-}
+
+	export const setBaseMap=(basemap)=>{
+		return {
+			type: SET_BASEMAP,
+			basemap: basemap
+		}
+	}

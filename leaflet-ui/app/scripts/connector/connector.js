@@ -211,13 +211,13 @@ class Connector {
 	uploadIndicator(options){
 		const URL=Settings.get('API',API_BASE_URL) + Settings.get('API','INDICATOR_UPLOAD');
 		return new Promise( (resolve, reject) => {
+			const {file,name,template,css} = options;
 
-			const {file,name,template,color} = options;
 			let url = Settings.get('API','INDICATOR_UPLOAD');
 			var data = new FormData();
 			data.append('name', name);
-			data.append('template', template);
-			data.append('color', color);
+			data.append('admLevel', template);
+			data.append('colorScheme', css);
 			data.append('file',file);
 			this.call(POST,url,data,{ headers: this.getSecurityHeader()}).then(resolve).catch(reject);
 		})

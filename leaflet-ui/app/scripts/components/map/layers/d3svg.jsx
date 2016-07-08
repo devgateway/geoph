@@ -19,11 +19,13 @@ import { render, unmountComponentAtNode } from 'react-dom';
   }
 
   componentWillMount() {
+  
     super.componentWillMount();
     this.create()
   }
 
   componentDidUpdate(nextProps, nextState) {
+    
     const {data, ...props} = this.props;
     this.update();
   }
@@ -32,6 +34,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
   }
 
   create(){
+    
     this.leafletElement = geoJson();
     this.props.map._initPathRoot();
     this.svg= d3.select(this.props.map._container).select("svg"),
@@ -45,7 +48,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
   }
 
   renderPaths(data){
-    debugger;
+   
     var  map=this.props.map;
     // Use Leaflet to implement a D3 geometric transformation.
 
