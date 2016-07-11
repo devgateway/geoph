@@ -52,8 +52,7 @@ public class GeoJsonController extends BaseController {
         LOGGER.debug("getGeoJsonForShapes");
         return geoJsonService.getShapesByLevelAndDetail(
                 LocationAdmLevelEnum.valueOf(level.toUpperCase()),
-                GeometryDetailLevelEnum.MEDIUM.getLevel(),
-                filters.getParameters());
+                GeometryDetailLevelEnum.MEDIUM.getLevel(),filters.getParameters());
     }
 
     @RequestMapping(value = "/stats/{level}/funding/detail/{detail:.+}", method = GET)
@@ -68,7 +67,7 @@ public class GeoJsonController extends BaseController {
                 filters.getParameters());
     }
 
-    @RequestMapping(value = "/indicators/id/{indicatorId}", method = GET)
+    @RequestMapping(value = "/indicators/{indicatorId}", method = GET)
     public FeatureCollection getIndicatorsData(@PathVariable final long indicatorId) {
         LOGGER.debug("getIndicatorsData for indicator id:" + indicatorId);
         return layerService.getIndicatorsData(indicatorId);

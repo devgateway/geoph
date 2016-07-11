@@ -62,9 +62,11 @@ const redirect=(url,messages,errors)=>{
 
 export const upload=(options)=>{
   return (dispatch, getState) =>{
-    const params=getState().indicators.toJS();
-    Connector.uploadIndicator(params).then((data)=>{
+    
+
+    Connector.uploadIndicator(getState().indicators.toJS()).then((data)=>{
      dispatch(uploadOK(data));
+     dispatch(getList());
    }).catch((httpError)=>{
        dispatch(makeAction(Constants.INDICATOR_UPLOAD_FAILURE,{httpError:httpError}));
    });
@@ -75,7 +77,7 @@ export const upload=(options)=>{
 
 const uploadOK=(data)=>{
   const {name,id}=data;
-  const url= '/admin';
+  const url= '/admin/list/indicator';
   const {errors}=data;
   return redirect(url,[`Indicator "${name}" was added`],errors);
 

@@ -11,50 +11,47 @@ import { render, unmountComponentAtNode } from 'react-dom';
  export default class D3Layer extends MapLayer {
 
    static propTypes = {
-    higthligthStyleProvider: React.PropTypes.func,
-  };
-
+     higthligthStyleProvider: React.PropTypes.func,
+   };
 
   constructor() {
     super();
   }
 
   componentWillMount() {
+  
     super.componentWillMount();
     this.create()
   }
 
-
   componentDidUpdate(nextProps, nextState) {
+    
     const {data, ...props} = this.props;
     this.update();
   }
 
   componentWillUnmount() {
-        
   }
 
-
   create(){
+    
     this.leafletElement = geoJson();
     this.props.map._initPathRoot();
     this.svg= d3.select(this.props.map._container).select("svg"),
     this.g = this.svg.append("g").attr("class", "leaflet-zoom-hide");
-    this.props.map.on('moveend', this.mapmove.bind(this));
-    this.mapmove();
+    this.props.map.on('moveend', this.mapmove.bind(this)); //update svg on map changes
+    this.update(); //trigger first reder
   }
 
   update(){
-    //TODO:maybe a more efficent way can be implemented
-    //clean
     this.mapmove();
   }
 
   renderPaths(data){
-    
+   
     var  map=this.props.map;
-
     // Use Leaflet to implement a D3 geometric transformation.
+
     function projectPoint(x, y) {
       var point = map.latLngToLayerPoint(new L.LatLng(y, x));
       this.stream.point(point.x, point.y);
@@ -64,19 +61,21 @@ import { render, unmountComponentAtNode } from 'react-dom';
     var path = d3.geo.path().projection(transform);
     path.pointRadius(this.props.map.getZoom()*1.5);
 
-    var points = this.g.selectAll("path").data(data, function(d) {return d.id;});
+    var points = this.g.selectAll("path").data(data, function(d) {
+      return d.id;
+    });
     
     points.enter().append("path");
     points.exit().remove();
 
     points.attr("d", path)
-    .on("click",this.onClick.bind(this))
-    .on("mouseover",this.onMouseover.bind(this))
-    .on("mouseout",this.onMouseout.bind(this));
+      .on("click",this.onClick.bind(this))
+      .on("mouseover",this.onMouseover.bind(this))
+      .on("mouseout",this.onMouseout.bind(this));
 
-    if (this.props.styleProvider){
-      this.style(points,this.props.styleProvider);
-    }
+      if (this.props.styleProvider){
+          this.style(points,this.props.styleProvider);
+      }
   }
 
   onClick(properties){
@@ -118,22 +117,17 @@ import { render, unmountComponentAtNode } from 'react-dom';
   }
 
   mapmove(e) {
-
-    if (this.props.data && this.props.data.features){
-      this.renderPaths(this.props.data.features);
+    if (this.props.data && this.props.data.features){ //do it if there are available features 
+      this.renderPaths(this.props.data.features); //create svg paths
     }else{
-      console.log('Dataset is empty');
+      //console.log('Dataset is empty');
     }
   }
-
-
 
   renderPopupContent(feature) {
     let popup = L.popup()
     .setLatLng(L.latLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]))
     .openOn(this.props.map);
-
-
     if (this.props.children) {
       render(React.cloneElement(React.Children.only(this.props.children), feature.properties) ,popup._contentNode);
       popup._updateLayout();
@@ -141,8 +135,6 @@ import { render, unmountComponentAtNode } from 'react-dom';
       popup._adjustPan();
     } 
   }
-
-
 
   render() {
     return this.renderChildrenWithProps({

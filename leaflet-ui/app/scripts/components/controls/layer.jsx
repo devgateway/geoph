@@ -3,16 +3,17 @@ import { connect } from 'react-redux'
 import {Message} from '../lan/'
 import {loadProjects,loadFunding,toggleVisibility,setSetting} from '../../actions/map.js'
 import * as Constants from '../../constants/constants.js';
-import {collectValues} from '../../util/filterUtil';
 require('./layers.scss');
 const prefix="control.layers";
 
 import InputRange from 'react-input-range';
 
 class Settings extends React.Component {
+
 	set(setting,value){
-		let filters = collectValues(this.props.filters, this.props.projectSearch);
-		this.props.onSettingChanged(this.props.id, setting, value, filters);
+		const {id,onSettingChanged} =this.props;
+	
+		onSettingChanged(id, setting, value);
 	}
 	setQuality(slider,value){
 		this.set('quality',value)
@@ -24,30 +25,29 @@ class Settings extends React.Component {
 			<ul className="settings">
 			{(settings['level'])?<li>
 			<ul className="level">
-                <li>Level:</li>
-
-                <li className={settings['level']=="region"?"active":""}  onClick={()=>{this.set('level','region')}}>Region</li>
-				<li className={settings['level']=="province"?"active":""} onClick={()=>{this.set('level','province')}}>Province</li>
-				<li className={settings['level']=="municipality"?"active":""} onClick={()=>{this.set('level','municipality')}}>Municipality</li>
+			<li><b>Level:</b></li>
+			<li className={settings['level']=="region"?"active":""}  onClick={()=>{this.set('level','region')}}>Region</li>
+			<li className={settings['level']=="province"?"active":""} onClick={()=>{this.set('level','province')}}>Province</li>
+			<li className={settings['level']=="municipality"?"active":""} onClick={()=>{this.set('level','municipality')}}>Municipality</li>
 			</ul>
 			</li>:null}
 			{(settings['quality'])?<li>
-                <ul>
-                    <li>Quality</li>
-                    <li>
-                        <InputRange maxValue={100} minValue={1} value={settings['quality']} onChange={this.setQuality.bind(this)}/>
-                    </li>
-                </ul>
-                </li>:null}
-                {(settings['css'])?<li>
-			    	<ul  className="css colors">
-                    <li>Colors</li>
-					<li className={settings['css']=="red"?"scheme red active":"scheme red "}  onClick={()=>{this.set('css','red')}} ></li>
-					<li className={settings['css']=="yellow"?"scheme yellow active":"scheme yellow "} onClick={()=>{this.set('css','yellow')}}></li>
-					<li className={settings['css']=="green"?"scheme green active":"scheme green "} onClick={()=>{this.set('css','green')}}></li>
-                    <li className={settings['css']=="orange"?"scheme orange active":"scheme orange "} onClick={()=>{this.set('css','orange')}}></li>
-                    <li className={settings['css']=="blue"?"scheme blue active":"scheme blue "} onClick={()=>{this.set('css','blue')}}></li>
-				</ul>
+			<ul>
+			<li><b>Quality</b></li>
+			<li>
+			<InputRange maxValue={100} minValue={1} value={settings['quality']} onChange={this.setQuality.bind(this)}/>
+			</li>
+			</ul>
+			</li>:null}
+			{(settings['css'])?<li>
+			<ul  className="css colors">
+			<li><b>Colors</b></li>
+			<li className={settings['css']=="red"?"scheme red active":"scheme red "}  onClick={()=>{this.set('css','red')}} ></li>
+			<li className={settings['css']=="yellow"?"scheme yellow active":"scheme yellow "} onClick={()=>{this.set('css','yellow')}}></li>
+			<li className={settings['css']=="green"?"scheme green active":"scheme green "} onClick={()=>{this.set('css','green')}}></li>
+			<li className={settings['css']=="orange"?"scheme orange active":"scheme orange "} onClick={()=>{this.set('css','orange')}}></li>
+			<li className={settings['css']=="blue"?"scheme blue active":"scheme blue "} onClick={()=>{this.set('css','blue')}}></li>
+			</ul>
 			</li>:null}
 			</ul>);
 	}
@@ -62,42 +62,57 @@ class Settings extends React.Component {
  		onToggleLayer:React.PropTypes.func.isRequired
  	}
 
+
  	onChange(){
- 		let filters = collectValues(this.props.filters, this.props.projectSearch);
- 		this.props.onToggleLayer(this.props.id, null, filters);
+ 		const {id,visible:visible=false} = this.props;
+ 		
+ 		this.props.onToggleLayer(id,visible);
  	}
 
  	getChildProperties(){
  		return {
  			onToggleLayer: this.props.onToggleLayer,
  			onSettingChanged: this.props.onSettingChanged,
- 			filters: this.props.filters,
- 			projectSearch: this.props.projectSearch
  		};
  	}
 
+ 	getTitle(){
+ 		const {keyName,name} = this.props;
+ 		return(	
+ 			<div className="group-title"> 
+ 			<div/>
+ 				{keyName?<Message prefix={prefix} k={keyName}/>:<span>{name}</span>}
+ 			</div>
+ 			)
+ 	}
+
  	getCheckbox(){
-		let selectionClass = "selectable " + (this.props.visible? "selected" : "");
-  		return(	
+ 		let selectionClass = "selectable " + (this.props.visible? "selected" : "");
+ 		const {keyName,name} = this.props;
+ 		return(	
  			<div className="group-title" onClick={this.onChange.bind(this)}> 
- 				<div className={selectionClass}/>
- 				<Message prefix={prefix} k={this.props.keyName}/>
+ 			<div className={selectionClass}/>
+ 			{keyName?<Message prefix={prefix} k={keyName}/>:<span>{name}</span>}
  			</div>
  			)
  	}
 
  	getSettings(){
- 			let childProperties=this.getChildProperties();
+ 		let childProperties=this.getChildProperties();
  		return <Settings {...this.props} {...childProperties}/>
  	}
 
  	renderChildren(){
+
  		let childProperties = this.getChildProperties();	
  		return this.props.layers.map((l)=>{
+ 			////console.log(l);
+ 			var props={key:l.get('id'), id:l.get('id'), settings:l.get('settings') ,visible:l.get('visible'),name:l.get('name'), keyName:l.get('keyName'), layers:l.get('layers')}
+ 			
  			if (l.get('layers')){
- 				return 	<LayerGroup key={l.get('id')} id={l.get('id')}  visible={l.get('visible')} keyName={l.get('keyName')} layers={l.get('layers')}   {...childProperties} />
+ 				return 	<LayerGroup {...props} {...childProperties} />
  			}else{
- 				return 	<Layer  key={l.get('id')} id={l.get('id')}    visible={l.get('visible')}  keyName={l.get('keyName')}  {...childProperties} settings={l.get('settings')} />
+ 				return 	<Layer {...props} {...childProperties}  />
  			}
  		})
  	}
@@ -110,13 +125,13 @@ class Settings extends React.Component {
  	render(){
  		return( 
  			<li className="group">
-				{this.getCheckbox()}
-				<div className="breadcrums">
-					({this.props.layers.filter(l=>l.get('visible')).size}/{this.props.layers.size})
-				</div>
-	 			<ul>
-	 				{this.renderChildren()}
-	 			</ul>
+ 			{this.getTitle()}
+ 			<div className="breadcrums">
+ 			({this.props.layers.filter(l=>l.get('visible')).size}/{this.props.layers.size})
+ 			</div>
+ 			<ul>
+ 			{this.renderChildren()}
+ 			</ul>
  			</li>)
  	}
  }
@@ -126,7 +141,6 @@ class Settings extends React.Component {
  * 
  */
  class Layer extends ControlComponent {
- 	
  	render(){
  		return <li className="layer">
  		{this.getCheckbox()}
@@ -139,10 +153,9 @@ class Settings extends React.Component {
  * 
  */
  class Component extends ControlComponent {
-
  	constructor(props) {
  		super(props);
-        this.state={expanded:false}
+ 		this.state={expanded:false}
  	}
  	static propTypes = {
  		onToggleLayer:React.PropTypes.func,
@@ -151,25 +164,10 @@ class Settings extends React.Component {
  		onSettingChanged:React.PropTypes.func.isRequired
  	}
 
-     toggle(){
-         this.setState({expanded:!this.state.expanded})
-     }
+ 	toggle(){
+ 		this.setState({expanded:!this.state.expanded})
+ 	}
  	render(){
- 		/*
- 		return (
- 			<div className={(this.state.expanded==true)?"layers-control":"layers-control collapsed"}>
-			    <div className="title"><div className="icon"><div/></div>Adjust layers to see detailed data
-                    <div className="toggle"><a href="#" onClick={this.toggle.bind(this)}>{(this.state.expanded==true)?'-':'+'}</a></div>
-                </div>
-                {(this.state.expanded==true)? <ul>
-                    {this.renderChildren()}
-                </ul>:null}
-                <div>
-
-                </div>
- 			</div>
- 			)
- 		*/
  		return (<div className="layers-control"><ul>{this.renderChildren()}</ul></div>);
  	}
  }
@@ -178,8 +176,6 @@ class Settings extends React.Component {
  const stateToProps = (state, props) => {
  	return {
  		layers: state.map.get('layers'),
- 		filters: state.filters.filterMain,
- 		projectSearch: state.projectSearch
  	};
  }
 
@@ -194,7 +190,7 @@ class Settings extends React.Component {
  		},
 
  		onToggleLayer:(name, visible, filters)=>{
- 			dispatch(toggleVisibility(name, visible, filters));
+ 			dispatch(toggleVisibility(name, visible,filters));
  		},
 
  		onSettingChanged:(name, setting, value, filters)=>{

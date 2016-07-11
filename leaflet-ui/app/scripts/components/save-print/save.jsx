@@ -36,7 +36,7 @@ const Save = onClickOutside(React.createClass({
 	},
 
 	saveMapState() {
-		console.log("---saveMapState---");
+		//console.log("---saveMapState---");
 		let dataToSave = collectValuesToSave(this.props.stateToCollect);
 	    this.props.onRequestSaveMap({
 	    	name : this.state.saveName, 
