@@ -171,7 +171,7 @@ export default class ChartComponent extends React.Component {
 				}				
 			});
 			if (others>0){ 
-				labels.push("Others");
+				itemNames.push("Others");
 				values.push(others);
 				if(this.state.hiddenlabels.indexOf("Others")==-1){
 					totalAmount = totalAmount+parseInt(others);
