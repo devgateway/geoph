@@ -49,7 +49,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
 
 
   renderPaths(data){
-    
+
    const {features}=data;
    const {map,size,border,type}=this.props;
    
@@ -80,9 +80,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
 
 
   setSvgSize(path,data){
-    debugger
-
-    const {map,size,border}=this.props;
+   const {map,size,border}=this.props;
     let markersize=0; //in case of markers we should calculate the size that the markers will takes frm the center to the radio outside of the bounds 
     let radio=0;
     if (size){
@@ -110,7 +108,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
   filter(data){
     var bounds=this.props.map.getBounds();
     const filtered = data.filter((f)=>f.geometry?bounds.contains(L.geoJson(f).getBounds()):false).sort((f)=>{f.properties[this.props.valueProperty]})
-    console.log('Removed =>'+(data.length - filtered.length));
+    //console.log('Removed =>'+(data.length - filtered.length));
     return filtered;
   }
 
@@ -124,12 +122,12 @@ import { render, unmountComponentAtNode } from 'react-dom';
       this.values=this.getValues(this.props.data.features);//isolate features values 
       this.renderPaths(this.props.data);
     } else {
-      console.log('Dataset is empty');
+      //console.log('Dataset is empty');
     }
   }
 
   renderPopupContent(feature) {
-    
+
     if (!feature){
       return null;
     }
@@ -147,9 +145,9 @@ import { render, unmountComponentAtNode } from 'react-dom';
 
   getClass(d){    
     if (this.props.cssProvider){
-      if (!this.cssProvider)
-        this.cssProvider=new this.props.cssProvider(this.values,this.props.thresholds);
-      var className=this.props.classes+this.cssProvider.getCssClass(d.properties[this.props.valueProperty]);
+      this.cssProvider=new this.props.cssProvider(this.values,(this.props.thresholds > this.values.length)?this.values.length:this.props.thresholds);
+      const value=d.properties[this.props.valueProperty];
+      var className=this.props.classes+this.cssProvider.getCssClass(value);
       return className;  
     }
   }

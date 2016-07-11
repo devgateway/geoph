@@ -1,6 +1,13 @@
 import  {SET_BASEMAP, TOGGLE_LAYER,LAYER_LOAD_SUCCESS,LAYER_LOAD_FAILURE,SET_LAYER_SETTING }  from '../constants/constants.js';
 import Connector from '../connector/connector.js';
-import {getPath} from '../util/layersUtil.js';
+import {getPath,getDefaults} from '../util/layersUtil.js';
+import {collectValues} from '../util/filterUtil';
+
+const getFilters=(getState)=>{
+	const filters = getState().filters.filterMain;
+	const projectSearch= getState().projectSearch;
+	return collectValues(filters,projectSearch);
+}
 
 
 const loadLayerCompleted=(results)=>{
@@ -11,14 +18,23 @@ const loadLayerFailed=(type,error)=>{
 	return {type:LAYER_LOAD_FAILURE,error}
 }
 
+export const loadDefaultLayer=()=>{
+	return (dispatch, getState) => {		
+		getDefaults(getState().map.get('layers')).forEach(l=>{
+			dispatch(toggleVisibility(l.get("id")));
+		});
+	}
+}
 
 export const applyFiltersToLayers=(filters)=>{
 	return (dispatch, getState) => {		
-		//loadLayerTree(dispatch, getState, getState().map.get('layers'), filters, true);
+		getDefaults(getState().map.get('layers')).forEach(l=>{
+			loadLayerById(dispatch,getState,l.get("id"));
+		});
 	}	
 }
 
-export const setSetting=(id, name, value, filters)=>{
+export const setSetting=(id, name, value)=>{
 	return (dispatch, getState) => {
 		dispatch( {
 			type: SET_LAYER_SETTING,
@@ -26,50 +42,37 @@ export const setSetting=(id, name, value, filters)=>{
 			name,
 			value
 		});
-		dispatch(loadLayerById(dispatch, getState,id,filters));
+		dispatch(loadLayerById(dispatch, getState,id));
 	}
 }
 
-export const toggleVisibility=(id,visibility, filters)=>{
-	debugger;
+export const toggleVisibility=(id,visibility)=>{
 	return (dispatch, getState) => {
+
 		dispatch({type: TOGGLE_LAYER,visible:visibility,id});
 		if (!visibility){
-			loadLayerById(dispatch, getState, id,filters);
+			loadLayerById(dispatch, getState, id);
 		}
 	}
 }
 
-export const loadDefaultLayers=(layers, filters)=>{
-	return (dispatch, getState) => {
-		toggleDefaultLayers(dispatch, layers, filters);
-	}
-}
 
 
-const loadLayerById=(dispatch, getState, id,filters)=>{
+const loadLayerById=(dispatch, getState, id)=>{
 	const layer=getState().map.getIn(getPath(id));
-	const options={id:layer.get('id'), indicator_id:layer.get("indicator_id"), ep:layer.get('ep'),settings:layer.get('settings').toObject(), filters: filters};
-		dispatch(loadLayer(options, getState));
-	}
+	const options={
+		id:layer.get('id'),
+		indicator_id:layer.get("indicator_id"), 
+		ep:layer.get('ep'),settings:layer.get('settings').toObject(), 
+		filters: getFilters(getState)
+	};
 
-
-/*
-const toggleDefaultLayers=(dispatch, layers, filters)=>{
-	layers.map((l)=>{
-		if (l.get('defaultLoaded')){
-			dispatch(toggleVisibility(l.get('id'), true, filters));
-		} else if (l.get('layers')){
-			toggleDefaultLayers(dispatch, l.get('layers'), filters);
-		}
-	});
+	dispatch(loadLayer(options, getState));
 }
-*/
 /*Get data of an specif layer passing layer options and getstate in order to take current filters*/
+
 const loadLayer=(options, getState)=>{
-	
 	return (dispatch, getState) =>{
-		
 		Connector.loadLayerByOptions(options).then(
 			(results)=>{
 				dispatch(loadLayerCompleted(results))

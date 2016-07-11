@@ -39,7 +39,7 @@
   }
 
   ul{
-	margin: 0px 0px 0px 25px;
+	margin: 0px 0px 0px 10px;
 	padding: 0px;
 	list-style: none;
  }
@@ -74,7 +74,8 @@
 	.group-title{
 		cursor:pointer;
 		float:left;
-	 	 line-height: 1.8;
+	 	line-height: 1.8;
+	 	font-size: 110%;
 	}
 
 	.InputRange {

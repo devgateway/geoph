@@ -6,7 +6,7 @@ import Store from '../store/configureStore.js';
 import Qs from 'qs';
 
 
-console.log(Settings);
+//console.log(Settings);
 
 const POST= 'POST';
 const GET= 'GET';
@@ -106,7 +106,7 @@ class Connector {
 			caller(url, params,config).then((response) => {
 				resolve(response.data);
 			}).catch((err) => {
-				console.log('Error when trying to get backend data')
+				//console.log('Error when trying to get backend data')
 				reject(err);
 			})
 		})
@@ -183,7 +183,7 @@ class Connector {
 			const {username,password} = options;
 		
 			this.post(url, {username:username,password:password}).then((response) => {
-				console.log(response.headers["x-security-token"]);
+				//console.log(response.headers["x-security-token"]);
 				this.setAuthToken(response.headers["x-security-token"]) ;
 				resolve(response.data);	
 			})
@@ -256,7 +256,7 @@ class Connector {
 	saveMap(dataToSave) {
 		return new Promise( (resolve, reject) => {
 			let path = Settings.get('API','SAVE');
-			console.log("---saveMap connector---");
+			//console.log("---saveMap connector---");
 			this.call(POST, path, dataToSave).then((data) => {
 				resolve(data); 	
 			}).catch(reject)

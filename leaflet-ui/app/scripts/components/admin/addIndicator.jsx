@@ -125,7 +125,7 @@ class Indicator extends React.Component {
 
     render() {
         
-        console.log(this.props.httpError)
+        //console.log(this.props.httpError)
         return (<div className="admin-page">
                 {this.props.httpError?<HttpError error={this.props.httpError}/>:null}
                     {this.getView()}

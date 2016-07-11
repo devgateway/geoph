@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import {Message} from '../lan/'
 import {loadProjects,loadFunding,toggleVisibility,setSetting} from '../../actions/map.js'
 import * as Constants from '../../constants/constants.js';
-import {collectValues} from '../../util/filterUtil';
 require('./layers.scss');
 const prefix="control.layers";
 
@@ -12,9 +11,9 @@ import InputRange from 'react-input-range';
 class Settings extends React.Component {
 
 	set(setting,value){
-		const {id,projectSearch,filters,onSettingChanged} =this.props;
+		const {id,onSettingChanged} =this.props;
 	
-		onSettingChanged(id, setting, value, collectValues(filters, projectSearch));
+		onSettingChanged(id, setting, value);
 	}
 	setQuality(slider,value){
 		this.set('quality',value)
@@ -27,7 +26,6 @@ class Settings extends React.Component {
 			{(settings['level'])?<li>
 			<ul className="level">
 			<li><b>Level:</b></li>
-
 			<li className={settings['level']=="region"?"active":""}  onClick={()=>{this.set('level','region')}}>Region</li>
 			<li className={settings['level']=="province"?"active":""} onClick={()=>{this.set('level','province')}}>Province</li>
 			<li className={settings['level']=="municipality"?"active":""} onClick={()=>{this.set('level','municipality')}}>Municipality</li>
@@ -66,18 +64,26 @@ class Settings extends React.Component {
 
 
  	onChange(){
- 		const {filters,projectSearch,id,visible:visible=false} = this.props;
+ 		const {id,visible:visible=false} = this.props;
  		
- 		this.props.onToggleLayer(id,visible, collectValues(filters,projectSearch));
+ 		this.props.onToggleLayer(id,visible);
  	}
 
  	getChildProperties(){
  		return {
  			onToggleLayer: this.props.onToggleLayer,
  			onSettingChanged: this.props.onSettingChanged,
- 			filters: this.props.filters,
- 			projectSearch: this.props.projectSearch
  		};
+ 	}
+
+ 	getTitle(){
+ 		const {keyName,name} = this.props;
+ 		return(	
+ 			<div className="group-title"> 
+ 			<div/>
+ 				{keyName?<Message prefix={prefix} k={keyName}/>:<span>{name}</span>}
+ 			</div>
+ 			)
  	}
 
  	getCheckbox(){
@@ -100,7 +106,7 @@ class Settings extends React.Component {
 
  		let childProperties = this.getChildProperties();	
  		return this.props.layers.map((l)=>{
- 			//console.log(l);
+ 			////console.log(l);
  			var props={key:l.get('id'), id:l.get('id'), settings:l.get('settings') ,visible:l.get('visible'),name:l.get('name'), keyName:l.get('keyName'), layers:l.get('layers')}
  			
  			if (l.get('layers')){
@@ -119,7 +125,7 @@ class Settings extends React.Component {
  	render(){
  		return( 
  			<li className="group">
- 			{this.getCheckbox()}
+ 			{this.getTitle()}
  			<div className="breadcrums">
  			({this.props.layers.filter(l=>l.get('visible')).size}/{this.props.layers.size})
  			</div>
@@ -170,8 +176,6 @@ class Settings extends React.Component {
  const stateToProps = (state, props) => {
  	return {
  		layers: state.map.get('layers'),
- 		filters: state.filters.filterMain,
- 		projectSearch: state.projectSearch
  	};
  }
 

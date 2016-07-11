@@ -7,9 +7,9 @@ import {getList} from '../../actions/indicators'
 
 import SvgLayer from './layers/svg.jsx'
 import {latLngBounds,latLng} from 'leaflet'
-import * as Constants from '../../constants/constants.js';
-
-import {L, Popup, Map, Marker, TileLayer,ZoomControl,MapLayer,ScaleControl,LayerGroup} from 'react-leaflet'; 
+import * as Constants from '../../constants/constants.js'
+import {loadDefaultLayer} from '../../actions/map.js'
+import { L , Popup, Map, Marker, TileLayer,ZoomControl,MapLayer,ScaleControl,LayerGroup} from 'react-leaflet'
 
 import ProjectPopup from './popups/projectLayerPopup'
 import Test from '../controls/settings'
@@ -22,10 +22,7 @@ northEast = latLng(23.140359987886118,134.3408203125),
 bounds = latLngBounds(southWest, northEast);
 
 
-
-
 const Layer=React.createClass({
-	
 	closePopup(){
 		this.props.map.closePopup();
 	},
@@ -99,6 +96,7 @@ const mapDispatchToProps=(dispatch,ownProps)=>{
 	return {
 		onLoad:()=>{
 			dispatch(getList());
+			dispatch(loadDefaultLayer());
 		}
 	}
 }

@@ -62,7 +62,7 @@ const redirect=(url,messages,errors)=>{
 
 export const upload=(options)=>{
   return (dispatch, getState) =>{
-    debugger;
+    
 
     Connector.uploadIndicator(getState().indicators.toJS()).then((data)=>{
      dispatch(uploadOK(data));

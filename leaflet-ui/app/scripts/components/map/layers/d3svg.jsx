@@ -120,7 +120,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
     if (this.props.data && this.props.data.features){ //do it if there are available features 
       this.renderPaths(this.props.data.features); //create svg paths
     }else{
-      console.log('Dataset is empty');
+      //console.log('Dataset is empty');
     }
   }
 
