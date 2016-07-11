@@ -1,1 +1,1 @@
-ALTER SEQUENCE hibernate_sequence RESTART WITH 1000;
+ALTER SEQUENCE hibernate_sequence RESTART WITH 1100;

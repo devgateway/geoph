@@ -158,7 +158,7 @@ public class ImportDataController {
                 if (StringUtils.isNotBlank(tokens[10])) {
                     Grant grant = new Grant();
                     if (tokens[10].trim().equals("-") || tokens[10].trim().toLowerCase().equals("n/a")) {
-                        grant.setAmount(0);
+                        grant.setAmount(0D);
                     } else {
                         grant.setAmount(Double.parseDouble(tokens[10].replace(".", "").replace(COMMA, ".")));
                     }
@@ -368,7 +368,7 @@ public class ImportDataController {
                 if (StringUtils.isNotBlank(tokens[14])) {
                     Loan loan = new Loan();
                     if (tokens[14].trim().equals("-") || tokens[14].trim().toLowerCase().equals("n/a")) {
-                        loan.setAmount(0);
+                        loan.setAmount(0D);
                     } else {
                         loan.setAmount(Double.parseDouble(tokens[14].replace(".", "").replace(COMMA, ".")));
                     }
@@ -449,13 +449,13 @@ public class ImportDataController {
                     }
                 }
                 int newFieldsHelp = 36;
-                if (tokens.length > newFieldsHelp + 1 && StringUtils.isNotBlank(tokens[newFieldsHelp])) {
+                /*if (tokens.length > newFieldsHelp + 1 && StringUtils.isNotBlank(tokens[newFieldsHelp])) {
                     p.setActualOwpa(Float.parseFloat(tokens[newFieldsHelp].replace(".", "").replace(COMMA, ".")));
                 }
                 newFieldsHelp = 37;
                 if (tokens.length > newFieldsHelp + 1 && StringUtils.isNotBlank(tokens[newFieldsHelp])) {
                     p.setTargetOwpa(Float.parseFloat(tokens[newFieldsHelp].replace(".", "").replace(COMMA, ".")));
-                }
+                }*/
                 newFieldsHelp = 39;
                 if (tokens.length > newFieldsHelp + 1 && StringUtils.isNotBlank(tokens[newFieldsHelp])) {
                     p.setIssueType(tokens[newFieldsHelp]);

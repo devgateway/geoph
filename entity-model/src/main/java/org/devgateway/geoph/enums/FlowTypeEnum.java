@@ -25,4 +25,8 @@ public enum FlowTypeEnum {
         }
         return null;
     }
+
+    public String getLCName(){
+        return this.name().toLowerCase();
+    }
 }

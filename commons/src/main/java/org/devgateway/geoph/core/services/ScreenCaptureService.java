@@ -10,4 +10,6 @@ public interface ScreenCaptureService {
 
     String captureUrlToPDF(String url);
 
+    String htmlToPDF(String url);
+
 }
