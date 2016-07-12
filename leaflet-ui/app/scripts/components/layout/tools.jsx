@@ -3,11 +3,11 @@ import { connect } from 'react-redux'
 import {LayerControl} from '../controls/layer';
 import ExpandableControl from '../controls/expandableControl';
 import ProjectFilter from '../filter/projectFilter';
-
+import translate from '../../util/translate.js';
 import { collectValues } from '../../util/filterUtil';
 require('./tools.scss');
 
-export default class Tools extends React.Component {
+class Tools extends React.Component {
 
   constructor() {
     super();
@@ -20,10 +20,10 @@ export default class Tools extends React.Component {
     return (
     	<div className="tools-view">
         <hr/>
-        <ExpandableControl title="Project Search" iconClass="search-icon">
+        <ExpandableControl title={translate('toolview.projectsearch.title')} iconClass="search-icon">
           <div><ProjectFilter/></div>
         </ExpandableControl>
-        <ExpandableControl title="Adjust layers to see detailed data" defaultExpanded={true}  iconClass="layers-icon">
+        <ExpandableControl title={translate('toolview.layers.title')} defaultExpanded={true}  iconClass="layers-icon">
           <div><LayerControl/></div>
         </ExpandableControl>        
       </div>
@@ -31,5 +31,11 @@ export default class Tools extends React.Component {
   }
 }
 
+const stateToProps = (state, props) => {
+  return {
+    language: state.language
+  };
+}
 
+export default connect(stateToProps)(Tools);
 

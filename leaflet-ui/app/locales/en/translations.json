@@ -72,7 +72,8 @@
 			"validityperiodstart": "Loan/Grant Validity Period Start",
 			"validityperiodend": "Loan/Grant Validity Period End",
 			"from": "From",
-			"to": "To"
+			"to": "To",
+			"notset": "Not Set"
 		},
 		"status": {
 			"status": "Status",
@@ -156,10 +157,10 @@
 			"totalamount": "Total Amount"
 		},
 		"projectlist": {
-			"title": "Title",
-			"financinginstitution": "Financing Institution",
-			"actualcommitments": "Actual Commitments",
-			"actualdisbursements": "Actual Disbursements"
+			"title": "Project Title",
+			"financinginstitution": "Funding Agency",
+			"actualcommitments": "Commitments",
+			"actualdisbursements": "Disbursements"
 		}
 	}
 

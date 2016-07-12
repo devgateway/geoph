@@ -76,7 +76,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 const mapStateToProps = (state, props) => {
   return {
-    fundingType: state.settings.fundingType
+    fundingType: state.settings.fundingType,
+    language: state.language
   }
 }
 

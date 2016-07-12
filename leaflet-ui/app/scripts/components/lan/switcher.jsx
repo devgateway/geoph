@@ -24,7 +24,6 @@ export default class LangSwitcher extends React.Component {
 						<ul>
 							<li className={(this.props.lan=='en')?"selected":""} href="" onClick={this.changeLanguage.bind(this,'en')}>{translate('header.language.english')}</li>
 							<li className={(this.props.lan=='ph')?"selected":""} href="" onClick={this.changeLanguage.bind(this,'ph')}>{translate('header.language.philippine')}</li>
-							<li className={(this.props.lan=='es')?"selected":""} href="" onClick={this.changeLanguage.bind(this,'es')}>{translate('header.language.spanish')}</li>
 						</ul>
 				</li>)
 		} else {
