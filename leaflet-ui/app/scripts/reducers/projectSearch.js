@@ -42,7 +42,9 @@ const projectSearch = (state = {'selected': [], 'results': {}}, action) => {
     case Constants.REQUEST_PROJECT_BY_TEXT:
       projectSearchResults = {isFetching: true};
       return Object.assign({}, state, {'results': projectSearchResults});
+    case Constants.REQUEST_RESTORE_MAP:
     case Constants.RECEIVE_PROJECT_BY_TEXT:
+      console.log('projectSearch reducer')
       projectSearchResults = {lastUpdate: action.receivedAt, isFetching: false};
       Object.assign(projectSearchResults, action.data);
       return Object.assign({}, state, {'results': projectSearchResults});

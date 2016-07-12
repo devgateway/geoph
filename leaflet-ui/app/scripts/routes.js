@@ -9,6 +9,7 @@ import Charts from './components/charts/chartsTab';
 import Admin from './components/admin/admin';
 import AddIndicator from './components/admin/addIndicator.jsx';
 import ListIndicator from './components/admin/listIndicator.jsx';
+import Restore from './components/save-restore/restore.jsx';
 
 const NoMatch = React.createClass({
   
@@ -26,6 +27,7 @@ export default (
   <Route path="/" component={App}>
   	<Route path="tools" component={Tools}/>
   	<Route path="charts" component={Charts}/>
+    <Route path="map/:mapID" component={Restore}/>
     <Route path="admin" component={Admin}>
       <Route path="/admin/add/indicator" component={AddIndicator}/>
       <Route path="/admin/list/indicator" component={ListIndicator}/>

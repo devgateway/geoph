@@ -2,7 +2,7 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 import i18next from 'i18next';
-import {requestSaveMap}  from '../../actions/saveMap';
+import {requestSaveMap}  from '../../actions/saveAndRestoreMap';
 import {collectValuesToSave}  from '../../util/saveUtil';
 import {Modal, Button} from 'react-bootstrap';
 import onClickOutside from 'react-onclickoutside';
@@ -11,7 +11,7 @@ require('./save.scss');
 
 const Save = onClickOutside(React.createClass({
 
-	getInitialState() {
+	  getInitialState() {
     	return {'showSave': false};
   	},
 
@@ -36,12 +36,13 @@ const Save = onClickOutside(React.createClass({
 	},
 
 	saveMapState() {
-		//console.log("---saveMapState---");
+		console.log("---saveMapState---");
 		let dataToSave = collectValuesToSave(this.props.stateToCollect);
-	    this.props.onRequestSaveMap({
-	    	name : this.state.saveName, 
-	    	description : this.state.saveDesc,
-	    	dataToSave : dataToSave});
+    this.props.onRequestSaveMap({
+    	name : this.state.saveName, 
+    	description : this.state.saveDesc,
+    	dataToSave : dataToSave
+    });
 	},
 
 	validateNameState() {

@@ -98,6 +98,11 @@
 		"SAVE": {
 			"development": "/maps/save",				
 			"production": "/maps/save"		
+		},
+
+		"RESTORE": {
+			"development": "/maps/key/${mapId}",				
+			"production": "/maps/key/${mapId}"		
 		}
 		
 	},
