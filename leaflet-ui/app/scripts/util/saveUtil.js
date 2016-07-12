@@ -40,7 +40,7 @@ export const collectValuesToSave = (state)=>{
             }
         }
     }
-    //console.log(params)
+    ////console.log(params)
     if (projectSearch){
         let idsSelected = [];
         projectSearch.selected.map(it => idsSelected.push(it.id));

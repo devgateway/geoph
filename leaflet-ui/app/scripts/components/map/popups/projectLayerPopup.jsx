@@ -7,7 +7,6 @@ import ProjectList from './projectListTab'
 import onClickOutside from 'react-onclickoutside'
 import {collectValues} from '../../../util/filterUtil';
 import { fetchPopupData } from '../../../actions/popup.js'
-import {formatValue} from '../../../util/transactionUtil';
 
 require('./projectLayerPopup.scss');
 
@@ -43,11 +42,12 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
   },
 
   render() {
-    const {charts, fundingType, feature} = this.props;
+    let charts = this.props.charts || {}
+    
     return (
       <div className="popup-container">
         <div className="popup-title">
-          <h2>{feature? feature.properties.name : ""} </h2>
+          <h2>{this.props.feature? this.props.feature.properties.name : ""} </h2>
         </div>
         <div className="">
           <ul className='popup-tabs' role='tablist' >
@@ -84,14 +84,14 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
               !charts.fundingAgency.isFetching?
                 <div className="">
                   <Chart chartData={charts.fundingAgency}
-                  measure={fundingType} 
+                  measure={this.props.fundingType} 
                   chartType='pie'
                   width='400'
-                  height='180'
-                  showTotalHeader={true}
+                  height='200'
+                  showMeasureSelector={false}
                   dimension="name"/>
                 </div>
-              : <div className='uil-ring-css'><div></div></div>
+              : <div className="loading-icon"></div>
             :null}
           </div>
         :null}
@@ -101,14 +101,13 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
               !charts.implementingAgency.isFetching?
                 <div className="">
                   <Chart chartData={charts.implementingAgency}
-                  measure={fundingType} 
+                  measure={this.props.fundingType} 
                   chartType='pie'
                   width='400'
-                  height='180'
-                  showTotalHeader={true}
+                  height='200'
                   dimension="name"/>
                 </div>
-              : <div className='uil-ring-css'><div></div></div>
+              : <div className="loading-icon"></div>
             :null}
           </div>
         :null}
@@ -118,14 +117,13 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
               !charts.physicalStatus.isFetching?
                 <div className="">
                   <Chart chartData={charts.physicalStatus}
-                  measure={fundingType} 
+                  measure={this.props.fundingType} 
                   chartType='pie'
                   width='400'
-                  height='180'
-                  showTotalHeader={true}
+                  height='200'
                   dimension="name"/>
                 </div>
-              : <div className='uil-ring-css'><div></div></div>
+              : <div className="loading-icon"></div>
             :null}
           </div>
         :null}
@@ -135,14 +133,13 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
               !charts.sector.isFetching?
                 <div className="">
                   <Chart chartData={charts.sector}
-                  measure={fundingType} 
+                  measure={this.props.fundingType} 
                   chartType='pie'
                   width='400'
-                  height='180'
-                  showTotalHeader={true}
+                  height='200'
                   dimension="name"/>
                 </div>
-              : <div className='uil-ring-css'><div></div></div>
+              : <div className="loading-icon"></div>
             :null}
           </div>
         :null} 

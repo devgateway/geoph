@@ -45,7 +45,10 @@ export default class Panel extends React.Component {
 
  
 const mapStateToProps = (state, props) => {
+  
+  
   return {
+
     currentView: state.routing.locationBeforeTransitions.pathname,
     panel: state.panel,
     language: state.language

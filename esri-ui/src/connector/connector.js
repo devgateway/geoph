@@ -87,7 +87,7 @@ class Connector {
 	getProjectsGeoJson(level,params) {
 		return new Promise( (resolve, reject) => {
 			let url=Settings.get('API','PROJECT_GEOJSON');
-			debugger;
+			
 			this.call(GET,url.replace('${level}',level), params).then((data) => {
 				/*apply any data transformation*/
 				resolve(data); ////resolve with original data or perform any data transformation needed

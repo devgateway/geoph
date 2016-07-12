@@ -10,7 +10,7 @@ class Component extends React.Component {
 	}
 
 	onChangeLevel(e){
-		debugger;
+		
 		this.props.onLoadProjects(e.target.value);
 	}
 

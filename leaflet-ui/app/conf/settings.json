@@ -16,7 +16,7 @@
 		"FUNDING_GEOJSON":"/geodata/stats/region/funding",
 	  	"INDICATOR_UPLOAD":"/indicators/upload",
 	  	"INDICATOR_LIST":"/indicators",
-	  	"INDICATOR":"/indicators/${id}",
+	  	"INDICATOR":"/geodata/indicators/${indicator_id}",
 	  	
 		"FILTER_LIST": {
 			"development": {

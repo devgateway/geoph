@@ -10,22 +10,23 @@ var Dropzone = require('react-dropzone');
 
 class SelectTemplate extends BaseForm {
     render() {
-        
+        const {template,onStepChange}=this.props;
+
         return (
             <form>
                 <div className="form-group">
                     <label >Template</label>
-                    <select value={this.props.template} className="form-control" name="template"
+                    <select value={template} className="form-control" name="template"
                             onChange={(e)=>{this.handleChangeValue('template',e.target.value)}}>
-                        <option value="region">Regional</option>
-                        <option value="province">Province</option>
-                        <option value="municipality">Municipal</option>
+                        <option value="Region">Regional</option>
+                        <option value="Province">Province</option>
+                        <option value="Municipality">Municipal</option>
                     </select>
                 </div>
                 <div className="form-group ">
                     <input type="button" className="btn btn-xs btn-info" value="Download Template"></input>
                     <input type="button" className="btn btn-xs btn-success pull-right"
-                           onClick={()=>{this.props.onStepChange('indicator')}} value="Next"></input>
+                           onClick={()=>{onStepChange('indicator')}} value="Next"></input>
                 </div>
             </form>
         )
@@ -123,8 +124,8 @@ class Indicator extends React.Component {
     }
 
     render() {
-        debugger;
-        console.log(this.props.httpError)
+        
+        //console.log(this.props.httpError)
         return (<div className="admin-page">
                 {this.props.httpError?<HttpError error={this.props.httpError}/>:null}
                     {this.getView()}

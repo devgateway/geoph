@@ -47,11 +47,6 @@ ul.colors{
 				clear: none;
 			}
 
-	li.scheme{
-		@include  box-sizing(22px,18px)
-		margin: 3px 15px;
-		cursor: pointer;
-	}
 
 	li.scheme.red{
 		background-color: #f28f8f
