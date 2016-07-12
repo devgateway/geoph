@@ -18,7 +18,7 @@ const PopupTemplate = React.createClass({
 	},
 
 	componentDidMount() {
-		debugger;
+		
 		//popupTemplate.content=
 	},
 

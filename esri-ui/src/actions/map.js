@@ -25,7 +25,7 @@ export const loadProjects = (level,params) => {
 				
 				dispatch(loadProjectsCompleted(data))}
 			).catch((err)=>{ 
-				debugger;
+				
 				console.log(err);
 				dispatch(loadProjectsFailed(err));
 			});

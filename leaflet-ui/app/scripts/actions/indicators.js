@@ -20,9 +20,9 @@ export const updateErrors=(errors)=>{
 export const getList=()=>{
  return (dispatch, getState) =>{
   Connector.getIndicatorList().then((data)=>{
-    dispatch(trigger(Constants.INDICATOR_LIST_LOADED,data));
+    dispatch(makeAction(Constants.INDICATOR_LIST_LOADED,{data}));
   }).catch((error)=>{
-    dispatch(trigger(Constants.INDICATOR_FAILED,error));
+    dispatch(makeAction(Constants.INDICATOR_FAILED,{error}));
   });
 }
 }
@@ -45,12 +45,12 @@ const editIndicator=(id)=>{
 }
 
 
-const trigger=(name,data)=>{
- return {type:name,data} 
+const makeAction=(name,data)=>{
+ return {type:name,...data} 
 }
 
 const redirect=(url,messages,errors)=>{
-  debugger;
+  
  return {
   type:"REDIRECT",
   transition:{
@@ -60,15 +60,15 @@ const redirect=(url,messages,errors)=>{
 };
 }
 
-
-
-
 export const upload=(options)=>{
   return (dispatch, getState) =>{
+    
+
     Connector.uploadIndicator(getState().indicators.toJS()).then((data)=>{
      dispatch(uploadOK(data));
-   }).catch((error)=>{
-     dispatch(trigger(Constants.INDICATOR_UPLOAD_FAILURE,error));
+     dispatch(getList());
+   }).catch((httpError)=>{
+       dispatch(makeAction(Constants.INDICATOR_UPLOAD_FAILURE,{httpError:httpError}));
    });
  }
 
@@ -77,7 +77,7 @@ export const upload=(options)=>{
 
 const uploadOK=(data)=>{
   const {name,id}=data;
-  const url= '/admin';
+  const url= '/admin/list/indicator';
   const {errors}=data;
   return redirect(url,[`Indicator "${name}" was added`],errors);
 

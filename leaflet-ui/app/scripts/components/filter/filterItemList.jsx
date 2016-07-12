@@ -62,9 +62,9 @@ class FilterItem extends React.Component {
 	        		<div className={selectionClass} onClick={this.handleChange.bind(this)} />
 		        	<div className="toggle-nav" onClick={this.handleChange.bind(this)}>
 		        		{this.props.showCode && this.props.code?
-		        			(this.props.name || this.props.description) + " (" + this.props.code + ")"
+		        			(this.props.name || this.props.title) + " (" + this.props.code + ")"
 		        			:
-		        			(this.props.name || this.props.description)
+		        			(this.props.name || this.props.title)
 		        		}
 		        	</div>
 		        	{this.props.items && this.props.items.length>0? 

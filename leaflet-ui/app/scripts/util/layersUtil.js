@@ -1,36 +1,42 @@
-export const plainLayers=(layers)=>{
-  return layers.map((l)=>{
-    if (l.layers){
-      return plainLayers(l.layers);
-    }else{
-      return l;
-    }
-  })
+import Immutable from 'immutable';
 
+
+export const getPath=(id,paths)=>{
+ let path=[];
+ id.split('-').forEach(pos=>{
+  path.push("layers");
+  path.push(parseInt(pos));
+});
+
+ if (paths){
+  path=path.concat(paths);
+}
+return path;
 }
 
-export  const getLayerById=(id,layers)=>{
-  return plainLayers(layers).find((l)=>l.id=id);
+
+const plainList=(layers, accumulator)=>{
+ accumulator=accumulator || [];
+   layers.forEach(l=>{
+ 		if (l.get('layers')){
+ 			return plainList(l.get('layers'),accumulator);	
+ 		}else{
+ 			accumulator.push(l);
+ 		}
+ })
+  return new Immutable.List(accumulator);
 }
 
-
-export const updateLayer=(layers,id,props)=>{
-    layers.forEach(function(l){
-        if (l.id==id){
-          Object.assign(l,props)
-          return;
-        }else if (l.layers){
-          updateLayer(l.layers,id,props);
-        }
-    })
-
-return layers;
+export const getDefaults=(layers)=>{
+	const list=plainList(layers);
+	
+	return list.filter(function(l){return l.get('default')})
+	
 }
 
-export const toggleLayerProperty=(id,state,property)=>{
-
-  let newState=Object.assign({},state);
-  let target=getLayerById(id,newState.layers);
-  updateLayer(newState.layers, id,{visible:!target[property]});
-  return newState
+export const getShapeLayers=(layers)=>{
+	const list=plainList(layers);
+	
+	return list.filter(function(l){return l.get('type')=='shapes'})
+	
 }

@@ -46,8 +46,6 @@
     "express": "4.13.4",
     "extract-text-webpack-plugin": "1.0.1",
     "file-loader": "0.8.5",
-    "font-awesome": "4.5.0",
-    "geostats": "1.5.0",
     "gulp": "3.9.0",
     "gulp-eslint": "2.0.0",
     "gulp-gh-pages": "0.5.4",
@@ -94,7 +92,7 @@
   "dependencies": {
     "d3": "^3.5.17",
     "immutable": "3.7.6",
-    "react-onclickoutside": "5.0.0",
-    "simple-statistics": "2.0.0-beta1"
+    "react-dropzone": "^3.5.1",
+    "react-onclickoutside": "5.0.0"
   }
 }

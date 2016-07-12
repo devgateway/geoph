@@ -10,7 +10,7 @@ const security = (state = new Map({}), action) => {
     	
     	return new Map({httpError:action.error})
     default:
-      return state
+      return state;
   }
 }
 

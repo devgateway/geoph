@@ -2,26 +2,26 @@ import * as Constants from '../constants/constants';
 import Settings from '../util/settings';
 import Connector from '../connector/connector';
 
-export const requestPopupData = (fromPopup) => {
+export const requestPopupData = (tab) => {
   return {
     type: Constants.REQUEST_POPUP_DATA,
-    fromPopup: fromPopup
+    tab
   }
 }
 
-export const receivePopupData = (data, fromPopup) => {
+export const receivePopupData = (data, tab) => {
   return {
     type: Constants.RECEIVE_POPUP_DATA,
     data: data,
     receivedAt: Date.now(),
-    fromPopup: fromPopup
+    tab
   }
 }
 
-export const fetchPopupData = (filters) => {
+export const fetchPopupData = (filters, tab) => {
   return dispatch => {
-    dispatch(requestPopupData(true));
-    return Connector.getProjectPopupData(filters)
-    .then(req => dispatch(receivePopupData(req, true)))
+    dispatch(requestPopupData(tab));
+    return Connector.getProjectPopupData(filters, tab)
+    .then(req => dispatch(receivePopupData(req, tab)))
   }
 }

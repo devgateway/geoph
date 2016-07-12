@@ -53,7 +53,7 @@ public class TokenValidationFilter extends GenericFilterBean {
         HttpServletResponse response = (HttpServletResponse) res;
        /*Get User By Token and set the set Authentication*/
 
-        String token = request.getHeader("x-internal-token");
+        String token = request.getHeader("X-Security-Token");
 
         UserDetails userDetails = null;
         if (token != null) {

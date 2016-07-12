@@ -5,77 +5,53 @@
 	height: 100%;
 }
 
-path {
-	
-  -webkit-transition: opacity 200ms ease;
+
+@mixin breakStyle($color){
+	fill:$color; 
+	stroke:#eee;
+	fill-opacity: .8;
+	stroke-opacity: 1;
+	stroke-dasharray: 0, 0;
+	box-sizing: border-box;
+	cursor:pointer;
 }
 
-.points{
-	stroke-dashoffset: inherit;
-    stroke-linejoin: round;
-    stroke-width: 5;
-    stroke-opacity: 0.5;
-    stroke-dasharray: inherit;
-        stroke: antiquewhite;
-}
+.green0-9 {	@include breakStyle(#73e767)}
+.green1-9 { @include breakStyle(#73e767)}
+.green2-9 { @include breakStyle(#61bc39)}
+.green3-9 { @include breakStyle(#2d9301)}
+.green4-9 { @include breakStyle(#1d6600)}
+.green5-9 { @include breakStyle(#113c00)}
+.green6-9 { @include breakStyle(#134300)}
 
-.shapes{
-	fill-opacity:.7;
-	    stroke: white;
-	    
-}
-.green0-9 { fill:#bcf1a9; }
-.green1-9 { fill:#73e767; }
-.green2-9 { fill:#61bc39; }
-.green3-9 { fill:#2d9301; }
-.green4-9 { fill:#1d6600; }
-.green5-9 { fill:#113c00; }
-.green6-9 { fill:#134300; }
+.yellow0-9 { @include breakStyle(#eff28f)}
+.yellow1-9 { @include breakStyle(#dadf5c)}
+.yellow2-9 { @include breakStyle(#c4bf34)}
+.yellow3-9 { @include breakStyle(#94920f)}
+.yellow4-9 { @include breakStyle(#7b7209)}
+.yellow5-9 { @include breakStyle(#716801)}
+.yellow6-9 { @include breakStyle(#5b5400)}
 
+.red0-9 { @include breakStyle(#f28f8f)}
+.red1-9 { @include breakStyle(#df5c5c)} 
+.red2-9 { @include breakStyle(#c43434)}
+.red3-9 { @include breakStyle(#9b2020)}
+.red4-9 { @include breakStyle(#7b0909)}
+.red5-9 { @include breakStyle(#650000)}
+.red6-9 { @include breakStyle(#4b0000)}
 
-.yellow0-9 { fill:#eff28f; }
-.yellow1-9 { fill:#dadf5c; }
-.yellow2-9 { fill:#c4bf34; }
-.yellow3-9 { fill:#94920f; }
-.yellow4-9 { fill:#7b7209; }
-.yellow5-9 { fill:#716801; }
-.yellow6-9 { fill:#5b5400; }
+.blue0-9 { @include breakStyle(#96e0f5) }
+.blue1-9 { @include breakStyle(#1dc4fa) }
+.blue2-9 { @include breakStyle(#1dc4fa) }
+.blue3-9 { @include breakStyle(#1dc4fa) }
+.blue4-9 { @include breakStyle(#034180) }
+.blue5-9 { @include breakStyle(#0f2953)}
+.blue6-9 { @include breakStyle(#11004b) }
 
-
-.red0-9 { fill:#f28f8f; }
-.red1-9 { fill:#df5c5c; }
-.red2-9 { fill:#c43434; }
-.red3-9 { fill:#9b2020; }
-.red4-9 { fill:#7b0909; }
-.red5-9 { fill:#650000; }
-.red6-9 { fill:#4b0000; }
-
-
-
-.blue0-9 { fill:#96e0f5; }
-.blue1-9 { fill:#1dc4fa; }
-.blue2-9 { fill:#008aea; }
-.blue3-9 { fill:#015aae; }
-.blue4-9 { fill:#034180; }
-.blue5-9 { fill: #0f2953; }
-.blue6-9 { fill: #11004b; }
-
-
-.orange0-9 { fill:#ffd24b; }
-.orange1-9 { fill:#ffa904; }
-.orange2-9 { fill:#ce7b05; }
-.orange3-9 { fill:#b25903; }
-.orange4-9 { fill:#793f07; }
-.orange5-9 { fill: #643006; }
-.orange6-9 { fill: #4d2607; }
-
-
-
-
-
-
-
-
-
-
-
+.orange0-9 { @include breakStyle(#ffd24b)}
+.orange1-9 { @include breakStyle(#ffa904) }
+.orange2-9 { @include breakStyle(#ce7b05) }
+.orange3-9 { @include breakStyle(#b25903) }
+.orange4-9 { @include breakStyle(#793f07) }
+.orange5-9 { @include breakStyle(#643006) }
+.orange6-9 { @include breakStyle(#4d2607) }

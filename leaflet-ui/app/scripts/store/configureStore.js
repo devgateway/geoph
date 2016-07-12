@@ -11,7 +11,7 @@ import { routerMiddleware, push,replace  } from 'react-router-redux'
 
 
 
-	export default function configureStore(initialState, browserHistory,redirectMiddleWare) {
+	export default function configureStore(initialState, browserHistory,redirectMiddleWare,securityMiddleWare) {
 
 		let historyMiddleware = routerMiddleware(browserHistory);
 		let middleware = applyMiddleware(thunkMiddleware, historyMiddleware,redirectMiddleWare);

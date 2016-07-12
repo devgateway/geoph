@@ -4,27 +4,29 @@ import {changeStep, changeProperty, updateErrors, upload} from '../../actions/in
 import {Map} from 'immutable'
 import { Link } from 'react-router'
 import BaseForm from './baseForm.jsx'
+import HttpError from '../messages/httpError.jsx'
 
 var Dropzone = require('react-dropzone');
 
 class SelectTemplate extends BaseForm {
     render() {
-        
+        const {template,onStepChange}=this.props;
+
         return (
             <form>
                 <div className="form-group">
                     <label >Template</label>
-                    <select value={this.props.template} className="form-control" name="template"
+                    <select value={template} className="form-control" name="template"
                             onChange={(e)=>{this.handleChangeValue('template',e.target.value)}}>
-                        <option value="region">Regional</option>
-                        <option value="province">Province</option>
-                        <option value="municipality">Municipal</option>
+                        <option value="Region">Regional</option>
+                        <option value="Province">Province</option>
+                        <option value="Municipality">Municipal</option>
                     </select>
                 </div>
                 <div className="form-group ">
                     <input type="button" className="btn btn-xs btn-info" value="Download Template"></input>
                     <input type="button" className="btn btn-xs btn-success pull-right"
-                           onClick={()=>{this.props.onStepChange('indicator')}} value="Next"></input>
+                           onClick={()=>{onStepChange('indicator')}} value="Next"></input>
                 </div>
             </form>
         )
@@ -65,9 +67,8 @@ class AddIndicator extends BaseForm {
     }
 
     render() {
-        
-        const {errors={}}=this.props;
-        console.log(this.props.status);
+    
+    const {errors={}}=this.props;
       return (
             <form id="add-indicator-form">
                  <div className={errors.name?"form-group has-error":"form-group"}>
@@ -114,7 +115,6 @@ class Indicator extends React.Component {
    
     getView() {
         
-        console.log(this.props.status);
         switch (this.props.step) {
             case 'template':
                 return <SelectTemplate {...this.props}/>
@@ -125,9 +125,9 @@ class Indicator extends React.Component {
 
     render() {
         
-        console.log(this.props.status);
+        //console.log(this.props.httpError)
         return (<div className="admin-page">
-                    <h2>Upload new indicator layer</h2>
+                {this.props.httpError?<HttpError error={this.props.httpError}/>:null}
                     {this.getView()}
                 </div>)
     }

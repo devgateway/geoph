@@ -55,9 +55,7 @@ public class JsonUserPassAuthFilter extends UsernamePasswordAuthenticationFilter
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         if (request.getHeader("Content-Type").indexOf("application/json") > -1) {
             try {
-                /*
-                 * HttpServletRequest can be read only once
-                 */
+
                 StringBuilder sb = new StringBuilder();
                 String line = null;
 

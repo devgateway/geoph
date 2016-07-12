@@ -42,21 +42,16 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     public void onAuthenticationSuccess(HttpServletRequest req, HttpServletResponse res, Authentication authentication)
             throws IOException, ServletException {
         if (req.getHeader("Content-Type").indexOf("application/json") > -1) {
-
             String username = authentication.getName();
             logger.debug("Creating new persistent token " + username);
             PersistentToken token = new PersistentToken(username, tokenService.generateSeriesData(), tokenService.generateTokenData(), new Date(), tokenService.getDefaultValidDays());
             try {
                 this.tokenService.savePersistentToken(token);
-
             } catch (DataAccessException e) {
                 logger.error("Failed to save persistent token ", e);
             }
-
             String encodedToken = tokenService.encodeToken(new String[]{token.getSeries(), token.getTokenValue()});
-
-
-            res.setHeader("X-Internal-Token", encodedToken);
+            res.setHeader("X-Security-Token", encodedToken);
             try {
                 final SystemUser publicView = securityService.getLoggedUser();
                 mapper.writeValue(res.getWriter(), publicView);
