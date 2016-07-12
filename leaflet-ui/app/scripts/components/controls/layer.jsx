@@ -3,8 +3,9 @@ import { connect } from 'react-redux'
 import {Message} from '../lan/'
 import {loadProjects,loadFunding,toggleVisibility,setSetting} from '../../actions/map.js'
 import * as Constants from '../../constants/constants.js';
+import translate from '../../util/translate.js';
 require('./layers.scss');
-const prefix="control.layers";
+const prefix="toolview.layers";
 
 import InputRange from 'react-input-range';
 
@@ -23,33 +24,40 @@ class Settings extends React.Component {
 		let settings=this.props.settings?this.props.settings.toJS():{}; 
 		return (
 			<ul className="settings">
-			{(settings['level'])?<li>
-			<ul className="level">
-			<li><b>Level:</b></li>
-			<li className={settings['level']=="region"?"active":""}  onClick={()=>{this.set('level','region')}}>Region</li>
-			<li className={settings['level']=="province"?"active":""} onClick={()=>{this.set('level','province')}}>Province</li>
-			<li className={settings['level']=="municipality"?"active":""} onClick={()=>{this.set('level','municipality')}}>Municipality</li>
+				{(settings['level'])?
+					<li>
+						<ul className="level">
+							<li><b>{translate('toolview.layers.level')}:</b></li>
+							<li className={settings['level']=="region"?"active":""}  onClick={()=>{this.set('level','region')}}>{translate('toolview.layers.region')}</li>
+							<li className={settings['level']=="province"?"active":""} onClick={()=>{this.set('level','province')}}>{translate('toolview.layers.province')}</li>
+							<li className={settings['level']=="municipality"?"active":""} onClick={()=>{this.set('level','municipality')}}>{translate('toolview.layers.municipality')}</li>
+						</ul>
+					</li>
+				:null}
+				{(settings['quality'])?
+					<li>
+						<ul>
+							<li><b>{translate('toolview.layers.quality')}</b></li>
+							<li>
+							<InputRange maxValue={100} minValue={1} value={settings['quality']} onChange={this.setQuality.bind(this)}/>
+							</li>
+						</ul>
+					</li>
+				:null}
+				{(settings['css'])?
+					<li>
+						<ul  className="css colors">
+							<li><b>{translate('toolview.layers.colors')}</b></li>
+							<li className={settings['css']=="red"?"scheme red active":"scheme red "}  onClick={()=>{this.set('css','red')}} ></li>
+							<li className={settings['css']=="yellow"?"scheme yellow active":"scheme yellow "} onClick={()=>{this.set('css','yellow')}}></li>
+							<li className={settings['css']=="green"?"scheme green active":"scheme green "} onClick={()=>{this.set('css','green')}}></li>
+							<li className={settings['css']=="orange"?"scheme orange active":"scheme orange "} onClick={()=>{this.set('css','orange')}}></li>
+							<li className={settings['css']=="blue"?"scheme blue active":"scheme blue "} onClick={()=>{this.set('css','blue')}}></li>
+						</ul>
+					</li>
+				:null}
 			</ul>
-			</li>:null}
-			{(settings['quality'])?<li>
-			<ul>
-			<li><b>Quality</b></li>
-			<li>
-			<InputRange maxValue={100} minValue={1} value={settings['quality']} onChange={this.setQuality.bind(this)}/>
-			</li>
-			</ul>
-			</li>:null}
-			{(settings['css'])?<li>
-			<ul  className="css colors">
-			<li><b>Colors</b></li>
-			<li className={settings['css']=="red"?"scheme red active":"scheme red "}  onClick={()=>{this.set('css','red')}} ></li>
-			<li className={settings['css']=="yellow"?"scheme yellow active":"scheme yellow "} onClick={()=>{this.set('css','yellow')}}></li>
-			<li className={settings['css']=="green"?"scheme green active":"scheme green "} onClick={()=>{this.set('css','green')}}></li>
-			<li className={settings['css']=="orange"?"scheme orange active":"scheme orange "} onClick={()=>{this.set('css','orange')}}></li>
-			<li className={settings['css']=="blue"?"scheme blue active":"scheme blue "} onClick={()=>{this.set('css','blue')}}></li>
-			</ul>
-			</li>:null}
-			</ul>);
+		);
 	}
 }
 
@@ -80,7 +88,7 @@ class Settings extends React.Component {
  		const {keyName,name} = this.props;
  		return(	
  			<div className="group-title"> 
- 			<div/>
+ 				<div/>
  				{keyName?<Message prefix={prefix} k={keyName}/>:<span>{name}</span>}
  			</div>
  			)
@@ -91,8 +99,8 @@ class Settings extends React.Component {
  		const {keyName,name} = this.props;
  		return(	
  			<div className="group-title" onClick={this.onChange.bind(this)}> 
- 			<div className={selectionClass}/>
- 			{keyName?<Message prefix={prefix} k={keyName}/>:<span>{name}</span>}
+ 				<div className={selectionClass}/>
+ 				{keyName?<Message prefix={prefix} k={keyName}/>:<span>{name}</span>}
  			</div>
  			)
  	}
@@ -111,7 +119,7 @@ class Settings extends React.Component {
  			
  			if (l.get('layers')){
  				return 	<LayerGroup {...props} {...childProperties} />
- 			}else{
+ 			} else {
  				return 	<Layer {...props} {...childProperties}  />
  			}
  		})
@@ -125,14 +133,15 @@ class Settings extends React.Component {
  	render(){
  		return( 
  			<li className="group">
- 			{this.getTitle()}
- 			<div className="breadcrums">
- 			({this.props.layers.filter(l=>l.get('visible')).size}/{this.props.layers.size})
- 			</div>
- 			<ul>
- 			{this.renderChildren()}
- 			</ul>
- 			</li>)
+ 				{this.getTitle()}
+				<div className="breadcrums">
+					({this.props.layers.filter(l=>l.get('visible')).size}/{this.props.layers.size})
+				</div>
+ 				<ul>
+ 					{this.renderChildren()}
+ 				</ul>
+ 			</li>
+ 		);
  	}
  }
 
@@ -176,6 +185,7 @@ class Settings extends React.Component {
  const stateToProps = (state, props) => {
  	return {
  		layers: state.map.get('layers'),
+    	language: state.language
  	};
  }
 

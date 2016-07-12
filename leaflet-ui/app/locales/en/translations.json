@@ -5,17 +5,121 @@
 	},
 
 	"header": {
+		"title": "National Economic Development Authority (NEDA)",
 		"language": {
 			"english": "English",
+			"philippine": "Philippine",
 			"spanish": "Spanish"
+		},
+		"settings": {
+			"title": "Settings",
+			"fundingtype": "Funding Type",
+			"commitments": "Commitments",
+			"disbursements": "Disbursements",
+			"expenditures": "Expenditures",
+			"actual": "Actual",
+			"target": "Target",
+			"cancelled": "Cancelled"
+		},
+		"basemap": {
+			"title": "Basemap",
+			"select": "Select Basemap",
+			"imagery": "Imagery",
+			"street": "Street",
+			"ligthgray": "Ligth Gray",
+			"darkgray": "Dark Gray",
+			"terrain": "Terrain",
+			"topographic": "Topographic",
+			"oceans": "Oceans",
+			"openstreetmap": "Open Street Map"
+		},
+		"filters": {
+			"title": "Filters"
 		}
 	},
 
-	"control": {
+	"filters":{
+		"funding": {
+			"funding": "Funding",
+			"fundingsource": "Funding Source",
+			"fundingtypeoda": "Funding Type (ODA)",
+			"fundingtype": "Funding Type",
+			"financinginstitutionoda": "Financing Institution (ODA)",
+			"financinginstitution": "Financing Institution"
+		},
+		"agency": {
+			"agency": "Agency",
+			"implementingagency": "Implementing Agency"
+		},
+		"sectors": {
+			"sectors": "Sectors",
+			"sector": "Sector",
+			"philippinesdevelopment": "Philippines Development Priority",
+			"relevanceclimate": "Relevance to Climate",
+			"gender": "Gender"
+		},
+		"locations": {
+			"locations": "Locations",
+			"coveragescope": "Coverage Scope",
+			"coverage": "Coverage"
+		},
+		"dates": {
+			"dates": "Dates",
+			"implementperiodstart": "Implementation Period Start",
+			"implementperiodend": "Implementation Period End",
+			"startdate": "Start Date",
+			"enddate": "End Date",
+			"validityperiodstart": "Loan/Grant Validity Period Start",
+			"validityperiodend": "Loan/Grant Validity Period End",
+			"from": "From",
+			"to": "To",
+			"notset": "Not Set"
+		},
+		"status": {
+			"status": "Status",
+			"financingstatus": "Financing Status"
+		},
+		"financialamount": {
+			"financialamount": "Financial Amount"
+		},
+		"physical": {
+			"physicalandfinancial": "Physical and Financial",
+			"percentagereached": "Percentage of Target Reached",
+			"minimum": "Minimum",
+			"maximum": "Maximum",
+			"physicalstatus": "Physical Status",
+			"alertlevel": "Alert Level"
+		},
+		"buttons": {
+			"reset": "Reset",
+			"cancel": "Cancel",
+			"apply": "Apply",
+			"search": "Search",
+			"go": "Go"
+		}
+	},
+
+	"toolview": {
+		"title": "Tool View",
+		"projectsearch": {
+			"title": "Project Search",
+			"placeholder": "Search for Projects (Please enter at least 3 characters)",
+			"apply": "Apply",
+			"searchresults": "Search Results",
+			"selectedresults": "Selected Results"
+		},
 		"layers": {
-			"stats": "Statistical",
+			"title": "Adjust layers to see detailed data",
+			"level": "Level",
+			"colors": "Colors",
+			"region": "Region",
+			"province": "Province",
+			"municipality": "Municipality",
+			"quality": "Quality",
+			
 			"projects": "Projects",
 			"project": "Projects points",
+			"stats": "Statistical",
 			"poverty": "Poverty",
 			"population": "Population",
 			"funding": "Total Funding",
@@ -24,7 +128,40 @@
 		}
 	},
 
-	"map": {
-		
+	"chartview": {
+		"title": "Chart View",
+		"fundingagency": "Financing Institution Chart",
+		"barchart": "Bar Chart",
+		"piechart": "Pie Chart",
+		"funding": "Funding",
+		"projectcount": "Project Count",
+		"implementingagency": "Implementing Agency Chart",
+		"physicalstatus": "Physical Status Chart",
+		"sector": "Sector Chart",
+		"nodata": "NO DATA AVAILABLE",
+		"more": "More",
+		"less": "Less",
+		"expandpanel": "Expand Panel",
+		"collapsepanel": "Collapse Panel",
+		"projects": "Projects",
+		"others": "Others"
+	},
+
+	"infowindow": {
+		"tab": {
+			"financinginstitution": "Financing Institution",
+			"implementingagency": "Implementing Agency",
+			"physicalstatus": "Physical Status",
+			"sector": "Sector",
+			"projectlist": "Project List",
+			"totalamount": "Total Amount"
+		},
+		"projectlist": {
+			"title": "Project Title",
+			"financinginstitution": "Funding Agency",
+			"actualcommitments": "Commitments",
+			"actualdisbursements": "Disbursements"
+		}
 	}
+
 }

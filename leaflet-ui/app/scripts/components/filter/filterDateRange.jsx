@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import DatePicker from 'react-date-picker'
 import Moment from 'moment'
 import { setFilterRange, fetchFilterDataIfNeeded } from '../../actions/filters.js'
+import translate from '../../util/translate.js';
 require('react-date-picker/base.css');
 require('react-date-picker/theme/hackerone.css');
 
@@ -57,17 +58,18 @@ class FilterDate extends React.Component {
   		let startMaxDate = this.props.maxSelected;
   		let endMinDate = this.props.minSelected;
   		let endMaxDate = this.props.dateMax;
+  		let lang = this.props.lang=='ph'? 'tl-ph' : this.props.lang; //workaraound for momentjs locale issue
   		return (
 	        <div className="date-picker-container">
 	        	<div className="date-picker-div">
-	        		<span>{this.props.startDateLabel || 'From'}: <b>{this.props.minSelected || "Not Set"}</b></span>
+	        		<span>{this.props.startDateLabel || translate('filters.dates.from')}: <b>{this.props.minSelected || translate('filters.dates.notset')}</b></span>
 	        		{this.props.minSelected?
 	        			<span className="clear-date" onClick={this.handleStartDate.bind(this, null)}>X</span>
 	        		: null}
 	        		<DatePicker 
 	        			hideFooter={true}
 	        			ref="startDate" 
-	        			locale={this.props.lang} 
+	        			locale={lang} 
 	        			minDate={startMinDate} 
 	        			maxDate={startMaxDate} 
 	        			date={this.props.minSelected} 
@@ -75,14 +77,14 @@ class FilterDate extends React.Component {
 		        </div>
 		        <div className="date-picker-divisor"/>	
 		        <div className="date-picker-div">
-	        		<span>{this.props.endDateLabel || 'To'}: <b>{this.props.maxSelected || "Not Set"}</b></span>
+	        		<span>{this.props.endDateLabel || translate('filters.dates.to')}: <b>{this.props.maxSelected || translate('filters.dates.notset')}</b></span>
 	        		{this.props.maxSelected?
 	        			<span className="clear-date" onClick={this.handleEndDate.bind(this, null)}>X</span>
 	        		: null}
 	        		<DatePicker 
 	        			hideFooter={true}
 	        			ref="endDate" 
-	        			locale={this.props.lang} 
+	        			locale={lang} 
 	        			minDate={endMinDate} 
 	        			maxDate={endMaxDate} 
 	        			date={this.props.maxSelected} 
