@@ -4,8 +4,9 @@ import {Message} from '../lan/'
 import {loadProjects,loadFunding,toggleVisibility,setSetting} from '../../actions/map.js'
 import * as Constants from '../../constants/constants.js';
 import {collectValues} from '../../util/filterUtil';
+import translate from '../../util/translate.js';
 require('./layers.scss');
-const prefix="control.layers";
+const prefix="toolview.layers";
 
 import InputRange from 'react-input-range';
 
@@ -24,16 +25,16 @@ class Settings extends React.Component {
 			<ul className="settings">
 			{(settings['level'])?<li>
 			<ul className="level">
-                <li>Level:</li>
+                <li>{translate('toolview.layers.level')}:</li>
 
-                <li className={settings['level']=="region"?"active":""}  onClick={()=>{this.set('level','region')}}>Region</li>
-				<li className={settings['level']=="province"?"active":""} onClick={()=>{this.set('level','province')}}>Province</li>
-				<li className={settings['level']=="municipality"?"active":""} onClick={()=>{this.set('level','municipality')}}>Municipality</li>
+                <li className={settings['level']=="region"?"active":""}  onClick={()=>{this.set('level','region')}}>{translate('toolview.layers.region')}</li>
+				<li className={settings['level']=="province"?"active":""} onClick={()=>{this.set('level','province')}}>{translate('toolview.layers.province')}</li>
+				<li className={settings['level']=="municipality"?"active":""} onClick={()=>{this.set('level','municipality')}}>{translate('toolview.layers.municipality')}</li>
 			</ul>
 			</li>:null}
 			{(settings['quality'])?<li>
                 <ul>
-                    <li>Quality</li>
+                    <li>{translate('toolview.layers.quality')}</li>
                     <li>
                         <InputRange maxValue={100} minValue={1} value={settings['quality']} onChange={this.setQuality.bind(this)}/>
                     </li>
@@ -41,7 +42,7 @@ class Settings extends React.Component {
                 </li>:null}
                 {(settings['css'])?<li>
 			    	<ul  className="css colors">
-                    <li>Colors</li>
+                    <li>{translate('toolview.layers.colors')}</li>
 					<li className={settings['css']=="red"?"scheme red active":"scheme red "}  onClick={()=>{this.set('css','red')}} ></li>
 					<li className={settings['css']=="yellow"?"scheme yellow active":"scheme yellow "} onClick={()=>{this.set('css','yellow')}}></li>
 					<li className={settings['css']=="green"?"scheme green active":"scheme green "} onClick={()=>{this.set('css','green')}}></li>
@@ -155,21 +156,6 @@ class Settings extends React.Component {
          this.setState({expanded:!this.state.expanded})
      }
  	render(){
- 		/*
- 		return (
- 			<div className={(this.state.expanded==true)?"layers-control":"layers-control collapsed"}>
-			    <div className="title"><div className="icon"><div/></div>Adjust layers to see detailed data
-                    <div className="toggle"><a href="#" onClick={this.toggle.bind(this)}>{(this.state.expanded==true)?'-':'+'}</a></div>
-                </div>
-                {(this.state.expanded==true)? <ul>
-                    {this.renderChildren()}
-                </ul>:null}
-                <div>
-
-                </div>
- 			</div>
- 			)
- 		*/
  		return (<div className="layers-control"><ul>{this.renderChildren()}</ul></div>);
  	}
  }
@@ -179,7 +165,8 @@ class Settings extends React.Component {
  	return {
  		layers: state.map.get('layers'),
  		filters: state.filters.filterMain,
- 		projectSearch: state.projectSearch
+ 		projectSearch: state.projectSearch,
+    	language: state.language
  	};
  }
 

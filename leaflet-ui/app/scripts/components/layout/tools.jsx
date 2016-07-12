@@ -5,6 +5,7 @@ import ExpandableControl from '../controls/expandableControl';
 import ProjectFilter from '../filter/projectFilter';
 import { loadDefaultLayers } from '../../actions/map';
 import { collectValues } from '../../util/filterUtil';
+import translate from '../../util/translate.js';
 require('./tools.scss');
 
 class Tools extends React.Component {
@@ -22,10 +23,10 @@ class Tools extends React.Component {
     return (
     	<div className="tools-view">
         <hr/>
-        <ExpandableControl title="Project Search" iconClass="search-icon">
+        <ExpandableControl title={translate('toolview.projectsearch.title')} iconClass="search-icon">
           <div><ProjectFilter/></div>
         </ExpandableControl>
-        <ExpandableControl title="Adjust layers to see detailed data" defaultExpanded={true}  iconClass="layers-icon">
+        <ExpandableControl title={translate('toolview.layers.title')} defaultExpanded={true}  iconClass="layers-icon">
           <div><LayerControl/></div>
         </ExpandableControl>        
       </div>
@@ -37,7 +38,8 @@ const stateToProps = (state, props) => {
   return {
     layers: state.map.get('layers'),
     filters: state.filters.filterMain,
-    projectSearch: state.projectSearch
+    projectSearch: state.projectSearch,
+    language: state.language
   };
 }
 

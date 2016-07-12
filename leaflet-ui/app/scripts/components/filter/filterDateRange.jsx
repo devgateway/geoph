@@ -57,6 +57,7 @@ class FilterDate extends React.Component {
   		let startMaxDate = this.props.maxSelected;
   		let endMinDate = this.props.minSelected;
   		let endMaxDate = this.props.dateMax;
+  		let lang = this.props.lang=='ph'? 'tl-ph' : this.props.lang; //workaraound for momentjs locale issue
   		return (
 	        <div className="date-picker-container">
 	        	<div className="date-picker-div">
@@ -67,7 +68,7 @@ class FilterDate extends React.Component {
 	        		<DatePicker 
 	        			hideFooter={true}
 	        			ref="startDate" 
-	        			locale={this.props.lang} 
+	        			locale={lang} 
 	        			minDate={startMinDate} 
 	        			maxDate={startMaxDate} 
 	        			date={this.props.minSelected} 
@@ -82,7 +83,7 @@ class FilterDate extends React.Component {
 	        		<DatePicker 
 	        			hideFooter={true}
 	        			ref="endDate" 
-	        			locale={this.props.lang} 
+	        			locale={lang} 
 	        			minDate={endMinDate} 
 	        			maxDate={endMaxDate} 
 	        			date={this.props.maxSelected} 

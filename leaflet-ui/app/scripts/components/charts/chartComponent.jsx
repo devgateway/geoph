@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { ButtonGroup, Button, Label } from 'react-bootstrap';
 import * as Constants from '../../constants/constants';
 import {formatValue} from '../../util/transactionUtil';
+import translate from '../../util/translate.js';
 require("./charts.scss");
 
 var pieColors = ["#f6eff7","#d0d1e6","#a6bddb","#67a9cf","#3690c0","#02818a","#016450"];
@@ -40,7 +41,7 @@ export default class ChartComponent extends React.Component {
 							if(this.state.hiddenlabels.indexOf(label)==-1){
 								totalAmount = totalAmount+parseInt(i[meas]);
 							}
-							text.push("Total Projects: " + i[meas]);
+							text.push(translate('chartview.projectcount')+": " + i[meas]);
 						}
 					} else {
 						if (i.trxAmounts[meas.measure][meas.type] && parseFloat(i.trxAmounts[meas.measure][meas.type])>0){
@@ -50,7 +51,7 @@ export default class ChartComponent extends React.Component {
 							if(this.state.hiddenlabels.indexOf(label)==-1){
 								totalAmount = totalAmount+parseInt(i.trxAmounts[meas.measure][meas.type]);
 							}
-							text.push(this.capitalizeName(meas.type + " " +meas.measure) + " PHP: " + formatValue(parseFloat(i.trxAmounts[meas.measure][meas.type])));
+							text.push(translate('header.settings.'+meas.type) + " " + translate('header.settings.'+meas.measure) + " PHP: " + formatValue(parseFloat(i.trxAmounts[meas.measure][meas.type])));
 						}
 					}
 				} else {
@@ -66,12 +67,12 @@ export default class ChartComponent extends React.Component {
 				}
 			});
 			if (others>0){ 
-				labels.push("Others");
+				labels.push(translate('chartview.others'));
 				values.push(others);
-				if(this.state.hiddenlabels.indexOf("Others")==-1){
+				if(this.state.hiddenlabels.indexOf(translate('chartview.others'))==-1){
 					totalAmount = totalAmount+parseInt(others);
 				}
-				text.push(this.capitalizeName(meas.type + " " +meas.measure) + " PHP: " + formatValue(parseFloat(others)));
+				text.push(translate('header.settings.'+meas.type) + " " + translate('header.settings.'+meas.measure) + " PHP: " + formatValue(parseFloat(others)));
 			}
 		}
 		return {
@@ -145,7 +146,7 @@ export default class ChartComponent extends React.Component {
 							if(this.state.hiddenlabels.indexOf(label)==-1){
 								totalAmount = totalAmount+parseInt(i[meas]);
 							}
-							text.push("Total Projects: " + i[meas]);
+							text.push(translate('chartview.projectcount')+": " + i[meas]);
 						}
 					} else {
 						if (i.trxAmounts[meas.measure][meas.type] && parseFloat(i.trxAmounts[meas.measure][meas.type])>0){
@@ -155,7 +156,7 @@ export default class ChartComponent extends React.Component {
 							if(this.state.hiddenlabels.indexOf(label)==-1){
 								totalAmount = totalAmount+parseInt(i.trxAmounts[meas.measure][meas.type]);
 							}
-							text.push(this.capitalizeName(meas.type + " " +meas.measure) + " PHP: " + formatValue(parseFloat(i.trxAmounts[meas.measure][meas.type])));
+							text.push(translate('header.settings.'+meas.type) + " " + translate('header.settings.'+meas.measure) + " PHP: " + formatValue(parseFloat(i.trxAmounts[meas.measure][meas.type])));
 						}
 					}
 				} else {
@@ -171,12 +172,12 @@ export default class ChartComponent extends React.Component {
 				}				
 			});
 			if (others>0){ 
-				itemNames.push("Others");
+				itemNames.push(translate('chartview.others'));
 				values.push(others);
-				if(this.state.hiddenlabels.indexOf("Others")==-1){
+				if(this.state.hiddenlabels.indexOf(translate('chartview.others'))==-1){
 					totalAmount = totalAmount+parseInt(others);
 				}
-				text.push(this.capitalizeName(meas.type + " " +meas.measure) + " PHP: " + formatValue(parseFloat(others)));
+				text.push(translate('header.settings.'+meas.type) + " " + translate('header.settings.'+meas.measure) + " PHP: " + formatValue(parseFloat(others)));
 			}
 		}
 		return {
@@ -283,7 +284,7 @@ export default class ChartComponent extends React.Component {
   
   	getTotalFormatted(value){
   		if (this.props.chartData.measureType=='projectCount'){
-  			return formatValue(value) + " Projects";
+  			return formatValue(value) +" "+translate('chartview.projects');
   		} else {
   			return " PHP "+formatValue(value);
   		}
@@ -308,7 +309,7 @@ export default class ChartComponent extends React.Component {
 		    					{this.props.title || ""}
 		    				</div>
 		    				<div className="subtitle"> 
-		    					{this.props.measure? this.props.measure.type+" "+this.props.measure.measure : ""}
+		    					{measure? translate('header.settings.'+measure.type) + " " + translate('header.settings.'+measure.measure) : ""}
 		    				</div>
 		    			</div>		    			
 		    		</div>
@@ -316,20 +317,20 @@ export default class ChartComponent extends React.Component {
 	    		{this.props.onChangeItemToShow?
 	    			<div className="chart-items-selector">
 	    				<Button disabled={chartData.itemsToShow > Constants.CHART_ITEMS_STEP_AMOUNT? false : true} onClick={this.setItemsToShow.bind(this, "less")}>
-	    					<span>{"<"}</span><span className="less-items">less</span>
+	    					<span>{"<"}</span><span className="less-items">{translate('chartview.less')}</span>
 	    				</Button>
 	    				<Button disabled={chartData.data && (chartData.itemsToShow < chartData.data.length)? false : true} onClick={this.setItemsToShow.bind(this, "more")}>
-	    					<span className="more-items">more</span><span>{">"}</span>
+	    					<span className="more-items">{translate('chartview.more')}</span><span>{">"}</span>
 	    				</Button>
 	    			</div>
 	    		: null}	
 	    		{this.props.onChangeType?
 	    			<div className="chart-type-selector">
 	    				<div className="toggle-button-pair">
-						    <div className={chartData.chartType ==='bar'? "active" : ""} onClick={this.setChartType.bind(this, 'bar')} title="Bar Chart">
+						    <div className={chartData.chartType ==='bar'? "active" : ""} onClick={this.setChartType.bind(this, 'bar')} title={translate('chartview.barchart')}>
 						    	<div className={chartData.chartType ==='bar'? "chart-bar-icon" : "chart-bar-icon-disabled"}></div>
 						    </div>
-						    <div className={chartData.chartType ==='pie'? "active" : ""} onClick={this.setChartType.bind(this, 'pie')} title="Pie Chart">
+						    <div className={chartData.chartType ==='pie'? "active" : ""} onClick={this.setChartType.bind(this, 'pie')} title={translate('chartview.piechart')}>
 						    	<div className={chartData.chartType ==='pie'? "chart-pie-icon" : "chart-pie-icon-disabled"}></div>
 						    </div>
 						</div>	    			    						  
@@ -338,21 +339,21 @@ export default class ChartComponent extends React.Component {
 	    		{this.props.onChangeMeasure?
 	    			<div className="chart-measure-selector">
 	    				<div className="toggle-button-pair">
-						    <div className={chartData.measureType ==='funding'? "active" : ""} onClick={this.setMeasType.bind(this, 'funding')} title="Funding">
+						    <div className={chartData.measureType ==='funding'? "active" : ""} onClick={this.setMeasType.bind(this, 'funding')} title={translate('chartview.funding')}>
 						    	<div className={chartData.measureType ==='funding'? "chart-funding-icon" : "chart-funding-icon-disabled"}></div>
 						    </div>
-						    <div className={chartData.measureType ==='projectCount'? "active" : ""} onClick={this.setMeasType.bind(this, 'projectCount')} title="Project Count">
+						    <div className={chartData.measureType ==='projectCount'? "active" : ""} onClick={this.setMeasType.bind(this, 'projectCount')} title={translate('chartview.projectcount')}>
 						    	<div className={chartData.measureType ==='projectCount'? "chart-projects-icon" : "chart-projects-icon-disabled"}></div>
 						    </div>
 						</div>		  
 					</div>
 	    		: null}	
 	    		{this.props.showTotalHeader?
-	    			<div className="total-funding-chart">Total Amount: <div>{this.getTotalFormatted(chartInfo.totalAmount)}</div></div>
+	    			<div className="total-funding-chart">{translate('infowindow.tab.totalamount')}: <div>{this.getTotalFormatted(chartInfo.totalAmount)}</div></div>
                 : null}	
 	    		{!this.hasValuesOK(chartInfo)?
 	    			<div className="no-data">
-			    		NO DATA AVALABLE
+			    		{translate('chartview.nodata')}
 			    	</div>
 	    		:
 	    			<div>
