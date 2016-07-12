@@ -1,7 +1,6 @@
 import * as Constants from '../constants/constants';
 
 const saveMap = (state = {}, action) => {
-  console.log("--- saveMap reducer ---" + action);
   switch (action.type) {
     case Constants.REQUEST_SAVE_MAP:
 

@@ -69,9 +69,11 @@
 
 	export const SET_FUNDING_TYPE = 'SET_FUNDING_TYPE';
 
-	/*SAVE events*/
+	/*SAVE & RESTORE events*/
 
 	export const REQUEST_SAVE_MAP = 'REQUEST_SAVE_MAP';
+
+	export const REQUEST_RESTORE_MAP = 'REQUEST_RESTORE_MAP';
 	
 
 	/*LAYERS events*/

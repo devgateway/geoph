@@ -1,4 +1,4 @@
-import {SET_BASEMAP, LAYER_LOAD_SUCCESS,LAYER_LOAD_FAILURE , TOGGLE_LAYER,SET_LAYER_SETTING} from '../constants/constants';
+import {SET_BASEMAP, LAYER_LOAD_SUCCESS,LAYER_LOAD_FAILURE , TOGGLE_LAYER,SET_LAYER_SETTING, REQUEST_RESTORE_MAP} from '../constants/constants';
 
 import Immutable from 'immutable';
 
@@ -117,6 +117,17 @@ const map = (state = defaultState, action) => {
     case SET_BASEMAP:
     newState= state.set('basemap', Immutable.fromJS(action.basemap));    
     return newState;
+
+    case REQUEST_RESTORE_MAP:
+      console.log('basemap reducer');
+      let mapToRestore = JSON.parse(action.restoreMap.mapToRestore);
+      if(mapToRestore.basemap){
+        newState= state.set('basemap', Immutable.fromJS(mapToRestore.basemap));    
+        return newState;  
+      } else {
+        return state;
+      }
+    
     
     case LAYER_LOAD_FAILURE:
     default:

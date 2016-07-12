@@ -14,13 +14,19 @@ const collect=(options)=>{
     return values;
 }
 
-const collectRange=(options)=>{
-    return {'minSelected': options.minSelected, 'maxSelected': options.maxSelected};
+const collectBaseMap=(options)=>{
+    return {
+        'name': options._root.entries[0][1]._root.entries[0][1], 
+        'url': options._root.entries[0][1]._root.entries[1][1]
+    };
 }
 
+
 export const collectValuesToSave = (state)=>{
+    console.log('collectValuesToSave');
     let filters=state.filters.filterMain;
     let projectSearch=state.projectSearch;
+    let map=state.map;
     let params={};
     let selection;
     for(let param in filters){
@@ -45,6 +51,9 @@ export const collectValuesToSave = (state)=>{
         let idsSelected = [];
         projectSearch.selected.map(it => idsSelected.push(it.id));
         Object.assign(params, {'pr': idsSelected});     
+    }
+    if(map){ 
+        Object.assign(params, {'basemap': collectBaseMap(map)});
     }
     return params;
 }

@@ -238,6 +238,7 @@ class Connector {
 	}
 
 	getProjectsWithFilters(filters) {
+		console.log('connector getProjectsWithFilters');
 		return new Promise( (resolve, reject) => {
 			let path = Settings.get('API','PROJECT_LIST');
 			this.call(GET, path, filters).then((data) => {
@@ -256,12 +257,20 @@ class Connector {
 
 	}
 
-
 	saveMap(dataToSave) {
 		return new Promise( (resolve, reject) => {
 			let path = Settings.get('API','SAVE');
-			console.log("---saveMap connector---");
 			this.call(POST, path, dataToSave).then((data) => {
+				resolve(data); 	
+			}).catch(reject)
+		});
+	}
+
+	restoreMap(mapToRestore) {
+		return new Promise( (resolve, reject) => {
+			let url=Settings.get('API','RESTORE');
+			url=url.replace('${mapId}',mapToRestore.mapId);
+			this.call(GET, url, {}).then((data) => {
 				resolve(data); 	
 			}).catch(reject)
 		});
