@@ -266,11 +266,12 @@ class Connector {
 		});
 	}
 
-	restoreMap(mapToRestore) {
+	restoreMap(mapKey) {
 		return new Promise( (resolve, reject) => {
 			let url=Settings.get('API','RESTORE');
-			url=url.replace('${mapId}',mapToRestore.mapId);
+			url=url.replace('${mapId}',mapKey);
 			this.call(GET, url, {}).then((data) => {
+				console.log('connector restoreMap');
 				resolve(data); 	
 			}).catch(reject)
 		});

@@ -10,14 +10,14 @@ class Restore extends React.Component {
   }
 
   componentDidMount() {     
-    let mapId = this.props.routeParams.mapID;
-    this.props.onRequestRestoreMap({mapId : mapId});
+    let key = this.props.routeParams.key;
+    this.props.onRequestRestoreMap(key);
   }
 
   render() {
     return (
         <div className="chart-view">
-            <p>Map ID: {this.props.routeParams.mapID}</p>
+            <p>Map ID: {this.props.routeParams.key}</p>
         </div>
     )
   }

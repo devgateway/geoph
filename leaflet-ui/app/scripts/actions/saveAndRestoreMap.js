@@ -28,16 +28,9 @@ export const requestSaveMap = (dataToSave) => {
 }
 
 export const restoreOK = (results) => {
-  console.log('restoreOK action');
-  let filters = JSON.parse(results.jsonAppMap);
-  //restore the map
-  Connector.getProjectsWithFilters(filters)
-  .then(req => 
-    dispatch(applyFilter(filters))
-  )
-  
+  console.log('restoreOK action');  
   return {
-    type: Constants.REQUEST_RESTORE_MAP,
+    type: Constants.STATE_RESTORE,
     restoreMap: {
       message: 'Restore map done!',
       map: results
@@ -47,14 +40,14 @@ export const restoreOK = (results) => {
 
 export const restoreError = (message) => {
   return {
-    type: Constants.REQUEST_RESTORE_MAP,
+    type: Constants.STATE_RESTORE_ERROR,
     restoreMap: {message: message}
   }
 }
 
-export const requestRestoreMap = (mapToRestore) => {
+export const requestRestoreMap = (mapKey) => {
   return (dispatch, getState) =>{
-    Connector.restoreMap(mapToRestore).then((results)=>{
+    Connector.restoreMap(mapKey).then((results)=>{
         dispatch(restoreOK(results));
     }).catch((err)=>{
         dispatch(restoreError(err.data.message));

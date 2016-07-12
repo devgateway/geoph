@@ -73,7 +73,9 @@
 
 	export const REQUEST_SAVE_MAP = 'REQUEST_SAVE_MAP';
 
-	export const REQUEST_RESTORE_MAP = 'REQUEST_RESTORE_MAP';
+	export const STATE_RESTORE = 'STATE_RESTORE';
+
+	export const STATE_RESTORE_ERROR = 'STATE_RESTORE_ERROR';
 	
 
 	/*LAYERS events*/

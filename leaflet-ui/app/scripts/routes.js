@@ -27,7 +27,7 @@ export default (
   <Route path="/" component={App}>
   	<Route path="tools" component={Tools}/>
   	<Route path="charts" component={Charts}/>
-    <Route path="map/:mapID" component={Restore}/>
+    <Route path="map/:key" component={Restore}/>
     <Route path="admin" component={Admin}>
       <Route path="/admin/add/indicator" component={AddIndicator}/>
       <Route path="/admin/list/indicator" component={ListIndicator}/>
