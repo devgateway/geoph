@@ -4,14 +4,14 @@ import Header from './header.jsx';
 import Footer from './footer.jsx';
 import Panel  from './panel.jsx';
 import Landing  from './landing.jsx';
-
 require("./root.scss");
 
-export default class App extends React.Component {
+export default class DefaultLayout extends React.Component {
 
   constructor() {
     super();
   }
+
 
   render() {
 
@@ -20,7 +20,7 @@ export default class App extends React.Component {
         <Header/>
         <Landing/>            
         <Panel>
-            {this.props.children}
+            {this.props.children}        
         </Panel>
         <Footer/>
       

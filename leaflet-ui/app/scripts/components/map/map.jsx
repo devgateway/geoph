@@ -75,9 +75,6 @@ const view = React.createClass({
 		return {};
 	},
 
-	componentWillMount(){
-		this.props.onLoad();
-	},
 
 	render(){
 		return (
@@ -93,14 +90,8 @@ const view = React.createClass({
 
 
 const mapDispatchToProps=(dispatch,ownProps)=>{
-	return {
-		onLoad:()=>{
-			dispatch(getList());
-			dispatch(loadDefaultLayer());
-		}
-	}
+	return {}
 }
-
 
 const stateToProps = (state,props) => {	
 	return {
@@ -109,7 +100,5 @@ const stateToProps = (state,props) => {
 }
 
 const MapView=connect(stateToProps,mapDispatchToProps)(view);
-
-
 export default MapView;
 

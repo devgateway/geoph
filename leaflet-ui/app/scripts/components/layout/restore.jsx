@@ -1,27 +1,21 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import DefaultLayout from './defaultLayout';
+require("./root.scss");
 import {requestRestoreMap}  from '../../actions/saveAndRestoreMap';
 
-
-class Restore extends React.Component {
+export default class App extends DefaultLayout {
 
   constructor() {
-    super()
+    super();
   }
 
-  componentDidMount() {     
+  componentWillMount() {
     let key = this.props.routeParams.key;
     this.props.onRequestRestoreMap(key);
   }
 
-  render() {
-    return (
-        <div className="chart-view">
-            <p>Map ID: {this.props.routeParams.key}</p>
-        </div>
-    )
-  }
 }
+
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
@@ -37,4 +31,5 @@ const mapStateToProps = (state, props) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Restore);;
+export default connect(mapStateToProps, mapDispatchToProps)(App);;
+
