@@ -53,7 +53,7 @@ export default (
     <IndexRoute component={Tools}/>
     </Route>
  
-  <IndexRedirect from="/" to="/map/tools"/>
+  <IndexRedirect from="" to="/map/tools"/>
   <Route path="*" component={NoMatch}/>
   </Route>
   );

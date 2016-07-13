@@ -19,6 +19,8 @@ import { render, unmountComponentAtNode } from 'react-dom';
 
   componentDidUpdate(nextProps, nextState) {
     const {data, ...props} = this.props;
+    console.log('updating layer');
+
     this.mapmove();
   }
 
@@ -49,10 +51,11 @@ import { render, unmountComponentAtNode } from 'react-dom';
 
 
   renderPaths(data){
+    debugger;
+    console.log('renderPaths');
+    const {features}=data;
+    const {map,size,border,type}=this.props;
 
-   const {features}=data;
-   const {map,size,border,type}=this.props;
-   
     // Use Leaflet to implement a D3 geometric transformation.
     function projectPoint(x, y) {
       var point = map.latLngToLayerPoint(new L.LatLng(y, x));
@@ -119,10 +122,15 @@ import { render, unmountComponentAtNode } from 'react-dom';
 
   mapmove(e) {
     if (this.props.data && this.props.data.features){
-      this.values=this.getValues(this.props.data.features);//isolate features values 
+      
+      const values=this.getValues(this.props.data.features);//isolate features values 
+      const {thresholds,cssProvider} = this.props;
+      const breaks=(thresholds > values.length)?values.length:thresholds;
+      this.cssProvider=new cssProvider(values,thresholds);
       this.renderPaths(this.props.data);
+   
     } else {
-      //console.log('Dataset is empty');
+      console.log('Dataset is empty');
     }
   }
 
@@ -144,12 +152,10 @@ import { render, unmountComponentAtNode } from 'react-dom';
   }
 
   getClass(d){    
-    if (this.props.cssProvider){
-      this.cssProvider=new this.props.cssProvider(this.values,(this.props.thresholds > this.values.length)?this.values.length:this.props.thresholds);
-      const value=d.properties[this.props.valueProperty];
-      var className=this.props.classes+this.cssProvider.getCssClass(value);
-      return className;  
-    }
+    const {classes,valueProperty}=this.props;
+    const value=d.properties[valueProperty];
+    var className=classes+this.cssProvider.getCssClass(value);
+    return className;  
   }
 
   render() {
