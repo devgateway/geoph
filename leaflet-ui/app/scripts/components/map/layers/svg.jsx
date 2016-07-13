@@ -134,8 +134,8 @@ import { render, unmountComponentAtNode } from 'react-dom';
     }
   }
 
-  renderPopupContent(feature) {
 
+  renderPopupContent(feature) {
     if (!feature){
       return null;
     }
