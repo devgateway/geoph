@@ -271,7 +271,9 @@ class Connector {
 			let url=Settings.get('API','RESTORE');
 			url=url.replace('${mapId}',mapKey);
 			this.call(GET, url, {}).then((data) => {
-				console.log('connector restoreMap');
+				if(data) {
+					data.filters = JSON.parse(data.jsonAppMap);
+				}				
 				resolve(data); 	
 			}).catch(reject)
 		});

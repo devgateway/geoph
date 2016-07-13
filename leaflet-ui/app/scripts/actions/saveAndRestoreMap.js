@@ -31,17 +31,14 @@ export const restoreOK = (results) => {
   console.log('restoreOK action');  
   return {
     type: Constants.STATE_RESTORE,
-    restoreMap: {
-      message: 'Restore map done!',
-      map: results
-    }
+    mapData: results
   }
 }
 
 export const restoreError = (message) => {
   return {
     type: Constants.STATE_RESTORE_ERROR,
-    restoreMap: {message: message}
+    message: message
   }
 }
 
