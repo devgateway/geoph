@@ -23,14 +23,14 @@ export default class Panel extends React.Component {
         <ul>
           <li className={(this.props.currentView=='/' || this.props.currentView=='/tools')?"panel-tab active":"panel-tab"}>
             <div onClick={this.togglePanel.bind(this)}>
-              <Link to="/tools" >             
+              <Link to="tools" >             
                 <div className="icon tools"/>
                 <span>Tool View</span>
               </Link>
             </div>
           </li>
           <li className={(this.props.currentView=='/charts')?"panel-tab active":"panel-tab"}>
-            <Link to="/charts">
+            <Link to="charts">
               <div className="icon chart"/>
               <span>Chart View</span>
             </Link>
