@@ -262,6 +262,19 @@ class Connector {
 			}).catch(reject)
 		});
 	}
+
+	restoreMap(mapKey) {
+		return new Promise( (resolve, reject) => {
+			let url=Settings.get('API','RESTORE');
+			url=url.replace('${mapId}',mapKey);
+			this.call(GET, url, {}).then((data) => {
+				if(data) {
+					data.filters = JSON.parse(data.jsonAppMap);
+				}				
+				resolve(data); 	
+			}).catch(reject)
+		});
+	}
 }
 
 

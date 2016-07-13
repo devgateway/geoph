@@ -1,4 +1,4 @@
-import {SET_BASEMAP, LAYER_LOAD_SUCCESS, LAYER_LOAD_FAILURE, TOGGLE_LAYER, SET_LAYER_SETTING, INDICATOR_LIST_LOADED} from '../constants/constants';
+import {SET_BASEMAP, LAYER_LOAD_SUCCESS, LAYER_LOAD_FAILURE, TOGGLE_LAYER, SET_LAYER_SETTING, INDICATOR_LIST_LOADED, STATE_RESTORE} from '../constants/constants';
 import JenksCssProvider from '../util/jenksUtil.js'
 import Immutable from 'immutable';
 import {getPath,getShapeLayers} from '../util/layersUtil.js';
@@ -147,6 +147,10 @@ const map = (state = defaultState, action) => {
 
     case SET_BASEMAP:
     return state.set('basemap', Immutable.fromJS(action.basemap));
+
+    case STATE_RESTORE:
+    console.log('map STATE_RESTORE');
+    return state.set('basemap', Immutable.fromJS(action.mapData.filters.basemap));
 
     case INDICATOR_LIST_LOADED:
     return setIndicators(state, action.data);
