@@ -262,6 +262,7 @@ export default class ChartComponent extends React.Component {
 				return parseInt(b.trxAmounts[measure.measure][measure.type]) - parseInt(a.trxAmounts[measure.measure][measure.type]);				
 			}
 		});
+		return data.slice(0);
 	}
 
 	handleResize(e) {
