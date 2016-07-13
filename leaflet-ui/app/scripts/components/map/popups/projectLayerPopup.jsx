@@ -90,7 +90,7 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
                   chartType='pie'
                   width='400'
                   height='200'
-                  showMeasureSelector={false}
+                  showTotalHeader={true}
                   dimension="name"/>
                 </div>
               : <div className="loading-icon"></div>
@@ -107,6 +107,7 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
                   chartType='pie'
                   width='400'
                   height='200'
+                  showTotalHeader={true}
                   dimension="name"/>
                 </div>
               : <div className="loading-icon"></div>
@@ -123,6 +124,7 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
                   chartType='pie'
                   width='400'
                   height='200'
+                  showTotalHeader={true}
                   dimension="name"/>
                 </div>
               : <div className="loading-icon"></div>
@@ -139,6 +141,7 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
                   chartType='pie'
                   width='400'
                   height='200'
+                  showTotalHeader={true}
                   dimension="name"/>
                 </div>
               : <div className="loading-icon"></div>
