@@ -1,8 +1,7 @@
 import React from 'react';
 import DefaultLayout from './defaultLayout';
-import { connect } from 'react-redux'
-
 require("./root.scss");
+import {requestRestoreMap}  from '../../actions/saveAndRestoreMap';
 
 export default class App extends DefaultLayout {
 
@@ -11,34 +10,26 @@ export default class App extends DefaultLayout {
   }
 
   componentWillMount() {
-       const {onLoad}=this.props;
-       debugger;
-       onLoad(); 
+    let key = this.props.routeParams.key;
+    this.props.onRequestRestoreMap(key);
   }
 
 }
 
 
-
-const mapDispatchToProps=(dispatch,ownProps)=>{
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    onLoad:()=>{dispatch(requestRestoreMap())},
-    
+    onRequestRestoreMap: (mapToRestore) => {
+      dispatch(requestRestoreMap(mapToRestore));
+    }
   }
 }
 
-const stateToProps = (state,props) => { 
+const mapStateToProps = (state, props) => {
   return {
-    		
-  };
+    language: state.language
+  }
 }
 
-export default connect(stateToProps,mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);;
 
-
-
-
-//
-//
-//
-//
