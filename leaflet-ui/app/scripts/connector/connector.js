@@ -6,7 +6,7 @@ import Store from '../store/configureStore.js';
 import Qs from 'qs';
 
 
-console.log(Settings);
+//console.log(Settings);
 
 const POST= 'POST';
 const GET= 'GET';
@@ -16,8 +16,12 @@ const DELETE= 'DELETE';
 class Connector {
 
 
-	setStore(store){
-		this.store=store;
+	setAuthToken(token){
+		this.token=token;
+	}
+
+	getSecurityHeader(){
+		return {'X-Security-token': this.token};
 	}
 
 	get(url, params = {}) {
@@ -71,11 +75,10 @@ class Connector {
 
 
 
-	post(url, body = {}) {
-		
+	post(url, data = {},config={}) {
 		return new Promise(
 			function(resolve, reject) {
-				Axios.post(url, body)
+				Axios.post(url, data,config)
 				.then(function(response) {
 					resolve(response);
 				})
@@ -86,22 +89,24 @@ class Connector {
 	}
 
 	/*A method should always return a promise*/
-	call(verb,endpoint, params) {
+	call(verb,endpoint, params , config) {
+
 		let apiRoot = Settings.get('API',API_BASE_URL);
 		let url = `${apiRoot}${endpoint}`; 
+
 
 		let caller;
 		if (verb == GET) caller = this.get;
 		if (verb == POST) caller = this.post;
 		if (verb == PUT ) caller = this.put;
-			if (verb == DELETE ) caller = this.delete;
+		if (verb == DELETE ) caller = this.delete;
 
 
 		return new Promise((resolve, reject) => {
-			caller(url, params).then((data) => {
-				resolve(data.data);
+			caller(url, params,config).then((response) => {
+				resolve(response.data);
 			}).catch((err) => {
-				console.log('Error when trying to get backend data')
+				//console.log('Error when trying to get backend data')
 				reject(err);
 			})
 		})
@@ -114,10 +119,13 @@ class Connector {
 			
 			let url=Settings.get('API',options.ep);
 			const {level,quality} = options.settings;
-			const {id, filters}=options;
+			const {id, filters,indicator_id}=options;
 
 			if (level){
 				url=url.replace('${level}',level);
+			}
+			if (indicator_id){
+				url=url.replace('${indicator_id}',indicator_id);
 			}
 			if (quality){
 				Object.assign(params,{quality})
@@ -167,12 +175,17 @@ class Connector {
 
 
 	login(options){
+		let apiRoot = Settings.get('API',API_BASE_URL);
+		let endpoint = Settings.get('API','LOGIN');
+		let url = `${apiRoot}${endpoint}`; 
+
 		return new Promise( (resolve, reject) => {
 			const {username,password} = options;
-			let url = Settings.get('API','LOGIN');
-
-			this.call(POST,url, {username:username,password:password}).then((data) => {
-				resolve(data);	
+		
+			this.post(url, {username:username,password:password}).then((response) => {
+				//console.log(response.headers["x-security-token"]);
+				this.setAuthToken(response.headers["x-security-token"]) ;
+				resolve(response.data);	
 			})
 			.catch((error)=>{
 				reject(error);	
@@ -180,65 +193,47 @@ class Connector {
 		})
 	}
 
+	logout(){
+
+	}
+
 
 	getIndicatorList(){
-		
 		return this.call(GET,Settings.get('API','INDICATOR_LIST'),{});
 	}
 
 	removeIndicator(id){
-		debugger;
 		let url=Settings.get('API','INDICATOR');
 		url=url.replace('${id}',id);
 		return this.call(DELETE,url,{});
 	}
 
 	uploadIndicator(options){
-		
 		const URL=Settings.get('API',API_BASE_URL) + Settings.get('API','INDICATOR_UPLOAD');
+		return new Promise( (resolve, reject) => {
+			const {file,name,template,css} = options;
 
-			return new Promise( (resolve, reject) => {
-			const {file,name,template,color} = options;
 			let url = Settings.get('API','INDICATOR_UPLOAD');
 			var data = new FormData();
 			data.append('name', name);
-			data.append('template', template);
-			data.append('color', color);
+			data.append('admLevel', template);
+			data.append('colorScheme', css);
 			data.append('file',file);
-			var config = {
-				progress: function(progressEvent) {
-					debugger
-					var percentCompleted = progressEvent.loaded / progressEvent.total;
-				}
-			};
-
-			Axios.post(URL, data, config)
-				.then(function (res) {
-					resolve(res.data);
-				})
-				.catch(function (res) {
-					reject()
-				});
+			this.call(POST,url,data,{ headers: this.getSecurityHeader()}).then(resolve).catch(reject);
 		})
 	}
 
-	getProjectPopupData(filters) {
+
+	getProjectPopupData(filters, tab) {
 		return new Promise( (resolve, reject) => {
-			let path = Settings.get('API','PROJECT_POPUP');
-			if (path.mock) {
-				this.call(GET,path.path, {}, true).then((data) => {
-					resolve(data);		
-				}).catch(reject)
-			} else {
-				this.call(GET, path, filters).then((data) => {
-					resolve(data); 	
-				}).catch(reject)
-			}
+			let path = Settings.get('API','PROJECT_POPUP')[tab];
+			this.call(GET, path, filters).then((data) => {
+				resolve(data); 	
+			}).catch(reject)
 		});
 	}
 
 	getProjectsWithFilters(filters) {
-		console.log('connector getProjectsWithFilters');
 		return new Promise( (resolve, reject) => {
 			let path = Settings.get('API','PROJECT_LIST');
 			this.call(GET, path, filters).then((data) => {
@@ -257,9 +252,11 @@ class Connector {
 
 	}
 
+
 	saveMap(dataToSave) {
 		return new Promise( (resolve, reject) => {
 			let path = Settings.get('API','SAVE');
+			//console.log("---saveMap connector---");
 			this.call(POST, path, dataToSave).then((data) => {
 				resolve(data); 	
 			}).catch(reject)
