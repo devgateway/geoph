@@ -86,7 +86,6 @@ export default class ChartComponent extends React.Component {
 		} else {
 			chartInfo = this.getChartInfo(chartData.chartType);
 		}
-		debugger;
 		return (
 	    	<div className="chart" ref="chartContainer">
 	    		{this.props.title?

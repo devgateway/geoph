@@ -1,5 +1,6 @@
 import React from 'react';
 import DefaultLayout from './defaultLayout';
+import { connect } from 'react-redux';
 require("./root.scss");
 import {requestRestoreMap}  from '../../actions/saveAndRestoreMap';
 
