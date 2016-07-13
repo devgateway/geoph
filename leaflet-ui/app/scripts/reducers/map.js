@@ -9,6 +9,11 @@ const size = 9;
 
 const defaultState = Immutable.fromJS(
 {
+
+  bounds:{
+      southWest: [4.3245014930192, 115.224609375],
+      northEast:[23.140359987886118,134.3408203125]
+  },
   basemap: {
     name: 'street',
     url: '//server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}'
@@ -149,6 +154,8 @@ const map = (state = defaultState, action) => {
     return state.set('basemap', Immutable.fromJS(action.basemap));
 
     case STATE_RESTORE:
+    //restore 1) zoom and center,or map bounds, and layers  
+    debugger;
     console.log('map STATE_RESTORE');
     return state.set('basemap', Immutable.fromJS(action.mapData.filters.basemap));
 

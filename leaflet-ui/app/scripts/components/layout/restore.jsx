@@ -1,5 +1,7 @@
 import React from 'react';
 import DefaultLayout from './defaultLayout';
+import { connect } from 'react-redux'
+
 require("./root.scss");
 import {requestRestoreMap}  from '../../actions/saveAndRestoreMap';
 
@@ -10,6 +12,7 @@ export default class App extends DefaultLayout {
   }
 
   componentWillMount() {
+    debugger;
     let key = this.props.routeParams.key;
     this.props.onRequestRestoreMap(key);
   }

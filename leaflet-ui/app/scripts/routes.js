@@ -43,7 +43,7 @@ export default (
       <IndexRoute component={Tools}/>
     </Route>
   
-    <Route path="/map/:id" component={Restore}>
+    <Route path="/map/:key" component={Restore}>
       <Route path="tools" component={Tools}/>
       <Route path="charts" component={Charts}/>
       <Route path="admin" component={Admin}>
