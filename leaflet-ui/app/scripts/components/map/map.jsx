@@ -17,10 +17,6 @@ import Test from '../controls/settings'
 require('leaflet/dist/leaflet.css')
 require('./map.scss');
 
-var southWest = latLng(4.3245014930192, 115.224609375),
-northEast = latLng(23.140359987886118,134.3408203125),
-bounds = latLngBounds(southWest, northEast);
-
 
 const Layer=React.createClass({
 	closePopup(){
@@ -77,8 +73,15 @@ const view = React.createClass({
 
 
 	render(){
+			const dataBounds=this.props.map.get('bounds').toJS();
+			const {southWest,northEast} =dataBounds ;
+ 			const bounds = latLngBounds(latLng(southWest[0], southWest[1]),latLng(northEast[0],northEast[1]));
+
+
 		return (
-			<Map className="map" zoom={13} bounds={bounds}>
+				<Map className="map" zoom={13} bounds={bounds} onMoveEnd={()=>{
+					//TODO triger map bounds update > keep store sync 
+				}}>
 				<TileLayer url={this.props.map.get('basemap').get('url')}/>
 			
 				<Layers layers={this.props.map.get('layers')} charts={this.props.charts} fundingType={this.props.fundingType}/>

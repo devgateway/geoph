@@ -27,7 +27,7 @@ export const requestSaveMap = (dataToSave) => {
 
 }
 
-export const restoreOK = (results) => {
+export const c = (results) => {
   console.log('restoreOK action');  
   return {
     type: Constants.STATE_RESTORE,
@@ -45,7 +45,10 @@ export const restoreError = (message) => {
 export const requestRestoreMap = (mapKey) => {
   return (dispatch, getState) =>{
     Connector.restoreMap(mapKey).then((results)=>{
+        debugger;
         dispatch(restoreOK(results));
+        dispatch(loadAll(results));
+        
     }).catch((err)=>{
         dispatch(restoreError(err.data.message));
     });
