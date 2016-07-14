@@ -155,7 +155,6 @@ const map = (state = defaultState, action) => {
 
     case STATE_RESTORE:
     //restore 1) zoom and center,or map bounds, and layers  
-    debugger;
     console.log('map STATE_RESTORE');
     return state.set('basemap', Immutable.fromJS(action.mapData.filters.basemap));
 

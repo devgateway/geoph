@@ -32,17 +32,17 @@ const filters = (state = {filterMain: {}}, action) => {
     case Constants.RESET_FILTER:
       let actionDummy = {type: Constants.SELECT_ALL_FILTER_LIST, item: {selected: false}};
       filterMain = cloneDeep(state.filterMain);      
-      for (var fltr in state.filterMain) {
-        let fl;
-        if (!state.filterMain[fltr].isRange){
-          fl = filter(state.filterMain[fltr], actionDummy);
-          updateFilterCounters(fl);
+      for (var filterKey in state.filterMain) {
+        let filterClean;
+        if (!state.filterMain[filterKey].isRange){
+          filterClean = filter(state.filterMain[filterKey], actionDummy);
+          updateFilterCounters(filterClean);
         } else {
-          fl = cloneDeep(state.filterMain[fltr]);
-          delete fl['minSelected'];
-          delete fl['maxSelected'];
+          filterClean = cloneDeep(state.filterMain[filterKey]);
+          delete filterClean['minSelected'];
+          delete filterClean['maxSelected'];
         }        
-        Object.assign(filterMain, {[fltr]: fl});
+        Object.assign(filterMain, {[filterKey]: filterClean});
       }
       return Object.assign({}, state, {
         filterMain: filterMain
@@ -53,6 +53,7 @@ const filters = (state = {filterMain: {}}, action) => {
 }
 
 const filter = (state = {
+  isLoaded: false,
   isFetching: false,
   items: []
 }, action) => {
@@ -64,29 +65,23 @@ const filter = (state = {
     case Constants.RECEIVE_FILTER_DATA:
       return Object.assign({}, state, action.data, {
         isFetching: false,
+        isLoaded: true,
         lastUpdated: action.receivedAt
       })
-
     case Constants.FILTER_SET_RANGE:
       return Object.assign({}, state, {
           isRange: true,
           minSelected: action.filter.minSelected,
           maxSelected: action.filter.maxSelected
       })
-    case Constants.SELECT_FILTER_ITEM:
-      return Object.assign({}, state, {
-          isFetching: false,
-          items: state.items.map(i => filterItem(i, action))
-      })
     case Constants.SELECT_ALL_FILTER_LIST:
       return Object.assign({}, state, {
-          isFetching: false,
           selected: action.item.selected,
           items: state.items.map(i => filterItem(i, action))
       })
+    case Constants.SELECT_FILTER_ITEM:
     case Constants.SEARCH_FILTER_LIST_BY_TEXT:
       return Object.assign({}, state, {
-          isFetching: false,
           items: state.items.map(i => filterItem(i, action))
       })
     default:
@@ -97,7 +92,7 @@ const filter = (state = {
 const filterItem = (state = {
   selected: false
 }, action) => {
-  let copyState = cloneDeep(state);//Object.assign({}, state, {updatedAt: Date.now()}); 
+  let copyState = cloneDeep(state);
   switch (action.type) {
     case Constants.SELECT_FILTER_ITEM:
       updateFilterSelection(copyState, action.item.id, action.item.selected); 
@@ -147,8 +142,7 @@ const updateFilterCounters = (filterObject) => {
       count = count + cnts.count;
       countSel = countSel + cnts.countSel;
     });
-    Object.assign(filterObject, {'totalCounter': count});
-    Object.assign(filterObject, {'selectedCounter': countSel});
+    Object.assign(filterObject, {'totalCounter': count, 'selectedCounter': countSel});
   }
   return {count: count, countSel: countSel}
 }
@@ -203,4 +197,4 @@ const makeVisibleIntoChildren = (item) => {
   }
 }
 
-export default filters
+export default filters;
