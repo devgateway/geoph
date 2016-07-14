@@ -14,13 +14,6 @@ const collect=(options)=>{
     return values;
 }
 
-const collectBaseMap=(options)=>{
-    return {
-        'name': options._root.entries[0][1]._root.entries[0][1], 
-        'url': options._root.entries[0][1]._root.entries[1][1]
-    };
-}
-
 
 export const collectValuesToSave = (state)=>{
     console.log('collectValuesToSave');
@@ -53,7 +46,8 @@ export const collectValuesToSave = (state)=>{
         Object.assign(params, {'pr': idsSelected});     
     }
     if(map){ 
-        Object.assign(params, {'basemap': collectBaseMap(map)});
+        Object.assign(params, {'map': map.toJS()});
     }
+    debugger;
     return params;
 }

@@ -51,8 +51,6 @@ import { render, unmountComponentAtNode } from 'react-dom';
 
 
   renderPaths(data){
-    debugger;
-    console.log('renderPaths');
     const {features}=data;
     const {map,size,border,type}=this.props;
 

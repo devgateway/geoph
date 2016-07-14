@@ -28,9 +28,17 @@ public class AppRequestParams {
 
     private String pt;
 
-    private Float ro_max;
+    private Double ro_max;
 
-    private Float ro_min;
+    private Double ro_min;
+
+    private Double ao_max;
+
+    private Double ao_min;
+
+    private Double to_max;
+
+    private Double to_min;
 
     private String dt_start_max;
 
@@ -144,20 +152,52 @@ public class AppRequestParams {
         this.pt = pt;
     }
 
-    public Float getRo_max() {
+    public Double getRo_max() {
         return ro_max;
     }
 
-    public void setRo_max(Float ro_max) {
+    public void setRo_max(Double ro_max) {
         this.ro_max = ro_max;
     }
 
-    public Float getRo_min() {
+    public Double getRo_min() {
         return ro_min;
     }
 
-    public void setRo_min(Float ro_min) {
+    public void setRo_min(Double ro_min) {
         this.ro_min = ro_min;
+    }
+
+    public Double getAo_max() {
+        return ao_max;
+    }
+
+    public void setAo_max(Double ao_max) {
+        this.ao_max = ao_max;
+    }
+
+    public Double getAo_min() {
+        return ao_min;
+    }
+
+    public void setAo_min(Double ao_min) {
+        this.ao_min = ao_min;
+    }
+
+    public Double getTo_max() {
+        return to_max;
+    }
+
+    public void setTo_max(Double to_max) {
+        this.to_max = to_max;
+    }
+
+    public Double getTo_min() {
+        return to_min;
+    }
+
+    public void setTo_min(Double to_min) {
+        this.to_min = to_min;
     }
 
     public String getDt_start_max() {

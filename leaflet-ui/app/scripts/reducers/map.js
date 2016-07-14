@@ -1,4 +1,4 @@
-import {SET_BASEMAP, LAYER_LOAD_SUCCESS, LAYER_LOAD_FAILURE, TOGGLE_LAYER, SET_LAYER_SETTING, INDICATOR_LIST_LOADED, STATE_RESTORE} from '../constants/constants';
+import {SET_BASEMAP, LAYER_LOAD_SUCCESS, LAYER_LOAD_FAILURE, TOGGLE_LAYER, SET_LAYER_SETTING, INDICATOR_LIST_LOADED, STATE_RESTORE, CHANGE_MAP_BOUNDS} from '../constants/constants';
 import JenksCssProvider from '../util/jenksUtil.js'
 import Immutable from 'immutable';
 import {getPath,getShapeLayers} from '../util/layersUtil.js';
@@ -156,8 +156,12 @@ const map = (state = defaultState, action) => {
     case STATE_RESTORE:
     //restore 1) zoom and center,or map bounds, and layers  
     debugger;
-    console.log('map STATE_RESTORE');
-    return state.set('basemap', Immutable.fromJS(action.mapData.filters.basemap));
+    state.set('bounds', Immutable.fromJS({southWest:action.storedMap.data.map.bounds.southWest, northEast:action.storedMap.data.map.bounds.northEast}));
+    return state.set('basemap', Immutable.fromJS(action.storedMap.data.map.basemap));
+
+    case CHANGE_MAP_BOUNDS:
+    debugger;
+    return state.set('bounds', Immutable.fromJS({southWest:action.bounds._southWest, northEast:action.bounds._northEast}));
 
     case INDICATOR_LIST_LOADED:
     return setIndicators(state, action.data);
