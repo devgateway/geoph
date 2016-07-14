@@ -115,23 +115,33 @@ public class DefaultProjectRepository implements ProjectRepository {
         ret.add(o[1].toString());
         ret.add(o[2].toString());
         ret.add(o[3].toString());
-        return ret;    }
-
-    @Override
-    public List<Float> getTargetPhysicalProgressPeriod() {
-        List<Float> ret = new ArrayList<>();
-        Object[] o = (Object[]) em.createNativeQuery("select max(p.actual_owpa) as max_actual_owpa, min(p.actual_owpa) as min_actual_owpa from project p").getSingleResult();
-        ret.add(((Float)o[0]));
-        ret.add(((Float)o[1]));
         return ret;
     }
 
     @Override
-    public List<Float> getActualPhysicalProgressPeriod() {
-        List<Float> ret = new ArrayList<>();
+    public List<Double> getReachedPhysicalProgressPeriod() {
+        List<Double> ret = new ArrayList<>();
         Object[] o = (Object[]) em.createNativeQuery("select max(p.reached_owpa) as max_reached_owpa, min(p.reached_owpa) as min_reached_owpa from project p").getSingleResult();
-        ret.add(((Float)o[0]));
-        ret.add(((Float)o[1]));
+        ret.add((Double)o[0]);
+        ret.add((Double)o[1]);
+        return ret;
+    }
+
+    @Override
+    public List<Double> getTargetPhysicalProgressPeriod() {
+        List<Double> ret = new ArrayList<>();
+        Object[] o = (Object[]) em.createNativeQuery("select max(p.target_owpa) as max_target_owpa, min(p.target_owpa) as min_target_owpa from project p").getSingleResult();
+        ret.add((Double)o[0]);
+        ret.add((Double)o[1]);
+        return ret;
+    }
+
+    @Override
+    public List<Double> getActualPhysicalProgressPeriod() {
+        List<Double> ret = new ArrayList<>();
+        Object[] o = (Object[]) em.createNativeQuery("select max(p.actual_owpa) as max_actual_owpa, min(p.actual_owpa) as min_actual_owpa from project p").getSingleResult();
+        ret.add((Double)o[0]);
+        ret.add((Double)o[1]);
         return ret;
     }
 

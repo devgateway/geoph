@@ -267,11 +267,11 @@ class Connector {
 		return new Promise( (resolve, reject) => {
 			let url=Settings.get('API','RESTORE');
 			url=url.replace('${mapId}',mapKey);
-			this.call(GET, url, {}).then((data) => {
-				if(data) {
-					data.filters = JSON.parse(data.jsonAppMap);
+			this.call(GET, url, {}).then((savedData) => {
+				if(savedData) {
+					savedData.data = JSON.parse(savedData.jsonAppMap);
 				}				
-				resolve(data); 	
+				resolve(savedData); 	
 			}).catch(reject)
 		});
 	}

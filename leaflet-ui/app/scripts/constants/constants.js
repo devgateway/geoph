@@ -91,6 +91,8 @@
 
 	export const SET_BASEMAP = 'SET_BASEMAP';
 
+	export const CHANGE_MAP_BOUNDS = 'CHANGE_MAP_BOUNDS';
+
 	/*Settings*/
 	export const PROJECT_GEOJSON ='PROJECT_GEOJSON';  
 	

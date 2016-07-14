@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react';
 
 import { connect } from 'react-redux'
-import {loadProjects} from '../../actions/map.js'
+import {loadProjects, updateBounds} from '../../actions/map.js'
 import {getList} from '../../actions/indicators'
 
 import SvgLayer from './layers/svg.jsx'
@@ -65,35 +65,41 @@ const Layers=React.createClass({
 
 
 
-const view = React.createClass({
+const view=React.createClass({
 
 	getInitialState() {
 		return {};
 	},
 
+	handleChangeBounds(e) {		
+        this.props.onUpdateBounds(e.target.getBounds());
+    },
+
 
 	render(){
-			const dataBounds=this.props.map.get('bounds').toJS();
-			const {southWest,northEast} =dataBounds ;
- 			const bounds = latLngBounds(latLng(southWest[0], southWest[1]),latLng(northEast[0],northEast[1]));
-
+		const dataBounds=this.props.map.get('bounds').toJS();
+		const {southWest,northEast} =dataBounds ;
+		const bounds = latLngBounds(latLng(southWest[0], southWest[1]),latLng(northEast[0],northEast[1]));
 
 		return (
-				<Map className="map" zoom={13} bounds={bounds} onMoveEnd={()=>{
-					//TODO triger map bounds update > keep store sync 
-				}}>
+
+				<Map className="map" zoom={13} bounds={bounds} onMoveEnd={this.handleChangeBounds}>
 				<TileLayer url={this.props.map.get('basemap').get('url')}/>
 			
 				<Layers layers={this.props.map.get('layers')} charts={this.props.charts} fundingType={this.props.fundingType}/>
 			
 			</Map>
-			)
+		);
 	}
-});
+})
 
 
 const mapDispatchToProps=(dispatch,ownProps)=>{
-	return {}
+  return {
+    onUpdateBounds: (newBounds) => {
+      dispatch(updateBounds(newBounds));
+    }
+  }
 }
 
 const stateToProps = (state,props) => {	

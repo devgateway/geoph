@@ -43,9 +43,17 @@ public class Parameters {
 
     private Date periodPerformanceEndMin;
 
-    private Float reachedOwpaMax;
+    private Double reachedOwpaMax;
 
-    private Float reachedOwpaMin;
+    private Double reachedOwpaMin;
+
+    private Double targetOwpaMax;
+
+    private Double targetOwpaMin;
+
+    private Double actualOwpaMax;
+
+    private Double actualOwpaMin;
 
     private List<Long> sectors;
 
@@ -119,6 +127,10 @@ public class Parameters {
         this.financialAmountMax = filters.getFin_amount_max();
         this.reachedOwpaMax = filters.getRo_max();
         this.reachedOwpaMin = filters.getRo_min();
+        this.targetOwpaMax = filters.getTo_max();
+        this.targetOwpaMin = filters.getTo_min();
+        this.actualOwpaMax = filters.getAo_max();
+        this.actualOwpaMin = filters.getAo_min();
         this.trxTypeSort = filters.getTrx_type_sort();
         this.trxStatusSort = filters.getTrx_status_sort();
     }
@@ -127,20 +139,52 @@ public class Parameters {
         return new Parameters(filters);
     }
 
-    public Float getReachedOwpaMax() {
+    public Double getReachedOwpaMax() {
         return reachedOwpaMax;
     }
 
-    public void setReachedOwpaMax(Float reachedOwpaMax) {
+    public void setReachedOwpaMax(Double reachedOwpaMax) {
         this.reachedOwpaMax = reachedOwpaMax;
     }
 
-    public Float getReachedOwpaMin() {
+    public Double getReachedOwpaMin() {
         return reachedOwpaMin;
     }
 
-    public void setReachedOwpaMin(Float reachedOwpaMin) {
+    public void setReachedOwpaMin(Double reachedOwpaMin) {
         this.reachedOwpaMin = reachedOwpaMin;
+    }
+
+    public Double getTargetOwpaMax() {
+        return targetOwpaMax;
+    }
+
+    public void setTargetOwpaMax(Double targetOwpaMax) {
+        this.targetOwpaMax = targetOwpaMax;
+    }
+
+    public Double getTargetOwpaMin() {
+        return targetOwpaMin;
+    }
+
+    public void setTargetOwpaMin(Double targetOwpaMin) {
+        this.targetOwpaMin = targetOwpaMin;
+    }
+
+    public Double getActualOwpaMax() {
+        return actualOwpaMax;
+    }
+
+    public void setActualOwpaMax(Double actualOwpaMax) {
+        this.actualOwpaMax = actualOwpaMax;
+    }
+
+    public Double getActualOwpaMin() {
+        return actualOwpaMin;
+    }
+
+    public void setActualOwpaMin(Double actualOwpaMin) {
+        this.actualOwpaMin = actualOwpaMin;
     }
 
     public Date getStartDateMax() {

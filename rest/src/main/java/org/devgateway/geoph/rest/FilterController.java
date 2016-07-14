@@ -51,6 +51,42 @@ public class FilterController extends BaseController {
         return resp;
     }
 
+    @RequestMapping(value = "/actualPhysicalProgressPeriod", method = GET)
+    public GenericResponse findActualPhysicalProgressPeriod() {
+        LOGGER.debug("findActualPhysicalProgressPeriod");
+        List<Double> actualPhysicalProgressPeriod = service.getActualPhysicalProgressPeriod();
+        GenericResponse resp = new GenericResponse(
+                actualPhysicalProgressPeriod,
+                actualPhysicalProgressPeriod != null ? actualPhysicalProgressPeriod.size() : 0
+        );
+
+        return resp;
+    }
+
+    @RequestMapping(value = "/targetPhysicalProgressPeriod", method = GET)
+    public GenericResponse findTargetPhysicalProgressPeriod() {
+        LOGGER.debug("findTargetPhysicalProgressPeriod");
+        List<Double> targetPhysicalProgressPeriod = service.getTargetPhysicalProgressPeriod();
+        GenericResponse resp = new GenericResponse(
+                targetPhysicalProgressPeriod,
+                targetPhysicalProgressPeriod != null ? targetPhysicalProgressPeriod.size() : 0
+        );
+
+        return resp;
+    }
+
+    @RequestMapping(value = "/reachedPhysicalProgressPeriod", method = GET)
+    public GenericResponse findReachedPhysicalProgressPeriod() {
+        LOGGER.debug("findReachedPhysicalProgressPeriod");
+        List<Double> reachedPhysicalProgressPeriod = service.getReachedPhysicalProgressPeriod();
+        GenericResponse resp = new GenericResponse(
+                reachedPhysicalProgressPeriod,
+                reachedPhysicalProgressPeriod != null ? reachedPhysicalProgressPeriod.size() : 0
+        );
+
+        return resp;
+    }
+
     @RequestMapping(value = "/genderResponsiveness", method = GET)
     public GenericResponse findAllGenderResponsiveness() {
         LOGGER.debug("findAllGenderResponsiveness");

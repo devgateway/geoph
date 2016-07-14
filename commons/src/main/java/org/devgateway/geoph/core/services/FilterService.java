@@ -53,9 +53,11 @@ public interface FilterService {
 
     List<String> findGrantPeriodBoundaries();
 
-    List<Float> getTargetPhysicalProgressPeriod();
+    List<Double> getTargetPhysicalProgressPeriod();
 
-    List<Float> getActualPhysicalProgressPeriod();
+    List<Double> getActualPhysicalProgressPeriod();
+
+    List<Double> getReachedPhysicalProgressPeriod();
 
     List<Currency> findAllCurrencies();
 
