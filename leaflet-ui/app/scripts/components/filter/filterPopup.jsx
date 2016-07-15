@@ -47,7 +47,7 @@ class FilterPopup extends React.Component {
     	<li onClick={this.showFilterPopup.bind(this)}>
     		<div className="options-icons filters"></div>
     		{translate('header.filters.title')}
-			<Modal bsSize='large' aria-labelledby='contained-modal-title-lg'
+			<Modal animation={false} bsSize='large' aria-labelledby='contained-modal-title-lg'
 			 show={this.state.showModal} onHide={this.cancel.bind(this)} >
 				<Modal.Header closeButton >
 					<Modal.Title>

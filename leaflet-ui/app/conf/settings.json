@@ -38,7 +38,7 @@
 				"dp": "/filters/devprio",
 				"cs": "/filters/cscope",
 				"co": "/filters/coverage",
-				"pr": {"mock": true, "path": "./json-data/percentageTarget.json"}				
+				"pr": "/filters/reachedPhysicalProgressPeriod"				
 			},
 			"production": {
 				"st": "/filters/sector",
@@ -59,7 +59,7 @@
 				"dp": "/filters/devprio",
 				"cs": "/filters/cscope",
 				"co": "/filters/coverage",
-				"pr": {"mock": true, "path": "./json-data/percentageTarget.json"}				
+				"pr": "/filters/reachedPhysicalProgressPeriod"			
 			}
 		},
 

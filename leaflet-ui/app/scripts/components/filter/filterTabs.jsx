@@ -20,9 +20,9 @@ class FilterTabContent extends React.Component {
   	render() {
   		return (
 	    	<div className="tab-container">
-	    		<Tabs defaultActiveKey={1}>
+	    		<Tabs defaultActiveKey={1} animation={false} >
 	    			<Tab className="filter-tab-content" eventKey={1} title={translate('filters.funding.funding')}>
-	                  	<Tabs defaultActiveKey={1} position="left" tabWidth={3}>
+	                  	<Tabs defaultActiveKey={1} animation={false} position="left" tabWidth={3}>
 							{/*<Tab className="filter-list-content" eventKey={1} title="Funding Source">
 								NOT YET IMPLEMENTED
 						    </Tab>*/}
@@ -35,14 +35,14 @@ class FilterTabContent extends React.Component {
 						</Tabs>
 	                </Tab>
 	                <Tab className="filter-tab-content" eventKey={2} title={translate('filters.agency.agency')}>
-	                  	<Tabs defaultActiveKey={1} position="left" tabWidth={3}>
+	                  	<Tabs defaultActiveKey={1} animation={false} position="left" tabWidth={3}>
 							<Tab className="filter-list-content" eventKey={1} title={translate('filters.agency.implementingagency')}>
 								<FilterList title="Implementing Agency" filterType="ia" {...this.props.filters["ia"]} />
 						    </Tab>						   
 						</Tabs>
 	                </Tab>
 	                <Tab className="filter-tab-content" eventKey={3} title={translate('filters.sectors.sectors')}>
-	                  	<Tabs defaultActiveKey={1} position="left" tabWidth={3}>
+	                  	<Tabs defaultActiveKey={1} animation={false} position="left" tabWidth={3}>
 							<Tab className="filter-list-content" eventKey={1} title={translate('filters.sectors.sector')}>
 								<FilterList title="Sector" filterType="st" {...this.props.filters["st"]} />
 						    </Tab>
@@ -68,7 +68,7 @@ class FilterTabContent extends React.Component {
 						</Tabs>
 	                </Tab>*/}
 	                <Tab className="filter-tab-content" eventKey={4} title={translate('filters.dates.dates')}>
-	                  	<Tabs defaultActiveKey={1} position="left" tabWidth={3}>
+	                  	<Tabs defaultActiveKey={1} animation={false} position="left" tabWidth={3}>
 							<Tab className="filter-list-content" eventKey={1} title={translate('filters.dates.implementperiodstart')}>
 								<FilterDate filterType="dt_start" 
 									lang={this.props.language.lan} {...this.props.filters["dt_start"]}
@@ -96,14 +96,14 @@ class FilterTabContent extends React.Component {
 						</Tabs>
 	                </Tab>
 	                <Tab className="filter-tab-content" eventKey={5} title={translate('filters.status.status')}>
-	                  	<Tabs defaultActiveKey={1} position="left" tabWidth={3}>
+	                  	<Tabs defaultActiveKey={1} animation={false} position="left" tabWidth={3}>
 							<Tab className="filter-list-content" eventKey={1} title={translate('filters.status.financingstatus')}>
 								<FilterList title="Financing Status" filterType="sa" {...this.props.filters["sa"]}/>
 						    </Tab>
 						</Tabs>
 	                </Tab>
 	                <Tab className="filter-tab-content" eventKey={6} title={translate('filters.financialamount.financialamount')}>
-	                  	<Tabs defaultActiveKey={1} position="left" tabWidth={3}>
+	                  	<Tabs defaultActiveKey={1} animation={false} position="left" tabWidth={3}>
 							<Tab className="filter-list-content" eventKey={1} title={translate('filters.financialamount.financialamount')}>
 								<FilterSlider filterType="fin_amount" valueSymbol="PHP" {...this.props.filters["fin_amount"]} 
 									valueMin={this.props.filters["fin_amount"]? parseInt(this.props.filters["fin_amount"].items[1]) : 0} 
@@ -112,7 +112,7 @@ class FilterTabContent extends React.Component {
 						</Tabs>
 	                </Tab>
 	                <Tab className="filter-tab-content" eventKey={7} title={translate('filters.physical.physicalandfinancial')}>
-	                  	<Tabs defaultActiveKey={1} position="left" tabWidth={3}>
+	                  	<Tabs defaultActiveKey={1} animation={false} position="left" tabWidth={3}>
 							<Tab className="filter-list-content" eventKey={1} title={translate('filters.physical.percentagereached')}>
 								<FilterSlider filterType="pr" valueSymbol="%" {...this.props.filters["pr"]} 
 									valueMin={this.props.filters["pr"]? parseInt(this.props.filters["pr"].items[1]) : 0} 
