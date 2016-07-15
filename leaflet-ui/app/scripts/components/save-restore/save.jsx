@@ -86,7 +86,7 @@ const Save = onClickOutside(React.createClass({
 			</div> 
 			<br />
 			<div className="chart-type-selector">			  
-			  <Button className="btn btn-sm" bsStyle='success' onClick={this.saveMapState.bind(this)}>Save</Button>       
+			  <Button className="btn btn-sm" bsStyle='success' onClick={this.saveMapState}>Save</Button>       
             </div>
             {this.props.stateToCollect.saveMap.message!=undefined?            	
             	<div className="chart-type-selector">			  

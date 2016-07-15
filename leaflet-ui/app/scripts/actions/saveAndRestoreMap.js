@@ -1,6 +1,8 @@
 import * as Constants from '../constants/constants';
 import Connector from '../connector/connector';
 import {applyFilter} from './filters';
+import {toggleVisibility} from './map';
+import {getList} from './indicators';
 
 export const saveOK = () => {
   return {
@@ -27,11 +29,19 @@ export const requestSaveMap = (dataToSave) => {
 
 }
 
-export const restoreOK = (results) => { 
+const restoreOK = (results) => { 
   return {
     type: Constants.STATE_RESTORE,
     storedMap: results
   }
+}
+
+ const loadAll = (results) => { 
+
+  /*return {
+    type: Constants.STATE_RESTORE,
+    storedMap: results
+  }*/
 }
 
 export const restoreError = (message) => {
@@ -43,14 +53,30 @@ export const restoreError = (message) => {
 
 export const requestRestoreMap = (mapKey) => {
   return (dispatch, getState) =>{
+    dispatch(getList());
+
     Connector.restoreMap(mapKey).then((results)=>{
-        debugger;
-        dispatch(restoreOK(results));
-        //dispatch(loadAll(results));
+        if(results) {
+
+          dispatch(restoreOK(results));
+
+          results.data.map.visibleLayers.forEach(l=>{
+            dispatch(toggleVisibility(l, false));
+          });
+          //dispatch(loadAll(results));
+
+        } else {
+          restoreError('No map!')
+        }
         
     }).catch((err)=>{
         dispatch(restoreError(err.message));
     });
+    
   }
 
+}
+
+const makeAction=(name,data)=>{
+ return {type:name,...data} 
 }

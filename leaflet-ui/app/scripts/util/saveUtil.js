@@ -46,7 +46,17 @@ export const collectValuesToSave = (state)=>{
         Object.assign(params, {'pr': idsSelected});     
     }
     if(map){ 
-        Object.assign(params, {'map': map.toJS()});
+        let mapJS = map.toJS();
+        let bounds = map.toJS().bounds;
+        let basemap = map.toJS().basemap;
+        let allLayers = map.toJS().layers;
+        let visibleLayers = [];
+        map.toJS().layers.map((f)=>f.layers.map((e)=>{if(e.visible){visibleLayers.push(e.id)}}));
+        Object.assign(params, {'map': {
+            'bounds' : bounds,
+            'basemap' : basemap,
+            'visibleLayers' : visibleLayers
+        }});
     }
     debugger;
     return params;
