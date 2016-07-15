@@ -77,13 +77,13 @@ const view=React.createClass({
 
 
 	render(){
-		const dataBounds=this.props.map.get('bounds').toJS();
-		const {southWest,northEast} =dataBounds ;
+		console.log('render component map.jsx');
+		const {southWest, northEast} = this.props.map.get('bounds').toJS();
 		const bounds = latLngBounds(latLng(southWest[0], southWest[1]),latLng(northEast[0],northEast[1]));
 
 		return (
 
-				<Map className="map" zoom={13} bounds={bounds} onMoveEnd={this.handleChangeBounds}>
+				<Map className="map" bounds={bounds} onMoveEnd={this.handleChangeBounds}>
 				<TileLayer url={this.props.map.get('basemap').get('url')}/>
 			
 				<Layers layers={this.props.map.get('layers')} charts={this.props.charts} fundingType={this.props.fundingType}/>
