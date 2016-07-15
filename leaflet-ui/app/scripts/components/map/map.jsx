@@ -80,7 +80,6 @@ const view=React.createClass({
 		const dataBounds=this.props.map.get('bounds').toJS();
 		const {southWest,northEast} =dataBounds ;
 		const bounds = latLngBounds(latLng(southWest[0], southWest[1]),latLng(northEast[0],northEast[1]));
-
 		return (
 
 				<Map className="map" zoom={13} bounds={bounds} onMoveEnd={this.handleChangeBounds}>

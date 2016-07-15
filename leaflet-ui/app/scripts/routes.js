@@ -10,6 +10,7 @@ import Charts from './components/charts/chartsTab';
 import Admin from './components/admin/admin';
 import AddIndicator from './components/admin/addIndicator.jsx';
 import ListIndicator from './components/admin/listIndicator.jsx';
+import Printable from './components/print/printable.jsx';
 
 const NoMatch = React.createClass({
   
@@ -31,8 +32,11 @@ const Root = React.createClass({
 
 
 export default (
+
   <Route path="/" component={Root}>
-  
+      
+    <Route path="/map/printable" component={Printable}></Route>
+
     <Route path="/map" component={Regular}>
       <Route path="tools" component={Tools}/>
       <Route path="charts" component={Charts}/>
@@ -50,7 +54,7 @@ export default (
         <Route path="/admin/add/indicator" component={AddIndicator}/>
         <Route path="/admin/list/indicator" component={ListIndicator}/>
       </Route>
-    <IndexRoute component={Tools}/>
+      <IndexRoute component={Tools}/>
     </Route>
  
   <IndexRedirect from="" to="/map/tools"/>
