@@ -27,7 +27,7 @@ export const loadDefaultLayer=()=>{
 }
 
 export const applyFiltersToLayers=(filters)=>{
-	return (dispatch, getState) => {		
+	return (dispatch, getState) => {
 		getDefaults(getState().map.get('layers')).forEach(l=>{
 			loadLayerById(dispatch,getState,l.get("id"));
 		});

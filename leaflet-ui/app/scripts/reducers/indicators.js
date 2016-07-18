@@ -3,11 +3,10 @@ import {Map} from 'immutable'
 
 const indicatorWizard = (state = new Map({step:'template',template:'region',name:'',css:'red',status:"CREATE_NEW"}), action) => {
 
+
   switch (action.type) {
 
-
     case Constants.INDICATOR_LIST_LOADED:
-      
     return state.set('indicators',action.data)
     
     case Constants.CHANGE_STEP:

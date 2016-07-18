@@ -21,21 +21,22 @@ export const collectValuesToSave = (state)=>{
     let projectSearch=state.projectSearch;
     let map=state.map;
     let params={};
+    let filterParams={};
     let selection;
     for(let param in filters){
         let options=filters[param].items;
         if (filters[param].isRange){
             selection=collectRange(filters[param]);
             if(selection.minSelected){              
-                params[param+'_min']=selection.minSelected;         
+                filterParams[param+'_min']=selection.minSelected;         
             }
             if(selection.maxSelected){              
-                params[param+'_max']=selection.maxSelected;         
+                filterParams[param+'_max']=selection.maxSelected;         
             }
         } else {
             selection=collect(options);
             if(selection.length > 0){
-                params[param]=selection;            
+                filterParams[param]=selection;            
             }
         }
     }
@@ -43,8 +44,9 @@ export const collectValuesToSave = (state)=>{
     if (projectSearch){
         let idsSelected = [];
         projectSearch.selected.map(it => idsSelected.push(it.id));
-        Object.assign(params, {'pr': idsSelected});     
+        Object.assign(filterParams, {'pr': idsSelected});     
     }
+    Object.assign(params, {'filters': filterParams});
     if(map){ 
         let mapJS = map.toJS();
         let bounds = map.toJS().bounds;

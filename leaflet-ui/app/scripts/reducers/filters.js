@@ -29,6 +29,16 @@ const filters = (state = {filterMain: {}}, action) => {
       return Object.assign({}, state, {
         filterMain: filterBackup
       })
+    case Constants.STATE_RESTORE:
+      let copyState = cloneDeep(state.filterMain);
+      if(action.storedMap.data.filters){
+        Object.keys(action.storedMap.data.filters).map(k=>{          
+          action.storedMap.data.filters[k].forEach(e=>{            
+            updateFilterSelection(copyState[k], e, true);
+          }); 
+        });        
+      }
+      return Object.assign({}, state, { filterMain: copyState})
     case Constants.RESET_FILTER:
       let actionDummy = {type: Constants.SELECT_ALL_FILTER_LIST, item: {selected: false}};
       filterMain = cloneDeep(state.filterMain);      
