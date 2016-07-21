@@ -758,11 +758,14 @@
 		 * http://danieljlewis.org/2010/06/07/jenks-natural-breaks-algorithm-in-python/
 		 */
 		this.getClassJenks = function(nbClass) {
-
 			if (this._nodata())
 				return;
 
 			var dataList = this.sorted();
+			//fix just in case we have less data than nbClass
+			if(dataList.length<nbClass){
+				nbClass = dataList.length;
+			}
 
 			// now iterate through the datalist:
 			// determine mat1 and mat2
