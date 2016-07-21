@@ -60,6 +60,5 @@ export const collectValuesToSave = (state)=>{
             'visibleLayers' : visibleLayers
         }});
     }
-    debugger;
     return params;
 }
