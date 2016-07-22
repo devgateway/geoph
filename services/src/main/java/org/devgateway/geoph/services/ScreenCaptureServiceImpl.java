@@ -101,6 +101,24 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
     }
 
     @Override
+    public String captureKeyToPDF(String key){
+        LOGGER.debug("Capturing pdf for key: " + key);
+
+        String name = key;
+        String filename = name + PDF_EXTENSION;
+        try {
+            File imageFile = createImageFromUrl(imgUrl+key, name + PNG_EXTENSION);
+            createPDF(filename, imageFile);
+            LOGGER.debug("PDF done: " + filename);
+        } catch (Exception e) {
+            LOGGER.error("Error creating pdf " + e.getMessage());
+            filename = null;
+        }
+        return filename;
+
+    }
+
+    @Override
     public String captureUrlToPDF(String url){
         LOGGER.debug("Capturing pdf for URL: " + url);
 
