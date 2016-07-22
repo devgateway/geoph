@@ -6,6 +6,8 @@ package org.devgateway.geoph.core.services;
  */
 public interface ScreenCaptureService {
 
+    String captureKeyToImage(String key) throws Exception;
+
     String captureUrlToImage(String url) throws Exception;
 
     String captureUrlToPDF(String url);
