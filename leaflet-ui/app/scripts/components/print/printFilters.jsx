@@ -32,9 +32,7 @@ class FilterListItem extends React.Component {
 class PrintableFilters extends React.Component {
 
 	render() {
-  		debugger;
-  		let filtersSelected = getSelectedFilterNames(this.props.filters);
-  		debugger;
+		let filtersSelected = getSelectedFilterNames(this.props.filters);
   		return (
 	    	<div className="print-filters">
 	    		<h1>{translate('header.filters.title')}</h1>
@@ -118,104 +116,104 @@ class PrintableFilters extends React.Component {
 			    		</div>
 		    		</div>
 		    	: null}
-		    	{(filtersSelected["dt_start_min"] || filtersSelected["dt_start_max"])?
+		    	{filtersSelected["dt_start"]?
 	    			<div>	
 			    		<div className="print-filter-title">
 			    			{translate('filters.dates.implementperiodstart')}
 			    		</div>
-			    		{filtersSelected["dt_start_min"]?
+			    		{filtersSelected["dt_start"].from?
 				    		<div className="print-filter-date">
-				    			<b>{translate('filters.dates.from')}: </b>{filtersSelected["dt_start_min"]}
+				    			<b>{translate('filters.dates.from')}: </b>{filtersSelected["dt_start"].from}
 				    		</div>
 				    	:null}
-				    	{filtersSelected["dt_start_max"]?
+				    	{filtersSelected["dt_start"].to?
 				    		<div className="print-filter-date">
-				    			<b>{translate('filters.dates.to')}: </b>{filtersSelected["dt_start_max"]}
+				    			<b>{translate('filters.dates.to')}: </b>{filtersSelected["dt_start"].to}
 				    		</div>
 				    	:null}
 		    		</div>
 		    	: null}
-		    	{(filtersSelected["dt_end_min"] || filtersSelected["dt_end_max"])?
+		    	{filtersSelected["dt_end"]?
 	    			<div>	
 			    		<div className="print-filter-title">
 			    			{translate('filters.dates.implementperiodend')}
 			    		</div>
-			    		{filtersSelected["dt_end_min"]?
+			    		{filtersSelected["dt_end"].from?
 				    		<div className="print-filter-date">
-				    			<b>{translate('filters.dates.from')}: </b>{filtersSelected["dt_end_min"]}
+				    			<b>{translate('filters.dates.from')}: </b>{filtersSelected["dt_end"].from}
 				    		</div>
 				    	:null}
-				    	{filtersSelected["dt_end_max"]?
+				    	{filtersSelected["dt_end"].to?
 				    		<div className="print-filter-date">
-				    			<b>{translate('filters.dates.to')}: </b>{filtersSelected["dt_end_max"]}
+				    			<b>{translate('filters.dates.to')}: </b>{filtersSelected["dt_end"].to}
 				    		</div>
 				    	:null}
 		    		</div>
 		    	: null}
-		    	{(filtersSelected["pp_start_min"] || filtersSelected["pp_start_max"])?
+		    	{filtersSelected["pp_start"]?
 	    			<div>	
 			    		<div className="print-filter-title">
 			    			{translate('filters.dates.validityperiodstart')}
 			    		</div>
-			    		{filtersSelected["pp_start_min"]?
+			    		{filtersSelected["pp_start"].from?
 				    		<div className="print-filter-date">
-				    			<b>{translate('filters.dates.from')}: </b>{filtersSelected["pp_start_min"]}
+				    			<b>{translate('filters.dates.from')}: </b>{filtersSelected["pp_start"].from}
 				    		</div>
 				    	:null}
-				    	{filtersSelected["pp_start_max"]?
+				    	{filtersSelected["pp_start"].to?
 				    		<div className="print-filter-date">
-				    			<b>{translate('filters.dates.to')}: </b>{filtersSelected["pp_start_max"]}
+				    			<b>{translate('filters.dates.to')}: </b>{filtersSelected["pp_start"].to}
 				    		</div>
 				    	:null}
 		    		</div>
 		    	: null}
-		    	{(filtersSelected["pp_end_min"] || filtersSelected["pp_end_max"])?
+		    	{filtersSelected["pp_end"]?
 	    			<div>	
 			    		<div className="print-filter-title">
 			    			{translate('filters.dates.validityperiodend')}
 			    		</div>
-			    		{filtersSelected["pp_end_min"]?
+			    		{filtersSelected["pp_end"].from?
 				    		<div className="print-filter-date">
-				    			<b>{translate('filters.dates.from')}: </b>{filtersSelected["pp_end_min"]}
+				    			<b>{translate('filters.dates.from')}: </b>{filtersSelected["pp_end"].from}
 				    		</div>
 				    	:null}
-				    	{filtersSelected["pp_end_max"]?
+				    	{filtersSelected["pp_end"].to?
 				    		<div className="print-filter-date">
-				    			<b>{translate('filters.dates.to')}: </b>{filtersSelected["pp_end_max"]}
+				    			<b>{translate('filters.dates.to')}: </b>{filtersSelected["pp_end"].to}
 				    		</div>
 				    	:null}
 		    		</div>
 		    	: null}
-		    	{(filtersSelected["pr_min"] || filtersSelected["pr_max"])?
+		    	{filtersSelected["pr"]?
 	    			<div>	
 			    		<div className="print-filter-title">
 			    			{translate('filters.physical.percentagereached')}
 			    		</div>
-			    		{filtersSelected["pr_min"]?
+			    		{filtersSelected["pr"].from?
 				    		<div className="print-filter-date">
-				    			<b>{translate('filters.dates.from')}: </b>{filtersSelected["pr_min"]}
+				    			<b>{translate('filters.dates.from')}: </b>{filtersSelected["pr"].from}
 				    		</div>
 				    	:null}
-				    	{filtersSelected["pr_max"]?
+				    	{filtersSelected["pr"].to?
 				    		<div className="print-filter-date">
-				    			<b>{translate('filters.dates.to')}: </b>{filtersSelected["pr_max"]}
+				    			<b>{translate('filters.dates.to')}: </b>{filtersSelected["pr"].to}
 				    		</div>
 				    	:null}
 		    		</div>
 		    	: null}
-		    	{(filtersSelected["fin_amount_min"] || filtersSelected["fin_amount_max"])?
+		    	{filtersSelected["fin_amount"]?
 	    			<div>	
 			    		<div className="print-filter-title">
 			    			{translate('filters.financialamount.financialamount')}
 			    		</div>
-			    		{filtersSelected["fin_amount_min"]?
+			    		{filtersSelected["fin_amount"].from?
 				    		<div className="print-filter-date">
-				    			<b>{translate('filters.dates.from')}: </b>{filtersSelected["fin_amount_min"]}
+				    			<b>{translate('filters.dates.from')}: </b>{filtersSelected["fin_amount"].from}
 				    		</div>
 				    	:null}
-				    	{filtersSelected["fin_amount_max"]?
+				    	{filtersSelected["fin_amount"].to?
 				    		<div className="print-filter-date">
-				    			<b>{translate('filters.dates.to')}: </b>{filtersSelected["fin_amount_max"]}
+				    			<b>{translate('filters.dates.to')}: </b>{filtersSelected["fin_amount"].to}
 				    		</div>
 				    	:null}
 		    		</div>

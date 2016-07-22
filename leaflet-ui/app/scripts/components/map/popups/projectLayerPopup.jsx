@@ -33,14 +33,14 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
   },
 
   getTabData(tab){
-    const {filtes, projectSearch, feature} = this.props;
+    const {filters, projectSearch, feature} = this.props;
     if (feature){
-      let filters = collectValues(filters, projectSearch);    
-      Object.assign(filters, {'lo': [feature.properties.id]});  
+      let filt = collectValues(filters, projectSearch);  
+      Object.assign(filt, {'lo': [feature.properties.id]});  
       if (tab=='projectList'){
-        Object.assign(filters, {'page': 1, 'size': 25}); 
+        Object.assign(filt, {'page': 1, 'size': 25}); 
       }  
-      this.props.onGetPopupData(filters, tab);
+      this.props.onGetPopupData(filt, tab);
     }
   },
 
@@ -93,7 +93,7 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
                   showTotalHeader={true}
                   dimension="name"/>
                 </div>
-              : <div className="loading-icon"></div>
+              : <div className="loading-css"><div></div></div>
             :null}
           </div>
         :null}
@@ -110,7 +110,7 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
                   showTotalHeader={true}
                   dimension="name"/>
                 </div>
-              : <div className="loading-icon"></div>
+              : <div className="loading-css"><div></div></div>
             :null}
           </div>
         :null}
@@ -127,7 +127,7 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
                   showTotalHeader={true}
                   dimension="name"/>
                 </div>
-              : <div className="loading-icon"></div>
+              : <div className="loading-css"><div></div></div>
             :null}
           </div>
         :null}
@@ -144,7 +144,7 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
                   showTotalHeader={true}
                   dimension="name"/>
                 </div>
-              : <div className="loading-icon"></div>
+              : <div className="loading-css"><div></div></div>
             :null}
           </div>
         :null} 
