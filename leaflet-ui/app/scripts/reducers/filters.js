@@ -42,6 +42,7 @@ const filters = (state = {filterMain: {}}, action) => {
           } else {
             storedFilters[k].forEach(e=>{            
               updateFilterSelection(copyState[k], e, true);
+              updateFilterCounters(copyState[k]);
             }); 
           }
         });        
