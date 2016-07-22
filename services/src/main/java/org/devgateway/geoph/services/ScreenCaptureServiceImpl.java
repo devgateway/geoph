@@ -64,6 +64,25 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
     @Value("${screen.capture.waiting.time}")
     private Long timeToWait;
 
+    @Value("${screen.capture.img.url}")
+    private String imgUrl;
+
+
+    @Override
+    public String captureKeyToImage(String key) {
+        LOGGER.debug("Capturing image for URL: " + imgUrl + key);
+
+        String filename = key + PNG_EXTENSION;
+        try {
+            createImageFromUrl(imgUrl + key, filename);
+            LOGGER.debug("Image done: " + filename);
+        } catch (Exception e) {
+            LOGGER.error("Error creating image " + e.getMessage());
+            filename = null;
+
+        }
+        return filename;
+    }
 
     @Override
     public String captureUrlToImage(String url) {

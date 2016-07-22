@@ -136,6 +136,13 @@ public class MapController {
         return screenCaptureService.captureUrlToImage(url);
     }
 
+
+
+    @RequestMapping(value = "/keyToImage", method = GET)
+    public String printPageByKey(@RequestParam(value = "key", required = true) String key) throws Exception {
+        return screenCaptureService.captureKeyToImage(key);
+    }
+
     @RequestMapping(value = "/urlToPdf", method = GET)
     public String convertPageToPDF(@RequestParam(value = "url", required = true) String url) throws Exception {
         return screenCaptureService.captureUrlToPDF(url);

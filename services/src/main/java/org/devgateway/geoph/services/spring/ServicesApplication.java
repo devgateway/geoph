@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 
 /**
  * @author dbianco
@@ -11,7 +12,10 @@ import org.springframework.context.annotation.PropertySource;
  */
 @SpringBootApplication
 @ComponentScan("org.devgateway.geoph.services")
-@PropertySource("classpath:/org/devgateway/geoph/services/application.properties")
+@PropertySources({
+        @PropertySource("classpath:/org/devgateway/geoph/services/application.properties"),
+        @PropertySource(value = "file:${CONF_FILE}", ignoreResourceNotFound = true)
+})
 public class ServicesApplication {
 
     public static void main(String[] args) {
