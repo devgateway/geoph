@@ -14,6 +14,9 @@ const collect=(options)=>{
     return values;
 }
 
+const collectRange=(options)=>{
+    return {'minSelected': options.minSelected, 'maxSelected': options.maxSelected};
+}
 
 export const collectValuesToSave = (state)=>{
     console.log('collectValuesToSave');

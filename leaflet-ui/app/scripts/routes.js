@@ -35,7 +35,7 @@ export default (
 
   <Route path="/" component={Root}>
       
-    <Route path="/map/printable" component={Printable}></Route>
+    <Route path="/print/:key" component={Printable}></Route>
 
     <Route path="/map" component={Regular}>
       <Route path="tools" component={Tools}/>
