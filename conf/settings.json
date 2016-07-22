@@ -16,7 +16,7 @@
 		"FUNDING_GEOJSON":"/geodata/stats/region/funding",
 	  	"INDICATOR_UPLOAD":"/indicators/upload",
 	  	"INDICATOR_LIST":"/indicators",
-	  	"INDICATOR":"/indicators/${id}",
+	  	"INDICATOR":"/geodata/indicators/${indicator_id}",
 	  	
 		"FILTER_LIST": {
 			"development": {
@@ -38,7 +38,7 @@
 				"dp": "/filters/devprio",
 				"cs": "/filters/cscope",
 				"co": "/filters/coverage",
-				"pr": {"mock": true, "path": "./json-data/percentageTarget.json"}				
+				"pr": "/filters/reachedPhysicalProgressPeriod"				
 			},
 			"production": {
 				"st": "/filters/sector",
@@ -59,7 +59,7 @@
 				"dp": "/filters/devprio",
 				"cs": "/filters/cscope",
 				"co": "/filters/coverage",
-				"pr": {"mock": true, "path": "./json-data/percentageTarget.json"}				
+				"pr": "/filters/reachedPhysicalProgressPeriod"			
 			}
 		},
 
@@ -98,6 +98,11 @@
 		"SAVE": {
 			"development": "/maps/save",				
 			"production": "/maps/save"		
+		},
+
+		"RESTORE": {
+			"development": "/maps/key/${mapId}",				
+			"production": "/maps/key/${mapId}"		
 		}
 		
 	},
