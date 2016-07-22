@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import InputRange from 'react-input-range';
 import { setFilterRange, fetchFilterDataIfNeeded } from '../../actions/filters';
 import { formatValue } from '../../util/transactionUtil';
-//require('../extra/react-input-range');
+import translate from '../../util/translate.js';
 
 
 class FilterSlider extends React.Component {
@@ -38,10 +38,10 @@ class FilterSlider extends React.Component {
 		        </div>	
 		        <div className="range-filter-selection">		     
 			        <div className="">
-		        		<span>Minimum: <b>{formatValue(minSelected) + this.props.valueSymbol} </b></span>
+		        		<span>{translate('filters.physical.minimum')}: <b>{formatValue(minSelected) + this.props.valueSymbol} </b></span>
 			        </div>
 		        	<div className="">
-		        		<span>Maximum: <b>{formatValue(maxSelected) + this.props.valueSymbol}</b></span>
+		        		<span>{translate('filters.physical.maximum')}: <b>{formatValue(maxSelected) + this.props.valueSymbol}</b></span>
 			        </div>
 	        	</div>
 	        	{this.state.errorMessage.length>0?

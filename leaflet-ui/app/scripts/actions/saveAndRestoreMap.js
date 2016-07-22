@@ -1,6 +1,8 @@
 import * as Constants from '../constants/constants';
 import Connector from '../connector/connector';
-import {applyFilter} from './filters';
+import {applyFilter, loadAllFilterLists} from './filters';
+import {toggleVisibility} from './map';
+import {getList} from './indicators';
 
 export const saveOK = () => {
   return {
@@ -27,38 +29,61 @@ export const requestSaveMap = (dataToSave) => {
 
 }
 
-export const restoreOK = (results) => {
-  console.log('restoreOK action');
-  let filters = JSON.parse(results.jsonAppMap);
-  //restore the map
-  Connector.getProjectsWithFilters(filters)
-  .then(req => 
-    dispatch(applyFilter(filters))
-  )
-  
-  return {
-    type: Constants.REQUEST_RESTORE_MAP,
-    restoreMap: {
-      message: 'Restore map done!',
-      map: results
-    }
-  }
-}
 
 export const restoreError = (message) => {
   return {
-    type: Constants.REQUEST_RESTORE_MAP,
-    restoreMap: {message: message}
+    type: Constants.STATE_RESTORE_ERROR,
+    message: message
   }
 }
 
-export const requestRestoreMap = (mapToRestore) => {
+
+ /*
+ const loadIndicatorList =()=>{
+  return new Promise( (resolve, reject) => {
+      Connector.getIndicatorList().then((indicatorData) => {              
+        resolve(indicatorData);   
+      }).catch(reject)
+    });
+} 
+
+*/
+const loadIndicatorList =()=>{
+  return Connector.getIndicatorList();
+} 
+
+const loadMap =(mapKey)=>{
+  return Connector.restoreMap(mapKey);
+} 
+
+export const requestRestoreMap = (mapKey) => {
   return (dispatch, getState) =>{
-    Connector.restoreMap(mapToRestore).then((results)=>{
-        dispatch(restoreOK(results));
+    loadIndicatorList().then((data) => {
+      dispatch(makeAction(Constants.INDICATOR_LIST_LOADED,{data}));
+      dispatch(loadAllFilterLists());
+      loadMap(mapKey).then((storedMap)=>{
+          if(storedMap) {
+            dispatch(makeAction(Constants.STATE_RESTORE,{storedMap}));
+            dispatch(applyFilter(storedMap.data.filters));
+            storedMap.data.map.visibleLayers.forEach(l=>{
+              dispatch(toggleVisibility(l, false));
+            });
+
+          } else {
+            dispatch(makeAction(Constants.STATE_RESTORE_ERROR,'No map!'));
+          }
+          
+      }).catch((err)=>{
+          dispatch(makeAction(Constants.STATE_RESTORE_ERROR,{err}));
+      });
+      
     }).catch((err)=>{
-        dispatch(restoreError(err.data.message));
+      dispatch(makeAction(Constants.INDICATOR_FAILED,{err}));
     });
   }
 
+}
+
+const makeAction=(name, data)=>{
+ return {type:name,...data} 
 }

@@ -1,0 +1,166 @@
+{
+	"welcome": "This is a welcome message!!",
+	"general": {
+		"hello": "Hello! This is a test..."
+	},
+
+	"header": {
+		"title": "Pambansang Pangasiwaan sa Kabuhayan at Pagpapaunlad",
+		"language": {
+			"english": "Ingles",
+			"philippine": "Pilipino",
+			"spanish": "Espanyol"
+		},
+		"settings": {
+			"title": "Tagpuan",
+			"fundingtype": "Uri ng Pondo",
+			"commitments": "Pangako",
+			"disbursements": "Pagbabayad",
+			"expenditures": "Paggasta",
+			"actual": "Tunay",
+			"target": "Target",
+			"cancelled": "Kinansela"
+		},
+		"basemap": {
+			"title": "Basemap",
+			"select": "Piliin Basemap",
+			"imagery": "Guniguni",
+			"street": "Kalye",
+			"ligthgray": "Liwanag Abo",
+			"darkgray": "Madilim Abo",
+			"terrain": "Lupain",
+			"topographic": "Topographic",
+			"oceans": "Oceans",
+			"openstreetmap": "Open Street Map"
+		},
+		"filters": {
+			"title": "Piltro"
+		}
+	},
+
+	"filters":{
+		"funding": {
+			"funding": "Pagpopondo",
+			"fundingsource": "Pinagmulan ng Pondo",
+			"fundingtypeoda": "Uri ng Pondo (ODA)",
+			"fundingtype": "Uri ng Pondo ",
+			"financinginstitutionoda": "Nagpopondong Institusyon (ODA)",
+			"financinginstitution": "Nagpopondong Institusyon"
+		},
+		"agency": {
+			"agency": "Ahensya",
+			"implementingagency": "Nagpapatupad na Ahensya"
+		},
+		"sectors": {
+			"sectors": "Mga Sektor",
+			"sector": "Sektor",
+			"philippinesdevelopment": "Pilipinas Pagsulong Kaunahan",
+			"relevanceclimate": "Kaugnayan sa Klima",
+			"gender": "Kasarian"
+		},
+		"locations": {
+			"locations": "Lokasyon",
+			"coveragescope": "Lawak ng Nasasakupan",
+			"coverage": "Nasasakupan"
+		},
+		"dates": {
+			"dates": "Petsa",
+			"implementperiodstart": "Simula ng Implementasyon",
+			"implementperiodend": "Pagtatapos ng Implementasyon",
+			"startdate": "Start Date",
+			"enddate": "End Date",
+			"validityperiodstart": "Kabisaan ng Pagsisimula ng Loan/Grant",
+			"validityperiodend": "Kabisaan ng Pagtatapos ng Loan/Grant",
+			"from": "Mula",
+			"to": "Hanggang",
+			"notset": "Hindi Pinili"
+		},
+		"status": {
+			"status": "Kalagayan",
+			"financingstatus": "Kalagayan ng Pinansya"
+		},
+		"financialamount": {
+			"financialamount": "Halaga ng Pinansya"
+		},
+		"physical": {
+			"physicalandfinancial": "Pisikal at Pinansyal",
+			"percentagereached": "Porsiyento ng Naabot na Target",
+			"minimum": "Minimo",
+			"maximum": "Maksimum",
+			"physicalstatus": "Pisikal Kalagayan",
+			"alertlevel": "Alerto Antas"
+		},
+		"buttons": {
+			"reset": "Muling i-set",
+			"cancel": "Kanselahin",
+			"apply": "Gamitin",
+			"search": "Hanapin",
+			"go": "Pumunta"
+		}
+	},
+
+	"toolview": {
+		"title": "Kasangkapan Tingnan",
+		"projectsearch": {
+			"title": "Humanap ng Proyekto",
+			"placeholder": "Humanap ng Proyekto (Paki type ng tatlong karakter)",
+			"apply": "Gamitin",
+			"searchresults": "Resulta ng Paghahanap",
+			"selectedresults": "Piniling Resulta"
+		},
+		"layers": {
+			"title": "Ayusin ang layers para makita ang detalyadong datos",
+			"level": "Antas",
+			"colors": "Kulay",
+			"region": "Rehiyon",
+			"province": "Probinsya",
+			"municipality": "Munisipyo",
+			"quality": "Kalidad",
+			
+			"projects": "Proyekto",
+			"stats": "Estadistika",
+			"poverty": "Kahirapan",
+			"population": "Populasyon",
+			"funding": "Pagpopondo Total",
+			"indicators": "Tagapagpahiwatig Estatistiko",
+			"geophotos": "Geo Litrato"
+		}
+	},
+
+	"chartview": {
+		"title": "Tsart Tingnan",
+		"fundingagency": "Institusyon ng Gastusan",
+		"barchart": "Tsart Bar",
+		"piechart": "Tsart Pie",
+		"funding": "Pagpopondo",
+		"projectcount": "Bilang ng Proyekto",
+		"implementingagency": "Nagpapatupad na Ahensya",
+		"physicalstatus": "Pisikal Kalagayan",
+		"sector": "Sektor",
+		"nodata": "Walang makuhang datos",
+		"more": "Pa",
+		"less": "Kulang",
+		"expandpanel": "Lumawak Panel",
+		"collapsepanel": "Pagbagsak Panel",
+		"projects": "Proyekto",
+		"others": "Mga iba"
+	},
+
+	"infowindow": {
+		"tab": {
+			"financinginstitution": "Institusyon Gastusan",
+			"implementingagency": "Nagpapatupad Ahensya",
+			"physicalstatus": "Pisikal Kalagayan",
+			"sector": "Sektor",
+			"projectlist": "Listahan Proyekto",
+			"totalamount": "Total Dami"
+		},
+		"projectlist": {
+			"title": "Proyekto Pamagat",
+			"financinginstitution": "Pagpopondo Ahensya",
+			"actualcommitments": "Pangako",
+			"actualdisbursements": "Pagbabayad"
+		}
+	}
+
+}

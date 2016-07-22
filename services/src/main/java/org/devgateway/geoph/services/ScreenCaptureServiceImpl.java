@@ -64,6 +64,25 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
     @Value("${screen.capture.waiting.time}")
     private Long timeToWait;
 
+    @Value("${screen.capture.img.url}")
+    private String imgUrl;
+
+
+    @Override
+    public String captureKeyToImage(String key) {
+        LOGGER.debug("Capturing image for URL: " + imgUrl + key);
+
+        String filename = key + PNG_EXTENSION;
+        try {
+            createImageFromUrl(imgUrl + key, filename);
+            LOGGER.debug("Image done: " + filename);
+        } catch (Exception e) {
+            LOGGER.error("Error creating image " + e.getMessage());
+            filename = null;
+
+        }
+        return filename;
+    }
 
     @Override
     public String captureUrlToImage(String url) {
@@ -79,6 +98,24 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
 
         }
         return filename;
+    }
+
+    @Override
+    public String captureKeyToPDF(String key){
+        LOGGER.debug("Capturing pdf for key: " + key);
+
+        String name = key;
+        String filename = name + PDF_EXTENSION;
+        try {
+            File imageFile = createImageFromUrl(imgUrl+key, name + PNG_EXTENSION);
+            createPDF(filename, imageFile);
+            LOGGER.debug("PDF done: " + filename);
+        } catch (Exception e) {
+            LOGGER.error("Error creating pdf " + e.getMessage());
+            filename = null;
+        }
+        return filename;
+
     }
 
     @Override

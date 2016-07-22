@@ -5,9 +5,10 @@ import FilterPopup from '../filter/filterPopup'
 import Settings from '../controls/settings'
 import Basemap from '../map/baseMap/baseMap'
 import SaveMap from '../save-restore/save'
+import {Message} from '../lan/'
 
 require('./header.scss');
-export default class Header extends React.Component {
+export default class HeaderComponent extends React.Component {
 
   constructor() {
     super();
@@ -17,7 +18,7 @@ export default class Header extends React.Component {
     return (
       <div className="header">
         <div className="heading">
-          <h1>National Economic Development Authority (NEDA)</h1>
+          <h1><Message k={"header.title"}/></h1>
         </div>
         <div className="title">
           <h2>Philippines Closed / Terminated Project Data Map</h2>
@@ -33,8 +34,3 @@ export default class Header extends React.Component {
     )
   }
 }
-
-
-
-
-export default Header;

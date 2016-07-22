@@ -39,6 +39,7 @@ public class ConfigController {
         allConfig.put("executingAgenciesCount", service.countExecutingAgencies());
         allConfig.put("targetPhysicalProgressPeriod", service.getTargetPhysicalProgressPeriod());
         allConfig.put("actualPhysicalProgressPeriod", service.getActualPhysicalProgressPeriod());
+        allConfig.put("reachedPhysicalProgressPeriod", service.getReachedPhysicalProgressPeriod());
 
         return allConfig;
     }

@@ -5,6 +5,7 @@ import FilterTabs from './filterTabs.jsx';
 import {applyFilter, openFilter, cancelFilter, resetFilter}  from '../../actions/filters';
 import { clearAllResults, clearAllProjectSelected } from '../../actions/projectSearch';
 import { connect } from 'react-redux'
+import translate from '../../util/translate.js';
 require('./filters.scss');
 
 class FilterPopup extends React.Component {
@@ -43,21 +44,23 @@ class FilterPopup extends React.Component {
 
 	render() {
 		return (
-    	<li onClick={this.showFilterPopup.bind(this)}><div className="options-icons filters"></div>Filters
-			<Modal bsSize='large' aria-labelledby='contained-modal-title-lg'
+    	<li onClick={this.showFilterPopup.bind(this)}>
+    		<div className="options-icons filters"></div>
+    		{translate('header.filters.title')}
+			<Modal animation={false} bsSize='large' aria-labelledby='contained-modal-title-lg'
 			 show={this.state.showModal} onHide={this.cancel.bind(this)} >
 				<Modal.Header closeButton >
 					<Modal.Title>
-						Filters
+						{translate('header.filters.title')}
 					</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
 					<FilterTabs />
 				</Modal.Body>
 				<Modal.Footer>
-					<Button className="btn btn-sm" bsStyle='danger' onClick={this.reset.bind(this)}>Reset</Button>
-        			<Button className="btn btn-sm" bsStyle='warning' onClick={this.cancel.bind(this)}>Cancel</Button>
-        			<Button className="btn btn-sm" bsStyle='success' onClick={this.apply.bind(this)}>Apply</Button>
+					<Button className="btn btn-sm" bsStyle='danger' onClick={this.reset.bind(this)}>{translate('filters.buttons.reset')}</Button>
+        			<Button className="btn btn-sm" bsStyle='warning' onClick={this.cancel.bind(this)}>{translate('filters.buttons.cancel')}</Button>
+        			<Button className="btn btn-sm" bsStyle='success' onClick={this.apply.bind(this)}>{translate('filters.buttons.apply')}</Button>
 				</Modal.Footer>
 			</Modal>
 		</li>
@@ -90,6 +93,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 }
 
 
+const stateToProps = (state, props) => {
+  return {
+    language: state.language
+  };
+}
 
-
-export default connect(null,mapDispatchToProps)(FilterPopup);;
+export default connect(stateToProps, mapDispatchToProps)(FilterPopup);;

@@ -1,4 +1,4 @@
-import {SET_BASEMAP, LAYER_LOAD_SUCCESS, LAYER_LOAD_FAILURE, TOGGLE_LAYER, SET_LAYER_SETTING, INDICATOR_LIST_LOADED} from '../constants/constants';
+import {SET_BASEMAP, LAYER_LOAD_SUCCESS, LAYER_LOAD_FAILURE, TOGGLE_LAYER, SET_LAYER_SETTING, INDICATOR_LIST_LOADED, STATE_RESTORE, CHANGE_MAP_BOUNDS} from '../constants/constants';
 import JenksCssProvider from '../util/jenksUtil.js'
 import Immutable from 'immutable';
 import {getPath,getShapeLayers} from '../util/layersUtil.js';
@@ -9,6 +9,11 @@ const size = 9;
 
 const defaultState = Immutable.fromJS(
 {
+
+  bounds:{
+      southWest: [4.3245014930192, 115.224609375],
+      northEast:[23.140359987886118,134.3408203125]
+  },
   basemap: {
     name: 'street',
     url: '//server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}'
@@ -147,6 +152,26 @@ const map = (state = defaultState, action) => {
 
     case SET_BASEMAP:
     return state.set('basemap', Immutable.fromJS(action.basemap));
+
+    case STATE_RESTORE:
+    //restore 1) zoom and center,or map bounds, and layers  
+    let mapData = action.storedMap.data.map;
+    state = state.set('bounds', Immutable.fromJS({
+      southWest:[mapData.bounds.southWest.lat, mapData.bounds.southWest.lng], 
+      northEast:[mapData.bounds.northEast.lat, mapData.bounds.northEast.lng]
+    }));
+    state = state.set('basemap', Immutable.fromJS(mapData.basemap));
+
+    
+    getShapeLayers(state.get('layers')).forEach(l=>{
+      let visibility = mapData.visibleLayers.find(e=>{
+        return e===l.get('id');})
+      state=state.setIn(getPath(l.get('id'), ['visible']), visibility?true:false);
+    });
+    return state;
+
+    case CHANGE_MAP_BOUNDS:
+    return state.set('bounds', Immutable.fromJS({southWest:action.bounds._southWest, northEast:action.bounds._northEast}));
 
     case INDICATOR_LIST_LOADED:
     return setIndicators(state, action.data);

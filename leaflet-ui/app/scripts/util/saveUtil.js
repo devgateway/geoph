@@ -14,13 +14,9 @@ const collect=(options)=>{
     return values;
 }
 
-const collectBaseMap=(options)=>{
-    return {
-        'name': options._root.entries[0][1]._root.entries[0][1], 
-        'url': options._root.entries[0][1]._root.entries[1][1]
-    };
+const collectRange=(options)=>{
+    return {'minSelected': options.minSelected, 'maxSelected': options.maxSelected};
 }
-
 
 export const collectValuesToSave = (state)=>{
     console.log('collectValuesToSave');
@@ -28,21 +24,22 @@ export const collectValuesToSave = (state)=>{
     let projectSearch=state.projectSearch;
     let map=state.map;
     let params={};
+    let filterParams={};
     let selection;
     for(let param in filters){
         let options=filters[param].items;
         if (filters[param].isRange){
             selection=collectRange(filters[param]);
             if(selection.minSelected){              
-                params[param+'_min']=selection.minSelected;         
+                filterParams[param+'_min']=selection.minSelected;         
             }
             if(selection.maxSelected){              
-                params[param+'_max']=selection.maxSelected;         
+                filterParams[param+'_max']=selection.maxSelected;         
             }
         } else {
             selection=collect(options);
             if(selection.length > 0){
-                params[param]=selection;            
+                filterParams[param]=selection;            
             }
         }
     }
@@ -50,10 +47,21 @@ export const collectValuesToSave = (state)=>{
     if (projectSearch){
         let idsSelected = [];
         projectSearch.selected.map(it => idsSelected.push(it.id));
-        Object.assign(params, {'pr': idsSelected});     
+        Object.assign(filterParams, {'pr': idsSelected});     
     }
+    Object.assign(params, {'filters': filterParams});
     if(map){ 
-        Object.assign(params, {'basemap': collectBaseMap(map)});
+        let mapJS = map.toJS();
+        let bounds = map.toJS().bounds;
+        let basemap = map.toJS().basemap;
+        let allLayers = map.toJS().layers;
+        let visibleLayers = [];
+        map.toJS().layers.map((f)=>f.layers.map((e)=>{if(e.visible){visibleLayers.push(e.id)}}));
+        Object.assign(params, {'map': {
+            'bounds' : bounds,
+            'basemap' : basemap,
+            'visibleLayers' : visibleLayers
+        }});
     }
     return params;
 }

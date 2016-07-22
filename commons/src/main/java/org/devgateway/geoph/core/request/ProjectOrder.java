@@ -13,7 +13,7 @@ public class ProjectOrder {
 
     private boolean ascending = true;
 
-    private String column;
+    private String column = "title";
 
     public boolean getAscending() {
         return ascending;

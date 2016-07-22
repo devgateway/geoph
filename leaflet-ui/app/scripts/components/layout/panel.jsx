@@ -3,6 +3,7 @@ import { Link  } from 'react-router';
 import {Tabs,Tab} from 'react-bootstrap';
 import { connect } from 'react-redux'
 import { togglePanelExpand } from '../../actions/panel';
+import translate from '../../util/translate.js';
 require("./panel.scss");
 
 export default class Panel extends React.Component {
@@ -23,16 +24,16 @@ export default class Panel extends React.Component {
         <ul>
           <li className={(this.props.currentView=='/' || this.props.currentView=='/tools')?"panel-tab active":"panel-tab"}>
             <div onClick={this.togglePanel.bind(this)}>
-              <Link to="/tools" >             
+              <Link to="tools" >             
                 <div className="icon tools"/>
-                <span>Tool View</span>
+                <span>{translate('toolview.title')}</span>
               </Link>
             </div>
           </li>
           <li className={(this.props.currentView=='/charts')?"panel-tab active":"panel-tab"}>
-            <Link to="/charts">
+            <Link to="charts">
               <div className="icon chart"/>
-              <span>Chart View</span>
+              <span>{translate('chartview.title')}</span>
             </Link>
           </li>
         </ul>
@@ -49,7 +50,8 @@ const mapStateToProps = (state, props) => {
   return {
 
     currentView: state.routing.locationBeforeTransitions.pathname,
-    panel: state.panel
+    panel: state.panel,
+    language: state.language
   }
 }
 

@@ -5,10 +5,7 @@
 }
 
 .chart{
-	padding-top: 10px;
-    border-bottom: 1px;
-    border-bottom-color: #A7AEBB;
-    border-bottom-style: solid;
+	
 }
 
 .chart-type-selector{
@@ -69,7 +66,7 @@
 .charts-container{
 	overflow-y: scroll;
     overflow-x: hidden;
-    height: calc(100% - 75px);
+    height: calc(100% - 5px);
 }
 
 .no-data{

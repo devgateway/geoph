@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { searchItemByText } from '../../actions/filters'
+import translate from '../../util/translate.js';
 
 class SearchText extends React.Component {
 
@@ -24,9 +25,9 @@ class SearchText extends React.Component {
   		return (
 	        <div>
 	        	<div className="input-group">
-			      <input ref="keyword" type="text" className="form-control" placeholder="Search..." onKeyUp={this.onKeyUp.bind(this)}/>
+			      <input ref="keyword" type="text" className="form-control" placeholder={translate('filters.buttons.search')+"..."} onKeyUp={this.onKeyUp.bind(this)}/>
 			      <span className="input-group-btn">
-			        <button className="btn btn-success" type="button" onClick={this.triggerSearch.bind(this)}>Go!</button>
+			        <button className="btn btn-success" type="button" onClick={this.triggerSearch.bind(this)}>{translate('filters.buttons.go')}!</button>
 			      </span>
 			    </div>
        

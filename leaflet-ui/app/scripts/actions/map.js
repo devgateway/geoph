@@ -1,4 +1,4 @@
-import  {SET_BASEMAP, TOGGLE_LAYER,LAYER_LOAD_SUCCESS,LAYER_LOAD_FAILURE,SET_LAYER_SETTING }  from '../constants/constants.js';
+import  {SET_BASEMAP, TOGGLE_LAYER,LAYER_LOAD_SUCCESS,LAYER_LOAD_FAILURE,SET_LAYER_SETTING,CHANGE_MAP_BOUNDS }  from '../constants/constants.js';
 import Connector from '../connector/connector.js';
 import {getPath,getDefaults} from '../util/layersUtil.js';
 import {collectValues} from '../util/filterUtil';
@@ -27,7 +27,7 @@ export const loadDefaultLayer=()=>{
 }
 
 export const applyFiltersToLayers=(filters)=>{
-	return (dispatch, getState) => {		
+	return (dispatch, getState) => {
 		getDefaults(getState().map.get('layers')).forEach(l=>{
 			loadLayerById(dispatch,getState,l.get("id"));
 		});
@@ -56,6 +56,15 @@ export const toggleVisibility=(id,visibility)=>{
 	}
 }
 
+export const updateBounds=(newBounds)=>{
+	return (dispatch, getState) => {
+		dispatch({
+			type: CHANGE_MAP_BOUNDS,
+			bounds:newBounds
+		  }
+		);		
+	}
+}
 
 
 const loadLayerById=(dispatch, getState, id)=>{

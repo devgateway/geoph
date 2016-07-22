@@ -101,11 +101,23 @@ public class FilterHelper {
                 if(params.getFinancialAmountMax() != null) {
                     predicates.add(criteriaBuilder.lessThanOrEqualTo(projectRoot.get(Project_.totalProjectAmount), params.getFinancialAmountMax()));
                 }
+                if(params.getReachedOwpaMax() != null) {
+                    predicates.add(criteriaBuilder.lessThanOrEqualTo(projectRoot.get(Project_.reachedOwpa), params.getReachedOwpaMax()));
+                }
                 if(params.getReachedOwpaMin() != null) {
                     predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectRoot.get(Project_.reachedOwpa), params.getReachedOwpaMin()));
                 }
-                if(params.getReachedOwpaMax() != null) {
-                    predicates.add(criteriaBuilder.lessThanOrEqualTo(projectRoot.get(Project_.reachedOwpa), params.getReachedOwpaMax()));
+                if(params.getTargetOwpaMax() != null) {
+                    predicates.add(criteriaBuilder.lessThanOrEqualTo(projectRoot.get(Project_.targetOwpa), params.getTargetOwpaMax()));
+                }
+                if(params.getTargetOwpaMin() != null) {
+                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectRoot.get(Project_.targetOwpa), params.getTargetOwpaMin()));
+                }
+                if(params.getActualOwpaMax() != null) {
+                    predicates.add(criteriaBuilder.lessThanOrEqualTo(projectRoot.get(Project_.actualOwpa), params.getActualOwpaMax()));
+                }
+                if(params.getActualOwpaMin() != null) {
+                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectRoot.get(Project_.actualOwpa), params.getActualOwpaMin()));
                 }
             }
         }
@@ -197,6 +209,18 @@ public class FilterHelper {
                 }
                 if(params.getReachedOwpaMax() != null) {
                     predicates.add(criteriaBuilder.lessThanOrEqualTo(projectJoin.get(Project_.reachedOwpa), params.getReachedOwpaMax()));
+                }
+                if(params.getTargetOwpaMin() != null) {
+                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectJoin.get(Project_.targetOwpa), params.getTargetOwpaMin()));
+                }
+                if(params.getTargetOwpaMax() != null) {
+                    predicates.add(criteriaBuilder.lessThanOrEqualTo(projectJoin.get(Project_.targetOwpa), params.getTargetOwpaMax()));
+                }
+                if(params.getActualOwpaMin() != null) {
+                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectJoin.get(Project_.actualOwpa), params.getActualOwpaMin()));
+                }
+                if(params.getActualOwpaMax() != null) {
+                    predicates.add(criteriaBuilder.lessThanOrEqualTo(projectJoin.get(Project_.actualOwpa), params.getActualOwpaMax()));
                 }
             }
         }

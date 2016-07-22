@@ -4,6 +4,7 @@ import { Pagination, Grid, Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux'
 import { sumarizeValues } from '../../../util/transactionUtil'
 import {collectValues} from '../../../util/filterUtil';
+import translate from '../../../util/translate.js';
 
 require('./projectLayerPopup.scss');
 
@@ -62,10 +63,10 @@ export default class ProjectListTab extends React.Component {
         <div className="project-list-div">
           <Grid className='project-list'>
             <Row className="project-list-header">
-              <Col md={5}>Project Title</Col>
-              <Col md={3}>Funding Agency</Col>
-              <Col md={2}>Commitments</Col>
-              <Col md={2}>Disbursements</Col>
+              <Col md={5}>{translate('infowindow.projectlist.title')}</Col>
+              <Col md={3}>{translate('infowindow.projectlist.financinginstitution')}</Col>
+              <Col md={2}>{translate('infowindow.projectlist.actualcommitments')}</Col>
+              <Col md={2}>{translate('infowindow.projectlist.actualdisbursements')}</Col>
             </Row>  
             {projectsToShow.map((project) => {
               let transactions = sumarizeValues(project.transactions);

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react';
 
 import { connect } from 'react-redux'
-import {loadProjects} from '../../actions/map.js'
+import {loadProjects, updateBounds} from '../../actions/map.js'
 import {getList} from '../../actions/indicators'
 
 import SvgLayer from './layers/svg.jsx'
@@ -16,10 +16,6 @@ import Test from '../controls/settings'
 
 require('leaflet/dist/leaflet.css')
 require('./map.scss');
-
-var southWest = latLng(4.3245014930192, 115.224609375),
-northEast = latLng(23.140359987886118,134.3408203125),
-bounds = latLngBounds(southWest, northEast);
 
 
 const Layer=React.createClass({
@@ -69,38 +65,41 @@ const Layers=React.createClass({
 
 
 
-const view = React.createClass({
+const view=React.createClass({
 
 	getInitialState() {
 		return {};
 	},
 
-	componentWillMount(){
-		this.props.onLoad();
-	},
+	handleChangeBounds(e) {		
+        this.props.onUpdateBounds(e.target.getBounds());
+    },
+
 
 	render(){
+		console.log('render component map.jsx');
+		const {southWest, northEast} = this.props.map.get('bounds').toJS();
+		const bounds = latLngBounds(latLng(southWest[0], southWest[1]),latLng(northEast[0],northEast[1]));
 		return (
-			<Map className="map" zoom={13} bounds={bounds}>
+
+				<Map className="map" bounds={bounds} onMoveEnd={this.handleChangeBounds}>
 				<TileLayer url={this.props.map.get('basemap').get('url')}/>
 			
 				<Layers layers={this.props.map.get('layers')} charts={this.props.charts} fundingType={this.props.fundingType}/>
 			
 			</Map>
-			)
+		);
 	}
-});
+})
 
 
 const mapDispatchToProps=(dispatch,ownProps)=>{
-	return {
-		onLoad:()=>{
-			dispatch(getList());
-			dispatch(loadDefaultLayer());
-		}
-	}
+  return {
+    onUpdateBounds: (newBounds) => {
+      dispatch(updateBounds(newBounds));
+    }
+  }
 }
-
 
 const stateToProps = (state,props) => {	
 	return {
@@ -109,7 +108,5 @@ const stateToProps = (state,props) => {
 }
 
 const MapView=connect(stateToProps,mapDispatchToProps)(view);
-
-
 export default MapView;
 

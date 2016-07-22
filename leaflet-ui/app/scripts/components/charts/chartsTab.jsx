@@ -5,6 +5,7 @@ import { fetchChartData, changeItemsToShow, changeMeasureType, changeChartType }
 import { togglePanelExpand } from '../../actions/panel';
 import {collectValues} from '../../util/filterUtil';
 import { Button } from 'react-bootstrap';
+import translate from '../../util/translate.js';
 
 class Charts extends React.Component {
 
@@ -38,10 +39,9 @@ class Charts extends React.Component {
     let charts = this.props.charts? this.props.charts : {}
     return (
       <div className="chart-view">
-        <p>Explore this in-depth profile of Philippines to find out overall lorem ipsum dolor sit amet, consectetur elit. </p>
         <div className="charts-container">
           <Chart chartData={charts.fundingAgency || {}}
-            title="Financing Institution Chart" 
+            title={translate('chartview.fundingagency')}
             chart='fundingAgency'
             measure={this.props.fundingType} 
             onChangeItemToShow={this.changeItemToShow.bind(this)}
@@ -49,7 +49,7 @@ class Charts extends React.Component {
             onChangeType={this.changeType.bind(this)}
             dimension="name"/>
           <Chart chartData={charts.implementingAgency || {}}
-            title="Implementing Agency Chart" 
+            title={translate('chartview.implementingagency')} 
             chart='implementingAgency'
             measure={this.props.fundingType} 
             onChangeItemToShow={this.changeItemToShow.bind(this)}
@@ -57,7 +57,7 @@ class Charts extends React.Component {
             onChangeType={this.changeType.bind(this)}
             dimension="name"/>
           <Chart chartData={charts.physicalStatus || {}}
-            title="Physical Status Chart" 
+            title={translate('chartview.physicalstatus')}
             chart='physicalStatus'
             measure={this.props.fundingType} 
             onChangeItemToShow={this.changeItemToShow.bind(this)}
@@ -65,7 +65,7 @@ class Charts extends React.Component {
             onChangeType={this.changeType.bind(this)}
             dimension="name"/>
           <Chart chartData={charts.sector || {}}
-            title="Sector Chart" 
+            title={translate('chartview.sector')}
             chart='sector'
             measure={this.props.fundingType} 
             onChangeItemToShow={this.changeItemToShow.bind(this)}
@@ -76,7 +76,7 @@ class Charts extends React.Component {
         <div className="expand-button" >
           <div className={this.props.panel.expanded? "expand-button-arrow right" : "expand-button-arrow left"}/>
           <div className="expand-button-inner" onClick={this.togglePanel.bind(this)}>
-            {this.props.panel.expanded? "Collapse Panel" : "Expand Panel"}
+            {this.props.panel.expanded? translate('chartview.collapsepanel') : translate('chartview.expandpanel')}
           </div>
         </div> 
       </div>

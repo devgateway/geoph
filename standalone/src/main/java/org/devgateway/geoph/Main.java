@@ -31,7 +31,6 @@ public class Main {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
-
     public static void main(String[] args) {
         ApplicationContext ctx = SpringApplication.run(Main.class, args);
 
@@ -50,7 +49,6 @@ public class Main {
             BootMetadata bootMetadata = ctx.getBean(BootMetadata.class);
             bootMetadata.boot();
         }
-
 
         LOGGER.info("******GeoPH app started******");
         LOGGER.info("*****************************");

@@ -11,23 +11,23 @@ require('./save.scss');
 
 const Save = onClickOutside(React.createClass({
 
-	  getInitialState() {
-    	return {'showSave': false};
-  	},
+  getInitialState() {
+  	return {'showSave': false};
+	},
 
-  	toggleSaveView() {
-    	this.setState({'saveName': '', 'saveDesc': '', 'showSave': !this.state.showSave});
-  	},
+	toggleSaveView() {
+  	this.setState({'saveName': '', 'saveDesc': '', 'showSave': !this.state.showSave});
+	},
 
-  	handleNameChange(e) {
-    	let saveName = e.target.value;
-		this.setState({saveName: saveName, typingName: true});
-  	},
+	handleNameChange(e) {
+  	let saveName = e.target.value;
+	this.setState({saveName: saveName, typingName: true});
+	},
 
-  	handleDescChange(e) {
-    	let saveDesc = e.target.value;
-		this.setState({saveDesc: saveDesc, typingDesc: true});
-  	},
+	handleDescChange(e) {
+  	let saveDesc = e.target.value;
+	this.setState({saveDesc: saveDesc, typingDesc: true});
+	},
 
 	handleClickOutside (evt) {
 		if (this.state.showSave){
@@ -77,16 +77,16 @@ const Save = onClickOutside(React.createClass({
 	            placeholder="Add a Name"  
 	            bsStyle={this.validateNameState()}   
 	            bsSize="medium"  ref="saveName"
-			    onChange={this.handleNameChange.bind(this)}/>
+			    onChange={this.handleNameChange}/>
 			  <Input className={this.state.saveDesc.length==0? 'save-input-empty' : 'save-input-filled'} type="text" value={this.state.saveDesc}  
 	            placeholder="Add a Description"  
 	            bsStyle={this.validateDescState()}   
 	            bsSize="medium"  ref="saveDesc"
-			    onChange={this.handleDescChange.bind(this)}/>
+			    onChange={this.handleDescChange}/>
 			</div> 
 			<br />
 			<div className="chart-type-selector">			  
-			  <Button className="btn btn-sm" bsStyle='success' onClick={this.saveMapState.bind(this)}>Save</Button>       
+			  <Button className="btn btn-sm" bsStyle='success' onClick={this.saveMapState}>Save</Button>       
             </div>
             {this.props.stateToCollect.saveMap.message!=undefined?            	
             	<div className="chart-type-selector">			  

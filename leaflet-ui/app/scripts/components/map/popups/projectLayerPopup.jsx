@@ -7,6 +7,7 @@ import ProjectList from './projectListTab'
 import onClickOutside from 'react-onclickoutside'
 import {collectValues} from '../../../util/filterUtil';
 import { fetchPopupData } from '../../../actions/popup.js'
+import translate from '../../../util/translate.js';
 
 require('./projectLayerPopup.scss');
 
@@ -32,48 +33,49 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
   },
 
   getTabData(tab){
-    const {filtes, projectSearch, feature} = this.props;
-    let filters = collectValues(filters, projectSearch);    
-    Object.assign(filters, {'lo': [feature.properties.id]});  
-    if (tab=='projectList'){
-      Object.assign(filters, {'page': 1, 'size': 25}); 
-    }  
-    this.props.onGetPopupData(filters, tab);
+    const {filters, projectSearch, feature} = this.props;
+    if (feature){
+      let filt = collectValues(filters, projectSearch);  
+      Object.assign(filt, {'lo': [feature.properties.id]});  
+      if (tab=='projectList'){
+        Object.assign(filt, {'page': 1, 'size': 25}); 
+      }  
+      this.props.onGetPopupData(filt, tab);
+    }
   },
 
   render() {
-    let charts = this.props.charts || {}
-    
+    const {charts, fundingType, feature} = this.props;
     return (
       <div className="popup-container">
         <div className="popup-title">
-          <h2>{this.props.feature? this.props.feature.properties.name : ""} </h2>
+          <h2>{feature? feature.properties.name : ""} </h2>
         </div>
         <div className="">
           <ul className='popup-tabs' role='tablist' >
             <li className={this.state.tabSelected=='fundingAgency'? 'active' : ''} role='tab' >
               <div onClick={this.changeTab.bind(this, 'fundingAgency')}>
-                <span>Financing Institution</span>
+                <span>{translate('infowindow.tab.financinginstitution')}</span>
               </div>
             </li>
             <li className={this.state.tabSelected=='implementingAgency'? 'active' : ''} role='tab' >
               <div onClick={this.changeTab.bind(this, 'implementingAgency')}>
-                <span>Implementing Agency</span>
+                <span>{translate('infowindow.tab.implementingagency')}</span>
               </div>
             </li>
             <li className={this.state.tabSelected=='physicalStatus'? 'active' : ''} role='tab' >
               <div onClick={this.changeTab.bind(this, 'physicalStatus')}>
-                <span>Physical Status</span>
+                <span>{translate('infowindow.tab.physicalstatus')}</span>
               </div>
             </li>
             <li className={this.state.tabSelected=='sector'? 'active' : ''} role='tab' >
               <div onClick={this.changeTab.bind(this, 'sector')}>
-                <span>Sector</span>
+                <span>{translate('infowindow.tab.sector')}</span>
               </div>
             </li>
             <li className={this.state.tabSelected=='projectList'? 'active' : ''} role='tab' >
               <div onClick={this.changeTab.bind(this, 'projectList')}>
-                <span>Project List</span>
+                <span>{translate('infowindow.tab.projectlist')}</span>
               </div>
             </li>
           </ul>
@@ -84,14 +86,14 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
               !charts.fundingAgency.isFetching?
                 <div className="">
                   <Chart chartData={charts.fundingAgency}
-                  measure={this.props.fundingType} 
+                  measure={fundingType} 
                   chartType='pie'
                   width='400'
                   height='200'
-                  showMeasureSelector={false}
+                  showTotalHeader={true}
                   dimension="name"/>
                 </div>
-              : <div className="loading-icon"></div>
+              : <div className="loading-css"><div></div></div>
             :null}
           </div>
         :null}
@@ -101,13 +103,14 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
               !charts.implementingAgency.isFetching?
                 <div className="">
                   <Chart chartData={charts.implementingAgency}
-                  measure={this.props.fundingType} 
+                  measure={fundingType} 
                   chartType='pie'
                   width='400'
                   height='200'
+                  showTotalHeader={true}
                   dimension="name"/>
                 </div>
-              : <div className="loading-icon"></div>
+              : <div className="loading-css"><div></div></div>
             :null}
           </div>
         :null}
@@ -117,13 +120,14 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
               !charts.physicalStatus.isFetching?
                 <div className="">
                   <Chart chartData={charts.physicalStatus}
-                  measure={this.props.fundingType} 
+                  measure={fundingType} 
                   chartType='pie'
                   width='400'
                   height='200'
+                  showTotalHeader={true}
                   dimension="name"/>
                 </div>
-              : <div className="loading-icon"></div>
+              : <div className="loading-css"><div></div></div>
             :null}
           </div>
         :null}
@@ -133,13 +137,14 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
               !charts.sector.isFetching?
                 <div className="">
                   <Chart chartData={charts.sector}
-                  measure={this.props.fundingType} 
+                  measure={fundingType} 
                   chartType='pie'
                   width='400'
                   height='200'
+                  showTotalHeader={true}
                   dimension="name"/>
                 </div>
-              : <div className="loading-icon"></div>
+              : <div className="loading-css"><div></div></div>
             :null}
           </div>
         :null} 
@@ -170,7 +175,8 @@ const mapStateToProps = (state, props) => {
     fundingType: state.settings.fundingType,
     charts: state.popup,
     filters: state.filters.filterMain,
-    projectSearch: state.projectSearch
+    projectSearch: state.projectSearch,
+    language: state.language
   }
 }
 

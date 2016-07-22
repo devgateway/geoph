@@ -136,7 +136,7 @@ public class Project extends GenericPersistable implements Serializable {
     private Double targetOwpa;
 
     @Column(name = "reached_owpa")
-    private Float reachedOwpa;
+    private Double reachedOwpa;
 
     @Column(name = "issue_type", columnDefinition = "TEXT")
     private String issueType;
@@ -382,11 +382,11 @@ public class Project extends GenericPersistable implements Serializable {
         this.targetOwpa = targetOwpa;
     }
 
-    public Float getReachedOwpa() {
+    public Double getReachedOwpa() {
         return reachedOwpa;
     }
 
-    public void setReachedOwpa(Float reachedOwpa) {
+    public void setReachedOwpa(Double reachedOwpa) {
         this.reachedOwpa = reachedOwpa;
     }
 

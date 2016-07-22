@@ -73,3 +73,51 @@ export const cloneDeep = (objectToBeCloned) => {
   return objectClone;
 }
 
+const collectSelectionIntoChildren=(item, selection)=>{ 
+	let childrenSelected = false;
+	let childSelection = [];
+	if (item.items && item.items.length>0){
+		item.items.forEach((it) => {
+		  	if (collectSelectionIntoChildren(it, childSelection)){
+		    	childrenSelected = true;
+		  	}
+		});
+	}
+	if (item.selected || childrenSelected){
+		let sel = {'name': item.name};
+		if (childrenSelected){
+			Object.assign(sel, {'childSelection': childSelection});
+		}
+		selection.push(sel);
+		return true;
+	} else {
+		return false;
+	}
+}
+
+const collectSelectedNames=(items)=>{
+	let selection = [];
+	items.forEach((item) => {
+      collectSelectionIntoChildren(item, selection);
+    });
+	return selection;
+}
+ 
+export const getSelectedFilterNames=(filters)=>{
+	let params={};
+	let selection;
+	for(let param in filters){
+		let items = filters[param].items;
+		if (filters[param].isRange){
+			if(filters[param].minSelected || filters[param].maxSelected){				
+				params[param]={'from': filters[param].minSelected, 'to': filters[param].maxSelected};			
+			}
+		} else {
+			selection = collectSelectedNames(items);
+			if(selection.length > 0){
+				params[param]=selection;			
+			}
+		}
+	}
+	return params;
+}
