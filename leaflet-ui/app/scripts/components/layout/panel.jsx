@@ -36,11 +36,6 @@ export default class Panel extends React.Component {
               <span>{translate('chartview.title')}</span>
             </Link>
           </li>
-          <li className="panel-tab">
-            <Link to="map/printable">
-              <span>Printable</span>
-            </Link>
-          </li>
         </ul>
         {this.props.children}
       </div>
