@@ -1,11 +1,17 @@
 import React from 'react';
-import { Link  } from 'react-router';
-import Map from '../map/map';
 import translate from '../../util/translate';
 import Filters from './printFilters';
+import Map from '../map/map.jsx';
+import { connect } from 'react-redux'
+import {requestRestoreMap}  from '../../actions/saveAndRestoreMap';
 require('./printable.scss');
 
-export default class Printable extends React.Component {
+class Printable extends React.Component {
+
+  componentWillMount() {
+    let key = this.props.routeParams.key;
+    this.props.onRequestRestoreMap(key);
+  }
 
   render() {
     return (
@@ -21,3 +27,19 @@ export default class Printable extends React.Component {
     )
   }
 }
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    onRequestRestoreMap: (mapToRestore) => {
+      dispatch(requestRestoreMap(mapToRestore));
+    }
+  }
+}
+
+const mapStateToProps = (state, props) => {
+  return {
+    language: state.language
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Printable);;

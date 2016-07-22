@@ -32,7 +32,7 @@ class FilterListItem extends React.Component {
 class PrintableFilters extends React.Component {
 
 	render() {
-  		let filtersSelected = getSelectedFilterNames(this.props.filters);
+		let filtersSelected = getSelectedFilterNames(this.props.filters);
   		return (
 	    	<div className="print-filters">
 	    		<h1>{translate('header.filters.title')}</h1>
