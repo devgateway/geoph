@@ -1,5 +1,6 @@
 package org.devgateway.geoph.dao;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.devgateway.geoph.model.Location;
 
 import java.util.HashMap;
@@ -25,15 +26,18 @@ public class LocationProperty {
 
     private Long transactionCount = 0L;
 
-    private Double actualPhysicalProgressAverage;
+    @JsonIgnore
+    private Map<Long, Double> actualPhysicalProgress = new HashMap<>();
 
-    private Double targetPhysicalProgressAverage;
+    @JsonIgnore
+    private Map<Long, Double> targetPhysicalProgress = new HashMap<>();
 
     private Map<String, Double> commitments = new HashMap<>();
 
     private Map<String, Double> disbursements = new HashMap<>();
 
     private Map<String, Double> expenditures = new HashMap<>();
+
 
     public LocationProperty() {
     }
@@ -153,20 +157,36 @@ public class LocationProperty {
         }
     }
 
-    public Double getActualPhysicalProgressAverage() {
-        return actualPhysicalProgressAverage;
+    public void addActualPhysicalProgress(Long projectId, Double value){
+        if(value!=null) {
+            actualPhysicalProgress.put(projectId, value);
+        }
     }
 
-    public void setActualPhysicalProgressAverage(Double actualPhysicalProgressAverage) {
-        this.actualPhysicalProgressAverage = actualPhysicalProgressAverage;
+    public void addTargetPhysicalProgress(Long projectId, Double value){
+        if(value!=null) {
+            targetPhysicalProgress.put(projectId, value);
+        }
     }
 
-    public Double getTargetPhysicalProgressAverage() {
-        return targetPhysicalProgressAverage;
+    public Double getActualPhysicalProgressAverage(){
+        Double temp = 0D;
+        int count = 0;
+        for(Double value:actualPhysicalProgress.values()){
+            temp += value;
+            count ++;
+        }
+        return count>0?temp/count:temp;
     }
 
-    public void setTargetPhysicalProgressAverage(Double targetPhysicalProgressAverage) {
-        this.targetPhysicalProgressAverage = targetPhysicalProgressAverage;
+    public Double getTargetPhysicalProgressAverage(){
+        Double temp = 0D;
+        int count = 0;
+        for(Double value:targetPhysicalProgress.values()){
+            temp += value;
+            count ++;
+        }
+        return count>0?temp/count:temp;
     }
 
 }
