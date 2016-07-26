@@ -82,6 +82,36 @@ export const formatValue=(value)=>{
     v = (value/1000).toFixed(3);
     return ""+v+"K";
   } else {
-    return ""+value;
+    return ""+value.toFixed(3);
+  }
+}
+
+export const roundValue=(value)=>{
+  let val = 0
+  for (var i = 2; i<10; i++) {
+    let roundMult = 10^(i-1);
+    if (value<10^i){
+      val = Math.ceil(value/roundMult)*roundMult;
+    }
+  };
+  return val;
+}
+
+export const formatAndRoundValue=(value)=>{
+  let val;
+  if (value==0){
+    return "0";
+  } else if (value>1000000000){
+    val = (value/1000000000);
+    return ""+roundValue(val)+"B";
+  } else if (value>1000000){
+    val = (value/1000000);
+    return ""+roundValue(val)+"M";
+  } else if (value>1000){
+    val = (value/1000);
+    return ""+roundValue(val)+"K";
+  } else {
+    val = value;
+    return ""+roundValue(val);
   }
 }
