@@ -1,0 +1,84 @@
+@import '../../../stylesheets/base.scss';
+
+@mixin basemapimages($x,$y) {
+	background:url('../../../assets/basemaps.png');
+	background-repeat: no-repeat;
+	background-position: $x $y;
+}
+
+.basemaps-container{
+	@include controlBox();
+
+
+
+	.list{
+		padding-top:0px;
+		padding-left:30px;
+		padding-right:30px;
+		clear:both;
+	}
+	
+	.item{
+		width: 25%;
+		float:left;
+		cursor:pointer;
+		margin-bottom:10px;
+	}
+
+	.image{
+		width: 75px;
+		height: 50px;
+		border-style: solid;
+		border-color: #AAA;
+		border-width: 2px;
+
+		
+	}
+	.label{
+		line-height: 20px;
+		font-weight:200;
+		font-size:11px;
+
+	}
+	.selected{
+		border-color: #7AC4DC;
+	}
+
+	.imagery{
+		@include basemapimages(0,0);
+	}
+
+	.street{
+		@include basemapimages(-75,0);
+	}
+
+	.gray{
+		@include basemapimages(0,-50);
+	}
+
+	.darkgray {
+		@include basemapimages(-75,-50);
+	}
+
+	.terrain{
+		@include basemapimages(0,-100);
+	}
+
+	.topographic{
+		@include basemapimages(-75,-100);
+	}
+
+	.oceans{
+		@include basemapimages(0,-150);
+	}
+
+	.openstreetmap{
+		@include basemapimages(-75,-150);
+	}
+
+	
+
+}
+
+
+

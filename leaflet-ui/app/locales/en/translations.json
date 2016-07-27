@@ -26,7 +26,7 @@
 			"select": "Select Basemap",
 			"imagery": "Imagery",
 			"street": "Street",
-			"ligthgray": "Ligth Gray",
+			"gray": "Ligth Gray",
 			"darkgray": "Dark Gray",
 			"terrain": "Terrain",
 			"topographic": "Topographic",

@@ -2,9 +2,11 @@ import React from 'react';
 import {LangSwitcher} from '../lan/'
 import FilterPopup from '../filter/filters.jsx'
 import Settings from '../controls/settings'
-import Basemap from '../map/baseMap/baseMap'
+import Share from '../controls/share'
+import Print from '../controls/print'
+
+import Basemap from '../controls/baseMap.jsx'
 import SaveMap from '../save-restore/save'
-import ShareMap from '../save-restore/share'
 import {Message} from '../lan/'
 import onClickOutside from 'react-onclickoutside';
 import {showSaveMap} from '../../actions/saveAndRestoreMap';
@@ -17,7 +19,7 @@ const MenuItem =onClickOutside(React.createClass({
 	
 	handleClickOutside (evt) {
 		const {onClickOutside}=this.props;
-		this.props.onDeactivate(this.props.id);
+		this.props.onDesactivate(this.props.id);
 	},
 
 	handleClick(){
@@ -26,22 +28,27 @@ const MenuItem =onClickOutside(React.createClass({
 		if (!active){
 			this.props.onActivate(this.props.id);
 		}else{
-			this.props.onDeactivate(this.props.id);
+			this.props.onDesactivate(this.props.id);
 		}
 	},
 
 
 	render() {
-		const {id,label,className}=this.props;
+		const {id,label,className,onDesactivate}=this.props;
 		const active=this.props[id];
 		return (
-			<li>
+			<li className={active?"active":""}>
 			<div onClick={this.handleClick}>
-			<div className={"options-icons "+className}></div>
-			{label?<span>{label}</span>:<span>&nbsp;</span>}
+			<div  className={"options-icons "+className}></div>
+			<span>{label}</span>
 			</div>
 			{
-				React.Children.map(this.props.children,(element)=>{return  React.cloneElement(element,{visible:active});})
+
+				React.Children.map(this.props.children,(element)=>{return  React.cloneElement(element,{visible:active,
+					onHide:()=>{
+						debugger;
+						onDesactivate(id);
+					}});})
 			}
 			</li>)
 
@@ -49,7 +56,8 @@ const MenuItem =onClickOutside(React.createClass({
 }));
 
 
-const items=[
+const items=
+[
 {
 	id:'filters',
 	key:'filters',
@@ -57,32 +65,44 @@ const items=[
 	className:'filters',
 	disableOnClickOutside:true,
 	children:FilterPopup,
-	
+
 },
 {
 	id:'settings',
 	key:'settings',
 	label:'Settings',
 	children:Settings,
-	className:'settings',
-	
+	className:'settings'
 },
 {
 	id:'save',
 	key:'save',
 	label:'Save',
 	children:SaveMap,
-	className:'save',
-	
+	className:'save'
+},
+{
+	id:'basemaps',
+	key:'basemaps',
+	label:'Base Maps',
+	children:Basemap,
+	className:'basemaps'
 },
 {
 	id:'share',
 	key:'share',
-	label:'',
-	children:ShareMap,
-	className:'share',
-	
-}]
+	label:'Share',
+	children:Share,
+	className:'share'
+},
+{
+	id:'print',
+	key:'print',
+	label:'Print',
+	children:Print,
+	className:'print'
+}
+]
 
 
 class HeaderComponent extends React.Component {
@@ -115,7 +135,7 @@ class HeaderComponent extends React.Component {
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		onActivate:(key)=>{dispatch({type:Constants.ACTIVATE_COMPONENT,key})},
-		onDeactivate:(key)=>{dispatch({type:Constants.DEACTIVATE_COMPONENT,key})}
+		onDesactivate:(key)=>{dispatch({type:Constants.DESACTIVATE_COMPONENT,key})}
 	}
 }
 

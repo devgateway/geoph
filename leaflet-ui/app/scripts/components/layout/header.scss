@@ -44,22 +44,28 @@ ul.options{
   float:right;
   
   li{
-    border:1px solid $border-gray;
+    border:1px solid #e5e5e5;
     background-color:#eee; 
     min-width:125px;
-    @include box-sizing(7vw,34px);
+    @include box-sizing(125px,34px);
+  }
+
+  li.active{
+    background-color:#cfe1f0;
   }  
 
   li span{
-    line-height: 25px;
+    color:#000 !important;
+    line-height:30px;
     @include font(11px,$regular)
+
     cursor: pointer;
   }
 
   .options-icons{
     @include box-sizing (14px,14px);
     float:left;
-    margin:7px;
+    margin:9px;
     
   }
 
@@ -76,9 +82,11 @@ ul.options{
  .options-icons.save{
     @include icons('../../../assets/svg/save.svg',0,0);
   }
-
   .options-icons.share{
     @include icons('../../../assets/svg/share.svg',0,0);
+  }
+  .options-icons.print{
+    @include icons('../../../assets/svg/print.svg',0,0);
   }
 }
 
