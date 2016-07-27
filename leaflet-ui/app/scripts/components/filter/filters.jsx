@@ -20,18 +20,22 @@ class FilterPopup extends React.Component {
 	}
 
   	cancel() {
-  		debugger;
-	    this.props.onFilterCancel();
-	  //  this.hideFilterPopup();
+  		this.props.onFilterCancel();
+	    this.hideFilterPopup();
 	}
 
   	apply() {  		
 	    this.props.onFilterApply();
-	 //   this.hideFilterPopup();
+	    this.hideFilterPopup();
+	}
+
+	componentWillReceiveProps(nextProps){
+		if (nextProps.visible==true && !this.props.visible){
+			this.props.onFilterOpen();
+		}
 	}
 
 	render() {
-		debugger;
 		const {visible=false}=this.props;
 		return (
     		<Modal animation={false} bsSize='large' aria-labelledby='contained-modal-title-lg'  
