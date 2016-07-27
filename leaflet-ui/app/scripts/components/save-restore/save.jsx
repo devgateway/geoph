@@ -56,10 +56,10 @@ class SaveForm extends BaseForm {
 			</div>
 
 			<div className={errors.name?"form-group has-error":"form-group"}>
-			<input className="form-control"  type="text" value={name}  onChange={(e)=>{this.handleChangeValue('name',e.target.value)}}/>
+			<input className="form-control" placeholder="Enter a name"  type="text" value={name}  onChange={(e)=>{this.handleChangeValue('name',e.target.value)}}/>
 			</div> 
 			<div  className={errors.description?"form-group has-error":"form-group"}>
-			<textarea className="form-control"  onChange={(e)=>{this.handleChangeValue('description',e.target.value)}}/>
+			<textarea placeholder="Enter a description" className="form-control"  onChange={(e)=>{this.handleChangeValue('description',e.target.value)}}/>
 			</div> 
 			<div className="form-group">
 			<button className="btn btn-sm btn-success" onClick={this.submit.bind(this)}>Save</button>       

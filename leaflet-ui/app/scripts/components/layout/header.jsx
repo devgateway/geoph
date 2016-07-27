@@ -1,81 +1,91 @@
 import React from 'react';
 import {LangSwitcher} from '../lan/'
-import FilterPopup from '../filter/filterPopup'
+import FilterPopup from '../filter/filters.jsx'
 import Settings from '../controls/settings'
-import Basemap from '../controls/baseMap'
+import Basemap from '../controls/baseMap.jsx'
 import SaveMap from '../save-restore/save'
 import {Message} from '../lan/'
 import onClickOutside from 'react-onclickoutside';
-import {showSaveMap} from '../../actions/saveAndRestoreMap.js';
+import {showSaveMap} from '../../actions/saveAndRestoreMap';
 import {connect} from 'react-redux';
+import * as Constants from '../../constants/constants';
 
 require('./header.scss');
 
-class MenuItem extends React.Component {
+const MenuItem =onClickOutside(React.createClass({
 	
-	
-
-	constructor(props) {
-		super(props);
-		
-	}
-
+	handleClickOutside (evt) {
+		const {onClickOutside}=this.props;
+		this.props.onDesactivate(this.props.id);
+	},
 
 	handleClick(){
-		if (this.props.onActivate){
-			this.props.onActivate(this.props.id)
+		const {id,label,className}=this.props;
+		const active=this.props[id];
+		if (!active){
+			this.props.onActivate(this.props.id);
+		}else{
+			this.props.onDesactivate(this.props.id);
 		}
-	}
+	},
 
 
 	render() {
-		const {key,label,className,active}=this.props;
-		debugger;
+		const {id,label,className,onDesactivate}=this.props;
+		const active=this.props[id];
 		return (
-			<li>
-			<div onClick={this.handleClick.bind(this)}>
+			<li className={active?"active":""}>
+			<div onClick={this.handleClick}>
 			<div  className={"options-icons "+className}></div>
 			<span>{label}</span>
 			</div>
 			{
-				React.Children.map(this.props.children,
-					(element)=>{
-						return  React.cloneElement(element,{visible:active,onClickOutside:()=>{
-							console.log('click onClickOutside');
-						}})
-					}
-					)}
-				</li>)
+
+				React.Children.map(this.props.children,(element)=>{return  React.cloneElement(element,{visible:active,
+					onHide:()=>{
+						debugger;
+					onDesactivate(id);
+				}});})
+			}
+			</li>)
 
 	}
-}
+}));
 
 
-const items=[
-{
-	id:'filters',
-	key:'filters',
-	label:'Filters',
-	className:'filters',
-	children:FilterPopup,
-	
-},
-{
-	id:'settings',
-	key:'settings',
-	label:'Settings',
-	children:Settings,
-	className:'settings',
-	
-},
-{
-	id:'save',
-	key:'save',
-	label:'Save',
-	children:SaveMap,
-	className:'save',
-	
-}]
+const items=
+    [
+    {
+        id:'filters',
+        key:'filters',
+        label:'Filters',
+        className:'filters',
+        disableOnClickOutside:true,
+        children:FilterPopup,
+
+    },
+    {
+        id:'settings',
+        key:'settings',
+        label:'Settings',
+        children:Settings,
+        className:'settings'
+    },
+	{
+		id:'save',
+		key:'save',
+		label:'Save',
+		children:SaveMap,
+		className:'save'
+    },
+    {
+        id:'basemaps',
+        key:'basemaps',
+        label:'Base Maps',
+        children:Basemap,
+        className:'basemaps'
+    }
+]
 
 
 class HeaderComponent extends React.Component {
@@ -85,6 +95,7 @@ class HeaderComponent extends React.Component {
 	}
 
 	render() {
+		console.log(this.props);
 		return (
 			<div className="header">
 			<div className="heading">
@@ -104,19 +115,15 @@ class HeaderComponent extends React.Component {
 	}
 }
 
-
-
-
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
-		onActivate:(key)=>{
-		debugger;
-		dispatch({type:"TOGGLE_ACTIVE_COMPONENT",key})
-	}}
+		onActivate:(key)=>{dispatch({type:Constants.ACTIVATE_COMPONENT,key})},
+		onDesactivate:(key)=>{dispatch({type:Constants.DESACTIVATE_COMPONENT,key})}
+	}
 }
 
 const mapStateToProps = (state, props) => {
-	return {}
+	return state.header.toJS()
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(HeaderComponent);

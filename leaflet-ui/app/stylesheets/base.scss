@@ -2,7 +2,28 @@
 $blue:rgb( 4, 70, 111 );
 $regular: rgb( 4, 64, 114 );
 
-	
+@mixin controlBox(){
+	position: fixed;
+	top: 115px;
+	right: 0px;
+	left: initial;
+	z-index: 1000;
+	background-color: #ffffff;
+	border:1px solid #eee;
+	padding-right:60px;
+	padding-bottom:10px;
+	width:621px;
+	min-height:118px;
+	border-top:1px solid #cfe1f0;
+
+	h2{
+		font-weight: bold !important;
+		color:#003366 !important;
+		 margin-top: 20px;
+	  	padding-bottom: 15px;
+	}
+
+}
 
 @mixin absolute($top,$right, $bottom, $left){
 	position: absolute;

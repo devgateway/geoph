@@ -14,19 +14,18 @@ class FilterPopup extends React.Component {
 	    super();
 	}
 
- 
   	reset() {
 	   this.props.onFilterReset();	    
 	}
 
   	cancel() {
   		this.props.onFilterCancel();
-	    this.hideFilterPopup();
+	    this.props.onHide();
 	}
 
   	apply() {  		
 	    this.props.onFilterApply();
-	    this.hideFilterPopup();
+	    this.props.onHide();
 	}
 
 	componentWillReceiveProps(nextProps){

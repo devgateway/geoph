@@ -1,12 +1,18 @@
 @import '../../../stylesheets/base.scss';
 
 .settings-container{
-	position: fixed;
-	top: 115px;
-  	width: 538px;
-	right: 0px;
-	left: initial;
-    background-color: rgba(247, 247, 247, 0.93);
-	z-index: 1000;
+	@include controlBox();
+	
+	.list{
+		clear: both;
+	}
+	.setting{
+		width: 185px;
+		margin-left: 27px;
+		float:left
+	}
+	select{
+		background-color: #eceff4;
+	}
 
 }

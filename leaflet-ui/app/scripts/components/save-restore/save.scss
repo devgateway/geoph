@@ -1,22 +1,8 @@
 @import '../../../stylesheets/base.scss';
 
 .save-container{
-  border:1px solid #eee;
-  position: fixed;
-  padding-right:60px;
-  top: 115px;
-  width: 621px;
-  right: 0px;
-  left: initial;
-  background-color: #ffffff;
-  z-index: 1000;
-
-  h2{
-   color:#003366 !important;
-   margin-top: 21px;
-   margin-bottom: 8px;
-   margin-left: 10px;
- }
+@include controlBox();
+  height:245px;
 
 .alert{
   clear:both;
@@ -28,7 +14,7 @@
 }
 
 .form-control{
-	border: 1px solid #aad5f1;	
+	border: 1px solid #6699cc;
 }
 
 input.form-control{
