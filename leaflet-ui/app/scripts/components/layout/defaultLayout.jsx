@@ -17,8 +17,12 @@ export default class DefaultLayout extends React.Component {
 
     return (
       <div className="root">
-        <Header/>
-       
+      <Header/>
+        <Landing/>            
+        <Panel>
+            {this.props.children}        
+        </Panel>
+        <Footer/>
       </div>
     )
   }

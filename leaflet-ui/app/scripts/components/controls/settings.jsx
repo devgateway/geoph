@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { setFundingType } from '../../actions/settings'
 import translate from '../../util/translate.js';
-import onClickOutside from 'react-onclickoutside'
+
 require('./settings.scss');
 
-const Settings = onClickOutside(React.createClass({
+const Settings =React.createClass({
 
   getInitialState() {
     return {'showSettings': false};
@@ -37,9 +37,11 @@ const Settings = onClickOutside(React.createClass({
   },
 
   render() {
+    const {visible}=this.props;
+
     return (
-      <li ><div className="options-icons settings" onClick={this.toggleSettingsView}></div><span onClick={this.toggleSettingsView}>{translate('header.settings.title')}</span>
-        {this.state.showSettings?
+     <div>
+        {visible?
           <div className="settings-container">
             <h2>{translate('header.settings.fundingtype')}</h2>
             <br />
@@ -60,11 +62,12 @@ const Settings = onClickOutside(React.createClass({
               </div>               
             </div> 
           </div>
+
         : null}
-      </li>
+      </div>
     );
   }
-}));
+});
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
