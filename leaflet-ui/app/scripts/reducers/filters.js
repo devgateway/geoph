@@ -25,7 +25,7 @@ const filters = (state = {filterMain: {}}, action) => {
         filterMain: filterMain
       })
     case Constants.CANCEL_FILTER:
-      let filterBackup = cloneDeep(state.filterBackup);  
+      let filterBackup = cloneDeep(state.filterBackup); 
       return Object.assign({}, state, {
         filterMain: filterBackup
       })
