@@ -12,7 +12,7 @@ const Share =React.createClass({
     return (
      <div>
         {visible?
-          <div className="settings-container">
+          <div className="share-container">
             <h2>{translate('header.settings.share')}</h2>
            
           </div>

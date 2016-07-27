@@ -12,7 +12,7 @@ const Share =React.createClass({
     return (
      <div>
         {visible?
-          <div className="settings-container">
+          <div className="print-container">
             <h2>{translate('header.settings.print')}</h2>
               
           </div>
