@@ -8,7 +8,7 @@ import translate from '../../util/translate.js';
 import Slider from 'rc-slider';
 require('rc-slider/assets/index.css');
 
-class FilterSlider extends React.Component {
+class FilterSliderWithMarks extends React.Component {
 
 	constructor() {
 	    super();
@@ -19,18 +19,18 @@ class FilterSlider extends React.Component {
 		this.props.onLoadFilterData(this.props.filterType);		
 	}
 
-	handleValuesChange(component, values) {
-		this.setState({'values': values});
-		this.props.onRangeChange({filterType: this.props.filterType, minSelected: values.min, maxSelected: values.max});		
-	}
-
-  	handleValuesChange2(values) {
+	handleMarksChange(values) {
   		const [min, max] = values;
   		const {valueMin, valueMax} = this.props;
   		let minSelected = roundValue(getLogSliderValue(valueMin, valueMax, min));
 		let maxSelected = roundValue(getLogSliderValue(valueMin, valueMax, max));
-		console.log('handleSelected: '+minSelected+' - '+maxSelected);
-  		this.props.onRangeChange({filterType: this.props.filterType, minSelected: minSelected, maxSelected: maxSelected});		
+		this.props.onRangeChange({filterType: this.props.filterType, minSelected: minSelected, maxSelected: maxSelected});		
+	}
+	
+	handleValuesChange(values) {
+  		const [min, max] = values;
+  		console.log('test');
+  		this.props.onRangeChange({filterType: this.props.filterType, minSelected: min, maxSelected: max});		
 	}
 
 	percentFormatter(v) {
@@ -57,7 +57,7 @@ class FilterSlider extends React.Component {
 	}
 	
 
-	getMarks(){
+	getLogMarks(){
 		const {valueMin, valueMax} = this.props;
 		return {
 			0: formatAndRoundValue(getLogSliderValue(valueMin, valueMax, 0)),
@@ -74,28 +74,40 @@ class FilterSlider extends React.Component {
 		}
 	}
 
+  	getMarks(){
+		const {valueMin, valueMax} = this.props;
+		let ret = {};
+		ret[valueMin] = valueMin;
+		ret[valueMax] = valueMax;
+		return ret
+	}
+
   	render() {
   		let minSelected = this.props.minSelected!=undefined? this.props.minSelected : this.props.valueMin;
   		let maxSelected = this.props.maxSelected!=undefined? this.props.maxSelected : this.props.valueMax;
   		let values = {'min': minSelected, 'max': maxSelected};
   		const {valueMin, valueMax} = this.props;
-  		debugger;
-		console.log('position: '+getLogSliderPosition(valueMin, valueMax, minSelected)+' - '+getLogSliderPosition(valueMin, valueMax, maxSelected));
   		return (
 	        <div className="range-filter-container">
         		<div className="range-filter">
-	        		{/*<InputRange
-				        maxValue={this.props.valueMax} 
-				        minValue={this.props.valueMin}
-				        value={values}
-				        onChange={this.handleValuesChange.bind(this)} />*/}
-				    <Slider 
+        			{this.props.logMarks?
+	        		<Slider 
 				    	range 
 				    	value={[getLogSliderPosition(valueMin, valueMax, minSelected), getLogSliderPosition(valueMin, valueMax, maxSelected)]} 
 				        step={null}
-				        marks={this.getMarks()}
-				    	onChange={this.handleValuesChange2.bind(this)} />
-		        </div>	
+				        marks={this.getLogMarks()}
+				    	onChange={this.handleMarksChange.bind(this)} />
+        			:
+        			<Slider 
+				    	range 
+				    	value={[minSelected, maxSelected]} 
+				        min={valueMin}
+				        max={valueMax}
+				        step={1}
+				    	marks={this.getMarks()}
+				    	onChange={this.handleValuesChange.bind(this)} />
+        			}
+        		</div>	
 		        <div className="range-filter-selection">		     
 			        <div className="">
 		        		<span>{translate('filters.physical.minimum')}: <b>{formatAndRoundValue(minSelected) + this.props.valueSymbol} </b></span>
@@ -104,12 +116,6 @@ class FilterSlider extends React.Component {
 		        		<span>{translate('filters.physical.maximum')}: <b>{formatAndRoundValue(maxSelected) + this.props.valueSymbol}</b></span>
 			        </div>
 	        	</div>
-	        	{this.state.errorMessage.length>0?
-					<div className="error-message">
-		        		<b>Error: </b>
-		        		{this.state.errorMessage}
-			        </div>
-		        : null}   
 		    </div>   
 	    );
   	}
@@ -128,4 +134,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-export default connect(null,mapDispatchToProps)(FilterSlider);
+export default connect(null,mapDispatchToProps)(FilterSliderWithMarks);
