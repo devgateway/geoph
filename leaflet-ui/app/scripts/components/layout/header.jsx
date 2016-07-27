@@ -2,6 +2,9 @@ import React from 'react';
 import {LangSwitcher} from '../lan/'
 import FilterPopup from '../filter/filters.jsx'
 import Settings from '../controls/settings'
+import Share from '../controls/share'
+import Print from '../controls/print'
+
 import Basemap from '../controls/baseMap.jsx'
 import SaveMap from '../save-restore/save'
 import {Message} from '../lan/'
@@ -44,8 +47,8 @@ const MenuItem =onClickOutside(React.createClass({
 				React.Children.map(this.props.children,(element)=>{return  React.cloneElement(element,{visible:active,
 					onHide:()=>{
 						debugger;
-					onDesactivate(id);
-				}});})
+						onDesactivate(id);
+					}});})
 			}
 			</li>)
 
@@ -54,37 +57,51 @@ const MenuItem =onClickOutside(React.createClass({
 
 
 const items=
-    [
-    {
-        id:'filters',
-        key:'filters',
-        label:'Filters',
-        className:'filters',
-        disableOnClickOutside:true,
-        children:FilterPopup,
+[
+{
+	id:'filters',
+	key:'filters',
+	label:'Filters',
+	className:'filters',
+	disableOnClickOutside:true,
+	children:FilterPopup,
 
-    },
-    {
-        id:'settings',
-        key:'settings',
-        label:'Settings',
-        children:Settings,
-        className:'settings'
-    },
-	{
-		id:'save',
-		key:'save',
-		label:'Save',
-		children:SaveMap,
-		className:'save'
-    },
-    {
-        id:'basemaps',
-        key:'basemaps',
-        label:'Base Maps',
-        children:Basemap,
-        className:'basemaps'
-    }
+},
+{
+	id:'settings',
+	key:'settings',
+	label:'Settings',
+	children:Settings,
+	className:'settings'
+},
+{
+	id:'save',
+	key:'save',
+	label:'Save',
+	children:SaveMap,
+	className:'save'
+},
+{
+	id:'basemaps',
+	key:'basemaps',
+	label:'Base Maps',
+	children:Basemap,
+	className:'basemaps'
+},
+{
+	id:'share',
+	key:'share',
+	label:'Share',
+	children:Share,
+	className:'share'
+},
+{
+	id:'print',
+	key:'print',
+	label:'Print',
+	children:Print,
+	className:'print'
+}
 ]
 
 

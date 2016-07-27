@@ -82,5 +82,11 @@ ul.options{
  .options-icons.save{
     @include icons('../../../assets/svg/save.svg',0,0);
   }
+  .options-icons.share{
+    @include icons('../../../assets/svg/share.svg',0,0);
+  }
+  .options-icons.print{
+    @include icons('../../../assets/svg/print.svg',0,0);
+  }
 }
 
