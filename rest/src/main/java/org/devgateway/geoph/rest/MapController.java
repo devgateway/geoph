@@ -41,6 +41,7 @@ public class MapController {
     private static final String URL_STR = "url";
     private static final String PDF_DESCRIPTION_MSG = "Map created automatically to generate a PDF file";
     private static final String IMG_DESCRIPTION_MSG = "Map created automatically to generate a IMG file";
+    private static final String SHARED_MAP_DESC = "Shared map";
 
     private final AppMapService appMapService;
 
@@ -70,6 +71,18 @@ public class MapController {
         } else {
             throw new BadRequestException(BAD_REQUEST_NAME_INVALID);
         }
+    }
+
+
+
+    @RequestMapping(value = "/share", method = POST)
+    public AppMap shareMap(@RequestBody Map<String, Object> mapVariables) throws JsonProcessingException, SQLException {
+        LOGGER.debug("saveMap");
+        String mapName = UUID.randomUUID().toString();
+        String mapDesc = SHARED_MAP_DESC;
+        String mapJson = new ObjectMapper().writeValueAsString(mapVariables.get(DATA_TO_SAVE_STR));
+        AppMap appMap = new AppMap(mapName, mapDesc, mapJson, mapName);
+        return appMapService.save(appMap);
     }
 
     @RequestMapping(value = "/varsToPdf", method = POST)

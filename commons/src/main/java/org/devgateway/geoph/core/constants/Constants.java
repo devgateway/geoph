@@ -28,6 +28,7 @@ public class Constants {
     public static final String PROPERTY_LOC_TRX_COUNT = "transactionCount";
     public static final String PROPERTY_LOC_ACTUAL_PHY_AVG = "actualPhysicalProgressAverage";
     public static final String PROPERTY_LOC_TARGET_PHY_AVG = "targetPhysicalProgressAverage";
+    public static final String PROPERTY_LOC_REACHED_PHY_AVG = "reachedPhysicalProgressAverage";
 
     public static final String PROPERTY_PRJ_ID = "id";
 

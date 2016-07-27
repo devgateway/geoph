@@ -4,13 +4,14 @@ import org.devgateway.geoph.core.request.IndicatorRequest;
 import org.devgateway.geoph.core.response.IndicatorResponse;
 import org.devgateway.geoph.core.services.ImportService;
 import org.devgateway.geoph.core.services.LayerService;
-    import org.devgateway.geoph.model.Indicator;
+import org.devgateway.geoph.model.Indicator;
 import org.devgateway.geoph.model.security.SystemUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,8 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 /**
  * @author dbianco
@@ -42,6 +42,19 @@ public class IndicatorController extends BaseController {
     public List<Indicator> getIndicatorsList() {
         LOGGER.debug("getIndicatorsList");
         return layerService.getIndicatorsList();
+    }
+
+    @RequestMapping(value = "/{id}", method = GET)
+    public IndicatorResponse getIndicator(@PathVariable final long id) {
+        LOGGER.debug("getIndicator: " + id);
+        return layerService.getIndicatorById(id);
+    }
+
+    @RequestMapping(value = "/{id}", method = DELETE)
+    @Secured("ROLE_ADMIN")
+    public void deleteIndicator(@PathVariable final long id) {
+        LOGGER.debug("deleteIndicator: " + id);
+        layerService.deleteIndicator(id);
     }
 
     @RequestMapping(value = "/upload", headers = "content-type=multipart/*", method = POST)

@@ -17,4 +17,5 @@ public interface GeoJsonService {
 
     FeatureCollection getShapesByLevelAndDetail(LocationAdmLevelEnum level, double detail, Parameters params);
 
+    FeatureCollection getPhysicalProgressAverageByParamsAndDetail(Parameters params, double detail);
 }

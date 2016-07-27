@@ -52,7 +52,8 @@ public class GeoJsonController extends BaseController {
         LOGGER.debug("getGeoJsonForShapes");
         return geoJsonService.getShapesByLevelAndDetail(
                 LocationAdmLevelEnum.valueOf(level.toUpperCase()),
-                GeometryDetailLevelEnum.MEDIUM.getLevel(),filters.getParameters());
+                GeometryDetailLevelEnum.MEDIUM.getLevel(),
+                filters.getParameters());
     }
 
     @RequestMapping(value = "/stats/{level}/funding/detail/{detail:.+}", method = GET)
@@ -77,6 +78,29 @@ public class GeoJsonController extends BaseController {
     public FeatureCollection getGeoPhotosData(@PathVariable final long kmlId) {
         LOGGER.debug("getGeoPhotosData for kml id:" + kmlId);
         return layerService.getGeoPhotoData(kmlId);
+    }
+
+
+
+    @RequestMapping(value = "/physicalProgress/{level}", method = GET)
+    public FeatureCollection getGeoJsonByPhysicalProgress(
+            @PathVariable final String level,
+            AppRequestParams filters) {
+        LOGGER.debug("getGeoJsonByPhysicalProgress");
+        Parameters params = filters.getParameters();
+        params.setLocationLevel(level);
+        return geoJsonService.getPhysicalProgressAverageByParamsAndDetail(params, GeometryDetailLevelEnum.MEDIUM.getLevel());
+    }
+
+    @RequestMapping(value = "/physicalProgress/{level}/detail/{detail:.+}", method = GET)
+    public FeatureCollection getGeoJsonByPhysicalProgressDetailed(
+            @PathVariable final String level,
+            @PathVariable final double detail,
+            AppRequestParams filters) {
+        LOGGER.debug("getGeoJsonByPhysicalProgressDetailed");
+        Parameters params = filters.getParameters();
+        params.setLocationLevel(level);
+        return geoJsonService.getPhysicalProgressAverageByParamsAndDetail(params, detail);
     }
 
 }
