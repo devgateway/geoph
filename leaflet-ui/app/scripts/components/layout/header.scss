@@ -1,38 +1,37 @@
 @import '../../../stylesheets/base.scss';
-
 $left-space:26px;
+$border-gray:#ebebeb;
 
-$flag:url('../../../assets/flag.png');
-
-@mixin icons($x,$y) {
-  background:url(../../../assets/sprites.png);
+@mixin icons($url,$x,$y) {
+  background:url($url);
   background-repeat: no-repeat;
   background-position: $x $y;
 }
 
 .header{
   @include absolute(0px,0px,initial,0px)
-  @include box-sizing (100%,101px);
+  @include box-sizing (100%,115px);
+  background-color:#00396c;
   .heading{
-    padding-left:113px;
-
-    background: $flag;
-    background-position: $left-space 16px;
+    margin: 13px;
+    background:url(../../../assets/logo.png);
     background-repeat: no-repeat;
-    @include box-sizing (initial,66px);
+    @include box-sizing (auto,54px);
 
   }
 
   .title{
+    @include box-sizing (100%,35);
+    background-color:#f7f7f7;
     padding-left:$left-space;
-    border-top:1px solid #CCC;
-    border-bottom:1px solid #CCC;
-
-    @include box-sizing (initial,35);
-
-    padding-top: 8px;
+    border-top:1px solid $border-gray;
+    border-bottom:1px solid $border-gray;
+    color:#000;
     h2{
-      font-weight: bold;
+     padding-top:8px;
+      margin-left:$left-space;    
+      color:#000;
+      font-weight: 100;
       float:left;
     }
 
@@ -42,50 +41,40 @@ $flag:url('../../../assets/flag.png');
 
 ul.options{
   @include list-horizontal
-  
   float:right;
-  margin-right: 36px;
+  
+  li{
+    border:1px solid $border-gray;
+    background-color:#eee; 
+    min-width:125px;
+    @include box-sizing(7vw,34px);
+  }  
 
   li span{
-    @include font(11.083px,$regular)
+    line-height: 25px;
+    @include font(11px,$regular)
     cursor: pointer;
-    margin-right:10px;
   }
 
   .options-icons{
-    @include box-sizing (15px,16px);
+    @include box-sizing (14px,14px);
     float:left;
-    margin-right:3px;
-
+    margin:7px;
+    
   }
+
   .options-icons.filters{
-    @include icons(0,-60);
+    @include icons('../../../assets/svg/filter.svg',0,0);
   }
-
   .options-icons.settings{
-    @include icons(-17,-60);
+   @include icons('../../../assets/svg/settings.svg',0,0);
   }
   .options-icons.basemaps{
-    @include icons(-33,-60);
-  }
-  ul{
-    @include list-horizontal
-    display: inline-block;
-    padding-left: 0px;
-
-    >li{
-      margin-left:3px;
-    }
-    >li:after{
-      content:'|'
-    }
-    >li:before{
-      content:'|'
-    }
-    >li.selected{
-      font-weight: bold;
-    }
+    @include icons('../../../assets/svg/basemap.svg',0,0);
   }
 
+ .options-icons.save{
+    @include icons('../../../assets/svg/save.svg',0,0);
+  }
 }
 

@@ -1,118 +1,112 @@
 import React from 'react';
-
 import { connect } from 'react-redux';
 import i18next from 'i18next';
-import {requestSaveMap}  from '../../actions/saveAndRestoreMap';
-import {collectValuesToSave}  from '../../util/saveUtil';
-import {Modal, Button} from 'react-bootstrap';
+import {changeProperty,updateErrors,saveMap}  from '../../actions/saveAndRestoreMap';
 import onClickOutside from 'react-onclickoutside';
 import { Input } from 'react-bootstrap';
+import BaseForm from '../admin/baseForm.jsx'
+import HttpError from '../messages/httpError.jsx'
+import {Map} from 'immutable'
+import {Messages} from '../messages/messages.jsx'
+
 require('./save.scss');
 
-const Save = onClickOutside(React.createClass({
 
-  getInitialState() {
-  	return {'showSave': false};
-	},
 
-	toggleSaveView() {
-  	this.setState({'saveName': '', 'saveDesc': '', 'showSave': !this.state.showSave});
-	},
+class SaveForm extends BaseForm {
 
-	handleNameChange(e) {
-  	let saveName = e.target.value;
-	this.setState({saveName: saveName, typingName: true});
-	},
+	constructor(props) {
+		super(props);
+		this.state = {data: Map()};
+	}
 
-	handleDescChange(e) {
-  	let saveDesc = e.target.value;
-	this.setState({saveDesc: saveDesc, typingDesc: true});
-	},
-
-	handleClickOutside (evt) {
-		if (this.state.showSave){
-			this.setState({'showSave': false});
+	submit() {
+		
+		var errors = this.validate();
+		let hasError = false;
+		Object.keys(errors).forEach(key => hasError = hasError || errors[key]);
+		if (hasError) {
+			this.setErrors(errors);
+		} else {
+			if (this.props.onSaveMap) {
+				this.props.onSaveMap();
+			}
 		}
-	},
+	}
 
-	saveMapState() {
-		console.log("---saveMapState---");
-		let dataToSave = collectValuesToSave(this.props.stateToCollect);
-    this.props.onRequestSaveMap({
-    	name : this.state.saveName, 
-    	description : this.state.saveDesc,
-    	dataToSave : dataToSave
-    });
-	},
+	validate() {
+		const {name,description=''} = this.props;
+		let errors = {}
+		errors = this.validateField(errors, 'name', name);
+		errors = this.validateField(errors, 'description', description);
+		return errors;
 
-	validateNameState() {
-    	const length = this.state.saveName.length;
-    	const typingName = this.state.typingName;
-    	if (length>3){
-    		return 'success';
-    	} else {
-    		return 'error';
-    	}
-    },
+	}
 
-	validateDescState() {
-    	const length = this.state.saveDesc.length;
-    	const typingDesc = this.state.typingDesc;
-    	if (length>3){
-    		return 'success';
-    	} else {
-    		return 'error';
-    	}
-    },
 
 	render() {
-    return (
-      <li ><div className="options-icons basemaps" onClick={this.toggleSaveView}></div><span onClick={this.toggleSaveView}>Save</span>
-        {this.state.showSave?
-          <div className="save-container">
-            <h2>Save Map</h2>
-            <br />
-            <div className="chart-type-selector">
-              <Input className={this.state.saveName.length==0? 'save-input-empty' : 'save-input-filled'} type="text" value={this.state.saveName}  
-	            placeholder="Add a Name"  
-	            bsStyle={this.validateNameState()}   
-	            bsSize="medium"  ref="saveName"
-			    onChange={this.handleNameChange}/>
-			  <Input className={this.state.saveDesc.length==0? 'save-input-empty' : 'save-input-filled'} type="text" value={this.state.saveDesc}  
-	            placeholder="Add a Description"  
-	            bsStyle={this.validateDescState()}   
-	            bsSize="medium"  ref="saveDesc"
-			    onChange={this.handleDescChange}/>
+		const {errors={},httpError,name,description,status}=this.props;
+		return (
+			<form>
+			<div className="save-container">
+			<h2>Save Map</h2>
+			<div>
+				{httpError?<HttpError error={httpError}/>:null}
+			</div>
+
+			<div className={errors.name?"form-group has-error":"form-group"}>
+			<input className="form-control"  type="text" value={name}  onChange={(e)=>{this.handleChangeValue('name',e.target.value)}}/>
 			</div> 
-			<br />
-			<div className="chart-type-selector">			  
-			  <Button className="btn btn-sm" bsStyle='success' onClick={this.saveMapState}>Save</Button>       
-            </div>
-            {this.props.stateToCollect.saveMap.message!=undefined?            	
-            	<div className="chart-type-selector">			  
-				  {this.props.stateToCollect.saveMap.message} 
-	            </div>
-            	: null} 
-          </div>
-        : null}
-      </li>
-    );
-  }
-}));
+			<div  className={errors.description?"form-group has-error":"form-group"}>
+			<textarea className="form-control"  onChange={(e)=>{this.handleChangeValue('description',e.target.value)}}/>
+			</div> 
+			<div className="form-group">
+			<button className="btn btn-sm btn-success" onClick={this.submit.bind(this)}>Save</button>       
+			</div>
+			</div>
+			</form>
+			);
+	}
+};
+
+const Container=React.createClass({
+	
+
+	render() {
+		const {visible}=this.props;
+		return (
+			<div>
+			{visible?<SaveForm {...this.props}/>:null}
+			</div>
+			);
+	}
+})
+
+
+
+//const Save = onClickOutside(FloatingDialog);
 
 
 const mapDispatchToProps = (dispatch, ownProps) => {
- return {
-    onRequestSaveMap: (dataToSave) => {
-      dispatch(requestSaveMap(dataToSave));
-    }
-  }
+	return {
+		onSaveMap: (dataToSave) => {
+			dispatch(saveMap(dataToSave));
+		},
+		onPropertyChange: (property, value)=> {
+			dispatch(changeProperty(property, value));
+		},
+		onValidate: (errors)=> {
+			dispatch(updateErrors(errors));
+		},
+
+
+
+	}
 }
 
 const mapStateToProps = (state, props) => {
-  return {
-    stateToCollect: state
-  }
+	const {name,description,errors,httpError,status} = state.saveMap.toJS();
+	return {name,description,errors,httpError,status}
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Save);
+export default connect(mapStateToProps,mapDispatchToProps)(Container);

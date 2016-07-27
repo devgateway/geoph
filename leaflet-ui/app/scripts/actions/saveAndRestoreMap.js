@@ -3,27 +3,49 @@ import Connector from '../connector/connector';
 import {applyFilter, loadAllFilterLists} from './filters';
 import {toggleVisibility} from './map';
 import {getList} from './indicators';
+import {collectValuesToSave}  from '../util/saveUtil';
 
-export const saveOK = () => {
+export const changeProperty=(property,value)=>{
+  return {type:Constants.CHANGE_SAVE_PROPERTY,property,value}
+}
+
+export const updateErrors=(errors)=>{
+  return {type:Constants.UPDATE_SAVE_ERRORS,errors}
+}
+
+export const saveOK = (data) => {
+   return (dispatch, getState) =>{
+    dispatch({type: Constants.REQUEST_SAVE_MAP_OK , data:data});
+    dispatch({type:"DESACTIVATE_COMPONENT",key:'save'});
+   }
+  
+  
+}
+
+export const saveError = (err) => {
   return {
-    type: Constants.REQUEST_SAVE_MAP,
-    saveMap: {message: 'Save map done!'}
+    type: Constants.REQUEST_SAVE_MAP_ERROR,
+    httpError:err
   }
 }
 
-export const saveError = (message) => {
-  return {
-    type: Constants.REQUEST_SAVE_MAP,
-    saveMap: {message: message}
-  }
+export const saveMap=()=>{
+   return (dispatch, getState) =>{
+	 	const  data = collectValuesToSave(getState());
+	 	const {name,description}=getState().saveMap.toJS()
+    dispatch(requestSaveMap({name,description,data}));
+	 }
+	
 }
 
-export const requestSaveMap = (dataToSave) => {
+ const requestSaveMap = (dataToSave) => {
   return (dispatch, getState) =>{
-    Connector.saveMap(dataToSave).then((results)=>{
-        dispatch(saveOK());
-    }).catch((err)=>{
-        dispatch(saveError(err.data.message));
+    Connector.saveMap(dataToSave).then((data)=>{
+        
+        dispatch(saveOK(data));
+    }).catch((results)=>{
+        
+        dispatch(saveError(results));
     });
   }
 
@@ -38,16 +60,6 @@ export const restoreError = (message) => {
 }
 
 
- /*
- const loadIndicatorList =()=>{
-  return new Promise( (resolve, reject) => {
-      Connector.getIndicatorList().then((indicatorData) => {              
-        resolve(indicatorData);   
-      }).catch(reject)
-    });
-} 
-
-*/
 const loadIndicatorList =()=>{
   return Connector.getIndicatorList();
 } 

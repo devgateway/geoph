@@ -36,7 +36,7 @@ public class MapController {
     private static final Logger LOGGER = LoggerFactory.getLogger(MapController.class);
     private static final String NAME_STR = "name";
     private static final String DESCRIPTION_STR = "description";
-    private static final String DATA_TO_SAVE_STR = "dataToSave";
+    private static final String DATA_TO_SAVE_STR = "data";
     private static final String BAD_REQUEST_NAME_INVALID = "The name used to save the map is not valid or it is already in use";
     private static final String URL_STR = "url";
     private static final String PDF_DESCRIPTION_MSG = "Map created automatically to generate a PDF file";

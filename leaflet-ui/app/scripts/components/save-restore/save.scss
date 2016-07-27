@@ -1,20 +1,48 @@
 @import '../../../stylesheets/base.scss';
 
 .save-container{
-	padding: 10px;
 	position: fixed;
-	top: 102px;
+	top: 115px;
+  	width: 538px;
 	right: 0px;
-	background-color: rgba(247, 247, 247, 0.93);
 	left: initial;
-	overflow: hidden;
-	width: 33%;
-	border-color: #EEE;
-	border-style: solid;
-	border-width: 2px;
+    background-color: rgba(247, 247, 247, 0.93);
 	z-index: 1000;
+
+  h2{
+	color:#8fa2b7;
+	margin-top: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+    margin-left: 10px;
+  }
+
+
+  .alert{
+    clear:both;
+    margin:20px 20px
+  }
+
+  .form-group{
+  	margin: 20px 20px;
+  }
+
+
+.form-control{
+	border: 1px solid #aad5f1;	
 }
 
-.save-input-empty {
-	background-color: #eee !important;
+input.form-control{
+	height: 45px;
+} 
+textarea.form-control {
+	height: 83px !important;
+} 
+  .btn-success,.btn-success:hover{
+  	background-color: #66cc66;
+  	border:0px;
+  	float: right;
+  	clear: both;
+  	margin-bottom: 15px;
+  }
 }
