@@ -26,10 +26,10 @@ export const collectValues = (filters, projectSearch)=>{
 		let options=filters[param].items;
 		if (filters[param].isRange){
 			selection=collectRange(filters[param]);
-			if(selection.minSelected){				
+			if(selection.minSelected!=undefined){				
 				params[param+'_min']=selection.minSelected;			
 			}
-			if(selection.maxSelected){				
+			if(selection.maxSelected!=undefined){				
 				params[param+'_max']=selection.maxSelected;			
 			}
 		} else {
@@ -120,4 +120,26 @@ export const getSelectedFilterNames=(filters)=>{
 		}
 	}
 	return params;
+}
+
+export const getLogSliderValue=(minval, maxval, position)=>{
+	if (position==0){
+		return 0;
+	}
+	let minpos = 0, maxpos=100;
+   	let minlval = Math.log(minval || 1);
+   	let maxlval = Math.log(maxval || 100000);
+   	let scale = (maxlval - minlval) / (maxpos - minpos);
+   	return Math.exp((position - minpos) * scale + minlval);	
+}
+
+export const getLogSliderPosition=(minval, maxval, value)=>{
+	if (value==0){
+		return 0;
+	}
+	let minpos=0, maxpos=100;
+   	let minlval = Math.log(minval || 1);
+   	let maxlval = Math.log(maxval || 100000);
+   	let scale = (maxlval - minlval) / (maxpos - minpos);
+   	return minpos + (Math.log(value) - minlval) / scale;
 }
