@@ -4,6 +4,7 @@ import FilterPopup from '../filter/filters.jsx'
 import Settings from '../controls/settings'
 import Basemap from '../map/baseMap/baseMap'
 import SaveMap from '../save-restore/save'
+import ShareMap from '../save-restore/share'
 import {Message} from '../lan/'
 import onClickOutside from 'react-onclickoutside';
 import {showSaveMap} from '../../actions/saveAndRestoreMap';
@@ -16,7 +17,7 @@ const MenuItem =onClickOutside(React.createClass({
 	
 	handleClickOutside (evt) {
 		const {onClickOutside}=this.props;
-		this.props.onDesactivate(this.props.id);
+		this.props.onDeactivate(this.props.id);
 	},
 
 	handleClick(){
@@ -25,7 +26,7 @@ const MenuItem =onClickOutside(React.createClass({
 		if (!active){
 			this.props.onActivate(this.props.id);
 		}else{
-			this.props.onDesactivate(this.props.id);
+			this.props.onDeactivate(this.props.id);
 		}
 	},
 
@@ -36,8 +37,8 @@ const MenuItem =onClickOutside(React.createClass({
 		return (
 			<li>
 			<div onClick={this.handleClick}>
-			<div  className={"options-icons "+className}></div>
-			<span>{label}</span>
+			<div className={"options-icons "+className}></div>
+			{label?<span>{label}</span>:<span>&nbsp;</span>}
 			</div>
 			{
 				React.Children.map(this.props.children,(element)=>{return  React.cloneElement(element,{visible:active});})
@@ -73,6 +74,14 @@ const items=[
 	children:SaveMap,
 	className:'save',
 	
+},
+{
+	id:'share',
+	key:'share',
+	label:'',
+	children:ShareMap,
+	className:'share',
+	
 }]
 
 
@@ -106,7 +115,7 @@ class HeaderComponent extends React.Component {
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		onActivate:(key)=>{dispatch({type:Constants.ACTIVATE_COMPONENT,key})},
-		onDesactivate:(key)=>{dispatch({type:Constants.DESACTIVATE_COMPONENT,key})}
+		onDeactivate:(key)=>{dispatch({type:Constants.DEACTIVATE_COMPONENT,key})}
 	}
 }
 

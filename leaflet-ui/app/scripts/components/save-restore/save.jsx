@@ -48,7 +48,7 @@ class SaveForm extends BaseForm {
 		const {errors={},httpError,name,description,status}=this.props;
 		return (
 			<form>
-			<div className="save-container">
+			<div className="share-container">
 			<h2>Save Map</h2>
 			<div>
 				{httpError?<HttpError error={httpError}/>:null}

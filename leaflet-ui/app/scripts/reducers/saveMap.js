@@ -9,13 +9,10 @@ const saveMap =(state = new Map({name:'',description:''}), action) => {
     
     case Constants.CHANGE_SAVE_PROPERTY:
     return state.set(action.property,action.value);
-    case Constants.UPDATE_SAVE_ERRORS:
-    
-     return state.setIn('visible',false);
+    case Constants.UPDATE_SAVE_ERRORS:    
+    return state.setIn('visible',false);
     case Constants.REQUEST_SAVE_MAP_ERROR:
-
     return state.set('httpError',action.httpError);
-
     case Constants.REQUEST_SAVE_MAP_OK:
       state=new Map({name:'',description:''});
     return state;

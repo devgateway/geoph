@@ -263,6 +263,16 @@ class Connector {
 		});
 	}
 
+
+	shareMap(dataToShare) {
+		return new Promise( (resolve, reject) => {
+			let path = Settings.get('API','SHARE');
+			this.call(POST, path, dataToShare).then((data) => {
+				resolve(data); 	
+			}).catch(reject)
+		});
+	}
+
 	restoreMap(mapKey) {
 		return new Promise( (resolve, reject) => {
 			let url=Settings.get('API','RESTORE');

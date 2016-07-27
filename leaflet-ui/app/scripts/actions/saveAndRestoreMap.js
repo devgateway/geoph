@@ -16,10 +16,8 @@ export const updateErrors=(errors)=>{
 export const saveOK = (data) => {
    return (dispatch, getState) =>{
     dispatch({type: Constants.REQUEST_SAVE_MAP_OK , data:data});
-    dispatch({type:"DESACTIVATE_COMPONENT",key:'save'});
+    dispatch({type: Constants.DEACTIVATE_COMPONENT,key:'save'});
    }
-  
-  
 }
 
 export const saveError = (err) => {
@@ -27,6 +25,41 @@ export const saveError = (err) => {
     type: Constants.REQUEST_SAVE_MAP_ERROR,
     httpError:err
   }
+}
+
+export const shareOK = (data) => {
+   return (dispatch, getState) =>{
+    dispatch({
+      type: Constants.REQUEST_SHARE_MAP_OK, 
+      data:data
+    });
+   }
+}
+
+export const shareError = (err) => {
+  return {
+    type: Constants.REQUEST_SHARE_MAP_ERROR,
+    httpError:err
+  }
+}
+
+export const shareMap=()=>{
+   return (dispatch, getState) =>{
+    const  data = collectValuesToSave(getState());
+    dispatch(requestShareMap({data}));
+   }
+  
+}
+
+const requestShareMap = (dataToShare) => {
+  return (dispatch, getState) =>{
+    Connector.shareMap(dataToShare).then((data)=>{
+        dispatch(shareOK(data));
+    }).catch((results)=>{
+        dispatch(shareError(results));
+    });
+  }
+
 }
 
 export const saveMap=()=>{
@@ -41,10 +74,8 @@ export const saveMap=()=>{
  const requestSaveMap = (dataToSave) => {
   return (dispatch, getState) =>{
     Connector.saveMap(dataToSave).then((data)=>{
-        
         dispatch(saveOK(data));
     }).catch((results)=>{
-        
         dispatch(saveError(results));
     });
   }

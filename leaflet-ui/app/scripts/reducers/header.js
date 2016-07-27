@@ -7,7 +7,7 @@ const header =(state = new Map({}), action) => {
     case  Constants.ACTIVATE_COMPONENT:
     return state.set(action.key,true);
     
-    case  Constants.DESACTIVATE_COMPONENT:
+    case  Constants.DEACTIVATE_COMPONENT:
     return state.set(action.key,false);
     
     default:
