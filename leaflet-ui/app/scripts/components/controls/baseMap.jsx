@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { setBaseMap } from '../../../actions/map'
+import { setBaseMap } from '../../actions/map'
 import onClickOutside from 'react-onclickoutside'
-import translate from '../../../util/translate.js';
+import translate from '../../util/translate.js';
 
 require('./baseMap.scss');
 
@@ -18,31 +18,23 @@ var basemaps = {
   'darkgray': '//{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png'
 }
 
-const Basemap = onClickOutside(React.createClass({
 
-  getInitialState() {
-    return {'showBasemap': false};
-  },
 
-  toggleBasemapView() {
-    this.setState({'showBasemap': !this.state.showBasemap});
-  },
 
+const Basemap = React.createClass({
+
+ 
   changeBaseMap(basemap){
     this.props.onSetBaseMap({name: basemap, url: basemaps[basemap]});
   },
 
-  handleClickOutside (evt) {
-    if (this.state.showBasemap){
-      this.setState({'showBasemap': false});
-    }
-  },
 
   render() {
-    let baseSelected = this.props.map.get('basemap').get('name');
+    const {visible,map}=this.props;
+    const  baseSelected = map.get('basemap').get('name')
+    
     return (
-      <li ><div className="options-icons basemaps" onClick={this.toggleBasemapView}></div><span onClick={this.toggleBasemapView}>{translate("header.basemap.title")}</span>
-        {this.state.showBasemap?
+      <div> {visible?
           <div className="basemap-container">
             <h2>{translate('header.basemap.select')}</h2>
             <br />
@@ -88,10 +80,10 @@ const Basemap = onClickOutside(React.createClass({
             </div>
           </div>
         : null}
-      </li>
+      </div>
     );
   }
-}));
+});
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {

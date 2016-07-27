@@ -1,32 +1,31 @@
 @import '../../../stylesheets/base.scss';
 
 .save-container{
-	position: fixed;
-	top: 115px;
-  	width: 538px;
-	right: 0px;
-	left: initial;
-    background-color: rgba(247, 247, 247, 0.93);
-	z-index: 1000;
+  border:1px solid #eee;
+  position: fixed;
+  padding-right:60px;
+  top: 115px;
+  width: 621px;
+  right: 0px;
+  left: initial;
+  background-color: #ffffff;
+  z-index: 1000;
 
   h2{
-	color:#8fa2b7;
-	margin-top: 10px;
-	padding-top: 10px;
-	padding-bottom: 10px;
-    margin-left: 10px;
-  }
+   color:#003366 !important;
+   margin-top: 21px;
+   margin-bottom: 8px;
+   margin-left: 10px;
+ }
 
+.alert{
+  clear:both;
+  margin:20px 20px
+}
 
-  .alert{
-    clear:both;
-    margin:20px 20px
-  }
-
-  .form-group{
-  	margin: 20px 20px;
-  }
-
+.form-group{
+ margin: 20px 20px;
+}
 
 .form-control{
 	border: 1px solid #aad5f1;	
@@ -38,11 +37,12 @@ input.form-control{
 textarea.form-control {
 	height: 83px !important;
 } 
-  .btn-success,.btn-success:hover{
-  	background-color: #66cc66;
-  	border:0px;
-  	float: right;
-  	clear: both;
-  	margin-bottom: 15px;
-  }
+
+.btn-success,.btn-success:hover{
+ background-color: #66cc66;
+ border:0px;
+ float: right;
+ clear: both;
+ margin-bottom: 15px;
+}
 }

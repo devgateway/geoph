@@ -10,6 +10,7 @@ export const changeProperty=(property,value)=>{
 }
 
 export const updateErrors=(errors)=>{
+  debugger;;
   return {type:Constants.UPDATE_SAVE_ERRORS,errors}
 }
 

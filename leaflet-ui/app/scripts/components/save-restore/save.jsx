@@ -45,13 +45,14 @@ class SaveForm extends BaseForm {
 
 
 	render() {
+		debugger;
 		const {errors={},httpError,name,description,status}=this.props;
 		return (
 			<form>
 			<div className="save-container">
 			<h2>Save Map</h2>
 			<div>
-				{httpError?<HttpError error={httpError}/>:null}
+			{httpError?<HttpError error={httpError}/>:null}
 			</div>
 
 			<div className={errors.name?"form-group has-error":"form-group"}>

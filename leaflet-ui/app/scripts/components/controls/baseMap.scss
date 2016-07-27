@@ -1,8 +1,7 @@
-@import '../../../../stylesheets/base.scss';
-
+@import '../../../stylesheets/base.scss';
 
 @mixin basemapimages($x,$y) {
-	background:url(../../../../assets/basemaps.png);
+	background:url('../../../assets/basemaps.png');
   	background-repeat: no-repeat;
 	background-position: $x $y;
 }
