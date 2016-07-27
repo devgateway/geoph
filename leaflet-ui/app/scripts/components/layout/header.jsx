@@ -1,6 +1,6 @@
 import React from 'react';
 import {LangSwitcher} from '../lan/'
-import FilterPopup from '../filter/filterPopup'
+import FilterPopup from '../filter/filters.jsx'
 import Settings from '../controls/settings'
 import Basemap from '../map/baseMap/baseMap'
 import SaveMap from '../save-restore/save'
@@ -54,6 +54,7 @@ const items=[
 	key:'filters',
 	label:'Filters',
 	className:'filters',
+	disableOnClickOutside:true,
 	children:FilterPopup,
 	
 },
