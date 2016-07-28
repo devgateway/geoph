@@ -23,4 +23,8 @@ public interface AppMapRepository extends JpaRepository<AppMap, Long> {
     @Query("select a from AppMap a where a.key = ?1")
     AppMap findByKey(String key);
 
+    @Query("select a from AppMap a where a.md5 = ?1")
+    AppMap findByMD5(String md5);
+
+
 }

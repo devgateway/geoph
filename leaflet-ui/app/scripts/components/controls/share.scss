@@ -1,0 +1,24 @@
+@import '../../../stylesheets/base.scss';
+
+.share-container{
+	@include controlBox();
+
+ul.share{
+  @include list-horizontal
+  float:right;
+  width: 580px;
+  
+  li{
+    border:1px solid #fff;
+    background-color:#fff; 
+    min-width:50px;
+    @include box-sizing(34px,34px);
+  }
+
+}
+
+input.form-control{
+    width: 450px;
+} 
+
+}

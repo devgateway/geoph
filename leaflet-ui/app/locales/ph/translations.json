@@ -19,7 +19,8 @@
 			"expenditures": "Paggasta",
 			"actual": "Tunay",
 			"target": "Target",
-			"cancelled": "Kinansela"
+			"cancelled": "Kinansela",
+			"share": "Share this Map"
 		},
 		"basemap": {
 			"title": "Basemap",
@@ -32,6 +33,9 @@
 			"topographic": "Topographic",
 			"oceans": "Oceans",
 			"openstreetmap": "Open Street Map"
+		},
+		"share": {
+			"title": "Philippines NEDA Map"
 		},
 		"filters": {
 			"title": "Piltro"

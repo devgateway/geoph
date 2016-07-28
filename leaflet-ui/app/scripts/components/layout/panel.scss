@@ -8,7 +8,7 @@
 
 
 .panel{
-	@include absolute(101px,0px,40px,initial)
+	@include absolute(115px,0px,40px,initial)
 	@include font(16px,$regular);
 	@include col2size();
 	overflow:hidden;

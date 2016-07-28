@@ -4,6 +4,13 @@
 		"FUZZY_LEVEL": 0
 	},
 
+	"UI": {		
+		"SHARE_URL": {
+			"development": "http://localhost:3000/#/map/",
+			"production": "http://geoph.developmentgateway.org/#/map/"
+		}
+	},
+
 	"API": {
 
 		"API_BASE_URL": {
@@ -98,6 +105,11 @@
 		"SAVE": {
 			"development": "/maps/save",				
 			"production": "/maps/save"		
+		},
+
+		"SHARE": {
+			"development": "/maps/share",				
+			"production": "/maps/share"		
 		},
 
 		"RESTORE": {

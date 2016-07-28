@@ -1,6 +1,7 @@
 package org.devgateway.geoph.services;
 
 import org.devgateway.geoph.core.repositories.LocationRepository;
+import org.devgateway.geoph.core.repositories.ProjectRepository;
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.core.services.GeoJsonService;
 import org.devgateway.geoph.dao.LocationProperty;
@@ -11,8 +12,10 @@ import org.devgateway.geoph.enums.LocationAdmLevelEnum;
 import org.devgateway.geoph.enums.TransactionStatusEnum;
 import org.devgateway.geoph.enums.TransactionTypeEnum;
 import org.devgateway.geoph.model.Location;
+import org.devgateway.geoph.model.Project;
 import org.geojson.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -35,6 +38,9 @@ public class GeoJsonServiceImpl implements GeoJsonService {
 
     @Autowired
     LocationRepository locationRepository;
+
+    @Autowired
+    ProjectRepository projectRepository;
 
     public FeatureCollection getLocationsByLevel(LocationAdmLevelEnum level) {
         List<Location> locationList = locationRepository.findLocationsByLevel(level.getLevel());
@@ -79,6 +85,74 @@ public class GeoJsonServiceImpl implements GeoJsonService {
             }
         }
         return featureCollection;
+    }
+
+    public FeatureCollection getPhysicalProgressAverageByParamsAndDetail(Parameters params, double detail) {
+        int level = getUpperLevel(params);
+
+        Map<Long, PostGisDao> postGisHelperMap = new HashMap<>();
+        List<PostGisDao> gisHelperList = null;
+        if(level == LocationAdmLevelEnum.REGION.getLevel()){
+            gisHelperList = locationRepository.getRegionShapesWithDetail(detail);
+        } else if(level == LocationAdmLevelEnum.PROVINCE.getLevel()) {
+            gisHelperList = locationRepository.getProvinceShapesWithDetail(detail);
+        } else if(level == LocationAdmLevelEnum.MUNICIPALITY.getLevel()) {
+            gisHelperList = locationRepository.getMunicipalityShapesWithDetail(detail);
+        }
+        if(gisHelperList!=null) {
+            for (PostGisDao helper : gisHelperList) {
+                postGisHelperMap.put(helper.getLocationId(), helper);
+            }
+        }
+
+        List<Location> locations = locationRepository.findLocationsByLevel(level);
+        Map<Long, LocationProperty> locationPropertyMap = new HashMap<>();
+        for(Location location:locations){
+            locationPropertyMap.put(location.getId(), new LocationProperty(location));
+        }
+
+        aggregatePhysicalProgress(params, level, locationPropertyMap);
+
+        FeatureCollection featureCollection = new FeatureCollection();
+        for(LocationProperty location : locationPropertyMap.values()) {
+            Feature feature;
+            if(postGisHelperMap.get(location.getId()) != null) {
+                feature = parseGeoJson(postGisHelperMap.get(location.getId()));
+            } else {
+                feature = new Feature();
+            }
+            feature.setProperty(PROPERTY_LOC_ID, location.getId());
+            feature.setProperty(PROPERTY_LOC_NAME, location.getName());
+            feature.setProperty(PROPERTY_LOC_CODE, location.getCode());
+            feature.setProperty(PROPERTY_LOC_ACTUAL_PHY_AVG, location.getActualPhysicalProgressAverage());
+            feature.setProperty(PROPERTY_LOC_TARGET_PHY_AVG, location.getTargetPhysicalProgressAverage());
+
+            featureCollection.add(feature);
+
+        }
+        return featureCollection;
+    }
+
+    private void aggregatePhysicalProgress(Parameters params, int level, Map<Long, LocationProperty> locationPropertyMap) {
+        Page<Project> projectPage = projectRepository.findProjectsByParams(params);
+        for(Project project:projectPage) {
+            if(project.getActualOwpa()!=null || project.getTargetOwpa()!=null || project.getReachedOwpa()!=null) {
+                for (Location locHelper : project.getLocations()) {
+                    LocationProperty lp = null;
+                    if (level == LocationAdmLevelEnum.REGION.getLevel()) {
+                        lp = locationPropertyMap.get(locHelper.getRegionId());
+                    } else if (level == LocationAdmLevelEnum.PROVINCE.getLevel()) {
+                        lp = locHelper.getProvinceId() != null ? locationPropertyMap.get(locHelper.getProvinceId()) : null;
+                    } else if (level == LocationAdmLevelEnum.MUNICIPALITY.getLevel()) {
+                        lp = locationPropertyMap.get(locHelper.getId());
+                    }
+                    if (lp != null) {
+                        lp.addActualPhysicalProgress(project.getId(), project.getActualOwpa());
+                        lp.addTargetPhysicalProgress(project.getId(), project.getTargetOwpa());
+                    }
+                }
+            }
+        }
     }
 
     public List<ProjectLocationDao> getLocationsForExport(Parameters params){
@@ -147,8 +221,6 @@ public class GeoJsonServiceImpl implements GeoJsonService {
                         }
 
                         lp.addTransactionCount(locHelper.getTrxCount());
-                        lp.setActualPhysicalProgressAverage(locHelper.getActualPhysicalProgressAverage());
-                        lp.setTargetPhysicalProgressAverage(locHelper.getTargetPhysicalProgressAverage());
 
                     }
                 }

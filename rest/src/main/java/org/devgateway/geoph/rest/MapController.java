@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.devgateway.geoph.core.exceptions.BadRequestException;
 import org.devgateway.geoph.core.services.AppMapService;
 import org.devgateway.geoph.core.services.ScreenCaptureService;
+import org.devgateway.geoph.core.util.MD5Generator;
 import org.devgateway.geoph.model.AppMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,11 +37,12 @@ public class MapController {
     private static final Logger LOGGER = LoggerFactory.getLogger(MapController.class);
     private static final String NAME_STR = "name";
     private static final String DESCRIPTION_STR = "description";
-    private static final String DATA_TO_SAVE_STR = "dataToSave";
+    private static final String DATA_TO_SAVE_STR = "data";
     private static final String BAD_REQUEST_NAME_INVALID = "The name used to save the map is not valid or it is already in use";
     private static final String URL_STR = "url";
     private static final String PDF_DESCRIPTION_MSG = "Map created automatically to generate a PDF file";
     private static final String IMG_DESCRIPTION_MSG = "Map created automatically to generate a IMG file";
+    private static final String SHARED_MAP_DESC = "Shared map";
 
     private final AppMapService appMapService;
 
@@ -65,11 +67,29 @@ public class MapController {
         if(checkIfMapNameIsValid(mapName)) {
             String mapDesc = (String) mapVariables.get(DESCRIPTION_STR);
             String mapJson = new ObjectMapper().writeValueAsString(mapVariables.get(DATA_TO_SAVE_STR));
-            AppMap appMap = new AppMap(mapName, mapDesc, mapJson, UUID.randomUUID().toString());
+            AppMap appMap = new AppMap(mapName, mapDesc, mapJson, UUID.randomUUID().toString(), null);
             return appMapService.save(appMap);
         } else {
             throw new BadRequestException(BAD_REQUEST_NAME_INVALID);
         }
+    }
+
+
+
+    @RequestMapping(value = "/share", method = POST)
+    public AppMap shareMap(@RequestBody Map<String, Object> mapVariables) throws JsonProcessingException, SQLException {
+        LOGGER.debug("shareMap");
+        String mapJson = new ObjectMapper().writeValueAsString(mapVariables.get(DATA_TO_SAVE_STR));
+        String md5 = MD5Generator.getMD5(mapJson);
+        AppMap map = appMapService.findByMD5(md5);
+        if(map==null){
+            String mapName = UUID.randomUUID().toString();
+            String mapDesc = SHARED_MAP_DESC;
+            AppMap appMap = new AppMap(mapName, mapDesc, mapJson, mapName, md5);
+            map = appMapService.save(appMap);
+        }
+
+        return map;
     }
 
     @RequestMapping(value = "/varsToPdf", method = POST)
@@ -79,7 +99,7 @@ public class MapController {
         String urlToQuery = (String) mapVariables.get(URL_STR);
         String mapDesc = (String) mapVariables.get(PDF_DESCRIPTION_MSG);
         String mapJson = new ObjectMapper().writeValueAsString(mapVariables.get(DATA_TO_SAVE_STR));
-        appMapService.save(new AppMap(name, mapDesc, mapJson, name));
+        appMapService.save(new AppMap(name, mapDesc, mapJson, name, null));
         return screenCaptureService.captureUrlToPDF(urlToQuery+name);
     }
 
@@ -98,7 +118,7 @@ public class MapController {
         String urlToQuery = (String) mapVariables.get(URL_STR);
         String mapDesc = (String) mapVariables.get(IMG_DESCRIPTION_MSG);
         String mapJson = new ObjectMapper().writeValueAsString(mapVariables.get(DATA_TO_SAVE_STR));
-        appMapService.save(new AppMap(name, mapDesc, mapJson, name));
+        appMapService.save(new AppMap(name, mapDesc, mapJson, name, null));
         return screenCaptureService.captureUrlToImage(urlToQuery+name);
     }
 
