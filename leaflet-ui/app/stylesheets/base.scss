@@ -8,13 +8,18 @@ $regular: rgb( 4, 64, 114 );
 	right: 0px;
 	left: initial;
 	z-index: 1000;
+	
 	background-color: #ffffff;
 	border:1px solid #eee;
+	
+
 	padding-right:60px;
 	padding-bottom:10px;
 	width:621px;
-	min-height:118px;
 	border-top:1px solid #cfe1f0;
+	-webkit-box-shadow: 0px 10px 26px -6px rgba(0,0,0,0.59);
+    -moz-box-shadow: 0px 10px 26px -6px rgba(0,0,0,0.59);
+	box-shadow: 0px 10px 26px -6px rgba(0,0,0,0.59);
 
 	h2{
 		font-weight: bold !important;

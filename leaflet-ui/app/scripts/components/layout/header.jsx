@@ -12,7 +12,6 @@ import onClickOutside from 'react-onclickoutside';
 import {showSaveMap} from '../../actions/saveAndRestoreMap';
 import {connect} from 'react-redux';
 import * as Constants from '../../constants/constants';
-
 require('./header.scss');
 
 const MenuItem =onClickOutside(React.createClass({
@@ -37,8 +36,8 @@ const MenuItem =onClickOutside(React.createClass({
 		const {id,label,className,onDeactivate}=this.props;
 		const active=this.props[id];
 		return (
-			<li className={active?"active":""}>
-			<div onClick={this.handleClick}>
+			<li className={active?`active ${className}`:className}>
+			<div className="link" onClick={this.handleClick}>
 			<div  className={"options-icons "+className}></div>
 			<span>{label}</span>
 			</div>
@@ -49,6 +48,8 @@ const MenuItem =onClickOutside(React.createClass({
 						onDeactivate(id);
 					}});})
 			}
+			
+
 			</li>)
 
 	}
@@ -73,13 +74,7 @@ const items=
 	children:Settings,
 	className:'settings'
 },
-{
-	id:'save',
-	key:'save',
-	label:'Save',
-	children:SaveMap,
-	className:'save'
-},
+
 {
 	id:'basemaps',
 	key:'basemaps',
@@ -87,19 +82,28 @@ const items=
 	children:Basemap,
 	className:'basemaps'
 },
+
+{
+	id:'save',
+	key:'save',
+	label:'Save',
+	children:SaveMap,
+	className:'mini save',
+	secure:true
+},
 {
 	id:'share',
 	key:'share',
 	label:'Share',
 	children:Share,
-	className:'share'
+	className:'mini share'
 },
 {
 	id:'print',
 	key:'print',
 	label:'Print',
 	children:Print,
-	className:'print'
+	className:'mini print'
 }
 ]
 
@@ -111,7 +115,7 @@ class HeaderComponent extends React.Component {
 	}
 
 	render() {
-		console.log(this.props);
+		const {loggedin} = this.props;
 		return (
 			<div className="header">
 			<div className="heading">
@@ -122,8 +126,10 @@ class HeaderComponent extends React.Component {
 			<ul className="options">
 			{items.map(item=>{
 				const Component=item.children;
-				return <MenuItem {...this.props}  {...item}><Component/></MenuItem>
+				const visible=(!item.secure || (item.secure&&loggedin));
+				return (visible)?<MenuItem {...this.props}  {...item}><Component/></MenuItem>:null;
 			})}
+					<li className="last"></li>
 			</ul>
 			</div>
 			</div>
@@ -139,7 +145,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 }
 
 const mapStateToProps = (state, props) => {
-	return state.header.toJS()
+	const {accountNonExpired,accountNonLocked,enabled,credentialsNonExpired}=state.security.toJS()
+	const loggedin=(accountNonExpired && accountNonLocked&& enabled && credentialsNonExpired);
+	debugger;
+	return {...state.header.toJS(),loggedin}
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(HeaderComponent);

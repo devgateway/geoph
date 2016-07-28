@@ -45,7 +45,7 @@ const Basemap = React.createClass({
             <h2>{translate('header.basemap.select')}</h2>
            <div className="list">
             {basemaps.map((item)=>{
-              return <BaseMapItem {...item} {...this.props} selected={item.id==baseSelected}/>
+              return <BaseMapItem key={item.id} {...item} {...this.props} selected={item.id==baseSelected}/>
             })}
             </div>
           </div>

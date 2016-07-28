@@ -8,6 +8,7 @@ import BaseForm from '../admin/baseForm.jsx'
 import HttpError from '../messages/httpError.jsx'
 import {Map} from 'immutable'
 import {Messages} from '../messages/messages.jsx'
+import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 
 require('./save.scss');
 
@@ -47,24 +48,23 @@ class SaveForm extends BaseForm {
 	render() {
 		const {errors={},httpError,name,description,status}=this.props;
 		return (
-			<form>
-			<div className="share-container">
-			<h2>Save Map</h2>
-			<div>
-			{httpError?<HttpError error={httpError}/>:null}
-			</div>
+			<div className="save-container">
+				<h2>Save Map</h2>
+				<div>
+				{httpError?<HttpError error={httpError}/>:null}
+				</div>
 
-			<div className={errors.name?"form-group has-error":"form-group"}>
-			<input className="form-control" placeholder="Enter a name"  type="text" value={name}  onChange={(e)=>{this.handleChangeValue('name',e.target.value)}}/>
-			</div> 
-			<div  className={errors.description?"form-group has-error":"form-group"}>
-			<textarea placeholder="Enter a description" className="form-control"  onChange={(e)=>{this.handleChangeValue('description',e.target.value)}}/>
-			</div> 
-			<div className="form-group">
-			<button className="btn btn-sm btn-success" onClick={this.submit.bind(this)}>Save</button>       
-			</div>
-			</div>
-			</form>
+				<div className={errors.name?"form-group has-error":"form-group"}>
+				<input className="form-control" placeholder="Enter a name"  type="text" value={name}  onChange={(e)=>{this.handleChangeValue('name',e.target.value)}}/>
+				</div> 
+				<div  className={errors.description?"form-group has-error":"form-group"}>
+				<textarea placeholder="Enter a description" className="form-control"  onChange={(e)=>{this.handleChangeValue('description',e.target.value)}}/>
+				</div> 
+				<div className="form-group">
+						<button className="btn btn-sm btn-success" onClick={this.submit.bind(this)}>Save</button>       
+					
+				</div>
+				</div>
 			);
 	}
 };
@@ -76,7 +76,9 @@ const Container=React.createClass({
 		const {visible}=this.props;
 		return (
 			<div>
+							
 			{visible?<SaveForm {...this.props}/>:null}
+
 			</div>
 			);
 	}
