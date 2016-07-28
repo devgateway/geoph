@@ -135,7 +135,7 @@ class HeaderComponent extends React.Component {
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		onActivate:(key)=>{dispatch({type:Constants.ACTIVATE_COMPONENT,key})},
-		onDesactivate:(key)=>{dispatch({type:Constants.DESACTIVATE_COMPONENT,key})}
+		onDesactivate:(key)=>{dispatch({type:Constants.DEACTIVATE_COMPONENT,key})}
 	}
 }
 
