@@ -2,17 +2,20 @@
 
 .settings-container{
 	@include controlBox();
-	
+	height: 150px;
 	.list{
 		clear: both;
 	}
 	.setting{
-		width: 185px;
-		margin-left: 27px;
+		width: 220px;
+		margin-left: 40px;
 		float:left
 	}
-	select{
+	
+	.form-control{
+		height: 33px;
+		border: 1px solid #e4e8ee;
 		background-color: #eceff4;
-	}
+	} 
 
 }

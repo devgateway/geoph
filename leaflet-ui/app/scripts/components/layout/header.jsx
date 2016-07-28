@@ -12,7 +12,6 @@ import onClickOutside from 'react-onclickoutside';
 import {showSaveMap} from '../../actions/saveAndRestoreMap';
 import {connect} from 'react-redux';
 import * as Constants from '../../constants/constants';
-import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 require('./header.scss');
 
 const MenuItem =onClickOutside(React.createClass({
@@ -37,13 +36,12 @@ const MenuItem =onClickOutside(React.createClass({
 		const {id,label,className,onDesactivate}=this.props;
 		const active=this.props[id];
 		return (
-			<li className={active?"active":""}>
-			<div onClick={this.handleClick}>
+			<li className={active?`active ${className}`:className}>
+			<div className="link" onClick={this.handleClick}>
 			<div  className={"options-icons "+className}></div>
 			<span>{label}</span>
 			</div>
-			      				<div>
-      		{
+			{
 
 				React.Children.map(this.props.children,(element)=>{return  React.cloneElement(element,{visible:active,
 					onHide:()=>{
@@ -51,7 +49,7 @@ const MenuItem =onClickOutside(React.createClass({
 						onDesactivate(id);
 					}});})
 			}
-			</div>
+			
 
 			</li>)
 
@@ -77,13 +75,7 @@ const items=
 	children:Settings,
 	className:'settings'
 },
-{
-	id:'save',
-	key:'save',
-	label:'Save',
-	children:SaveMap,
-	className:'save'
-},
+
 {
 	id:'basemaps',
 	key:'basemaps',
@@ -91,19 +83,28 @@ const items=
 	children:Basemap,
 	className:'basemaps'
 },
+
+{
+	id:'save',
+	key:'save',
+	label:'Save',
+	children:SaveMap,
+	className:'mini save',
+	secure:true
+},
 {
 	id:'share',
 	key:'share',
 	label:'Share',
 	children:Share,
-	className:'share'
+	className:'mini share'
 },
 {
 	id:'print',
 	key:'print',
 	label:'Print',
 	children:Print,
-	className:'print'
+	className:'mini print'
 }
 ]
 
@@ -115,7 +116,7 @@ class HeaderComponent extends React.Component {
 	}
 
 	render() {
-		console.log(this.props);
+		const {loggedin} = this.props;
 		return (
 			<div className="header">
 			<div className="heading">
@@ -126,8 +127,10 @@ class HeaderComponent extends React.Component {
 			<ul className="options">
 			{items.map(item=>{
 				const Component=item.children;
-				return <MenuItem {...this.props}  {...item}><Component/></MenuItem>
+				const visible=(!item.secure || (item.secure&&loggedin));
+				return (visible)?<MenuItem {...this.props}  {...item}><Component/></MenuItem>:null;
 			})}
+					<li className="last"></li>
 			</ul>
 			</div>
 			</div>
@@ -138,14 +141,15 @@ class HeaderComponent extends React.Component {
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		onActivate:(key)=>{dispatch({type:Constants.ACTIVATE_COMPONENT,key})},
-		onDesactivate:(key)=>{dispatch({type:Constants.DESACTIVATE_COMPONENT,key})}
+		onDesactivate:(key)=>{dispatch({type:Constants.DEACTIVATE_COMPONENT,key})}
 	}
 }
 
 const mapStateToProps = (state, props) => {
-		//const logged=this.props.accountNonExpired && this.props.accountNonLocked&& this.props.enabled && this.props.credentialsNonExpired;
-
-	return state.header.toJS()
+	const {accountNonExpired,accountNonLocked,enabled,credentialsNonExpired}=state.security.toJS()
+	const loggedin=(accountNonExpired && accountNonLocked&& enabled && credentialsNonExpired);
+	debugger;
+	return {...state.header.toJS(),loggedin}
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(HeaderComponent);
