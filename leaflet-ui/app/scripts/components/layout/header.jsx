@@ -19,7 +19,7 @@ const MenuItem =onClickOutside(React.createClass({
 	
 	handleClickOutside (evt) {
 		const {onClickOutside}=this.props;
-		this.props.onDesactivate(this.props.id);
+		this.props.onDeactivate(this.props.id);
 	},
 
 	handleClick(){
@@ -28,13 +28,13 @@ const MenuItem =onClickOutside(React.createClass({
 		if (!active){
 			this.props.onActivate(this.props.id);
 		}else{
-			this.props.onDesactivate(this.props.id);
+			this.props.onDeactivate(this.props.id);
 		}
 	},
 
 
 	render() {
-		const {id,label,className,onDesactivate}=this.props;
+		const {id,label,className,onDeactivate}=this.props;
 		const active=this.props[id];
 		return (
 			<li className={active?"active":""}>
@@ -46,8 +46,7 @@ const MenuItem =onClickOutside(React.createClass({
 
 				React.Children.map(this.props.children,(element)=>{return  React.cloneElement(element,{visible:active,
 					onHide:()=>{
-						debugger;
-						onDesactivate(id);
+						onDeactivate(id);
 					}});})
 			}
 			</li>)
@@ -135,7 +134,7 @@ class HeaderComponent extends React.Component {
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		onActivate:(key)=>{dispatch({type:Constants.ACTIVATE_COMPONENT,key})},
-		onDesactivate:(key)=>{dispatch({type:Constants.DEACTIVATE_COMPONENT,key})}
+		onDeactivate:(key)=>{dispatch({type:Constants.DEACTIVATE_COMPONENT,key})}
 	}
 }
 

@@ -44,10 +44,10 @@ export const shareError = (err) => {
 }
 
 export const shareMap=()=>{
-   return (dispatch, getState) =>{
+  return (dispatch, getState) =>{
     const  data = collectValuesToSave(getState());
     dispatch(requestShareMap({data}));
-   }
+  }
   
 }
 
