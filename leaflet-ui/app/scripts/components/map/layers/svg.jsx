@@ -39,6 +39,10 @@ import { render, unmountComponentAtNode } from 'react-dom';
     this.svg.style("z-index",this.props.zIndex);
     this.g = this.svg.append("g").attr("class", "leaflet-zoom-hide");
     this.props.map.on('moveend', this.mapmove.bind(this));
+    this.props.map.on('click', (evt)=>{
+      evt.originalEvent.stopPropagation();
+      this.renderPopupContent(Object.assign({}, evt.originalEvent.features, {latlng: evt.latlng}));
+    });
     this.mapmove();//trigger first update
   }
 
@@ -114,19 +118,16 @@ import { render, unmountComponentAtNode } from 'react-dom';
   }
 
   onClick(properties){
-    d3.event.stopPropagation();
-    this.renderPopupContent(properties);
+    d3.event.features=properties;    
   }
 
   mapmove(e) {
-    if (this.props.data && this.props.data.features){
-      
+    if (this.props.data && this.props.data.features){    
       const values=this.getValues(this.props.data.features);//isolate features values 
       const {thresholds,cssProvider} = this.props;
       const breaks=(thresholds > values.length)?values.length:thresholds;
       this.cssProvider=new cssProvider(values,thresholds);
-      this.renderPaths(this.props.data);
-   
+      this.renderPaths(this.props.data);   
     } else {
       console.log('Dataset is empty');
     }
@@ -137,11 +138,16 @@ import { render, unmountComponentAtNode } from 'react-dom';
     if (!feature){
       return null;
     }
+    let latLong;
+    if (feature.geometry.type=="MultiPolygon"){
+      latLong = feature.latlng;
+    } else {
+      latLong = L.latLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0])
+    }
     let popup = L.popup({maxWidth:"400", minWidth:"400", maxHeight:"280"})
-    .setLatLng(L.latLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]))
+    .setLatLng(latLong)
     .openOn(this.props.map);
     if (this.props.children) {
-
       render(React.cloneElement(React.Children.only(this.props.children), {feature, store:this.context.store}), popup._contentNode);
       popup._updateLayout();
       popup._updatePosition()

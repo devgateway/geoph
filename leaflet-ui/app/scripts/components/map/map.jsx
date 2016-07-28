@@ -12,6 +12,7 @@ import {loadDefaultLayer} from '../../actions/map.js'
 import { L , Popup, Map, Marker, TileLayer,ZoomControl,MapLayer,ScaleControl,LayerGroup} from 'react-leaflet'
 
 import ProjectPopup from './popups/projectLayerPopup'
+import SimplePopup from './popups/simplePopup'
 import Test from '../controls/settings'
 
 require('leaflet/dist/leaflet.css')
@@ -29,13 +30,19 @@ const Layer=React.createClass({
 			let css=layer.getIn(['settings','css']);
 			let classes=prefix+' '+css ;
 		const layerProps={classes,...layer.toJS()}
-
-		return (	<SvgLayer  
-			map={this.props.map}
-			{...layerProps}
-			data={layer.get('data')?layer.get('data').toJS():null}>
-			<ProjectPopup onClosePopup={this.closePopup}/>
-			</SvgLayer>)
+		return (	
+			<SvgLayer  
+				map={this.props.map}
+				{...layerProps}
+				data={layer.get('data')?layer.get('data').toJS():null}>
+				{layer.get('detailedPopup')?
+					<ProjectPopup onClosePopup={this.closePopup}/>
+				:
+					<SimplePopup name={layer.get('name')} onClosePopup={this.closePopup}/>
+				}
+				
+			</SvgLayer>
+		)
 	},
 
 	render(){
