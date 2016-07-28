@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { setFundingType } from '../../actions/settings'
 import translate from '../../util/translate.js';
+import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 
 require('./settings.scss');
 
@@ -31,6 +32,8 @@ const Settings =React.createClass({
     return (
      <div>
         {visible?
+           
+      
           <div className="settings-container">
             <h2>{translate('header.settings.fundingtype')}</h2>
            
@@ -52,6 +55,7 @@ const Settings =React.createClass({
               </div>            
             </div> 
           </div>
+
 
         : null}
       </div>

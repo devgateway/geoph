@@ -3,6 +3,8 @@ $blue:rgb( 4, 70, 111 );
 $regular: rgb( 4, 64, 114 );
 
 @mixin controlBox(){
+	-webkit-transition: width 2s; /* Safari */
+    transition: width 2s;
 	position: fixed;
 	top: 115px;
 	right: 0px;

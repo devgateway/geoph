@@ -12,7 +12,7 @@ import onClickOutside from 'react-onclickoutside';
 import {showSaveMap} from '../../actions/saveAndRestoreMap';
 import {connect} from 'react-redux';
 import * as Constants from '../../constants/constants';
-
+import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 require('./header.scss');
 
 const MenuItem =onClickOutside(React.createClass({
@@ -42,7 +42,8 @@ const MenuItem =onClickOutside(React.createClass({
 			<div  className={"options-icons "+className}></div>
 			<span>{label}</span>
 			</div>
-			{
+			      				<div>
+      		{
 
 				React.Children.map(this.props.children,(element)=>{return  React.cloneElement(element,{visible:active,
 					onHide:()=>{
@@ -50,6 +51,8 @@ const MenuItem =onClickOutside(React.createClass({
 						onDesactivate(id);
 					}});})
 			}
+			</div>
+
 			</li>)
 
 	}
@@ -140,6 +143,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 }
 
 const mapStateToProps = (state, props) => {
+		//const logged=this.props.accountNonExpired && this.props.accountNonLocked&& this.props.enabled && this.props.credentialsNonExpired;
+
 	return state.header.toJS()
 }
 
