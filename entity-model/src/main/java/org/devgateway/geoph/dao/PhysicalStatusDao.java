@@ -1,29 +1,24 @@
 package org.devgateway.geoph.dao;
 
 import org.devgateway.geoph.model.PhysicalStatus;
+import org.devgateway.geoph.model.Project;
 
 /**
  * @author dbianco
  *         created on jun 08 2016.
  */
-public class PhysicalStatusDao implements ResultDao {
+public class PhysicalStatusDao {
 
     private PhysicalStatus physicalStatus;
 
-    private Long projectCount;
-
-    private Long transactionCount;
-
-    private Double transactionAmount;
+    private Project project;
 
     public PhysicalStatusDao() {
     }
 
-    public PhysicalStatusDao(PhysicalStatus physicalStatus, Long projectCount, Double transactionAmount, Long transactionCount) {
+    public PhysicalStatusDao(PhysicalStatus physicalStatus, Project project) {
         this.physicalStatus = physicalStatus;
-        this.projectCount = projectCount;
-        this.transactionCount = transactionCount;
-        this.transactionAmount = transactionAmount;
+        this.project = project;
     }
 
     public PhysicalStatus getPhysicalStatus() {
@@ -34,27 +29,11 @@ public class PhysicalStatusDao implements ResultDao {
         this.physicalStatus = physicalStatus;
     }
 
-    public Long getProjectCount() {
-        return projectCount;
+    public Project getProject() {
+        return project;
     }
 
-    public void setProjectCount(Long projectCount) {
-        this.projectCount = projectCount;
-    }
-
-    public Long getTransactionCount() {
-        return transactionCount;
-    }
-
-    public void setTransactionCount(Long transactionCount) {
-        this.transactionCount = transactionCount;
-    }
-
-    public Double getTransactionAmount() {
-        return transactionAmount;
-    }
-
-    public void setTransactionAmount(Double transactionAmount) {
-        this.transactionAmount = transactionAmount;
+    public void setProject(Project project) {
+        this.project = project;
     }
 }

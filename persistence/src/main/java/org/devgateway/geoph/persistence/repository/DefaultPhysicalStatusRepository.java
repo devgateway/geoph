@@ -47,7 +47,7 @@ public class DefaultPhysicalStatusRepository implements PhysicalStatusRepository
     }
 
     @Override
-    public List<PhysicalStatusDao> findFundingByPhysicalStatus(Parameters params, int trxTypeId, int trxStatusId) {
+    public List<PhysicalStatusDao> findFundingByPhysicalStatus(Parameters params) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<PhysicalStatusDao> criteriaQuery = criteriaBuilder.createQuery(PhysicalStatusDao.class);
 
@@ -59,12 +59,9 @@ public class DefaultPhysicalStatusRepository implements PhysicalStatusRepository
 
         Join<Project, PhysicalStatus> physicalStatusJoin = projectRoot.join(Project_.physicalStatus);
         multiSelect.add(physicalStatusJoin);
-        multiSelect.add(criteriaBuilder.countDistinct(projectRoot));
+        multiSelect.add(projectRoot);
         groupByList.add(physicalStatusJoin);
-
-        if(trxTypeId!=0 && trxStatusId!=0) {
-            FilterHelper.addTransactionJoin(criteriaBuilder, multiSelect, projectRoot, trxTypeId, trxStatusId);
-        }
+        groupByList.add(projectRoot);
 
         FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);
 

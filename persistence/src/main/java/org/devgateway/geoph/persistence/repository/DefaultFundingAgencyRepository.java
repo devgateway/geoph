@@ -40,7 +40,7 @@ public class DefaultFundingAgencyRepository implements FundingAgencyRepository {
     }
 
     @Override
-    public List<AgencyResultsDao> findFundingByFundingAgency(Parameters params, int trxTypeId, int trxStatusId) {
+    public List<AgencyResultsDao> findFundingByFundingAgency(Parameters params) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<AgencyResultsDao> criteriaQuery = criteriaBuilder.createQuery(AgencyResultsDao.class);
 
@@ -52,18 +52,18 @@ public class DefaultFundingAgencyRepository implements FundingAgencyRepository {
 
         Join<Project, Agency> agencyJoin = projectRoot.join(Project_.fundingAgency);
         multiSelect.add(agencyJoin);
-        multiSelect.add(criteriaBuilder.countDistinct(projectRoot));
+        multiSelect.add(projectRoot);
         groupByList.add(agencyJoin);
+        groupByList.add(projectRoot);
 
-        if (trxTypeId != 0 && trxStatusId != 0) {
+        /*if (trxTypeId != 0 && trxStatusId != 0) {
             FilterHelper.addTransactionJoin(criteriaBuilder, multiSelect, projectRoot, trxTypeId, trxStatusId);
-        }
+        }*/
 
         FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);
 
         Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         criteriaQuery.where(other);
-
 
         criteriaQuery.groupBy(groupByList);
         TypedQuery<AgencyResultsDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));

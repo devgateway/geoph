@@ -11,6 +11,7 @@ import org.devgateway.geoph.enums.TransactionStatusEnum;
 import org.devgateway.geoph.enums.TransactionTypeEnum;
 import org.devgateway.geoph.model.Agency;
 import org.devgateway.geoph.model.PhysicalStatus;
+import org.devgateway.geoph.model.Project;
 import org.devgateway.geoph.model.Sector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,50 +43,42 @@ public class ChartServiceImpl implements ChartService {
 
     @Override
     public Collection<ChartResponse> getFundingByFundingAgency(Parameters params) {
-        Map<Long, ChartResponse> faMap = new HashMap<>();
-        for (TransactionTypeEnum trxTypeId : TransactionTypeEnum.values()) {
-            for (TransactionStatusEnum trxStatusId : TransactionStatusEnum.values()) {
-                List<AgencyResultsDao> fundingAgenciesResults = fundingAgencyRepository.findFundingByFundingAgency(params, trxTypeId.getId(), trxStatusId.getId());
-                for (AgencyResultsDao faHelper : fundingAgenciesResults) {
-                    Agency fa = faHelper.getAgency();
-                    ChartResponse fundingAgencyResponse;
-                    if (faMap.get(fa.getId()) != null) {
-                        fundingAgencyResponse = faMap.get(fa.getId());
-                    } else {
-                        fundingAgencyResponse = new ChartResponse(fa, params.getTrxTypeSort(), params.getTrxStatusSort());
-                        faMap.put(fa.getId(), fundingAgencyResponse);
-                    }
-                    fundingAgencyResponse.add(faHelper, trxTypeId, trxStatusId);
-                }
+        Map<Long, ChartResponse> respMap = new HashMap<>();
+
+        List<AgencyResultsDao> agenciesResults = fundingAgencyRepository.findFundingByFundingAgency(params);
+        for (AgencyResultsDao helper : agenciesResults) {
+            ChartResponse chartResponse;
+            if (respMap.get(helper.getAgency().getId()) != null) {
+                chartResponse = respMap.get(helper.getAgency().getId());
+            } else {
+                chartResponse = new ChartResponse(helper.getAgency(), params.getTrxTypeSort(), params.getTrxStatusSort());
+                respMap.put(helper.getAgency().getId(), chartResponse);
             }
+            chartResponse.add(helper.getProject());
         }
 
-        List ret = new ArrayList(faMap.values());
+        List ret = new ArrayList(respMap.values());
         Collections.sort(ret);
         return ret;
     }
 
     @Override
     public Collection<ChartResponse> getFundingByExecutingAgency(Parameters params) {
-        Map<Long, ChartResponse> eaMap = new HashMap<>();
-        for (TransactionTypeEnum trxTypeId : TransactionTypeEnum.values()) {
-            for (TransactionStatusEnum trxStatusId : TransactionStatusEnum.values()) {
-                List<AgencyResultsDao> agencyResults = executingAgencyRepository.findFundingByExecutingAgency(params, trxTypeId.getId(), trxStatusId.getId());
-                for (AgencyResultsDao eaHelper : agencyResults) {
-                    Agency ea = eaHelper.getAgency();
-                    ChartResponse executingAgencyResponse;
-                    if (eaMap.get(ea.getId()) != null) {
-                        executingAgencyResponse = eaMap.get(ea.getId());
-                    } else {
-                        executingAgencyResponse = new ChartResponse(ea, params.getTrxTypeSort(), params.getTrxStatusSort());
-                        eaMap.put(ea.getId(), executingAgencyResponse);
-                    }
-                    executingAgencyResponse.add(eaHelper, trxTypeId, trxStatusId);
-                }
+        Map<Long, ChartResponse> respMap = new HashMap<>();
+
+        List<AgencyResultsDao> agenciesResults = executingAgencyRepository.findFundingByExecutingAgency(params);
+        for (AgencyResultsDao helper : agenciesResults) {
+            ChartResponse chartResponse;
+            if (respMap.get(helper.getAgency().getId()) != null) {
+                chartResponse = respMap.get(helper.getAgency().getId());
+            } else {
+                chartResponse = new ChartResponse(helper.getAgency(), params.getTrxTypeSort(), params.getTrxStatusSort());
+                respMap.put(helper.getAgency().getId(), chartResponse);
             }
+            chartResponse.add(helper.getProject());
         }
 
-        List ret = new ArrayList(eaMap.values());
+        List ret = new ArrayList(respMap.values());
         Collections.sort(ret);
         return ret;
     }
@@ -101,53 +94,46 @@ public class ChartServiceImpl implements ChartService {
                 iaParamsSet.add(iaId);
             }
         }
-        Map<Long, ChartResponse> iaMap = new HashMap<>();
-        for (TransactionTypeEnum trxTypeId : TransactionTypeEnum.values()) {
-            for (TransactionStatusEnum trxStatusId : TransactionStatusEnum.values()) {
-                List<AgencyResultsDao> impAgenciesResults = implementingAgencyRepository.findFundingByImplementingAgency(params, trxTypeId.getId(), trxStatusId.getId());
 
-                for (AgencyResultsDao iaHelper : impAgenciesResults) {
-                    Agency ia = iaHelper.getAgency();
-                    if (showAll || iaParamsSet.contains(ia.getId())) {
-                        ChartResponse iaResponse;
-                        if (iaMap.get(ia.getId()) != null) {
-                            iaResponse = iaMap.get(ia.getId());
-                        } else {
-                            iaResponse = new ChartResponse(ia, params.getTrxTypeSort(), params.getTrxStatusSort());
-                            iaMap.put(ia.getId(), iaResponse);
-                        }
-                        iaResponse.add(iaHelper, trxTypeId, trxStatusId);
-                    }
+        Map<Long, ChartResponse> respMap = new HashMap<>();
+
+        List<AgencyResultsDao> agenciesResults = implementingAgencyRepository.findFundingByImplementingAgency(params);
+        for (AgencyResultsDao helper : agenciesResults) {
+            Agency ia = helper.getAgency();
+            if (showAll || iaParamsSet.contains(ia.getId())) {
+                ChartResponse chartResponse;
+                if (respMap.get(helper.getAgency().getId()) != null) {
+                    chartResponse = respMap.get(helper.getAgency().getId());
+                } else {
+                    chartResponse = new ChartResponse(helper.getAgency(), params.getTrxTypeSort(), params.getTrxStatusSort());
+                    respMap.put(helper.getAgency().getId(), chartResponse);
                 }
+                chartResponse.add(helper.getProject());
             }
         }
 
-        List ret = new ArrayList(iaMap.values());
+        List ret = new ArrayList(respMap.values());
         Collections.sort(ret);
         return ret;
     }
 
     @Override
     public Collection<ChartResponse> getFundingBySector(Parameters params) {
-        Map<Long, ChartResponse> sectorMap = new HashMap<>();
-        for (TransactionTypeEnum trxTypeId : TransactionTypeEnum.values()) {
-            for (TransactionStatusEnum trxStatusId : TransactionStatusEnum.values()) {
-                List<SectorResultsDao> sectorResults = sectorRepository.findFundingBySector(params, trxTypeId.getId(), trxStatusId.getId());
+        Map<Long, ChartResponse> respMap = new HashMap<>();
 
-                for (SectorResultsDao sectorHelper : sectorResults) {
-                    Sector sector = sectorHelper.getSector();
-                    ChartResponse chartResponse;
-                    if (sectorMap.get(sector.getId()) != null) {
-                        chartResponse = sectorMap.get(sector.getId());
-                    } else {
-                        chartResponse = new ChartResponse(sector, params.getTrxTypeSort(), params.getTrxStatusSort());
-                        sectorMap.put(sector.getId(), chartResponse);
-                    }
-                    chartResponse.add(sectorHelper, trxTypeId, trxStatusId);
-                }
+        List<SectorResultsDao> results = sectorRepository.findFundingBySector(params);
+        for (SectorResultsDao helper : results) {
+            ChartResponse chartResponse;
+            if (respMap.get(helper.getSector().getId()) != null) {
+                chartResponse = respMap.get(helper.getSector().getId());
+            } else {
+                chartResponse = new ChartResponse(helper.getSector(), params.getTrxTypeSort(), params.getTrxStatusSort());
+                respMap.put(helper.getSector().getId(), chartResponse);
             }
+            chartResponse.add(helper.getProject());
         }
-        List ret = new ArrayList(sectorMap.values());
+
+        List ret = new ArrayList(respMap.values());
         Collections.sort(ret);
         return ret;
     }
@@ -155,26 +141,21 @@ public class ChartServiceImpl implements ChartService {
 
     @Override
     public Collection<ChartResponse> getFundingByPhysicalStatus(Parameters params) {
-        Map<Long, ChartResponse> phyStatusMap = new HashMap<>();
-        for (TransactionTypeEnum trxTypeId : TransactionTypeEnum.values()) {
-            for (TransactionStatusEnum trxStatusId : TransactionStatusEnum.values()) {
-                List<PhysicalStatusDao> phyStatusResults = physicalStatusRepository.findFundingByPhysicalStatus(params, trxTypeId.getId(), trxStatusId.getId());
+        Map<Long, ChartResponse> respMap = new HashMap<>();
 
-                for (PhysicalStatusDao phyStatusHelper : phyStatusResults) {
-                    PhysicalStatus physicalStatus = phyStatusHelper.getPhysicalStatus();
-                    ChartResponse chartResponse;
-                    if (phyStatusMap.get(physicalStatus.getId()) != null) {
-                        chartResponse = phyStatusMap.get(physicalStatus.getId());
-                    } else {
-                        chartResponse = new ChartResponse(physicalStatus, params.getTrxTypeSort(), params.getTrxStatusSort());
-                        phyStatusMap.put(physicalStatus.getId(), chartResponse);
-                    }
-                    chartResponse.add(phyStatusHelper, trxTypeId, trxStatusId);
-                }
+        List<PhysicalStatusDao> results = physicalStatusRepository.findFundingByPhysicalStatus(params);
+        for (PhysicalStatusDao helper : results) {
+            ChartResponse chartResponse;
+            if (respMap.get(helper.getPhysicalStatus().getId()) != null) {
+                chartResponse = respMap.get(helper.getPhysicalStatus().getId());
+            } else {
+                chartResponse = new ChartResponse(helper.getPhysicalStatus(), params.getTrxTypeSort(), params.getTrxStatusSort());
+                respMap.put(helper.getPhysicalStatus().getId(), chartResponse);
             }
+            chartResponse.add(helper.getProject());
         }
 
-        List ret = new ArrayList(phyStatusMap.values());
+        List ret = new ArrayList(respMap.values());
         Collections.sort(ret);
         return ret;
     }

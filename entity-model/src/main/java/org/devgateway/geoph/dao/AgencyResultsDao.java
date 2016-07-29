@@ -1,30 +1,24 @@
 package org.devgateway.geoph.dao;
 
 import org.devgateway.geoph.model.Agency;
+import org.devgateway.geoph.model.Project;
 
 /**
  * @author dbianco
  *         created on jun 08 2016.
  */
-public class AgencyResultsDao implements ResultDao {
+public class AgencyResultsDao  {
 
     private Agency agency;
 
-    private Long projectCount;
-
-    private Long transactionCount;
-
-    private Double transactionAmount;
+    private Project project;
 
     public AgencyResultsDao() {
     }
 
-    public AgencyResultsDao(Agency agency, Long projectCount, Double transactionAmount, Long transactionCount) {
+    public AgencyResultsDao(Agency agency, Project project) {
         this.agency = agency;
-        this.projectCount = projectCount;
-        this.transactionAmount = transactionAmount;
-        this.transactionCount = transactionCount;
-
+        this.project = project;
     }
 
     public Agency getAgency() {
@@ -35,27 +29,11 @@ public class AgencyResultsDao implements ResultDao {
         this.agency = agency;
     }
 
-    public Long getProjectCount() {
-        return projectCount;
+    public Project getProject() {
+        return project;
     }
 
-    public void setProjectCount(Long projectCount) {
-        this.projectCount = projectCount;
-    }
-
-    public Long getTransactionCount() {
-        return transactionCount;
-    }
-
-    public void setTransactionCount(Long transactionCount) {
-        this.transactionCount = transactionCount;
-    }
-
-    public Double getTransactionAmount() {
-        return transactionAmount;
-    }
-
-    public void setTransactionAmount(Double transactionAmount) {
-        this.transactionAmount = transactionAmount;
+    public void setProject(Project project) {
+        this.project = project;
     }
 }

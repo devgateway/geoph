@@ -47,7 +47,7 @@ public class DefaultSectorRepository implements SectorRepository {
     }
 
     @Override
-    public List<SectorResultsDao> findFundingBySector(Parameters params, int trxTypeId, int trxStatusId) {
+    public List<SectorResultsDao> findFundingBySector(Parameters params) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<SectorResultsDao> criteriaQuery = criteriaBuilder.createQuery(SectorResultsDao.class);
 
@@ -59,12 +59,9 @@ public class DefaultSectorRepository implements SectorRepository {
 
         Join<Project, Sector> sectorJoin = projectRoot.join(Project_.sectors);
         multiSelect.add(sectorJoin);
-        multiSelect.add(criteriaBuilder.countDistinct(projectRoot));
+        multiSelect.add(projectRoot);
         groupByList.add(sectorJoin);
-
-        if (trxTypeId != 0 && trxStatusId != 0) {
-            FilterHelper.addTransactionJoin(criteriaBuilder, multiSelect, projectRoot, trxTypeId, trxStatusId);
-        }
+        groupByList.add(projectRoot);
 
         FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);
 
