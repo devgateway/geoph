@@ -9,6 +9,7 @@ import indicators from './indicators.js';
 import popup from './popup';
 import projectSearch from './projectSearch';
 import saveMap from './saveMap';
+import share from './share';
 import restoreMap from './restoreMap';
 import stats from './stats';
 import panel from './panel';
@@ -29,6 +30,7 @@ const geophApp = combineReducers({
   popup,
   projectSearch,
   saveMap,
+  share,
   restoreMap,
   stats,
   panel,

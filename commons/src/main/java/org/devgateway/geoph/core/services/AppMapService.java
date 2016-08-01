@@ -25,4 +25,6 @@ public interface AppMapService {
     Page<AppMap> findAll(Pageable pageable);
 
     AppMap findByName(String mapName);
+
+    AppMap findByMD5(String md5);
 }

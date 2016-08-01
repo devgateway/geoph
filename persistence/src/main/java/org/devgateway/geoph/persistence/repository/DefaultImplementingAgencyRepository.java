@@ -39,7 +39,7 @@ public class DefaultImplementingAgencyRepository implements ImplementingAgencyRe
     }
 
     @Override
-    public List<AgencyResultsDao> findFundingByImplementingAgency(Parameters params, int trxTypeId, int trxStatusId) {
+    public List<AgencyResultsDao> findFundingByImplementingAgency(Parameters params) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<AgencyResultsDao> criteriaQuery = criteriaBuilder.createQuery(AgencyResultsDao.class);
 
@@ -51,12 +51,9 @@ public class DefaultImplementingAgencyRepository implements ImplementingAgencyRe
 
         Join<Project, Agency> agencyJoin = projectRoot.join(Project_.implementingAgencies);
         multiSelect.add(agencyJoin);
-        multiSelect.add(criteriaBuilder.countDistinct(projectRoot));
+        multiSelect.add(projectRoot);
         groupByList.add(agencyJoin);
-
-        if (trxTypeId != 0 && trxStatusId != 0) {
-            FilterHelper.addTransactionJoin(criteriaBuilder, multiSelect, projectRoot, trxTypeId, trxStatusId);
-        }
+        groupByList.add(projectRoot);
 
         FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);
 

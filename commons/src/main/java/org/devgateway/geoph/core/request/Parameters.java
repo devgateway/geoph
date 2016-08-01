@@ -92,7 +92,7 @@ public class Parameters {
     private int trxStatusSort;
 
 
-    private ProjectOrder projectOrder;
+    private ProjectOrder projectOrder = new ProjectOrder();
 
     private Parameters() {
     }
@@ -100,6 +100,7 @@ public class Parameters {
     private Parameters(AppRequestParams filters, Pageable pageable) {
         this(filters);
         this.pageable = pageable;
+
     }
 
     private Parameters(AppRequestParams filters) {

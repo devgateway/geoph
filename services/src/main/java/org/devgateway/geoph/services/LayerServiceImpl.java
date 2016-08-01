@@ -101,6 +101,9 @@ public class LayerServiceImpl implements LayerService {
             feature.setProperty("indicatorId", indicatorDetail.getIndicatorId());
             feature.setProperty("colorScheme", indicator.getColorScheme());
             feature.setProperty("locationId", indicatorDetail.getLocationId());
+            if(postGisHelperMap.get(indicatorDetail.getLocationId())!=null){
+                feature.setProperty("locationName", postGisHelperMap.get(indicatorDetail.getLocationId()).getName());
+            }
             featureCollection.add(feature);
         }
         return featureCollection;

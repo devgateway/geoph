@@ -268,6 +268,8 @@ class Connector {
 		return new Promise( (resolve, reject) => {
 			let path = Settings.get('API','SHARE');
 			this.call(POST, path, dataToShare).then((data) => {
+				let url = Settings.get('UI','SHARE_URL');
+				data.shareUrl=url+data.key;			
 				resolve(data); 	
 			}).catch(reject)
 		});
