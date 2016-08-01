@@ -50,10 +50,10 @@ public abstract class GeophProjectsImporter {
     @Value("${import.date}")
     protected String datesStr;
 
-    @Value("${import.grantStatusId}")
+    @Value("${import.statusId}")
     protected int statusId;
 
-    @Value("${import.grantTypeId}")
+    @Value("${import.typeId}")
     protected int typeId;
 
 
@@ -97,6 +97,9 @@ public abstract class GeophProjectsImporter {
         if(cell!=null) {
             if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
                 if (toLowerCase) {
+                    if(cell.getStringCellValue().indexOf("161004070500004")>0){
+                        int a =0;
+                    }
                     return cell.getStringCellValue().toLowerCase();
                 } else {
                     return cell.getStringCellValue();
@@ -107,6 +110,8 @@ public abstract class GeophProjectsImporter {
                 return EMPTY_STRING;
             } else if (cell.getCellType() == Cell.CELL_TYPE_BOOLEAN) {
                 return Boolean.toString(cell.getBooleanCellValue());
+            } else if (cell.getCellType() == Cell.CELL_TYPE_FORMULA) {
+                return cell.getStringCellValue();
             }
             if (cell.getCellType() == Cell.CELL_TYPE_ERROR) {
                 if (action.equals(onProblem.WARN)) {
@@ -159,6 +164,8 @@ public abstract class GeophProjectsImporter {
                     return null;
                 } else if (cell.getCellType() == Cell.CELL_TYPE_BOOLEAN) {
                     return null;
+                } else if (cell.getCellType() == Cell.CELL_TYPE_FORMULA) {
+                    return Math.round(cell.getNumericCellValue());
                 }
                 if (cell.getCellType() == Cell.CELL_TYPE_ERROR) {
                     throw new Exception("Cell type error");
@@ -188,6 +195,8 @@ public abstract class GeophProjectsImporter {
                     return null;
                 } else if (cell.getCellType() == Cell.CELL_TYPE_BOOLEAN) {
                     return null;
+                } else if (cell.getCellType() == Cell.CELL_TYPE_FORMULA) {
+                    return cell.getNumericCellValue();
                 }
                 if (cell.getCellType() == Cell.CELL_TYPE_ERROR) {
                     throw new Exception("Cell type error");

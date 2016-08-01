@@ -73,7 +73,15 @@ public class DefaultProjectRepository implements ProjectRepository {
 
     @Override
     public Project save(Project project) {
-        em.persist(project);
+        Project p = em.createNamedQuery("findProjectsByPhId", Project.class)
+                .setParameter(PROPERTY_PRJ_ID, project.getPhId())
+                .getSingleResult();
+        if(p!=null){
+            p.updateFields(project);
+            em.merge(p);
+        } else {
+            em.persist(project);
+        }
         return project;
     }
 

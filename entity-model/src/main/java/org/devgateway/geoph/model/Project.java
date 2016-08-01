@@ -20,7 +20,11 @@ import java.util.Set;
     @NamedQuery(
             name = "findProjectsById",
             query = "from Project p where p.id = :id"
-    )
+    ),
+        @NamedQuery(
+                name = "findProjectsByPhId",
+                query = "from Project p where p.phId = :phId"
+        )
 })
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
@@ -492,5 +496,46 @@ public class Project extends GenericPersistable implements Serializable {
 
     public void setComplianceToConditions(String complianceToConditions) {
         this.complianceToConditions = complianceToConditions;
+    }
+
+    public void updateFields(Project project){
+        this.title = project.getTitle();
+        this.transactions = project.getTransactions();
+        this.implementingAgencies = project.getImplementingAgencies();
+        this.implementingAgencyOffice = project.getImplementingAgencyOffice();
+        this.executingAgency = project.getExecutingAgency();
+        this.fundingAgency = project.getFundingAgency();
+        this.originalCurrency = project.getOriginalCurrency();
+        this.totalProjectAmount = project.getTotalProjectAmount();
+        this.totalProjectAmountOriginal = project.getTotalProjectAmountOriginal();
+        this.startDate = project.getStartDate();
+        this.endDate = project.getEndDate();
+        this.revisedClosingDate = project.getRevisedClosingDate();
+        this.revisedPeriodPerformanceEndDate = project.getRevisedPeriodPerformanceEndDate();
+        this.status = project.getStatus();
+        this.physicalStatus = project.getPhysicalStatus();
+        this.periodPerformanceStart = project.getPeriodPerformanceStart();
+        this.periodPerformanceEnd = project.getPeriodPerformanceEnd();
+        this.grantClassification = project.getGrantClassification();
+        this.locations = project.getLocations();
+        this.sectors = project.getSectors();
+        this.climateChange = project.getClimateChange();
+        this.genderResponsiveness = project.getGenderResponsiveness();
+        this.actualOwpa = project.getActualOwpa();
+        this.targetOwpa = project.getTargetOwpa();
+        this.reachedOwpa = project.getReachedOwpa();
+        this.issueType = project.getIssueType();
+        this.issueDetail = project.getIssueDetail();
+        this.actionTakenIa = project.getActionTakenIa();
+        this.actionToBeTakenIa = project.getActionToBeTakenIa();
+        this.actionTakenNeda = project.getActionTakenNeda();
+        this.accomplishmentUpdate = project.getAccomplishmentUpdate();
+        this.natureRre = project.getNatureRre();
+        this.reasonRre = project.getReasonRre();
+        this.levelRre = project.getLevelRre();
+        this.dateRre = project.getDateRre();
+        this.iccNbAction = project.getIccNbAction();
+        this.iccNbConditions = project.getIccNbConditions();
+        this.complianceToConditions = project.getComplianceToConditions();
     }
 }
