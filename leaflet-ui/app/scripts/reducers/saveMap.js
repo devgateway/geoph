@@ -11,7 +11,7 @@ const saveMap =(state = new Map({name:'',description:''}), action) => {
     return state.set(action.property,action.value);
     
     case Constants.UPDATE_SAVE_ERRORS:
-    debugger;
+    
      return state.set('errors',action.errors);
 
     case Constants.REQUEST_SAVE_MAP_ERROR:

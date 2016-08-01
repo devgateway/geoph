@@ -45,7 +45,7 @@ const MenuItem =onClickOutside(React.createClass({
 
 				React.Children.map(this.props.children,(element)=>{return  React.cloneElement(element,{visible:active,
 					onHide:()=>{
-						debugger;
+						
 						onDesactivate(id);
 					}});})
 			}
@@ -148,7 +148,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 const mapStateToProps = (state, props) => {
 	const {accountNonExpired,accountNonLocked,enabled,credentialsNonExpired}=state.security.toJS()
 	const loggedin=(accountNonExpired && accountNonLocked&& enabled && credentialsNonExpired);
-	debugger;
+	
 	return {...state.header.toJS(),loggedin}
 }
 

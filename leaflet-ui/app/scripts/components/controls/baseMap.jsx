@@ -19,7 +19,7 @@ var basemaps = [
 
 const BaseMapItem = React.createClass({
   select(){
-    debugger;
+    
     const {id,selected,url} =this.props;
     this.props.onSetBaseMap({name:id,url:url});
   },

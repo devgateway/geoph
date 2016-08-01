@@ -105,7 +105,10 @@ class ProjectFilter extends React.Component {
 	        <div className="project-search">
         		<div className="project-search-keyword">
         			<div className="">
-			          	<Input className={this.state.keyword.length==0? 'keyword-input-empty' : 'keyword-input-filled'} type="text" value={this.state.keyword}  
+			           SAS
+                	<Input className={this.state.keyword.length==0? 'keyword-input-empty' : 'keyword-input-filled'} 
+			          		type="text" 
+			          		value={this.state.keyword}  
 				            placeholder="Search for Projects (Please enter at least 3 characters)"  
 				            bsStyle={this.validateState()}   
 				            bsSize="small"  ref="keyword"   
