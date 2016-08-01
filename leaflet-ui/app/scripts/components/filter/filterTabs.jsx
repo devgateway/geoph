@@ -18,7 +18,7 @@ class FilterTabContent extends React.Component {
 	}
 
   	render() {
-  		debugger;
+  		
 	    return (
 	    	<div className="tab-container">
 	    		<Tabs defaultActiveKey={1} animation={false} >

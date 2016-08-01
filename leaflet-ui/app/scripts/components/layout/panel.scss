@@ -8,24 +8,38 @@
 
 
 .panel{
+
 	@include absolute(115px,0px,40px,initial)
 	@include font(16px,$regular);
 	@include col2size();
 	overflow:hidden;
-	height: calc(100% - 141px);
-	margin-bottom: 0px !important;
+	
 	>ul{
 		@include margin(0px,initial,3px,10px)
 		@include list-horizontal()
+		margin-top: 18px;
 		padding:0px !important;
-		
 		.panel-tab{
-			@include box-sizing(30%,38px) 	
+
+			@include box-sizing(12vw,39px) 	
 			@include border-radius(5px)
 			@include font(15px,$blue)
+			display: inline-block;
+			white-space: nowrap;
 			border:1px solid #D5DBE0;
 			margin:5px;
+			overflow: hidden;
 			padding-top: 7px;
+				@media (max-width: 1024px) {
+					width: 40px;
+					span{
+						display: none;
+					}
+			}
+		}
+		.panel-tab.active{
+			border:1px solid #36678F;
+			background-color: #f8fdff;
 		}
 	}
 
@@ -35,10 +49,7 @@
 		float: left;
 	}
 	
-	.panel-tab.active{
-		border:1px solid #36678F;
-		background-color: #f8fdff;
-	}
+	
 
 
 	.icon.tools{
