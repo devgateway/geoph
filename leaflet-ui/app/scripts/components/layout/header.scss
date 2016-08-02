@@ -79,6 +79,15 @@ ul.options{
 		display:none;
 	}
 
+	@media (max-width: 1024px) {
+		li{
+			width: 40px;
+		}
+		li span{
+			display: none;
+		}
+	}
+
 	li.active{
 		background-color:#cfe1f0;
 	}  

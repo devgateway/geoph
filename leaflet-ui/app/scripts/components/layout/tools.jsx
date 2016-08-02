@@ -19,7 +19,6 @@ class Tools extends React.Component {
   render() {
     return (
     	<div className="tools-view">
-        <hr/>
         <ExpandableControl title={translate('toolview.projectsearch.title')} iconClass="search-icon">
           <div><ProjectFilter/></div>
         </ExpandableControl>
