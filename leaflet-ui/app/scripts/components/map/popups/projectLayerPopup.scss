@@ -91,6 +91,8 @@
 
 .project-list{
     margin-top: 5px;
+    padding-right: 0px !important;
+    padding-left: 0px !important;
     width: 410px !important;
     text-align: center;
     font-size: 11px;
@@ -103,8 +105,11 @@
     border-bottom: 1px;
     border-bottom-style: solid;
     border-bottom-color: #ececec;
-    font-size: 11px;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    font-size: 11px !important;
     height: 30px;
+    display: block !important;
     >div:last-child:not(:first-child){
         border-right: none; 
     }
@@ -126,8 +131,11 @@
     border-top-style: solid;
     border-bottom-color: #c6c7ca;
     border-top-color: #c6c7ca;
-    font-size: 9px;
-    color: #303030;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    font-size: 9px !important;
+    color: #303030 !important;
+    display: block !important;
     height: 26px;
     >div:first-child{
         text-align: left;
