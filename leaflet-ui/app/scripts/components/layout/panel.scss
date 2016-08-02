@@ -8,12 +8,10 @@
 
 
 .panel{
-
 	@include absolute(115px,0px,40px,initial)
 	@include font(16px,$regular);
 	@include col2size();
-	overflow:hidden;
-	
+
 	>ul{
 		@include margin(0px,initial,3px,10px)
 		@include list-horizontal()
@@ -88,4 +86,30 @@
 
 .panel-expanded{
 	width: 67% !important; 
+}
+
+
+.stats{
+	text-align: center;
+  	display: inline-block;
+	padding:20px;
+  	width: 50%;
+	h1{
+	font-size: 3vw;
+    padding: 0px;
+    margin: 0px;
+    /* border: 1px solid red; */
+    line-height: 3vw;
+    font-weight: bold;
+	}
+	p{
+		font-size:12px;
+	  	height: 10px;
+	  line-height: 12px;
+	  padding-bottom: 4px;
+	  margin: 0px;
+	  display: inline-block;
+	  color: rgb(172, 208, 138);
+
+	}
 }

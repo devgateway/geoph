@@ -3,7 +3,9 @@
 .expandable-control{
 	@include box-sizing(auto,auto)
 	@include font(15px,$regular)
-	margin: 22px;
+	margin-left: 20px;
+  	margin-right: 20px;
+  	margin-bottom: 10px;
 
 	.title{
 		cursor: pointer;

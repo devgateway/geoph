@@ -5,11 +5,7 @@ import Footer from './footer.jsx';
 import Panel  from './panel.jsx';
 import Landing  from './landing.jsx';
 require("./root.scss");
-/*        <Landing/>            
-        <Panel>
-            {this.props.children}        
-        </Panel>
-        <Footer/>*/
+
 export default class DefaultLayout extends React.Component {
 
   constructor() {

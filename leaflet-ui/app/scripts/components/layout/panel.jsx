@@ -19,12 +19,14 @@ export default class Panel extends React.Component {
   }
 
   render() {
+   const {stats}=this.props;
     return (
       <div className={this.props.panel.expanded? "panel panel-expanded" : "panel"}>
+
         <ul>
           <li className={(this.props.currentView=='/map' || this.props.currentView=='/map/tools')?"panel-tab active":"panel-tab"}>
             <div onClick={this.togglePanel.bind(this)}>
-              <Link to="map/tools" >             
+              <Link to="map/tools" >
                 <div className="icon tools"/>
                 <span>{translate('toolview.title')}</span>
               </Link>
@@ -37,6 +39,14 @@ export default class Panel extends React.Component {
             </Link>
           </li>
         </ul>
+         <div className="stats">
+            <h1>{stats.projectCount}</h1>
+            <p>total projects</p>
+       </div>
+        <div className="stats">
+          <h1>1.5PHP</h1>
+          <p>total commitments</p>
+        </div>
         {this.props.children}
       </div>
       )
@@ -51,6 +61,7 @@ const mapStateToProps = (state, props) => {
 
     currentView: state.routing.locationBeforeTransitions.pathname,
     panel: state.panel,
+    stats: state.stats,
     language: state.language
   }
 }
