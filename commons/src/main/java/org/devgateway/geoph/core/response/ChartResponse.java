@@ -1,15 +1,13 @@
 package org.devgateway.geoph.core.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.devgateway.geoph.dao.ResultDao;
 import org.devgateway.geoph.enums.TransactionStatusEnum;
 import org.devgateway.geoph.enums.TransactionTypeEnum;
-import org.devgateway.geoph.model.Agency;
-import org.devgateway.geoph.model.PhysicalStatus;
-import org.devgateway.geoph.model.Sector;
+import org.devgateway.geoph.model.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @author dbianco
@@ -42,6 +40,13 @@ public class ChartResponse implements Comparable {
         this.id = agency.getId();
         this.code = agency.getCode();
         this.name = agency.getName();
+        for(TransactionTypeEnum typeEnum:TransactionTypeEnum.values()){
+            Map<String, Double> statusMap = new HashMap<>();
+            for(TransactionStatusEnum statusEnum:TransactionStatusEnum.values()){
+                statusMap.put(statusEnum.getName(), 0D);
+            }
+            trxAmounts.put(typeEnum.getName(), statusMap);
+        }
     }
 
     public ChartResponse(Sector sector, int orderType, int orderStatus) {
@@ -50,12 +55,26 @@ public class ChartResponse implements Comparable {
         this.name = sector.getName();
         this.orderType = orderType;
         this.orderStatus = orderStatus;
+        for(TransactionTypeEnum typeEnum:TransactionTypeEnum.values()){
+            Map<String, Double> statusMap = new HashMap<>();
+            for(TransactionStatusEnum statusEnum:TransactionStatusEnum.values()){
+                statusMap.put(statusEnum.getName(), 0D);
+            }
+            trxAmounts.put(typeEnum.getName(), statusMap);
+        }
     }
 
     public ChartResponse(PhysicalStatus physicalStatus, int orderType, int orderStatus) {
         this.id = physicalStatus.getId();
         this.code = physicalStatus.getCode();
         this.name = physicalStatus.getName();
+        for(TransactionTypeEnum typeEnum:TransactionTypeEnum.values()){
+            Map<String, Double> statusMap = new HashMap<>();
+            for(TransactionStatusEnum statusEnum:TransactionStatusEnum.values()){
+                statusMap.put(statusEnum.getName(), 0D);
+            }
+            trxAmounts.put(typeEnum.getName(), statusMap);
+        }
     }
 
     public Long getId() {
@@ -106,25 +125,23 @@ public class ChartResponse implements Comparable {
         this.transactionCount = transactionCount;
     }
 
-    public void add(ResultDao helper, TransactionTypeEnum trxType, TransactionStatusEnum trxStatus) {
-        this.projectCount = helper.getProjectCount();
-        this.transactionCount += helper.getTransactionCount();
-        Map<String, Double> trxStatusMap;
-        Double newAmount = 0D;
-        Double trxAmount = helper.getTransactionAmount()!=null?helper.getTransactionAmount():0;
-        if (trxAmounts.get(trxType.getName()) != null) {
-            trxStatusMap = trxAmounts.get(trxType.getName());
-            if (trxStatusMap.get(trxStatus.getName()) != null) {
-                newAmount = trxStatusMap.get(trxStatus.getName()) + trxAmount;
-            } else {
-                newAmount = trxAmount;
+    public void add(Project project) {
+        this.projectCount ++;
+        Set<Transaction> transactionSet = project.getTransactions();
+        if(transactionSet.size()>0) {
+            this.transactionCount += Long.valueOf(transactionSet.size());
+            for(Transaction trx:transactionSet){
+                Double trxAmount = trx.getAmount();
+                Map<String, Double> typeMap = trxAmounts.get(trx.getTransactionType().getName());
+                if (typeMap != null) {
+                    typeMap.put(trx.getTransactionStatus().getName(), trxAmount + typeMap.get(trx.getTransactionStatus().getName()));
+                } else {
+                    Map<String, Double> trxStatusMap = new HashMap<>();
+                    trxStatusMap.put(trx.getTransactionStatus().getName(), trxAmount);
+                    trxAmounts.put(trx.getTransactionType().getName(), trxStatusMap);
+                }
             }
-        } else {
-            trxStatusMap = new HashMap<>();
-            newAmount = trxAmount;
         }
-        trxStatusMap.put(trxStatus.getName(), newAmount);
-        trxAmounts.put(trxType.getName(), trxStatusMap);
     }
 
     public Double retrieveMaxFunding(){

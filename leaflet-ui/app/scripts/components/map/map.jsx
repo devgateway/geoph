@@ -30,12 +30,9 @@ const Layer=React.createClass({
 			let classes=prefix+' '+css ;
 		const layerProps={classes,...layer.toJS()}
 
-		return (	<SvgLayer  
-			map={this.props.map}
-			{...layerProps}
-			data={layer.get('data')?layer.get('data').toJS():null}>
-			<ProjectPopup onClosePopup={this.closePopup}/>
-			</SvgLayer>)
+		return (	<SvgLayer  map={this.props.map} {...layerProps} data={layer.get('data')?layer.get('data').toJS():null}>
+							<ProjectPopup onClosePopup={this.closePopup}/>
+					</SvgLayer>)
 	},
 
 	render(){

@@ -19,19 +19,23 @@
 			"expenditures": "Expenditures",
 			"actual": "Actual",
 			"target": "Target",
-			"cancelled": "Cancelled"
+			"cancelled": "Cancelled",
+			"share": "Share a link to your map"
 		},
 		"basemap": {
 			"title": "Basemap",
 			"select": "Select Basemap",
 			"imagery": "Imagery",
 			"street": "Street",
-			"ligthgray": "Ligth Gray",
+			"gray": "Ligth Gray",
 			"darkgray": "Dark Gray",
 			"terrain": "Terrain",
 			"topographic": "Topographic",
 			"oceans": "Oceans",
 			"openstreetmap": "Open Street Map"
+		},
+		"share": {
+			"title": "Philippines NEDA Map"
 		},
 		"filters": {
 			"title": "Filters"

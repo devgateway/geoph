@@ -58,4 +58,9 @@ public class AppMapServiceImpl implements AppMapService {
     public AppMap findByName(String mapName){
         return repository.findByName(mapName);
     }
+
+    @Override
+    public AppMap findByMD5(String md5){
+        return repository.findByMD5(md5);
+    }
 }

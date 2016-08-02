@@ -14,7 +14,8 @@ export default class Header extends React.Component {
   render() {
     return (
       <div className="footer">
-        Footer
+        <p>The National Economic and Development Authority  No. 12 St. Jose Maria Escriva Drive, Ortigas Center, Pasig City  Trunkline: (+632) 631.0945 - 56</p>
+        <div className="logo"/>
       </div>
       )
   }

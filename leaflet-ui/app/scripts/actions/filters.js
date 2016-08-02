@@ -3,6 +3,7 @@ import Connector from '../connector/connector';
 import {applyFiltersToLayers} from './map';
 import {fetchChartData} from './charts';
 import {collectValues} from '../util/filterUtil';
+import {fetchStats} from './stats';
 
 const filterTypes = ['ft', 'fa', 'ia', 'st', 'cc', 'gr', 'dt_start', 'dt_end', 'pp_start', 'pp_end', 'sa', 'fin_amount', 'pr', 'ph'];
 
@@ -11,6 +12,7 @@ export const applyFilter = (filtersToApply) => {
     let filters = filtersToApply || collectValues(getState().filters.filterMain);
     dispatch(applyFiltersToLayers(filters));
     dispatch(fetchChartData(filters));
+    dispatch(fetchStats(filters));
   }
 }
 

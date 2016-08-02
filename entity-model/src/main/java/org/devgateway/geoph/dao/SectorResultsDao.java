@@ -1,29 +1,24 @@
 package org.devgateway.geoph.dao;
 
+import org.devgateway.geoph.model.Project;
 import org.devgateway.geoph.model.Sector;
 
 /**
  * @author dbianco
  *         created on jun 08 2016.
  */
-public class SectorResultsDao implements ResultDao {
+public class SectorResultsDao {
 
-        private Sector sector;
+    private Sector sector;
 
-        private Long projectCount;
+    private Project project;
 
-        private Long transactionCount;
+    public SectorResultsDao() {
+    }
 
-        private Double transactionAmount;
-
-        public SectorResultsDao() {
-        }
-
-        public SectorResultsDao(Sector sector, Long projectCount, Double transactionAmount, Long transactionCount) {
+    public SectorResultsDao(Sector sector, Project project) {
         this.sector = sector;
-        this.projectCount = projectCount;
-        this.transactionCount = transactionCount;
-        this.transactionAmount = transactionAmount;
+        this.project = project;
     }
 
     public Sector getSector() {
@@ -34,27 +29,11 @@ public class SectorResultsDao implements ResultDao {
         this.sector = sector;
     }
 
-    public Long getProjectCount() {
-        return projectCount;
+    public Project getProject() {
+        return project;
     }
 
-    public void setProjectCount(Long projectCount) {
-        this.projectCount = projectCount;
-    }
-
-    public Long getTransactionCount() {
-        return transactionCount;
-    }
-
-    public void setTransactionCount(Long transactionCount) {
-        this.transactionCount = transactionCount;
-    }
-
-    public Double getTransactionAmount() {
-        return transactionAmount;
-    }
-
-    public void setTransactionAmount(Double transactionAmount) {
-        this.transactionAmount = transactionAmount;
+    public void setProject(Project project) {
+        this.project = project;
     }
 }

@@ -12,17 +12,19 @@ const Expandable = React.createClass({
   },
 
   render() {
+  	const {expanded}=this.state;
     return (
-      <div className={(this.state.expanded==true)?"expandable-control":"expandable-control collapsed"}>
+      <div className={(expanded==true)?"expandable-control":"expandable-control collapsed"}>
+       
         <div className="title" onClick={this.toggleView}>
-          <div className="icon"><div className={this.props.iconClass}/></div>
           {this.props.title}
           <div className="toggle">
-            <span>{(this.state.expanded==true)?'–':'+'}</span>
+            <span>{(expanded==true)?'–':'+'}</span>
           </div>
         </div>
+        
         {(this.state.expanded==true)? 
-          <div className="expanded-content">
+          <div className="content">
             {this.props.children}
           </div>
           :null}

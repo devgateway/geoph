@@ -232,8 +232,8 @@ public class FilterHelper {
             Join<Project, Transaction> transactionJoin = projectRoot.join(Project_.transactions, JoinType.LEFT);
             transactionJoin.on(transactionJoin.get(Transaction_.transactionTypeId).in(trxType),
                     transactionJoin.get(Transaction_.transactionStatusId).in(trxStatus));
-            multiSelect.add(criteriaBuilder.sum(transactionJoin.get(Transaction_.amount)));
-            multiSelect.add(criteriaBuilder.countDistinct(transactionJoin));
+            multiSelect.add(transactionJoin.get(Transaction_.amount));
+            multiSelect.add(transactionJoin.get(Transaction_.id));
         }
     }
 }

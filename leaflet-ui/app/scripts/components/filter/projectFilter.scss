@@ -1,11 +1,65 @@
 
 .project-search{
-	padding: 20px;
+  	padding-left: 20px;
+  	padding-right: 20px;
+	.project-search-actions{
+	  a{
+	  	color:#000;
+		text-decoration: none;
+	  }
+	}
+  h2{
+		font-size: 12px;
+		line-height:35px;
+		display: inline-block;
 
+	}
+	.btn-xs{
+		border:0px;
+		height:16px;
+		width:16px;
+		margin:4px;
+		background-repeat: no-repeat;
+		line-height: 30px;	
+		
+	}
+
+	.all-none{
+		border-radius:0px;
+	}
+
+	.btn-apply,.btn-apply:hover{
+		background:url('../../../assets/png/apply_btn_circle.png');
+	}
+
+	.btn-all,.btn-all:hover{
+		background-color:#FFF
+	}
+	.btn-clear,.btn-clear:hover{
+	  background:url('../../../assets/png/clear_btn_circle.png');
+	}
+
+  input[type=text] {
+	background-color: white;
+	background-image: url('../../../assets/png/find.png');
+	background-position: 8px 8px;
+	background-repeat: no-repeat;
+	padding-left: 30px !important;
+	height: 33px;
+	padding: 5px 10px;
+	font-size: 11px;
+	line-height: 11px;
+	border-radius: 3px;
+  }
 }
 
+
+
 .keyword-input-empty {
-	background-color: #eee !important;
+	width: 80%;
+	line-height: 33px;
+	border:1px solid #ebeef2	 !important;
+	background-color: #f8f8f8 !important;
 }
 
 .item-text {
@@ -15,16 +69,16 @@
 }
 
 .filterItemInfo div{
-  padding-bottom: 1px;
+	padding-bottom: 1px;
 }
 
 .project-search-actions{
 	padding-bottom: 10px;
 	>a{
 		font-size: 13px;
-	    margin-bottom: 15px;
-	    padding-left: 3px;
-	    padding-right: 3px;
+		margin-bottom: 15px;
+		padding-left: 3px;
+		padding-right: 3px;
 	}
 }
 
