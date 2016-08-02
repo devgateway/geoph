@@ -4,7 +4,7 @@ import FilterList from './filterListWithSearch'
 import FilterDate from './filterDateRange'
 import FilterSlider from './filterSliderRange'
 import { connect } from 'react-redux'
-import translate from '../../util/translate.js';
+import translate from '../../util/translate';
 
 class FilterTabContent extends React.Component {
 
@@ -106,7 +106,7 @@ class FilterTabContent extends React.Component {
 	                <Tab className="filter-tab-content" eventKey={6} title={translate('filters.financialamount.financialamount')}>
 	                  	<Tabs defaultActiveKey={1} animation={false} position="left" tabWidth={3}>
 							<Tab className="filter-list-content" eventKey={1} title={translate('filters.financialamount.financialamount')}>
-								<FilterSlider filterType="fin_amount" valueSymbol="PHP" {...this.props.filters["fin_amount"]} 
+								<FilterSlider filterType="fin_amount" valueSymbol="PHP" logMarks={true} {...this.props.filters["fin_amount"]} 
 									valueMin={this.props.filters["fin_amount"]? parseInt(this.props.filters["fin_amount"].items[1]) : 0} 
 									valueMax={this.props.filters["fin_amount"]? parseInt(this.props.filters["fin_amount"].items[0]) : 100}/>
 						    </Tab>
