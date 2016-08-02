@@ -118,14 +118,19 @@ getInput(){
 getActions(){
   return (  
    <div className="project-search-actions">
-   <a href="#" onClick={this.selectAllMatched.bind(this)}><div className="btn btn-xs btn-all"></div><span>select all</span></a>
+  
+   <a href="#" onClick={this.selectAllMatched.bind(this)}><div className="btn btn-xs btn-all"></div>select all</a>
+  
    <span>/</span>
-   {this.state.showResults?<a href="#" onClick={this.showSelected.bind(this)}>selected ({this.props.projectSearch.selected.length}) </a>:
-   <a href="#" onClick={this.showResults.bind(this)}>all</a>}
+   {this.state.showResults?<a href="#" onClick={this.showSelected.bind(this)}>selected ({this.props.projectSearch.selected.length})</a>:<a href="#" onClick={this.showResults.bind(this)}>all</a>}
+  
    <span>/</span>
-   <a href="#" onClick={this.applySelection.bind(this)}><div className="btn btn-xs btn-apply"></div> <span>apply</span></a>
+  
+   <a href="#" onClick={this.applySelection.bind(this)}><div className="btn btn-xs btn-apply"></div> apply</a>
+  
    <span>/</span>
-   <a href="#" onClick={this.clearAllSelection.bind(this)}><div className="btn btn-xs btn-clear"></div><span>clear all</span></a>
+
+   <a href="#" onClick={this.clearAllSelection.bind(this)}><div className="btn btn-xs btn-clear"></div>clear all</a>
    </div>                       
    )
 }
