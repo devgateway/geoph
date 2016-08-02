@@ -1,8 +1,10 @@
 @import '../../../stylesheets/base.scss';
 
 .expandable-control{
-	@include box-sizing(auto,auto)
-	@include font(15px,$regular)
+  	@include box-sizing(auto,auto)
+	@include font(11px,$regular)
+	border:1px solid #edf0f4	;
+  	border-radius: 5px;
 	margin-left: 20px;
   	margin-right: 20px;
   	margin-bottom: 10px;
@@ -27,7 +29,10 @@
 		}
 	}
 	.content{
+	  	min-height: 200px;
+
 		background-color:#FFF;
+	 	font-size: 11px;
 	}
 }
 

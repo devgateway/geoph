@@ -147,7 +147,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 const mapStateToProps = (state, props) => {
 	const {accountNonExpired,accountNonLocked,enabled,credentialsNonExpired}=state.security.toJS()
 	const loggedin=(accountNonExpired && accountNonLocked&& enabled && credentialsNonExpired);
-	debugger;
+	
 	return {...state.header.toJS(),loggedin}
 }
 

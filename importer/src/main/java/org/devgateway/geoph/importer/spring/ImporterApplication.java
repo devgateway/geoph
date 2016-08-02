@@ -51,6 +51,10 @@ public class ImporterApplication implements CommandLineRunner {
     private GeophProjectsImporter loanImporter;
 
     @Autowired
+    @Qualifier("pmcImporter")
+    private GeophProjectsImporter pmcImporter;
+
+    @Autowired
     private ConfigurableApplicationContext context;
 
 
@@ -61,6 +65,8 @@ public class ImporterApplication implements CommandLineRunner {
             grantImporter.importProjects();
         } else if (importType.toLowerCase().equals(FlowTypeEnum.LOAN.getLCName())){
             loanImporter.importProjects();
+        } else if (importType.toLowerCase().equals(FlowTypeEnum.PMC.getLCName())){
+            pmcImporter.importProjects();
         }
         LOGGER.info("......... Import is done, please check the log .........");
 
