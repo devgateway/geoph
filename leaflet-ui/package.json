@@ -93,6 +93,7 @@
     "d3": "^3.5.17",
     "immutable": "3.7.6",
     "rc-slider": "^3.8.2",
+    "react-copy-to-clipboard": "^4.2.2",
     "react-dropzone": "^3.5.3",
     "react-onclickoutside": "5.0.0"
   }
