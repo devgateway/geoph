@@ -1,8 +1,6 @@
 DELETE FROM project_sector;
 
 
-
-
 INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (9,5);
 INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (11,5);
 INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (13,5);
@@ -293,4 +291,39 @@ INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (1127,5);
 INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (1129,5);
 INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (1131,5);
 INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (1135,2);
+INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (2031,5);
+INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (2033,5);
+INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (2035,5);
+INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (2037,5);
+INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (2039,5);
+INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (2041,5);
+INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (2047,5);
+INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (2049,5);
+INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (2051,5);
+INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (2053,5);
+INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (2059,2);
+INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (2061,2);
+INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (2069,5);
+INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (2089,2);
+INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (2091,2);
+INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (2093,2);
+INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (2095,2);
+INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (2097,2);
+INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (2099,2);
+INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (2101,2);
+INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (2103,2);
+INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (2105,2);
+INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (2107,2);
+INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (2109,2);
+INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (2111,5);
+INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (2113,5);
+INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (2115,5);
+INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (2117,5);
+INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (2119,5);
+INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (2151,5);
+INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (2153,5);
+INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (2155,5);
+INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (2157,5);
+INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (2159,5);
+INSERT INTO "public"."project_sector" (project_id,sector_id) VALUES (2205,2);
 

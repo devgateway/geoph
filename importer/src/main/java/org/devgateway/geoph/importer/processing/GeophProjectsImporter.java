@@ -74,7 +74,7 @@ public abstract class GeophProjectsImporter {
                 rowIterator.next();
             }
             int rowNumber = startRowData;
-            while (rowIterator.hasNext() && rowNumber<endRowData) {
+            while (rowIterator.hasNext() && rowNumber<=endRowData) {
                 rowNumber++;
                 addProject(rowIterator.next(), rowNumber);
             }
@@ -97,9 +97,6 @@ public abstract class GeophProjectsImporter {
         if(cell!=null) {
             if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
                 if (toLowerCase) {
-                    if(cell.getStringCellValue().indexOf("161004070500004")>0){
-                        int a =0;
-                    }
                     return cell.getStringCellValue().toLowerCase();
                 } else {
                     return cell.getStringCellValue();

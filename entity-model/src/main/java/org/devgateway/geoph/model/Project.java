@@ -50,7 +50,7 @@ public class Project extends GenericPersistable implements Serializable {
     @Size(max=255)
     private String title;
 
-    @OneToMany(cascade=CascadeType.PERSIST, fetch = FetchType.LAZY, mappedBy = "project")
+    @OneToMany(cascade=CascadeType.MERGE, fetch = FetchType.LAZY, mappedBy = "project")
     private Set<Transaction> transactions;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
@@ -181,6 +181,11 @@ public class Project extends GenericPersistable implements Serializable {
     @Column(name = "compliance_to_conditions", columnDefinition = "TEXT")
     private String complianceToConditions;
 
+    @Column(name = "cumulative_allotment")
+    private Double cumulativeAllotment;
+
+    @Column(name = "cumulative_obligations")
+    private Double cumulativeObligations;
 
 
     public Project() {
@@ -498,6 +503,22 @@ public class Project extends GenericPersistable implements Serializable {
         this.complianceToConditions = complianceToConditions;
     }
 
+    public Double getCumulativeAllotment() {
+        return cumulativeAllotment;
+    }
+
+    public void setCumulativeAllotment(Double cumulativeAllotment) {
+        this.cumulativeAllotment = cumulativeAllotment;
+    }
+
+    public Double getCumulativeObligations() {
+        return cumulativeObligations;
+    }
+
+    public void setCumulativeObligations(Double cumulativeObligations) {
+        this.cumulativeObligations = cumulativeObligations;
+    }
+
     public void updateFields(Project project){
         this.title = project.getTitle();
         this.transactions = project.getTransactions();
@@ -537,5 +558,9 @@ public class Project extends GenericPersistable implements Serializable {
         this.iccNbAction = project.getIccNbAction();
         this.iccNbConditions = project.getIccNbConditions();
         this.complianceToConditions = project.getComplianceToConditions();
+        this.cumulativeAllotment = project.getCumulativeAllotment();
+        this.cumulativeObligations = project.getCumulativeObligations();
     }
+
+
 }

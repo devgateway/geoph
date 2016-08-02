@@ -4,7 +4,10 @@ import org.devgateway.geoph.core.repositories.ProjectRepository;
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.core.response.StatsResponse;
 import org.devgateway.geoph.model.Project;
+import org.devgateway.geoph.model.Transaction;
 import org.devgateway.geoph.persistence.util.FilterHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -31,6 +34,8 @@ import static org.devgateway.geoph.core.constants.Constants.*;
 @Service
 @Transactional
 public class DefaultProjectRepository implements ProjectRepository {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultProjectRepository.class);
 
     @Autowired
     EntityManager em;
@@ -73,14 +78,20 @@ public class DefaultProjectRepository implements ProjectRepository {
 
     @Override
     public Project save(Project project) {
-        Project p = em.createNamedQuery("findProjectsByPhId", Project.class)
-                .setParameter(PROPERTY_PRJ_ID, project.getPhId())
-                .getSingleResult();
+        Project p = null;
+        try {
+            p = em.createNamedQuery("findProjectsByPhId", Project.class)
+                    .setParameter(PROPERTY_PRJ_PH_ID, project.getPhId())
+                    .getSingleResult();
+        } catch (Exception e) {
+            LOGGER.debug("Project not found!");
+        }
         if(p!=null){
             p.updateFields(project);
             em.merge(p);
         } else {
             em.persist(project);
+            project.getTransactions().forEach(em::persist);
         }
         return project;
     }

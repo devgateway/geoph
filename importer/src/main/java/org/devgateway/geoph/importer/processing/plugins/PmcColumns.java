@@ -79,6 +79,12 @@ public class PmcColumns {
     @Value("${pmc.issueDetail}")
     private int issueDetail;
 
+    @Value("${pmc.cumulativeAllotment}")
+    private int cumulativeAllotment;
+
+    @Value("${pmc.cumulativeObligations}")
+    private int cumulativeObligations;
+
     public int getProjectId() {
         return projectId;
     }
@@ -169,5 +175,13 @@ public class PmcColumns {
 
     public int getIssueDetail() {
         return issueDetail;
+    }
+
+    public int getCumulativeAllotment() {
+        return cumulativeAllotment;
+    }
+
+    public int getCumulativeObligations() {
+        return cumulativeObligations;
     }
 }

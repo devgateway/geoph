@@ -24,6 +24,7 @@ public class PmcImporter extends GeophProjectsImporter {
     private static final Logger LOGGER = LoggerFactory.getLogger(PmcImporter.class);
     private static final int MAX_LENGTH = 255;
     private static final String UNDEFINED = "undefined";
+    private static final String LOCALLY_FUNDED = "Locally-funded";
 
     @Autowired
     private PmcColumns pmcColumns;
@@ -43,7 +44,7 @@ public class PmcImporter extends GeophProjectsImporter {
 
             String fa = getStringValueFromCell(row.getCell(pmcColumns.getFundingInstitution()), "funding institution", rowNumber, onProblem.NOTHING, true);
             if(StringUtils.isBlank(fa)){
-                fa = UNDEFINED;
+                fa = LOCALLY_FUNDED;
             }
             p.setFundingAgency(importBaseData.getFundingAgencies().get(fa));
 
@@ -157,6 +158,14 @@ public class PmcImporter extends GeophProjectsImporter {
 
             p.setIssueDetail(
                     getStringValueFromCell(row.getCell(pmcColumns.getIssueDetail()), "issue detail", rowNumber, GeophProjectsImporter.onProblem.NOTHING, true)
+            );
+
+            p.setCumulativeAllotment(
+                    getDoubleValueFromCell(row.getCell(pmcColumns.getCumulativeAllotment()), "cumulative allotment", rowNumber, GeophProjectsImporter.onProblem.NOTHING)
+            );
+
+            p.setCumulativeObligations(
+                    getDoubleValueFromCell(row.getCell(pmcColumns.getCumulativeObligations()), "cumulative obligations", rowNumber, GeophProjectsImporter.onProblem.NOTHING)
             );
 
             importBaseData.getProjectService().save(p);
