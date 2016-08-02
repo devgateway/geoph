@@ -145,7 +145,7 @@ public class GrantImporter extends GeophProjectsImporter {
             ));
 
             p.setPhysicalStatus(importBaseData.getPhysicalStatuses().get(
-                    getStringValueFromCell(row.getCell(grantColumns.getStatus()), "physical status", rowNumber, onProblem.NOTHING, true)
+                    getStringValueFromCell(row.getCell(grantColumns.getPhysicalStatus()), "physical status", rowNumber, onProblem.NOTHING, true)
             ));
 
             p.setPeriodPerformanceStart(

@@ -14,164 +14,184 @@ var doneTypingInterval = 900;  //time in ms (5 seconds)
 class ProjectFilter extends React.Component {
 
 	constructor() {
-	    super();
-	    this.state = {'keyword': '', 'idsSelected': [], 'showResults': true};
-	}
+   super();
+   this.state = {'keyword': '', 'idsSelected': [], 'showResults': true};
+ }
 
-	componentDidMount() {
-		let filters = collectValues(this.props.filters);
-		this.props.onGetStats(filters);		
-	}
+ componentDidMount() {
+  let filters = collectValues(this.props.filters);
+  this.props.onGetStats(filters);		
+}
 
-	validateState() {
-    	const length = this.state.keyword.length;
-    	const tiping = this.state.tiping;
-    	if (length>0){
-    		if (tiping){
-    			return 'error';
-    		} else {
-    			return 'success';
-    		}
-    	}
-    }
+validateState() {
+ const length = this.state.keyword.length;
+ const tiping = this.state.tiping;
+ if (length>0){
+  if (tiping){
+   return 'error';
+ } else {
+   return 'success';
+ }
+}
+}
 
-  	validateSelection(id) {
-  		let selected = false;
-  		this.props.projectSearch.selected.map((it) => {
-  			if (it.id==id){
-  				selected = true;
-  			}
-  		});
-    	if (!selected){
-  			return 'selectable';
-  		} else {
-  			return 'selectable selected';
-  		}
-  	}
+validateSelection(id) {
+  let selected = false;
+  this.props.projectSearch.selected.map((it) => {
+   if (it.id==id){
+    selected = true;
+  }
+});
+  if (!selected){
+   return 'selectable';
+ } else {
+   return 'selectable selected';
+ }
+}
 
-  	handleChange(e) {
-    	let keyword = e.target.value;
-		this.setState({keyword: keyword, tiping: true});
-		clearTimeout(typingTimer);
-	    typingTimer = setTimeout(this.doneTyping.bind(this), doneTypingInterval);	    
-  	}
+handleChange(e) {
+ let keyword = e.target.value;
+ this.setState({keyword: keyword, tiping: true});
+ clearTimeout(typingTimer);
+ typingTimer = setTimeout(this.doneTyping.bind(this), doneTypingInterval);	    
+}
 
-  	doneTyping () {
-	    this.setState({tiping: false});
-		let filters = collectValues(this.props.filters);
-		Object.assign(filters, {'pt': this.state.keyword});
-		this.props.onTriggerSearch(filters);
-	}
+doneTyping () {
+ this.setState({tiping: false});
+ let filters = collectValues(this.props.filters);
+ Object.assign(filters, {'pt': this.state.keyword});
+ this.props.onTriggerSearch(filters);
+}
 
-  	handleSelection(project){
-  		this.props.onToggleSelection(project);  		
-  	}
+handleSelection(project){
+  this.props.onToggleSelection(project);  		
+}
 
-  	selectAllMatched(){
-  		this.props.onSelectAllMatched();
-  	}
+selectAllMatched(){
+  this.props.onSelectAllMatched();
+}
 
-	clearAllSelection(){
-  		this.props.onClearAll();
-  	}
+clearAllSelection(){
+  this.props.onClearAll();
+}
 
-  	clearResults(){
-  		this.props.onClearResults();
-  	}
+clearResults(){
+  this.props.onClearResults();
+}
 
-  	showSelected(){
-  		this.setState({'showResults': false});
-  	}
+showSelected(){
+  this.setState({'showResults': false});
+}
 
-  	showResults(){
-		this.setState({'showResults': true});
-  	}
+showResults(){
+  this.setState({'showResults': true});
+}
 
-  	dropLongTitle(title){
-  		if (title.length>60){
-  			return title.substr(0, 58)+"...";
-  		}
-  		return title;
-  	}
+dropLongTitle(title){
+  if (title.length>90){
+   return title.substr(0, 80)+"...";
+ }
+ return title;
+}
 
-	applySelection(){
-  		let filters = collectValues(this.props.filters, this.props.projectSearch);
-  		this.props.onFilterByProjects(filters);
-  	}
+applySelection(){
+  let filters = collectValues(this.props.filters, this.props.projectSearch);
+  this.props.onFilterByProjects(filters);
+}
 
-	render() {
-		let projectSearchResults = this.props.projectSearch.results;
-		return (
-	        <div className="project-search">
-        		<div className="project-search-keyword">
-            
-          		  <h2>Search over {this.props.stats.projectCount} results</h2>
 
-        			<div className="">
-			          	<Input className={this.state.keyword.length==0? 'keyword-input-empty' : 'keyword-input-filled'} 
-			          		type="text" 
-			          		value={this.state.keyword}  
-				            placeholder="Search for Projects (Please enter at least 3 characters)"  
-				            bsStyle={this.validateState()}   
-				            bsSize="small"  ref="keyword"   
-				            onChange={this.handleChange.bind(this)}/>
-			        </div>	        	
-		        </div>
-		        <div className="project-search-actions">
-		        	<div className="selectable all-none" onClick={this.selectAllMatched.bind(this)}></div>
-               <span>/</span>
-              {this.state.showResults?<a href="#" onClick={this.showSelected.bind(this)}>selected ({this.props.projectSearch.selected.length}) </a>:
-              <a href="#" onClick={this.showResults.bind(this)}>all</a>}
-        		    <span>/</span>
-              <a href="#" onClick={this.applySelection.bind(this)}><div className="btn btn-xs btn-apply"></div> <span>apply</span></a>
-        			 <span>/</span>
-              <a href="#" onClick={this.clearAllSelection.bind(this)}><div className="btn btn-xs btn-clear"></div><span>clear all</span></a>
 
-		        </div>	        		        		        	
-	        	<div className="project-search-results">
-	        	{this.state.showResults?
-	        		this.state.keyword.length>0?
-		        		projectSearchResults.isFetching?
-		        		<div>Loading Data</div>
-			        	: projectSearchResults.content?
-			        		projectSearchResults.content.length==0?
-			        			<div>No Results</div>
-			        		: 
-				        		projectSearchResults.content.map((item, idx) => {
-				        			if (idx<10){
-					        			return <div className="filterItemInfo">
-							        		<div className={this.validateSelection(item.id)} onClick={this.handleSelection.bind(this, item)} />
-								        	<div className="toggle-nav item-text" onClick={this.handleSelection.bind(this, item)}>
-								        		{this.dropLongTitle(item.title)}
-								        	</div>
-								        </div>
-								    } else {
-								    	return null;
-								    }
-				        		})
-				        : null
-				    : null
-				:
-					this.props.projectSearch.selected.length==0?
-	        			<div>No Projects Selected</div>
-	        		: 
-		        		this.props.projectSearch.selected.map((item, idx) => {
-		        			if (idx<10){
-			        			return <div className="filterItemInfo">
-					        		<div className={this.validateSelection(item.id)} onClick={this.handleSelection.bind(this, item)} />
-						        	<div className="toggle-nav item-text" onClick={this.handleSelection.bind(this, item)}>
-						        		{this.dropLongTitle(item.title)}
-						        	</div>
-						        </div>
-						    } else {
-						    	return null;
-						    }
-		        		})
-		        }
-		        </div>			     		        
-		    </div>   
-	    );
-  	}
+
+
+getInput(){
+  const {keyword}=this.state;
+  return  (<Input className={keyword.length==0? 'keyword-input-empty' : 'keyword-input-filled'} 
+   type="text" 
+   value={keyword}  
+   placeholder="Search for Projects (Please enter at least 3 characters)"  
+   bsStyle={this.validateState()}   
+   bsSize="small"  ref="keyword"   
+   onChange={this.handleChange.bind(this)}/>)
+}
+
+
+getActions(){
+  return (  
+   <div className="project-search-actions">
+   <a href="#" onClick={this.selectAllMatched.bind(this)}><div className="btn btn-xs btn-all"></div><span>select all</span></a>
+   <span>/</span>
+   {this.state.showResults?<a href="#" onClick={this.showSelected.bind(this)}>selected ({this.props.projectSearch.selected.length}) </a>:
+   <a href="#" onClick={this.showResults.bind(this)}>all</a>}
+   <span>/</span>
+   <a href="#" onClick={this.applySelection.bind(this)}><div className="btn btn-xs btn-apply"></div> <span>apply</span></a>
+   <span>/</span>
+   <a href="#" onClick={this.clearAllSelection.bind(this)}><div className="btn btn-xs btn-clear"></div><span>clear all</span></a>
+   </div>                       
+   )
+}
+getNoSelection(items){
+  debugger;
+  if (items && items.length == 0){
+    return <div>No selection</div>
+  }
+}
+getLoading(isFetching){
+  if (isFetching){
+    return (<div className="message">Loading </div>)
+  }
+}
+getRow(item){
+  return( 
+    <div className="row">
+    <div className="col1">
+    <div className={this.validateSelection(item.id)} onClick={this.handleSelection.bind(this, item)} />
+    </div>
+    <div className="col2">
+    <div className="item-text" onClick={this.handleSelection.bind(this, item)}>
+    {this.dropLongTitle(item.title)}
+    </div>
+    </div>
+    </div>)
+}
+
+getContent(content,size){
+  if(content && content.length >0){
+    return <div>{content.map((item,idx)=>(idx<10)?this.getRow(item):null)}</div>
+  }
+}
+
+
+
+render() {
+  const {showResults}= this.state;
+  const {projectSearch} = this.props;
+  const {results,selected} = projectSearch;
+  const {content,first,isFetching,last,lastUpdate,number,numberOfElements,size,sort,totalElements,totalPages} = results
+  
+  const items=showResults?this.getContent(content,10):this.getContent(selected,10);   
+  
+  const loading=showResults?this.getLoading(isFetching):null;
+  
+  const noSelecion=!showResults?this.getNoSelection(items):null;
+
+  return (
+   <div className="project-search">
+   <div className="project-search-keyword">
+   <h2>Search over {this.props.stats.projectCount} results</h2>
+   <div className="">
+   {this.getInput()}
+   </div>
+   {this.getActions()}	        	
+   </div>
+
+   <div className="project-search-results">
+   {loading}
+   {noSelecion}
+   {items} 
+   </div>			     		        
+   </div>   
+   );
+}
 }
 
 

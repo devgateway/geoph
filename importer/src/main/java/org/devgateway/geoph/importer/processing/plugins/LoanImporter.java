@@ -133,7 +133,7 @@ public class LoanImporter extends GeophProjectsImporter {
             ));
 
             p.setPhysicalStatus(importBaseData.getPhysicalStatuses().get(
-                    getStringValueFromCell(row.getCell(loanColumns.getStatus()), "physical status", rowNumber, GeophProjectsImporter.onProblem.NOTHING, true)
+                    getStringValueFromCell(row.getCell(loanColumns.getPhysicalStatus()), "physical status", rowNumber, GeophProjectsImporter.onProblem.NOTHING, true)
             ));
 
             p.setPeriodPerformanceStart(

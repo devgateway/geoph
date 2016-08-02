@@ -31,6 +31,7 @@ public class Constants {
     public static final String PROPERTY_LOC_REACHED_PHY_AVG = "reachedPhysicalProgressAverage";
 
     public static final String PROPERTY_PRJ_ID = "id";
+    public static final String PROPERTY_PRJ_PH_ID = "phId";
 
     public static final String QUERY_HINT = "javax.persistence.fetchgraph";
     public static final String GRAPH_PROJECT_ALL = "graph.project.all";
