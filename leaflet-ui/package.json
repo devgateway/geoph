@@ -95,6 +95,7 @@
     "rc-slider": "^3.8.2",
     "react-copy-to-clipboard": "^4.2.2",
     "react-dropzone": "^3.5.3",
-    "react-onclickoutside": "5.0.0"
+    "react-onclickoutside": "5.0.0",
+    "react-share": "^1.8.5"
   }
 }
