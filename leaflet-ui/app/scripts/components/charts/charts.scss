@@ -228,3 +228,14 @@
 .modebar-btn[data-val="closest"]{
     display: none !important;
 }
+
+.total-funding-chart{
+    display: inline-flex;
+    font-size: 11px;
+    color: #2f2f2f;
+    padding-top: 2px;
+    >div{
+        font-weight: bold;
+        padding-left: 7px;
+    }
+}

@@ -38,9 +38,10 @@ const defaultState = Immutable.fromJS(
                 zIndex: 100,
                 size: size, //size of markers
                 border: 4, //size of stroke borders 
-                valueProperty: "projectCount", //value property   
+                valueProperty: "projectCount", //value property 
                 cssProvider: JenksCssProvider, //color provider 
                 thresholds: 5, //number of breaks 
+                popupId: "projectPopup",   
                 supportFilters:true
             }
           ]
@@ -60,9 +61,10 @@ const defaultState = Immutable.fromJS(
             zIndex: 99,
             cssProvider: JenksCssProvider,
             thresholds: 5,
-            valueProperty: "projectCount",
+            valueProperty: "funding",
             keyName: 'funding',
             zIndex: 99,
+            popupId: "projectPopup",   
             supportFilters:true
           }
         ]

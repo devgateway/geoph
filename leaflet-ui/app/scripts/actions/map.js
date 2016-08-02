@@ -1,6 +1,6 @@
 import  {SET_BASEMAP, TOGGLE_LAYER,LAYER_LOAD_SUCCESS,LAYER_LOAD_FAILURE,SET_LAYER_SETTING,CHANGE_MAP_BOUNDS }  from '../constants/constants.js';
 import Connector from '../connector/connector.js';
-import {getPath,getDefaults} from '../util/layersUtil.js';
+import {getPath, getDefaults, getVisibles} from '../util/layersUtil.js';
 import {collectValues} from '../util/filterUtil';
 
 const getFilters=(getState)=>{
@@ -28,7 +28,7 @@ export const loadDefaultLayer=()=>{
 
 export const applyFiltersToLayers=(filters)=>{
 	return (dispatch, getState) => {
-		getDefaults(getState().map.get('layers')).forEach(l=>{
+		getVisibles(getState().map.get('layers')).forEach(l=>{
 			loadLayerById(dispatch,getState,l.get("id"));
 		});
 	}	
@@ -75,7 +75,6 @@ const loadLayerById=(dispatch, getState, id)=>{
 		ep:layer.get('ep'),settings:layer.get('settings').toObject(), 
 		filters: getFilters(getState)
 	};
-
 	dispatch(loadLayer(options, getState));
 }
 /*Get data of an specif layer passing layer options and getstate in order to take current filters*/

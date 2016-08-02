@@ -18,7 +18,7 @@ export default class ProjectListTab extends React.Component {
 
   handleSelect(eventKey) {
     //workaround for fix bootstrap paginator issues
-    let activePage = 1;
+    let activePage = 0;
     const {totalPages, number} = this.props.charts.projectList.data;
     switch(eventKey.target.innerText) {
       case "»":
@@ -28,13 +28,13 @@ export default class ProjectListTab extends React.Component {
         activePage = number+1;
         break;
       case "«":
-        activePage = 1;
+        activePage = 0;
         break;
       case "‹":
         activePage = number-1;
         break;
       default :
-        activePage = parseInt(eventKey.target.innerHTML);
+        activePage = parseInt(eventKey.target.innerHTML)-1;
         break;
     }
     this.getListData(activePage);
@@ -89,8 +89,8 @@ export default class ProjectListTab extends React.Component {
             ellipsis
             boundaryLinks
             maxButtons={3}
-            items={totalPages-1}
-            activePage={number}
+            items={totalPages}
+            activePage={number+1}
             onSelect={(eventKey) => {this.handleSelect(eventKey)}} />
         </div>
       </div>

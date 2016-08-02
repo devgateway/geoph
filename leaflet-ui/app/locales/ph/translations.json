@@ -104,7 +104,7 @@
 	},
 
 	"toolview": {
-		"title": "Kasangkapan Tingnan",
+		"title": "Kasangkapan",
 		"projectsearch": {
 			"title": "Humanap ng Proyekto",
 			"placeholder": "Humanap ng Proyekto (Paki type ng tatlong karakter)",
@@ -132,7 +132,7 @@
 	},
 
 	"chartview": {
-		"title": "Tsart Tingnan",
+		"title": "Tsart",
 		"fundingagency": "Institusyon ng Gastusan",
 		"barchart": "Tsart Bar",
 		"piechart": "Tsart Pie",

@@ -59,7 +59,7 @@
 		this.roundlength 	= 2; // Number of decimals, round values
 		this.is_uniqueValues = false;
 		this.debug =  false;
-		this.silent = false;
+		this.silent = true;
 
 		this.bounds  = Array();
 		this.ranges  = Array();
