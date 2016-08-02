@@ -104,9 +104,11 @@ class ProjectFilter extends React.Component {
 		return (
 	        <div className="project-search">
         		<div className="project-search-keyword">
+            
+          		  <h2>Search over {this.props.stats.projectCount} results</h2>
+
         			<div className="">
-			           SAS
-                	<Input className={this.state.keyword.length==0? 'keyword-input-empty' : 'keyword-input-filled'} 
+			          	<Input className={this.state.keyword.length==0? 'keyword-input-empty' : 'keyword-input-filled'} 
 			          		type="text" 
 			          		value={this.state.keyword}  
 				            placeholder="Search for Projects (Please enter at least 3 characters)"  
@@ -116,16 +118,15 @@ class ProjectFilter extends React.Component {
 			        </div>	        	
 		        </div>
 		        <div className="project-search-actions">
-		        	{this.state.showResults?
-		        		<a href="#" onClick={this.showSelected.bind(this)}>
-		        			Show Selected ({this.props.projectSearch.selected.length}/{this.props.stats.projectCount})
-		        		</a>
-		        	:
-		        		<a href="#" onClick={this.showResults.bind(this)}>Show Search Results</a>
-		        	}/
-        			<a href="#" onClick={this.applySelection.bind(this)}>Apply Selection</a> /	 
-        			<a href="#" onClick={this.selectAllMatched.bind(this)}>Select all matched</a> /	 
-        			<a href="#" onClick={this.clearAllSelection.bind(this)}>Clear all</a>	 
+		        	<div className="selectable all-none" onClick={this.selectAllMatched.bind(this)}></div>
+               <span>/</span>
+              {this.state.showResults?<a href="#" onClick={this.showSelected.bind(this)}>selected ({this.props.projectSearch.selected.length}) </a>:
+              <a href="#" onClick={this.showResults.bind(this)}>all</a>}
+        		    <span>/</span>
+              <a href="#" onClick={this.applySelection.bind(this)}><div className="btn btn-xs btn-apply"></div> <span>apply</span></a>
+        			 <span>/</span>
+              <a href="#" onClick={this.clearAllSelection.bind(this)}><div className="btn btn-xs btn-clear"></div><span>clear all</span></a>
+
 		        </div>	        		        		        	
 	        	<div className="project-search-results">
 	        	{this.state.showResults?
