@@ -29,14 +29,16 @@ const plainList=(layers, accumulator)=>{
 
 export const getDefaults=(layers)=>{
 	const list=plainList(layers);
-	
 	return list.filter(function(l){return l.get('default')})
-	
 }
 
 export const getShapeLayers=(layers)=>{
 	const list=plainList(layers);
-	
 	return list.filter(function(l){return l.get('type')=='shapes'})
-	
 }
+
+export const getVisibles=(layers)=>{
+	const list=plainList(layers);
+	return list.filter(function(l){return l.get('visible')})
+}
+

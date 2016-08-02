@@ -43,7 +43,8 @@ const Layers=React.createClass({
 			<div>
 				<SvgLayer  
 					map={this.props.map}
-					layers={layers}>
+					layers={layers}
+					fundingType={this.props.fundingType}>
 					<ProjectPopup id="projectPopup" onClosePopup={this.closePopup}/>
 					<SimplePopup id="defaultPopup" onClosePopup={this.closePopup}/>
 				</SvgLayer>
@@ -69,7 +70,7 @@ const view=React.createClass({
 		return (
 			<Map className="map" bounds={bounds} onMoveEnd={this.handleChangeBounds}>
 				<TileLayer url={this.props.map.get('basemap').get('url')}/>
-				<Layers layers={this.props.map.get('layers')}/>			
+				<Layers layers={this.props.map.get('layers')} fundingType={this.props.fundingType}/>			
 			</Map>
 		);
 	}
@@ -86,7 +87,8 @@ const mapDispatchToProps=(dispatch,ownProps)=>{
 
 const stateToProps = (state,props) => {	
 	return {
-		map:state.map
+		map: state.map,
+		fundingType: state.settings.fundingType
 	};
 }
 

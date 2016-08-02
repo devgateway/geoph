@@ -42,12 +42,14 @@ import { render, unmountComponentAtNode } from 'react-dom';
   }
   
   getValues(features, valueProperty){
-    return features.map(function(f) { return +f.properties[valueProperty]});
+    const {measure, type} = this.props.fundingType;
+    return features.map(function(f) { return valueProperty=='funding'? f.properties[measure][type]||0 : f.properties[valueProperty]||0});
   }
 
   getClass(d){  
     const {valueProperty, classes, cssProvider} = d.properties;  
-    const value = d.properties[valueProperty];
+    const {measure, type} = this.props.fundingType;
+    const value = valueProperty=='funding'? d.properties[measure][type] : d.properties[valueProperty];
     var className = classes + cssProvider.getCssClass(value);
     return className;  
   }
@@ -79,7 +81,8 @@ import { render, unmountComponentAtNode } from 'react-dom';
 
   filter(data, valueProperty){
     var bounds=this.props.map.getBounds();
-    const filtered = data.filter((f)=>f.geometry?bounds.contains(L.geoJson(f).getBounds()):false).sort((f)=>{f.properties[valueProperty]})
+    const {measure, type} = this.props.fundingType;
+    const filtered = data.filter((f)=>f.geometry?bounds.contains(L.geoJson(f).getBounds()):false).sort((f)=>{valueProperty=='funding'? f.properties[measure][type] : f.properties[valueProperty]})
     //console.log('Removed =>'+(data.length - filtered.length));
     return filtered;
   }

@@ -61,7 +61,7 @@ const defaultState = Immutable.fromJS(
             zIndex: 99,
             cssProvider: JenksCssProvider,
             thresholds: 5,
-            valueProperty: "projectCount",
+            valueProperty: "funding",
             keyName: 'funding',
             zIndex: 99,
             popupId: "projectPopup",   
