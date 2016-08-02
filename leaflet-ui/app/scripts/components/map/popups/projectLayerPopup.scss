@@ -1,7 +1,18 @@
 
 .simple-popup-container{
-  width: 400px;
-  height: 40px;
+  width: 350px;
+  height: 45px;
+}
+
+.simple-popup-value{
+    display: inline-flex;
+    font-size: 11px;
+    color: #2f2f2f;
+    padding-left: 10px;
+    >div{
+        font-weight: bold;
+        padding-left: 7px;
+    }
 }
 
 .popup-container{
@@ -181,16 +192,6 @@
     }
 }
 
-.total-funding-chart{
-    display: inline-flex;
-    font-size: 11px;
-    color: #2f2f2f;
-    padding-top: 2px;
-    >div{
-        font-weight: bold;
-        padding-left: 7px;
-    }
-}
 
 /*Loading spinner icon*/
 @-webkit-keyframes uil-ring-anim {

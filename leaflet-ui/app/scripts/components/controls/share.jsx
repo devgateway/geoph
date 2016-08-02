@@ -19,7 +19,6 @@ const Share = React.createClass({
 
   render() {
     const {isShareNeeded, shareUrl,errors={},httpError,status,visible}=this.props;
-    debugger;
     if(isShareNeeded){
       this.shareMap();
     }

@@ -41,7 +41,7 @@ const defaultState = Immutable.fromJS(
                 valueProperty: "projectCount", //value property 
                 cssProvider: JenksCssProvider, //color provider 
                 thresholds: 5, //number of breaks 
-                detailedPopup:true, //indicates if it should show a datailed popup based on project funding or not  
+                popupId: "projectPopup",   
                 supportFilters:true
             }
           ]
@@ -64,7 +64,7 @@ const defaultState = Immutable.fromJS(
             valueProperty: "projectCount",
             keyName: 'funding',
             zIndex: 99,
-            detailedPopup:true, //indicates if it should show a datailed popup based on project funding or not  
+            popupId: "projectPopup",   
             supportFilters:true
           }
         ]

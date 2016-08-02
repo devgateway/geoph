@@ -18,8 +18,7 @@ class FilterTabContent extends React.Component {
 	}
 
   	render() {
-  		debugger;
-	    return (
+  		return (
 	    	<div className="tab-container">
 	    		<Tabs defaultActiveKey={1} animation={false} >
 	    			<Tab className="filter-tab-content" eventKey={1} title={translate('filters.funding.funding')}>
