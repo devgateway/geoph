@@ -1,20 +1,34 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import translate from '../../util/translate.js';
+import {capture}  from '../../actions/capture.js';
 
 require('./print.scss');
 
 const Share =React.createClass({
 
+  componentDidMount() {
+      debugger;  
+  },
+
+  componentWillReceiveProps(nextProps) {
+     const {visible}=nextProps;
+     if (visible){
+        this.props.onCapure();
+     }
+  
+  },
+
   render() {
-    const {visible}=this.props;
+     const {visible}=this.props;
 
     return (
+
+
      <div>
         {visible?
           <div className="print-container">
-            <h2>{translate('header.settings.print')}</h2>
-              
+              <div className="loader">Loading...</div>
           </div>
 
         : null}
@@ -24,7 +38,9 @@ const Share =React.createClass({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  return {}
+  return {
+    onCapure:_=>dispatch(capture())
+  }
 }
 
 const mapStateToProps = (state, props) => {

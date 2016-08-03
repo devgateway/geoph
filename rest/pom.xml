@@ -33,7 +33,16 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>com.github.detro.ghostdriver</groupId>
+            <artifactId>phantomjsdriver</artifactId>
+            <version>1.0.4</version>
+        </dependency>
+        <dependency>
+            <groupId>net.anthavio</groupId>
+            <artifactId>phanbedder-2.1.1</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 
 

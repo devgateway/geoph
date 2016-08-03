@@ -79,7 +79,7 @@ const view=React.createClass({
 		const bounds = latLngBounds(latLng(southWest[0], southWest[1]),latLng(northEast[0],northEast[1]));
 		return (
 
-				<Map className="map" bounds={bounds} onMoveEnd={this.handleChangeBounds}>
+				<Map ref="map" className="map" bounds={bounds} onMoveEnd={this.handleChangeBounds}>
 				<TileLayer url={this.props.map.get('basemap').get('url')}/>
 			
 				<Layers layers={this.props.map.get('layers')} charts={this.props.charts} fundingType={this.props.fundingType}/>
