@@ -131,7 +131,7 @@ public class ChartResponse implements Comparable {
         if(transactionSet.size()>0) {
             this.transactionCount += Long.valueOf(transactionSet.size());
             for(Transaction trx:transactionSet){
-                Double trxAmount = trx.getAmount();
+                Double trxAmount = trx.getAmount()!=null ? trx.getAmount(): 0;
                 Map<String, Double> typeMap = trxAmounts.get(trx.getTransactionType().getName());
                 if (typeMap != null) {
                     typeMap.put(trx.getTransactionStatus().getName(), trxAmount + typeMap.get(trx.getTransactionStatus().getName()));
