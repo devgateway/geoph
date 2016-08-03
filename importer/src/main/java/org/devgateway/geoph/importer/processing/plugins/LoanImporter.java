@@ -73,12 +73,12 @@ public class LoanImporter extends GeophProjectsImporter {
             );
 
             p.setTotalProjectAmount(
-                    getDoubleValueFromCell(row.getCell(loanColumns.getLoanAmount()), "loan amount", rowNumber, GeophProjectsImporter.onProblem.NOTHING)
+                    getDoubleValueFromCell(row.getCell(loanColumns.getLoanAmount()), "loan amount", rowNumber, GeophProjectsImporter.onProblem.NOTHING, 0D)
             );
 
             Loan loan = new Loan();
             loan.setAmount(
-                    getDoubleValueFromCell(row.getCell(loanColumns.getLoanUtilization()), "loan utilization", rowNumber, GeophProjectsImporter.onProblem.NOTHING)
+                    getDoubleValueFromCell(row.getCell(loanColumns.getLoanUtilization()), "loan utilization", rowNumber, GeophProjectsImporter.onProblem.NOTHING, 0D)
             );
             loan.setTransactionTypeId(typeId);
             loan.setTransactionStatusId(statusId);

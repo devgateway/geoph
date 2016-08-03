@@ -181,6 +181,14 @@ public abstract class GeophProjectsImporter {
         return null;
     }
 
+    protected Double getDoubleValueFromCell(Cell cell, String cellName, int rowNumber, onProblem action, Double defaultValue) throws Exception {
+        Double ret = getDoubleValueFromCell(cell, cellName, rowNumber, action);
+        if(ret==null){
+            ret = defaultValue;
+        }
+        return ret;
+    }
+
     protected Double getDoubleValueFromCell(Cell cell, String cellName, int rowNumber, onProblem action) throws Exception {
         if(cell!=null) {
             try {

@@ -80,12 +80,12 @@ public class PmcImporter extends GeophProjectsImporter {
             );
 
             p.setTotalProjectAmount(
-                    getDoubleValueFromCell(row.getCell(pmcColumns.getPmcAmount()), "pmc amount", rowNumber, onProblem.NOTHING)
+                    getDoubleValueFromCell(row.getCell(pmcColumns.getPmcAmount()), "pmc amount", rowNumber, onProblem.NOTHING, 0D)
             );
 
             PublicInvestment pmc = new PublicInvestment();
             pmc.setAmount(
-                    getDoubleValueFromCell(row.getCell(pmcColumns.getPmcUtilization()), "pmc utilization", rowNumber, onProblem.NOTHING)
+                    getDoubleValueFromCell(row.getCell(pmcColumns.getPmcUtilization()), "pmc utilization", rowNumber, onProblem.NOTHING, 0D)
             );
             pmc.setTransactionTypeId(typeId);
             pmc.setTransactionStatusId(statusId);

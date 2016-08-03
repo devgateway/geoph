@@ -79,12 +79,12 @@ public class GrantImporter extends GeophProjectsImporter {
             );
 
             p.setTotalProjectAmount(
-                    getDoubleValueFromCell(row.getCell(grantColumns.getGrantAmount()), "grant amount", rowNumber, onProblem.NOTHING)
+                    getDoubleValueFromCell(row.getCell(grantColumns.getGrantAmount()), "grant amount", rowNumber, onProblem.NOTHING, 0D)
             );
 
             Grant grant = new Grant();
             grant.setAmount(
-                    getDoubleValueFromCell(row.getCell(grantColumns.getGrantUtilization()), "grant utilization", rowNumber, onProblem.NOTHING)
+                    getDoubleValueFromCell(row.getCell(grantColumns.getGrantUtilization()), "grant utilization", rowNumber, onProblem.NOTHING, 0D)
             );
             grant.setTransactionTypeId(typeId);
             grant.setTransactionStatusId(statusId);

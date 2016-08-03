@@ -35,11 +35,11 @@ public class Transaction extends GenericPersistable implements Serializable {
 
     @JsonIgnore
     @Column(name = "transaction_type_id")
-    private long transactionTypeId;
+    private Long transactionTypeId;
 
     @JsonIgnore
     @Column(name = "transaction_status_id")
-    private long transactionStatusId;
+    private Long transactionStatusId;
 
     @JsonIgnore
     @Column(name = "grant_sub_type_id")
@@ -98,12 +98,12 @@ public class Transaction extends GenericPersistable implements Serializable {
 
     @JsonProperty(value = "transactionType")
     public TransactionTypeEnum getTransactionType() {
-        return TransactionTypeEnum.getEnumById(transactionTypeId);
+        return transactionTypeId!=null?TransactionTypeEnum.getEnumById(transactionTypeId):TransactionTypeEnum.DISBURSEMENTS;
     }
 
     @JsonProperty(value = "transactionStatus")
     public TransactionStatusEnum getTransactionStatus() {
-        return TransactionStatusEnum.getEnumById(transactionStatusId);
+        return transactionStatusId!=null?TransactionStatusEnum.getEnumById(transactionStatusId):TransactionStatusEnum.ACTUAL;
     }
 
     public Long getGrantSubTypeId() {
