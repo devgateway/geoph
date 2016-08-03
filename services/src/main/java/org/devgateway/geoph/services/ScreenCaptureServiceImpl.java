@@ -1,26 +1,19 @@
 package org.devgateway.geoph.services;
 
+import com.machinepublishers.jbrowserdriver.JBrowserDriver;
+import com.machinepublishers.jbrowserdriver.Settings;
+import com.machinepublishers.jbrowserdriver.Timezone;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.LosslessFactory;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.devgateway.geoph.core.services.ScreenCaptureService;
-import org.jsoup.Jsoup;
-import org.jsoup.examples.HtmlToPlainText;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxBinary;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxProfile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,6 +24,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author dbianco
@@ -54,9 +48,6 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
 
     @Value("${screen.capture.img.height}")
     private int imgHeight;
-
-    @Value("${screen.capture.firefox.binary}")
-    private String firefoxBinary;
 
     @Value("${screen.capture.dir}")
     private String storageFolder;
@@ -136,58 +127,18 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
 
     }
 
-    @Override
-    public String htmlToPDF(String url){
-        try {
-            PDDocument document = new PDDocument();
-            PDPage page = new PDPage();
-            document.addPage(page);
-            PDPageContentStream contentStream = new PDPageContentStream(document, page, PDPageContentStream.AppendMode.APPEND, false);
-            contentStream.beginText();
-            contentStream.setFont( PDType1Font.HELVETICA_BOLD, 12 );
-            contentStream.newLineAtOffset(30, 750);
-            contentStream.setLeading(15D);
-            contentStream.showText("Title: ");
-            contentStream.setFont( PDType1Font.HELVETICA, 12 );
-            Document doc = Jsoup.connect(url).timeout(13000).get();
-            HtmlToPlainText formatter = new HtmlToPlainText();
-            Elements elements = doc.select("article"); // get each element that matches the CSS selector
-            for (Element element : elements) {
-                String[] plainText = formatter.getPlainText(element).split("\n"); // format that element to plain text
-                for(String text:plainText){
-                    try{
-                        contentStream.newLine();
-                        contentStream.showText(text);
-                    } catch (Exception e){
-                        //TODO
-                    }
-                }
-            }
-            contentStream.endText();
-            contentStream.close();
-            document.save(storageFolder + "test.pdf");
-            document.close();
-        } catch (IOException e) {
-            LOGGER.error("Error at: " + e.getMessage());
-        }
-        return null;
-    }
-
     private File createImageFromUrl(String url, String filename) throws InterruptedException, IOException {
-        File imageFile = null;
-        if (StringUtils.isNotBlank(firefoxBinary)) {
-            File pathToBinary = new File(firefoxBinary);
-            FirefoxBinary ffBinary = new FirefoxBinary(pathToBinary);
-            FirefoxProfile firefoxProfile = new FirefoxProfile();
-            WebDriver driver = new FirefoxDriver(ffBinary, firefoxProfile);
-            driver.manage().window().setSize(new Dimension(imgWidth, imgHeight));
-            driver.get(url);
-            Thread.sleep(timeToWait);
-
-            imageFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-            FileUtils.copyFile(imageFile, new File(storageFolder + filename));
-            driver.close();
-        }
+        WebDriver driver = new JBrowserDriver(Settings
+                .builder()
+                .logWarnings(false)
+                .logger(null)
+                .timezone(Timezone.AMERICA_NEWYORK)
+                .build());
+        driver.manage().timeouts().pageLoadTimeout(timeToWait, TimeUnit.SECONDS);
+        driver.get(url);
+        File imageFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(imageFile, new File(storageFolder+filename));
+        driver.quit();
         return imageFile;
     }
 

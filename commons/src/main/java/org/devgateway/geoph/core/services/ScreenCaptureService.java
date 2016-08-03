@@ -14,5 +14,4 @@ public interface ScreenCaptureService {
 
     String captureKeyToPDF(String key);
 
-    String htmlToPDF(String url);
 }

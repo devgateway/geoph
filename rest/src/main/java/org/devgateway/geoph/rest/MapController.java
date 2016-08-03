@@ -92,36 +92,6 @@ public class MapController {
         return map;
     }
 
-    @RequestMapping(value = "/varsToPdf", method = POST)
-    public String saveAndCreatePdf(@RequestBody Map<String, Object> mapVariables) throws Exception {
-        LOGGER.debug("saveAndCreatePdf");
-        String name = UUID.randomUUID().toString();
-        String urlToQuery = (String) mapVariables.get(URL_STR);
-        String mapDesc = (String) mapVariables.get(PDF_DESCRIPTION_MSG);
-        String mapJson = new ObjectMapper().writeValueAsString(mapVariables.get(DATA_TO_SAVE_STR));
-        appMapService.save(new AppMap(name, mapDesc, mapJson, name, null));
-        return screenCaptureService.captureUrlToPDF(urlToQuery+name);
-    }
-
-
-
-    @RequestMapping(value = "/htmlToPdf", method = GET)
-    public String htmlToPdf(String url) throws Exception {
-        LOGGER.debug("htmlToPdf");
-        return screenCaptureService.htmlToPDF(url);
-    }
-
-    @RequestMapping(value = "/varsToImg", method = POST)
-    public String saveAndCreateImg(@RequestBody Map<String, Object> mapVariables) throws Exception {
-        LOGGER.debug("saveAndCreateImg");
-        String name = UUID.randomUUID().toString();
-        String urlToQuery = (String) mapVariables.get(URL_STR);
-        String mapDesc = (String) mapVariables.get(IMG_DESCRIPTION_MSG);
-        String mapJson = new ObjectMapper().writeValueAsString(mapVariables.get(DATA_TO_SAVE_STR));
-        appMapService.save(new AppMap(name, mapDesc, mapJson, name, null));
-        return screenCaptureService.captureUrlToImage(urlToQuery+name);
-    }
-
     private boolean checkIfMapNameIsValid(String mapName){
         boolean ret = false;
         if(StringUtils.isNotBlank(mapName)) {
