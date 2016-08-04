@@ -44,6 +44,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ScreenCaptureServiceImpl.class);
     private static final String PNG_EXTENSION = ".png";
     private static final String PDF_EXTENSION = ".pdf";
+    private static final String HTML_EXTENSION = ".html";
 
     @Value("${screen.capture.templates.html}")
     private String htmlTemplate;
@@ -63,11 +64,14 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
         String name = UUID.randomUUID().toString();
 
         File tmpHtml = getTempHtmlFile(name, width, height, html);
+        LOGGER.debug("tmpHtml created");
 
         if(tmpHtml != null){
             String imageFilename = createImageFromFile(name, width, height, tmpHtml);
+            LOGGER.debug("image file created");
             if(imageFilename != null){
                 pdfFilename = createPdf(name, imageFilename);
+                LOGGER.debug("pdf file created");
             }
         }
         return pdfFilename;
@@ -110,7 +114,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             //Fix translate3D element
             removeTranslate3dFromDocument(doc);
 
-            file = File.createTempFile(name, ".html");
+            file = File.createTempFile(name, HTML_EXTENSION);
             //System.out.println(file.getAbsolutePath());
             FileUtils.writeStringToFile(file, doc.outerHtml());
         } catch (Exception e){
