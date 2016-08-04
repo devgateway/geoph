@@ -7,6 +7,8 @@ import org.apache.commons.io.FileUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.PDPageTree;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.LosslessFactory;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.devgateway.geoph.core.services.ScreenCaptureService;
@@ -23,6 +25,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -175,4 +178,70 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
 
         return new Dimension(newWidth, newHeight);
     }
+
+    public static void main(String[] args){
+        try {
+            File file = new File("/tmp/geoph.pdf");
+            PDDocument document = PDDocument.load(file);
+            PDPageTree pages = document.getDocumentCatalog().getPages();
+            PDPage page = pages.get(0);
+
+            //Map title
+            PDPageContentStream pc = new PDPageContentStream(document, page, PDPageContentStream.AppendMode.APPEND, true);
+            pc.beginText();
+            pc.setFont(PDType1Font.HELVETICA_BOLD, 13);
+            pc.setNonStrokingColor(2, 64, 114);
+            pc.newLineAtOffset(36, 695);
+            pc.setLeading(15D);
+            pc.showText("Title: This is the map title");
+            pc.endText();
+            pc.close();
+
+            //URL
+            PDPageContentStream pc2 = new PDPageContentStream(document, page, PDPageContentStream.AppendMode.APPEND, true);
+            pc2.beginText();
+            pc2.setFont(PDType1Font.HELVETICA_BOLD, 10);
+            pc2.setNonStrokingColor(0,0,0);
+            pc2.newLineAtOffset(36, 680);
+            pc2.setLeading(15D);
+            pc2.showText("http://geoph.developmentgateway.org/#/");
+
+            pc2.endText();
+            pc2.close();
+
+            //Image
+            BufferedImage image = ImageIO.read(new File("/tmp/test.png"));
+            PDImageXObject  imageObj = LosslessFactory.createFromImage(document, image);
+            PDPageContentStream contentStream = new PDPageContentStream(document, page, PDPageContentStream.AppendMode.APPEND, false);
+            Dimension scaledDim = getAdaptedDimension2(imageObj.getWidth(), imageObj.getHeight());
+
+            contentStream.drawImage(imageObj, 36, 295, scaledDim.width, scaledDim.height);
+            contentStream.close();
+
+
+            document.save("/tmp/test2.pdf");
+            document.close();
+        } catch (IOException e) {
+            LOGGER.error("Error at: " + e.getMessage());
+        }
+    }
+
+    private static Dimension getAdaptedDimension2(final int imgWidth, final int imgHeight) {
+        int newWidth = imgWidth;
+        int newHeight = imgHeight;
+
+        if (newWidth > 540) {
+            newWidth = 540;
+            newHeight = (newWidth * imgHeight) / imgWidth;
+        }
+
+        if (newHeight > 560) {
+            newHeight = 560;
+            newWidth = (newHeight * imgWidth) / imgHeight;
+        }
+
+        return new Dimension(newWidth, newHeight);
+    }
+
+
 }
