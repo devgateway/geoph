@@ -212,7 +212,7 @@
 			for (var i = 0; i < a.length; i++) {
 				// check if the given value is a number
 				if (isNumber(a[i])) {
-					b[i] = parseFloat(a[i].toFixed(this.precision));
+					b[i] = parseFloat(parseInt(a[i]).toFixed(this.precision));
 				} else {
 					b[i] = a[i];
 				}
