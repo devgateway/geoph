@@ -19,11 +19,10 @@ export const capture=()=>{
 
  const export2Pdf = (html,width,height) => {
   return (dispatch, getState) =>{
-    Connector.export2Pdf({html,width,height}).then((data)=>{
-        debugger;
-    }).catch((results)=>{
-        dispatch(saveError(results));
-    });
+    Connector.export2Pdf({html,width,height})
+    .then( data=>{dispatch({type: Constants.CAPTURE_OK,data})})
+    .catch(data=>{dispatch({type: Constants.CAPTURE_FAILED,data})})
+    
   }
 
 }

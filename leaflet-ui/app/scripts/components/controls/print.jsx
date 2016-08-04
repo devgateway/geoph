@@ -12,6 +12,7 @@ const Share =React.createClass({
   },
 
   componentWillReceiveProps(nextProps) {
+      debugger;
      const {visible}=nextProps;
      if (visible){
         this.props.onCapure();
@@ -44,7 +45,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 }
 
 const mapStateToProps = (state, props) => {
-  return {}
+
+  return {...state.print.toJS()}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Share);

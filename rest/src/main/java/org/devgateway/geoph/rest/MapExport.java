@@ -13,11 +13,14 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
@@ -32,12 +35,13 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RestController
 @RequestMapping(value = "/export")
 public class MapExport {
+    private static final Logger LOGGER = LoggerFactory.getLogger(MapExport.class);
 
     public static File phantomjs = Phanbedder.unpack(); //Phanbedder to the rescue!
 
     //JBrowserDriver
     @RequestMapping(value = "/pdf", method = POST)
-    public String toPdf1(@RequestBody Map<String, String> params) throws Exception {
+    public Map<String, String>  toPdf1(@RequestBody Map<String, String> params) throws Exception {
 
         Integer width=Integer.parseInt(params.get("width"));
         Integer height=Integer.parseInt(params.get("height"));
@@ -54,13 +58,14 @@ public class MapExport {
        String left;
         if (m.find());{
             left=m.group(0);
+
         }
         String top;
         if (m.find());{
             top=m.group(0);
         }
 
-        pane.attr("style", "left:" + left + ";top:"+top);
+        pane.attr("style", "left:" + left + ";top:" + top);
 
         Dimension screen=new Dimension(width, height);
         File tmp = File.createTempFile("geoph-temp-html", ".html");
@@ -69,19 +74,20 @@ public class MapExport {
         WebDriver driver = new JBrowserDriver(Settings
                 .builder()
                 .logWarnings(false)
-                .logger(null)
                 .screen(screen)
                 .userAgent(UserAgent.CHROME)
-                .timezone(Timezone.AMERICA_NEWYORK)
                 .build());
 
         driver.manage().timeouts().pageLoadTimeout(5, TimeUnit.SECONDS);
         driver.get(tmp.toURI().toString());
 
-        System.out.println(((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE));
+        String base64Image=((TakesScreenshot) driver).getScreenshotAs(OutputType.BASE64);
         driver.quit();
+        HashMap results=new HashMap();
+        results.put("image",base64Image);
+        results.put("link","");
 
-            return null;
+        return results;
 
     }
 
