@@ -124,7 +124,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
         let fts = layer.type=="points"? this.filter(layer.data.features, layer.valueProperty) : layer.data.features; 
         fts.map((feature)=>{
           Object.assign(feature.properties, 
-            {classes: classes, cssProvider: classProvider, valueProperty: layer.valueProperty, border: layer.border, popupId: layer.popupId || 'defaultPopup', name: layer.name});//Assign class data to feature properties
+            {classes: classes, cssProvider: classProvider, valueProperty: layer.valueProperty, border: layer.border, popupId: layer.popupId || 'defaultPopup', layerName: layer.name});//Assign class data to feature properties
         })
         allLayersFeatures = allLayersFeatures.concat(fts);
       }

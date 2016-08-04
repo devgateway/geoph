@@ -33,7 +33,7 @@ export const parseDataChart=(chartType, props, chartContainerRef)=>{
               if(hiddenlabels.indexOf(label)==-1){
                 totalAmount = totalAmount+parseInt(item.trxAmounts[measure.measure][measure.type]);
               }
-              text.push(translate('header.settings.'+measure.type) + " " + translate('header.settings.'+measure.measure) + " PHP: " + formatValue(parseFloat(item.trxAmounts[measure.measure][measure.type])));
+              text.push(translate('header.settings.'+measure.type) + " " + translate('header.settings.'+measure.measure) + " ₱ " + formatValue(parseFloat(item.trxAmounts[measure.measure][measure.type])));
             }
           }
         } else {
@@ -54,7 +54,7 @@ export const parseDataChart=(chartType, props, chartContainerRef)=>{
         if (hiddenlabels.indexOf(translate('chartview.others'))==-1){
           totalAmount = totalAmount+parseInt(others);
         }
-        text.push(translate('header.settings.'+measure.type) + " " + translate('header.settings.'+measure.measure) + " PHP: " + formatValue(parseFloat(others)));
+        text.push(translate('header.settings.'+measure.type) + " " + translate('header.settings.'+measure.measure) + " ₱ " + formatValue(parseFloat(others)));
       }
     }
     

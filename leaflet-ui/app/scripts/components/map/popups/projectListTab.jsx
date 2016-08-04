@@ -73,8 +73,8 @@ export default class ProjectListTab extends React.Component {
               return <Row className="project-list-item">
                   <Col className="project-title" title={project.title} md={5}>{this.dropLongText(project.title, 27)}</Col>
                   <Col md={3}>{project.fundingAgency.code}</Col>
-                  <Col md={2}>{transactions.actualCommitments}</Col>
-                  <Col md={2}>{transactions.actualDisbursements}</Col>
+                  <Col md={2}>₱ {transactions.actualCommitments}</Col>
+                  <Col md={2}>₱ {transactions.actualDisbursements}</Col>
                 </Row>             
             })}            
           </Grid>

@@ -14,10 +14,11 @@ const defaultState = Immutable.fromJS(
       southWest: [4.3245014930192, 115.224609375],
       northEast:[23.140359987886118,134.3408203125]
   },
+
   basemap: {
-    name: 'street',
-    url: '//server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}'
-  },
+    id:'openstreetmap',
+    url: '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+  },    
 
   layers: [
     {
