@@ -8,29 +8,31 @@ require('./print.scss');
 const Share =React.createClass({
 
   componentDidMount() {
-      debugger;  
+        
   },
 
   componentWillReceiveProps(nextProps) {
-      debugger;
-     const {visible}=nextProps;
-     if (visible){
-        this.props.onCapure();
-     }
+      
   
   },
 
   render() {
-     const {visible}=this.props;
-
+   const {onCapure,loading,captures,visible}=this.props;
+   debugger;
     return (
 
 
      <div>
+     
         {visible?
           <div className="print-container">
-              <div className="loader">Loading...</div>
-          </div>
+
+              <div className="new_loading">{loading?<img src="../../../assets/png/loading.gif"/>:
+              <div  className="new"><div className="icon" onClick={onCapure}></div><span>create</span></div>}</div>
+              <span c className={captures.length>0?"small":"big"}>Click on create icon to generate a pdf of current map</span>
+              {captures.map(file=><a target="_blank" href={`http://localhost:8090/export/download/${file}`}><div className="icon"></div><span>download</span></a>)}
+              
+            </div>
 
         : null}
       </div>

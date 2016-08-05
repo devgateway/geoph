@@ -1,16 +1,28 @@
 import * as Constants from '../constants/constants';
-import {Map} from 'immutable'
+import {Map,List} from 'immutable'
 
+var count=0;
+const share =(state = new Map({captures:new List()}), action) => {
 
-const share =(state = new Map({}), action) => {
-
+  
   //console.log("--- saveMap reducer ---" + action);
   switch (action.type) {
+
+    case Constants.CAPTURE_START:
+    return state.setIn(['loading'],true)
     
     case Constants.CAPTURE_OK:
+    debugger
+    return state.setIn(['loading'],false).setIn(['captures',count++],action.data.file)
+    
+    case Constants.CAPTURE_RESET:
+    count=0;
+    return state.setIn('captures', new List());
+    
+    case Constants.CAPTURE_FAILED:
     debugger;
-    return state.set('image',action.data.image);
-
+      return state.setIn(['loading'],false).setIn('error',"");
+    
     default:
     return state
   }

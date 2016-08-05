@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.devgateway.geoph.core.exceptions.BadRequestException;
 import org.devgateway.geoph.core.services.AppMapService;
-import org.devgateway.geoph.core.services.ScreenCaptureService;
 import org.devgateway.geoph.core.util.MD5Generator;
 import org.devgateway.geoph.model.AppMap;
 import org.slf4j.Logger;
@@ -39,19 +38,13 @@ public class MapController {
     private static final String DESCRIPTION_STR = "description";
     private static final String DATA_TO_SAVE_STR = "data";
     private static final String BAD_REQUEST_NAME_INVALID = "The name used to save the map is not valid or it is already in use";
-    private static final String URL_STR = "url";
-    private static final String PDF_DESCRIPTION_MSG = "Map created automatically to generate a PDF file";
-    private static final String IMG_DESCRIPTION_MSG = "Map created automatically to generate a IMG file";
     private static final String SHARED_MAP_DESC = "Shared map";
 
     private final AppMapService appMapService;
 
-    private final ScreenCaptureService screenCaptureService;
-
     @Autowired
-    public MapController(AppMapService appMapService, ScreenCaptureService screenCaptureService) {
+    public MapController(AppMapService appMapService) {
         this.appMapService = appMapService;
-        this.screenCaptureService = screenCaptureService;
     }
 
     @RequestMapping(method = GET)
@@ -119,28 +112,6 @@ public class MapController {
     public List<AppMap> findMapByName(@PathVariable final String name) {
         LOGGER.debug("findMapByKey");
         return appMapService.findByNameOrDescription(name);
-    }
-
-    @RequestMapping(value = "/urlToImage", method = GET)
-    public String printPage(@RequestParam(value = "url", required = true) String url) throws Exception {
-        return screenCaptureService.captureUrlToImage(url);
-    }
-
-
-
-    @RequestMapping(value = "/keyToImage", method = GET)
-    public String printPageByKey(@RequestParam(value = "key", required = true) String key) throws Exception {
-        return screenCaptureService.captureKeyToImage(key);
-    }
-
-    @RequestMapping(value = "/keyToPdf", method = GET)
-    public String convertKeyMapToPDF(@RequestParam(value = "key", required = true) String key) throws Exception {
-        return screenCaptureService.captureKeyToPDF(key);
-    }
-
-    @RequestMapping(value = "/urlToPdf", method = GET)
-    public String convertPageToPDF(@RequestParam(value = "url", required = true) String url) throws Exception {
-        return screenCaptureService.captureUrlToPDF(url);
     }
 
     @ExceptionHandler(Exception.class)
