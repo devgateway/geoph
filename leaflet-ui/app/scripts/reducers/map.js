@@ -14,10 +14,11 @@ const defaultState = Immutable.fromJS(
       southWest: [4.3245014930192, 115.224609375],
       northEast:[23.140359987886118,134.3408203125]
   },
+
   basemap: {
-    name: 'street',
-    url: '//server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}'
-  },
+    id:'openstreetmap',
+    url: '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+  },    
 
   layers: [
     {
@@ -38,9 +39,10 @@ const defaultState = Immutable.fromJS(
                 zIndex: 100,
                 size: size, //size of markers
                 border: 4, //size of stroke borders 
-                valueProperty: "projectCount", //value property   
+                valueProperty: "projectCount", //value property 
                 cssProvider: JenksCssProvider, //color provider 
                 thresholds: 5, //number of breaks 
+                popupId: "projectPopup",   
                 supportFilters:true
             }
           ]
@@ -60,9 +62,10 @@ const defaultState = Immutable.fromJS(
             zIndex: 99,
             cssProvider: JenksCssProvider,
             thresholds: 5,
-            valueProperty: "projectCount",
+            valueProperty: "funding",
             keyName: 'funding',
             zIndex: 99,
+            popupId: "projectPopup",   
             supportFilters:true
           }
         ]

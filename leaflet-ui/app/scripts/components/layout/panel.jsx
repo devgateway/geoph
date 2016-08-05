@@ -44,7 +44,7 @@ export default class Panel extends React.Component {
             <p>total projects</p>
        </div>
         <div className="stats">
-          <h1>1.5PHP</h1>
+          <h1>₱ 1.5</h1>
           <p>total commitments</p>
         </div>
         {this.props.children}

@@ -28,8 +28,8 @@ import org.springframework.stereotype.Service;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.net.URI;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
@@ -55,33 +55,29 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
     @Value("${screen.capture.templates.pdf}")
     private String pdfTemplate;
 
-    @Value("${screen.capture.folder}")
-    private String storageFolder;
-
     @Value("${screen.capture.waiting.time}")
     private Long timeToWait;
 
-    @Override
-    public String createPdfFromHtmlString(Integer width, Integer height, String html){
-        String pdfFilename = null;
-        String name = UUID.randomUUID().toString();
 
-        File tmpHtml = getTempHtmlFile(name, width, height, html);
-        LOGGER.debug("tmpHtml created");
+    @Value("#{environment['repository.path']}")
+    private String repository;
 
-        if(tmpHtml != null){
-            String imageFilename = createImageFromFile(name, width, height, tmpHtml);
-            LOGGER.debug("image file created");
-            if(imageFilename != null){
-                pdfFilename = createPdf(name, imageFilename);
-                LOGGER.debug("pdf file created");
-            }
-        }
-        return pdfFilename;
+
+
+
+
+    public String createPdfFromHtmlString(Integer width, Integer height, String html) throws Exception {
+        File target = mergeHtml(width, height, html); //merge template and the passed html and return URL to resulted file
+        BufferedImage image = captureImage(width, height, target.toURI()); //create screen shoot from html file
+       if (image==null){
+           throw  new Exception("Wasn't able to generate image please check logs");
+       }
+        return createPdf(image).getName();
     }
 
-    private String createImageFromFile(String name, Integer width, Integer height, File tmp) {
-        String filename = null;
+    private BufferedImage captureImage(Integer width, Integer height, URI target) {
+        LOGGER.error("Starting JBrowserDriver ");
+        BufferedImage image = null;
         try {
             Dimension screen = new Dimension(width, height);
             WebDriver driver = new JBrowserDriver(Settings
@@ -94,60 +90,71 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
                     .build());
 
             driver.manage().timeouts().pageLoadTimeout(5, TimeUnit.SECONDS);
-            driver.get(tmp.toURI().toString());
+            driver.get(target.toString());
 
-            File imageFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-            filename = storageFolder + name + PNG_EXTENSION;
-            FileUtils.copyFile(imageFile, new File(filename));
+
+            byte[] imageByte=((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+            ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
+            image = ImageIO.read(bis);
             driver.quit();
-        } catch (Exception e){
+        } catch (Exception e) {
             LOGGER.error("Image error: " + e.getMessage());
-            filename = null;
         }
-        return filename;
+        return image;
     }
 
-    private File getTempHtmlFile(String name, Integer width, Integer height, String html) {
+    private File mergeHtml(Integer width, Integer height, String html) {
+        LOGGER.error("Merge html");
         File file = null;
         try {
-            Document doc = Jsoup.parse(new File(htmlTemplate), "utf-8");
+            Document doc = Jsoup.parse(new File(getClass().getClassLoader().getResource(htmlTemplate).getFile()), "utf-8");
             doc.getElementById("content").append(html);
             doc.getElementById("map1").attr("style", "width:" + width + "px;height:" + height + "px");
 
             //Fix translate3D element
             removeTranslate3dFromDocument(doc);
 
-            file = File.createTempFile(name, HTML_EXTENSION);
+            file = File.createTempFile("map-print", HTML_EXTENSION);
             //System.out.println(file.getAbsolutePath());
             FileUtils.writeStringToFile(file, doc.outerHtml());
-        } catch (Exception e){
+        } catch (Exception e) {
             LOGGER.error("File error: " + e.getMessage());
-            file = null;
+
         }
         return file;
     }
 
+    /**
+     * Due to webkit compatibility translate3d should be removed
+     *
+     * @param doc
+     */
     private void removeTranslate3dFromDocument(Document doc) {
-        Element pane=doc.getElementsByClass("leaflet-map-pane").get(0);
-        String style=pane.attr("style");
+        Element pane = doc.getElementsByClass("leaflet-map-pane").get(0);
+        String style = pane.attr("style");
         String pattern = "[-|\\d]*.px";
         Pattern r = Pattern.compile(pattern);
         Matcher m = r.matcher(style);
         String left;
-        if (m.find());{
-            left=m.group(0);
+        if (m.find()) ;
+        {
+            left = m.group(0);
         }
         String top;
-        if (m.find());{
-            top=m.group(0);
+        if (m.find()) ;
+        {
+            top = m.group(0);
         }
-        pane.attr("style", "left:" + left + ";top:"+top);
+        pane.attr("style", "left:" + left + ";top:" + top);
     }
 
-    private String createPdf(String name, String imageFilename){
-        String filename = null;
+    private File createPdf(BufferedImage image) {
+        LOGGER.error("CreatePdf");
+        String name = UUID.randomUUID().toString();
+        File pdfFile=new File(repository,name + PDF_EXTENSION);
+
         try {
-            File file = new File(pdfTemplate);
+            File file = new File(getClass().getClassLoader().getResource(pdfTemplate).getFile());
             PDDocument document = PDDocument.load(file);
             PDPageTree pages = document.getDocumentCatalog().getPages();
             PDPage page = pages.get(0);
@@ -176,12 +183,12 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             pc.close();
 
             //Image
-            BufferedImage image = ImageIO.read(new File(imageFilename));
-            PDImageXObject  imageObj = LosslessFactory.createFromImage(document, image);
-            pc = new PDPageContentStream(document, page, PDPageContentStream.AppendMode.APPEND, false);
+
+            PDImageXObject imageObj = LosslessFactory.createFromImage(document, image);
+                pc = new PDPageContentStream(document, page, PDPageContentStream.AppendMode.APPEND, false);
             Dimension scaledDim = getAdaptedDimension(imageObj.getWidth(), imageObj.getHeight());
 
-            pc.drawImage(imageObj, 36, 660-scaledDim.height, scaledDim.width, scaledDim.height);
+            pc.drawImage(imageObj, 36, 660 - scaledDim.height, scaledDim.width, scaledDim.height);
             pc.close();
 
             //Applied Layers
@@ -189,7 +196,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             pc.beginText();
             pc.setFont(PDType1Font.HELVETICA, 10);
             pc.setNonStrokingColor(BLUE);
-            pc.newLineAtOffset(36, 640-scaledDim.height);
+            pc.newLineAtOffset(36, 640 - scaledDim.height);
             pc.setLeading(15D);
             pc.showText("Applied Layers");
             pc.endText();
@@ -200,20 +207,19 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             pc.beginText();
             pc.setFont(PDType1Font.HELVETICA, 10);
             pc.setNonStrokingColor(BLUE);
-            pc.newLineAtOffset(310, 640-scaledDim.height);
+            pc.newLineAtOffset(310, 640 - scaledDim.height);
             pc.setLeading(15D);
             pc.showText("Filter Options");
             pc.endText();
             pc.close();
-
-            filename = storageFolder + name + PDF_EXTENSION;
-            document.save(filename);
+            document.save(pdfFile);
             document.close();
         } catch (IOException e) {
             LOGGER.error("Error at: " + e.getMessage());
-            filename = null;
+
         }
-        return filename;
+        return pdfFile;
+
     }
 
     private Dimension getAdaptedDimension(final int imgWidth, final int imgHeight) {

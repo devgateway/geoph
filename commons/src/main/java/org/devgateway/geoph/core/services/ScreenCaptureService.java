@@ -7,6 +7,6 @@ package org.devgateway.geoph.core.services;
  */
 public interface ScreenCaptureService {
 
-    String createPdfFromHtmlString(Integer width, Integer height, String html);
+    String createPdfFromHtmlString(Integer width, Integer height, String html) throws Exception;
 
 }
