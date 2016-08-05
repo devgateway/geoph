@@ -19,6 +19,13 @@
 
 
 	a{
+		width: 40px;
+		color: #337ab7 !important;
+		text-decoration: none;
+		float: left;
+		margin: 5px;
+
+
 		div.icon{
 			width: 30px;
 			height: 30px;
@@ -34,8 +41,10 @@
 		display: block !important;
 		/* border: 1px solid red; */
 		font-size: 10px !important	;
-		line-height: 11px !important;
-		color: green !important
+		line-height: 12px !important;
+		color: green !important;
+		text-align: center;
+		
 
 	}
 
