@@ -14,6 +14,7 @@ import restoreMap from './restoreMap';
 import stats from './stats';
 import panel from './panel';
 import header from './header';
+import print from './print';
 
 import {routerReducer}  from 'react-router-redux';
 
@@ -35,6 +36,7 @@ const geophApp = combineReducers({
   stats,
   panel,
   header,
+  print,
   routing: routerReducer
 })
 

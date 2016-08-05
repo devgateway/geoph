@@ -2,7 +2,66 @@
 
 .print-container{
 	@include controlBox();
-	
-	
+	padding: 20px;
+	min-height: 100px;
+	.new{
+		maring:10px;
+		width: 30px;
+		.icon{
+			width: 30px;
+			height:30px;
+			background: url(../../../assets/svg/new-pdf.svg);
+			background-size:30px 30px;
+			background-repeat: no-repeat;
+		}
+		
+	}
 
+
+	a{
+		width: 40px;
+		color: #337ab7 !important;
+		text-decoration: none;
+		float: left;
+		margin: 5px;
+
+
+		div.icon{
+			width: 30px;
+			height: 30px;
+			background: url(../../../assets/svg/pdf.svg);
+			background-size:30px 30px;
+			background-repeat: no-repeat;
+			position: relative;
+			
+		}
+	}
+
+	span{
+		display: block !important;
+		/* border: 1px solid red; */
+		font-size: 10px !important	;
+		line-height: 12px !important;
+		color: green !important;
+		text-align: center;
+		
+
+	}
+
+	span.big{
+		display: block !important;
+		/* border: 1px solid red; */
+		font-size: 12px !important	;
+		font-weight: bold !important;
+		line-height: 11px !important;
+		padding-top:10px;
+		text-align: center;
+	}
+	span.small{
+		display: none !important;
+	}
+
+	.new_loading{
+		float: right;
+	}
 }
