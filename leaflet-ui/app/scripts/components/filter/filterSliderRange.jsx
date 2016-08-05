@@ -38,7 +38,7 @@ class FilterSliderWithMarks extends React.Component {
 	}
 
 	currencyFormatter(v) {
-	  return formatValue(v) + ' PHP';
+	  return '₱ '+formatValue(v);
 	}
 
 	logslider(position) {
@@ -110,10 +110,10 @@ class FilterSliderWithMarks extends React.Component {
         		</div>	
 		        <div className="range-filter-selection">		     
 			        <div className="">
-		        		<span>{translate('filters.physical.minimum')}: <b>{formatAndRoundValue(minSelected) + this.props.valueSymbol} </b></span>
+		        		<span>{translate('filters.physical.minimum')}: <b>{(this.props.valueSymbolPre || "") + formatAndRoundValue(minSelected) + (this.props.valueSymbolPost || "")} </b></span>
 			        </div>
 		        	<div className="">
-		        		<span>{translate('filters.physical.maximum')}: <b>{formatAndRoundValue(maxSelected) + this.props.valueSymbol}</b></span>
+		        		<span>{translate('filters.physical.maximum')}: <b>{(this.props.valueSymbolPre || "") + formatAndRoundValue(maxSelected) + (this.props.valueSymbolPost || "")}</b></span>
 			        </div>
 	        	</div>
 		    </div>   

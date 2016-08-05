@@ -68,7 +68,7 @@ export default class ChartComponent extends React.Component {
   		if (this.props.chartData.measureType=='projectCount'){
   			return formatValue(value) +" "+translate('chartview.projects');
   		} else {
-  			return " PHP "+formatValue(value);
+  			return " ₱ "+formatValue(value);
   		}
 	}
 

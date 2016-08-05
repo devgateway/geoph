@@ -38,7 +38,7 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
       let filt = collectValues(filters, projectSearch);  
       Object.assign(filt, {'lo': [feature.properties.id]});  
       if (tab=='projectList'){
-        Object.assign(filt, {'page': 1, 'size': 25}); 
+        Object.assign(filt, {'page': 0, 'size': 25}); 
       }  
       this.props.onGetPopupData(filt, tab);
     }

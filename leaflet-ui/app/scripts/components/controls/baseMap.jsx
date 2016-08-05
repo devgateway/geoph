@@ -7,12 +7,12 @@ import translate from '../../util/translate.js';
 require('./baseMap.scss');
 
 var basemaps = [
-    {id:'street',url: '//server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}'},
+    {id:'openstreetmap',url: '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'},
     {id:'imagery', url:  '//server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'},
     {id:'topographic',url: '//server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}'},
     {id:'terrain',url: '//server.arcgisonline.com/ArcGIS/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}'},
     {id:'oceans',url: '//server.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer/tile/{z}/{y}/{x}'},
-    {id:'openstreetmap',url: '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'},
+    {id:'street',url: '//server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}'},
     {id:'gray',url:'//server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'},
     {id:'darkgray', url: '//{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png'}
 ]
@@ -37,7 +37,7 @@ const BaseMapItem = React.createClass({
 const Basemap = React.createClass({
   render() {
     const {visible,map}=this.props;
-    const  baseSelected = map.get('basemap').get('name')
+    const  baseSelected = map.get('basemap').get('id')
 
     return (
         <div>{visible?

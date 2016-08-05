@@ -11,8 +11,6 @@ import { render, unmountComponentAtNode } from 'react-dom';
  */
  export default class D3Layer extends MapLayer {
 
-
-
   constructor() {
     super();
   }
@@ -20,7 +18,6 @@ import { render, unmountComponentAtNode } from 'react-dom';
   componentDidUpdate(nextProps, nextState) {
     const {data, ...props} = this.props;
     console.log('updating layer');
-
     this.mapmove();
   }
 
@@ -29,9 +26,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
     //this.svg=null;  
   }
 
-
   componentWillMount() {
-
     super.componentWillMount();
     this.leafletElement = geoJson();
     
@@ -39,49 +34,28 @@ import { render, unmountComponentAtNode } from 'react-dom';
     this.svg.style("z-index",this.props.zIndex);
     this.g = this.svg.append("g").attr("class", "leaflet-zoom-hide");
     this.props.map.on('moveend', this.mapmove.bind(this));
+    this.props.map.on('click', function(evt) {
+      evt.originalEvent.stopPropagation();
+      this.renderPopupContent(Object.assign({}, evt.originalEvent.features, {latlng: evt.latlng}));
+    }.bind(this));
     this.mapmove();//trigger first update
   }
-
   
-  getValues(features){
-    const valprop=this.props.valueProperty;
-    return features.map(function(f) { return +f.properties[valprop]});
+  getValues(features, valueProperty){
+    const {measure, type} = this.props.fundingType;
+    return features.map(function(f) { return valueProperty=='funding'? f.properties[measure][type]||0 : f.properties[valueProperty]||0});
   }
 
-
-
-  renderPaths(data){
-    const {features}=data;
-    const {map,size,border,type}=this.props;
-
-    // Use Leaflet to implement a D3 geometric transformation.
-    function projectPoint(x, y) {
-      var point = map.latLngToLayerPoint(new L.LatLng(y, x));
-      this.stream.point(point.x, point.y);
-    }
-    const transform = d3.geo.transform({ point: projectPoint});
-    const path = d3.geo.path().projection(transform);
-    this.setSvgSize(path,data); //set svg area 
-
-    
-    path.pointRadius((d)=>{
-      return (size/2 * map.getZoom()) ;
-    });
-    
-    var shapes = this.g.selectAll("path").data((type=="points")? this.filter(features):features);
-    shapes.enter().append("path");
-    shapes.exit().remove();
-    shapes.attr("class", function(f) {return this.getClass(f);}.bind(this));
-    shapes.attr("stroke-width",border || 0);
-    shapes.attr("d", (feature)=>{ return path(feature)});
-    shapes.on("click",this.onClick.bind(this)); 
-
-
+  getClass(d){  
+    const {valueProperty, classes, cssProvider} = d.properties;  
+    const {measure, type} = this.props.fundingType;
+    const value = valueProperty=='funding'? d.properties[measure][type] : d.properties[valueProperty];
+    var className = classes + cssProvider.getCssClass(value);
+    return className;  
   }
 
-
-  setSvgSize(path,data){
-   const {map,size,border}=this.props;
+  setSvgSize(path, data, size, border){
+   const {map}=this.props;
     let markersize=0; //in case of markers we should calculate the size that the markers will takes frm the center to the radio outside of the bounds 
     let radio=0;
     if (size){
@@ -92,7 +66,6 @@ import { render, unmountComponentAtNode } from 'react-dom';
     var bounds = path.bounds(data), //get path area
     topLeft = bounds[0],
     bottomRight = bounds[1];
-    
     var width=(bottomRight[0] - topLeft[0]) + markersize; //add 1 marker size to cover the full size of the marker located in the borders;
     var height=(bottomRight[1] - topLeft[1]) + markersize; //add 1 marker size to cover the full size of the marker located in the borders;
     var left=topLeft[0]-radio; //move  left positon half marker size to make room for makers on borders  
@@ -106,54 +79,107 @@ import { render, unmountComponentAtNode } from 'react-dom';
     this.g.attr("transform", "translate(" + translateX + "," + translateY+ ")");
   }
 
-  filter(data){
+  filter(data, valueProperty){
     var bounds=this.props.map.getBounds();
-    const filtered = data.filter((f)=>f.geometry?bounds.contains(L.geoJson(f).getBounds()):false).sort((f)=>{f.properties[this.props.valueProperty]})
+    const {measure, type} = this.props.fundingType;
+    const filtered = data.filter((f)=>f.geometry?bounds.contains(L.geoJson(f).getBounds()):false).sort((f)=>{valueProperty=='funding'? f.properties[measure][type] : f.properties[valueProperty]})
     //console.log('Removed =>'+(data.length - filtered.length));
     return filtered;
   }
 
   onClick(properties){
-    d3.event.stopPropagation();
-    this.renderPopupContent(properties);
+    d3.event.features=properties;    
   }
 
   mapmove(e) {
-    if (this.props.data && this.props.data.features){
-      
-      const values=this.getValues(this.props.data.features);//isolate features values 
-      const {thresholds,cssProvider} = this.props;
-      const breaks=(thresholds > values.length)?values.length:thresholds;
-      this.cssProvider=new cssProvider(values,thresholds);
-      this.renderPaths(this.props.data);
-   
-    } else {
-      console.log('Dataset is empty');
+    this.renderLayersPaths(this.props.layers.sort(function(a, b){
+        if (a.zIndex && b.zIndex){
+          return parseInt(a.zIndex) - parseInt(b.zIndex);
+        } else if (!a.zIndex && !b.zIndex){
+          return 0
+        } else if (!a.zIndex){
+          return -1
+        }else if (!b.zIndex){
+          return 1
+        }
+      }));
+  }
+
+  mergeAllLayersFeatures(layers){
+    let size=0, border=0;
+    let allLayersFeatures = [];
+    
+    layers.map((layer)=>{
+      let prefix=layer.cssPrefix;
+      let css=layer.settings.css;
+      let classes=prefix+' '+css ;
+      Object.assign(layer, {classes});
+      if (layer.data && layer.data.features){    
+        const values = this.getValues(layer.data.features, layer.valueProperty);//isolate features values 
+        const {thresholds,cssProvider} = layer;
+        const breaks = (thresholds > values.length)?values.length:thresholds;
+        let classProvider = new cssProvider(values,breaks);
+        size = layer.size>size? layer.size : size;
+        border = layer.border>border? layer.border : border;
+        let fts = layer.type=="points"? this.filter(layer.data.features, layer.valueProperty) : layer.data.features; 
+        fts.map((feature)=>{
+          Object.assign(feature.properties, 
+            {classes: classes, cssProvider: classProvider, valueProperty: layer.valueProperty, border: layer.border, popupId: layer.popupId || 'defaultPopup', layerName: layer.name});//Assign class data to feature properties
+        })
+        allLayersFeatures = allLayersFeatures.concat(fts);
+      }
+    })
+    return {size, border, allLayersFeatures};
+  }
+
+  renderLayersPaths(layers){
+    const {map}=this.props;
+    const {size, border, allLayersFeatures} = this.mergeAllLayersFeatures(layers);
+
+    // Use Leaflet to implement a D3 geometric transformation.
+    function projectPoint(x, y) {
+      var point = map.latLngToLayerPoint(new L.LatLng(y, x));
+      this.stream.point(point.x, point.y);
     }
+    const transform = d3.geo.transform({ point: projectPoint});
+    const path = d3.geo.path().projection(transform);
+    if (allLayersFeatures.length!=0){
+      this.setSvgSize(path, {type: "FeatureCollection", features: allLayersFeatures}, size, border); //set svg area 
+    }
+    path.pointRadius((d)=>{
+      return (size/2 * map.getZoom()) ;
+    });
+    
+    var shapes = this.g.selectAll("path").data(allLayersFeatures);
+    shapes.enter().append("path");
+    shapes.exit().remove();
+    shapes.attr("class", function(f) {return this.getClass(f);}.bind(this));
+    shapes.attr("stroke-width", function(f) {return f.properties.border || 0;}.bind(this));
+    shapes.attr("d", (feature)=>{ return path(feature)});
+    shapes.on("click",this.onClick.bind(this)); 
   }
 
 
   renderPopupContent(feature) {
-    if (!feature){
+    if (!feature || !feature.geometry){
       return null;
     }
-    let popup = L.popup({maxWidth:"400", minWidth:"400", maxHeight:"280"})
-    .setLatLng(L.latLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]))
+    let latLong;
+    if (feature.geometry.type=="MultiPolygon"){
+      latLong = feature.latlng;
+    } else {
+      latLong = L.latLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0])
+    }
+    let popup = L.popup({maxWidth:"400", minWidth:"250", maxHeight:"280"})
+    .setLatLng(latLong)
     .openOn(this.props.map);
     if (this.props.children) {
-
-      render(React.cloneElement(React.Children.only(this.props.children), {feature, store:this.context.store}), popup._contentNode);
+      let pup = this.props.children.find(function(c) {return c.props.id==feature.properties.popupId});//find the child popup by layer.popupId 
+      render(React.cloneElement(pup, {feature, store:this.context.store}), popup._contentNode);
       popup._updateLayout();
       popup._updatePosition()
       popup._adjustPan();
     } 
-  }
-
-  getClass(d){    
-    const {classes,valueProperty}=this.props;
-    const value=d.properties[valueProperty];
-    var className=classes+this.cssProvider.getCssClass(value);
-    return className;  
   }
 
   render() {

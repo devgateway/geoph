@@ -59,7 +59,7 @@
 		this.roundlength 	= 2; // Number of decimals, round values
 		this.is_uniqueValues = false;
 		this.debug =  false;
-		this.silent = false;
+		this.silent = true;
 
 		this.bounds  = Array();
 		this.ranges  = Array();
@@ -212,7 +212,7 @@
 			for (var i = 0; i < a.length; i++) {
 				// check if the given value is a number
 				if (isNumber(a[i])) {
-					b[i] = parseFloat(a[i].toFixed(this.precision));
+					b[i] = parseFloat(parseInt(a[i]).toFixed(this.precision));
 				} else {
 					b[i] = a[i];
 				}
