@@ -26,6 +26,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -45,6 +46,8 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
     private static final String PNG_EXTENSION = ".png";
     private static final String PDF_EXTENSION = ".pdf";
     private static final String HTML_EXTENSION = ".html";
+    private static final Color BLUE = new Color(2, 64, 114);
+    private static final Color BLACK = new Color(0, 0, 0);
 
     @Value("${screen.capture.templates.html}")
     private String htmlTemplate;
@@ -153,7 +156,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             PDPageContentStream pc = new PDPageContentStream(document, page, PDPageContentStream.AppendMode.APPEND, true);
             pc.beginText();
             pc.setFont(PDType1Font.HELVETICA_BOLD, 13);
-            pc.setNonStrokingColor(2, 64, 114);
+            pc.setNonStrokingColor(BLUE);
             pc.newLineAtOffset(36, 695);
             pc.setLeading(15D);
             pc.showText("Title: This is the map title");
@@ -164,7 +167,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             pc = new PDPageContentStream(document, page, PDPageContentStream.AppendMode.APPEND, true);
             pc.beginText();
             pc.setFont(PDType1Font.HELVETICA, 10);
-            pc.setNonStrokingColor(0,0,0);
+            pc.setNonStrokingColor(BLACK);
             pc.newLineAtOffset(36, 680);
             pc.setLeading(15D);
             pc.showText("http://geoph.developmentgateway.org/#/");
@@ -184,8 +187,8 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             //Applied Layers
             pc = new PDPageContentStream(document, page, PDPageContentStream.AppendMode.APPEND, true);
             pc.beginText();
-            pc.setFont(PDType1Font.HELVETICA_BOLD, 10);
-            pc.setNonStrokingColor(2, 64, 114);
+            pc.setFont(PDType1Font.HELVETICA, 10);
+            pc.setNonStrokingColor(BLUE);
             pc.newLineAtOffset(36, 640-scaledDim.height);
             pc.setLeading(15D);
             pc.showText("Applied Layers");
@@ -195,8 +198,8 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             //Filter Options
             pc = new PDPageContentStream(document, page, PDPageContentStream.AppendMode.APPEND, true);
             pc.beginText();
-            pc.setFont(PDType1Font.HELVETICA_BOLD, 10);
-            pc.setNonStrokingColor(2, 64, 114);
+            pc.setFont(PDType1Font.HELVETICA, 10);
+            pc.setNonStrokingColor(BLUE);
             pc.newLineAtOffset(310, 640-scaledDim.height);
             pc.setLeading(15D);
             pc.showText("Filter Options");
