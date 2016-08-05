@@ -5,6 +5,7 @@ import com.machinepublishers.jbrowserdriver.Settings;
 import com.machinepublishers.jbrowserdriver.Timezone;
 import com.machinepublishers.jbrowserdriver.UserAgent;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -12,6 +13,7 @@ import org.apache.pdfbox.pdmodel.PDPageTree;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.LosslessFactory;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+import org.devgateway.geoph.core.request.PrintParams;
 import org.devgateway.geoph.core.services.ScreenCaptureService;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -28,9 +30,10 @@ import org.springframework.stereotype.Service;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
 import java.net.URI;
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -58,28 +61,27 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
     @Value("${screen.capture.waiting.time}")
     private Long timeToWait;
 
+    @Value("${screen.capture.img.url}")
+    private String urlToShare;
 
     @Value("#{environment['repository.path']}")
     private String repository;
 
 
-
-
-
-    public String createPdfFromHtmlString(Integer width, Integer height, String html) throws Exception {
-        File target = mergeHtml(width, height, html); //merge template and the passed html and return URL to resulted file
-        BufferedImage image = captureImage(width, height, target.toURI()); //create screen shoot from html file
-       if (image==null){
+    public String createPdfFromHtmlString(PrintParams params, String key) throws Exception {
+        File target = mergeHtml(params); //merge template and the passed html and return URL to resulted file
+        BufferedImage image = captureImage(params, target.toURI()); //create screen shoot from html file
+        if(image==null){
            throw  new Exception("Wasn't able to generate image please check logs");
-       }
-        return createPdf(image).getName();
+        }
+        return createPdf(image, params, key).getName();
     }
 
-    private BufferedImage captureImage(Integer width, Integer height, URI target) {
+    private BufferedImage captureImage(PrintParams params, URI target) {
         LOGGER.error("Starting JBrowserDriver ");
         BufferedImage image = null;
         try {
-            Dimension screen = new Dimension(width, height);
+            Dimension screen = new Dimension(params.getWidth(), params.getHeight());
             WebDriver driver = new JBrowserDriver(Settings
                     .builder()
                     .logWarnings(false)
@@ -89,7 +91,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
                     .timezone(Timezone.AMERICA_NEWYORK)
                     .build());
 
-            driver.manage().timeouts().pageLoadTimeout(5, TimeUnit.SECONDS);
+            driver.manage().timeouts().pageLoadTimeout(timeToWait, TimeUnit.SECONDS);
             driver.get(target.toString());
 
 
@@ -103,13 +105,13 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
         return image;
     }
 
-    private File mergeHtml(Integer width, Integer height, String html) {
+    private File mergeHtml(PrintParams params) {
         LOGGER.error("Merge html");
         File file = null;
         try {
             Document doc = Jsoup.parse(new File(getClass().getClassLoader().getResource(htmlTemplate).getFile()), "utf-8");
-            doc.getElementById("content").append(html);
-            doc.getElementById("map1").attr("style", "width:" + width + "px;height:" + height + "px");
+            doc.getElementById("content").append(params.getHtml());
+            doc.getElementById("map1").attr("style", "width:" + params.getWidth() + "px;height:" + params.getHeight() + "px");
 
             //Fix translate3D element
             removeTranslate3dFromDocument(doc);
@@ -148,70 +150,46 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
         pane.attr("style", "left:" + left + ";top:" + top);
     }
 
-    private File createPdf(BufferedImage image) {
+    private File createPdf(BufferedImage image, PrintParams params, String key) {
         LOGGER.error("CreatePdf");
-        String name = UUID.randomUUID().toString();
-        File pdfFile=new File(repository,name + PDF_EXTENSION);
+        File pdfFile = new File(repository, key + PDF_EXTENSION);
 
         try {
             File file = new File(getClass().getClassLoader().getResource(pdfTemplate).getFile());
             PDDocument document = PDDocument.load(file);
             PDPageTree pages = document.getDocumentCatalog().getPages();
             PDPage page = pages.get(0);
+            PDPageContentStream pc;
+            int xPos = 36;
+            int yPos = 695;
 
             //Map title
-            PDPageContentStream pc = new PDPageContentStream(document, page, PDPageContentStream.AppendMode.APPEND, true);
-            pc.beginText();
-            pc.setFont(PDType1Font.HELVETICA_BOLD, 13);
-            pc.setNonStrokingColor(BLUE);
-            pc.newLineAtOffset(36, 695);
-            pc.setLeading(15D);
-            pc.showText("Title: This is the map title");
-            pc.endText();
-            pc.close();
+            if(StringUtils.isNotBlank(params.getName())) {
+                addPdfText(document, page, xPos, yPos, PDType1Font.HELVETICA_BOLD, 13, BLUE, params.getName());
+                yPos -= 15;
+            }
 
             //URL
-            pc = new PDPageContentStream(document, page, PDPageContentStream.AppendMode.APPEND, true);
-            pc.beginText();
-            pc.setFont(PDType1Font.HELVETICA, 10);
-            pc.setNonStrokingColor(BLACK);
-            pc.newLineAtOffset(36, 680);
-            pc.setLeading(15D);
-            pc.showText("http://geoph.developmentgateway.org/#/");
-
-            pc.endText();
-            pc.close();
+            if(StringUtils.isNotBlank(key)) {
+                addPdfText(document, page, xPos, yPos, PDType1Font.HELVETICA, 10, BLACK, urlToShare + key);
+                yPos -= 15;
+            }
 
             //Image
-
             PDImageXObject imageObj = LosslessFactory.createFromImage(document, image);
                 pc = new PDPageContentStream(document, page, PDPageContentStream.AppendMode.APPEND, false);
             Dimension scaledDim = getAdaptedDimension(imageObj.getWidth(), imageObj.getHeight());
-
-            pc.drawImage(imageObj, 36, 660 - scaledDim.height, scaledDim.width, scaledDim.height);
+            yPos -= scaledDim.height;
+            pc.drawImage(imageObj, xPos, yPos, scaledDim.width, scaledDim.height);
             pc.close();
+            yPos -= 20;
 
             //Applied Layers
-            pc = new PDPageContentStream(document, page, PDPageContentStream.AppendMode.APPEND, true);
-            pc.beginText();
-            pc.setFont(PDType1Font.HELVETICA, 10);
-            pc.setNonStrokingColor(BLUE);
-            pc.newLineAtOffset(36, 640 - scaledDim.height);
-            pc.setLeading(15D);
-            pc.showText("Applied Layers");
-            pc.endText();
-            pc.close();
+            addPdfText(document, page, xPos, yPos, PDType1Font.HELVETICA, 10, BLUE, "Applied Layers");
 
             //Filter Options
-            pc = new PDPageContentStream(document, page, PDPageContentStream.AppendMode.APPEND, true);
-            pc.beginText();
-            pc.setFont(PDType1Font.HELVETICA, 10);
-            pc.setNonStrokingColor(BLUE);
-            pc.newLineAtOffset(310, 640 - scaledDim.height);
-            pc.setLeading(15D);
-            pc.showText("Filter Options");
-            pc.endText();
-            pc.close();
+            addPdfText(document, page, xPos+280, yPos, PDType1Font.HELVETICA, 10, BLUE, "Filter Options");
+
             document.save(pdfFile);
             document.close();
         } catch (IOException e) {
@@ -220,6 +198,19 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
         }
         return pdfFile;
 
+    }
+
+    private void addPdfText(PDDocument document, PDPage page, int xPos, int yPos, PDType1Font font, int fontSize, Color color, String text) throws IOException {
+        PDPageContentStream pc;
+        pc = new PDPageContentStream(document, page, PDPageContentStream.AppendMode.APPEND, true);
+        pc.beginText();
+        pc.setFont(font, fontSize);
+        pc.setNonStrokingColor(color);
+        pc.newLineAtOffset(xPos, yPos);
+        pc.setLeading(15D);
+        pc.showText(text);
+        pc.endText();
+        pc.close();
     }
 
     private Dimension getAdaptedDimension(final int imgWidth, final int imgHeight) {

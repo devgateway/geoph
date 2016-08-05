@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.devgateway.geoph.core.exceptions.BadRequestException;
 import org.devgateway.geoph.core.services.AppMapService;
 import org.devgateway.geoph.core.util.MD5Generator;
+import org.devgateway.geoph.enums.AppMapTypeEnum;
 import org.devgateway.geoph.model.AppMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,7 +61,7 @@ public class MapController {
         if(checkIfMapNameIsValid(mapName)) {
             String mapDesc = (String) mapVariables.get(DESCRIPTION_STR);
             String mapJson = new ObjectMapper().writeValueAsString(mapVariables.get(DATA_TO_SAVE_STR));
-            AppMap appMap = new AppMap(mapName, mapDesc, mapJson, UUID.randomUUID().toString(), null);
+            AppMap appMap = new AppMap(mapName, mapDesc, mapJson, UUID.randomUUID().toString(), MD5Generator.getMD5(mapJson), AppMapTypeEnum.SAVE.getName());
             return appMapService.save(appMap);
         } else {
             throw new BadRequestException(BAD_REQUEST_NAME_INVALID);
@@ -78,8 +79,7 @@ public class MapController {
         if(map==null){
             String mapName = UUID.randomUUID().toString();
             String mapDesc = SHARED_MAP_DESC;
-            AppMap appMap = new AppMap(mapName, mapDesc, mapJson, mapName, md5);
-            map = appMapService.save(appMap);
+            map = appMapService.save(new AppMap(mapName, mapDesc, mapJson, mapName, md5, AppMapTypeEnum.SHARE.getName()));
         }
 
         return map;
