@@ -30,10 +30,10 @@ import org.springframework.stereotype.Service;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.URI;
+import java.net.URL;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -109,7 +109,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
         LOGGER.error("Merge html");
         File file = null;
         try {
-            Document doc = Jsoup.parse(new File(getClass().getClassLoader().getResource(htmlTemplate).getFile()), "utf-8");
+            Document doc = Jsoup.parse(readResourceFromContext(htmlTemplate), "utf-8");
             doc.getElementById("content").append(params.getHtml());
             doc.getElementById("map1").attr("style", "width:" + params.getWidth() + "px;height:" + params.getHeight() + "px");
 
@@ -122,6 +122,30 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
         } catch (Exception e) {
             LOGGER.error("File error: " + e.getMessage());
 
+        }
+        return file;
+    }
+
+    private File readResourceFromContext(String resource){
+        File file = null;
+        URL res = getClass().getClassLoader().getResource(resource);
+        if (res.toString().startsWith("jar:")) {
+            try {
+                InputStream input = getClass().getResourceAsStream(resource);
+                file = File.createTempFile("tempfile", ".tmp");
+                OutputStream out = new FileOutputStream(file);
+                int read;
+                byte[] bytes = new byte[1024];
+
+                while ((read = input.read(bytes)) != -1) {
+                    out.write(bytes, 0, read);
+                }
+                file.deleteOnExit();
+            } catch (IOException ex) {
+                LOGGER.error("Error on reading resource: " + ex.getMessage());
+            }
+        } else {
+            file = new File(res.getFile());
         }
         return file;
     }
@@ -155,7 +179,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
         File pdfFile = new File(repository, key + PDF_EXTENSION);
 
         try {
-            File file = new File(getClass().getClassLoader().getResource(pdfTemplate).getFile());
+            File file = readResourceFromContext(pdfTemplate);
             PDDocument document = PDDocument.load(file);
             PDPageTree pages = document.getDocumentCatalog().getPages();
             PDPage page = pages.get(0);
@@ -186,9 +210,14 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
 
             //Applied Layers
             addPdfText(document, page, xPos, yPos, PDType1Font.HELVETICA, 10, BLUE, "Applied Layers");
+            yPos -= 20;
 
             //Filter Options
-            addPdfText(document, page, xPos+280, yPos, PDType1Font.HELVETICA, 10, BLUE, "Filter Options");
+            Map<String, Map<String, String>> filterMap = getFilterNames(params.getData());
+            if(filterMap!= null) {
+                addPdfText(document, page, xPos, yPos, PDType1Font.HELVETICA, 10, BLUE, "Filter Options");
+                yPos -= 20;
+            }
 
             document.save(pdfFile);
             document.close();
@@ -198,6 +227,26 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
         }
         return pdfFile;
 
+    }
+
+    private Map<String, Map<String, String>> getFilterNames(Object data) {
+        Map<String, Map<String, String>> ret = null;
+        if(data!=null){
+            try {
+                Map filters = (Map) ((Map) data).get("filters");
+                for(Object filterObj:filters.keySet()){
+                    String filterStr = (String) filterObj;
+                    if(filterStr.equals("ia")){
+                        //ret.put
+                    }
+                }
+            } catch (Exception e){
+
+            }
+
+        }
+
+        return ret;
     }
 
     private void addPdfText(PDDocument document, PDPage page, int xPos, int yPos, PDType1Font font, int fontSize, Color color, String text) throws IOException {
