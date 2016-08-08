@@ -24,6 +24,8 @@ public class AppMap extends GenericPersistable implements Serializable {
 
     private String md5;
 
+    private String type;
+
     @Type(type = "StringJsonObject")
     private String jsonAppMap;
 
@@ -33,13 +35,14 @@ public class AppMap extends GenericPersistable implements Serializable {
 
     }
 
-    public AppMap(String name, String description, String jsonAppMap, String key, String md5) {
+    public AppMap(String name, String description, String jsonAppMap, String key, String md5, String type) {
         this.name = name;
         this.description = description;
         this.jsonAppMap = jsonAppMap;
         this.creationDate = new Date();
         this.key = key;
         this.md5 = md5;
+        this.type = type;
     }
 
     public String getName() {
@@ -88,5 +91,13 @@ public class AppMap extends GenericPersistable implements Serializable {
 
     public void setMd5(String md5) {
         this.md5 = md5;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

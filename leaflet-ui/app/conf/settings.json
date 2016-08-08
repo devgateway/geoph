@@ -19,6 +19,7 @@
 		},
 
 		"LOGIN":"/login",
+		"PDF":"/export/pdf",
 		"PROJECT_GEOJSON":"/geodata/${level}/projects",
 		"FUNDING_GEOJSON":"/geodata/stats/region/funding",
 	  	"INDICATOR_UPLOAD":"/indicators/upload",

@@ -69,7 +69,7 @@ class Connector {
 					reject(response);
 				});
 			});
-	}
+	}	
 
 	post(url, data = {},config={}) {
 		return new Promise(
@@ -177,7 +177,7 @@ class Connector {
 
 		return new Promise( (resolve, reject) => {
 			const {username,password} = options;
-		
+
 			this.post(url, {username:username,password:password}).then((response) => {
 				//console.log(response.headers["x-security-token"]);
 				this.setAuthToken(response.headers["x-security-token"]) ;
@@ -252,6 +252,16 @@ class Connector {
 			let path = Settings.get('API','SAVE');
 			//console.log("---saveMap connector---");
 			this.call(POST, path, dataToSave).then((data) => {
+				resolve(data); 	
+			}).catch(reject)
+		});
+	}
+
+	export2Pdf(data) {
+		debugger;
+		return new Promise( (resolve, reject) => {
+			let path = Settings.get('API','PDF');
+			this.call(POST, path, data).then((data) => {
 				resolve(data); 	
 			}).catch(reject)
 		});
