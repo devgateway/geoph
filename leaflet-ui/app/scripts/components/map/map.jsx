@@ -3,7 +3,6 @@ import ReactDOM from 'react';
 
 import { connect } from 'react-redux'
 import {loadProjects, updateBounds} from '../../actions/map.js'
-import {getList} from '../../actions/indicators'
 
 import SvgLayer from './layers/svg.jsx'
 import {latLngBounds,latLng} from 'leaflet'
@@ -13,6 +12,7 @@ import { L , Popup, Map, Marker, TileLayer,ZoomControl,MapLayer,ScaleControl,Lay
 
 import ProjectPopup from './popups/projectLayerPopup'
 import SimplePopup from './popups/simplePopup'
+import PhotoPopup from './popups/photoPopup'
 
 require('leaflet/dist/leaflet.css')
 require('./map.scss');
@@ -47,6 +47,7 @@ const Layers=React.createClass({
 					fundingType={this.props.fundingType}>
 					<ProjectPopup id="projectPopup" onClosePopup={this.closePopup}/>
 					<SimplePopup id="defaultPopup" onClosePopup={this.closePopup}/>
+					<PhotoPopup id="photoPopup" onClosePopup={this.closePopup}/>
 				</SvgLayer>
 			</div>
 		)
