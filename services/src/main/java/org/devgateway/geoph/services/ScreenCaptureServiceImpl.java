@@ -78,7 +78,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
     }
 
     private BufferedImage captureImage(PrintParams params, URI target) {
-        LOGGER.error("Starting JBrowserDriver ");
+        LOGGER.debug("Starting JBrowserDriver ");
         BufferedImage image = null;
         try {
             Dimension screen = new Dimension(params.getWidth(), params.getHeight());
@@ -106,7 +106,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
     }
 
     private File mergeHtml(PrintParams params) {
-        LOGGER.error("Merge html");
+        LOGGER.debug("Merge html");
         File file = null;
         try {
             Document doc = Jsoup.parse(readResourceFromContext(htmlTemplate), "utf-8");
@@ -129,6 +129,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
     private File readResourceFromContext(String resource){
         File file = null;
         URL res = getClass().getClassLoader().getResource(resource);
+        LOGGER.debug(res.toString());
         if (res.toString().startsWith("jar:")) {
             try {
                 InputStream input = getClass().getResourceAsStream(resource);
@@ -141,11 +142,13 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
                     out.write(bytes, 0, read);
                 }
                 file.deleteOnExit();
+                LOGGER.debug("file created from Jar file");
             } catch (IOException ex) {
                 LOGGER.error("Error on reading resource: " + ex.getMessage());
             }
         } else {
             file = new File(res.getFile());
+            LOGGER.debug("file created from Classloader");
         }
         return file;
     }
@@ -175,7 +178,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
     }
 
     private File createPdf(BufferedImage image, PrintParams params, String key) {
-        LOGGER.error("CreatePdf");
+        LOGGER.debug("CreatePdf");
         File pdfFile = new File(repository, key + PDF_EXTENSION);
 
         try {
