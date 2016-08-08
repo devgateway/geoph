@@ -132,15 +132,18 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
         LOGGER.debug(res.toString());
         if (res.toString().startsWith("jar:")) {
             try {
+                LOGGER.debug("getting file from jar " + resource);
                 InputStream input = getClass().getResourceAsStream(resource);
+
                 file = File.createTempFile("tempfile", ".tmp");
                 OutputStream out = new FileOutputStream(file);
                 int read;
                 byte[] bytes = new byte[1024];
-
                 while ((read = input.read(bytes)) != -1) {
+                    LOGGER.debug("reading input...");
                     out.write(bytes, 0, read);
                 }
+                LOGGER.debug("reading finished");
                 file.deleteOnExit();
                 LOGGER.debug("file created from Jar file");
             } catch (IOException ex) {
