@@ -8,6 +8,8 @@ import org.devgateway.geoph.core.services.ScreenCaptureService;
 import org.devgateway.geoph.core.util.MD5Generator;
 import org.devgateway.geoph.enums.AppMapTypeEnum;
 import org.devgateway.geoph.model.AppMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,6 +36,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 @RequestMapping(value = "/export")
 public class MapExport {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(MapExport.class);
+
     private final ScreenCaptureService screenCaptureService;
 
     private final AppMapService appMapService;
@@ -49,6 +53,7 @@ public class MapExport {
 
     @RequestMapping(value = "/pdf", produces = "application/json")
     public HashMap<String,String> toPdf(@RequestBody PrintParams params, HttpServletResponse response) throws Exception {
+        LOGGER.debug("shareMap");
         String mapJson = new ObjectMapper().writeValueAsString(params.getData());
         String md5 = MD5Generator.getMD5(mapJson);
         AppMap map = appMapService.findByMD5(md5);
