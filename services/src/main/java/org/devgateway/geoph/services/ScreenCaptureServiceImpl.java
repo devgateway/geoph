@@ -38,6 +38,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -167,7 +168,9 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
         LOGGER.error("Merge html");
         File file = null;
         try {
-            Document doc = Jsoup.parse(new File(htmlTemplate), "utf-8");
+            URL url=new URL(htmlTemplate);
+            Document doc = Jsoup.parse(url.openConnection().getInputStream(), "utf-8",url.getPath());
+
             doc.getElementById("content").append(html);
             doc.getElementById("map1").attr("style", "width:" + width + "px;height:" + height + "px");
 
@@ -209,8 +212,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
         File pdfFile = new File(repository, key + PDF_EXTENSION);
 
         try {
-            File file = new File(pdfTemplate);
-            PDDocument document = PDDocument.load(file);
+            PDDocument document = PDDocument.load(new URL(pdfTemplate).openConnection().getInputStream());
             PDPageTree pages = document.getDocumentCatalog().getPages();
             PDPage page = pages.get(0);
             PDPageContentStream pc;
