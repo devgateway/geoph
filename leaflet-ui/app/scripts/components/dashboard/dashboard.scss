@@ -1,0 +1,29 @@
+.dashboard{
+	
+	position: absolute;
+	top:125px;
+	padding: 40px;
+	
+	.item{
+		float: left;
+					width: 610px;
+					margin-left:50px;
+
+		p{
+		}
+		.preview{
+			text-align: center;
+			border: 3px solid #EEE;
+			h2{
+
+			}
+
+
+
+			img{
+				zoom:75%;
+				border:3px solid #EEE;
+			}
+		}	
+	}
+}

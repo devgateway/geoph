@@ -25,11 +25,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URI;
+import java.util.Base64;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
@@ -63,7 +66,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
 
 
     public String createPdfFromHtmlString(Integer width, Integer height, String html) throws Exception {
-        File target = mergeHtml(width, height, html); //merge template and the passed html and return URL to resulted file
+        File target = buildPage(width, height, html); //merge template and the passed html and return URL to resulted file
         BufferedImage image = captureImage(width, height, target.toURI()); //create screen shoot from html file
        if (image==null){
            throw  new Exception("Wasn't able to generate image please check logs");
@@ -71,7 +74,11 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
         return createPdf(image).getName();
     }
 
-    private BufferedImage captureImage(Integer width, Integer height, URI target) {
+
+
+
+
+    public BufferedImage captureImage(Integer width, Integer height, URI target) {
         LOGGER.error("Starting JBrowserDriver ");
         BufferedImage image = null;
         try {
@@ -84,8 +91,8 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
                     .userAgent(UserAgent.CHROME)
                     .timezone(Timezone.AMERICA_NEWYORK)
                     .build());
-
-            driver.manage().timeouts().pageLoadTimeout(5, TimeUnit.SECONDS);
+    //TODO:externalize time out
+            driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
             driver.get(target.toString());
 
 
@@ -99,7 +106,39 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
         return image;
     }
 
-    private File mergeHtml(Integer width, Integer height, String html) {
+    @Override
+    /**
+     * Scale image keeping aspect ration
+     */
+    public BufferedImage scaleWidth(BufferedImage original, Integer newWidth) {
+        Integer w=original.getWidth();
+        Float ratio=((float)w)/newWidth;
+        Float   newHeight=original.getHeight()/ratio;
+        return  resize(original, newWidth, newHeight.intValue());
+    }
+
+    @Override
+    /**
+     * Scale image keeping aspect ration
+     */
+    public BufferedImage scaleHeight(BufferedImage original, Integer newHeight) {
+        Integer h=original.getHeight();
+        Integer ratio=h/newHeight;
+        Integer  newWidth=original.getWidth()/ratio;
+        return  resize(original, newWidth, newHeight);
+    }
+
+    private  BufferedImage resize(BufferedImage original, Integer width, Integer height) {
+        BufferedImage scaledBI = new BufferedImage(width, height,BufferedImage.TYPE_INT_RGB);
+        Graphics2D g = scaledBI.createGraphics();
+        g.drawImage(original, 0, 0, width, height, null);
+        g.dispose();
+        return scaledBI;
+    }
+
+
+
+    public File buildPage(Integer width, Integer height, String html) {
         LOGGER.error("Merge html");
         File file = null;
         try {
@@ -118,6 +157,21 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
 
         }
         return file;
+    }
+
+    @Override
+    public String toBase64(BufferedImage image) throws IOException {
+        BASE64Encoder base64Encoder=new BASE64Encoder();
+        String imageString = null;
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ImageIO.write(image, "png", bos);
+        byte[] imageBytes = bos.toByteArray();
+
+        BASE64Encoder encoder = new BASE64Encoder();
+        imageString = encoder.encode(imageBytes);
+
+        bos.close();
+        return imageString;
     }
 
     /**
@@ -217,7 +271,8 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
         return pdfFile;
 
     }
-
+    //TODO: does this function will keep aspect ration?
+    //TODO:externalize max sizes
     private Dimension getAdaptedDimension(final int imgWidth, final int imgHeight) {
         int newWidth = imgWidth;
         int newHeight = imgHeight;

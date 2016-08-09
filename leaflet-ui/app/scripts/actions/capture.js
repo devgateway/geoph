@@ -1,16 +1,16 @@
 import * as Constants from '../constants/constants';
 import Settings from '../util/settings';
 import Connector from '../connector/connector';
+import * as HtmlUtil from '../util/htmlUtil';
 
 
 
 
 
 export const capture=()=>{
-  const element=document.getElementsByClassName("map")[0]
-  const {outerHTML,clientWidth,clientHeight,offsetWidth,offsetHeight }=element;
     return (dispatch, getState) =>{
-      dispatch(export2Pdf(outerHTML,clientWidth,clientHeight))
+        const {outerHTML,clientWidth,clientHeight} = HtmlUtil.getMapElementProperties();
+        dispatch(export2Pdf(outerHTML,clientWidth,clientHeight));
    }
 
 }

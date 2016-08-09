@@ -12,6 +12,8 @@ import AddIndicator from './components/admin/addIndicator.jsx';
 import ListIndicator from './components/admin/listIndicator.jsx';
 import Printable from './components/print/printable.jsx';
 
+import DashboardLayout from './components/layout/dashboardLayout.jsx';
+
 const NoMatch = React.createClass({
   
   render() {
@@ -34,7 +36,10 @@ const Root = React.createClass({
 export default (
 
   <Route path="/" component={Root}>
-      
+
+    <Route path="/dashboard" component={DashboardLayout}>
+    </Route>
+
     <Route path="/print/:key" component={Printable}></Route>
 
     <Route path="/map" component={Regular}>
