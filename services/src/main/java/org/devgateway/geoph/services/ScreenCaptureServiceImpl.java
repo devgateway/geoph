@@ -28,14 +28,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import sun.misc.BASE64Encoder;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -78,19 +81,20 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
 
 
     public String createPdfFromHtmlString(PrintParams params, String key) throws Exception {
-        File target = mergeHtml(params); //merge template and the passed html and return URL to resulted file
-        BufferedImage image = captureImage(params, target.toURI()); //create screen shoot from html file
+        File target = buildPage(params.getWidth(),params.getHeight(),params.getHtml()); //merge template and the passed html and return URL to resulted file
+        BufferedImage image = captureImage(params.getWidth(),params.getHeight(), target.toURI()); //create screen shoot from html file
         if(image==null){
            throw  new Exception("Wasn't able to generate image please check logs");
         }
-        return createPdf(image, params, key).getName();
+        return createPdf(image, params.getName(),params.getData(), key).getName();
     }
 
-    private BufferedImage captureImage(PrintParams params, URI target) {
-        LOGGER.debug("Starting JBrowserDriver ");
+
+    public BufferedImage captureImage(Integer width, Integer height, URI target) {
+        LOGGER.error("Starting JBrowserDriver ");
         BufferedImage image = null;
         try {
-            Dimension screen = new Dimension(params.getWidth(), params.getHeight());
+            Dimension screen = new Dimension(width, height);
             WebDriver driver = new JBrowserDriver(Settings
                     .builder()
                     .logWarnings(false)
@@ -99,9 +103,10 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
                     .userAgent(UserAgent.CHROME)
                     .timezone(Timezone.AMERICA_NEWYORK)
                     .build());
-
-            driver.manage().timeouts().pageLoadTimeout(timeToWait, TimeUnit.SECONDS);
+            //TODO:externalize time out
+            driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
             driver.get(target.toString());
+
 
             byte[] imageByte=((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
             ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
@@ -113,18 +118,67 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
         return image;
     }
 
-    private File mergeHtml(PrintParams params) {
-        LOGGER.debug("Merge html");
+    @Override
+    /**
+     * Scale image keeping aspect ration
+     */
+    public BufferedImage scaleWidth(BufferedImage original, Integer newWidth) {
+        Integer w=original.getWidth();
+        Float ratio=((float)w)/newWidth;
+        Float   newHeight =original.getHeight()/ratio;
+        return  resize(original, newWidth, newHeight.intValue());
+    }
+
+    @Override
+    /**
+     * Scale image keeping aspect ration
+     */
+    public BufferedImage scaleHeight(BufferedImage original, Integer newHeight) {
+        Integer h=original.getHeight();
+        Integer ratio=h/newHeight;
+        Integer  newWidth=original.getWidth()/ratio;
+        return  resize(original, newWidth, newHeight);
+    }
+
+
+    private  BufferedImage resize(BufferedImage original, Integer width, Integer height) {
+        BufferedImage scaledBI = new BufferedImage(width, height,BufferedImage.TYPE_INT_RGB);
+        Graphics2D g = scaledBI.createGraphics();
+        g.drawImage(original, 0, 0, width, height, null);
+        g.dispose();
+        return scaledBI;
+    }
+
+    @Override
+    public String toBase64(BufferedImage image) throws IOException {
+        BASE64Encoder base64Encoder=new BASE64Encoder();
+        String imageString = null;
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ImageIO.write(image, "png", bos);
+        byte[] imageBytes = bos.toByteArray();
+        BASE64Encoder encoder = new BASE64Encoder();
+        imageString = encoder.encode(imageBytes);
+        bos.close();
+        return imageString;
+    }
+
+
+
+    public File buildPage(Integer width, Integer height, String html) {
+        LOGGER.error("Merge html");
         File file = null;
         try {
-            Document doc = Jsoup.parse(new File(htmlTemplate), "utf-8");
-            doc.getElementById("content").append(params.getHtml());
-            doc.getElementById("map1").attr("style", "width:" + params.getWidth() + "px;height:" + params.getHeight() + "px");
+            URL url=new URL(htmlTemplate);
+            Document doc = Jsoup.parse(url.openConnection().getInputStream(), "utf-8",url.getPath());
+
+            doc.getElementById("content").append(html);
+            doc.getElementById("map1").attr("style", "width:" + width + "px;height:" + height + "px");
 
             //Fix translate3D element
             removeTranslate3dFromDocument(doc);
 
             file = File.createTempFile("map-print", HTML_EXTENSION);
+            //System.out.println(file.getAbsolutePath());
             FileUtils.writeStringToFile(file, doc.outerHtml());
         } catch (Exception e) {
             LOGGER.error("File error: " + e.getMessage());
@@ -153,13 +207,12 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
         pane.attr("style", "left:" + left + ";top:" + top);
     }
 
-    private File createPdf(BufferedImage image, PrintParams params, String key) {
+    private File createPdf(BufferedImage image, String name, Object data , String key) {
         LOGGER.debug("CreatePdf");
         File pdfFile = new File(repository, key + PDF_EXTENSION);
 
         try {
-            File file = new File(pdfTemplate);
-            PDDocument document = PDDocument.load(file);
+            PDDocument document = PDDocument.load(new URL(pdfTemplate).openConnection().getInputStream());
             PDPageTree pages = document.getDocumentCatalog().getPages();
             PDPage page = pages.get(0);
             PDPageContentStream pc;
@@ -167,8 +220,8 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             int yPos = 695;
 
             //Map title
-            if(StringUtils.isNotBlank(params.getName())) {
-                addPdfText(document, page, xPos, yPos, PDType1Font.HELVETICA_BOLD, 13, BLUE, params.getName());
+            if(StringUtils.isNotBlank(name)) {
+                addPdfText(document, page, xPos, yPos, PDType1Font.HELVETICA_BOLD, 13, BLUE, name);
                 yPos -= 15;
             }
 
@@ -193,7 +246,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
 
             //Filter Options
 
-            Map jsonFilters = (Map) ((Map) params.getData()).get("filters");
+            Map jsonFilters = (Map) ((Map) data).get("filters");
             Map<String, Set<String>> filterMap = printService.getFilterNamesFromJson(jsonFilters);
             if(filterMap!= null) {
                 addPdfText(document, page, xPos, yPos, PDType1Font.HELVETICA, 10, BLUE, "Filter Options");

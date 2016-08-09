@@ -63,7 +63,7 @@ public class MapExport {
                     mapJson,
                     UUID.randomUUID().toString(),
                     md5,
-                    AppMapTypeEnum.PRINT.getName()));
+                    AppMapTypeEnum.PRINT.getName(),null));
         }
         String name = screenCaptureService.createPdfFromHtmlString(params, map.getKey());
         HashMap values=new HashMap();

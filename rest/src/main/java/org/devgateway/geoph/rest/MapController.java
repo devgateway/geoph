@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.devgateway.geoph.core.exceptions.BadRequestException;
 import org.devgateway.geoph.core.services.AppMapService;
+import org.devgateway.geoph.core.services.ScreenCaptureService;
 import org.devgateway.geoph.core.util.MD5Generator;
 import org.devgateway.geoph.enums.AppMapTypeEnum;
 import org.devgateway.geoph.model.AppMap;
@@ -17,6 +18,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -43,8 +46,11 @@ public class MapController {
 
     private final AppMapService appMapService;
 
+    private final ScreenCaptureService screenCaptureService;
+
     @Autowired
-    public MapController(AppMapService appMapService) {
+    public MapController(AppMapService appMapService,ScreenCaptureService screenCaptureService) {
+        this.screenCaptureService=screenCaptureService;
         this.appMapService = appMapService;
     }
 
@@ -54,21 +60,40 @@ public class MapController {
         return appMapService.findAll(pageable);
     }
 
+
     @RequestMapping(value = "/save", method = POST)
-    public AppMap saveMap(@RequestBody Map<String, Object> mapVariables) throws JsonProcessingException, SQLException {
+    public AppMap saveMap(@RequestBody Map<String, Object> mapVariables) throws IOException, SQLException {
         LOGGER.debug("saveMap");
         String mapName = (String) mapVariables.get(NAME_STR);
-        if(checkIfMapNameIsValid(mapName)) {
+        String base64 = null;
+        if (checkIfMapNameIsValid(mapName)) {
+            String html = (String) mapVariables.get("html");
+            Integer width = (Integer) mapVariables.get("width");
+            Integer height = (Integer) mapVariables.get("height");
+            Integer scaleWidth = (Integer) mapVariables.get("scaleWidth");
+            Integer scaleHeight = (Integer) mapVariables.get("scaleHeight");
+
+            if (html != null) {
+                //get preview image
+                BufferedImage image = screenCaptureService.captureImage(width, height, screenCaptureService.buildPage(width, height, html).toURI());
+
+                if (scaleWidth != null) {
+                    image = screenCaptureService.scaleWidth(image, scaleWidth);
+                } else if (scaleHeight != null) {
+                    image = screenCaptureService.scaleWidth(image, scaleHeight);
+                }
+                base64 = screenCaptureService.toBase64(image);
+
+            }
             String mapDesc = (String) mapVariables.get(DESCRIPTION_STR);
             String mapJson = new ObjectMapper().writeValueAsString(mapVariables.get(DATA_TO_SAVE_STR));
-            AppMap appMap = new AppMap(mapName, mapDesc, mapJson, UUID.randomUUID().toString(), MD5Generator.getMD5(mapJson), AppMapTypeEnum.SAVE.getName());
+             AppMap appMap = new AppMap(mapName, mapDesc, mapJson, UUID.randomUUID().toString(), MD5Generator.getMD5(mapJson), AppMapTypeEnum.SAVE.getName(),base64);
+
             return appMapService.save(appMap);
         } else {
             throw new BadRequestException(BAD_REQUEST_NAME_INVALID);
         }
     }
-
-
 
     @RequestMapping(value = "/share", method = POST)
     public AppMap shareMap(@RequestBody Map<String, Object> mapVariables) throws JsonProcessingException, SQLException {
@@ -79,7 +104,7 @@ public class MapController {
         if(map==null){
             String mapName = UUID.randomUUID().toString();
             String mapDesc = SHARED_MAP_DESC;
-            map = appMapService.save(new AppMap(mapName, mapDesc, mapJson, mapName, md5, AppMapTypeEnum.SHARE.getName()));
+            map = appMapService.save(new AppMap(mapName, mapDesc, mapJson, mapName, md5, AppMapTypeEnum.SHARE.getName(),null));
         }
 
         return map;
