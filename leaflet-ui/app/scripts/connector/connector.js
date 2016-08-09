@@ -58,7 +58,6 @@ class Connector {
 			});
 	}
 
-
 	delete(url) {
 		return new Promise(
 			function(resolve, reject) {
@@ -71,9 +70,6 @@ class Connector {
 				});
 			});
 	}	
-
-
-
 
 	post(url, data = {},config={}) {
 		return new Promise(
@@ -119,13 +115,16 @@ class Connector {
 			
 			let url=Settings.get('API',options.ep);
 			const {level,quality} = options.settings;
-			const {id, filters,indicator_id}=options;
+			const {id, filters, indicator_id, geophotos_id}=options;
 
 			if (level){
 				url=url.replace('${level}',level);
 			}
 			if (indicator_id){
 				url=url.replace('${indicator_id}',indicator_id);
+			}
+			if (geophotos_id){
+				url=url.replace('${geophotos_id}',geophotos_id);
 			}
 			if (quality){
 				Object.assign(params,{quality})
@@ -140,8 +139,6 @@ class Connector {
 			}).catch(reject)
 		});
 	}
-
-
 
 	getFilterData(filterType) {
 		return new Promise( (resolve, reject) => {
@@ -173,7 +170,6 @@ class Connector {
 		});
 	}
 
-
 	login(options){
 		let apiRoot = Settings.get('API',API_BASE_URL);
 		let endpoint = Settings.get('API','LOGIN');
@@ -196,7 +192,6 @@ class Connector {
 	logout(){
 
 	}
-
 
 	getIndicatorList(){
 		return this.call(GET,Settings.get('API','INDICATOR_LIST'),{});
@@ -228,7 +223,6 @@ class Connector {
 			this.call(POST,url,data,{ headers: this.getSecurityHeader()}).then(resolve).catch(reject);
 		})
 	}
-
 
 	getProjectPopupData(filters, tab) {
 		return new Promise( (resolve, reject) => {
@@ -303,6 +297,11 @@ class Connector {
 			}).catch(reject)
 		});
 	}
+
+	getGeophotosList(){
+		return this.call(GET,Settings.get('API','GEOPHOTOS_LIST'),{});
+	}
+	
 }
 
 

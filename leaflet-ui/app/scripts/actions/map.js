@@ -72,6 +72,7 @@ const loadLayerById=(dispatch, getState, id)=>{
 	const options={
 		id:layer.get('id'),
 		indicator_id:layer.get("indicator_id"), 
+		geophotos_id:layer.get("geophotos_id"), 
 		ep:layer.get('ep'),settings:layer.get('settings').toObject(), 
 		filters: getFilters(getState)
 	};

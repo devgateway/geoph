@@ -33,6 +33,8 @@
 	  	"INDICATOR_LIST":"/indicators",
 
 	  	"INDICATOR":"/geodata/indicators/${indicator_id}",
+	  	"GEOPHOTOS_LIST":"/geophotos/list",
+	  	"GEOPHOTOS":"/geodata/geophotos/id/${geophotos_id}",
 	  	
 		"FILTER_LIST": {
 			"development": {

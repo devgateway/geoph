@@ -49,6 +49,9 @@ import { render, unmountComponentAtNode } from 'react-dom';
   getClass(d){  
     const {valueProperty, classes, cssProvider} = d.properties;  
     const {measure, type} = this.props.fundingType;
+    if (!cssProvider){
+      return classes+'4-9';
+    }
     const value = valueProperty=='funding'? d.properties[measure][type] : d.properties[valueProperty];
     var className = classes + cssProvider.getCssClass(value);
     return className;  
@@ -118,13 +121,13 @@ import { render, unmountComponentAtNode } from 'react-dom';
         const values = this.getValues(layer.data.features, layer.valueProperty);//isolate features values 
         const {thresholds,cssProvider} = layer;
         const breaks = (thresholds > values.length)?values.length:thresholds;
-        let classProvider = new cssProvider(values,breaks);
+        let classProvider = cssProvider? new cssProvider(values,breaks) : null;
         size = layer.size>size? layer.size : size;
         border = layer.border>border? layer.border : border;
         let fts = layer.type=="points"? this.filter(layer.data.features, layer.valueProperty) : layer.data.features; 
         fts.map((feature)=>{
           Object.assign(feature.properties, 
-            {classes: classes, cssProvider: classProvider, valueProperty: layer.valueProperty, border: layer.border, popupId: layer.popupId || 'defaultPopup', layerName: layer.name});//Assign class data to feature properties
+            {classes: classes, cssProvider: classProvider, valueProperty: layer.valueProperty, size: layer.size, border: layer.border, popupId: layer.popupId || 'defaultPopup', layerName: layer.name});//Assign class data to feature properties
         })
         allLayersFeatures = allLayersFeatures.concat(fts);
       }
@@ -147,7 +150,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
       this.setSvgSize(path, {type: "FeatureCollection", features: allLayersFeatures}, size, border); //set svg area 
     }
     path.pointRadius((d)=>{
-      return (size/2 * map.getZoom()) ;
+      return (d.properties.size/2 * map.getZoom()) ;
     });
     
     var shapes = this.g.selectAll("path").data(allLayersFeatures);
