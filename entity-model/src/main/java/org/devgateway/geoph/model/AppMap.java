@@ -18,6 +18,7 @@ public class AppMap extends GenericPersistable implements Serializable {
 
     private String name;
 
+    @Type(type = "text")
     private String description;
 
     private String key;
@@ -31,11 +32,23 @@ public class AppMap extends GenericPersistable implements Serializable {
 
     private Date creationDate;
 
+
+    @Type(type = "text")
+    private String base64preview;
+
     public AppMap(){
 
     }
 
-    public AppMap(String name, String description, String jsonAppMap, String key, String md5, String type) {
+    public String getBase64preview() {
+        return base64preview;
+    }
+
+    public void setBase64preview(String base64preview) {
+        this.base64preview = base64preview;
+    }
+
+    public AppMap(String name, String description, String jsonAppMap, String key, String md5, String type,String base64preview) {
         this.name = name;
         this.description = description;
         this.jsonAppMap = jsonAppMap;
@@ -43,6 +56,7 @@ public class AppMap extends GenericPersistable implements Serializable {
         this.key = key;
         this.md5 = md5;
         this.type = type;
+        this.base64preview=base64preview;
     }
 
     public String getName() {
