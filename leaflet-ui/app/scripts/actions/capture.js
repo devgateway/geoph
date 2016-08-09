@@ -11,8 +11,10 @@ export const capture=()=>{
   const mapName = 'Map generated from print';
   const element = document.getElementsByClassName("map")[0];  
   const {outerHTML,clientWidth,clientHeight} = HtmlUtil.getMapElementProperties();
-  const data = collectValuesToSave(getState());
+ 
   return (dispatch, getState) =>{
+
+     const data = collectValuesToSave(getState());
     dispatch(export2Pdf(outerHTML,clientWidth,clientHeight, mapName, data));
   }
 
