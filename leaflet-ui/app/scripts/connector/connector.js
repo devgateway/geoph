@@ -202,6 +202,12 @@ class Connector {
 		return this.call(GET,Settings.get('API','INDICATOR_LIST'),{});
 	}
 
+
+	getMapList(){
+		return this.call(GET,Settings.get('API','MAP_LIST'),{});
+	}
+
+
 	removeIndicator(id){
 		let url=Settings.get('API','INDICATOR');
 		url=url.replace('${id}',id);
