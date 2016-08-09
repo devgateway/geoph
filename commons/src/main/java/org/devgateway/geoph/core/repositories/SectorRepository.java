@@ -19,4 +19,9 @@ public interface SectorRepository {
     List<Sector> findByLevel(int level);
 
     List<SectorResultsDao> findFundingBySector(Parameters params);
+<<<<<<< .merge_file_a71556
+=======
+
+    Sector findById(Long id);
+>>>>>>> .merge_file_a99512
 }

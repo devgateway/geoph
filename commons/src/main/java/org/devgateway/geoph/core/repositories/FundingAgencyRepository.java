@@ -17,4 +17,9 @@ public interface FundingAgencyRepository {
     List<AgencyResultsDao> findFundingByFundingAgency(Parameters params);
 
     Integer countAll();
+<<<<<<< .merge_file_a00176
+=======
+
+    FundingAgency findById(Long id);
+>>>>>>> .merge_file_a98716
 }

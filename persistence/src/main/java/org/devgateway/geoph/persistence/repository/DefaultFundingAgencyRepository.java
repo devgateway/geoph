@@ -33,6 +33,15 @@ public class DefaultFundingAgencyRepository implements FundingAgencyRepository {
         return em.createNamedQuery("findAllFundingAgency", FundingAgency.class).getResultList();
     }
 
+<<<<<<< .merge_file_a81984
+=======
+    @Override
+    public FundingAgency findById(Long id) {
+        return em.createNamedQuery("findFundingAgencyById", FundingAgency.class)
+                .setParameter("id", id)
+                .getSingleResult();
+    }
+>>>>>>> .merge_file_a93636
 
     @Override
     public Integer countAll() {

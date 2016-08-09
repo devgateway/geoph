@@ -17,4 +17,9 @@ public interface ExecutingAgencyRepository {
     List<AgencyResultsDao> findFundingByExecutingAgency(Parameters params);
 
     Integer countAll();
+<<<<<<< .merge_file_a98572
+=======
+
+    ExecutingAgency findById(Long id);
+>>>>>>> .merge_file_a99764
 }

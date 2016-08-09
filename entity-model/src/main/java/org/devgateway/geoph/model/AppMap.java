@@ -25,6 +25,7 @@ public class AppMap extends GenericPersistable implements Serializable {
 
     private String md5;
 
+<<<<<<< .merge_file_a00020
 
     @Type(type = "text")
     private String base64preview;
@@ -36,6 +37,9 @@ public class AppMap extends GenericPersistable implements Serializable {
     public void setBase64preview(String base64preview) {
         this.base64preview = base64preview;
     }
+=======
+    private String type;
+>>>>>>> .merge_file_a00476
 
     @Type(type = "StringJsonObject")
     private String jsonAppMap;
@@ -46,14 +50,22 @@ public class AppMap extends GenericPersistable implements Serializable {
 
     }
 
+<<<<<<< .merge_file_a00020
     public AppMap(String name, String description, String jsonAppMap, String key, String md5,String base64) {
+=======
+    public AppMap(String name, String description, String jsonAppMap, String key, String md5, String type) {
+>>>>>>> .merge_file_a00476
         this.name = name;
         this.description = description;
         this.jsonAppMap = jsonAppMap;
         this.creationDate = new Date();
         this.key = key;
         this.md5 = md5;
+<<<<<<< .merge_file_a00020
         this.base64preview=base64;
+=======
+        this.type = type;
+>>>>>>> .merge_file_a00476
     }
 
     public String getName() {
@@ -102,5 +114,13 @@ public class AppMap extends GenericPersistable implements Serializable {
 
     public void setMd5(String md5) {
         this.md5 = md5;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
