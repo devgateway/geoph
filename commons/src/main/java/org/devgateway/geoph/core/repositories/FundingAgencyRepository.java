@@ -17,4 +17,6 @@ public interface FundingAgencyRepository {
     List<AgencyResultsDao> findFundingByFundingAgency(Parameters params);
 
     Integer countAll();
+
+    FundingAgency findById(Long id);
 }

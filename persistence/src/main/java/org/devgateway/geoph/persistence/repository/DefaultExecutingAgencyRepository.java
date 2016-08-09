@@ -34,6 +34,13 @@ public class DefaultExecutingAgencyRepository implements ExecutingAgencyReposito
     }
 
     @Override
+    public ExecutingAgency findById(Long id) {
+        return em.createNamedQuery("findExecutingAgencyById", ExecutingAgency.class)
+                .setParameter("id", id)
+                .getSingleResult();
+    }
+
+    @Override
     public Integer countAll() {
         return ((BigInteger) em.createNativeQuery("select count(*) from agency a where a.discriminator like 'executing_agency'").getSingleResult()).intValue();
     }

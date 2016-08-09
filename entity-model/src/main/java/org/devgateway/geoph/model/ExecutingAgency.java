@@ -17,6 +17,10 @@ import java.io.Serializable;
         @NamedQuery(
                 name = "findAllExecutingAgency",
                 query = "from ExecutingAgency s"
+        ),
+        @NamedQuery(
+                name = "findExecutingAgencyById",
+                query = "from ExecutingAgency s where s.id = :id"
         )
 })
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
