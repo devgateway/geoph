@@ -14,7 +14,6 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.LosslessFactory;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.devgateway.geoph.core.request.PrintParams;
-import org.devgateway.geoph.core.services.PrintService;
 import org.devgateway.geoph.core.services.ScreenCaptureService;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -25,7 +24,6 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import sun.misc.BASE64Encoder;
@@ -61,10 +59,11 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
     private static final Color BLUE = new Color(2, 64, 114);
     private static final Color BLACK = new Color(0, 0, 0);
     private static final double UPPERCASE_FACTOR = 1.3;
-    private static final int MAX_CHARS = 133;
+    private static final int MAX_CHARS = 134;
     private static final int X_POS = 36;
     private static final int Y_POS = 695;
     private static final int MIN_Y_POS = 30;
+    private static final String NEW_ITEM = "- ";
 
     @Value("${screen.capture.templates.html}")
     private String htmlTemplate;
@@ -81,9 +80,6 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
     @Value("#{environment['repository.path']}")
     private String repository;
 
-    @Autowired
-    PrintService printService;
-
 
     public String createPdfFromHtmlString(PrintParams params, String key) throws Exception {
         File target = buildPage(params.getWidth(), params.getHeight(), params.getHtml()); //merge template and the passed html and return URL to resulted file
@@ -91,7 +87,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
         if(image==null){
            throw  new Exception("Wasn't able to generate image please check logs");
         }
-        return createPdf(image, params.getName(),params.getData(), key).getName();
+        return createPdf(image, params.getName(), params.getFilters(), params.getLayers(), key).getName();
     }
 
 
@@ -212,7 +208,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
         pane.attr("style", "left:" + left + ";top:" + top);
     }
 
-    private File createPdf(BufferedImage image, String name, Object data , String key) {
+    private File createPdf(BufferedImage image, String name, Map<String, Set<String>> filterMap, List<String> layerList, String key) {
         LOGGER.debug("CreatePdf");
         File pdfFile = new File(repository, key + PDF_EXTENSION);
 
@@ -246,11 +242,13 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
 
             //Applied Layers
             addPdfText(pdf, PDType1Font.HELVETICA, 10, BLUE, "Applied Layers");
-            checkEndOfPage(pdf, 20);
-
+            checkEndOfPage(pdf, 15);
+            for(String strToPrint:layerList) {
+                addPdfText(pdf, PDType1Font.HELVETICA, 9, BLACK, NEW_ITEM + strToPrint);
+                checkEndOfPage(pdf, 12);
+            }
+            checkEndOfPage(pdf, 10);
             //Filter Options
-            Map jsonFilters = (Map) ((Map) data).get("filters");
-            Map<String, Set<String>> filterMap = printService.getFilterNamesFromJson(jsonFilters);
             if(filterMap!= null) {
                 addPdfText(pdf, PDType1Font.HELVETICA, 10, BLUE, "Filter Options");
                 checkEndOfPage(pdf, 15);
@@ -289,7 +287,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
 
     private List<String> splitValues(int maxChars, String title, Set<String> values){
         List<String> ret = new LinkedList<>();
-        StringBuilder sb = new StringBuilder("- " +     title + ": ");
+        StringBuilder sb = new StringBuilder(NEW_ITEM +     title + ": ");
         boolean isCommaNeeded = false;
         for(String value : values){
             if(isCommaNeeded){

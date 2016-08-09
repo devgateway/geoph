@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.devgateway.geoph.core.request.PrintParams;
 import org.devgateway.geoph.core.services.AppMapService;
 import org.devgateway.geoph.core.services.FileService;
+import org.devgateway.geoph.core.services.PrintService;
 import org.devgateway.geoph.core.services.ScreenCaptureService;
 import org.devgateway.geoph.core.util.MD5Generator;
 import org.devgateway.geoph.enums.AppMapTypeEnum;
@@ -24,6 +25,8 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URLConnection;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -42,13 +45,16 @@ public class MapExport {
 
     private final AppMapService appMapService;
 
+    private final PrintService printService;
+
     @Autowired
     FileService fileService;
 
     @Autowired
-    public MapExport(ScreenCaptureService screenCaptureService, AppMapService appMapService) {
+    public MapExport(ScreenCaptureService screenCaptureService, AppMapService appMapService, PrintService printService) {
         this.screenCaptureService = screenCaptureService;
         this.appMapService = appMapService;
+        this.printService = printService;
     }
 
     @RequestMapping(value = "/pdf", produces = "application/json")
@@ -64,6 +70,14 @@ public class MapExport {
                     UUID.randomUUID().toString(),
                     md5,
                     AppMapTypeEnum.PRINT.getName(),null));
+        }
+        Map jsonFilters = (Map) ((Map) params.getData()).get("filters");
+        if(jsonFilters!=null) {
+            params.setFilters(printService.getFilterNamesFromJson(jsonFilters));
+        }
+        List jsonLayers = (List)((Map)((Map) params.getData()).get("map")).get("visibleLayers");
+        if(jsonLayers!=null) {
+            params.setLayers(printService.getLayerNamesFromJson(jsonLayers));
         }
         String name = screenCaptureService.createPdfFromHtmlString(params, map.getKey());
         HashMap values=new HashMap();
