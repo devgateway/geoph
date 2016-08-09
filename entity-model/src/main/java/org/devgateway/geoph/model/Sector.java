@@ -24,11 +24,7 @@ import java.util.Set;
                 query = "from Sector s where s.code = :code"
         ),
         @NamedQuery(
-<<<<<<< .merge_file_a00292
                 name = "findSectorsById",
-=======
-                name = "findSectorById",
->>>>>>> .merge_file_a95400
                 query = "from Sector s where s.id = :id"
         ),
         @NamedQuery(

@@ -17,13 +17,6 @@ import java.io.Serializable;
         @NamedQuery(
                 name = "findAllExecutingAgency",
                 query = "from ExecutingAgency s"
-<<<<<<< .merge_file_a70596
-=======
-        ),
-        @NamedQuery(
-                name = "findExecutingAgencyById",
-                query = "from ExecutingAgency s where s.id = :id"
->>>>>>> .merge_file_a89536
         )
 })
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)

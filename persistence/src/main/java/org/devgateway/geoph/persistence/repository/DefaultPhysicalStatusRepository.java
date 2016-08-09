@@ -40,16 +40,6 @@ public class DefaultPhysicalStatusRepository implements PhysicalStatusRepository
     }
 
     @Override
-<<<<<<< .merge_file_a00092
-=======
-    public PhysicalStatus findById(Long id) {
-        return em.createNamedQuery("findPhysicalStatusById", PhysicalStatus.class)
-                .setParameter("id", id)
-                .getSingleResult();
-    }
-
-    @Override
->>>>>>> .merge_file_a00252
     public PhysicalStatus findByCode(String code) {
         return em.createNamedQuery("findPhysicalStatusByCode", PhysicalStatus.class)
                 .setParameter("code", code)

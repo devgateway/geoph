@@ -18,10 +18,5 @@ public interface PhysicalStatusRepository {
 
     PhysicalStatus findByCode(String code);
 
-<<<<<<< .merge_file_a00452
-=======
-    PhysicalStatus findById(Long id);
-
->>>>>>> .merge_file_a06700
     List<PhysicalStatusDao> findFundingByPhysicalStatus(Parameters params);
 }

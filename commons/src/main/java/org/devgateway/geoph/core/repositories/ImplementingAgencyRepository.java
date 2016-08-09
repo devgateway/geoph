@@ -14,11 +14,6 @@ public interface ImplementingAgencyRepository {
 
     List<ImplementingAgency> findAll();
 
-<<<<<<< .merge_file_a00064
-=======
-    ImplementingAgency findById(Long id);
-
->>>>>>> .merge_file_a99820
     Integer countAll();
 
     List<AgencyResultsDao> findFundingByImplementingAgency(Parameters params);

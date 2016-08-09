@@ -7,7 +7,6 @@ import org.devgateway.geoph.core.exceptions.BadRequestException;
 import org.devgateway.geoph.core.services.AppMapService;
 import org.devgateway.geoph.core.services.ScreenCaptureService;
 import org.devgateway.geoph.core.util.MD5Generator;
-import org.devgateway.geoph.enums.AppMapTypeEnum;
 import org.devgateway.geoph.model.AppMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -93,12 +92,8 @@ public class MapController {
 
             }
             String mapDesc = (String) mapVariables.get(DESCRIPTION_STR);
-            String mapJson = new ObjectMapper().writeValueAsString(`.get(DATA_TO_SAVE_STR));
-<<<<<<< .merge_file_a85316
+            String mapJson = new ObjectMapper().writeValueAsString(mapVariables.get(DATA_TO_SAVE_STR));
             AppMap appMap = new AppMap(mapName, mapDesc, mapJson, UUID.randomUUID().toString(), null, base64);
-=======
-            AppMap appMap = new AppMap(mapName, mapDesc, mapJson, UUID.randomUUID().toString(), MD5Generator.getMD5(mapJson), AppMapTypeEnum.SAVE.getName());
->>>>>>> .merge_file_a99160
             return appMapService.save(appMap);
         } else {
             throw new BadRequestException(BAD_REQUEST_NAME_INVALID);
@@ -117,12 +112,8 @@ public class MapController {
         if (map == null) {
             String mapName = UUID.randomUUID().toString();
             String mapDesc = SHARED_MAP_DESC;
-<<<<<<< .merge_file_a85316
             AppMap appMap = new AppMap(mapName, mapDesc, mapJson, mapName, md5, null);
             map = appMapService.save(appMap);
-=======
-            map = appMapService.save(new AppMap(mapName, mapDesc, mapJson, mapName, md5, AppMapTypeEnum.SHARE.getName()));
->>>>>>> .merge_file_a99160
         }
 
         return map;

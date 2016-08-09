@@ -1,14 +1,10 @@
 package org.devgateway.geoph.core.services;
 
 
-<<<<<<< .merge_file_a94312
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
-=======
-import org.devgateway.geoph.core.request.PrintParams;
->>>>>>> .merge_file_a00344
 
 /**
  * @author dbianco
@@ -16,7 +12,7 @@ import org.devgateway.geoph.core.request.PrintParams;
  */
 public interface ScreenCaptureService {
 
-    String createPdfFromHtmlString(PrintParams params, String key) throws Exception;
+    String createPdfFromHtmlString(Integer width, Integer height, String html) throws Exception;
 
     BufferedImage captureImage(Integer width, Integer height, URI target);
 
