@@ -9,11 +9,11 @@ const share =(state = new Map({captures:new List()}), action) => {
   switch (action.type) {
 
     case Constants.CAPTURE_START:
-    return state.setIn(['loading'],true)
+    return state.setIn(['loading'],true);
     
     case Constants.CAPTURE_OK:
     debugger
-    return state.setIn(['loading'],false).setIn(['captures',count++],action.data.file)
+    return state.setIn(['loading'],false).setIn(['captures',count++],action.data.file);
     
     case Constants.CAPTURE_RESET:
     count=0;

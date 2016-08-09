@@ -20,6 +20,10 @@
 
 		"LOGIN":"/login",
 		"PDF":"/export/pdf",
+		"PDF_DOWNLOAD": {
+			"development": "http://localhost:8090/export/download/",
+			"production": "http://geoph.developmentgateway.org/export/download/"
+		},
 		"PROJECT_GEOJSON":"/geodata/${level}/projects",
 		"FUNDING_GEOJSON":"/geodata/stats/region/funding",
 	  	"MAP_LIST":"/maps",
