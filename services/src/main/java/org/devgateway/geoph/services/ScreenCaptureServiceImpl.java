@@ -14,6 +14,7 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.LosslessFactory;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.devgateway.geoph.core.request.PrintParams;
+import org.devgateway.geoph.core.services.PrintService;
 import org.devgateway.geoph.core.services.ScreenCaptureService;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -24,16 +25,21 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
 import java.net.URI;
-import java.net.URL;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -67,6 +73,9 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
     @Value("#{environment['repository.path']}")
     private String repository;
 
+    @Autowired
+    PrintService printService;
+
 
     public String createPdfFromHtmlString(PrintParams params, String key) throws Exception {
         File target = mergeHtml(params); //merge template and the passed html and return URL to resulted file
@@ -94,7 +103,6 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             driver.manage().timeouts().pageLoadTimeout(timeToWait, TimeUnit.SECONDS);
             driver.get(target.toString());
 
-
             byte[] imageByte=((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
             ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
             image = ImageIO.read(bis);
@@ -109,7 +117,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
         LOGGER.debug("Merge html");
         File file = null;
         try {
-            Document doc = Jsoup.parse(readResourceFromContext(htmlTemplate), "utf-8");
+            Document doc = Jsoup.parse(new File(htmlTemplate), "utf-8");
             doc.getElementById("content").append(params.getHtml());
             doc.getElementById("map1").attr("style", "width:" + params.getWidth() + "px;height:" + params.getHeight() + "px");
 
@@ -117,7 +125,6 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             removeTranslate3dFromDocument(doc);
 
             file = File.createTempFile("map-print", HTML_EXTENSION);
-            //System.out.println(file.getAbsolutePath());
             FileUtils.writeStringToFile(file, doc.outerHtml());
         } catch (Exception e) {
             LOGGER.error("File error: " + e.getMessage());
@@ -126,41 +133,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
         return file;
     }
 
-    private File readResourceFromContext(String resource){
-        File file = null;
-        URL res = getClass().getClassLoader().getResource(resource);
-        LOGGER.debug(res.toString());
-        if (res.toString().startsWith("jar:")) {
-            try {
-                LOGGER.debug("getting file from jar " + resource);
-                InputStream input = getClass().getResourceAsStream(resource);
 
-                file = File.createTempFile("tempfile", ".tmp");
-                OutputStream out = new FileOutputStream(file);
-                int read;
-                byte[] bytes = new byte[1024];
-                while ((read = input.read(bytes)) != -1) {
-                    LOGGER.debug("reading input...");
-                    out.write(bytes, 0, read);
-                }
-                LOGGER.debug("reading finished");
-                file.deleteOnExit();
-                LOGGER.debug("file created from Jar file");
-            } catch (IOException ex) {
-                LOGGER.error("Error on reading resource: " + ex.getMessage());
-            }
-        } else {
-            file = new File(res.getFile());
-            LOGGER.debug("file created from Classloader");
-        }
-        return file;
-    }
-
-    /**
-     * Due to webkit compatibility translate3d should be removed
-     *
-     * @param doc
-     */
     private void removeTranslate3dFromDocument(Document doc) {
         Element pane = doc.getElementsByClass("leaflet-map-pane").get(0);
         String style = pane.attr("style");
@@ -185,7 +158,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
         File pdfFile = new File(repository, key + PDF_EXTENSION);
 
         try {
-            File file = readResourceFromContext(pdfTemplate);
+            File file = new File(pdfTemplate);
             PDDocument document = PDDocument.load(file);
             PDPageTree pages = document.getDocumentCatalog().getPages();
             PDPage page = pages.get(0);
@@ -219,10 +192,20 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             yPos -= 20;
 
             //Filter Options
-            Map<String, Map<String, String>> filterMap = getFilterNames(params.getData());
+
+            Map jsonFilters = (Map) ((Map) params.getData()).get("filters");
+            Map<String, Set<String>> filterMap = printService.getFilterNamesFromJson(jsonFilters);
             if(filterMap!= null) {
                 addPdfText(document, page, xPos, yPos, PDType1Font.HELVETICA, 10, BLUE, "Filter Options");
-                yPos -= 20;
+                yPos -= 15;
+
+                for(String filter : filterMap.keySet()) {
+                    List<String> strList = splitValues(134, filter, filterMap.get(filter));
+                    for(String strToPrint:strList) {
+                        addPdfText(document, page, xPos, yPos, PDType1Font.HELVETICA, 9, BLACK, strToPrint);
+                        yPos -= 12;
+                    }
+                }
             }
 
             document.save(pdfFile);
@@ -235,23 +218,24 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
 
     }
 
-    private Map<String, Map<String, String>> getFilterNames(Object data) {
-        Map<String, Map<String, String>> ret = null;
-        if(data!=null){
-            try {
-                Map filters = (Map) ((Map) data).get("filters");
-                for(Object filterObj:filters.keySet()){
-                    String filterStr = (String) filterObj;
-                    if(filterStr.equals("ia")){
-                        //ret.put
-                    }
-                }
-            } catch (Exception e){
-
+    private List<String> splitValues(int maxChars, String title, Set<String> values){
+        List<String> ret = new LinkedList<>();
+        StringBuilder sb = new StringBuilder("- " +     title + ": ");
+        boolean isCommaNeeded = false;
+        for(String value : values){
+            if(isCommaNeeded){
+                sb.append(", ");
+            } else {
+                isCommaNeeded = true;
             }
-
+            if(sb.length() + value.length()< maxChars ){
+                sb.append(value);
+            } else {
+                ret.add(sb.toString());
+                sb = new StringBuilder("    " + value);
+            }
         }
-
+        ret.add(sb.toString());
         return ret;
     }
 

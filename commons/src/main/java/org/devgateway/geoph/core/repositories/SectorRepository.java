@@ -19,4 +19,6 @@ public interface SectorRepository {
     List<Sector> findByLevel(int level);
 
     List<SectorResultsDao> findFundingBySector(Parameters params);
+
+    Sector findById(Long id);
 }

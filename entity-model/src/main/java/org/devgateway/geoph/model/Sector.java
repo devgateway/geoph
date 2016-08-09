@@ -24,7 +24,7 @@ import java.util.Set;
                 query = "from Sector s where s.code = :code"
         ),
         @NamedQuery(
-                name = "findSectorsById",
+                name = "findSectorById",
                 query = "from Sector s where s.id = :id"
         ),
         @NamedQuery(
