@@ -1,5 +1,6 @@
 package org.devgateway.geoph.core.services;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -10,5 +11,7 @@ import java.util.Set;
 public interface PrintService {
 
     Map<String, Set<String>> getFilterNamesFromJson(Map jsonFilters);
+
+    List<String> getLayerNamesFromJson(List jsonLayers);
 
 }

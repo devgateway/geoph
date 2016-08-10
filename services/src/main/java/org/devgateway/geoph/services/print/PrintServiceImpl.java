@@ -189,6 +189,22 @@ public class PrintServiceImpl implements PrintService {
         return ret;
     }
 
+    @Override
+    public List<String> getLayerNamesFromJson(List jsonLayers) {
+        List<String> ret = new ArrayList<>();
+        for(Object o: jsonLayers){
+            String name = o.toString();
+            if(o.equals("0-0")){
+                ret.add("Projects");
+            } else if(o.equals("1-0")){
+                ret.add("Total Funding");
+            } else {
+                ret.add(name);
+            }
+        }
+        return ret;
+    }
+
     Set<String> getFlowTypes(List filters){
         Set<String> flowTypes = new HashSet<>();
         for (Object filterObj : filters) {
