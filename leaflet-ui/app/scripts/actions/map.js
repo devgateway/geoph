@@ -11,7 +11,7 @@ const getFilters=(getState)=>{
 
 
 const loadLayerCompleted=(results)=>{
-	return {type:LAYER_LOAD_SUCCESS,...results}
+	return {type:LAYER_LOAD_SUCCESS,...results, fundingType: getstate().settings.fundingType}
 }
 
 const loadLayerFailed=(type,error)=>{

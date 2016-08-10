@@ -18,8 +18,7 @@ const Share =React.createClass({
 
   render() {
    const {onCapure,loading,captures,visible}=this.props;
-   debugger;
-    return (
+   return (
 
 
      <div>

@@ -1,7 +1,7 @@
 import {SET_BASEMAP, LAYER_LOAD_SUCCESS, LAYER_LOAD_FAILURE, TOGGLE_LAYER, SET_LAYER_SETTING, INDICATOR_LIST_LOADED, GEOPHOTOS_LIST_LOADED, STATE_RESTORE, CHANGE_MAP_BOUNDS} from '../constants/constants';
 import JenksCssProvider from '../util/jenksUtil.js'
 import Immutable from 'immutable';
-import {getPath,getShapeLayers} from '../util/layersUtil.js';
+import {getPath, getShapeLayers, getValues} from '../util/layersUtil.js';
 
 const statsIndex = 1;
 const indicatorsIndex = 2;
@@ -178,6 +178,8 @@ const map = (state = defaultState, action) => {
       if (state.getIn(getPath(id, ["keyName"])) == "projects") {
         state = resize(state, id);
       }
+      debugger;
+      //const values = getValues(data.features, state.getIn(getPath(id, ["valueProperty"]), fundingType);
       return state.setIn(getPath(id, ["data"]), Immutable.fromJS(data));;
 
     case SET_BASEMAP:

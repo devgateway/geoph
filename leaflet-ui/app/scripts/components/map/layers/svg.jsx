@@ -1,15 +1,18 @@
 import {PropTypes} from 'react';
 import {geoJson, latlng, marker, divIcon, DomEvent} from 'leaflet';
-//import L from 'leaflet';
+import { connect } from 'react-redux'
 import {MapLayer} from 'react-leaflet';
 import React from 'react';
 import d3 from 'd3';
 import { render, unmountComponentAtNode } from 'react-dom';
+import {mergeAllLayersFeatures} from '../../../util/layersUtil'
+import {createLegendsFromLayers} from '../../../actions/legends'
 
 /**
  * @author Sebas
  */
- export default class D3Layer extends MapLayer {
+
+class D3Layer extends MapLayer {
 
   constructor() {
     super();
@@ -18,7 +21,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
   componentDidUpdate(nextProps, nextState) {
     const {data, ...props} = this.props;
     console.log('updating layer');
-    this.mapmove();
+    this.mapUpdate();
   }
 
   componentWillUnmount() {
@@ -33,24 +36,19 @@ import { render, unmountComponentAtNode } from 'react-dom';
     this.svg = d3.select(this.props.map.getPanes().overlayPane).append("svg"); 
     this.svg.style("z-index",this.props.zIndex);
     this.g = this.svg.append("g").attr("class", "leaflet-zoom-hide");
-    this.props.map.on('moveend', this.mapmove.bind(this));
+    this.props.map.on('moveend', this.mapUpdate.bind(this));
     this.props.map.on('click', function(evt) {
       evt.originalEvent.stopPropagation();
       this.renderPopupContent(Object.assign({}, evt.originalEvent.features, {latlng: evt.latlng}));
     }.bind(this));
-    this.mapmove();//trigger first update
+    this.mapUpdate();//trigger first update
   }
   
-  getValues(features, valueProperty){
-    const {measure, type} = this.props.fundingType;
-    return features.map(function(f) { return valueProperty=='funding'? f.properties[measure][type]||0 : f.properties[valueProperty]||0});
-  }
-
   getClass(d){  
     const {valueProperty, classes, cssProvider} = d.properties;  
     const {measure, type} = this.props.fundingType;
     if (!cssProvider){
-      return classes+'4-9';
+      return classes + '4-9';
     }
     const value = valueProperty=='funding'? d.properties[measure][type] : d.properties[valueProperty];
     var className = classes + cssProvider.getCssClass(value);
@@ -82,20 +80,15 @@ import { render, unmountComponentAtNode } from 'react-dom';
     this.g.attr("transform", "translate(" + translateX + "," + translateY+ ")");
   }
 
-  filter(data, valueProperty){
-    var bounds=this.props.map.getBounds();
-    const {measure, type} = this.props.fundingType;
-    const filtered = data.filter((f)=>f.geometry?bounds.contains(L.geoJson(f).getBounds()):false).sort((f)=>{valueProperty=='funding'? f.properties[measure][type] : f.properties[valueProperty]})
-    //console.log('Removed =>'+(data.length - filtered.length));
-    return filtered;
-  }
-
   onClick(properties){
     d3.event.features=properties;    
   }
 
-  mapmove(e) {
-    this.renderLayersPaths(this.props.layers.sort(function(a, b){
+  mapUpdate(e) {
+    const {layers, fundingType, onCreateLegends} = this.props;
+    onCreateLegends(layers, fundingType);
+    debugger;
+    this.renderLayersPaths(layers.sort(function(a, b){
         if (a.zIndex && b.zIndex){
           return parseInt(a.zIndex) - parseInt(b.zIndex);
         } else if (!a.zIndex && !b.zIndex){
@@ -108,36 +101,9 @@ import { render, unmountComponentAtNode } from 'react-dom';
       }));
   }
 
-  mergeAllLayersFeatures(layers){
-    let size=0, border=0;
-    let allLayersFeatures = [];
-    
-    layers.map((layer)=>{
-      let prefix=layer.cssPrefix;
-      let css=layer.settings.css;
-      let classes=prefix+' '+css ;
-      Object.assign(layer, {classes});
-      if (layer.data && layer.data.features){    
-        const values = this.getValues(layer.data.features, layer.valueProperty);//isolate features values 
-        const {thresholds,cssProvider} = layer;
-        const breaks = (thresholds > values.length)?values.length:thresholds;
-        let classProvider = cssProvider? new cssProvider(values,breaks) : null;
-        size = layer.size>size? layer.size : size;
-        border = layer.border>border? layer.border : border;
-        let fts = layer.type=="points"? this.filter(layer.data.features, layer.valueProperty) : layer.data.features; 
-        fts.map((feature)=>{
-          Object.assign(feature.properties, 
-            {classes: classes, cssProvider: classProvider, valueProperty: layer.valueProperty, size: layer.size, border: layer.border, popupId: layer.popupId || 'defaultPopup', layerName: layer.name});//Assign class data to feature properties
-        })
-        allLayersFeatures = allLayersFeatures.concat(fts);
-      }
-    })
-    return {size, border, allLayersFeatures};
-  }
-
   renderLayersPaths(layers){
-    const {map}=this.props;
-    const {size, border, allLayersFeatures} = this.mergeAllLayersFeatures(layers);
+    const {map, fundingType}=this.props;
+    const {size, border, allLayersFeatures} = mergeAllLayersFeatures(layers, fundingType, map);
 
     // Use Leaflet to implement a D3 geometric transformation.
     function projectPoint(x, y) {
@@ -205,3 +171,13 @@ D3Layer.contextTypes = {
 D3Layer.propTypes = {
   store: storeShape
 }
+
+const mapDispatchToProps=(dispatch,ownProps)=>{
+  return {
+    onCreateLegends: (layers, fundingType) => {
+      dispatch(createLegendsFromLayers(layers, fundingType));
+    }
+  }
+}
+
+export default connect(null,mapDispatchToProps)(D3Layer);
