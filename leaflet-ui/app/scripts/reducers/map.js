@@ -1,7 +1,7 @@
-import {SET_BASEMAP, LAYER_LOAD_SUCCESS, LAYER_LOAD_FAILURE, TOGGLE_LAYER, SET_LAYER_SETTING, INDICATOR_LIST_LOADED, GEOPHOTOS_LIST_LOADED, STATE_RESTORE, CHANGE_MAP_BOUNDS} from '../constants/constants';
+import {TOGGLE_LEGENDS_VIEW, SET_FUNDING_TYPE, SET_BASEMAP, LAYER_LOAD_SUCCESS, LAYER_LOAD_FAILURE, TOGGLE_LAYER, SET_LAYER_SETTING, INDICATOR_LIST_LOADED, GEOPHOTOS_LIST_LOADED, STATE_RESTORE, CHANGE_MAP_BOUNDS} from '../constants/constants';
 import JenksCssProvider from '../util/jenksUtil.js'
 import Immutable from 'immutable';
-import {getPath,getShapeLayers} from '../util/layersUtil.js';
+import {getPath, getShapeLayers, createLegendsAndClassesForLayer, getVisibles} from '../util/layersUtil.js';
 
 const statsIndex = 1;
 const indicatorsIndex = 2;
@@ -19,6 +19,10 @@ const defaultState = Immutable.fromJS(
   basemap: {
     id:'openstreetmap',
     url: '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+  },    
+
+  legends: {
+    visible: false
   },    
 
   layers: [
@@ -59,6 +63,7 @@ const defaultState = Immutable.fromJS(
           settings: {
             'css': 'red'
           },
+          cssPrefix: 'funding', //markers css prefix 
           default: false,
           border: 2,
           zIndex: 99,
@@ -100,6 +105,7 @@ const setIndicators = (state, indicators) => {
       border:2,
       ep: "INDICATOR",
       type: 'shapes',
+      zIndex: 98,
       cssPrefix:'indicators',
       cssProvider: JenksCssProvider,
       thresholds: 5,
@@ -125,11 +131,12 @@ const setGeophotos = (state, geophotos) => {
       geophotos_id: id,
       zIndex: 101,
       ep: "GEOPHOTOS",
-      type: 'point',
+      type: 'points',
       name,
       size: 4, 
       border: 2, 
       popupId: "photoPopup",   
+      cssPrefix: 'points', 
       settings: {
        'css': css || 'blue'
       }
@@ -174,12 +181,35 @@ const map = (state = defaultState, action) => {
       return state.setIn(getPath(id, ["settings", name]), value);
 
     case LAYER_LOAD_SUCCESS:
-      var {id, data} = action;
+      var {id, data, fundingType} = action;
       if (state.getIn(getPath(id, ["keyName"])) == "projects") {
         state = resize(state, id);
       }
-      return state.setIn(getPath(id, ["data"]), Immutable.fromJS(data));;
-
+      let layerProcessed = {legends: [], data: []}
+      let layer = state.getIn(getPath(id)).toJS();
+      if (data && data.features){
+        layerProcessed = createLegendsAndClassesForLayer(layer, data.features, fundingType);
+      }
+      const {legends, features} = layerProcessed;
+      state = state.setIn(getPath(id, ["legends"]), Immutable.fromJS(legends));
+      return state.setIn(getPath(id, ["data"]), Immutable.fromJS(Object.assign(data, {features})));
+     
+    case SET_FUNDING_TYPE:
+      var {fundingType} = action;
+      let layersVisible = getVisibles(state.get('layers'));
+      layersVisible.map((lyr)=>{
+        let id = lyr.get('id');
+        let layerProcessed = {legends: [], data: []}
+        let layer = state.getIn(getPath(id)).toJS();
+        if (layer.data && layer.data.features){
+          layerProcessed = createLegendsAndClassesForLayer(layer, layer.data.features, fundingType);
+        }
+        const {legends, features} = layerProcessed;
+        state = state.setIn(getPath(id, ["legends"]), Immutable.fromJS(legends));
+        state = state.setIn(getPath(id, ["data"]), Immutable.fromJS(Object.assign(layer.data, {features})));
+      })
+      return state;
+    
     case SET_BASEMAP:
       return state.set('basemap', Immutable.fromJS(action.basemap));
 
@@ -206,6 +236,9 @@ const map = (state = defaultState, action) => {
 
     case GEOPHOTOS_LIST_LOADED:
       return setGeophotos(state, action.data);
+
+    case TOGGLE_LEGENDS_VIEW:
+      return state.setIn(['legends', 'visible'], !state.getIn(['legends', 'visible']));
 
     case LAYER_LOAD_FAILURE:
     default:
