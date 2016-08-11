@@ -75,6 +75,8 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
     private static final int Y_SMALL_SPACE = 5;
     private static final int IMAGE_MAX_WIDTH = 540;
     private static final int IMAGE_MAX_HEIGHT = 560;
+    private static final int ONE_BILLION = 1000000000;
+    private static final int ONE_MILLION = 1000000;
 
     @Value("${screen.capture.templates.html}")
     private String htmlTemplate;
@@ -269,7 +271,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             checkEndOfPage(pdf, Y_NORMAL_SPACE);
 
             //Filter Options
-            if(filterMap!= null) {
+            if(filterMap!= null && filterMap.keySet().size()>0) {
                 addPdfText(pdf, PDType1Font.HELVETICA, 10, BLUE, "Filter Options");
                 checkEndOfPage(pdf, Y_NORMAL_SPACE);
 
@@ -312,7 +314,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             int rows = 0;
             List<List<String>> data = new ArrayList<>();
             for(int i=0; i<(size< TOP_COUNT ? size:TOP_COUNT); i++){
-                data.add(Arrays.asList(fundingData.get(i).getName(), currency + BLANK_STRING + String.format("%.0f", fundingData.get(i).getDisbursementFunding())));
+                data.add(Arrays.asList(fundingData.get(i).getName(), getFundingString(fundingData.get(i).getDisbursementFunding())));
                 rows ++;
             }
             pc = new PDPageContentStream(pdf.document, pdf.page, PDPageContentStream.AppendMode.APPEND, false);
@@ -324,6 +326,19 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             }
             flag = !flag;
         }
+    }
+
+    private String getFundingString(Double fundingValue) {
+        StringBuilder sb = new StringBuilder(currency);
+        sb.append(BLANK_STRING);
+        if(fundingValue/ONE_BILLION > 1){
+            sb.append(String.format("%.2f", fundingValue / ONE_BILLION) + "B");
+        } else if(fundingValue/ ONE_MILLION > 1){
+            sb.append(String.format("%.2f", fundingValue/ONE_MILLION) + "M");
+        } else {
+            sb.append(String.format("%.2f", fundingValue));
+        }
+        return sb.toString();
     }
 
     private PDFDocument checkEndOfPage(PDFDocument pdf, Integer y) throws IOException {
@@ -417,8 +432,8 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             for(int j = 0 ; j < content.get(i).size(); j++){
                 String text = content.get(i).get(j);
                 contentStream.beginText();
-                contentStream.newLineAtOffset(textx,texty);
-                contentStream.showText(text!=null && text.length()> FUNDING_TEXT_LIMIT ? text.substring(0,FUNDING_TEXT_LIMIT)+"...":text);
+                contentStream.newLineAtOffset(textx, texty);
+                contentStream.showText(text != null && text.length() > FUNDING_TEXT_LIMIT ? text.substring(0, FUNDING_TEXT_LIMIT) + "..." : text);
                 contentStream.endText();
                 textx += FIRST_COLUMN_WIDTH;
             }
