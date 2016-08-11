@@ -136,7 +136,44 @@ public class Parameters {
         this.trxStatusSort = filters.getTrx_status_sort();
     }
 
+    private Parameters(JsonRequestParams filters) {
+        this.setStartDateMax(filters.getDt_start_max());
+        this.setStartDateMin(filters.getDt_start_min());
+        this.setEndDateMax(filters.getDt_end_max());
+        this.setEndDateMin(filters.getDt_end_min());
+        this.setLocations(filters.getLo());
+        if(filters.getPr().size()>0) {
+            this.setProjects(filters.getPr());
+        }
+        this.setPeriodPerformanceStartMax(filters.getPp_start_max());
+        this.setPeriodPerformanceStartMin(filters.getPp_start_min());
+        this.setPeriodPerformanceEndMax(filters.getPp_end_max());
+        this.setPeriodPerformanceEndMin(filters.getPp_end_min());
+        this.setSectors(filters.getSt());
+        this.setStatuses(filters.getSa());
+        this.setLocations(filters.getLo());
+        this.setImpAgencies(filters.getIa());
+        this.setFundingAgencies(filters.getFa());
+        this.setFlowTypes(filters.getFt());
+        this.projectTitle = filters.getPt();
+        this.setPhysicalStatuses(filters.getPh());
+        this.setClimateChanges(filters.getCc());
+        this.setGenderResponsiveness(filters.getGr());
+        this.financialAmountMin = filters.getFin_amount_min();
+        this.financialAmountMax = filters.getFin_amount_max();
+        this.reachedOwpaMax = filters.getRo_max();
+        this.reachedOwpaMin = filters.getRo_min();
+        this.targetOwpaMax = filters.getTo_max();
+        this.targetOwpaMin = filters.getTo_min();
+        this.actualOwpaMax = filters.getAo_max();
+        this.actualOwpaMin = filters.getAo_min();
+    }
+
     public static Parameters getParameters(AppRequestParams filters) {
+        return new Parameters(filters);
+    }
+
+    public static Parameters getParameters(JsonRequestParams filters) {
         return new Parameters(filters);
     }
 

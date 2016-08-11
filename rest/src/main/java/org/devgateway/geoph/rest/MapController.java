@@ -87,7 +87,7 @@ public class MapController {
             }
             String mapDesc = (String) mapVariables.get(DESCRIPTION_STR);
             String mapJson = new ObjectMapper().writeValueAsString(mapVariables.get(DATA_TO_SAVE_STR));
-             AppMap appMap = new AppMap(mapName, mapDesc, mapJson, UUID.randomUUID().toString(), MD5Generator.getMD5(mapJson), AppMapTypeEnum.SAVE.getName(),base64);
+            AppMap appMap = new AppMap(mapName, mapDesc, mapJson, UUID.randomUUID().toString(), MD5Generator.getMD5(mapJson), AppMapTypeEnum.SAVE.getName(),base64);
 
             return appMapService.save(appMap);
         } else {
