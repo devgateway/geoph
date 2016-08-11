@@ -3,6 +3,7 @@ import {Map} from 'immutable'
 
 const indicatorWizard = (state = new Map({step:'template',template:'region',name:'',css:'red',status:"CREATE_NEW"}), action) => {
 
+  state=state.delete('httpError').delete('errors');
 
   switch (action.type) {
 
@@ -16,16 +17,15 @@ const indicatorWizard = (state = new Map({step:'template',template:'region',name
     return state.set(action.property,action.value);
 
     case Constants.UPDATE_ERRORS:
-    
     return state.set('errors',action.errors);
-    
+
     case Constants.INDICATOR_UPLOAD_FAILURE:
-    
     return state.set('httpError',action.httpError);
-    
+
+
     default:
     return state
-  }
+}
 }
 
 export default indicatorWizard

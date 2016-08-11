@@ -4,7 +4,7 @@ import {changeStep, changeProperty, updateErrors, upload} from '../../actions/in
 import {Map} from 'immutable'
 import { Link } from 'react-router'
 import BaseForm from './baseForm.jsx'
-import HttpError from '../messages/httpError.jsx'
+import Messages from '../messages/messages.jsx'
 
 var Dropzone = require('react-dropzone');
 
@@ -15,7 +15,7 @@ class SelectTemplate extends BaseForm {
         return (
             <form>
                 <div className="form-group">
-                    <label >Template</label>
+                    <h1>Template</h1>
                     <select value={template} className="form-control" name="template"
                             onChange={(e)=>{this.handleChangeValue('template',e.target.value)}}>
                         <option value="Region">Regional</option>
@@ -71,6 +71,7 @@ class AddIndicator extends BaseForm {
     const {errors={}}=this.props;
       return (
             <form id="add-indicator-form">
+            <h1>Indicato Info </h1>
                  <div className={errors.name?"form-group has-error":"form-group"}>
                     <label >Name</label>
                     <input value={this.props.name}
@@ -124,11 +125,14 @@ class Indicator extends React.Component {
     }
 
     render() {
-        
+        debugger;
         //console.log(this.props.httpError)
         return (<div className="admin-page">
-                {this.props.httpError?<HttpError error={this.props.httpError}/>:null}
+                
+                <Messages {...this.props}/>
+                
                     {this.getView()}
+                
                 </div>)
     }
 };

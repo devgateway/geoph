@@ -35,7 +35,7 @@ public class ChartController {
 
     @RequestMapping(method = GET)
     public Map<String, Object> getAllCharts(AppRequestParams filters) {
-        LOGGER.debug("getAllCharts info");
+        LOGGER.debug("getAllChartsData info");
         Parameters params = filters.getParameters();
         Map<String, Object> allCharts = new HashMap<>();
         allCharts.put("fundingAgency", chartService.getFundingByFundingAgency(params));

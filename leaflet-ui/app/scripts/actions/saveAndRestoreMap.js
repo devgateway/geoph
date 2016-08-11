@@ -4,6 +4,8 @@ import {applyFilter, loadAllFilterLists} from './filters';
 import {toggleVisibility} from './map';
 import {getList} from './indicators';
 import {collectValuesToSave}  from '../util/saveUtil';
+import * as HtmlUtil from '../util/htmlUtil';
+
 
 export const changeProperty=(property,value)=>{
   return {type:Constants.CHANGE_SAVE_PROPERTY,property,value}
@@ -64,9 +66,11 @@ const requestShareMap = (dataToShare) => {
 
 export const saveMap=()=>{
    return (dispatch, getState) =>{
-	 	const  data = collectValuesToSave(getState());
-	 	const {name,description}=getState().saveMap.toJS()
-    dispatch(requestSaveMap({name,description,data}));
+      const scaleWidth=800;
+       const {outerHTML:html,clientWidth:width,clientHeight:height} = HtmlUtil.getMapElementProperties();
+       const  data = collectValuesToSave(getState());
+	 	   const {name,description}=getState().saveMap.toJS();
+      dispatch(requestSaveMap({name,description,data,html,width,height,scaleWidth}));
 	 }
 	
 }
@@ -79,9 +83,7 @@ export const saveMap=()=>{
         dispatch(saveError(results));
     });
   }
-
 }
-
 
 export const restoreError = (message) => {
   return {
@@ -91,7 +93,8 @@ export const restoreError = (message) => {
 }
 
 
-const loadIndicatorList =()=>{
+
+const loadIndicatorList=()=>{
   return Connector.getIndicatorList();
 } 
 

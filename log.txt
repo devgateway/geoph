@@ -1,0 +1,591 @@
+25c05ec	Sebastian Dimunzio	Fri Aug 5 14:35:43 2016 +0200	Merge pull request #94 from devgateway/print
+a04105c	sdimunzio	Fri Aug 5 09:35:03 2016 -0300	Merge branch 'master' into print
+12ce89a	sdimunzio	Fri Aug 5 02:05:35 2016 -0300	css updates
+6f63401	sdimunzio	Fri Aug 5 01:58:45 2016 -0300	Print service refactoring ( avoid using files + reusing fileservice) , print front end
+7c8c672	sdimunzio	Thu Aug 4 16:18:25 2016 -0300	print updates on UI
+320eeea	Daniel Oliva Bianco	Thu Aug 4 16:03:44 2016 -0300	Print a pdf file functionality
+4487512	Daniel Oliva Bianco	Thu Aug 4 15:59:28 2016 -0300	Print a pdf file functionality
+8e022b8	mbertoli	Thu Aug 4 15:45:44 2016 -0300	Merge pull request #93 from devgateway/bug_fixing_sp11
+e579c2e	Daniel Oliva Bianco	Thu Aug 4 15:17:27 2016 -0300	Fix for GEOPH-314 Implement sorting in project list endpoint
+a7abb63	Daniel Oliva Bianco	Thu Aug 4 12:54:20 2016 -0300	add print feature
+60237d8	sdimunzio	Thu Aug 4 12:42:15 2016 -0300	taking screen capture with a headless browser (JBrowser) ,  now print page is recreated by passing the current map html from UI instead of calling back the UI to restore the page. JBrowser doesn't support  3Dtranslate attribute a path was added to fix the issue
+0da33af	sdimunzio	Thu Aug 4 12:33:33 2016 -0300	no message
+b0c82b9	sdimunzio	Thu Aug 4 12:33:29 2016 -0300	no message
+b32df82	sdimunzio	Thu Aug 4 12:31:02 2016 -0300	taking responsive screen shoot by passing map html and sizes instead of reloading the UI from the backend, + path for no supported style translate3d on Jbrowser
+67e7007	sdimunzio	Thu Aug 4 12:31:02 2016 -0300	taking responsive screen shoot by passing map html and sizes instead of reloading the UI from the backend, + path for no supported style translate3d on Jbrowser
+c5801d4	mbertoli	Thu Aug 4 12:30:40 2016 -0300	several bugs fixed
+b92a260	sdimunzio	Wed Aug 3 16:48:26 2016 -0300	no message
+4084fc9	sdimunzio	Wed Aug 3 16:47:54 2016 -0300	printing static html approach
+54305fb	Daniel Oliva Bianco	Wed Aug 3 16:41:49 2016 -0300	Jbrowser Driver
+2dc86c1	Daniel Oliva	Wed Aug 3 12:36:12 2016 -0300	Merge pull request #92 from devgateway/print
+051fbd8	Daniel Oliva Bianco	Wed Aug 3 12:26:47 2016 -0300	Fix for GEOPH-314 Implement sorting in project list endpoint
+649015e	mbertoli	Tue Aug 2 20:22:46 2016 -0300	Merge pull request #90 from devgateway/bug_fixing_sp11
+9fd6973	mbertoli	Tue Aug 2 20:21:58 2016 -0300	fix project list
+2f9a89f	mbertoli	Tue Aug 2 16:34:16 2016 -0300	Merge branch 'master' into bug_fixing_sp11
+05c73b4	mbertoli	Tue Aug 2 16:31:32 2016 -0300	fix funding layers for apply funding settings and also filter apply on it
+a89a62c	Sebastian Dimunzio	Tue Aug 2 21:04:56 2016 +0200	Merge pull request #91 from devgateway/html_last_round
+bdc241b	sdimunzio	Tue Aug 2 16:03:55 2016 -0300	project search refactoring
+c223e47	sdimunzio	Tue Aug 2 12:05:27 2016 -0300	Merge branch 'master' into html_last_round
+02c68ad	Daniel Oliva Bianco	Tue Aug 2 11:51:18 2016 -0300	Merge branch 'html_last_round' of https://github.com/devgateway/geoph into html_last_round
+7167e12	Daniel Oliva Bianco	Tue Aug 2 11:50:45 2016 -0300	- Add PMC importer plugin - Import will update projects based on phId instead of adding a new one
+e1224e0	sdimunzio	Tue Aug 2 11:04:19 2016 -0300	adding missing react-share lib
+1a26a52	sdimunzio	Tue Aug 2 10:28:19 2016 -0300	no message
+cf6a3ad	sdimunzio	Tue Aug 2 10:01:20 2016 -0300	adding missing node dep
+076df86	mbertoli	Tue Aug 2 10:01:05 2016 -0300	Merge branch 'master' into bug_fixing_sp11
+80c418e	mbertoli	Tue Aug 2 09:56:42 2016 -0300	merge all layers into same svg
+15edfcb	sdimunzio	Tue Aug 2 09:40:03 2016 -0300	adding babel prod config
+331c36d	Sebastian Dimunzio	Tue Aug 2 05:53:31 2016 +0200	Merge pull request #89 from devgateway/html_last_round
+9a8fc13	sdimunzio	Tue Aug 2 00:53:22 2016 -0300	Merge branch 'master' into html_last_round
+e36c95a	sdimunzio	Tue Aug 2 00:49:35 2016 -0300	panel,  project search and footer
+b7936b5	Daniel Oliva Bianco	Mon Aug 1 17:20:21 2016 -0300	Merge branch 'html_last_round' of https://github.com/devgateway/geoph into html_last_round
+4e01bad	Daniel Oliva Bianco	Mon Aug 1 17:20:11 2016 -0300	Add PMC importer
+41ca952	Daniel Oliva Bianco	Mon Aug 1 17:18:47 2016 -0300	remove duplicate projects
+7ee8fc4	sdimunzio	Mon Aug 1 16:21:53 2016 -0300	updated from remote
+3c2538d	sdimunzio	Mon Aug 1 16:20:50 2016 -0300	panel changes
+dc1f58a	Daniel Oliva Bianco	Mon Aug 1 10:31:27 2016 -0300	Fix for GEOPH-314 Implement sorting in project list endpoint
+2d45e5e	Daniel Oliva Bianco	Fri Jul 29 16:41:56 2016 -0300	GEOPH-436 Remove the data duplicated in shapes tables GEOPH-434 In the infowindow, the funding amount is calculated duplicating the transations amounts
+50b8e13	Daniel Oliva Bianco	Fri Jul 29 11:14:40 2016 -0300	Para vos @mbertoli
+4b859a8	mbertoli	Thu Jul 28 18:11:17 2016 -0300	Merge branch 'html_last_round' into bug_fixing_sp11
+8f599a7	mbertoli	Thu Jul 28 18:03:45 2016 -0300	shapes layers popup
+31c21c9	Daniel Oliva Bianco	Thu Jul 28 18:01:53 2016 -0300	Add location name to indicator layer
+2680116	Daniel Oliva Bianco	Thu Jul 28 17:35:35 2016 -0300	Add MD5 to the map table, so the same map/filters will be only stored once
+c8c7ac8	Daniel Oliva Bianco	Thu Jul 28 16:37:58 2016 -0300	Merge branch 'html_last_round' of https://github.com/devgateway/geoph into html_last_round
+9091aa0	Daniel Oliva Bianco	Thu Jul 28 16:37:26 2016 -0300	Share functionality
+1230272	sdimunzio	Thu Jul 28 12:04:58 2016 -0300	mini icons for share print and save, and  hiding save icon when not logged in
+959666f	sdimunzio	Thu Jul 28 09:34:53 2016 -0300	some changes
+f7a4546	Daniel Oliva Bianco	Thu Jul 28 09:23:45 2016 -0300	fix for deactivate constant
+348875b	Daniel Oliva Bianco	Wed Jul 27 18:45:35 2016 -0300	Merge branch 'html_last_round' of https://github.com/devgateway/geoph into html_last_round
+ca7a8a1	Daniel Oliva Bianco	Wed Jul 27 18:40:22 2016 -0300	share functionality
+508c95b	sdimunzio	Wed Jul 27 18:37:20 2016 -0300	adding missing css files
+bfefffd	sdimunzio	Wed Jul 27 18:34:24 2016 -0300	Adding empty print and share components
+756edf2	sdimunzio	Wed Jul 27 18:27:01 2016 -0300	save map, settings and basemaps
+e638908	sdimunzio	Wed Jul 27 15:12:16 2016 -0300	no message
+312efdc	Daniel Oliva Bianco	Wed Jul 27 13:46:49 2016 -0300	Merge branch 'html_last_round' of https://github.com/devgateway/geoph into html_last_round
+4d8bd92	mbertoli	Wed Jul 27 13:37:43 2016 -0300	N/A
+a3a7536	Daniel Oliva Bianco	Wed Jul 27 12:31:57 2016 -0300	Merge branch 'html_last_round' of https://github.com/devgateway/geoph into html_last_round
+33375a8	sdimunzio	Wed Jul 27 12:24:30 2016 -0300	putting back map and panel
+9805866	mbertoli	Wed Jul 27 12:22:56 2016 -0300	N/A
+6620076	Daniel Oliva Bianco	Wed Jul 27 12:19:59 2016 -0300	Merge branch 'Sprint11' into html_last_round
+4cbb827	sdimunzio	Wed Jul 27 12:19:24 2016 -0300	filters
+d9e0711	Daniel Oliva	Wed Jul 27 12:07:01 2016 -0300	Merge pull request #88 from devgateway/Sprint11
+6413dc1	Daniel Oliva Bianco	Wed Jul 27 12:01:19 2016 -0300	GEOPH-412 Fix staging (500 error) Remove babel plugin + add redirect for index.html
+7f7af1d	mbertoli	Wed Jul 27 11:40:45 2016 -0300	Merge pull request #87 from devgateway/new_slider
+7bdbcf8	mbertoli	Wed Jul 27 11:36:19 2016 -0300	new slider
+c4dcf48	sdimunzio	Wed Jul 27 11:35:14 2016 -0300	Header +  save map
+f01dab4	Daniel Oliva Bianco	Tue Jul 26 14:36:43 2016 -0300	GEOPH-415 - Delete Indicator (BackEnd)
+e291526	mbertoli	Tue Jul 26 13:05:55 2016 -0300	new slider implementation - partial
+0a0f6de	Daniel Oliva Bianco	Tue Jul 26 12:18:09 2016 -0300	GEOPH-124 - Share map backend
+3a7a9d2	Daniel Oliva Bianco	Mon Jul 25 17:45:10 2016 -0300	Add physical progress average endpoint (BE)
+2de8465	mbertoli	Fri Jul 22 17:49:28 2016 -0300	Merge pull request #86 from devgateway/Restore
+9e31df3	Daniel Oliva Bianco	Fri Jul 22 17:48:22 2016 -0300	Merge branch 'Restore' of https://github.com/devgateway/geoph into Restore
+0ad8531	Daniel Oliva Bianco	Fri Jul 22 17:47:49 2016 -0300	Add keyToPDF endpoint
+4e3dd73	mbertoli	Fri Jul 22 17:46:23 2016 -0300	Merge branch 'Restore' of https://github.com/devgateway/geoph into Restore
+1915fa5	mbertoli	Fri Jul 22 17:46:11 2016 -0300	remove test tab
+f3409b4	Daniel Oliva Bianco	Fri Jul 22 17:27:48 2016 -0300	Add endpoint to print by key
+4fa0a1c	Daniel Oliva Bianco	Fri Jul 22 15:36:23 2016 -0300	Merge branch 'Restore' of https://github.com/devgateway/geoph into Restore
+f854f71	Daniel Oliva Bianco	Fri Jul 22 15:35:55 2016 -0300	Add default project order (by title)
+b3c4dc5	mbertoli	Fri Jul 22 15:29:31 2016 -0300	fix selection counters on filter restore
+3652473	mbertoli	Fri Jul 22 15:23:20 2016 -0300	-restore range filters -fix filters on popup tabs
+4d80465	mbertoli	Fri Jul 22 11:53:45 2016 -0300	Merge branch 'Restore' of https://github.com/devgateway/geoph into Restore
+899c300	mbertoli	Fri Jul 22 11:53:33 2016 -0300	printable
+602abab	Daniel Oliva Bianco	Thu Jul 21 16:06:27 2016 -0300	add project search fix for restore
+09724a9	Daniel Oliva Bianco	Thu Jul 21 13:49:06 2016 -0300	add fix for geostats
+1b12c47	Daniel Oliva Bianco	Mon Jul 18 18:45:12 2016 -0300	restore filters created!
+1cdffee	mbertoli	Fri Jul 15 18:06:49 2016 -0300	Merge branch 'Restore' of https://github.com/devgateway/geoph into Restore
+db727e8	mbertoli	Fri Jul 15 18:06:32 2016 -0300	printable version - partial
+535edb4	Daniel Oliva Bianco	Thu Jul 14 21:43:04 2016 -0300	Merge branch 'Restore' of https://github.com/devgateway/geoph into Restore
+206af98	Daniel Oliva Bianco	Thu Jul 14 21:41:59 2016 -0300	Add restore of layers
+078f64b	mbertoli	Thu Jul 14 11:55:04 2016 -0300	percentage reached taken from api
+795872f	mbertoli	Thu Jul 14 11:43:28 2016 -0300	Merge branch 'Restore' of https://github.com/devgateway/geoph into Restore
+242dd5d	mbertoli	Thu Jul 14 11:41:29 2016 -0300	filters load at init
+012442c	Daniel Oliva Bianco	Thu Jul 14 11:39:44 2016 -0300	Add endpoints for OWPA
+0470bf3	mbertoli	Wed Jul 13 15:46:47 2016 -0300	Merge branch 'Restore' of https://github.com/devgateway/geoph into Restore
+6a74f9a	mbertoli	Wed Jul 13 15:44:30 2016 -0300	N/A
+5b631b3	sdimunzio	Wed Jul 13 15:44:13 2016 -0300	per programming TODOS
+10c1d8e	mbertoli	Wed Jul 13 15:40:48 2016 -0300	Merge branch 'Restore' of https://github.com/devgateway/geoph into Restore
+3feaed2	mbertoli	Wed Jul 13 15:40:27 2016 -0300	chart component refactoring
+3ee2bf6	sdimunzio	Wed Jul 13 14:57:21 2016 -0300	Merge branch 'Restore' of https://github.com/devgateway/geoph into Restore
+f9f17a3	sdimunzio	Wed Jul 13 14:56:25 2016 -0300	adding alternative babel configuration file
+26257c7	Daniel Oliva Bianco	Wed Jul 13 14:47:24 2016 -0300	layout
+bbb8277	sdimunzio	Wed Jul 13 11:42:32 2016 -0300	updating prod build
+10b8978	sdimunzio	Wed Jul 13 11:38:15 2016 -0300	no message
+d1f8d7b	sdimunzio	Wed Jul 13 11:37:04 2016 -0300	fixing performance issue when getting jenks based style
+83760c2	mbertoli	Wed Jul 13 11:03:03 2016 -0300	refactor charts partial
+efac4bc	sdimunzio	Wed Jul 13 10:51:22 2016 -0300	Merge branch 'Restore' of https://github.com/devgateway/geoph into Restore
+d6a174d	sdimunzio	Wed Jul 13 10:50:40 2016 -0300	adding data initialization based on routes
+a0b624b	Daniel Oliva Bianco	Tue Jul 12 23:29:53 2016 -0300	Merge branch 'Restore' of https://github.com/devgateway/geoph into Restore
+89fecc6	Daniel Oliva Bianco	Tue Jul 12 23:27:24 2016 -0300	Dispatch STATE_RESTORE
+9ae3425	mbertoli	Tue Jul 12 17:11:31 2016 -0300	Merge branch 'translations' into Restore
+5158751	mbertoli	Tue Jul 12 16:35:35 2016 -0300	translations
+d0afd20	sdimunzio	Tue Jul 12 13:09:46 2016 -0300	restoring connector
+4e87256	Daniel Oliva Bianco	Tue Jul 12 13:06:14 2016 -0300	add new names
+02e8abb	mbertoli	Tue Jul 12 11:16:45 2016 -0300	Merge branch 'master' into translations
+20e2a72	Daniel Oliva	Tue Jul 12 11:02:49 2016 -0300	Merge pull request #85 from devgateway/Sprint9
+64498ab	Daniel Oliva Bianco	Tue Jul 12 11:02:00 2016 -0300	test
+665e267	mbertoli	Tue Jul 12 10:11:23 2016 -0300	translations partial
+99fd6e4	Daniel Oliva Bianco	Tue Jul 12 10:10:41 2016 -0300	Merge branch 'master' into Sprint9
+05c22ce	Daniel Oliva Bianco	Tue Jul 12 10:08:23 2016 -0300	Add files
+5383416	Sebastian Dimunzio	Mon Jul 11 23:01:32 2016 +0200	Merge pull request #84 from devgateway/layers_refactoring
+d99877d	sdimunzio	Mon Jul 11 18:00:11 2016 -0300	indicators refactoring done
+0c57e62	mbertoli	Mon Jul 11 09:49:45 2016 -0300	Merge branch 'master' into popup-refactoring
+ebe9e21	mbertoli	Mon Jul 11 09:45:42 2016 -0300	fix line missed
+6f1d5b6	sdimunzio	Fri Jul 8 11:04:52 2016 -0300	Layer refactoring
+064fc9b	Daniel Oliva	Fri Jul 8 10:16:46 2016 -0300	Merge pull request #83 from devgateway/Sprint9
+2298fed	Daniel Oliva Bianco	Thu Jul 7 18:06:27 2016 -0300	GEOPH-377 - Packaging and Deployment - Create a userguide >> Add UI as maven dependency, so it will be compiled and installed from mvn command GEOPH-392 - Print as PDF - PDF text should not be an image
+9a17de1	mbertoli	Wed Jul 6 18:04:58 2016 -0300	chart totals responsive to disabled slices
+6786d29	Daniel Oliva	Wed Jul 6 12:07:16 2016 -0300	Merge pull request #82 from devgateway/Sprint9
+93fe4dd	Daniel Oliva Bianco	Wed Jul 6 11:22:07 2016 -0300	GEOPH-357 Refactoring code - Import - BE GEOPH-376 Create a standalone app based on the refactored code
+44d5ab2	sdimunzio	Wed Jul 6 10:44:36 2016 -0300	loading indicators layers + svg refactoring
+15d67ee	mbertoli	Wed Jul 6 10:09:19 2016 -0300	charts adjust
+80ae55b	sdimunzio	Tue Jul 5 12:02:27 2016 -0300	updates on package.json
+c541300	mbertoli	Tue Jul 5 09:59:18 2016 -0300	partial
+83b2516	mbertoli	Mon Jul 4 17:42:06 2016 -0300	css loading icon
+921f2a4	mbertoli	Mon Jul 4 12:18:21 2016 -0300	Merge pull request #81 from devgateway/popup-refactoring
+c4f3e6d	mbertoli	Mon Jul 4 12:15:34 2016 -0300	fix FF issue
+ca701ae	mbertoli	Fri Jul 1 16:07:35 2016 -0300	Merge branch 'master' into popup-refactoring
+6825f89	mbertoli	Fri Jul 1 16:00:07 2016 -0300	missed file
+51677ae	mbertoli	Fri Jul 1 15:58:39 2016 -0300	popup styles
+967d105	Daniel Oliva	Fri Jul 1 09:59:42 2016 -0300	Merge pull request #80 from devgateway/Sprint9
+0d942e9	Daniel Oliva Bianco	Fri Jul 1 09:58:56 2016 -0300	Add missing files
+7554a20	sdimunzio	Thu Jun 30 22:55:52 2016 -0300	Merge branch 'security_integration'
+462bbc4	sdimunzio	Thu Jun 30 22:49:46 2016 -0300	some minor updates
+fb42de4	sdimunzio	Thu Jun 30 18:27:29 2016 -0300	making private calls send authentication token
+3f4f7df	Daniel Oliva Bianco	Thu Jun 30 15:33:27 2016 -0300	Reopened: GEOPH-142 - Filters - Order of options displayed in the tree should always be ASC Added flow types to the filter
+508e1b4	mbertoli	Thu Jun 30 13:07:23 2016 -0300	fix issue with undefined element
+9b434eb	Daniel Oliva	Thu Jun 30 12:29:05 2016 -0300	Merge pull request #78 from devgateway/Sprint9
+8ae7a23	Daniel Oliva Bianco	Thu Jun 30 12:25:29 2016 -0300	Merge branch 'master' into Sprint9
+49ee4e5	Daniel Oliva Bianco	Thu Jun 30 12:20:48 2016 -0300	GEOPH-384 Print should save the map , generate a map key and call the UI using the key
+44fad78	Daniel Oliva Bianco	Thu Jun 30 12:07:41 2016 -0300	Adding the shapes scripts for DB :V:
+befbdb9	Daniel Oliva Bianco	Wed Jun 29 18:08:25 2016 -0300	GEOPH-173 Save Map (Front End)
+7827ba6	mbertoli	Wed Jun 29 17:43:49 2016 -0300	fix filters titles
+658de02	mbertoli	Wed Jun 29 16:33:36 2016 -0300	refactoring for popup
+cf4af92	Daniel Oliva Bianco	Wed Jun 29 12:09:11 2016 -0300	GEOPH-173 Save Map (Front End)
+3c5277b	Sebastian Dimunzio	Tue Jun 28 20:51:27 2016 +0200	Merge pull request #77 from devgateway/indicators
+b7040af	sdimunzio	Tue Jun 28 15:45:42 2016 -0300	updating messages
+30ec470	sdimunzio	Tue Jun 28 11:41:57 2016 -0300	Merge branch 'master' into indicators
+54077d9	sdimunzio	Tue Jun 28 11:37:27 2016 -0300	adding navigation messages
+47c6934	Daniel Oliva Bianco	Mon Jun 27 18:05:22 2016 -0300	Remove HATEOAS from API toolkit implementation and add indicators getById +delete methods
+7f4dd9d	Daniel Oliva Bianco	Fri Jun 24 18:01:18 2016 -0300	Merge branch 'master' into Sprint9
+0d3fbd1	Daniel Oliva Bianco	Fri Jun 24 17:59:37 2016 -0300	Add code for saveMap functionality
+51c289b	mbertoli	Fri Jun 24 17:39:28 2016 -0300	Merge pull request #76 from devgateway/project-list
+4305d39	mbertoli	Fri Jun 24 17:25:41 2016 -0300	merge fixes
+cf03dd3	mbertoli	Fri Jun 24 15:24:49 2016 -0300	Merge branch 'master' into project-list
+d63331b	mbertoli	Fri Jun 24 15:19:20 2016 -0300	N/A
+15bc26e	Daniel Oliva	Fri Jun 24 15:18:00 2016 -0300	Merge pull request #75 from devgateway/Sprint9
+97ad1ea	Daniel Oliva Bianco	Fri Jun 24 15:17:11 2016 -0300	Change trx type names to be compliant with UI
+19377bd	mbertoli	Fri Jun 24 10:47:19 2016 -0300	Merge branch 'master' into project-list
+475cf82	mbertoli	Fri Jun 24 10:44:23 2016 -0300	N/A
+7c0b746	sdimunzio	Thu Jun 23 15:29:41 2016 -0300	Indicator upload + security setup for connector
+f7e3bd8	Daniel Oliva Bianco	Thu Jun 23 11:50:32 2016 -0300	GEOPH-383 Print - should generate a PDF
+e4aa2aa	Daniel Oliva Bianco	Thu Jun 23 11:48:13 2016 -0300	package.json modified to allow install and compile
+0d046c4	mbertoli	Wed Jun 22 17:14:22 2016 -0300	side panel styles
+84d7ed0	sdimunzio	Tue Jun 21 17:10:32 2016 -0300	Merge branch 'master' into indicators
+312d6e6	Sebastian Dimunzio	Tue Jun 21 15:33:12 2016 +0200	Merge pull request #74 from devgateway/api/refactoring
+e6a9746	sdimunzio	Tue Jun 21 09:42:37 2016 -0300	Merge branch 'api/refactoring' of https://github.com/devgateway/geoph into api/refactoring
+fd1f60d	sdimunzio	Tue Jun 21 09:40:13 2016 -0300	adding missing dependency
+6e17fb4	Daniel Oliva Bianco	Mon Jun 20 11:38:26 2016 -0300	Move print functionality to a service
+39ab976	Daniel Oliva Bianco	Fri Jun 17 17:03:28 2016 -0300	Improve export function
+cfdf32c	mbertoli	Fri Jun 17 11:55:39 2016 -0300	-side panel responsive -clear dates functionality -side tabs styles
+26ed9ec	Daniel Oliva Bianco	Fri Jun 17 10:24:22 2016 -0300	Move import functions to a service
+27a4060	Daniel Oliva Bianco	Thu Jun 16 17:08:29 2016 -0300	Remove generator implementation from controllers
+5287ef9	Daniel Oliva Bianco	Thu Jun 16 17:06:59 2016 -0300	Improve File Generators
+15d1f63	Daniel Oliva Bianco	Thu Jun 16 14:47:30 2016 -0300	Improve File Generators
+1f8f95a	Daniel Oliva Bianco	Thu Jun 16 13:12:41 2016 -0300	Improve File Generators
+a470eba	Daniel Oliva Bianco	Thu Jun 16 10:54:31 2016 -0300	Improve File Generators
+1aadb83	Daniel Oliva Bianco	Wed Jun 15 16:52:16 2016 -0300	Add csv code
+c5d3fd1	mbertoli	Wed Jun 15 12:41:33 2016 -0300	changes on side side panel charts
+575b6e4	sdimunzio	Tue Jun 14 17:49:54 2016 -0300	fixing status extractor :)
+d2f812f	sdimunzio	Tue Jun 14 17:48:21 2016 -0300	adding status extractor
+0728d36	sdimunzio	Tue Jun 14 17:45:54 2016 -0300	adding title style
+ea22a96	sdimunzio	Tue Jun 14 17:42:25 2016 -0300	extracting collections
+b8d7a92	sdimunzio	Tue Jun 14 17:12:12 2016 -0300	Merge remote-tracking branch 'origin/api/refactoring' into api/refactoring
+f78be00	sdimunzio	Tue Jun 14 17:11:03 2016 -0300	Adding more columns
+271f439	Daniel Oliva Bianco	Tue Jun 14 16:05:07 2016 -0300	Add csv code
+60cfead	Daniel Oliva Bianco	Tue Jun 14 15:40:51 2016 -0300	Merge remote-tracking branch 'origin/api/refactoring' into api/refactoring
+07ecc91	Daniel Oliva Bianco	Tue Jun 14 15:40:23 2016 -0300	Add superclass
+f2b61f5	sdimunzio	Tue Jun 14 15:37:05 2016 -0300	XLS generator working!
+3857801	sdimunzio	Tue Jun 14 11:16:48 2016 -0300	Merge branch 'api/refactoring' of https://github.com/devgateway/geoph into api/refactoring
+b683472	sdimunzio	Tue Jun 14 11:04:54 2016 -0300	XLS generator
+8f1351f	Daniel Oliva Bianco	Mon Jun 13 18:10:42 2016 -0300	Refactoring constants
+6507d19	Daniel Oliva Bianco	Mon Jun 13 14:54:21 2016 -0300	GEOPH-268 UX Infowindow - chart legend is not ordered by funding in desc order + refctoring
+43d8bc2	sdimunzio	Fri Jun 10 17:19:58 2016 -0300	Merge remote-tracking branch 'origin/api/refactoring' into api/refactoring
+7993392	sdimunzio	Fri Jun 10 17:18:20 2016 -0300	Generic XLS generator
+07faf81	Daniel Oliva Bianco	Fri Jun 10 17:15:31 2016 -0300	Refactoring constants
+86905ad	Daniel Oliva Bianco	Fri Jun 10 15:34:20 2016 -0300	Refactoring constants
+c959949	sdimunzio	Fri Jun 10 10:23:43 2016 -0300	adding export files
+f532677	Daniel Oliva Bianco	Fri Jun 10 09:39:07 2016 -0300	Refactoring constants
+50fe9b0	sdimunzio	Thu Jun 9 21:25:19 2016 -0300	Merge branch 'api/refactoring' of https://github.com/devgateway/geoph into api/refactoring
+aadf82f	sdimunzio	Thu Jun 9 21:24:28 2016 -0300	more changes
+3f716d1	Daniel Oliva Bianco	Thu Jun 9 16:22:22 2016 -0300	Refactoring filters
+5dfe6a6	Daniel Oliva Bianco	Thu Jun 9 14:37:16 2016 -0300	Use AppRequestParams to create filters Create KeyGenerator util class Split LayerController into Photos & Indicator Controller
+341c6b7	sdimunzio	Thu Jun 9 12:20:59 2016 -0300	adding some missing files
+c18ac83	sdimunzio	Thu Jun 9 12:20:20 2016 -0300	massive refactoring II
+5626070	sdimunzio	Thu Jun 9 11:59:06 2016 -0300	massive refactoring!!!
+eef3979	sdimunzio	Thu Jun 9 10:05:59 2016 -0300	removing unused file
+eea608e	sdimunzio	Thu Jun 9 10:01:53 2016 -0300	Merge branch 'api/refactoring' of https://github.com/devgateway/geoph into api/refactoring
+be3b5bf	sdimunzio	Thu Jun 9 10:00:41 2016 -0300	updating packages names adding export draft code
+d086468	Daniel Oliva Bianco	Thu Jun 9 09:55:38 2016 -0300	Refactoring Charts and Location related classes
+a05c966	mbertoli	Wed Jun 8 18:29:26 2016 -0300	basic expand functionality with responsive charts
+2963b67	Daniel Oliva Bianco	Wed Jun 8 10:39:50 2016 -0300	Merge branch 'Sprint8' into api/refactoring
+c1494c0	sdimunzio	Wed Jun 8 10:25:55 2016 -0300	renaming package
+64ddc46	sdimunzio	Wed Jun 8 10:07:24 2016 -0300	indicator upload
+94469e5	sdimunzio	Wed Jun 8 10:07:00 2016 -0300	Merge branch 'master' into indicators
+4726399	Daniel Oliva Bianco	Tue Jun 7 20:46:57 2016 -0300	GEOPH-352 - Endpoint to retrieve full app's config
+2c09670	sdimunzio	Tue Jun 7 11:36:46 2016 -0300	no message
+040db90	Sebastian Dimunzio	Tue Jun 7 16:21:59 2016 +0200	Merge pull request #73 from devgateway/project-list
+af8b9b2	mbertoli	Tue Jun 7 10:25:06 2016 -0300	close popup on click outside of it
+8c54739	Daniel Oliva Bianco	Tue Jun 7 09:59:56 2016 -0300	GEOPH-314 - Implement sorting in project list endpoint
+07b737d	sdimunzio	Tue Jun 7 09:46:40 2016 -0300	Merge branch 'master' into indicators
+34082db	mbertoli	Mon Jun 6 17:40:32 2016 -0300	several fixes
+ca0afc1	Sebastian Dimunzio	Mon Jun 6 16:57:15 2016 +0200	Merge pull request #72 from devgateway/project-list
+ec42ca2	sdimunzio	Mon Jun 6 10:33:33 2016 -0300	Merge branch 'master' into indicators
+e5c15dc	sdimunzio	Mon Jun 6 10:31:01 2016 -0300	indicators
+85c71d9	Daniel Oliva Bianco	Mon Jun 6 09:48:04 2016 -0300	GEOPH-303 - Percentage of target reached Filter (Back End)
+2b94cda	Daniel Oliva	Fri Jun 3 12:55:53 2016 -0300	Merge pull request #71 from devgateway/Sprint7
+c5098ee	Daniel Oliva Bianco	Fri Jun 3 12:54:24 2016 -0300	Last fix :v:
+d7333a0	Daniel Oliva	Fri Jun 3 12:28:13 2016 -0300	Merge pull request #70 from devgateway/Sprint7
+b0f6c81	Daniel Oliva Bianco	Fri Jun 3 12:26:38 2016 -0300	Update for ticket 301
+3b4f247	Daniel Oliva	Fri Jun 3 12:20:00 2016 -0300	Merge pull request #69 from devgateway/Sprint7
+daaad76	Daniel Oliva Bianco	Fri Jun 3 12:19:10 2016 -0300	Fix for null pointer
+6aea550	Daniel Oliva	Fri Jun 3 12:01:04 2016 -0300	Merge pull request #68 from devgateway/Sprint7
+373ce12	Daniel Oliva Bianco	Fri Jun 3 11:55:13 2016 -0300	Fix for bugs reported at GEOPH-310 and GEOPH-301
+8074d85	mbertoli	Thu Jun 2 18:09:07 2016 -0300	fix icons for deploy
+55e0b9c	mbertoli	Thu Jun 2 17:51:08 2016 -0300	several fixes for demo
+99cd404	Daniel Oliva Bianco	Thu Jun 2 15:33:38 2016 -0300	GEOPH-277 - Chart Funding amount is different than it should GEOPH-285 - Import Loans Dataset GEOPH-24 - Implement Physical Progress - Statistical Layer (Back End)
+5a1c471	mbertoli	Wed Jun 1 12:41:57 2016 -0300	missed change
+6599688	mbertoli	Wed Jun 1 12:22:54 2016 -0300	Filter dates split and financial amount
+c4f4741	Daniel Oliva Bianco	Tue May 31 18:04:09 2016 -0300	GEOPH-304 - Add support for new fields from loans dataset to DB into project level GEOPH-285 - Import Loans Dataset
+ae0f053	mbertoli	Tue May 31 11:19:07 2016 -0300	Merge branch 'master' into project-list
+e45cd04	mbertoli	Tue May 31 11:17:13 2016 -0300	fix select all matched
+a48082a	mbertoli	Mon May 30 19:32:10 2016 -0300	Several filter tickets resolved (GEOPH-313, GEOPH-205, GEOPH-145, GEOPH-311, GEOPH-283, GEOPH-220, GEOPH-289)
+bf3689e	sdimunzio	Mon May 30 16:28:22 2016 -0300	Merge branch 'master' into indicators
+888e4d0	Daniel Oliva	Mon May 30 16:21:05 2016 -0300	Merge pull request #67 from devgateway/Sprint7
+06a746c	Daniel Oliva Bianco	Mon May 30 16:19:15 2016 -0300	Fix for endpoint name
+1b11f2a	Daniel Oliva Bianco	Mon May 30 16:15:01 2016 -0300	Fix for date param
+9bf3c9b	Daniel Oliva Bianco	Mon May 30 16:04:57 2016 -0300	GEOPH-290 - Refactor Dates filters used in endpoint to match new requirements
+0e9536e	sdimunzio	Mon May 30 15:36:30 2016 -0300	indicators form
+0c8319b	Daniel Oliva	Fri May 27 15:13:57 2016 -0300	Merge pull request #66 from devgateway/Sprint7
+bfd4c5b	Daniel Oliva Bianco	Fri May 27 14:48:43 2016 -0300	GEOPH-292 - Upload province and municipality shapes
+6ade7c8	mbertoli	Thu May 26 18:05:05 2016 -0300	Project search functionallity
+c86edf7	Daniel Oliva Bianco	Thu May 26 17:14:14 2016 -0300	GEOPH-293 - Import new region 'Negros' into DB and adjust location data accordingly
+01f39c1	mbertoli	Thu May 26 10:16:10 2016 -0300	Merge branch 'master' into project-list
+8ed7fd5	mbertoli	Thu May 26 10:14:05 2016 -0300	Merge pull request #65 from devgateway/Sprint7
+fd47c6c	mbertoli	Thu May 26 10:11:42 2016 -0300	N/A
+4c41287	Daniel Oliva Bianco	Thu May 26 09:38:30 2016 -0300	GEOPH-294 - Create a non paginated endpoint to return the project list GEOPH-295 - Create a stats endpoint to retrieve project count based on applied filters GEOPH-142 - Filters - Order of options displayed in the tree should always be ASC
+aa0b1f0	Daniel Oliva Bianco	Wed May 25 13:25:48 2016 -0300	GEOPH-46 - Implement Statistical indicators - Statistical Layer (from external source) (Back End)
+f904768	mbertoli	Tue May 24 17:06:07 2016 -0300	N/A
+99ce1cd	mbertoli	Tue May 24 15:28:51 2016 -0300	project search - partial
+30447bb	Daniel Oliva	Fri May 20 10:20:05 2016 -0300	Merge pull request #64 from devgateway/Sprint6
+c7475d9	Daniel Oliva Bianco	Fri May 20 10:16:03 2016 -0300	Add locations from the most inner adm level
+2f6b0cf	mbertoli	Thu May 19 15:56:47 2016 -0300	project list for popup
+fbb6ee0	Daniel Oliva	Thu May 19 14:04:38 2016 -0300	Merge pull request #63 from devgateway/Sprint6
+3077413	Daniel Oliva Bianco	Thu May 19 14:03:18 2016 -0300	Add latest grant file to the db
+ed5e7c3	Daniel Oliva	Wed May 18 16:35:58 2016 -0300	Merge pull request #62 from devgateway/Sprint6
+831d64a	Daniel Oliva Bianco	Wed May 18 16:34:32 2016 -0300	GEOPH-252 Troubleshoot staging with dataset provided by NEDA
+f1e09c9	mbertoli	Wed May 18 14:07:47 2016 -0300	Merge branch 'master' into project-list
+933466c	mbertoli	Wed May 18 14:06:56 2016 -0300	partial commit
+21c518c	Daniel Oliva	Wed May 18 13:11:30 2016 -0300	Merge pull request #61 from devgateway/Sprint6
+942e131	Daniel Oliva Bianco	Wed May 18 13:08:30 2016 -0300	Add endpoint for @mbertoli and finish implementation of GEOPH-272 - Filters - Financial amount Section Filter (Back End)
+1ed782a	mbertoli	Tue May 17 10:20:50 2016 -0300	Merge pull request #60 from devgateway/filters-bugfixing
+8fdfca7	mbertoli	Tue May 17 10:19:02 2016 -0300	several filters styles
+483e0a1	Daniel Oliva Bianco	Mon May 16 17:44:04 2016 -0300	GEOPH-272 - Filters - Financial amount Section Filter (Back End)
+e3ac44e	Daniel Oliva	Mon May 16 15:49:36 2016 -0300	Merge pull request #59 from devgateway/Sprint6
+201014e	Daniel Oliva Bianco	Mon May 16 15:42:25 2016 -0300	Add grant_sub_type table for GEOPH-154 Funding Tab - Funding Type sub tab (Back End) Fix for: GEOPH-273 Total Funding Layer displays all regions with same color
+17611ab	mbertoli	Fri May 13 16:18:27 2016 -0300	fix missed line
+fc65224	Daniel Oliva	Fri May 13 16:09:29 2016 -0300	Merge pull request #58 from devgateway/Sprint6
+6d4c19e	mbertoli	Fri May 13 15:58:18 2016 -0300	Merge branch 'master' into filters-bugfixing
+f521c68	mbertoli	Fri May 13 15:56:49 2016 -0300	Add new filters available
+33f917b	Daniel Oliva Bianco	Fri May 13 13:18:55 2016 -0300	delete log file
+0ffb84c	Daniel Oliva Bianco	Fri May 13 13:17:45 2016 -0300	add csv functionality for GEOPH-161 Data Export
+a0b6f6a	Daniel Oliva Bianco	Thu May 12 20:02:55 2016 -0300	Create excel file
+c2b6731	Daniel Oliva	Thu May 12 10:42:03 2016 -0300	Merge pull request #57 from devgateway/GrantsImport
+90b43e9	Daniel Oliva Bianco	Wed May 11 20:48:12 2016 -0300	Fix for GEOPH-213 - Decimal aggregation is displayed in Commitments, Disbursements and Expenditures even when no transaction has decimals
+30dadb5	Daniel Oliva Bianco	Tue May 10 18:02:13 2016 -0300	Add geo tagged photos to the app
+a841aa1	mbertoli	Tue May 10 10:10:56 2016 -0300	Merge pull request #52 from devgateway/map_popup
+433ca3e	Daniel Oliva	Fri May 6 18:53:57 2016 -0300	Merge pull request #56 from devgateway/GrantsImport
+7ee98cf	Daniel Oliva Bianco	Fri May 6 18:52:43 2016 -0300	Add mock data
+63eb241	Daniel Oliva	Fri May 6 18:43:51 2016 -0300	Merge pull request #55 from devgateway/GrantsImport
+acd2537	Daniel Oliva Bianco	Fri May 6 18:42:19 2016 -0300	Revert "GEOPH-154 - Funding Tab - Funding Type sub tab (Back End)"
+d0b1f9a	Daniel Oliva Bianco	Fri May 6 18:02:43 2016 -0300	Fix for project locations
+a1734c1	Daniel Oliva	Fri May 6 16:41:42 2016 -0300	Merge pull request #54 from devgateway/GrantsImport
+b91d0b4	Daniel Oliva Bianco	Fri May 6 16:41:14 2016 -0300	script
+62f1b5d	Daniel Oliva	Fri May 6 16:37:00 2016 -0300	Merge pull request #53 from devgateway/GrantsImport
+6270cd7	Daniel Oliva Bianco	Fri May 6 16:09:49 2016 -0300	Add Implementing Agencies
+c659b30	mbertoli	Thu May 5 13:00:47 2016 -0300	Merge branch 'master' into map_popup
+798bd58	mbertoli	Thu May 5 12:59:10 2016 -0300	map popup implementation
+0cb33ed	Daniel Oliva	Tue May 3 15:28:37 2016 -0300	Merge pull request #51 from devgateway/Sprint5Backend
+d0dbc21	Daniel Oliva Bianco	Tue May 3 15:10:47 2016 -0300	Print option using selenium, since ui4j is not working in linux...
+de0eb7c	Daniel Oliva	Tue May 3 11:03:08 2016 -0300	Merge pull request #50 from devgateway/Sprint5Backend
+d6df9c6	Daniel Oliva Bianco	Tue May 3 10:45:30 2016 -0300	Print version using ui4j
+4630d1d	Daniel Oliva Bianco	Mon May 2 15:17:19 2016 -0300	Add spring cache instead of ehCache
+5e039dd	Daniel Oliva Bianco	Fri Apr 29 15:27:53 2016 -0300	GEOPH-25 Implement Geotagged Photos layer (Back End) GEOPH-194 Convert kml to postgis
+b34a71e	mbertoli	Fri Apr 29 10:32:52 2016 -0300	basic popup
+7862ca3	sdimunzio	Thu Apr 28 01:03:11 2016 -0300	Layer control almost done
+d6f0556	Sebastian Dimunzio	Wed Apr 27 12:36:49 2016 -0300	Merge pull request #49 from devgateway/layers/control_inmutable
+91c2a4c	sdimunzio	Wed Apr 27 12:29:41 2016 -0300	web pack config
+4ee49c6	Sebastian Dimunzio	Wed Apr 27 12:19:26 2016 -0300	Merge pull request #48 from devgateway/layers/control_inmutable
+4d13192	sdimunzio	Wed Apr 27 11:40:48 2016 -0300	Merge remote-tracking branch 'origin/master' into layers/control_inmutable
+ca35df1	Daniel Oliva	Wed Apr 27 10:22:11 2016 -0300	Merge pull request #47 from devgateway/Sprint5Backend
+e4af2dc	sdimunzio	Wed Apr 27 10:03:10 2016 -0300	settings
+6bd3eca	sdimunzio	Wed Apr 27 09:56:25 2016 -0300	adding settings to control
+56b8b9b	Sebastian Dimunzio	Wed Apr 27 09:55:16 2016 -0300	Merge pull request #46 from devgateway/filters
+1cb77c1	mbertoli	Wed Apr 27 09:52:12 2016 -0300	fix merged files
+bcb5a45	mbertoli	Wed Apr 27 09:43:53 2016 -0300	Merge branch 'master' into filters
+fc0d639	mbertoli	Wed Apr 27 09:40:12 2016 -0300	merge with master
+f4976b6	Sebastian Dimunzio	Tue Apr 26 23:39:51 2016 -0300	Merge pull request #45 from devgateway/layers/control_inmutable
+e52d95d	sdimunzio	Tue Apr 26 23:38:17 2016 -0300	SVG renders for shapes + jenks + on /off visibility + zindex
+f593990	mbertoli	Tue Apr 26 18:29:31 2016 -0300	basemaps
+982bb30	Daniel Oliva Bianco	Tue Apr 26 15:46:22 2016 -0300	Add endpoints to the backend
+ada9528	Daniel Oliva Bianco	Tue Apr 26 13:52:58 2016 -0300	GEOPH-147 Do not show cluster with 0 project location in the map (Back End)
+2e5de0a	Daniel Oliva	Tue Apr 26 12:31:28 2016 -0300	Merge pull request #44 from devgateway/saveAndShare
+88a3ae6	Daniel Oliva Bianco	Tue Apr 26 11:54:59 2016 -0300	Merge branch 'master' into saveAndShare
+f067981	Daniel Oliva Bianco	Tue Apr 26 11:01:57 2016 -0300	GEOPH-162 Return list of available layers GEOPH-163 Create an Endpoint to return a layer by id
+8a87b23	sdimunzio	Mon Apr 25 22:36:03 2016 -0300	Merge remote-tracking branch 'origin/master' into layers/control_inmutable
+ecb4ff1	sdimunzio	Mon Apr 25 22:35:32 2016 -0300	adding Jenks support and measure support to svg layer
+9847b02	sdimunzio	Mon Apr 25 16:33:32 2016 -0300	jenks
+1b7401b	Daniel Oliva Bianco	Mon Apr 25 12:40:07 2016 -0300	GEOPH-152 Sectors Tab Section Filter - Relevance to Climate (Back End) GEOPH-153 Sectors Tab Section Filter - Gender (Back End)
+c89be20	Daniel Oliva Bianco	Fri Apr 22 18:14:02 2016 -0300	GEOPH-154 - Funding Tab - Funding Type sub tab (Back End)
+fe56b92	Daniel Oliva Bianco	Fri Apr 22 12:03:27 2016 -0300	Add ClimateChange and GenderResponsiveness to projects
+52d8d6a	mbertoli	Thu Apr 21 16:23:05 2016 -0300	change filter dates names and fix validation problem.
+55ce299	Daniel Oliva Bianco	Thu Apr 21 12:51:22 2016 -0300	Fix to hold double value in geojson endpoint Sample: http://localhost:8090/geodata/stats/region/funding/detail/0.025
+4334918	mbertoli	Thu Apr 21 12:40:12 2016 -0300	apply funding type selection to charts
+bcf4adc	Daniel Oliva Bianco	Thu Apr 21 10:23:10 2016 -0300	First version for save and share
+6d802ec	mbertoli	Wed Apr 20 18:10:03 2016 -0300	Merge branch 'master' into filters
+7b5350e	mbertoli	Wed Apr 20 18:07:51 2016 -0300	apply filters to layers
+758354a	Daniel Oliva Bianco	Wed Apr 20 18:06:13 2016 -0300	add controller for save maps
+cb8ed36	mbertoli	Wed Apr 20 18:05:20 2016 -0300	Merge pull request #43 from devgateway/commitments
+b695a50	Daniel Oliva Bianco	Wed Apr 20 11:40:52 2016 -0300	Add chart endpoint that groups other charts because @mbertoli is lazy and dont want to make 4 different calls to the backend :peron:
+ae5b2b7	mbertoli	Wed Apr 20 11:11:04 2016 -0300	Merge branch 'layers/control_inmutable' into filters
+330d75b	mbertoli	Wed Apr 20 08:07:23 2016 -0300	Merge branch 'master' into filters
+c690fc6	mbertoli	Wed Apr 20 08:06:06 2016 -0300	Settings selector and basemap partial
+1e2b90f	Daniel Oliva Bianco	Tue Apr 19 18:26:24 2016 -0300	Add fix for charts endpoints related to commitment, disbursements and expenditures
+761c74a	Daniel Oliva Bianco	Tue Apr 19 11:57:14 2016 -0300	Add data to the DB, fix project endpoint pagination
+22c2f30	Daniel Oliva Bianco	Mon Apr 18 17:26:48 2016 -0300	Add data to DB
+b141ca7	Daniel Oliva Bianco	Mon Apr 18 12:22:01 2016 -0300	Add TransactionStatus and TransactionType to the transaction values
+16434e4	Daniel Oliva Bianco	Sat Apr 16 18:19:19 2016 -0300	Add commitment and disbursement for geojson
+394b11d	Daniel Oliva Bianco	Fri Apr 15 16:36:56 2016 -0300	Add commitments and disbursements
+91e2b58	sdimunzio	Fri Apr 15 03:00:35 2016 -0300	SVG render
+cccb39e	sdimunzio	Fri Apr 15 03:00:11 2016 -0300	Layer control with immutability and dynamic data
+d279485	Daniel Oliva Bianco	Thu Apr 14 13:15:27 2016 -0300	Fix for locations filters, to have them in a tree structure
+faac200	mbertoli	Thu Apr 14 12:06:23 2016 -0300	filters apply to charts fix missed some filtes styles
+b796579	mbertoli	Wed Apr 13 12:43:52 2016 -0300	Merge pull request #42 from devgateway/filters
+380d26a	mbertoli	Wed Apr 13 12:43:01 2016 -0300	missed files
+8a67cc6	Sebastian Dimunzio	Wed Apr 13 12:38:46 2016 -0300	Merge pull request #41 from devgateway/filters
+9ec806d	mbertoli	Wed Apr 13 12:37:16 2016 -0300	charts
+9f88d03	Sebastian Dimunzio	Wed Apr 13 12:34:32 2016 -0300	Merge pull request #40 from devgateway/charts
+20fbaf8	Daniel Oliva Bianco	Wed Apr 13 09:03:10 2016 -0300	Free text search + Physical Status filter and chart
+e50a136	Daniel Oliva Bianco	Tue Apr 12 19:45:48 2016 -0300	Add PhysicalStatus chart, filter and update the other endpoints
+b64724b	mbertoli	Mon Apr 11 16:35:26 2016 -0300	Merge branch 'master' into filters
+2162190	mbertoli	Mon Apr 11 16:27:49 2016 -0300	N/A
+e51bccd	mbertoli	Mon Apr 11 16:20:39 2016 -0300	charts - partial
+11fb4bf	Daniel Oliva	Mon Apr 11 16:09:43 2016 -0300	Merge pull request #39 from devgateway/charts
+9874332	Daniel Oliva Bianco	Mon Apr 11 16:08:19 2016 -0300	Change , for . at ChartService
+d5c5ff8	mbertoli	Fri Apr 8 09:57:06 2016 -0300	Merge branch 'master' into filters
+985e404	mbertoli	Fri Apr 8 09:54:57 2016 -0300	charts component
+6435a34	Daniel Oliva	Thu Apr 7 11:51:43 2016 -0300	Merge pull request #38 from devgateway/charts
+d5630a0	Daniel Oliva Bianco	Thu Apr 7 11:50:37 2016 -0300	fix for missing query
+1540f45	Daniel Oliva	Thu Apr 7 11:41:47 2016 -0300	Merge pull request #37 from devgateway/charts
+2267745	Daniel Oliva Bianco	Thu Apr 7 11:37:30 2016 -0300	add security project to the pom.xml
+492371b	Daniel Oliva	Thu Apr 7 10:59:08 2016 -0300	Merge pull request #36 from devgateway/charts
+f29ede7	Daniel Oliva	Thu Apr 7 10:58:57 2016 -0300	Merge pull request #35 from devgateway/security
+29c316f	Daniel Oliva	Thu Apr 7 10:58:48 2016 -0300	Merge pull request #34 from devgateway/filters
+50f83f9	Daniel Oliva Bianco	Thu Apr 7 10:51:57 2016 -0300	Add ImplementingAgency chart
+c86683b	mbertoli	Wed Apr 6 17:24:34 2016 -0300	Merge branch 'html' into filters
+3f6fce7	mbertoli	Wed Apr 6 17:18:08 2016 -0300	test charts
+765d555	Sebastian Dimunzio	Wed Apr 6 01:15:38 2016 -0300	Merge branch 'html' of https://github.com/devgateway/geoph into html
+08ed103	Sebastian Dimunzio	Wed Apr 6 00:46:04 2016 -0300	HTML + layer control
+e0d243a	Sebastian Dimunzio	Wed Apr 6 00:46:04 2016 -0300	HTML + layer control
+9a5f46f	Sebastian Dimunzio	Tue Apr 5 00:57:36 2016 -0300	header html
+453dc88	Daniel Oliva Bianco	Mon Apr 4 17:37:43 2016 -0300	GEOPH-82 Charts - By Funding Institution (Back End)
+0dc74a3	Daniel Oliva Bianco	Mon Apr 4 09:57:57 2016 -0300	GEOPH-9 - Authentication mechanism to login users and role assign
+1a278e5	mbertoli	Fri Apr 1 17:43:38 2016 -0300	range slider
+e40dc6c	Daniel Oliva Bianco	Fri Apr 1 17:01:50 2016 -0300	not working the user login
+e6589cf	Daniel Oliva Bianco	Thu Mar 31 18:30:21 2016 -0300	Adding auth mechanism
+1d33b0e	mbertoli	Thu Mar 31 12:26:24 2016 -0300	Merge branch 'master' into filters
+a60f0a6	mbertoli	Thu Mar 31 12:16:52 2016 -0300	date filter
+9461ce7	mbertoli	Thu Mar 31 12:13:39 2016 -0300	Merge pull request #33 from devgateway/layers_filters
+260c940	Daniel Oliva	Thu Mar 31 10:40:19 2016 -0300	Merge pull request #32 from devgateway/modeling
+b4a8870	Daniel Oliva Bianco	Thu Mar 31 10:39:30 2016 -0300	Fix null pointer for province
+ce025a0	mbertoli	Wed Mar 30 17:31:58 2016 -0300	date filter - partial
+3f2a9f5	mbertoli	Wed Mar 30 17:30:24 2016 -0300	Merge branch 'master' of https://github.com/devgateway/geoph into filters
+dfe2835	Daniel Oliva	Wed Mar 30 15:49:11 2016 -0300	Merge pull request #31 from devgateway/modeling
+81d8fa0	Daniel Oliva Bianco	Wed Mar 30 15:48:17 2016 -0300	Add fix for dates endpoint
+233b6d7	Daniel Oliva	Wed Mar 30 15:16:47 2016 -0300	Merge pull request #30 from devgateway/modeling
+0dbbc8f	Daniel Oliva Bianco	Wed Mar 30 15:12:18 2016 -0300	Add fix for filter locations
+b2f0e45	mbertoli	Wed Mar 30 12:17:02 2016 -0300	Merge pull request #29 from devgateway/filters
+3386af6	mbertoli	Wed Mar 30 12:15:28 2016 -0300	datepicker - partial commit
+365baf6	Sebastian Dimunzio	Tue Mar 29 17:47:27 2016 -0300	added funding layer
+b756389	mbertoli	Tue Mar 29 12:53:07 2016 -0300	restore filter text search from esri-ui branch
+0522d4f	Daniel Oliva	Tue Mar 29 12:32:32 2016 -0300	Merge pull request #28 from devgateway/modeling
+ea056b3	Daniel Oliva Bianco	Tue Mar 29 12:31:08 2016 -0300	Add fix to get not filter for upper adm level
+cf8e64a	Sebastian Dimunzio	Tue Mar 29 11:16:53 2016 -0300	Merge pull request #27 from devgateway/layers_filters
+df83454	Sebastian Dimunzio	Tue Mar 29 11:16:04 2016 -0300	Filters and Layer integration
+309612d	Sebastian Dimunzio	Tue Mar 29 10:43:46 2016 -0300	Merge pull request #26 from devgateway/modeling
+15f1dc1	Sebastian Dimunzio	Tue Mar 29 10:25:02 2016 -0300	Merge pull request #25 from devgateway/layers_filters
+af426f1	Sebastian Dimunzio	Tue Mar 29 10:22:50 2016 -0300	Point layer is now integrated with filters, some util classes were added in order to parse selected filters
+00d8ea1	Daniel Oliva Bianco	Tue Mar 29 09:22:25 2016 -0300	Add missing sql
+3a04a87	Daniel Oliva Bianco	Mon Mar 28 16:12:16 2016 -0300	Merge branch 'master' into modeling
+62f3c9b	Daniel Oliva Bianco	Mon Mar 28 16:11:27 2016 -0300	Check ehcache stats from UI
+a821e78	Sebastian Dimunzio	Mon Mar 28 16:10:02 2016 -0300	Merge pull request #24 from devgateway/leafelt_ui
+0a71849	Sebastian Dimunzio	Mon Mar 28 16:09:52 2016 -0300	Merge pull request #23 from devgateway/modeling
+504e82d	Sebastian Dimunzio	Mon Mar 28 16:09:46 2016 -0300	Merge pull request #22 from devgateway/filters
+5c1b3e4	Sebastian Dimunzio	Mon Mar 28 16:08:14 2016 -0300	fixing staging issues
+d7224f7	Daniel Oliva Bianco	Mon Mar 28 12:53:37 2016 -0300	Add some indicators for stats data
+f9cc011	Daniel Oliva Bianco	Fri Mar 25 10:55:33 2016 -0300	Merge branch 'modeling' of https://github.com/devgateway/geoph into modeling
+dc62b9a	Daniel Oliva Bianco	Fri Mar 25 10:54:28 2016 -0300	GEOPH-36 Funding Organizations - Funding Source Filters (Back End) + Add more projects to the DB
+5b3c0b3	Sebastian Dimunzio	Wed Mar 23 14:30:05 2016 -0300	added sh script in order to load the shapes on the server
+60df9f9	Sebastian Dimunzio	Wed Mar 23 11:24:05 2016 -0300	Merge branch 'leafelt_ui' of https://github.com/devgateway/geoph into leafelt_ui
+26e3ea9	Sebastian Dimunzio	Wed Mar 23 11:23:28 2016 -0300	css + typos fixed
+9203116	Daniel Oliva Bianco	Wed Mar 23 11:17:12 2016 -0300	Add shape sql
+4b9b8c6	Daniel Oliva Bianco	Wed Mar 23 11:09:50 2016 -0300	Shapes sql for region
+b372fd4	mbertoli	Wed Mar 23 10:08:00 2016 -0300	fix missed styles
+a1a0836	Daniel Oliva Bianco	Tue Mar 22 16:35:47 2016 -0300	GEOPH-67 and GEOPH-68: Adding a new endpoint that retrieves geojson region shape info from DB
+8463ae1	Sebastian Dimunzio	Mon Mar 21 17:27:59 2016 -0300	leaflet based ui
+6b05fcb	mbertoli	Fri Mar 18 18:32:28 2016 -0300	filter text search
+609d9f2	Sebastian Dimunzio	Fri Mar 18 16:41:15 2016 -0300	Merge branch 'master' of https://github.com/devgateway/geoph
+ace83a2	mbertoli	Fri Mar 18 16:37:52 2016 -0300	text search - partial
+09bdbef	Sebastian Dimunzio	Fri Mar 18 16:30:25 2016 -0300	Case sensitive related issues fixed
+a7d6cc2	Daniel Oliva Bianco	Fri Mar 18 16:27:41 2016 -0300	Add agencies filters
+9551c9f	Sebastian Dimunzio	Fri Mar 18 15:58:53 2016 -0300	Merge pull request #21 from devgateway/modeling
+acdfd14	Sebastian Dimunzio	Fri Mar 18 15:56:11 2016 -0300	merge issue resolved
+db2ef48	Sebastian Dimunzio	Fri Mar 18 15:53:59 2016 -0300	Merge branch 'master' into modeling
+6cfe145	Sebastian Dimunzio	Fri Mar 18 15:51:09 2016 -0300	fixing main class issues
+b830e2a	Daniel Oliva Bianco	Fri Mar 18 15:33:03 2016 -0300	Save my changes
+82c62ae	Sebastian Dimunzio	Fri Mar 18 15:32:47 2016 -0300	removing component scan
+5bde1e8	Daniel Oliva Bianco	Fri Mar 18 15:21:06 2016 -0300	prop file
+f25dde0	Daniel Oliva Bianco	Fri Mar 18 15:16:11 2016 -0300	save
+e62f66e	Sebastian Dimunzio	Fri Mar 18 15:00:24 2016 -0300	removing extra main class
+2d655b0	Daniel Oliva Bianco	Fri Mar 18 14:49:14 2016 -0300	Add service module
+f735c42	Daniel Oliva Bianco	Fri Mar 18 14:28:02 2016 -0300	Improve db queries
+16e7589	Daniel Oliva Bianco	Fri Mar 18 10:00:10 2016 -0300	Add lazy initialization
+536c4d9	Daniel Oliva Bianco	Fri Mar 18 09:41:54 2016 -0300	Fix to get provinces and municipalities
+2a719c5	Sebastian Dimunzio	Fri Mar 18 00:58:44 2016 -0300	Merge pull request #20 from devgateway/map_layers
+11daf55	Sebastian Dimunzio	Fri Mar 18 00:57:28 2016 -0300	adding draft popup
+b15ff54	Sebastian Dimunzio	Thu Mar 17 22:41:32 2016 -0300	Fixies applied after mergin
+18c85f3	Sebastian Dimunzio	Thu Mar 17 22:05:34 2016 -0300	Merge branch 'master' into map_layers
+9583219	Sebastian Dimunzio	Thu Mar 17 18:35:56 2016 -0300	Merge pull request #19 from devgateway/filters
+961de38	mbertoli	Thu Mar 17 18:32:12 2016 -0300	Merge branch 'master' into filters
+4d4e1aa	Sebastian Dimunzio	Thu Mar 17 18:28:07 2016 -0300	Merge pull request #18 from devgateway/modeling
+2e981ab	Sebastian Dimunzio	Thu Mar 17 18:23:20 2016 -0300	Project points
+eb88943	mbertoli	Thu Mar 17 18:05:25 2016 -0300	Some filter styles
+81efc50	Daniel Oliva Bianco	Thu Mar 17 17:55:15 2016 -0300	Create filters for project controller
+e6798d2	mbertoli	Thu Mar 17 15:03:38 2016 -0300	Merge branch 'modeling' into filters
+7d11cfd	mbertoli	Thu Mar 17 15:02:38 2016 -0300	Filter tree
+7bda0f8	Daniel Oliva Bianco	Thu Mar 17 14:28:20 2016 -0300	Add support for lazy objects
+0614596	Daniel Oliva Bianco	Wed Mar 16 17:46:31 2016 -0300	Add date filters and transaction data to GeoJsonController
+c677a61	Sebastian Dimunzio	Wed Mar 16 15:41:34 2016 -0300	more work with geojson layer
+22c6eed	mbertoli	Tue Mar 15 17:30:18 2016 -0300	Merge branch 'map_layers' into filters
+c7d9b65	mbertoli	Tue Mar 15 17:23:13 2016 -0300	N/A
+b81571e	Sebastian Dimunzio	Tue Mar 15 17:14:54 2016 -0300	more updates
+a2bfa9b	Sebastian Dimunzio	Tue Mar 15 16:53:16 2016 -0300	Loading project geodata from the api using the new connector added COR support to the API
+98c2745	Sebastian Dimunzio	Tue Mar 15 16:20:10 2016 -0300	no message
+4fa97d4	mbertoli	Tue Mar 15 16:10:22 2016 -0300	Merge branch 'map_layers' into filters
+e2bf3e9	Sebastian Dimunzio	Tue Mar 15 16:04:15 2016 -0300	Merge pull request #17 from devgateway/modeling
+1495ecf	Sebastian Dimunzio	Tue Mar 15 16:02:23 2016 -0300	Merge pull request #16 from devgateway/map_layers
+fc43533	mbertoli	Tue Mar 15 16:01:46 2016 -0300	N/A
+25e95bd	Sebastian Dimunzio	Tue Mar 15 15:38:53 2016 -0300	Graphic layer  + api connector
+9491380	Daniel Oliva Bianco	Tue Mar 15 15:07:44 2016 -0300	Add one more filter (status) to GeoJson locations
+a3d0782	Sebastian Dimunzio	Tue Mar 15 11:43:08 2016 -0300	Project Point layers in progress
+0e31c38	mbertoli	Tue Mar 15 11:24:51 2016 -0300	partial commit for merge
+57dfa30	Daniel Oliva Bianco	Mon Mar 14 22:21:20 2016 -0300	Add filters to geojson controller
+52dc3a1	Sebastian Dimunzio	Mon Mar 14 14:19:30 2016 -0300	default connector
+dbc33c5	Sebastian Dimunzio	Mon Mar 14 12:59:07 2016 -0300	Default api connector
+4d385f8	Sebastian Dimunzio	Mon Mar 14 09:39:38 2016 -0300	Merge remote-tracking branch 'origin/master' into map_layers
+a265129	Sebastian Dimunzio	Mon Mar 14 09:33:37 2016 -0300	Adding extend
+0c22bdc	Sebastian Dimunzio	Mon Mar 14 09:29:40 2016 -0300	Merge pull request #14 from devgateway/modeling
+2738c9f	mbertoli	Fri Mar 11 15:24:29 2016 -0300	Merge branch 'master' into filters
+bfa2747	mbertoli	Fri Mar 11 15:12:01 2016 -0300	test
+c78e21f	Daniel Oliva Bianco	Fri Mar 11 14:51:15 2016 -0300	First version for GeoJson endpoint http://localhost:8090/geodata/1/projects working
+78244b5	Sebastian Dimunzio	Fri Mar 11 10:01:57 2016 -0300	Merge pull request #15 from devgateway/map_layers
+c62ca49	Sebastian Dimunzio	Fri Mar 11 10:00:37 2016 -0300	no message
+88a50d0	Sebastian Dimunzio	Fri Mar 11 09:55:36 2016 -0300	Merge branch 'master' of https://github.com/devgateway/geoph
+5e6bb1b	Sebastian Dimunzio	Fri Mar 11 09:55:08 2016 -0300	adding map to new layout
+75fecb2	mbertoli	Thu Mar 10 18:37:33 2016 -0300	Merge branch 'master' of https://github.com/devgateway/geoph
+47cc551	mbertoli	Thu Mar 10 18:07:29 2016 -0300	rename bower references
+460a812	Sebastian Dimunzio	Thu Mar 10 17:19:36 2016 -0300	no message
+b9ad395	Sebastian Dimunzio	Thu Mar 10 17:18:18 2016 -0300	adding missing package json
+f54c563	Daniel Oliva Bianco	Thu Mar 10 17:15:15 2016 -0300	delete HelloController.class
+059c65f	Daniel Oliva Bianco	Thu Mar 10 17:12:20 2016 -0300	Merge branch 'master' into modeling
+61e1405	Sebastian Dimunzio	Thu Mar 10 17:11:40 2016 -0300	removing merge code
+ab8b9d9	Sebastian Dimunzio	Thu Mar 10 17:06:34 2016 -0300	Merge branch 'layout'
+b987797	Sebastian Dimunzio	Thu Mar 10 17:05:03 2016 -0300	Merge branch 'layout' of https://github.com/devgateway/geoph into layout
+2f6b219	Sebastian Dimunzio	Thu Mar 10 17:03:53 2016 -0300	updating bower dependencies.
+a095d9b	Daniel Oliva Bianco	Thu Mar 10 16:58:58 2016 -0300	Add parameters functionality to the controller, to filter projects by location and sector
+e839402	mbertoli	Thu Mar 10 15:58:49 2016 -0300	Merge pull request #13 from devgateway/layout
+9fca8d8	Daniel Oliva Bianco	Thu Mar 10 15:41:42 2016 -0300	Add a filter functionality for projects, also I want to test Slack alerts
+7f33a67	mbertoli	Thu Mar 10 15:13:31 2016 -0300	missed files
+a84e96d	Sebastian Dimunzio	Thu Mar 10 14:50:30 2016 -0300	updating build system, no more file not found errors, also sass support was added and a bower plugin to copy only the needed files
+38264e1	mbertoli	Thu Mar 10 12:24:47 2016 -0300	file renames
+b7474ad	Sebastian Dimunzio	Thu Mar 10 12:00:38 2016 -0300	Merge pull request #12 from devgateway/layout
+230893f	Sebastian Dimunzio	Thu Mar 10 11:47:16 2016 -0300	flexible layout
+4d9144c	Sebastian Dimunzio	Thu Mar 10 11:34:14 2016 -0300	fixing lan issue
+1e6184e	Sebastian Dimunzio	Thu Mar 10 09:22:06 2016 -0300	initial layout
+f959f38	Sebastian Dimunzio	Wed Mar 9 16:24:48 2016 -0300	initial layout
+c3aa0cc	Sebastian Dimunzio	Wed Mar 9 15:22:37 2016 -0300	Merge pull request #11 from devgateway/redux-esri
+28f6935	Sebastian Dimunzio	Wed Mar 9 15:22:15 2016 -0300	Merge branch 'master' into redux-esri
+eca78fd	Sebastian Dimunzio	Wed Mar 9 15:19:44 2016 -0300	Merge pull request #10 from devgateway/modeling
+1c82d61	Sebastian Dimunzio	Wed Mar 9 15:11:47 2016 -0300	no message
+e5dce10	mbertoli	Wed Mar 9 12:28:24 2016 -0300	fix react-redux-router paths
+1d187a3	Sebastian Dimunzio	Wed Mar 9 12:04:42 2016 -0300	no message
+ba1dfcb	Sebastian Dimunzio	Wed Mar 9 12:04:00 2016 -0300	updating gulp to use redux router as amd
+be94838	mbertoli	Wed Mar 9 09:44:55 2016 -0300	add code for redux-router
+a7e1606	Daniel Oliva Bianco	Tue Mar 8 16:09:22 2016 -0300	Merge branch 'master' into modeling
+8e6fbce	Daniel Oliva Bianco	Tue Mar 8 16:04:35 2016 -0300	Add project controller
+1c9bcd3	Daniel Oliva Bianco	Tue Mar 8 14:13:44 2016 -0300	Add boot metadata from sql scripts, loca
+02e189b	mbertoli	Tue Mar 8 11:13:42 2016 -0300	N/A
+4d22b9f	Sebastian Dimunzio	Tue Mar 8 10:32:53 2016 -0300	Merge pull request #9 from devgateway/maven_conf
+2acebc8	Sebastian Dimunzio	Tue Mar 8 10:31:22 2016 -0300	small update to ignore file
+9b29f1d	Sebastian Dimunzio	Mon Mar 7 23:59:50 2016 -0300	Fixing run.sh file
+7aa28d0	Sebastian Dimunzio	Mon Mar 7 22:44:19 2016 -0300	Linux log path fixed
+7f92a6e	Sebastian Dimunzio	Mon Mar 7 22:26:50 2016 -0300	updating gi ignore file
+ac840ed	Sebastian Dimunzio	Mon Mar 7 22:21:31 2016 -0300	updateing ignore file
+eec265f	Sebastian Dimunzio	Mon Mar 7 22:08:15 2016 -0300	Merge pull request #8 from devgateway/maven_conf
+6d0cd99	Sebastian Dimunzio	Mon Mar 7 22:07:17 2016 -0300	adding plugin version
+acbe4a5	Sebastian Dimunzio	Mon Mar 7 17:04:48 2016 -0300	Merge pull request #7 from devgateway/maven_conf
+e68e79f	Sebastian Dimunzio	Mon Mar 7 16:49:03 2016 -0300	Added maven assembly configuration
+3f71226	Daniel Oliva Bianco	Mon Mar 7 16:05:08 2016 -0300	Add all the locations to DB, also implement the location endpoint :peron:
+729fe1a	mbertoli	Mon Mar 7 15:02:00 2016 -0300	N/A
+9eba1c8	mbertoli	Mon Mar 7 11:36:29 2016 -0300	libs
+2a1aa4d	mbertoli	Fri Mar 4 16:34:34 2016 -0300	Merge pull request #6 from devgateway/Redux
+32bb49f	mbertoli	Fri Mar 4 16:32:50 2016 -0300	fix redux issues
+067e8cf	Sebastian Dimunzio	Fri Mar 4 15:46:54 2016 -0300	Merge pull request #5 from devgateway/Redux
+9f0ec93	Sebastian Dimunzio	Fri Mar 4 15:46:43 2016 -0300	Merge pull request #4 from devgateway/modeling
+1114680	mbertoli	Fri Mar 4 15:45:55 2016 -0300	Merge branch 'master' into Redux
+e331431	Daniel Oliva Bianco	Fri Mar 4 15:44:05 2016 -0300	Merge branch 'master' into modeling
+15dece1	Daniel Oliva Bianco	Fri Mar 4 15:42:01 2016 -0300	Add sectors endpoint
+d71e1b4	Sebastian Dimunzio	Fri Mar 4 15:40:26 2016 -0300	Merge pull request #3 from devgateway/esri_integration
+982c882	mbertoli	Fri Mar 4 15:39:53 2016 -0300	redux load async filter
+bb95199	Daniel Oliva Bianco	Fri Mar 4 12:14:37 2016 -0300	Refactoring done!
+e366534	Daniel Oliva Bianco	Fri Mar 4 10:08:30 2016 -0300	This code was checked with Sebas via TV :peron:
+1c121ef	Sebastian Dimunzio	Fri Mar 4 00:17:35 2016 -0300	updating some config files
+536de5e	Sebastian Dimunzio	Thu Mar 3 18:33:34 2016 -0300	updating gulp file
+e39d1ce	Sebastian Dimunzio	Thu Mar 3 17:01:42 2016 -0300	3d and 2d views + esri react wrappers
+d7ea875	Daniel Oliva Bianco	Thu Mar 3 15:46:31 2016 -0300	Remove my db pass from property file :v:
+2b15d30	Daniel Oliva Bianco	Thu Mar 3 15:43:57 2016 -0300	move all to a BootMetadata component
+852bf17	Daniel Oliva Bianco	Thu Mar 3 10:52:23 2016 -0300	Add new model
+cc90d29	Sebastian Dimunzio	Thu Mar 3 10:52:08 2016 -0300	a very draft integration of esri
+7a961e4	mbertoli	Wed Mar 2 09:36:10 2016 -0300	redux basic approach
+b1a7cdd	Daniel Oliva Bianco	Wed Mar 2 09:18:32 2016 -0300	Add service module
+189272e	Daniel Oliva Bianco	Wed Mar 2 09:14:50 2016 -0300	Small refactoring
+7786729	Daniel Oliva Bianco	Tue Mar 1 16:46:55 2016 -0300	Add model classes
+5ea9bee	mbertoli	Tue Mar 1 16:20:23 2016 -0300	N/A
+c05faf4	Sebastian Dimunzio	Tue Mar 1 16:04:42 2016 -0300	Merge pull request #2 from devgateway/esri_integration
+ef49ad7	Sebastian Dimunzio	Tue Mar 1 16:03:55 2016 -0300	CSS cleanup
+2062cf5	Sebastian Dimunzio	Tue Mar 1 16:02:47 2016 -0300	Merge branch 'master' into esri_integration
+25b21be	Sebastian Dimunzio	Tue Mar 1 15:56:54 2016 -0300	UI minimal configuration
+e4200b8	Sebastian Dimunzio	Tue Mar 1 15:10:20 2016 -0300	Create README.md
+f9eae41	mbertoli	Tue Mar 1 10:06:03 2016 -0300	Merge pull request #1 from devgateway/UI
+8846299	Daniel Oliva Bianco	Mon Feb 29 16:40:25 2016 -0300	Create a filter controller, service and repository
+ff19203	mbertoli	Mon Feb 29 15:55:05 2016 -0300	cleanup code - partial
+6cc1bbc	Sebastian Dimunzio	Fri Feb 26 19:33:38 2016 -0300	no message
+6ea3393	Sebastian Dimunzio	Fri Feb 26 19:28:04 2016 -0300	Some Initial entity classes
+5e1277a	Daniel Oliva Bianco	Fri Feb 26 18:26:05 2016 -0300	a
+92fef0e	Daniel Oliva Bianco	Fri Feb 26 18:00:58 2016 -0300	delete old files
+f6c4cde	Daniel Oliva Bianco	Fri Feb 26 17:55:47 2016 -0300	Merge branch 'data-modeling' into modeling
+0aacdc1	Daniel Oliva Bianco	Fri Feb 26 17:52:32 2016 -0300	fix properties
+35ee0e7	Daniel Oliva Bianco	Fri Feb 26 17:46:25 2016 -0300	My model
+ac58eda	Sebastian Dimunzio	Fri Feb 26 17:43:39 2016 -0300	initial model project
+b0360c6	Daniel Oliva Bianco	Fri Feb 26 16:12:29 2016 -0300	Change some files in order to get the properties from a config file and having ecache with less memory
+2c390f4	Sebastian Dimunzio	Fri Feb 19 16:59:32 2016 -0300	adding ignore files
+e5ca3a2	Sebastian Dimunzio	Fri Feb 19 16:56:59 2016 -0300	adding ui base code
+ab307d5	Sebastian Dimunzio	Wed Feb 17 16:52:15 2016 -0300	Initial commit

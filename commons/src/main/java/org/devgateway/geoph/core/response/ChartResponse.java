@@ -144,6 +144,11 @@ public class ChartResponse implements Comparable {
         }
     }
 
+    public Double getDisbursementFunding(){
+        Map<String, Double> typeMap = trxAmounts.get(TransactionTypeEnum.DISBURSEMENTS.getName());
+        return typeMap!=null?typeMap.get(TransactionStatusEnum.ACTUAL.getName()):0D;
+    }
+
     public Double retrieveMaxFunding(){
         Double maxFunding = 0D;
         if(orderType>0 && orderStatus>0) {

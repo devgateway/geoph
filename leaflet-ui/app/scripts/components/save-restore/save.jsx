@@ -5,10 +5,8 @@ import {changeProperty,updateErrors,saveMap}  from '../../actions/saveAndRestore
 import onClickOutside from 'react-onclickoutside';
 import { Input } from 'react-bootstrap';
 import BaseForm from '../admin/baseForm.jsx'
-import HttpError from '../messages/httpError.jsx'
 import {Map} from 'immutable'
-import {Messages} from '../messages/messages.jsx'
-import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
+import Messages from '../messages/messages.jsx'
 
 require('./save.scss');
 
@@ -47,11 +45,13 @@ class SaveForm extends BaseForm {
 
 	render() {
 		const {errors={},httpError,name,description,status}=this.props;
+		debugger;
 		return (
 			<div className="save-container">
 				<h2>Save Map</h2>
+				
 				<div>
-				{httpError?<HttpError error={httpError}/>:null}
+					<Messages {...this.props}/>
 				</div>
 
 				<div className={errors.name?"form-group has-error":"form-group"}>

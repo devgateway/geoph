@@ -197,11 +197,24 @@ class Connector {
 		return this.call(GET,Settings.get('API','INDICATOR_LIST'),{});
 	}
 
+
+	getMapList(params){
+		return this.call(GET,Settings.get('API','MAP_LIST'),params);
+	}
+
+
 	removeIndicator(id){
 		let url=Settings.get('API','INDICATOR');
 		url=url.replace('${id}',id);
 		return this.call(DELETE,url,{});
 	}
+
+	removeDashboard(id){
+		let url=Settings.get('API','MAP');
+		url=url.replace('${id}',id);
+		return this.call(DELETE,url,{});
+	}
+
 
 	uploadIndicator(options){
 		const URL=Settings.get('API',API_BASE_URL) + Settings.get('API','INDICATOR_UPLOAD');

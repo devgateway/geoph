@@ -7,6 +7,8 @@ const saveMap =(state = new Map({name:'',description:''}), action) => {
   //console.log("--- saveMap reducer ---" + action);
   switch (action.type) {
     
+   
+
     case Constants.CHANGE_SAVE_PROPERTY:
     return state.set(action.property,action.value);
     

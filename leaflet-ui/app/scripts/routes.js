@@ -12,52 +12,62 @@ import AddIndicator from './components/admin/addIndicator.jsx';
 import ListIndicator from './components/admin/listIndicator.jsx';
 import Printable from './components/print/printable.jsx';
 
+import DashboardLayout from './components/layout/dashboardLayout.jsx';
+import Dashboard from './components/dashboard/dashboard.jsx';
+
 const NoMatch = React.createClass({
-  
-  render() {
-    return (
-      <div>
-        <h2>404</h2>
-      </div>
-    )
-  }
+
+    render() {
+        return (
+            <div>
+                <h2>404</h2>
+            </div>
+        )
+    }
 })
 
 const Root = React.createClass({
-  render() {
-    return (<div>{this.props.children}</div>)
-  }
+    render() {
+        return (<div>{this.props.children}</div>)
+    }
 })
-
 
 
 export default (
 
-  <Route path="/" component={Root}>
-      
-    <Route path="/print/:key" component={Printable}></Route>
+    <Route path="/" component={Root}>
 
-    <Route path="/map" component={Regular}>
-      <Route path="tools" component={Tools}/>
-      <Route path="charts" component={Charts}/>
-      <Route path="admin" component={Admin}>
-        <Route path="/admin/add/indicator" component={AddIndicator}/>
-        <Route path="/admin/list/indicator" component={ListIndicator}/>
-      </Route>
-      <IndexRoute component={Tools}/>
+
+        <Route path="/" component={DashboardLayout}>
+            <Route path="/dashboard" component={Dashboard}/>
+            <Route path="/admin" component={Admin}>
+                <Route path="/admin/add/indicator" component={AddIndicator}/>
+                <Route path="/admin/list/indicator" component={ListIndicator}/>
+            </Route>
+
+            <IndexRoute component={Dashboard}/>
+        </Route>
+
+        <Route path="/print/:key" component={Printable}></Route>
+        <Route path="/map" component={Regular}>
+            <Route path="tools" component={Tools}/>
+            <Route path="charts" component={Charts}/>
+            
+            <Route path="/map/admin" component={Admin}>
+                <Route path="/map/admin/add/indicator" component={AddIndicator}/>
+                <Route path="/map/admin/list/indicator" component={ListIndicator}/>
+            </Route>
+            
+            <IndexRoute component={Tools}/>
+        </Route>
+
+        <Route path="/map/:key" component={Restore}>
+            <Route path="tools" component={Tools}/>
+            <Route path="charts" component={Charts}/>
+            <IndexRoute component={Tools}/>
+        </Route>
+
+        <IndexRedirect from="" to="/map/tools"/>
+        <Route path="*" component={NoMatch}/>
     </Route>
-  
-    <Route path="/map/:key" component={Restore}>
-      <Route path="tools" component={Tools}/>
-      <Route path="charts" component={Charts}/>
-      <Route path="admin" component={Admin}>
-        <Route path="/admin/add/indicator" component={AddIndicator}/>
-        <Route path="/admin/list/indicator" component={ListIndicator}/>
-      </Route>
-      <IndexRoute component={Tools}/>
-    </Route>
- 
-  <IndexRedirect from="" to="/map/tools"/>
-  <Route path="*" component={NoMatch}/>
-  </Route>
-  );
+);

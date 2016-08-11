@@ -33,6 +33,13 @@ public class DefaultSectorRepository implements SectorRepository {
     }
 
     @Override
+    public Sector findById(Long id) {
+        return em.createNamedQuery("findSectorById", Sector.class)
+                .setParameter("id", id)
+                .getSingleResult();
+    }
+
+    @Override
     public Sector findByCode(String code) {
         return em.createNamedQuery("findSectorsByCode", Sector.class)
                 .setParameter("code", code)
