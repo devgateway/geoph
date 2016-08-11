@@ -4,7 +4,7 @@
  	.dashboard{
  		 @include absolute(115px,initial,40px,0px);
 			overflow: auto;
-		 }
-
+			 width: 100%;
  	
+		 }
 }

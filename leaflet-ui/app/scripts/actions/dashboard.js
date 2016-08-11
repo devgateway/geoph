@@ -20,7 +20,7 @@ const redirect=(url,messages,errors,httpError)=>{
 
 export const getMapList =()=>{
 	 return (dispatch, getState) =>{
-	 	 Connector.getMapList().then((data)=>dispatch( {type: Constants.REQUEST_MAP_LIST_OK,data}));
+	 	 Connector.getMapList({type:"save"}).then((data)=>dispatch( {type: Constants.REQUEST_MAP_LIST_OK,data}));
 	 }
 }
 

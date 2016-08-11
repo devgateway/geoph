@@ -198,8 +198,8 @@ class Connector {
 	}
 
 
-	getMapList(){
-		return this.call(GET,Settings.get('API','MAP_LIST'),{});
+	getMapList(params){
+		return this.call(GET,Settings.get('API','MAP_LIST'),params);
 	}
 
 
