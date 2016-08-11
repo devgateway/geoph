@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import {Map} from 'immutable'
 import {getList,deleteIndicator,editIndicator} from '../../actions/indicators.js'
-import {Messages} from '../messages/messages.jsx'
+import Messages from '../messages/messages.jsx'
 
 require('./admin.scss')
 
@@ -11,11 +11,12 @@ const Indicator = class extends React.Component {
 
   render() {
     return (
-      <li>
-        {this.props.name}
-          <button className="pull-right btn-xs btn-success" onClick={()=>{this.props.onEdit(this.props)}}>Edit</button>
-          <button className="pull-right btn-xs btn-warning"  onClick={()=>{this.props.onDelete(this.props)}}>Remove</button>
+      <li className="item">
+       <h2> {this.props.name}</h2>
+        <p>{this.props.description}</p>
+          <button className="pull-right btn-sm btn-danger"  onClick={()=>{this.props.onDelete(this.props)}}>Remove</button>
       </li>
+
       );
   }
 }
@@ -36,6 +37,7 @@ export default class listIndicator extends React.Component {
   }
 
     noRecords(){
+
         return (<Messages messages={["There are no indicators yet."]}/>)
     }
 
@@ -46,12 +48,13 @@ export default class listIndicator extends React.Component {
 
   render() {
     const {indicators}=this.props;
-    
-    return (
-      <div className="indicator-list">
 
-            {(indicators && indicators.length > 0)?this.list(indicators):this.noRecords()}
-      </div>);
+    return (<div className="indicator-list">
+            <h1>List of indicators</h1>
+            <Messages {...this.props}/>
+              {(indicators && indicators.length > 0)?this.list(indicators):this.noRecords()}
+             <i> TODO: Add pagination </i>
+            </div>);
   }
 }
 
@@ -72,9 +75,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 
 const mapStateToProps = (state, props) => {
-	
+    debugger;
 	const {indicators} = state;
-	return {indicators:indicators.get("indicators")};
+	return {...indicators.toObject()};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(listIndicator);

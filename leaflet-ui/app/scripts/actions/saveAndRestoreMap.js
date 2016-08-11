@@ -92,15 +92,7 @@ export const restoreError = (message) => {
   }
 }
 
-export const getMapList =()=>{
- return (dispatch, getState) =>{
-     Connector.getMapList().then((data)=>dispatch( {
-    type: Constants.REQUEST_MAP_LIST_OK,
-    data
-  }));
- }
-  
-}
+
 
 const loadIndicatorList=()=>{
   return Connector.getIndicatorList();

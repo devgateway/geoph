@@ -5,6 +5,7 @@
 
 .bs-callout-error {
   border-left-color: #ff0000 !important;
+
 }
 
 .bs-callout {
@@ -14,6 +15,8 @@
   border-left-width: 5px;
   border-radius: 3px;
   min-height: 35px;
+  max-height: 80px;
+  overflow: auto;
 
   ul {
    // max-height: 100px;

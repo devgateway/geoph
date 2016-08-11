@@ -1,4 +1,12 @@
+@import '../../../stylesheets/base.scss';
 
 .root{
-  
+ 	.dashboard{
+ 		 @include absolute(115px,initial,40px,0px);
+		 @include col1size() 
+		  padding: 0;
+		  margin: 0;
+		 }
+
+ 	
 }

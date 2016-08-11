@@ -1,9 +1,5 @@
 .dashboard{
 	
-	position: absolute;
-	top:125px;
-	padding: 40px;
-	
 	.item{
 		float: left;
 					width: 610px;
@@ -25,5 +21,11 @@
 				border:3px solid #EEE;
 			}
 		}	
+	}
+}
+
+.admin-view{
+	.dashboard{
+		position:relative!important;
 	}
 }

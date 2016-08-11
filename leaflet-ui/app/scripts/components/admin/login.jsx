@@ -5,7 +5,7 @@ import {login} from '../../actions/security'
 import {Map} from 'immutable'
 import { Link } from 'react-router'
 import BaseForm from './baseForm.jsx'
-import HttpError from '../messages/httpError.jsx'
+import Messages from '../messages/messages.jsx'
 
 export default class Login extends React.Component {
 
@@ -47,19 +47,25 @@ export default class Login extends React.Component {
     }
 
     render(){
+
         const errors=(this.state!=null&&this.state.data.get("errors")!=null)?this.state.data.get("errors"):{};
+           debugger;
         return (
             <form id="login-form" className="form">
                 <p>Please provide user name and password</p>
-                    {this.props.httpError?<HttpError error={this.props.httpError}/>:null}
+
+                <Messages {...this.props}/>
+
                 <div className={errors.username?"form-group has-error":"form-group"}>
                     <label>User Name</label>
                     <input className="form-control"  onChange={this.handleChangeUsername.bind(this)} value={this.state.data.get('username')} type="text"></input>
+                    {errors.username?  <i className="small errors">* Please enter a valid user name</i>:null}
                 </div>
                  
                 <div className={errors.password?"form-group has-error":"form-group"}>
                     <label >Password</label>
                     <input  className="form-control" onChange={this.handleChangePassword.bind(this)} value={this.state.data.get('password')} type="password"></input>
+                     {errors.password?  <i className="small errors">* Please enter a password </i>:null}
                 </div>
                 <div className="form-group">
                     <input className="btn btn-sm btn-success pull-right" type="button" onClick={this.validate.bind(this)} value="Login"></input>

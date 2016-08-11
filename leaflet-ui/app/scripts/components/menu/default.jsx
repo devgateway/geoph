@@ -31,6 +31,8 @@ class MenuBar extends React.Component{
 			})}
 					<li className="last"></li>
 			</ul>
+
+				{this.props.children}
 			</div>)
 	}
 }

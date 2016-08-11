@@ -30,6 +30,7 @@ require("./root.scss");
         {loggedIn?<AdminMenu/>:null}
         </Menu>
       </Header>
+       
         <div className="dashboard">
            {this.props.children}
            </div>
