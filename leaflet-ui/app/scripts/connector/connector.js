@@ -209,6 +209,13 @@ class Connector {
 		return this.call(DELETE,url,{});
 	}
 
+	removeDashboard(id){
+		let url=Settings.get('API','MAP');
+		url=url.replace('${id}',id);
+		return this.call(DELETE,url,{});
+	}
+
+
 	uploadIndicator(options){
 		const URL=Settings.get('API',API_BASE_URL) + Settings.get('API','INDICATOR_UPLOAD');
 		return new Promise( (resolve, reject) => {

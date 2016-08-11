@@ -26,7 +26,10 @@
 		},
 		"PROJECT_GEOJSON":"/geodata/${level}/projects",
 		"FUNDING_GEOJSON":"/geodata/stats/region/funding",
-	  	"MAP_LIST":"/maps",
+			
+		"MAP":"/maps",
+		"MAP_LIST":"/maps",
+
 
 	  	"INDICATOR_UPLOAD":"/indicators/upload",
 	  	

@@ -1,42 +1,66 @@
 import React from 'react';
 import { Link  } from 'react-router';
 import {connect} from 'react-redux';
-import {getMapList} from '../../actions/saveAndRestoreMap.js';
-
+import Messages from '../messages/messages.jsx'	
+import {getMapList,edit,remove} from '../../actions/dashboard.js';
 require("./dashboard.scss");
 
- class Dashboard extends React.Component {
+class Item extends React.Component {
+  render(){
+  const {description,name,mapKey,base64preview}=this.props;
+   return (
+    <div className="item">
+      <h1>{name}</h1>
+      <div className="preview" >
+      <Link to={`/map/${mapKey}`}>
+        <img src={`data:image/png;base64,${base64preview}`}/>
+      </Link>
+    </div>
+      <p>{description}</p>
+      {this.props.children}
+    </div>)
+ }
+}
+
+class AdminActions extends React.Component {
+  render(){
+   const {id,mapKey,onDelete,onEdit}=this.props;
+    return (<div>
+    		
+    		<button className="btn btn-sm btn-warning pull-right" onClick={_=>onDelete(mapKey)}>Delete</button>
+			<a target="new" href={`#/map/${mapKey}`}  className="btn btn-sm btn-info">Edit</a>
+
+    </div>)
+  }
+}
+
+
+
+
+class Dashboard extends React.Component {
   constructor() {
     super();
   }
 
   componentWillMount() {
-    debugger;
-    this.props.onLoad()
+     this.props.onLoad()
   }
 
-getPreview(d){
-  return (
-    <div className="item">
-    <h1>{d.name}</h1>
-     <div className="preview" >
-       <Link to={`/map/${d.key}`}>
-       <img src={`data:image/png;base64,${d.base64preview}`}/>
-      </Link>
-     </div>
-    <p>{d.description}</p>
-  </div>)
-}
-
   render() {
-    const {content=[],first,last,number,numberOfElements,size,sort,totalElements,totalPages}=this.props;
-    return (<div className="dashboard">
-                  {content.map(d=>{
-                    return this.getPreview(d);
-                  })}
-              </div>
-          )
-    }
+    const {content=[],first,last,number,numberOfElements,size,sort,totalElements,totalPages,loggedIn}=this.props;
+    return (  <div className="dashboard-main">
+
+      <h1>List of executive dashboards</h1>
+		<Messages {...this.props}/>
+      {content.map(d=>{
+        return <Item {...d} mapKey={d.key}>
+          {loggedIn?<AdminActions {...this.props} mapKey={d.key}/>:null}
+
+        </Item>
+      })}
+      </div>
+      )
+  }
 }
 
 
@@ -44,12 +68,16 @@ getPreview(d){
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
 
-    onLoad:(key)=>{dispatch(getMapList())}
+    onLoad:()=>{dispatch(getMapList())},
+    onEdit:(key)=>{dispatch(edit(key))},
+    onDelete:(key)=>{dispatch(remove(key))}
   }
 }
 
 const mapStateToProps = (state, props) => {
+  debugger;
   const {results}=state.dashboard.toJS();
+
   return {...results}
 }
 

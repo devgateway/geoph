@@ -33,29 +33,25 @@ export const deleteIndicator=(indicator)=>{
      dispatch(getList());
      dispatch(redirect('/admin/list/indicator',[`Indicator ${indicator.name} was removed`]));
 
- }).catch((error)=>{
-    dispatch(redirect('/admin/list/indicator',[],[error]));
+ }).catch((httpError)=>{
+    dispatch(redirect('/admin/list/indicator',[],[],httpError));
 });
 }
 }
 
-
-const editIndicator=(id)=>{
-  return {}
-}
 
 
 const makeAction=(name,data)=>{
  return {type:name,...data} 
 }
 
-const redirect=(url,messages,errors)=>{
+const redirect=(url,messages,errors,httpError)=>{
   
  return {
   type:"REDIRECT",
   transition:{
     pathname: url,
-    state: {messages:messages,errors:errors}
+    state: {messages,errors,httpError}
   }
 };
 }

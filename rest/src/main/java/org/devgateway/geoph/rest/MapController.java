@@ -55,7 +55,7 @@ public class MapController {
     }
 
     @RequestMapping(method = GET)
-    public Page<AppMap> findMaps(@PageableDefault(page = 0, size = 20, sort = "id") final Pageable pageable) {
+    public Page<AppMap> findMaps(@PageableDefault(page = 0, size = 20, sort = "id") final Pageable pageable, @RequestParam(required = false)  AppMapTypeEnum type) {
         LOGGER.debug("findMaps");
         return appMapService.findAll(pageable);
     }
