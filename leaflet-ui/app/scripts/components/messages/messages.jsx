@@ -31,6 +31,7 @@ class MessageList extends React.Component {
 
 class Errors extends React.Component {
 	render(){
+		debugger;
 		const {errors:errors=[]}=this.props;
 		return (
 			<div className="bs-callout bs-callout-error">
@@ -50,9 +51,10 @@ class HttpError extends React.Component {
 		const {data,status,statusText,message} = this.props.httpError;
 		return (
 			<div className="bs-callout bs-callout-error">
+		
 			<ul>
 				<li>
-					{status==401?<span>Invalid user name or password provided </span>:<span>Got an error please try again ({message})</span>}
+					{status==401?<span>Invalid user name or password provided </span>:<span>Got an error please try again {message?`(${message})`:null}</span>}
 				</li>
 			</ul>
 			</div>
@@ -88,6 +90,7 @@ class Messages extends React.Component {
 		}
 
 		return (
+
 			<div className="messages">
 			{messages.length>0?<MessageList messages={messages}/>:null}
 			{errors.length>0?<Errors errors={errors}/>:null}

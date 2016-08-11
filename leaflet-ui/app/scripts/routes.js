@@ -53,9 +53,9 @@ export default (
             <Route path="tools" component={Tools}/>
             <Route path="charts" component={Charts}/>
             
-            <Route path="/admin" component={Admin}>
-                <Route path="/admin/add/indicator" component={AddIndicator}/>
-                <Route path="/admin/list/indicator" component={ListIndicator}/>
+            <Route path="/map/admin" component={Admin}>
+                <Route path="/map/admin/add/indicator" component={AddIndicator}/>
+                <Route path="/map/admin/list/indicator" component={ListIndicator}/>
             </Route>
             
             <IndexRoute component={Tools}/>

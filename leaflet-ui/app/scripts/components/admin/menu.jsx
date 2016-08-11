@@ -14,8 +14,8 @@ class AdminMenu extends React.Component {
 				<ul className="options">
 					<li className={(this.props.currentView=='admin/list/indicator')?"active":""}> <Link to="admin/list/indicator"> Indicators</Link></li>
 					<li className={(this.props.currentView=='admin/add/indicator')?"active":""}> <Link to="admin/add/indicator">New Indicator</Link></li>
-					<li className={(this.props.currentView=='dashboard')?"active":""}> <Link to="dashboard">Dashboard</Link></li>
-					<li className={(this.props.currentView=='dashboard')?"active":""}> <Link to="map">Map</Link></li>
+					<li className={(this.props.currentView=='dashboard')?"active":""}> <Link to="dashboard">Dashboards</Link></li>
+					<li className={(this.props.currentView=='dashboard')?"active":""}> <Link to="map">New Dashboard</Link></li>
 				</ul>
 			)
 	}

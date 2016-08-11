@@ -42,7 +42,7 @@ $border-gray:#ebebeb;
 ul.options{
 	@include list-horizontal
 	float:right;
-	li{
+	>li{
 		float: 	left;
 		cursor: pointer;
 		border:1px solid #e5e5e5;
@@ -63,19 +63,19 @@ ul.options{
 
 	}
 
-	li.mini{
+	>li.mini{
 		border: 0px; 
 		min-width:30px;
 		width: 30px;
 
 	}
-	li.last{
+	>li.last{
 		width: 40px;
 		float: 	left;
 		border: 0px;
 	}
 
-	li.mini span{
+	>li.mini>span{
 		display:none;
 	}
 

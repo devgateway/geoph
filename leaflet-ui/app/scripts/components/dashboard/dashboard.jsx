@@ -1,18 +1,19 @@
 import React from 'react';
 import { Link  } from 'react-router';
 import {connect} from 'react-redux';
-import {getMapList} from '../../actions/dashboard.js';
+import Messages from '../messages/messages.jsx'	
+import {getMapList,edit,remove} from '../../actions/dashboard.js';
 require("./dashboard.scss");
 
 class Item extends React.Component {
   render(){
-  const {description,name}=this.props;
+  const {description,name,mapKey,base64preview}=this.props;
    return (
     <div className="item">
       <h1>{name}</h1>
       <div className="preview" >
-      <Link to={`/map/${d.key}`}>
-        <img src={`data:image/png;base64,${d.base64preview}`}/>
+      <Link to={`/map/${mapKey}`}>
+        <img src={`data:image/png;base64,${base64preview}`}/>
       </Link>
     </div>
       <p>{description}</p>
@@ -21,11 +22,19 @@ class Item extends React.Component {
  }
 }
 
-class DeleteButton extends React.Component {
+class AdminActions extends React.Component {
   render(){
-    return <button className="btn btn-sm btn-warning">Delete</button>
+   const {id,mapKey,onDelete,onEdit}=this.props;
+    return (<div>
+    		
+    		<button className="btn btn-sm btn-warning pull-right" onClick={_=>onDelete(mapKey)}>Delete</button>
+			<a target="new" href={`#/map/${mapKey}`}  className="btn btn-sm btn-info">Edit</a>
+
+    </div>)
   }
 }
+
+
 
 
 class Dashboard extends React.Component {
@@ -41,11 +50,11 @@ class Dashboard extends React.Component {
     const {content=[],first,last,number,numberOfElements,size,sort,totalElements,totalPages,loggedIn}=this.props;
     return (  <div className="dashboard-main">
 
-      <h2>List of executive dashboards</h2>
-
+      <h1>List of executive dashboards</h1>
+		<Messages {...this.props}/>
       {content.map(d=>{
-        return <Item {...d}>
-          {loggedIn?<DeleteButton key={d.key}/>:null}
+        return <Item {...d} mapKey={d.key}>
+          {loggedIn?<AdminActions {...this.props} mapKey={d.key}/>:null}
 
         </Item>
       })}
@@ -59,12 +68,16 @@ class Dashboard extends React.Component {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
 
-    onLoad:(key)=>{dispatch(getMapList())}
+    onLoad:()=>{dispatch(getMapList())},
+    onEdit:(key)=>{dispatch(edit(key))},
+    onDelete:(key)=>{dispatch(remove(key))}
   }
 }
 
 const mapStateToProps = (state, props) => {
+  debugger;
   const {results}=state.dashboard.toJS();
+
   return {...results}
 }
 

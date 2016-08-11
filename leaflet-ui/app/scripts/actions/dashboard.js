@@ -6,8 +6,43 @@ import {getList} from './indicators';
 import {collectValuesToSave}  from '../util/saveUtil';
 import * as HtmlUtil from '../util/htmlUtil';
 
+
+const redirect=(url,messages,errors,httpError)=>{
+ return {
+  type:"REDIRECT",
+  transition:{
+    pathname: url,
+    state: {messages,errors,httpError}
+  }
+};
+}
+
+
 export const getMapList =()=>{
 	 return (dispatch, getState) =>{
 	 	 Connector.getMapList().then((data)=>dispatch( {type: Constants.REQUEST_MAP_LIST_OK,data}));
 	 }
+}
+
+
+export const edit =(key)=>{
+	debugger;
+	 return (dispatch, getState) =>{
+	 	   dispatch(redirect(`/map/${key}`));
+	 }
+}
+
+
+
+
+export const remove=(key)=>{
+ return (dispatch, getState) =>{
+  Connector.removeDashboard(key).then((data)=>{
+     dispatch(getMapList());
+     dispatch(redirect('/dashboard',[`Dashboard was removed`]));
+
+ }).catch((httpError)=>{
+    dispatch(redirect('/dashboard',[],[],httpError));
+});
+}
 }

@@ -1,7 +1,8 @@
 import * as Constants from '../constants/constants';
 import {Map} from 'immutable'
 
-const security = (state = new Map({}), action) => {
+	//accountNonExpired:true,accountNonLocked:true,enabled:true,credentialsNonExpired:true}
+const security = (state = new Map(), action) => {
   state=state.delete('httpError')//cleaning up errors
   switch (action.type) {
     case Constants.LOGIN_SUCCESS:

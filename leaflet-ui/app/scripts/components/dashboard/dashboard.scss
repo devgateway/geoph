@@ -1,9 +1,14 @@
-.dashboard{
+.dashboard-main{
+	padding: 10px 30px ;
 	
+		h1{
+
+		}
 	.item{
+	
 		float: left;
-					width: 610px;
-					margin-left:50px;
+		width: 40%;
+		margin-left:50px;
 
 		p{
 		}
@@ -17,7 +22,7 @@
 
 
 			img{
-				zoom:75%;
+				width: 100%;
 				border:3px solid #EEE;
 			}
 		}	

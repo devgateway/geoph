@@ -24,7 +24,12 @@ export const encodeImages=(string, length)=>{
 
 export const getMapElementProperties=()=>{
     debugger;
-    const element=document.getElementsByClassName("map")[0]
-    const {outerHTML,clientWidth,clientHeight,offsetWidth,offsetHeight }=element;
-    return {outerHTML,clientWidth,clientHeight,offsetWidth,offsetHeight };
+    const element=document.getElementsByClassName("map")[0];
+	
+	var node=element.cloneNode(true)
+    	node.getElementsByClassName("leaflet-control-zoom")[0].remove();
+    	node.style.border="3px solid red";
+    const {clientWidth,clientHeight,offsetWidth,offsetHeight}=element;
+
+    return {outerHTML:node.outerHTML,clientWidth,clientHeight,offsetWidth,offsetHeight };
 }
