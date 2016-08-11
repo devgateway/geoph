@@ -49,7 +49,7 @@ public class MapController {
     private final ScreenCaptureService screenCaptureService;
 
     @Autowired
-    public MapController(AppMapService appMapService,ScreenCaptureService screenCaptureService) {
+    public MapController(AppMapService appMapService, ScreenCaptureService screenCaptureService) {
         this.screenCaptureService=screenCaptureService;
         this.appMapService = appMapService;
     }

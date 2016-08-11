@@ -1,5 +1,9 @@
 package org.devgateway.geoph.core.request;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 /**
  * @author dbianco
  *         created on ago 05 2016.
@@ -19,6 +23,10 @@ public class PrintParams {
     private String url;
 
     private Object data;
+
+    private Map<String, Set<String>> filters;
+
+    private List<String> layers;
 
     public Integer getWidth() {
         return width;
@@ -74,5 +82,21 @@ public class PrintParams {
 
     public void setData(Object data) {
         this.data = data;
+    }
+
+    public Map<String, Set<String>> getFilters() {
+        return filters;
+    }
+
+    public void setFilters(Map<String, Set<String>> filters) {
+        this.filters = filters;
+    }
+
+    public List<String> getLayers() {
+        return layers;
+    }
+
+    public void setLayers(List<String> layers) {
+        this.layers = layers;
     }
 }

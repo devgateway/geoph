@@ -44,6 +44,12 @@ public class PrintServiceImpl implements PrintService {
     @Autowired
     PhysicalStatusRepository physicalStatusRepository;
 
+    @Autowired
+    ClimateChangeRepository climateChangeRepository;
+
+    @Autowired
+    GenderResponsivenessRepository genderResponsivenessRepository;
+
     @Override
     public Map<String, Set<String>> getFilterNamesFromJson(Map jsonFilters) {
         Map<String, Set<String>> ret = new HashMap<>();
@@ -59,6 +65,7 @@ public class PrintServiceImpl implements PrintService {
                         inner.add(ia.getName());
                     }
                     ret.put("Implementing Agencies", inner);
+
                 } else if(filterStr.equals("fa")){
                     Set<String> inner = new HashSet<>();
                     List list = (List)jsonFilters.get(filterStr);
@@ -68,6 +75,7 @@ public class PrintServiceImpl implements PrintService {
                         inner.add(fa.getName());
                     }
                     ret.put("Funding Agencies", inner);
+
                 } else if(filterStr.equals("ea")){
                     Set<String> inner = new HashSet<>();
                     List list = (List)jsonFilters.get(filterStr);
@@ -77,6 +85,7 @@ public class PrintServiceImpl implements PrintService {
                         inner.add(fa.getName());
                     }
                     ret.put("Executing Agencies", inner);
+
                 } else if(filterStr.equals("st")){
                     Set<String> inner = new HashSet<>();
                     List list = (List)jsonFilters.get(filterStr);
@@ -86,6 +95,7 @@ public class PrintServiceImpl implements PrintService {
                         inner.add(fa.getName());
                     }
                     ret.put("Sectors", inner);
+
                 } else if(filterStr.equals("sa")){
                     Set<String> inner = new HashSet<>();
                     List list = (List)jsonFilters.get(filterStr);
@@ -95,10 +105,12 @@ public class PrintServiceImpl implements PrintService {
                         inner.add(fa.getName());
                     }
                     ret.put("Statuses", inner);
+
                 } else if(filterStr.equals("ft")){
                     List list = (List)jsonFilters.get(filterStr);
                     Set<String> inner = getFlowTypes(list);
                     ret.put("Funding Types", inner);
+
                 } else if(filterStr.equals("ph")){
                     Set<String> inner = new HashSet<>();
                     List list = (List)jsonFilters.get(filterStr);
@@ -107,20 +119,88 @@ public class PrintServiceImpl implements PrintService {
                         PhysicalStatus fa = physicalStatusRepository.findById(id.longValue());
                         inner.add(fa.getName());
                     }
-                    ret.put("Statuses", inner);
+                    ret.put("Physical Statuses", inner);
+
                 } else if(filterStr.equals("gr")){
                     Set<String> inner = new HashSet<>();
                     List list = (List)jsonFilters.get(filterStr);
                     for(Object idObj:list) {
                         Integer id = (Integer) idObj;
-                        PhysicalStatus fa = physicalStatusRepository.findById(id.longValue());
+                        GenderResponsiveness fa = genderResponsivenessRepository.findOne(id.longValue());
                         inner.add(fa.getName());
                     }
-                    ret.put("Physical Statuses", inner);
+                    ret.put("Gender Responsiveness", inner);
+
+                }  else if(filterStr.equals("cc")){
+                    Set<String> inner = new HashSet<>();
+                    List list = (List)jsonFilters.get(filterStr);
+                    for(Object idObj:list) {
+                        Integer id = (Integer) idObj;
+                        ClimateChange fa = climateChangeRepository.findOne(id.longValue());
+                        inner.add(fa.getName());
+                    }
+                    ret.put("Climate Change", inner);
+
+                } else if(filterStr.equals("dt_start_min")){
+                    Set<String> inner = new HashSet<>();
+                    inner.add(jsonFilters.get("dt_start_min").toString() + "/" + jsonFilters.get("dt_start_max").toString());
+                    ret.put("Implementation Period Start", inner);
+
+                } else if(filterStr.equals("dt_end_min")){
+                    Set<String> inner = new HashSet<>();
+                    inner.add(jsonFilters.get("dt_end_min").toString() + "/" + jsonFilters.get("dt_end_max").toString());
+                    ret.put("Implementation Period End", inner);
+
+                }  else if(filterStr.equals("pp_start_min")){
+                    Set<String> inner = new HashSet<>();
+                    inner.add(jsonFilters.get("pp_start_min").toString() + "/" + jsonFilters.get("pp_start_max").toString());
+                    ret.put("Loan-Grant Validity Period Start", inner);
+
+                } else if(filterStr.equals("pp_end_min")){
+                    Set<String> inner = new HashSet<>();
+                    inner.add(jsonFilters.get("pp_end_min").toString() + "/" + jsonFilters.get("pp_end_max").toString());
+                    ret.put("Loan-Grant Validity Period End", inner);
+
+                } else if(filterStr.equals("fin_amount_min")){
+                    Set<String> inner = new HashSet<>();
+                    inner.add(jsonFilters.get("fin_amount_min").toString() + " - " + jsonFilters.get("fin_amount_max").toString());
+                    ret.put("Financial Amount", inner);
+
+                } else if(filterStr.equals("to_min")){
+                    Set<String> inner = new HashSet<>();
+                    inner.add(jsonFilters.get("to_min").toString() + "% - " + jsonFilters.get("to_max").toString() + "%");
+                    ret.put("Physical Progress Target", inner);
+
+                } else if(filterStr.equals("ao_min")){
+                    Set<String> inner = new HashSet<>();
+                    inner.add(jsonFilters.get("ao_min").toString() + "% - " + jsonFilters.get("ao_max").toString() + "%");
+                    ret.put("Physical Progress Actual", inner);
+
+                } else if(filterStr.equals("pt")){
+                    Set<String> inner = new HashSet<>();
+                    inner.add(jsonFilters.get("pt").toString());
+                    ret.put("Project Title", inner);
+
                 }
             }
         } catch (Exception e){
             LOGGER.error("Error reading filters " + e.getMessage());
+        }
+        return ret;
+    }
+
+    @Override
+    public List<String> getLayerNamesFromJson(List jsonLayers) {
+        List<String> ret = new ArrayList<>();
+        for(Object o: jsonLayers){
+            String name = o.toString();
+            if(o.equals("0-0")){
+                ret.add("Projects");
+            } else if(o.equals("1-0")){
+                ret.add("Total Funding");
+            } else {
+                ret.add(name);
+            }
         }
         return ret;
     }
