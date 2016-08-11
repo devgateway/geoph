@@ -1,5 +1,8 @@
 package org.devgateway.geoph.core.request;
 
+import org.devgateway.geoph.core.response.ChartResponse;
+
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -27,6 +30,8 @@ public class PrintParams {
     private Map<String, Set<String>> filters;
 
     private List<String> layers;
+
+    Map<String, Collection<ChartResponse>> allChartsData;
 
     public Integer getWidth() {
         return width;
@@ -98,5 +103,13 @@ public class PrintParams {
 
     public void setLayers(List<String> layers) {
         this.layers = layers;
+    }
+
+    public Map<String, Collection<ChartResponse>> getAllChartsData() {
+        return allChartsData;
+    }
+
+    public void setAllChartsData( Map<String, Collection<ChartResponse>> allChartsData) {
+        this.allChartsData = allChartsData;
     }
 }
