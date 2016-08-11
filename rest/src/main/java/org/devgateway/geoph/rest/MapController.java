@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.awt.image.BufferedImage;
@@ -62,6 +63,7 @@ public class MapController {
 
 
     @RequestMapping(value = "/save", method = POST)
+    @Secured("ROLE_ADMIN")
     public AppMap saveMap(@RequestBody Map<String, Object> mapVariables) throws IOException, SQLException {
         LOGGER.debug("saveMap");
         String mapName = (String) mapVariables.get(NAME_STR);
@@ -72,6 +74,7 @@ public class MapController {
             Integer height = (Integer) mapVariables.get("height");
             Integer scaleWidth = (Integer) mapVariables.get("scaleWidth");
             Integer scaleHeight = (Integer) mapVariables.get("scaleHeight");
+            Long id = (Long) mapVariables.get("id");
 
             if (html != null) {
                 //get preview image
@@ -88,8 +91,11 @@ public class MapController {
             String mapDesc = (String) mapVariables.get(DESCRIPTION_STR);
             String mapJson = new ObjectMapper().writeValueAsString(mapVariables.get(DATA_TO_SAVE_STR));
             AppMap appMap = new AppMap(mapName, mapDesc, mapJson, UUID.randomUUID().toString(), MD5Generator.getMD5(mapJson), AppMapTypeEnum.SAVE.getName(),base64);
-
-            return appMapService.save(appMap);
+            if(id==null){
+                return appMapService.save(appMap);
+            } else {
+                return appMapService.update(id, appMap);
+            }
         } else {
             throw new BadRequestException(BAD_REQUEST_NAME_INVALID);
         }

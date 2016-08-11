@@ -6,7 +6,7 @@ package org.devgateway.geoph.enums;
  */
 public enum AppMapTypeEnum {
 
-    SAVE(1), SHARE(2), PRINT(3);
+    SAVE(1), SHARE(2), PRINT(3), DASHBOARD(3);
 
     private final int id;
 
