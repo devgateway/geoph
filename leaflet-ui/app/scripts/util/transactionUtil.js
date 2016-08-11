@@ -82,7 +82,11 @@ export const formatValue=(value)=>{
     v = (value/1000).toFixed(3);
     return ""+v+"K";
   } else {
-    return ""+value.toFixed(3);
+    if (Number.isInteger(value)){
+      return ""+value;
+    } else {
+      return ""+value.toFixed(3);
+    }    
   }
 }
 
