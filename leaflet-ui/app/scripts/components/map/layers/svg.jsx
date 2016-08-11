@@ -1,18 +1,16 @@
 import {PropTypes} from 'react';
 import {geoJson, latlng, marker, divIcon, DomEvent} from 'leaflet';
-import { connect } from 'react-redux'
 import {MapLayer} from 'react-leaflet';
 import React from 'react';
 import d3 from 'd3';
 import { render, unmountComponentAtNode } from 'react-dom';
-import {mergeAllLayersFeatures} from '../../../util/layersUtil'
-import {createLegendsFromLayers} from '../../../actions/legends'
+import {mergeAllLayersFeatures} from '../../../util/layersUtil';
 
 /**
  * @author Sebas
  */
 
-class D3Layer extends MapLayer {
+export default class D3Layer extends MapLayer {
 
   constructor() {
     super();
@@ -42,17 +40,6 @@ class D3Layer extends MapLayer {
       this.renderPopupContent(Object.assign({}, evt.originalEvent.features, {latlng: evt.latlng}));
     }.bind(this));
     this.mapUpdate();//trigger first update
-  }
-  
-  getClass(d){  
-    const {valueProperty, classes, cssProvider} = d.properties;  
-    const {measure, type} = this.props.fundingType;
-    if (!cssProvider){
-      return classes + '4-9';
-    }
-    const value = valueProperty=='funding'? d.properties[measure][type] : d.properties[valueProperty];
-    var className = classes + cssProvider.getCssClass(value);
-    return className;  
   }
 
   setSvgSize(path, data, size, border){
@@ -86,18 +73,8 @@ class D3Layer extends MapLayer {
 
   mapUpdate(e) {
     const {layers, fundingType, onCreateLegends} = this.props;
-    onCreateLegends(layers, fundingType);
-    debugger;
     this.renderLayersPaths(layers.sort(function(a, b){
-        if (a.zIndex && b.zIndex){
-          return parseInt(a.zIndex) - parseInt(b.zIndex);
-        } else if (!a.zIndex && !b.zIndex){
-          return 0
-        } else if (!a.zIndex){
-          return -1
-        }else if (!b.zIndex){
-          return 1
-        }
+        return parseInt(a.zIndex) - parseInt(b.zIndex);
       }));
   }
 
@@ -122,7 +99,7 @@ class D3Layer extends MapLayer {
     var shapes = this.g.selectAll("path").data(allLayersFeatures);
     shapes.enter().append("path");
     shapes.exit().remove();
-    shapes.attr("class", function(f) {return this.getClass(f);}.bind(this));
+    shapes.attr("class", function(f) {return f.properties.className;}.bind(this));
     shapes.attr("stroke-width", function(f) {return f.properties.border || 0;}.bind(this));
     shapes.attr("d", (feature)=>{ return path(feature)});
     shapes.on("click",this.onClick.bind(this)); 
@@ -171,13 +148,3 @@ D3Layer.contextTypes = {
 D3Layer.propTypes = {
   store: storeShape
 }
-
-const mapDispatchToProps=(dispatch,ownProps)=>{
-  return {
-    onCreateLegends: (layers, fundingType) => {
-      dispatch(createLegendsFromLayers(layers, fundingType));
-    }
-  }
-}
-
-export default connect(null,mapDispatchToProps)(D3Layer);

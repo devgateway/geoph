@@ -7,6 +7,7 @@
 
 @mixin breakStyle($color){
 	fill:$color; 
+	background-color:$color; 
 	stroke:#eee;
 	fill-opacity: .8;
 	stroke-opacity: 1;

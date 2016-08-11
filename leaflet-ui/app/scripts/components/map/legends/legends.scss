@@ -1,0 +1,86 @@
+@import '../../../../stylesheets/base.scss';
+
+@mixin legend-icon($radius){
+	cursor: default !important;
+    border: 2px solid #ddd;
+    margin: 5px;
+    float: left;
+    width: 20px;
+    height: 20px;
+    border-radius: $radius;
+    -moz-border-radius: $radius;
+    -webkit-border-radius: $radius;
+    box-shadow: 3px 3px 5px -3px rgba(0, 0, 0, 0.59);
+}
+
+.show-legends-button {
+	cursor: pointer;
+  	height: 29px;
+  	width: 29px;	
+  	border: 1px solid #ccc;
+  	background-color: #ffffff;
+	border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    box-shadow: 3px 3px 5px -3px rgba(0, 0, 0, 0.59);
+}
+
+.show-legends-button-icon {
+  	@include box-sizing (16px,16px);
+	bottom: 0;
+	background:url('../../../../assets/svg/filter.svg');
+	background-repeat: no-repeat;
+	background-position: 0 0;
+	background-color: #ffffff;
+	float: left;
+    margin: 6px;
+	}
+	.show-legends-button:hover {
+		
+	}
+
+.legends-container {
+	position: absolute;
+	top: 75px;
+	left: 9px;
+	padding: 0; 
+}
+
+.legend-layer-name{
+	font-weight: bold;
+    font-size: 17px;
+    padding: 10px;
+}
+
+.legends-content {
+	background-color: rgba(255,255,255,0.7);
+	width: 200px; 
+	border-radius: 4px;
+    box-shadow: 3px 3px 5px -3px rgba(0, 0, 0, 0.59);
+}
+
+.legend-item {
+  	display: inline-flex; 
+  	width: 200px;
+  	.legend-label {
+  		padding-top: 5px;
+  	}
+}
+
+.legend-list {
+	padding-bottom: 10px;
+    border-bottom: 1px solid #949494;
+}
+
+.legend-points {
+	@include legend-icon(10px);
+}
+
+.legend-funding {
+	@include legend-icon(0px);
+}
+
+.legend-indicators {
+	@include legend-icon(0px);
+}
+

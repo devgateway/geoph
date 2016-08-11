@@ -1,4 +1,4 @@
-import  {SET_BASEMAP, TOGGLE_LAYER,LAYER_LOAD_SUCCESS,LAYER_LOAD_FAILURE,SET_LAYER_SETTING,CHANGE_MAP_BOUNDS }  from '../constants/constants.js';
+import {TOGGLE_LEGENDS_VIEW, SET_BASEMAP, TOGGLE_LAYER,LAYER_LOAD_SUCCESS,LAYER_LOAD_FAILURE,SET_LAYER_SETTING,CHANGE_MAP_BOUNDS }  from '../constants/constants.js';
 import Connector from '../connector/connector.js';
 import {getPath, getDefaults, getVisibles} from '../util/layersUtil.js';
 import {collectValues} from '../util/filterUtil';
@@ -10,8 +10,8 @@ const getFilters=(getState)=>{
 }
 
 
-const loadLayerCompleted=(results)=>{
-	return {type:LAYER_LOAD_SUCCESS,...results, fundingType: getstate().settings.fundingType}
+const loadLayerCompleted=(results, getState)=>{
+	return {type:LAYER_LOAD_SUCCESS,...results, fundingType: getState().settings.fundingType}
 }
 
 const loadLayerFailed=(type,error)=>{
@@ -84,7 +84,7 @@ const loadLayer=(options, getState)=>{
 	return (dispatch, getState) =>{
 		Connector.loadLayerByOptions(options).then(
 			(results)=>{
-				dispatch(loadLayerCompleted(results))
+				dispatch(loadLayerCompleted(results, getState))
 			}).catch((err)=>{ 
 				console.error(err);
 				dispatch(loadLayerFailed(err));
@@ -92,9 +92,15 @@ const loadLayer=(options, getState)=>{
 		} 
 	}
 
-	export const setBaseMap=(basemap)=>{
-		return {
-			type: SET_BASEMAP,
-			basemap: basemap
-		}
+export const setBaseMap=(basemap)=>{
+	return {
+		type: SET_BASEMAP,
+		basemap: basemap
 	}
+}
+
+export const toggleLegendsView=()=>{
+	return {
+		type: TOGGLE_LEGENDS_VIEW
+	}
+}

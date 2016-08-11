@@ -13,32 +13,20 @@ import { L , Popup, Map, Marker, TileLayer,ZoomControl,MapLayer,ScaleControl,Lay
 import ProjectPopup from './popups/projectLayerPopup'
 import SimplePopup from './popups/simplePopup'
 import PhotoPopup from './popups/photoPopup'
+import {getVisibles} from '../../util/layersUtil.js';
+import Legends from './legends/legends'
 
 require('leaflet/dist/leaflet.css')
 require('./map.scss');
 
 const Layers=React.createClass({
 
-	getVisibleLayersArray(layers){
-		let layerArray = [];
-		layers.map((l)=>{
-			if (l.get('layers')){
-				layerArray = layerArray.concat(this.getVisibleLayersArray(l.get('layers')));
-			} else { 
-				if (l.get('visible')==true){
-					layerArray.push(l.toJS())
-				}
-			}
-		})
-		return layerArray
-	},
-
 	closePopup(){
 		this.props.map.closePopup();
 	},
 
 	render(){
-		let layers = this.getVisibleLayersArray(this.props.layers);
+		let layers = getVisibles(this.props.layers).toJS();
 		return (
 			<div>
 				<SvgLayer  
@@ -69,10 +57,13 @@ const view=React.createClass({
 		const {southWest, northEast} = this.props.map.get('bounds').toJS();
 		const bounds = latLngBounds(latLng(southWest[0], southWest[1]),latLng(northEast[0],northEast[1]));
 		return (
-			<Map className="map" bounds={bounds} onMoveEnd={this.handleChangeBounds}>
-				<TileLayer url={this.props.map.get('basemap').get('url')}/>
-				<Layers layers={this.props.map.get('layers')} fundingType={this.props.fundingType}/>			
-			</Map>
+			<div>
+				<Map className="map" bounds={bounds} onMoveEnd={this.handleChangeBounds}>
+					<TileLayer url={this.props.map.get('basemap').get('url')}/>
+					<Layers layers={this.props.map.get('layers')} fundingType={this.props.fundingType}/>			
+				</Map>
+				<Legends layers={this.props.map.get('layers')} />
+			</div>
 		);
 	}
 })
