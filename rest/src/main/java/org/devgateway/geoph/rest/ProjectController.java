@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -73,25 +72,6 @@ public class ProjectController extends BaseController {
     @RequestMapping(value = "/stats", method = GET)
      public Map<String, Object> projectStats(AppRequestParams filters) {
         LOGGER.debug("projectStats");
-        Page<Project> projects = service.findProjectsByParams(filters.getParameters());
-        int countNational=0;
-        int countOthers=0;
-        double amountNational = 0D;
-        double amountOthers = 0D;
-        for(Project project:projects){
-            if(project.getLocations().size()>0){
-                countOthers ++;
-                amountOthers += project.getTotalProjectAmount()!=null?project.getTotalProjectAmount():0D;
-            } else {
-                countNational ++;
-                amountNational += project.getTotalProjectAmount()!=null?project.getTotalProjectAmount():0D;
-            }
-        }
-        Map<String, Object> ret = new HashMap<>();
-        ret.put("countNational", countNational);
-        ret.put("countOthers", countOthers);
-        ret.put("amountNational", amountNational);
-        ret.put("amountOthers", amountOthers);
-        return ret;
+        return service.getStats(filters.getParameters());
     }
 }

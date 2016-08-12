@@ -75,6 +75,9 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
     private static final int Y_SMALL_SPACE = 5;
     private static final int IMAGE_MAX_WIDTH = 540;
     private static final int IMAGE_MAX_HEIGHT = 560;
+    private static final int ONE_BILLION = 1000000000;
+    private static final int ONE_MILLION = 1000000;
+    private static final String TAB = "    ";
 
     @Value("${screen.capture.templates.html}")
     private String htmlTemplate;
@@ -121,7 +124,6 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             //TODO:externalize time out
             driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
             driver.get(target.toString());
-
 
             byte[] imageByte=((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
             ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
@@ -209,20 +211,23 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
         String pattern = "[-|\\d]*.px";
         Pattern r = Pattern.compile(pattern);
         Matcher m = r.matcher(style);
-        String left;
-        if (m.find()) ;
-        {
+        String left = null;
+        if (m.find()) {
             left = m.group(0);
         }
-        String top;
-        if (m.find()) ;
-        {
+        String top = null;
+        if (m.find()) {
             top = m.group(0);
         }
         pane.attr("style", "left:" + left + ";top:" + top);
     }
 
-    private File createPdf(BufferedImage image, String name, Map<String, Set<String>> filterMap, List<String> layerList,  Map<String, Collection<ChartResponse>> chartData, String key) {
+    private File createPdf(BufferedImage image,
+                           String name,
+                           Map<String, Set<String>> filterMap,
+                           Map<String, List<Map <String, String>>> layerList,
+                           Map<String, Collection<ChartResponse>> chartData,
+                           String key) {
         LOGGER.debug("CreatePdf");
         File pdfFile = new File(repository, key + PDF_EXTENSION);
 
@@ -260,16 +265,19 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             addCharts(chartData, pdf);
 
             //Applied Layers
-            addPdfText(pdf, PDType1Font.HELVETICA, 10, BLUE, "Applied Layers");
-            checkEndOfPage(pdf, Y_NORMAL_SPACE);
-            for(String strToPrint:layerList) {
-                addPdfText(pdf, PDType1Font.HELVETICA, 9, BLACK, NEW_ITEM + strToPrint);
-                checkEndOfPage(pdf, Y_NORMAL_SPACE);
+            if(layerList.size()>0) {
+                addPdfText(pdf, PDType1Font.HELVETICA, 10, BLUE, "Applied Layers");
+                for (String layerName : layerList.keySet()) {
+                    checkEndOfPage(pdf, Y_NORMAL_SPACE);
+                    addPdfText(pdf, PDType1Font.HELVETICA, 9, BLACK, NEW_ITEM + layerName);
+                    checkEndOfPage(pdf, Y_NORMAL_SPACE);
+                    addLegend(layerList.get(layerName), pdf);
+                }
             }
-            checkEndOfPage(pdf, Y_NORMAL_SPACE);
 
             //Filter Options
-            if(filterMap!= null) {
+            if(filterMap!= null && filterMap.keySet().size()>0) {
+                checkEndOfPage(pdf, Y_LARGE_SPACE);
                 addPdfText(pdf, PDType1Font.HELVETICA, 10, BLUE, "Filter Options");
                 checkEndOfPage(pdf, Y_NORMAL_SPACE);
 
@@ -281,22 +289,38 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
                     }
                 }
             }
-            checkEndOfPage(pdf, Y_LARGE_SPACE);
-
 
             pdf.document.save(pdfFile);
             pdf.document.close();
 
         } catch (IOException e) {
             LOGGER.error("Error at: " + e.getMessage());
-
         }
         return pdfFile;
 
     }
 
+    private void addLegend(List<Map<String, String>> legendList, PDFDocument pdf) throws IOException {
+        PDPageContentStream pc = new PDPageContentStream(pdf.document, pdf.page, PDPageContentStream.AppendMode.APPEND, false);
+        float nextY = pdf.yPos;
+        float nextX = pdf.xPos;
+        for (Map<String, String> legendMap : legendList) {
+            pc.addRect(nextX, nextY, 10, 10);
+            pc.setNonStrokingColor(BLUE);
+            pc.fill();
+            nextX += 12;
+            pc.setNonStrokingColor(BLACK);
+            pc.beginText();
+            pc.newLineAtOffset(nextX,nextY);
+            pc.setFont(PDType1Font.HELVETICA, 8);
+            pc.showText(legendMap.get("label"));
+            pc.endText();
+            nextX += 93;
+        }
+        pc.close();
+    }
+
     private void addCharts(Map<String, Collection<ChartResponse>> chartData, PDFDocument pdf) throws IOException {
-        PDPageContentStream pc;
         boolean flag = false;
         for(String fundingType : chartData.keySet()){
             int xPos = pdf.xPos;
@@ -312,10 +336,10 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             int rows = 0;
             List<List<String>> data = new ArrayList<>();
             for(int i=0; i<(size< TOP_COUNT ? size:TOP_COUNT); i++){
-                data.add(Arrays.asList(fundingData.get(i).getName(), currency + BLANK_STRING + String.format("%.0f", fundingData.get(i).getDisbursementFunding())));
+                data.add(Arrays.asList(fundingData.get(i).getName(), getFundingString(fundingData.get(i).getDisbursementFunding())));
                 rows ++;
             }
-            pc = new PDPageContentStream(pdf.document, pdf.page, PDPageContentStream.AppendMode.APPEND, false);
+            PDPageContentStream pc = new PDPageContentStream(pdf.document, pdf.page, PDPageContentStream.AppendMode.APPEND, false);
             drawTable(pdf.page, pc, yPos, xPos, rows, data);
             pc.close();
             if(flag) {
@@ -324,6 +348,19 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             }
             flag = !flag;
         }
+    }
+
+    private String getFundingString(Double fundingValue) {
+        StringBuilder sb = new StringBuilder(currency);
+        sb.append(BLANK_STRING);
+        if(fundingValue/ONE_BILLION > 1){
+            sb.append(String.format("%.3f", fundingValue / ONE_BILLION) + "B");
+        } else if(fundingValue/ ONE_MILLION > 1){
+            sb.append(String.format("%.3f", fundingValue / ONE_MILLION) + "M");
+        } else {
+            sb.append(String.format("%.3f", fundingValue));
+        }
+        return sb.toString();
     }
 
     private PDFDocument checkEndOfPage(PDFDocument pdf, Integer y) throws IOException {
@@ -352,7 +389,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
                 sb.append(value);
             } else {
                 ret.add(sb.toString());
-                sb = new StringBuilder("    " + value);
+                sb = new StringBuilder(TAB + value);
             }
         }
         ret.add(sb.toString());
@@ -417,8 +454,8 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             for(int j = 0 ; j < content.get(i).size(); j++){
                 String text = content.get(i).get(j);
                 contentStream.beginText();
-                contentStream.newLineAtOffset(textx,texty);
-                contentStream.showText(text!=null && text.length()> FUNDING_TEXT_LIMIT ? text.substring(0,FUNDING_TEXT_LIMIT)+"...":text);
+                contentStream.newLineAtOffset(textx, texty);
+                contentStream.showText(text != null && text.length() > FUNDING_TEXT_LIMIT ? text.substring(0, FUNDING_TEXT_LIMIT) + "..." : text);
                 contentStream.endText();
                 textx += FIRST_COLUMN_WIDTH;
             }

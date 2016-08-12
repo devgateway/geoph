@@ -29,7 +29,7 @@ public class PrintParams {
 
     private Map<String, Set<String>> filters;
 
-    private List<String> layers;
+    private Map<String, List<Map <String, String>>> layers;
 
     Map<String, Collection<ChartResponse>> allChartsData;
 
@@ -97,11 +97,11 @@ public class PrintParams {
         this.filters = filters;
     }
 
-    public List<String> getLayers() {
+    public  Map<String, List<Map <String, String>>> getLayers() {
         return layers;
     }
 
-    public void setLayers(List<String> layers) {
+    public void setLayers(Map<String, List<Map <String, String>>> layers) {
         this.layers = layers;
     }
 

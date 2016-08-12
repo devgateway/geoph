@@ -1,11 +1,12 @@
 package org.devgateway.geoph.core.services;
 
+import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.core.response.StatsResponse;
 import org.devgateway.geoph.model.Project;
-import org.devgateway.geoph.core.request.Parameters;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author dbianco
@@ -22,4 +23,6 @@ public interface ProjectService {
     Project save(Project project);
 
     StatsResponse countProjectsByParams(Parameters params);
+
+    Map<String, Object> getStats(Parameters params);
 }

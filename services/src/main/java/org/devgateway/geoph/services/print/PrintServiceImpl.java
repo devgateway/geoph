@@ -22,6 +22,10 @@ public class PrintServiceImpl implements PrintService {
 
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PrintServiceImpl.class);
+    private static final String NAME = "name";
+    private static final String LEGENDS = "legends";
+    private static final String LABEL = "label";
+    private static final String COLOR = "color";
 
     @Autowired
     ImplementingAgencyRepository impAgencyRepository;
@@ -190,17 +194,20 @@ public class PrintServiceImpl implements PrintService {
     }
 
     @Override
-    public List<String> getLayerNamesFromJson(List jsonLayers) {
-        List<String> ret = new ArrayList<>();
-        for(Object o: jsonLayers){
-            String name = o.toString();
-            if(o.equals("0-0")){
-                ret.add("Projects");
-            } else if(o.equals("1-0")){
-                ret.add("Total Funding");
-            } else {
-                ret.add(name);
+    public Map<String, List<Map <String, String>>> getLayerNamesFromJson(List jsonLayers) {
+        Map<String, List<Map <String, String>>> ret = new HashMap<>();
+        for(Object layerObj: jsonLayers){
+            Map layerMap = (Map) layerObj;
+            String name = (String)layerMap.get(NAME);
+            List<Map <String, String>> legendsList = new ArrayList<>();
+            for(Object legendObj:(List)layerMap.get(LEGENDS)){
+                Map legendMap = (Map) legendObj;
+                Map <String, String> legend = new HashMap<>();
+                legend.put(LABEL, (String)legendMap.get(LABEL));
+                legend.put(COLOR, (String)legendMap.get(COLOR));
+                legendsList.add(legend);
             }
+            ret.put(name, legendsList);
         }
         return ret;
     }

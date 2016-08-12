@@ -50,6 +50,11 @@ public class AppMapServiceImpl implements AppMapService {
     }
 
     @Override
+    public void delete(long id) {
+        repository.delete(id);
+    }
+
+    @Override
     public Page<AppMap> findAll(Pageable pageable) {
         return repository.findAll(pageable);
     }

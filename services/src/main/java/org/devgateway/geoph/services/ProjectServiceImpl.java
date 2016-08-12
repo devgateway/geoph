@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author dbianco
@@ -48,5 +50,29 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public StatsResponse countProjectsByParams(Parameters params) {
         return projectRepository.countProjectsByParams(params);
+    }
+
+    @Override
+    public Map<String, Object> getStats(Parameters params) {
+        Page<Project> projects = projectRepository.findProjectsByParams(params);
+        int countNational=0;
+        int countOthers=0;
+        double amountNational = 0D;
+        double amountOthers = 0D;
+        for(Project project:projects){
+            if(project.getLocations().size()>0){
+                countOthers ++;
+                amountOthers += project.getTotalProjectAmount()!=null?project.getTotalProjectAmount():0D;
+            } else {
+                countNational ++;
+                amountNational += project.getTotalProjectAmount()!=null?project.getTotalProjectAmount():0D;
+            }
+        }
+        Map<String, Object> ret = new HashMap<>();
+        ret.put("countNational", countNational);
+        ret.put("countOthers", countOthers);
+        ret.put("amountNational", amountNational);
+        ret.put("amountOthers", amountOthers);
+        return ret;
     }
 }

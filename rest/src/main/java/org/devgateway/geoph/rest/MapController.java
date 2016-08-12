@@ -27,8 +27,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 /**
  * @author dbianco
@@ -130,6 +129,13 @@ public class MapController {
     public AppMap findMapById(@PathVariable final long id) {
         LOGGER.debug("findMapById");
         return appMapService.findById(id);
+    }
+
+    @RequestMapping(value = "/id/{id}", method = DELETE)
+    @Secured("ROLE_ADMIN")
+    public void deleteById(@PathVariable final long id) {
+        LOGGER.debug("deleteById");
+        appMapService.delete(id);
     }
 
     @RequestMapping(value = "/key/{key}", method = GET)
