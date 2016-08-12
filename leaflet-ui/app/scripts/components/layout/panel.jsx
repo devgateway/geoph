@@ -3,7 +3,8 @@ import { Link  } from 'react-router';
 import {Tabs,Tab} from 'react-bootstrap';
 import { connect } from 'react-redux'
 import { togglePanelExpand } from '../../actions/panel';
-import translate from '../../util/translate.js';
+import translate from '../../util/translate';
+import Stats from './stats';
 require("./panel.scss");
 
 export default class Panel extends React.Component {
@@ -39,14 +40,7 @@ export default class Panel extends React.Component {
             </Link>
           </li>
         </ul>
-         <div className="stats">
-            <h1>{stats.projectCount}</h1>
-            <p>total projects</p>
-       </div>
-        <div className="stats">
-          <h1>₱ 1.5</h1>
-          <p>total commitments</p>
-        </div>
+        <Stats {...this.props}/>
         {this.props.children}
       </div>
       )
@@ -56,9 +50,7 @@ export default class Panel extends React.Component {
  
 const mapStateToProps = (state, props) => {
   
-  
   return {
-
     currentView: state.routing.locationBeforeTransitions.pathname,
     panel: state.panel,
     stats: state.stats,

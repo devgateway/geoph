@@ -60,7 +60,7 @@ export const collectValuesToSave = (state)=>{
             const {legends, name, keyName, id} = layer;
             let nameLabel =  keyName? translate("toolview.layers."+keyName) : name;
             visibleLayers.push({id, name: nameLabel, legends});
-        }
+        })
         Object.assign(params, {'map': {bounds, basemap, visibleLayers}});
     }
     return params;

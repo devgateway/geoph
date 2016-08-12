@@ -11,12 +11,13 @@
 	@include absolute(115px,0px,40px,initial)
 	@include font(16px,$regular);
 	@include col2size();
-
+	margin-bottom: 0px !important;
 	>ul{
 		@include margin(0px,initial,3px,10px)
 		@include list-horizontal()
 		margin-top: 18px;
 		padding:0px !important;
+		height: 50px;
 		.panel-tab{
 
 			@include box-sizing(12vw,39px) 	
@@ -88,28 +89,3 @@
 	width: 67% !important; 
 }
 
-
-.stats{
-	text-align: center;
-  	display: inline-block;
-	padding:20px;
-  	width: 50%;
-	h1{
-	font-size: 3vw;
-    padding: 0px;
-    margin: 0px;
-    /* border: 1px solid red; */
-    line-height: 3vw;
-    font-weight: bold;
-	}
-	p{
-		font-size:12px;
-	  	height: 10px;
-	  line-height: 12px;
-	  padding-bottom: 4px;
-	  margin: 0px;
-	  display: inline-block;
-	  color: rgb(172, 208, 138);
-
-	}
-}

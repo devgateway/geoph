@@ -9,6 +9,7 @@
   height: 40px;
   background-color: #f0f0f0;
   	p{
+  	  margin-bottom: 0px;
 	  font-size: 12px;
 	  color: rgb( 0, 0, 0 );
 	  font-weight: bold;
@@ -17,7 +18,7 @@
 	  -moz-transform: matrix( 0.91861132673994,0,0,0.91861132673994,0,0);
 	  -webkit-transform: matrix( 0.91861132673994,0,0,0.91861132673994,0,0);
 	  -ms-transform: matrix( 0.91861132673994,0,0,0.91861132673994,0,0);
-		display: inline-block;
+	  display: inline-block;
 	  height: 40px;
 	}
 
