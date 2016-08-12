@@ -111,7 +111,7 @@ public class MapExport {
             params.setFilters(printService.getFilterNamesFromJson(filterMap));
         }
         List jsonLayers = (List) ((Map) ((Map) params.getData()).get("map")).get("visibleLayers");
-        if (jsonLayers != null) {
+        if (jsonLayers != null && jsonLayers.size()>0) {
             params.setLayers(printService.getLayerNamesFromJson(jsonLayers));
         }
         JsonRequestParams jsonFilters = new ObjectMapper().readValue(new ObjectMapper().writeValueAsString(filterMap), JsonRequestParams.class);
