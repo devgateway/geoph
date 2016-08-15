@@ -21,7 +21,7 @@ require("./root.scss");
 
 
   render() {
-    debugger;
+    
     const {loggedIn}=this.props;
     return (
       <div className="root">
@@ -53,8 +53,6 @@ const mapStateToProps = (state, props) => {
   const {security} = state;
   const {accountNonExpired, accountNonLocked,enabled , credentialsNonExpired} = security.toObject();
   const loggedIn=accountNonExpired && accountNonLocked&& enabled && credentialsNonExpired;
-  
-  debugger;
   return {loggedIn}
 }
 

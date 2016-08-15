@@ -26,6 +26,9 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriverService;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -97,15 +100,40 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
 
     public String createPdfFromHtmlString(PrintParams params, String key) throws Exception {
         File target = buildPage(params.getWidth(), params.getHeight(), params.getHtml()); //merge template and the passed html and return URL to resulted file
-        BufferedImage image = captureImage(params.getWidth(),params.getHeight(), target.toURI()); //create screen shoot from html file
-        if(image==null){
-           throw  new Exception("Wasn't able to generate image please check logs");
+        BufferedImage image = captureImage(params.getWidth(), params.getHeight(), target.toURI()); //create screen shoot from html file
+        if (image == null) {
+            throw new Exception("Wasn't able to generate image please check logs");
         }
         return createPdf(image, params.getName(), params.getFilters(), params.getLayers(), params.getAllChartsData(), key).getName();
     }
 
-
     public BufferedImage captureImage(Integer width, Integer height, URI target) {
+        return captureWithPhantom(width, height, target);
+    }
+    private BufferedImage captureWithPhantom(Integer width, Integer height, URI target) {
+        LOGGER.debug("Starting PhantomDriver ");
+        BufferedImage image = null;
+        Dimension screen = new Dimension(width, height);
+        DesiredCapabilities DesireCaps = new DesiredCapabilities();
+        DesireCaps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, "C:/JS_PROJECTS/phantomjs-2.1.1-windows/bin/phantomjs.exe");
+
+        try {
+            WebDriver driver = new PhantomJSDriver(DesireCaps);
+            driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+            driver.manage().window().setSize(new Dimension(width, height));
+            driver.get(target.toString());
+
+            byte[] imageByte = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+            ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
+            image = ImageIO.read(bis);
+            driver.quit();
+        } catch (Exception e) {
+            LOGGER.error("Image error: " + e.getMessage());
+        }
+        return image;
+    }
+
+    private BufferedImage captureWithJsDrver(Integer width, Integer height, URI target) {
         LOGGER.debug("Starting JBrowserDriver ");
         BufferedImage image = null;
         try {
@@ -123,7 +151,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             driver.get(target.toString());
 
 
-            byte[] imageByte=((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+            byte[] imageByte = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
             ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
             image = ImageIO.read(bis);
             driver.quit();
@@ -138,10 +166,10 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
      * Scale image keeping aspect ration
      */
     public BufferedImage scaleWidth(BufferedImage original, Integer newWidth) {
-        Integer w=original.getWidth();
-        Float ratio=((float)w)/newWidth;
-        Float   newHeight =original.getHeight()/ratio;
-        return  resize(original, newWidth, newHeight.intValue());
+        Integer w = original.getWidth();
+        Float ratio = ((float) w) / newWidth;
+        Float newHeight = original.getHeight() / ratio;
+        return resize(original, newWidth, newHeight.intValue());
     }
 
     @Override
@@ -149,15 +177,15 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
      * Scale image keeping aspect ration
      */
     public BufferedImage scaleHeight(BufferedImage original, Integer newHeight) {
-        Integer h=original.getHeight();
-        Integer ratio=h/newHeight;
-        Integer  newWidth=original.getWidth()/ratio;
-        return  resize(original, newWidth, newHeight);
+        Integer h = original.getHeight();
+        Integer ratio = h / newHeight;
+        Integer newWidth = original.getWidth() / ratio;
+        return resize(original, newWidth, newHeight);
     }
 
 
-    private  BufferedImage resize(BufferedImage original, Integer width, Integer height) {
-        BufferedImage scaledBI = new BufferedImage(width, height,BufferedImage.TYPE_INT_RGB);
+    private BufferedImage resize(BufferedImage original, Integer width, Integer height) {
+        BufferedImage scaledBI = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         Graphics2D g = scaledBI.createGraphics();
         g.drawImage(original, 0, 0, width, height, null);
         g.dispose();
@@ -166,7 +194,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
 
     @Override
     public String toBase64(BufferedImage image) throws IOException {
-        BASE64Encoder base64Encoder=new BASE64Encoder();
+        BASE64Encoder base64Encoder = new BASE64Encoder();
         String imageString = null;
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ImageIO.write(image, "png", bos);
@@ -178,13 +206,12 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
     }
 
 
-
     public File buildPage(Integer width, Integer height, String html) {
         LOGGER.debug("Merge html");
         File file = null;
         try {
-            URL url=new URL(htmlTemplate);
-            Document doc = Jsoup.parse(url.openConnection().getInputStream(), "utf-8",url.getPath());
+            URL url = new URL(htmlTemplate);
+            Document doc = Jsoup.parse(url.openConnection().getInputStream(), "utf-8", url.getPath());
 
             doc.getElementById("content").append(html);
             doc.getElementById("map1").attr("style", "width:" + width + "px;height:" + height + "px");
@@ -222,7 +249,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
         pane.attr("style", "left:" + left + ";top:" + top);
     }
 
-    private File createPdf(BufferedImage image, String name, Map<String, Set<String>> filterMap, List<String> layerList,  Map<String, Collection<ChartResponse>> chartData, String key) {
+    private File createPdf(BufferedImage image, String name, Map<String, Set<String>> filterMap, List<String> layerList, Map<String, Collection<ChartResponse>> chartData, String key) {
         LOGGER.debug("CreatePdf");
         File pdfFile = new File(repository, key + PDF_EXTENSION);
 
@@ -234,13 +261,13 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             PDFDocument pdf = new PDFDocument(Y_POS, X_POS, pdpage, doc);
 
             //Map title
-            if(StringUtils.isNotBlank(name)) {
+            if (StringUtils.isNotBlank(name)) {
                 addPdfText(pdf, PDType1Font.HELVETICA_BOLD, 13, BLUE, name);
                 pdf.yPos -= Y_NORMAL_SPACE;
             }
 
             //URL
-            if(StringUtils.isNotBlank(key)) {
+            if (StringUtils.isNotBlank(key)) {
                 addPdfText(pdf, PDType1Font.HELVETICA, 10, BLACK, urlToShare + key);
                 pdf.yPos -= Y_NORMAL_SPACE;
             }
@@ -262,20 +289,20 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             //Applied Layers
             addPdfText(pdf, PDType1Font.HELVETICA, 10, BLUE, "Applied Layers");
             checkEndOfPage(pdf, Y_NORMAL_SPACE);
-            for(String strToPrint:layerList) {
+            for (String strToPrint : layerList) {
                 addPdfText(pdf, PDType1Font.HELVETICA, 9, BLACK, NEW_ITEM + strToPrint);
                 checkEndOfPage(pdf, Y_NORMAL_SPACE);
             }
             checkEndOfPage(pdf, Y_NORMAL_SPACE);
 
             //Filter Options
-            if(filterMap!= null) {
+            if (filterMap != null) {
                 addPdfText(pdf, PDType1Font.HELVETICA, 10, BLUE, "Filter Options");
                 checkEndOfPage(pdf, Y_NORMAL_SPACE);
 
-                for(String filter : filterMap.keySet()) {
+                for (String filter : filterMap.keySet()) {
                     List<String> strList = splitValues(MAX_CHARS, filter, filterMap.get(filter));
-                    for(String strToPrint:strList) {
+                    for (String strToPrint : strList) {
                         addPdfText(pdf, PDType1Font.HELVETICA, 9, BLACK, strToPrint);
                         checkEndOfPage(pdf, Y_NORMAL_SPACE);
                     }
@@ -298,10 +325,10 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
     private void addCharts(Map<String, Collection<ChartResponse>> chartData, PDFDocument pdf) throws IOException {
         PDPageContentStream pc;
         boolean flag = false;
-        for(String fundingType : chartData.keySet()){
+        for (String fundingType : chartData.keySet()) {
             int xPos = pdf.xPos;
             int yPos = pdf.yPos;
-            if(flag){
+            if (flag) {
                 yPos += Y_SMALL_SPACE;
                 xPos += SECOND_COLUMN_MARGIN;
             }
@@ -311,14 +338,14 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             int size = fundingData.size();
             int rows = 0;
             List<List<String>> data = new ArrayList<>();
-            for(int i=0; i<(size< TOP_COUNT ? size:TOP_COUNT); i++){
+            for (int i = 0; i < (size < TOP_COUNT ? size : TOP_COUNT); i++) {
                 data.add(Arrays.asList(fundingData.get(i).getName(), currency + BLANK_STRING + String.format("%.0f", fundingData.get(i).getDisbursementFunding())));
-                rows ++;
+                rows++;
             }
             pc = new PDPageContentStream(pdf.document, pdf.page, PDPageContentStream.AppendMode.APPEND, false);
             drawTable(pdf.page, pc, yPos, xPos, rows, data);
             pc.close();
-            if(flag) {
+            if (flag) {
                 checkEndOfPage(pdf, Y_NORMAL_SPACE * TOP_COUNT);
                 checkEndOfPage(pdf, Y_LARGE_SPACE);
             }
@@ -328,7 +355,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
 
     private PDFDocument checkEndOfPage(PDFDocument pdf, Integer y) throws IOException {
         pdf.yPos -= y;
-        if(pdf.yPos<= MIN_Y_POS){
+        if (pdf.yPos <= MIN_Y_POS) {
             pdf.page = pdf.getNewPage();
             pdf.document.addPage(pdf.page);
             pdf.yPos = Y_POS;
@@ -336,19 +363,19 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
         return pdf;
     }
 
-    private List<String> splitValues(int maxChars, String title, Set<String> values){
+    private List<String> splitValues(int maxChars, String title, Set<String> values) {
         List<String> ret = new LinkedList<>();
         StringBuilder sb = new StringBuilder(NEW_ITEM + title + ": ");
         boolean isCommaNeeded = false;
-        for(String value : values){
-            if(isCommaNeeded){
+        for (String value : values) {
+            if (isCommaNeeded) {
                 sb.append(", ");
             } else {
                 isCommaNeeded = true;
             }
             int upperCase = countCapitals(sb.toString());
             long helper = sb.length() - upperCase + Math.round(upperCase * UPPERCASE_FACTOR);
-            if(helper + value.length()< maxChars ){
+            if (helper + value.length() < maxChars) {
                 sb.append(value);
             } else {
                 ret.add(sb.toString());
@@ -403,27 +430,27 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
     }
 
     private void drawTable(PDPage page, PDPageContentStream contentStream,
-                                 float y, float margin, int rows,
-                                 List<List<String>> content) throws IOException {
+                           float y, float margin, int rows,
+                           List<List<String>> content) throws IOException {
         final float rowHeight = Y_NORMAL_SPACE;
-        final float cellMargin=5f;
+        final float cellMargin = 5f;
 
         //now add the text
-        contentStream.setFont(PDType1Font.HELVETICA , 9);
+        contentStream.setFont(PDType1Font.HELVETICA, 9);
 
-        float textx = margin+cellMargin;
-        float texty = y-rowHeight;
-        for(int i = 0; i < content.size(); i++){
-            for(int j = 0 ; j < content.get(i).size(); j++){
+        float textx = margin + cellMargin;
+        float texty = y - rowHeight;
+        for (int i = 0; i < content.size(); i++) {
+            for (int j = 0; j < content.get(i).size(); j++) {
                 String text = content.get(i).get(j);
                 contentStream.beginText();
-                contentStream.newLineAtOffset(textx,texty);
-                contentStream.showText(text!=null && text.length()> FUNDING_TEXT_LIMIT ? text.substring(0,FUNDING_TEXT_LIMIT)+"...":text);
+                contentStream.newLineAtOffset(textx, texty);
+                contentStream.showText(text != null && text.length() > FUNDING_TEXT_LIMIT ? text.substring(0, FUNDING_TEXT_LIMIT) + "..." : text);
                 contentStream.endText();
                 textx += FIRST_COLUMN_WIDTH;
             }
-            texty-=rowHeight;
-            textx = margin+cellMargin;
+            texty -= rowHeight;
+            textx = margin + cellMargin;
         }
     }
 
@@ -448,13 +475,13 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             setClonePage(page);
         }
 
-        PDPage getNewPage(){
+        PDPage getNewPage() {
             PDPage ret = clonePage;
             setClonePage(clonePage);
             return ret;
         }
 
-        private void setClonePage(PDPage page){
+        private void setClonePage(PDPage page) {
             COSDictionary pageDict = page.getCOSObject();
             COSDictionary newPageDict = new COSDictionary(pageDict);
             newPageDict.removeItem(COSName.ANNOTS);

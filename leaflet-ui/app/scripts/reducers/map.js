@@ -12,8 +12,8 @@ const defaultState = Immutable.fromJS(
 {
 
   bounds:{
-      southWest: [4.3245014930192, 115.224609375],
-      northEast:[23.140359987886118,134.3408203125]
+      southWest: {lat:4.3245014930192,lng: 115.224609375},
+      northEast:{lat:23.140359987886118,lng:134.3408203125}
   },
 
   basemap: {
@@ -214,11 +214,12 @@ const map = (state = defaultState, action) => {
       return state.set('basemap', Immutable.fromJS(action.basemap));
 
     case STATE_RESTORE:
+      debugger;
       //restore 1) zoom and center,or map bounds, and layers  
       let mapData = action.storedMap.data.map;
       state = state.set('bounds', Immutable.fromJS({
-        southWest:[mapData.bounds.southWest.lat, mapData.bounds.southWest.lng], 
-        northEast:[mapData.bounds.northEast.lat, mapData.bounds.northEast.lng]
+        southWest:{lat:mapData.bounds.southWest.lat,lng: mapData.bounds.southWest.lng}, 
+        northEast:{lat:mapData.bounds.northEast.lat,lng: mapData.bounds.northEast.lng}
       }));
       state = state.set('basemap', Immutable.fromJS(mapData.basemap));
       getShapeLayers(state.get('layers')).forEach(l=>{
@@ -229,6 +230,7 @@ const map = (state = defaultState, action) => {
       return state;
 
     case CHANGE_MAP_BOUNDS:
+      debugger;
       return state.set('bounds', Immutable.fromJS({southWest:action.bounds._southWest, northEast:action.bounds._northEast}));
 
     case INDICATOR_LIST_LOADED:

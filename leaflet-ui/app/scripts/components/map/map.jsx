@@ -5,11 +5,10 @@ import { connect } from 'react-redux'
 import {loadProjects, updateBounds} from '../../actions/map.js'
 
 import SvgLayer from './layers/svg.jsx'
-import {latLngBounds,latLng} from 'leaflet'
 import * as Constants from '../../constants/constants.js'
 import {loadDefaultLayer} from '../../actions/map.js'
-import { L , Popup, Map, Marker, TileLayer,ZoomControl,MapLayer,ScaleControl,LayerGroup} from 'react-leaflet'
-
+import {Popup, Map, Marker, TileLayer,ZoomControl,MapLayer,ScaleControl,LayerGroup} from 'react-leaflet'
+import L from 'leaflet';
 import ProjectPopup from './popups/projectLayerPopup'
 import SimplePopup from './popups/simplePopup'
 import PhotoPopup from './popups/photoPopup'
@@ -49,13 +48,22 @@ const view=React.createClass({
 	},
 
 	handleChangeBounds(e) {		
+		debugger;
         this.props.onUpdateBounds(e.target.getBounds());
     },
 
 	render(){
+
 		console.log('render component map.jsx');
-		const {southWest, northEast} = this.props.map.get('bounds').toJS();
-		const bounds = latLngBounds(latLng(southWest[0], southWest[1]),latLng(northEast[0],northEast[1]));
+		const {map} = this.props;
+		const {southWest, northEast} = map.get('bounds').toJS();
+		
+		const bounds = L.latLngBounds(L.latLng(southWest.lat, southWest.lng),L.latLng(northEast.lat,northEast.lng));
+		if (!bounds){
+			debugger;
+		}
+		console.log(southWest)
+		console.log(bounds);
 		return (
 			<div>
 				<Map className="map" bounds={bounds} onMoveEnd={this.handleChangeBounds}>
@@ -79,7 +87,7 @@ const mapDispatchToProps=(dispatch,ownProps)=>{
 
 const stateToProps = (state,props) => {	
 	return {
-		map: state.map,
+		map:state.map,
 		fundingType: state.settings.fundingType
 	};
 }

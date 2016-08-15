@@ -45,7 +45,7 @@ class SaveForm extends BaseForm {
 
 	render() {
 		const {errors={},httpError,name,description,status}=this.props;
-		debugger;
+		
 		return (
 			<div className="save-container">
 				<h2>Save Map</h2>
