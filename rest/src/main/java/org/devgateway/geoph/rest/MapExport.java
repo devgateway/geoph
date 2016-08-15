@@ -110,7 +110,7 @@ public class MapExport {
         if (filterMap != null) {
             params.setFilters(printService.getFilterNamesFromJson(filterMap));
         }
-        List jsonLayers = (List) ((Map) ((Map) params.getData()).get("map")).get("visibleLayers");
+        List jsonLayers = (List)((Map) params.getData()).get("visibleLayers");
         if (jsonLayers != null && jsonLayers.size()>0) {
             params.setLayers(printService.getLayerNamesFromJson(jsonLayers));
         }

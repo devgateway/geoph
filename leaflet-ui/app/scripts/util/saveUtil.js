@@ -52,8 +52,7 @@ export const collectValuesToSave = (state)=>{
         Object.assign(filterParams, {'pr': idsSelected});     
     }
     Object.assign(params, {'filters': filterParams});
-    /*if(map){ 
-        const {bounds, basemap} = map.toJS();
+    if(map){ 
         let layers = getVisibles(map.get('layers')).toJS();
         let visibleLayers = [];
         layers.map((layer)=>{
@@ -61,8 +60,8 @@ export const collectValuesToSave = (state)=>{
             let nameLabel =  keyName? translate("toolview.layers."+keyName) : name;
             visibleLayers.push({id, name: nameLabel, legends});
         })
-        Object.assign(params, {'map': {bounds, basemap, visibleLayers}});
-    }*/
+        Object.assign(params, {'visibleLayers': visibleLayers});
+    }
     Object.assign(params, {'map': map});
     return params;
 }
