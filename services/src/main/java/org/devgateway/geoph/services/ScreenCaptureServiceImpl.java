@@ -74,7 +74,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
     private static final int Y_LARGE_SPACE = 20;
     private static final int Y_SMALL_SPACE = 5;
     private static final int IMAGE_MAX_WIDTH = 540;
-    private static final int IMAGE_MAX_HEIGHT = 560;
+    private static final int IMAGE_MAX_HEIGHT = 410;
     private static final int ONE_BILLION = 1000000000;
     private static final int ONE_MILLION = 1000000;
     private static final String TAB = "    ";
@@ -322,12 +322,15 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
 
     private void addCharts(Map<String, Collection<ChartResponse>> chartData, PDFDocument pdf) throws IOException {
         boolean flag = false;
+        int maxRows = 0;
         for(String fundingType : chartData.keySet()){
             int xPos = pdf.xPos;
             int yPos = pdf.yPos;
             if(flag){
                 yPos += Y_SMALL_SPACE;
                 xPos += SECOND_COLUMN_MARGIN;
+            } else {
+                maxRows = 0;
             }
             addPdfText(xPos, yPos, pdf, PDType1Font.HELVETICA_BOLD, 9, BLACK, fundingType);
             checkEndOfPage(pdf, Y_SMALL_SPACE);
@@ -340,10 +343,19 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
                 rows ++;
             }
             PDPageContentStream pc = new PDPageContentStream(pdf.document, pdf.page, PDPageContentStream.AppendMode.APPEND, false);
-            drawTable(pdf.page, pc, yPos, xPos, rows, data);
+            if(data.size()>0) {
+                drawTable(pdf.page, pc, yPos, xPos, rows, data);
+            } else {
+                addPdfText(xPos+Y_SMALL_SPACE, yPos-Y_NORMAL_SPACE, pdf, PDType1Font.HELVETICA, 9, BLACK, "No data");
+                rows = 1;
+            }
+            if(rows>maxRows){
+                maxRows=rows;
+            }
+
             pc.close();
             if(flag) {
-                checkEndOfPage(pdf, Y_NORMAL_SPACE * TOP_COUNT);
+                checkEndOfPage(pdf, Y_NORMAL_SPACE * maxRows);
                 checkEndOfPage(pdf, Y_LARGE_SPACE);
             }
             flag = !flag;
@@ -439,24 +451,24 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
         return new Dimension(newWidth, newHeight);
     }
 
-    private void drawTable(PDPage page, PDPageContentStream contentStream,
+    private void drawTable(PDPage page, PDPageContentStream pc,
                                  float y, float margin, int rows,
                                  List<List<String>> content) throws IOException {
         final float rowHeight = Y_NORMAL_SPACE;
         final float cellMargin=5f;
 
         //now add the text
-        contentStream.setFont(PDType1Font.HELVETICA , 9);
+        pc.setFont(PDType1Font.HELVETICA, 9);
 
         float textx = margin+cellMargin;
         float texty = y-rowHeight;
         for(int i = 0; i < content.size(); i++){
             for(int j = 0 ; j < content.get(i).size(); j++){
                 String text = content.get(i).get(j);
-                contentStream.beginText();
-                contentStream.newLineAtOffset(textx, texty);
-                contentStream.showText(text != null && text.length() > FUNDING_TEXT_LIMIT ? text.substring(0, FUNDING_TEXT_LIMIT) + "..." : text);
-                contentStream.endText();
+                pc.beginText();
+                pc.newLineAtOffset(textx, texty);
+                pc.showText(text != null && text.length() > FUNDING_TEXT_LIMIT ? text.substring(0, FUNDING_TEXT_LIMIT) + "..." : text);
+                pc.endText();
                 textx += FIRST_COLUMN_WIDTH;
             }
             texty-=rowHeight;
