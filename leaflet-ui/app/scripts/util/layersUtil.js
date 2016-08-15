@@ -44,7 +44,19 @@ export const getVisibles=(layers)=>{
 
 export const getValues=(features, valueProperty, fundingType)=>{
 	const {measure, type} = fundingType;
-	return features.map(function(f) { return valueProperty=='funding'? f.properties[measure][type]||0 : f.properties[valueProperty]||0});
+	let total = 0;
+	let values = features.map(function(f) { 
+		if (valueProperty=='funding'){
+			let val = f.properties[measure][type]||0
+			total += val;
+			return val
+		} else {
+			let val = f.properties[valueProperty]||0
+			total += val;
+			return val
+		}
+	});
+	return {values, total};
 }
 
 export const filter=(data, valueProperty, fundingType, map)=>{
@@ -76,34 +88,50 @@ export const mergeAllLayersFeatures=(layers, fundingType, map)=>{
 export const createLegendsAndClassesForLayer=(layer, features, fundingType)=>{
    	let legends = [];
 	let classes = layer.cssPrefix+' '+layer.settings.css;
-    let featuresWithClass = features.slice();
-    const values = getValues(features, layer.valueProperty, fundingType);//isolate features values 
-	const {thresholds, cssProvider} = layer;
+    const {thresholds, cssProvider, valueProperty} = layer;
+	const {values, total} = getValues(features, valueProperty, fundingType);//isolate features values 
 	const breaks = (thresholds > values.length)? values.length : thresholds;
 	let classProvider = null;
 	if (cssProvider){
   		classProvider = new cssProvider(values,breaks);
   		let jenkValues = classProvider.getDomain(breaks);
   		let legendList = [];
-	  	for (var i = 0; i < jenkValues.length-1; i++) {
-	    	let cls = 'legend-'+classes+i+'-9';
-	    	let label = formatValue(parseInt(jenkValues[i]))+' - '+formatValue(parseInt(jenkValues[i+1]));
-	    	legends.push({cls, label});
-	  	};
+  		if (jenkValues && total>0){
+  			for (var i = 0; i < jenkValues.length-1; i++) {
+		    	let cls = 'legend-'+classes+i+'-9';
+		    	let label = formatValue(parseInt(jenkValues[i]))+' - '+formatValue(parseInt(jenkValues[i+1]));
+		    	if (jenkValues[i]+jenkValues[i+1]>0){ //ignores '0 - 0' labels
+			    	legends.push({cls, label});
+			    }
+		  	};
+  		} else {
+  			let cls = 'legend-'+classes+'-none';//put none class for show zero values in gray
+  			legends.push({cls, 'label': '0'});
+  		}
+	  	
   	} else {
   		let cls = 'legend-'+classes+'4-9';
   		legends.push({cls, 'label': ''});
 	}
+    return {legends, features: fillFeaturesWithClass(features, classProvider, fundingType, valueProperty, classes)};
+}
+
+const fillFeaturesWithClass=(features, classProvider, fundingType, valueProperty, classes)=>{
+	let featuresWithClass = features.slice();
 	featuresWithClass.map((feature)=>{
 		const {measure, type} = fundingType;
 		let className = ''
 	    if (!classProvider){
 	      	className = classes + '4-9';
 	    } else {
-	    	const value = layer.valueProperty=='funding'? feature.properties[measure][type] : feature.properties[layer.valueProperty];
-    		className = classes + classProvider.getCssClass(value);
+	    	const value = valueProperty=='funding'? feature.properties[measure][type] : feature.properties[valueProperty];
+	    	if (value){
+	    		className = classes + classProvider.getCssClass(value);
+	    	} else {
+	    		className = classes + '-none';
+	    	}    		
 	    }
     	Object.assign(feature.properties, {className});
-	});
-    return {legends, features: featuresWithClass};
+	});	
+	return featuresWithClass;
 }

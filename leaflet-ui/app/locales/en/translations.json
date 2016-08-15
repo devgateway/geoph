@@ -107,7 +107,7 @@
 		"title": "Tool View",
 		"projectsearch": {
 			"title": "Project Search",
-			"placeholder": "Search for Projects (Please enter at least 3 characters)",
+			"placeholder": "Search for Projects",
 			"apply": "Apply",
 			"searchresults": "Search Results",
 			"selectedresults": "Selected Results"
