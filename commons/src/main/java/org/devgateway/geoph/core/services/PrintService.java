@@ -12,6 +12,6 @@ public interface PrintService {
 
     Map<String, Set<String>> getFilterNamesFromJson(Map jsonFilters);
 
-    List<String> getLayerNamesFromJson(List jsonLayers);
+    Map<String, List<Map <String, String>>> getLayerNamesFromJson(List jsonLayers);
 
 }

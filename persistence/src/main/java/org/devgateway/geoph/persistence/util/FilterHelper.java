@@ -79,13 +79,28 @@ public class FilterHelper {
                     Join<Project, Agency> impAgencyJoin = projectRoot.join(Project_.implementingAgencies);
                     predicates.add(impAgencyJoin.get(ImplementingAgency_.id).in(params.getImpAgencies()));
                 }
-                if (params.getFlowTypes() != null) {
-                    Join<Project, Transaction> transactionJoin = projectRoot.join(Project_.transactions);
-                    predicates.add(transactionJoin.get(Transaction_.flowType).in(params.getFlowTypes()));
-                }
-                if (params.getGrantSubTypes() != null) {
-                    Join<Project, Transaction> transactionJoin = projectRoot.join(Project_.transactions);
-                    predicates.add(transactionJoin.get(Transaction_.grantSubTypeId).in(params.getGrantSubTypes()));
+                if (params.getFlowTypes() != null || params.getGrantSubTypes() != null) {
+                    Predicate ft = null;
+                    boolean isFlowType = false;
+                    if(params.getFlowTypes()!=null){
+                        Join<Project, Transaction> transactionJoin = projectRoot.join(Project_.transactions);
+                        ft = transactionJoin.get(Transaction_.flowType).in(params.getFlowTypes());
+                        isFlowType = true;
+                    }
+                    Predicate gst = null;
+                    boolean isGrantType = false;
+                    if(params.getGrantSubTypes()!=null) {
+                        Join<Project, Transaction> transactionJoin = projectRoot.join(Project_.transactions);
+                        gst = transactionJoin.get(Transaction_.grantSubTypeId).in(params.getGrantSubTypes());
+                        isGrantType = true;
+                    }
+                    if(isFlowType && isGrantType) {
+                        predicates.add(criteriaBuilder.or(ft, gst));
+                    } else if (isFlowType){
+                        predicates.add(criteriaBuilder.or(ft));
+                    } else if (isGrantType){
+                        predicates.add(criteriaBuilder.or(gst));
+                    }
                 }
                 if (params.getClimateChanges() != null) {
                     Join<Project, ClimateChange> climateChangeJoin = projectRoot.join(Project_.climateChange);
@@ -182,13 +197,28 @@ public class FilterHelper {
                     Join<Project, Agency> impAgencyJoin = projectJoin.join(Project_.implementingAgencies, JoinType.LEFT);
                     predicates.add(impAgencyJoin.get(ImplementingAgency_.id).in(params.getImpAgencies()));
                 }
-                if (params.getFlowTypes() != null) {
-                    Join<Project, Transaction> transactionJoin = projectJoin.join(Project_.transactions);
-                    predicates.add(transactionJoin.get(Transaction_.flowType).in(params.getFlowTypes()));
-                }
-                if (params.getGrantSubTypes() != null) {
-                    Join<Project, Transaction> transactionJoin = projectJoin.join(Project_.transactions);
-                    predicates.add(transactionJoin.get(Transaction_.grantSubTypeId).in(params.getGrantSubTypes()));
+                if (params.getFlowTypes() != null || params.getGrantSubTypes() != null) {
+                    Predicate ft = null;
+                    boolean isFlowType = false;
+                    if(params.getFlowTypes()!=null){
+                        Join<Project, Transaction> transactionJoin = projectJoin.join(Project_.transactions);
+                        ft = transactionJoin.get(Transaction_.flowType).in(params.getFlowTypes());
+                        isFlowType = true;
+                    }
+                    Predicate gst = null;
+                    boolean isGrantType = false;
+                    if(params.getGrantSubTypes()!=null) {
+                        Join<Project, Transaction> transactionJoin = projectJoin.join(Project_.transactions);
+                        gst = transactionJoin.get(Transaction_.grantSubTypeId).in(params.getGrantSubTypes());
+                        isGrantType = true;
+                    }
+                    if(isFlowType && isGrantType) {
+                        predicates.add(criteriaBuilder.or(ft, gst));
+                    } else if (isFlowType){
+                        predicates.add(criteriaBuilder.or(ft));
+                    } else if (isGrantType){
+                        predicates.add(criteriaBuilder.or(gst));
+                    }
                 }
                 if (params.getClimateChanges() != null) {
                     Join<Project, ClimateChange> climateChangeJoin = projectJoin.join(Project_.climateChange);

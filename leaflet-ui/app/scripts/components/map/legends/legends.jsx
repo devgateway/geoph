@@ -46,7 +46,7 @@ class Legends extends React.Component {
         {visible?
           <div className='legends-content'>
             {layersVisible.map((layer)=>{
-              const {legends, name, keyName, prefix} = layer;
+              const {legends, name, keyName} = layer;
               return(
                 <LegendList {...layer} key={layer.id}/>
               )

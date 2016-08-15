@@ -1,3 +1,5 @@
+import {getVisibles} from './layersUtil';
+import translate from './translate';
 
 const collect=(options)=>{
     let values=[];
@@ -51,17 +53,15 @@ export const collectValuesToSave = (state)=>{
     }
     Object.assign(params, {'filters': filterParams});
     if(map){ 
-        let mapJS = map.toJS();
-        let bounds = map.toJS().bounds;
-        let basemap = map.toJS().basemap;
-        let allLayers = map.toJS().layers;
+        const {bounds, basemap} = map.toJS();
+        let layers = getVisibles(map.get('layers')).toJS();
         let visibleLayers = [];
-        map.toJS().layers.map((f)=>f.layers.map((e)=>{if(e.visible){visibleLayers.push(e.id)}}));
-        Object.assign(params, {'map': {
-            'bounds' : bounds,
-            'basemap' : basemap,
-            'visibleLayers' : visibleLayers
-        }});
+        layers.map((layer)=>{
+            const {legends, name, keyName, id} = layer;
+            let nameLabel =  keyName? translate("toolview.layers."+keyName) : name;
+            visibleLayers.push({id, name: nameLabel, legends});
+        })
+        Object.assign(params, {'map': {bounds, basemap, visibleLayers}});
     }
     return params;
 }
