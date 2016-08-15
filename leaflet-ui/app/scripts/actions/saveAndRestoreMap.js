@@ -108,9 +108,9 @@ export const requestRestoreMap = (mapKey) => {
       dispatch(makeAction(Constants.INDICATOR_LIST_LOADED,{data}));
       dispatch(loadAllFilterLists());
       loadMap(mapKey).then((storedMap)=>{
-          if(storedMap) {
-            dispatch(makeAction(Constants.STATE_RESTORE,{storedMap}));
+          if(storedMap) {            
             dispatch(applyFilter(storedMap.data.filters));
+            dispatch(makeAction(Constants.STATE_RESTORE,{storedMap}));
             storedMap.data.map.visibleLayers.forEach(l=>{
               dispatch(toggleVisibility(l, false));
             });

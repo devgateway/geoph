@@ -52,7 +52,7 @@ export const collectValuesToSave = (state)=>{
         Object.assign(filterParams, {'pr': idsSelected});     
     }
     Object.assign(params, {'filters': filterParams});
-    if(map){ 
+    /*if(map){ 
         const {bounds, basemap} = map.toJS();
         let layers = getVisibles(map.get('layers')).toJS();
         let visibleLayers = [];
@@ -62,6 +62,7 @@ export const collectValuesToSave = (state)=>{
             visibleLayers.push({id, name: nameLabel, legends});
         })
         Object.assign(params, {'map': {bounds, basemap, visibleLayers}});
-    }
+    }*/
+    Object.assign(params, {'map': map});
     return params;
 }

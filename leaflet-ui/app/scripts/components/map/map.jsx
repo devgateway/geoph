@@ -48,7 +48,6 @@ const view=React.createClass({
 	},
 
 	handleChangeBounds(e) {		
-		debugger;
         this.props.onUpdateBounds(e.target.getBounds());
     },
 
