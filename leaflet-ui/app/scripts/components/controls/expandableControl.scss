@@ -1,9 +1,10 @@
 @import '../../../stylesheets/base.scss';
 
 .expandable-control{
-  	@include box-sizing(auto,auto)
-	@include font(11px,$regular)
-	border:1px solid #edf0f4	;
+  	@include box-sizing(auto,auto);
+	@include font(11px,$regular);
+	overflow: hidden;
+	border:1px solid #edf0f4;
   	border-radius: 5px;
 	margin-left: 20px;
   	margin-right: 20px;
@@ -36,3 +37,6 @@
 	}
 }
 
+.expandable-control.collapsed{
+	overflow: initial;
+}

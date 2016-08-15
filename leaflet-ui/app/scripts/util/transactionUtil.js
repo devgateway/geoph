@@ -68,24 +68,25 @@ export const sumarizeValues=(transactions)=>{
 
 }
 
-export const formatValue=(value)=>{
+export const formatValue=(value, decimals)=>{
   let v;
+  let dec = decimals==undefined? 3 : decimals;
   if (value==0){
     return "0";
   } else if (value>1000000000){
-    v = (value/1000000000).toFixed(3);
+    v = (value/1000000000).toFixed(dec);
     return ""+v+"B";
   } else if (value>1000000){
-    v = (value/1000000).toFixed(3);
+    v = (value/1000000).toFixed(dec);
     return ""+v+"M";
   } else if (value>1000){
-    v = (value/1000).toFixed(3);
+    v = (value/1000).toFixed(dec);
     return ""+v+"K";
   } else {
     if (Number.isInteger(value)){
       return ""+value;
     } else {
-      return ""+value.toFixed(3);
+      return ""+value.toFixed(dec);
     }    
   }
 }

@@ -112,8 +112,8 @@
 		},
 
 		"STATS": {
-			"development": "/projects/count",				
-			"production": "/projects/count"		
+			"development": "/projects/stats",				
+			"production": "/projects/stats"		
 		},
 
 		"SAVE": {
