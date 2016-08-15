@@ -16,6 +16,7 @@
 	stroke:#EEE
 }
 
+.green-none {@include breakStyle(#aeaeae)}
 .green0-9 {	@include breakStyle(#73e767)}
 .green1-9 { @include breakStyle(#73e767)}
 .green2-9 { @include breakStyle(#61bc39)}
@@ -24,6 +25,7 @@
 .green5-9 { @include breakStyle(#113c00)}
 .green6-9 { @include breakStyle(#134300)}
 
+.yellow-none {@include breakStyle(#aeaeae)}
 .yellow0-9 { @include breakStyle(#eff28f)}
 .yellow1-9 { @include breakStyle(#dadf5c)}
 .yellow2-9 { @include breakStyle(#c4bf34)}
@@ -32,6 +34,7 @@
 .yellow5-9 { @include breakStyle(#716801)}
 .yellow6-9 { @include breakStyle(#5b5400)}
 
+.red-none {@include breakStyle(#aeaeae)}
 .red0-9 { @include breakStyle(#f28f8f)}
 .red1-9 { @include breakStyle(#df5c5c)} 
 .red2-9 { @include breakStyle(#c43434)}
@@ -40,6 +43,7 @@
 .red5-9 { @include breakStyle(#650000)}
 .red6-9 { @include breakStyle(#4b0000)}
 
+.blue-none {@include breakStyle(#aeaeae)}
 .blue0-9 { @include breakStyle(#96e0f5) }
 .blue1-9 { @include breakStyle(#1dc4fa) }
 .blue2-9 { @include breakStyle(#1dc4fa) }
@@ -48,6 +52,7 @@
 .blue5-9 { @include breakStyle(#0f2953)}
 .blue6-9 { @include breakStyle(#11004b) }
 
+.orange-none {@include breakStyle(#aeaeae)}
 .orange0-9 { @include breakStyle(#ffd24b)}
 .orange1-9 { @include breakStyle(#ffa904) }
 .orange2-9 { @include breakStyle(#ce7b05) }
