@@ -219,7 +219,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             Document doc = Jsoup.parse(url.openConnection().getInputStream(), "utf-8",url.getPath());
 
             doc.getElementById("content").append(html);
-            doc.getElementById("map1").attr("style", "width:" + width + "px;height:" + height + "px");
+            doc.getElementsByClass("map").attr("style", "width:" + width + "px;height:" + height + "px");
 
             //Fix translate3D element
             removeTranslate3dFromDocument(doc);
