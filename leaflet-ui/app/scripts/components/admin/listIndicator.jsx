@@ -75,8 +75,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 
 const mapStateToProps = (state, props) => {
-    debugger;
-	const {indicators} = state;
+ 	const {indicators} = state;
 	return {...indicators.toObject()};
 };
 

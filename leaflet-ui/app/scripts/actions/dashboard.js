@@ -26,13 +26,11 @@ export const getMapList =()=>{
 
 
 export const edit =(key)=>{
-	debugger;
+
 	 return (dispatch, getState) =>{
 	 	   dispatch(redirect(`/map/${key}`));
 	 }
 }
-
-
 
 
 export const remove=(key)=>{

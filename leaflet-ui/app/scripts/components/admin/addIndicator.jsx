@@ -125,8 +125,6 @@ class Indicator extends React.Component {
     }
 
     render() {
-        debugger;
-        //console.log(this.props.httpError)
         return (<div className="admin-page">
                 
                 <Messages {...this.props}/>

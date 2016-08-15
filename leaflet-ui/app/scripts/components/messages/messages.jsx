@@ -31,7 +31,6 @@ class MessageList extends React.Component {
 
 class Errors extends React.Component {
 	render(){
-		debugger;
 		const {errors:errors=[]}=this.props;
 		return (
 			<div className="bs-callout bs-callout-error">
@@ -67,7 +66,6 @@ class HttpError extends React.Component {
 
 class Messages extends React.Component {
 	render(){
-		debugger;
 		let {messages,errors,httpError,location={}}=this.props;
 		messages=messages?messages:[];
 		errors=errors?errors:[];

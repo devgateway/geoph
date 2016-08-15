@@ -20,8 +20,7 @@ const share =(state = new Map({captures:new List()}), action) => {
     return state.setIn('captures', new List());
     
     case Constants.CAPTURE_FAILED:
-    debugger;
-      return state.setIn(['loading'],false).setIn('error',"");
+    return state.setIn(['loading'],false).setIn('error',"");
     
     default:
     return state

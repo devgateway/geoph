@@ -130,7 +130,7 @@ getActions(){
    )
 }
 getNoSelection(items){
-  debugger;
+
   if (items && items.length == 0){
     return <div>No selection</div>
   }

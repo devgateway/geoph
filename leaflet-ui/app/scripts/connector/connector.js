@@ -273,7 +273,6 @@ class Connector {
 	}
 
 	export2Pdf(data) {
-		debugger;
 		return new Promise( (resolve, reject) => {
 			let path = Settings.get('API','PDF');
 			this.call(POST, path, data).then((data) => {

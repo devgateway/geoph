@@ -32,7 +32,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 }
 
 const mapStateToProps = (state, props) => {
-	debugger;
+
 	const {security} = state;
 	
 	return {...security.toObject(),...props}

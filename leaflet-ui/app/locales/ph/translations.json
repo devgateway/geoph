@@ -165,6 +165,13 @@
 			"actualcommitments": "Pangako",
 			"actualdisbursements": "Pagbabayad"
 		}
+	},
+
+	"stats": {
+		"projects": "proyekto",
+		"commitments": "pangako",
+		"totalNational": "Kabuuang Pambansang",
+		"totalLocated": "Kabuuang Matatagpuan"
 	}
 
 }

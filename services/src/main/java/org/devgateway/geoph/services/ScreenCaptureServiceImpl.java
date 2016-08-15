@@ -26,6 +26,9 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriverService;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -108,7 +111,30 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
     }
 
 
-    public BufferedImage captureImage(Integer width, Integer height, URI target) {
+    private BufferedImage captureWithPhantom(Integer width, Integer height, URI target) {
+        LOGGER.debug("Starting PhantomDriver ");
+        BufferedImage image = null;
+        Dimension screen = new Dimension(width, height);
+        DesiredCapabilities DesireCaps = new DesiredCapabilities();
+        DesireCaps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, "C:/JS_PROJECTS/phantomjs-2.1.1-windows/bin/phantomjs.exe");
+
+        try {
+            WebDriver driver = new PhantomJSDriver(DesireCaps);
+            driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+            driver.manage().window().setSize(new Dimension(width, height));
+            driver.get(target.toString());
+
+            byte[] imageByte = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+            ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
+            image = ImageIO.read(bis);
+            driver.quit();
+        } catch (Exception e) {
+            LOGGER.error("Image error: " + e.getMessage());
+        }
+        return image;
+    }
+
+    public BufferedImage JbrowserCapture(Integer width, Integer height, URI target) {
         LOGGER.debug("Starting JBrowserDriver ");
         BufferedImage image = null;
         try {
@@ -133,6 +159,10 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             LOGGER.error("Image error: " + e.getMessage());
         }
         return image;
+    }
+
+        public BufferedImage captureImage(Integer width, Integer height, URI target) {
+            return JbrowserCapture(width,height,target);
     }
 
     @Override

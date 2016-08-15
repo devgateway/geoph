@@ -49,7 +49,7 @@ export default class Login extends React.Component {
     render(){
 
         const errors=(this.state!=null&&this.state.data.get("errors")!=null)?this.state.data.get("errors"):{};
-           debugger;
+         
         return (
             <form id="login-form" className="form">
                 <p>Please provide user name and password</p>

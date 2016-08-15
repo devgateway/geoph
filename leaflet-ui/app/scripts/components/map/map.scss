@@ -5,15 +5,15 @@
 	height: 100%;
 }
 
+
 @mixin breakStyle($color){
 	fill:$color; 
 	background-color:$color; 
-	stroke:#eee;
+	webkit-stroke-width:10px;
 	fill-opacity: .8;
-	stroke-opacity: 1;
-	stroke-dasharray: 0, 0;
 	box-sizing: border-box;
 	cursor:pointer;
+	stroke:#EEE
 }
 
 .green0-9 {	@include breakStyle(#73e767)}

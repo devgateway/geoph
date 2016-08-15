@@ -75,8 +75,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 }
 
 const mapStateToProps = (state, props) => {
-  debugger;
-  const {results}=state.dashboard.toJS();
+   const {results}=state.dashboard.toJS();
 
   return {...results}
 }
