@@ -53,7 +53,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Map<String, ProjectStatsResultsDao> getStats(Parameters params) {
+    public Map<String, List<ProjectStatsResultsDao>> getStats(Parameters params) {
         return projectRepository.getStats(params);
     }
 }

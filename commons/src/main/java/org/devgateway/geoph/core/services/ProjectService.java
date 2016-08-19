@@ -25,5 +25,5 @@ public interface ProjectService {
 
     StatsResponse countProjectsByParams(Parameters params);
 
-    Map<String, ProjectStatsResultsDao> getStats(Parameters params);
+    Map<String, List<ProjectStatsResultsDao>> getStats(Parameters params);
 }

@@ -21,7 +21,7 @@ public interface ProjectRepository {
 
     Page<Project> findProjectsByParams(Parameters params);
 
-    Map<String, ProjectStatsResultsDao> getStats(Parameters params);
+    Map<String, List<ProjectStatsResultsDao>> getStats(Parameters params);
 
     Project save(Project project);
 

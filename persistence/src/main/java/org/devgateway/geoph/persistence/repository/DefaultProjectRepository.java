@@ -76,14 +76,14 @@ public class DefaultProjectRepository implements ProjectRepository {
     }
 
     @Override
-    public Map<String, ProjectStatsResultsDao> getStats(Parameters params) {
-        Map<String, ProjectStatsResultsDao> ret = new HashMap<>();
+    public Map<String, List<ProjectStatsResultsDao>> getStats(Parameters params) {
+        Map<String, List<ProjectStatsResultsDao>> ret = new HashMap<>();
         ret.put("National", getStatsByAdmLevel(params, true));
         ret.put("Regional", getStatsByAdmLevel(params, false));
         return ret;
     }
 
-    private ProjectStatsResultsDao getStatsByAdmLevel(Parameters params, boolean isNationalLevel) {
+    private List<ProjectStatsResultsDao> getStatsByAdmLevel(Parameters params, boolean isNationalLevel) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<ProjectStatsResultsDao> criteriaQuery = criteriaBuilder.createQuery(ProjectStatsResultsDao.class);
         Root<Project> projectRoot = criteriaQuery.from(Project.class);
@@ -92,6 +92,8 @@ public class DefaultProjectRepository implements ProjectRepository {
         Join<Project, Transaction> transactionJoin = projectRoot.join(Project_.transactions, JoinType.LEFT);
         multiSelect.add(criteriaBuilder.sum(transactionJoin.get(Transaction_.amount)).alias("trxAmount"));
         multiSelect.add(criteriaBuilder.countDistinct(projectRoot.get(Project_.id)).alias("projectCount"));
+        multiSelect.add(transactionJoin.get(Transaction_.transactionStatusId).alias("statusId"));
+        multiSelect.add(transactionJoin.get(Transaction_.transactionTypeId).alias("typeId"));
 
         List<Predicate> predicates = new ArrayList<>();
 
@@ -107,12 +109,16 @@ public class DefaultProjectRepository implements ProjectRepository {
         if(predicates.size()>0) {
             Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
             criteriaQuery.where(other);
-
         }
+
+        List<Expression<?>> groupByList = new ArrayList<>();
+        groupByList.add(transactionJoin.get(Transaction_.transactionStatusId));
+        groupByList.add(transactionJoin.get(Transaction_.transactionTypeId));
+        criteriaQuery.groupBy(groupByList);
 
         TypedQuery<ProjectStatsResultsDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
 
-        return query.getSingleResult();
+        return query.getResultList();
     }
 
     @Override
