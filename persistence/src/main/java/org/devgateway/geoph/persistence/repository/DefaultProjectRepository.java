@@ -3,8 +3,8 @@ package org.devgateway.geoph.persistence.repository;
 import org.devgateway.geoph.core.repositories.ProjectRepository;
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.core.response.StatsResponse;
-import org.devgateway.geoph.model.Project;
-import org.devgateway.geoph.model.Transaction;
+import org.devgateway.geoph.dao.ProjectStatsResultsDao;
+import org.devgateway.geoph.model.*;
 import org.devgateway.geoph.persistence.util.FilterHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,12 +16,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.devgateway.geoph.core.constants.Constants.*;
 
@@ -74,6 +73,46 @@ public class DefaultProjectRepository implements ProjectRepository {
         }
 
         return new PageImpl<>(projectList, params.getPageable(), count);
+    }
+
+    @Override
+    public Map<String, ProjectStatsResultsDao> getStats(Parameters params) {
+        Map<String, ProjectStatsResultsDao> ret = new HashMap<>();
+        ret.put("National", getStatsByAdmLevel(params, true));
+        ret.put("Regional", getStatsByAdmLevel(params, false));
+        return ret;
+    }
+
+    private ProjectStatsResultsDao getStatsByAdmLevel(Parameters params, boolean isNationalLevel) {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<ProjectStatsResultsDao> criteriaQuery = criteriaBuilder.createQuery(ProjectStatsResultsDao.class);
+        Root<Project> projectRoot = criteriaQuery.from(Project.class);
+        List<Selection<?>> multiSelect = new ArrayList<>();
+
+        Join<Project, Transaction> transactionJoin = projectRoot.join(Project_.transactions, JoinType.LEFT);
+        multiSelect.add(criteriaBuilder.sum(transactionJoin.get(Transaction_.amount)).alias("trxAmount"));
+        multiSelect.add(criteriaBuilder.countDistinct(projectRoot.get(Project_.id)).alias("projectCount"));
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);
+
+        Join<Project, Location> locationJoin = projectRoot.join(Project_.locations, JoinType.LEFT);
+        if(isNationalLevel) {
+            predicates.add(locationJoin.get(Location_.id).isNull());
+        } else {
+            predicates.add(locationJoin.get(Location_.id).isNotNull());
+        }
+
+        if(predicates.size()>0) {
+            Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+            criteriaQuery.where(other);
+
+        }
+
+        TypedQuery<ProjectStatsResultsDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
+
+        return query.getSingleResult();
     }
 
     @Override

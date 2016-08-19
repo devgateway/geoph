@@ -2,6 +2,7 @@ package org.devgateway.geoph.core.services;
 
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.core.response.StatsResponse;
+import org.devgateway.geoph.dao.ProjectStatsResultsDao;
 import org.devgateway.geoph.model.Project;
 import org.springframework.data.domain.Page;
 
@@ -24,5 +25,5 @@ public interface ProjectService {
 
     StatsResponse countProjectsByParams(Parameters params);
 
-    Map<String, Object> getStats(Parameters params);
+    Map<String, ProjectStatsResultsDao> getStats(Parameters params);
 }

@@ -5,6 +5,7 @@ import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.core.request.ProjectOrder;
 import org.devgateway.geoph.core.response.StatsResponse;
 import org.devgateway.geoph.core.services.ProjectService;
+import org.devgateway.geoph.dao.ProjectStatsResultsDao;
 import org.devgateway.geoph.model.Project;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,7 +71,7 @@ public class ProjectController extends BaseController {
     }
 
     @RequestMapping(value = "/stats", method = GET)
-     public Map<String, Object> projectStats(AppRequestParams filters) {
+     public Map<String, ProjectStatsResultsDao> projectStats(AppRequestParams filters) {
         LOGGER.debug("projectStats");
         return service.getStats(filters.getParameters());
     }
