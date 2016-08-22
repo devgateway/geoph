@@ -3,9 +3,9 @@ package org.devgateway.geoph.persistence.repository;
 import org.devgateway.geoph.core.repositories.ImplementingAgencyRepository;
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.dao.AgencyResultsDao;
-import org.devgateway.geoph.model.Agency;
 import org.devgateway.geoph.model.ImplementingAgency;
 import org.devgateway.geoph.model.Project;
+import org.devgateway.geoph.model.ProjectAgency;
 import org.devgateway.geoph.model.Project_;
 import org.devgateway.geoph.persistence.util.FilterHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +56,7 @@ public class DefaultImplementingAgencyRepository implements ImplementingAgencyRe
         List<Predicate> predicates = new ArrayList<>();
         List<Expression<?>> groupByList = new ArrayList<>();
 
-        Join<Project, Agency> agencyJoin = projectRoot.join(Project_.implementingAgencies);
+        Join<Project, ProjectAgency> agencyJoin = projectRoot.join(Project_.implementingAgencies);
         multiSelect.add(agencyJoin);
         multiSelect.add(projectRoot);
         groupByList.add(agencyJoin);

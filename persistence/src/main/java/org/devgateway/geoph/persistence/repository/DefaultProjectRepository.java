@@ -136,7 +136,15 @@ public class DefaultProjectRepository implements ProjectRepository {
             em.merge(p);
         } else {
             em.persist(project);
-            project.getTransactions().forEach(em::persist);
+            if(project.getTransactions()!=null) {
+                project.getTransactions().forEach(em::persist);
+            }
+            if(project.getSectors()!=null) {
+                project.getSectors().forEach(em::persist);
+            }
+            if(project.getImplementingAgencies()!=null) {
+                project.getImplementingAgencies().forEach(em::persist);
+            }
         }
         return project;
     }

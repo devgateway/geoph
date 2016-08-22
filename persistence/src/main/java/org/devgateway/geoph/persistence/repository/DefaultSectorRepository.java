@@ -4,6 +4,7 @@ import org.devgateway.geoph.core.repositories.SectorRepository;
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.dao.SectorResultsDao;
 import org.devgateway.geoph.model.Project;
+import org.devgateway.geoph.model.ProjectSector;
 import org.devgateway.geoph.model.Project_;
 import org.devgateway.geoph.model.Sector;
 import org.devgateway.geoph.persistence.util.FilterHelper;
@@ -64,7 +65,7 @@ public class DefaultSectorRepository implements SectorRepository {
         List<Predicate> predicates = new ArrayList();
         List<Expression<?>> groupByList = new ArrayList<>();
 
-        Join<Project, Sector> sectorJoin = projectRoot.join(Project_.sectors);
+        Join<Project, ProjectSector> sectorJoin = projectRoot.join(Project_.sectors);
         multiSelect.add(sectorJoin);
         multiSelect.add(projectRoot);
         groupByList.add(sectorJoin);
