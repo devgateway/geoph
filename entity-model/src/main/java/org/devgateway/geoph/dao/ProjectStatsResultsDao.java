@@ -1,8 +1,5 @@
 package org.devgateway.geoph.dao;
 
-import org.devgateway.geoph.enums.TransactionStatusEnum;
-import org.devgateway.geoph.enums.TransactionTypeEnum;
-
 /**
  * @author dbianco
  *         created on ago 19 2016.
@@ -13,15 +10,15 @@ public class ProjectStatsResultsDao {
 
     private Long projectCount;
 
-    private String status;
+    private Long statusId;
 
-    private String type;
+    private Long typeId;
 
     public ProjectStatsResultsDao(Double trxAmount, Long projectCount, Long statusId, Long typeId) {
         this.trxAmount = trxAmount!=null?trxAmount:0D;
         this.projectCount = projectCount!=null?projectCount:0;
-        this.status = statusId!=null?TransactionStatusEnum.getEnumById(statusId).getName():"undefined";
-        this.type = typeId!=null? TransactionTypeEnum.getEnumById(typeId).getName():"undefined";
+        this.statusId = statusId;
+        this.typeId = typeId;
     }
 
     public Double getTrxAmount() {
@@ -40,19 +37,19 @@ public class ProjectStatsResultsDao {
         this.projectCount = projectCount;
     }
 
-    public String getStatus() {
-        return status;
+    public Long getStatusId() {
+        return statusId;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setStatusId(Long statusId) {
+        this.statusId = statusId;
     }
 
-    public String getType() {
-        return type;
+    public Long getTypeId() {
+        return typeId;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setTypeId(Long typeId) {
+        this.typeId = typeId;
     }
 }

@@ -1,5 +1,7 @@
 package org.devgateway.geoph.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
@@ -11,6 +13,7 @@ import java.io.Serializable;
 @Embeddable
 public class ProjectSectorId implements Serializable {
 
+    @JsonIgnore
     private Project project;
 
     private Sector sector;
