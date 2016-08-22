@@ -14,8 +14,9 @@ export default class HeaderComponent extends React.Component {
 		return (
 			<div className="header">
 				<div className="heading">
-					<LangSwitcher/>
+					<LangSwitcher/>		
 				</div>
+					
 					{this.props.children}
 			
 		    </div>
