@@ -29,7 +29,6 @@ class FilterSliderWithMarks extends React.Component {
 	
 	handleValuesChange(values) {
   		const [min, max] = values;
-  		console.log('test');
   		this.props.onRangeChange({filterType: this.props.filterType, minSelected: min, maxSelected: max});		
 	}
 

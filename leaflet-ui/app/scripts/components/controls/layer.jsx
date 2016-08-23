@@ -21,6 +21,7 @@ class Settings extends React.Component {
 	}
 
 	render(){
+		debugger;
 		let settings=this.props.settings?this.props.settings.toJS():{}; 
 		return (
 			<ul className="settings">
@@ -34,6 +35,16 @@ class Settings extends React.Component {
 						</ul>
 					</li>
 				:null}
+				{(settings['valueProperties'])?
+					<li>
+						<ul className="level">
+							<li><b>{translate('toolview.layers.values')}:</b></li>
+							<li className={settings['valueProperty']=="avgActual"?"active":""}  onClick={()=>{this.set('valueProperty','avgActual')}}>{translate('toolview.layers.actual')}</li>
+							<li className={settings['valueProperty']=="avgTarget"?"active":""} onClick={()=>{this.set('valueProperty','avgTarget')}}>{translate('toolview.layers.target')}</li>
+						</ul>
+					</li>
+				:null}
+				
 				{(settings['quality'])?
 					<li>
 						<ul>
@@ -56,6 +67,8 @@ class Settings extends React.Component {
 						</ul>
 					</li>
 				:null}
+
+				
 			</ul>
 		);
 	}
@@ -114,7 +127,6 @@ class Settings extends React.Component {
 
  		let childProperties = this.getChildProperties();	
  		return this.props.layers.map((l)=>{
- 			////console.log(l);
  			var props={key:l.get('id'), id:l.get('id'), settings:l.get('settings') ,visible:l.get('visible'),name:l.get('name'), keyName:l.get('keyName'), layers:l.get('layers')}
  			
  			if (l.get('layers')){

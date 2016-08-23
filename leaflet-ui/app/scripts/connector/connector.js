@@ -263,9 +263,7 @@ class Connector {
 	saveMap(dataToSave) {
 		return new Promise( (resolve, reject) => {
 			let path = Settings.get('API','SAVE');
-			//console.log("---saveMap connector---");
-			//this.call(POST,url,data,{ headers: this.getSecurityHeader()}).then(resolve).catch(reject)
-			//
+			
 			this.call(POST, path, dataToSave,{ headers: this.getSecurityHeader()}).then((data) => {
 				resolve(data); 	
 			}).catch(reject)

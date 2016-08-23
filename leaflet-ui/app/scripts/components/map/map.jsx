@@ -53,16 +53,14 @@ const view=React.createClass({
 
 	render(){
 
-		console.log('render component map.jsx');
-		const {map} = this.props;
+			const {map} = this.props;
 		const {southWest, northEast} = map.get('bounds').toJS();
 		
 		const bounds = L.latLngBounds(L.latLng(southWest.lat, southWest.lng),L.latLng(northEast.lat,northEast.lng));
 		if (!bounds){
 			debugger;
 		}
-		console.log(southWest)
-		console.log(bounds);
+		
 		return (
 			<div>
 				<Map className="map" bounds={bounds} onMoveEnd={this.handleChangeBounds}>

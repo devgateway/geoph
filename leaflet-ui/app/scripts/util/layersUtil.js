@@ -15,7 +15,7 @@ return path;
 }
 
 
-const plainList=(layers, accumulator)=>{
+/*const plainList=(layers, accumulator)=>{
  accumulator=accumulator || [];
    layers.forEach(l=>{
  		if (l.get('layers')){
@@ -26,6 +26,7 @@ const plainList=(layers, accumulator)=>{
  })
   return new Immutable.List(accumulator);
 }
+*/
 
 export const getDefaults=(layers)=>{
 	const list=plainList(layers);
@@ -56,6 +57,7 @@ export const getValues=(features, valueProperty, fundingType)=>{
 			return val
 		}
 	});
+	debugger;
 	return {values, total};
 }
 
@@ -67,6 +69,7 @@ export const filter=(data, valueProperty, fundingType, map)=>{
 }
 
 export const mergeAllLayersFeatures=(layers, fundingType, map)=>{
+	debugger;
     let maxSize=0, maxBorder=0;
     let allLayersFeatures = [];
     layers.map((layer)=>{
@@ -85,13 +88,18 @@ export const mergeAllLayersFeatures=(layers, fundingType, map)=>{
     return {size: maxSize, border: maxBorder, allLayersFeatures};
 }
 
+
+
 export const createLegendsAndClassesForLayer=(layer, features, fundingType)=>{
+   	debugger;
    	let legends = [];
 	let classes = layer.cssPrefix+' '+layer.settings.css;
     const {thresholds, cssProvider, valueProperty} = layer;
+
 	const {values, total} = getValues(features, valueProperty, fundingType);//isolate features values 
 	const breaks = (thresholds > values.length)? values.length : thresholds;
 	let classProvider = null;
+	
 	if (cssProvider){
   		classProvider = new cssProvider(values,breaks);
   		let jenkValues = classProvider.getDomain(breaks);
@@ -117,6 +125,7 @@ export const createLegendsAndClassesForLayer=(layer, features, fundingType)=>{
 }
 
 const fillFeaturesWithClass=(features, classProvider, fundingType, valueProperty, classes)=>{
+	debugger;
 	let featuresWithClass = features.slice();
 	featuresWithClass.map((feature)=>{
 		const {measure, type} = fundingType;

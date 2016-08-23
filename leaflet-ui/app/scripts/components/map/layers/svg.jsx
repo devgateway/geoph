@@ -18,7 +18,7 @@ export default class D3Layer extends MapLayer {
 
   componentDidUpdate(nextProps, nextState) {
     const {data, ...props} = this.props;
-    console.log('updating layer');
+  
     this.mapUpdate();
   }
 
