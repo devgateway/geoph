@@ -28,7 +28,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories("org.devgateway.geoph")
 @ComponentScan("org.devgateway.geoph.importer")
 @PropertySources({
-        @PropertySource("classpath:/org/devgateway/geoph/importer/application.properties"),
+        @PropertySource("classpath:application.properties"),
         @PropertySource(value = "file:${CONF_FILE}", ignoreResourceNotFound = true)
 })
 public class ImporterApplication implements CommandLineRunner {

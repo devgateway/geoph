@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -50,15 +51,11 @@ public class Project extends GenericPersistable implements Serializable {
     @Size(max=255)
     private String title;
 
-    @OneToMany(cascade=CascadeType.MERGE, fetch = FetchType.LAZY, mappedBy = "project")
+    @OneToMany(cascade=CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "project")
     private Set<Transaction> transactions;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    @JoinTable(name = "project_agency", joinColumns = {
-            @JoinColumn(name = "project_id", nullable = false, updatable = false) },
-            inverseJoinColumns = { @JoinColumn(name = "agency_id",
-                    nullable = false, updatable = false) })
-    private Set<Agency> implementingAgencies;
+    @OneToMany(cascade=CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "pk.project")
+    private Set<ProjectAgency> implementingAgencies;
 
     @Column(name = "implementing_agency_office")
     private String implementingAgencyOffice;
@@ -112,12 +109,9 @@ public class Project extends GenericPersistable implements Serializable {
                     nullable = false, updatable = false) })
     private Set<Location> locations;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    @JoinTable(name = "project_sector", joinColumns = {
-            @JoinColumn(name = "project_id", nullable = false, updatable = false) },
-            inverseJoinColumns = { @JoinColumn(name = "sector_id",
-                    nullable = false, updatable = false) })
-    private Set<Sector> sectors;
+
+    @OneToMany(cascade=CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "pk.project")
+    private Set<ProjectSector> sectors;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable(name = "project_climate_change", joinColumns = {
@@ -212,15 +206,29 @@ public class Project extends GenericPersistable implements Serializable {
     }
 
     public void setTransactions(Set<Transaction> transactions) {
-        this.transactions = transactions;
+        if(this.transactions!=null) {
+            this.transactions.clear();
+            if (transactions != null) {
+                this.transactions.addAll(transactions);
+            }
+        } else {
+            this.transactions = transactions;
+        }
     }
 
-    public Set<Agency> getImplementingAgencies() {
+    public Set<ProjectAgency> getImplementingAgencies() {
         return implementingAgencies;
     }
 
-    public void setImplementingAgencies(Set<Agency> implementingAgencies) {
-        this.implementingAgencies = implementingAgencies;
+    public void setImplementingAgencies(Set<ProjectAgency> implementingAgencies) {
+        if(this.implementingAgencies != null){
+            this.implementingAgencies.clear();
+            if (implementingAgencies != null) {
+                this.implementingAgencies.addAll(implementingAgencies);
+            }
+        } else {
+            this.implementingAgencies = implementingAgencies;
+        }
     }
 
     public String getImplementingAgencyOffice() {
@@ -351,12 +359,19 @@ public class Project extends GenericPersistable implements Serializable {
         this.locations = locations;
     }
 
-    public Set<Sector> getSectors() {
+    public Set<ProjectSector> getSectors() {
         return sectors;
     }
 
-    public void setSectors(Set<Sector> sectors) {
-        this.sectors = sectors;
+    public void setSectors(Set<ProjectSector> sectors) {
+        if(this.sectors!=null) {
+            this.sectors.clear();
+            if (sectors != null) {
+                this.sectors.addAll(sectors);
+            }
+        } else {
+            this.sectors = sectors;
+        }
     }
 
     public Set<ClimateChange> getClimateChange() {
@@ -521,8 +536,33 @@ public class Project extends GenericPersistable implements Serializable {
 
     public void updateFields(Project project){
         this.title = project.getTitle();
-        this.transactions = project.getTransactions();
-        this.implementingAgencies = project.getImplementingAgencies();
+
+        if(this.transactions!=null) {
+            this.transactions.clear();
+        }
+        if (project.getTransactions()!=null){
+            if(this.transactions==null) {
+                this.transactions = new HashSet<>();
+            }
+            for(Transaction transaction:project.getTransactions()) {
+                transaction.setProject(this);
+                this.transactions.add(transaction);
+            }
+        }
+
+        if(this.implementingAgencies!=null) {
+            this.implementingAgencies.clear();
+        }
+        if (project.getImplementingAgencies()!=null){
+            if(this.implementingAgencies==null) {
+                this.implementingAgencies = new HashSet<>();
+            }
+            for(ProjectAgency agency:project.getImplementingAgencies()) {
+                agency.setProject(this);
+                this.implementingAgencies.add(agency);
+            }
+        }
+
         this.implementingAgencyOffice = project.getImplementingAgencyOffice();
         this.executingAgency = project.getExecutingAgency();
         this.fundingAgency = project.getFundingAgency();
@@ -539,7 +579,21 @@ public class Project extends GenericPersistable implements Serializable {
         this.periodPerformanceEnd = project.getPeriodPerformanceEnd();
         this.grantClassification = project.getGrantClassification();
         this.locations = project.getLocations();
-        this.sectors = project.getSectors();
+
+        if(this.sectors!=null) {
+            this.sectors.clear();
+        }
+        if (project.getSectors()!=null){
+            if(this.sectors==null) {
+                this.sectors = new HashSet<>();
+            }
+            for(ProjectSector sector:project.getSectors()) {
+                sector.setProject(this);
+                this.sectors.add(sector);
+            }
+        }
+
+
         this.climateChange = project.getClimateChange();
         this.genderResponsiveness = project.getGenderResponsiveness();
         this.actualOwpa = project.getActualOwpa();

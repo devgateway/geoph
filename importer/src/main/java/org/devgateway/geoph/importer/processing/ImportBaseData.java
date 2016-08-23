@@ -50,7 +50,7 @@ public class ImportBaseData {
         this.fundingAgencies = filterService.findAllFundingAgencies().stream().collect(Collectors.toMap(x -> x.getCode().toLowerCase(), x -> x));
         this.implementingAgencies = filterService.findAllImpAgencies().stream().collect(Collectors.toMap(x -> x.getCode().toLowerCase(), x -> x));
         this.classifications = filterService.findAllClassifications().stream().collect(Collectors.toMap(x -> x.getName().toLowerCase(), x -> x));
-        this.executingAgencies = filterService.findAllExecutingAgencies().stream().collect(Collectors.toMap(x -> x.getName().toLowerCase(), x -> x));
+        this.executingAgencies = filterService.findAllExecutingAgencies().stream().collect(Collectors.toMap(x -> x.getCode().toLowerCase(), x -> x));
     }
 
     public ProjectService getProjectService() {

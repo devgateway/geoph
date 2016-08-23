@@ -1,8 +1,8 @@
 DELETE FROM sector;
 
-INSERT INTO sector (id,code,name,level) VALUES (1,'AARNR','Agriculture, Natural Resources and Agrarian Reform',1);
+INSERT INTO sector (id,code,name,level) VALUES (1,'AARNR','Agriculture, Agrarian Reform and Natural Resources',1);
 INSERT INTO sector (id,code,name,level) VALUES (2,'GID','Governance and Institutions Development',1);
-INSERT INTO sector (id,code,name,level) VALUES (3,'INF','Infrastructure',1);
+INSERT INTO sector (id,code,name,level) VALUES (3,'INF','Infrastructure Development',1);
 INSERT INTO sector (id,code,name,level) VALUES (4,'IS','Industry, Trade, Tourism',1);
 INSERT INTO sector (id,code,name,level) VALUES (5,'SRD','Social Reform and Community Development',1);
 INSERT INTO sector (id,code,name,level) VALUES (6,'AAR','Agriculture and Agrarian Reform',2);

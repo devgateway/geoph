@@ -47,12 +47,8 @@ public class Sector extends GenericPersistable implements Serializable, Comparab
     private List<Sector> items = new ArrayList<>();
 
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    @JoinTable(name = "project_sector", joinColumns = {
-            @JoinColumn(name = "sector_id", nullable = false, updatable = false) },
-            inverseJoinColumns = { @JoinColumn(name = "project_id",
-                    nullable = false, updatable = false) })
-    private Set<Project> projects;
+    @OneToMany(cascade=CascadeType.MERGE, fetch = FetchType.LAZY, mappedBy = "pk.sector")
+    private Set<ProjectSector> projects;
 
     public Sector() {
     }
@@ -95,11 +91,11 @@ public class Sector extends GenericPersistable implements Serializable, Comparab
         this.items = items;
     }
 
-    public Set<Project> getProjects() {
+    public Set<ProjectSector> getProjects() {
         return projects;
     }
 
-    public void setProjects(Set<Project> projects) {
+    public void setProjects(Set<ProjectSector> projects) {
         this.projects = projects;
     }
 
