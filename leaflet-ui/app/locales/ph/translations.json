@@ -108,6 +108,8 @@
 		"projectsearch": {
 			"title": "Humanap ng Proyekto",
 			"placeholder": "Humanap ng Proyekto",
+			"clearall": "Clear All",
+			"selectall": "Select All",
 			"apply": "Gamitin",
 			"searchresults": "Resulta ng Paghahanap",
 			"selectedresults": "Piniling Resulta"
@@ -172,6 +174,17 @@
 		"commitments": "pangako",
 		"totalNational": "Kabuuang Pambansang",
 		"totalLocated": "Kabuuang Matatagpuan"
+	},
+
+	"help": {
+		"projectsearch": {
+			"selectall": "Click here to select all results matched",
+			"selectedresults": "Click here to see only selected",
+			"searchresults": "Click here to see all",
+			"apply": "Apply selected projects as filter",
+			"clearall": "Clear all (results and selection)"
+		}
 	}
+
 
 }

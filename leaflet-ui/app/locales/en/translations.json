@@ -108,6 +108,8 @@
 		"projectsearch": {
 			"title": "Project Search",
 			"placeholder": "Search for Projects",
+			"clearall": "Clear All",
+			"selectall": "Select All",
 			"apply": "Apply",
 			"searchresults": "Search Results",
 			"selectedresults": "Selected Results"
@@ -173,6 +175,16 @@
 		"commitments": "commitments",
 		"totalNational": "Total National",
 		"totalLocated": "Total Located"
+	},
+
+	"help": {
+		"projectsearch": {
+			"selectall": "Click here to select all results matched",
+			"selectedresults": "Click here to see only selected",
+			"searchresults": "Click here to see all",
+			"apply": "Apply selected projects as filter",
+			"clearall": "Clear all (results and selection)"
+		}
 	}
 
 }

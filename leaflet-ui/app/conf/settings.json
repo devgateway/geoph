@@ -111,6 +111,11 @@
 			"production": "/projects/all"		
 		},
 
+		"PROJECT_INFO": {
+			"development": "/projects/${id}",				
+			"production": "/projects/${id}"		
+		},
+
 		"STATS": {
 			"development": "/projects/stats",				
 			"production": "/projects/stats"		

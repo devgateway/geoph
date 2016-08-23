@@ -119,6 +119,9 @@
         border-right: none; 
     }
     >div{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
         padding-bottom: 5px;
         padding-right: 0px;
         padding-left: 0px;
@@ -126,6 +129,9 @@
         border-right: 1px; 
         border-right-style: solid; 
         border-right-color: #ececec;
+        >a{
+          cursor: pointer;        
+        }
     }
 }
 

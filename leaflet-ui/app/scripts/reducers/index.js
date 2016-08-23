@@ -16,6 +16,7 @@ import panel from './panel';
 import header from './header';
 import print from './print';
 import dashboard from './dashboard';
+import project from './project';
 
 import {routerReducer}  from 'react-router-redux';
 
@@ -39,6 +40,7 @@ const geophApp = combineReducers({
   header,
   print,
   dashboard,
+  project,
   routing: routerReducer
 })
 
