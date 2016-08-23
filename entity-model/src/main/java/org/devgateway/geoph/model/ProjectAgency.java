@@ -26,6 +26,11 @@ public class ProjectAgency implements Serializable {
 
     public ProjectAgency(){}
 
+    public ProjectAgency(ProjectAgency projectAgency) {
+        this.pk = projectAgency.pk;
+        this.utilization = projectAgency.utilization;
+    }
+
     public ProjectAgency(Project project, Agency agency, double utilization) {
         this.pk.setProject(project);
         this.pk.setAgency(agency);

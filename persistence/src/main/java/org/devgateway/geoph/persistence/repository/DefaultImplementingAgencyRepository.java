@@ -2,7 +2,6 @@ package org.devgateway.geoph.persistence.repository;
 
 import org.devgateway.geoph.core.repositories.ImplementingAgencyRepository;
 import org.devgateway.geoph.core.request.Parameters;
-import org.devgateway.geoph.dao.AgencyResultsDao;
 import org.devgateway.geoph.model.ImplementingAgency;
 import org.devgateway.geoph.model.Project;
 import org.devgateway.geoph.model.ProjectAgency;
@@ -46,9 +45,9 @@ public class DefaultImplementingAgencyRepository implements ImplementingAgencyRe
     }
 
     @Override
-    public List<AgencyResultsDao> findFundingByImplementingAgency(Parameters params) {
+    public List<ProjectAgency> findFundingByImplementingAgency(Parameters params) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-        CriteriaQuery<AgencyResultsDao> criteriaQuery = criteriaBuilder.createQuery(AgencyResultsDao.class);
+        CriteriaQuery<ProjectAgency> criteriaQuery = criteriaBuilder.createQuery(ProjectAgency.class);
 
         Root<Project> projectRoot = criteriaQuery.from(Project.class);
 
@@ -58,9 +57,9 @@ public class DefaultImplementingAgencyRepository implements ImplementingAgencyRe
 
         Join<Project, ProjectAgency> agencyJoin = projectRoot.join(Project_.implementingAgencies);
         multiSelect.add(agencyJoin);
-        multiSelect.add(projectRoot);
+        //multiSelect.add(projectRoot);
         groupByList.add(agencyJoin);
-        groupByList.add(projectRoot);
+        //groupByList.add(projectRoot);
 
         FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);
 
@@ -69,7 +68,7 @@ public class DefaultImplementingAgencyRepository implements ImplementingAgencyRe
 
 
         criteriaQuery.groupBy(groupByList);
-        TypedQuery<AgencyResultsDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
+        TypedQuery<ProjectAgency> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
 
         return query.getResultList();
     }

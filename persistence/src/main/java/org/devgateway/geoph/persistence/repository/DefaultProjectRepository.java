@@ -78,8 +78,8 @@ public class DefaultProjectRepository implements ProjectRepository {
     @Override
     public Map<String, List<ProjectStatsResultsDao>> getStats(Parameters params) {
         Map<String, List<ProjectStatsResultsDao>> ret = new HashMap<>();
-        ret.put("National", getStatsByAdmLevel(params, true));
-        ret.put("Regional", getStatsByAdmLevel(params, false));
+        ret.put("national", getStatsByAdmLevel(params, true));
+        ret.put("regional", getStatsByAdmLevel(params, false));
         return ret;
     }
 

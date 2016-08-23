@@ -25,6 +25,11 @@ public class ProjectSector implements Serializable {
 
     public ProjectSector(){}
 
+    public ProjectSector(ProjectSector projectSector) {
+        this.pk = projectSector.pk;
+        this.utilization = projectSector.utilization;
+    }
+
     public ProjectSector(Project project, Sector sector, double utilization) {
         this.pk.setProject(project);
         this.pk.setSector(sector);
