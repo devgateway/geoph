@@ -75,29 +75,31 @@ public class ProjectController extends BaseController {
     }
 
     @RequestMapping(value = "/stats", method = GET)
-     public Map<String, Map<String, Map<String, Double>>> projectStats(AppRequestParams filters) {
+     public Map<String, Map<String, Object>> projectStats(AppRequestParams filters) {
         LOGGER.debug("projectStats");
         Map<String, List<ProjectStatsResultsDao>> results = service.getStats(filters.getParameters());
         return createValueMap(results);
     }
 
-    private Map<String, Map<String, Map<String, Double>>> createValueMap(Map<String, List<ProjectStatsResultsDao>> results) {
-        Map<String, Map<String, Map<String, Double>>> ret = new HashMap<>();
+    private Map<String, Map<String, Object>> createValueMap(Map<String, List<ProjectStatsResultsDao>> results) {
+        Map<String, Map<String, Object>> ret = new HashMap<>();
         for(String level: results.keySet()){
             List<ProjectStatsResultsDao> statsList = results.get(level);
             for(ProjectStatsResultsDao stats : statsList) {
-                Map<String, Map<String, Double>> typeMap = new HashMap<>();
+                Map<String, Object> typeMap = new HashMap<>();
                 Map<String, Double> statusMap = new HashMap<>();
                 statusMap.put(TransactionStatusEnum.getEnumById(stats.getStatusId()).getName(), stats.getTrxAmount());
                 String type = TransactionTypeEnum.getEnumById(stats.getTypeId()).getName();
                 typeMap.put(type, statusMap);
                 if (ret.get(level) == null) {
                     ret.put(level, typeMap);
+                    ret.get(level).put(type, statusMap);
+                    ret.get(level).put("projectCount", stats.getProjectCount());
                 } else {
                     if(ret.get(level).get(type) == null){
                         ret.get(level).put(type, statusMap);
                     } else {
-                        ret.get(level).get(type).put(TransactionStatusEnum.getEnumById(stats.getStatusId()).getName(), stats.getTrxAmount());
+                        ((Map)(ret.get(level)).get(type)).put(TransactionStatusEnum.getEnumById(stats.getStatusId()).getName(), stats.getTrxAmount());
                     }
                 }
             }
