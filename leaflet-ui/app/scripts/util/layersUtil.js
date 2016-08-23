@@ -15,7 +15,7 @@ return path;
 }
 
 
-/*const plainList=(layers, accumulator)=>{
+const plainList=(layers, accumulator)=>{
  accumulator=accumulator || [];
    layers.forEach(l=>{
  		if (l.get('layers')){
@@ -26,7 +26,6 @@ return path;
  })
   return new Immutable.List(accumulator);
 }
-*/
 
 export const getDefaults=(layers)=>{
 	const list=plainList(layers);
@@ -60,7 +59,7 @@ export const getValues=(features, valueProperty, fundingType)=>{
 	debugger;
 	return {values, total};
 }
-
+/*
 export const filter=(data, valueProperty, fundingType, map)=>{
     var bounds = map.getBounds();
     const {measure, type} = fundingType;
@@ -87,24 +86,40 @@ export const mergeAllLayersFeatures=(layers, fundingType, map)=>{
     })
     return {size: maxSize, border: maxBorder, allLayersFeatures};
 }
+*/
+export const mergeAllLayersFeatures=(layers)=>{
+	let allLayersFeatures = [];
+	layers.sort(function(a, b){
+        return parseInt(a.zIndex) - parseInt(b.zIndex);
+      }).map((layer)=>{
+      	const {data} = layer;
+      	if (data && data.features){    
+	        allLayersFeatures = allLayersFeatures.concat(data.features);
+      	}	
+    })
+    return allLayersFeatures;
+}
 
-
-
-export const createLegendsAndClassesForLayer=(layer, features, fundingType)=>{
-   	debugger;
-   	let legends = [];
-	let classes = layer.cssPrefix+' '+layer.settings.css;
-    const {thresholds, cssProvider, valueProperty} = layer;
-
+export const createCSSProviderInstance=(layer, features, fundingType)=>{
+   	const {thresholds, cssProvider, valueProperty} = layer;
 	const {values, total} = getValues(features, valueProperty, fundingType);//isolate features values 
 	const breaks = (thresholds > values.length)? values.length : thresholds;
 	let classProvider = null;
-	
 	if (cssProvider){
   		classProvider = new cssProvider(values,breaks);
-  		let jenkValues = classProvider.getDomain(breaks);
+  	} 
+	return classProvider;
+}
+
+export const createLegendsForLayer=(layer)=>{
+   	const {classProviderInstance} = layer;
+   	debugger;
+	let classes = layer.cssPrefix+' '+layer.settings.css;
+	let legends = [];
+	if (classProviderInstance){
+  		let jenkValues = classProviderInstance.getDomain();
   		let legendList = [];
-  		if (jenkValues && total>0){
+  		if (jenkValues){
   			for (var i = 0; i < jenkValues.length-1; i++) {
 		    	let cls = 'legend-'+classes+i+'-9';
 		    	let label = formatValue(parseInt(jenkValues[i]))+' - '+formatValue(parseInt(jenkValues[i+1]));
@@ -121,26 +136,29 @@ export const createLegendsAndClassesForLayer=(layer, features, fundingType)=>{
   		let cls = 'legend-'+classes+'4-9';
   		legends.push({cls, 'label': ''});
 	}
-    return {legends, features: fillFeaturesWithClass(features, classProvider, fundingType, valueProperty, classes)};
+	return legends;
 }
 
-const fillFeaturesWithClass=(features, classProvider, fundingType, valueProperty, classes)=>{
+export const addStylesToFeatures=(layer, features, fundingType)=>{
 	debugger;
-	let featuresWithClass = features.slice();
+	let classes = layer.cssPrefix+' '+layer.settings.css;
+	const {classProviderInstance, valueProperty, size, border, popupId, name} = layer;
+   	let featuresWithClass = features.slice();
 	featuresWithClass.map((feature)=>{
 		const {measure, type} = fundingType;
 		let className = ''
-	    if (!classProvider){
+	    if (!classProviderInstance){
 	      	className = classes + '4-9';
 	    } else {
 	    	const value = valueProperty=='funding'? feature.properties[measure][type] : feature.properties[valueProperty];
 	    	if (value){
-	    		className = classes + classProvider.getCssClass(value);
+	    		className = classes + classProviderInstance.getCssClass(value);
 	    	} else {
 	    		className = classes + '-none';
 	    	}    		
 	    }
-    	Object.assign(feature.properties, {className});
+    	Object.assign(feature.properties, {className}); 
+    	Object.assign(feature.properties, {valueProperty, size, border, popupId: popupId || 'defaultPopup', layerName: name});//Assign extra data to feature properties
 	});	
 	return featuresWithClass;
 }

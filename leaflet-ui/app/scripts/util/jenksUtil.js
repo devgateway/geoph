@@ -4,10 +4,10 @@
  export default  class JenksCssProvider{
  	constructor(values,breaks,classes){
  		this.geo=new geostats(values);
+ 		this.breaks = breaks;
  		this.generator = d3.scale.threshold().domain(this.getDomain(breaks)).range(this.getRange(breaks+2));  
 
  	}
-
 
  	getRange(size){
  		
@@ -15,7 +15,7 @@
  	}
 
  	getDomain(breaks){
- 		return this.geo.getClassJenks(breaks);
+ 		return this.geo.getClassJenks(this.breaks);
  	}
 
  	getCssClass(value){

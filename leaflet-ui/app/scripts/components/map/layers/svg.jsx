@@ -42,6 +42,12 @@ export default class D3Layer extends MapLayer {
     this.mapUpdate();//trigger first update
   }
 
+  filter(data, map){
+    var bounds = map.getBounds();
+    const filtered = data.filter((f)=>f.geometry?bounds.contains(L.geoJson(f).getBounds()):false);
+    return filtered;
+  }
+
   setSvgSize(path, data, size, border){
    const {map}=this.props;
     let markersize=0; //in case of markers we should calculate the size that the markers will takes frm the center to the radio outside of the bounds 
@@ -72,15 +78,12 @@ export default class D3Layer extends MapLayer {
   }
 
   mapUpdate(e) {
-    const {layers, fundingType, onCreateLegends} = this.props;
-    this.renderLayersPaths(layers.sort(function(a, b){
-        return parseInt(a.zIndex) - parseInt(b.zIndex);
-      }));
+    this.renderLayersPaths(this.props.features);
   }
 
-  renderLayersPaths(layers){
-    const {map, fundingType}=this.props;
-    const {size, border, allLayersFeatures} = mergeAllLayersFeatures(layers, fundingType, map);
+  renderLayersPaths(features){
+    const {map}=this.props;
+    const size=20, border=10;
 
     // Use Leaflet to implement a D3 geometric transformation.
     function projectPoint(x, y) {
@@ -89,14 +92,14 @@ export default class D3Layer extends MapLayer {
     }
     const transform = d3.geo.transform({ point: projectPoint});
     const path = d3.geo.path().projection(transform);
-    if (allLayersFeatures.length!=0){
-      this.setSvgSize(path, {type: "FeatureCollection", features: allLayersFeatures}, size, border); //set svg area 
+    if (features.length!=0){
+      this.setSvgSize(path, {type: "FeatureCollection", features}, size, border); //set svg area 
     }
     path.pointRadius((d)=>{
       return (d.properties.size/2 * map.getZoom()) ;
     });
     
-    var shapes = this.g.selectAll("path").data(allLayersFeatures);
+    var shapes = this.g.selectAll("path").data(features);
     shapes.enter().append("path");
     shapes.exit().remove();
     shapes.attr("class", function(f) {return f.properties.className;}.bind(this));

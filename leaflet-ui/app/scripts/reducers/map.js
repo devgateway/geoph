@@ -1,7 +1,7 @@
 import {TOGGLE_LEGENDS_VIEW, SET_FUNDING_TYPE, SET_BASEMAP, LAYER_LOAD_SUCCESS, LAYER_LOAD_FAILURE, TOGGLE_LAYER, SET_LAYER_SETTING, INDICATOR_LIST_LOADED, GEOPHOTOS_LIST_LOADED, STATE_RESTORE, CHANGE_MAP_BOUNDS} from '../constants/constants';
 import JenksCssProvider from '../util/jenksUtil.js'
 import Immutable from 'immutable';
-import {getPath, getShapeLayers, createLegendsAndClassesForLayer, getVisibles} from '../util/layersUtil.js';
+import {getPath, getShapeLayers, createCSSProviderInstance, addStylesToFeatures, createLegendsForLayer, getVisibles} from '../util/layersUtil.js';
 
 const statsIndex = 1;
 const indicatorsIndex = 3;
@@ -21,43 +21,71 @@ const defaultState = Immutable.fromJS(
     url: '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
   },   
 
-  svgGeoJson:null 
+  svgGeoJson: null,
 
   legends: {
     visible: false
   },    
 
   layers: [
-  
-      {
-        id: '0',
-        keyName: 'physical',
-        type: 'shapes', //used to keep only one shape layer visible 
-        ep: 'PHYSICAL_GEOJSON',
-        settings: {
-          'css': 'red',
-           'valueProperties':'avgActual',
+         {
+          id:0,
+          keyName:'projects',
+          layers:[
+              {
+                id: '0-0', //unique id 
+                default: true,
+                type: 'points',
+                ep: 'PROJECT_GEOJSON', //api end point 
+                settings: {
+                  'level': 'region',
+                  'css': 'yellow'
+                }, //settings
+                keyName: 'projects', //i18n key
+                cssPrefix: 'points', //markers css prefix 
+                zIndex: 100,
+                size: size, //size of markers
+                border: 4, //size of stroke borders 
+                valueProperty: "projectCount", //value property 
+                cssProvider: JenksCssProvider, //color provider 
+                thresholds: 5, //number of breaks 
+                popupId: "projectPopup",   
+                supportFilters:true
+            }
+          ]
         },
-          
-          default: false,
-
-          cssPrefix: 'physical', //markers css prefix 
-          border: 2,
-          zIndex: 99,
-          cssProvider: JenksCssProvider,
-          thresholds: 5, //can be a fixed number for all layers 
-          valueProperty: "avgActual",
-          zIndex: 99,
-          popupId: "projectPopup"// merge as property    
-        }
-        ,
         {
-          id: '3',
+          id: '1',
+          keyName: 'stats',
+          layers: [
+            {
+              id: '1-0',
+              type: 'shapes',
+              ep: 'FUNDING_GEOJSON',
+              settings: {
+                'css': 'red'
+              },
+              cssPrefix: 'funding', //markers css prefix 
+              default: false,
+              border: 2,
+              zIndex: 99,
+              cssProvider: JenksCssProvider,
+              thresholds: 5,
+              valueProperty: "funding",
+              keyName: 'funding',
+              zIndex: 99,
+              popupId: "projectPopup",   
+              supportFilters:true
+            }
+          ]
+        },
+        {
+          id: '2',
           keyName: 'indicators',
           layers: []
         },
         {
-          id: '4',
+          id: '3',
           keyName: 'geophotos',
           layers: []
         }
@@ -160,38 +188,29 @@ const map = (state = defaultState, action) => {
     return state.setIn(getPath(id, ["settings", name]), value);
 
     case LAYER_LOAD_SUCCESS:
-    var {id, data, fundingType} = action;
-    if (state.getIn(getPath(id, ["keyName"])) == "projects") {
-      state = resize(state, id);
-    }
-    let layerProcessed = {legends: [], data: []}
-    let layer = state.getIn(getPath(id)).toJS();
-      //calculate  breaks
-      //add additional properies css , border
-      //create legends 
-      //add new geojson to master geojson  
-
-    if (data && data.features){
-      layerProcessed = createLegendsAndClassesForLayer(layer, data.features, fundingType);
-    }
-    const {legends, features} = layerProcessed;
-    state = state.setIn(getPath(id, ["legends"]), Immutable.fromJS(legends));
-    return state.setIn(getPath(id, ["data"]), Immutable.fromJS(Object.assign(data, {features})));
-
-    case SET_FUNDING_TYPE:
-    var {fundingType} = action;
-    let layersVisible = getVisibles(state.get('layers'));
-    layersVisible.map((lyr)=>{
-      let id = lyr.get('id');
-      let layerProcessed = {legends: [], data: []}
-      let layer = state.getIn(getPath(id)).toJS();
-      if (layer.data && layer.data.features){
-        layerProcessed = createLegendsAndClassesForLayer(layer, layer.data.features, fundingType);
+      var {id, data, fundingType} = action;
+      if (state.getIn(getPath(id, ["keyName"])) == "projects") {
+        state = resize(state, id);
       }
-      const {legends, features} = layerProcessed;
+      let classProviderInstance = createCSSProviderInstance(state.getIn(getPath(id)).toJS(), data.features, fundingType);
+      state = state.setIn(getPath(id, ["classProviderInstance"]), classProviderInstance);
+      let legends = createLegendsForLayer(state.getIn(getPath(id)).toJS(), data.features, fundingType);
       state = state.setIn(getPath(id, ["legends"]), Immutable.fromJS(legends));
-      state = state.setIn(getPath(id, ["data"]), Immutable.fromJS(Object.assign(layer.data, {features})));
-    })
+      let featuresProcessed = addStylesToFeatures(state.getIn(getPath(id)).toJS(), data.features, fundingType);
+      return state.setIn(getPath(id, ["data"]), Immutable.fromJS(Object.assign(data, {featuresProcessed})));
+    
+    case SET_FUNDING_TYPE:
+      var {fundingType} = action;
+      let layersVisible = getVisibles(state.get('layers'));
+      layersVisible.map((lyr)=>{
+        let id = lyr.get('id');
+        let classProviderInstance = createCSSProviderInstance(state.getIn(getPath(id)).toJS(), data.features, fundingType);
+        state = state.setIn(getPath(id, ["classProviderInstance"]), classProviderInstance);
+        let legends = createLegendsForLayer(state.getIn(getPath(id)).toJS(), data.features, fundingType);
+        state = state.setIn(getPath(id, ["legends"]), Immutable.fromJS(legends));
+        let featuresProcessed = addStylesToFeatures(data.features);
+        state = state.setIn(getPath(id, ["data"]), Immutable.fromJS(Object.assign(state.getIn(getPath(id)).get('data'), {featuresProcessed})));
+      })
     return state;
     
     case SET_BASEMAP:

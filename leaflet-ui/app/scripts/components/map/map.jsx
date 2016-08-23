@@ -12,34 +12,11 @@ import L from 'leaflet';
 import ProjectPopup from './popups/projectLayerPopup'
 import SimplePopup from './popups/simplePopup'
 import PhotoPopup from './popups/photoPopup'
-import {getVisibles} from '../../util/layersUtil.js';
+import {getVisibles, mergeAllLayersFeatures} from '../../util/layersUtil.js';
 import Legends from './legends/legends'
 
 require('leaflet/dist/leaflet.css')
 require('./map.scss');
-
-const Layers=React.createClass({
-
-	closePopup(){
-		this.props.map.closePopup();
-	},
-
-	render(){
-		let layers = getVisibles(this.props.layers).toJS();
-		return (
-			<div>
-				<SvgLayer  
-					map={this.props.map}
-					layers={layers}
-					fundingType={this.props.fundingType}>
-					<ProjectPopup id="projectPopup" onClosePopup={this.closePopup}/>
-					<SimplePopup id="defaultPopup" onClosePopup={this.closePopup}/>
-					<PhotoPopup id="photoPopup" onClosePopup={this.closePopup}/>
-				</SvgLayer>
-			</div>
-		)
-	}
-})
 
 const view=React.createClass({
 
@@ -52,20 +29,22 @@ const view=React.createClass({
     },
 
 	render(){
-
-			const {map} = this.props;
-		const {southWest, northEast} = map.get('bounds').toJS();
-		
+		const {map} = this.props;
+		const {southWest, northEast} = map.get('bounds').toJS();		
 		const bounds = L.latLngBounds(L.latLng(southWest.lat, southWest.lng),L.latLng(northEast.lat,northEast.lng));
-		if (!bounds){
-			debugger;
-		}
-		
+		let layers = getVisibles(this.props.map.get('layers')).toJS();
+		let layersfeatures = mergeAllLayersFeatures(layers);
 		return (
 			<div>
 				<Map className="map" bounds={bounds} onMoveEnd={this.handleChangeBounds}>
 					<TileLayer url={this.props.map.get('basemap').get('url')}/>
-					<Layers layers={this.props.map.get('layers')} fundingType={this.props.fundingType}/>			
+					<SvgLayer  
+						map={this.props.map}
+						features={layersfeatures}>
+						<ProjectPopup id="projectPopup" onClosePopup={this.closePopup}/>
+						<SimplePopup id="defaultPopup" onClosePopup={this.closePopup}/>
+						<PhotoPopup id="photoPopup" onClosePopup={this.closePopup}/>
+					</SvgLayer>		
 				</Map>
 				<Legends layers={this.props.map.get('layers')} />
 			</div>
