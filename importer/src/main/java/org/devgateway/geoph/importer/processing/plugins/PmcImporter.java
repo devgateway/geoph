@@ -24,7 +24,7 @@ public class PmcImporter extends GeophProjectsImporter {
     private static final Logger LOGGER = LoggerFactory.getLogger(PmcImporter.class);
     private static final int MAX_LENGTH = 255;
     private static final String UNDEFINED = "undefined";
-    private static final String LOCALLY_FUNDED = "Locally-funded";
+    private static final String LOCALLY_FUNDED = "locally-funded";
 
     @Autowired
     private PmcColumns pmcColumns;
@@ -43,10 +43,10 @@ public class PmcImporter extends GeophProjectsImporter {
             }
 
             String fa = getStringValueFromCell(row.getCell(pmcColumns.getFundingInstitution()), "funding institution", rowNumber, onProblem.NOTHING, true);
-            if(StringUtils.isBlank(fa)){
+            if(StringUtils.isBlank(fa) || importBaseData.getFundingAgencies().get(fa.trim()) == null){
                 fa = LOCALLY_FUNDED;
             }
-            p.setFundingAgency(importBaseData.getFundingAgencies().get(fa));
+            p.setFundingAgency(importBaseData.getFundingAgencies().get(fa.trim()));
 
             String[] ias = getStringArrayValueFromCell(row.getCell(pmcColumns.getImplementingAgency()), "implementing agency", rowNumber, onProblem.NOTHING);
             Set<ProjectAgency> iaSet = new HashSet<>();
@@ -75,10 +75,10 @@ public class PmcImporter extends GeophProjectsImporter {
             ));
 
             String ea = getStringValueFromCell(row.getCell(pmcColumns.getExecutingAgency()), "executing agency", rowNumber, onProblem.NOTHING, true);
-            if(StringUtils.isBlank(ea)){
+            if(StringUtils.isBlank(ea) || importBaseData.getExecutingAgencies().get(ea.trim()) == null){
                 ea = UNDEFINED;
             }
-            p.setExecutingAgency(importBaseData.getExecutingAgencies().get(ea));
+            p.setExecutingAgency(importBaseData.getExecutingAgencies().get(ea.trim()));
 
             p.setOriginalCurrency(importBaseData.getCurrencies().get(
                     getStringValueFromCell(row.getCell(pmcColumns.getOriginalCurrency()), "original currency", rowNumber, onProblem.NOTHING, true)

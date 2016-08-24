@@ -76,6 +76,9 @@ public class FilterHelper {
                     Join<Project, Agency> fundingAgencyJoin = projectRoot.join(Project_.fundingAgency);
                     predicates.add(fundingAgencyJoin.get(FundingAgency_.id).in(params.getFundingAgencies()));
                 }
+                if(params.getClassifications() != null){
+                    predicates.add(projectRoot.get(Project_.grantClassification).in(params.getClassifications()));
+                }
                 if (params.getImpAgencies() != null) {
                     Join<Project, ProjectAgency> impAgencyJoin = projectRoot.join(Project_.implementingAgencies);
                     Join<ProjectAgency, ProjectAgencyId> pk = impAgencyJoin.join(ProjectAgency_.pk);
@@ -151,6 +154,9 @@ public class FilterHelper {
                 }
                 if (params.getProjects() != null) {
                     predicates.add(projectJoin.in(params.getProjects()));
+                }
+                if(params.getClassifications() != null){
+                    predicates.add(projectJoin.get(Project_.grantClassification).in(params.getClassifications()));
                 }
                 if (StringUtils.isNotBlank(params.getProjectTitle())) {
                     predicates.add(criteriaBuilder.like(criteriaBuilder.upper(projectJoin.get(Project_.title)), "%" + params.getProjectTitle().toUpperCase() + "%"));
