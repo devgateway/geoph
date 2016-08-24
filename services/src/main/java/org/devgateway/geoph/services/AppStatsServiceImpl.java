@@ -5,6 +5,9 @@ import org.devgateway.geoph.core.services.AppStatsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author dbianco
  *         created on mar 28 2016.
@@ -16,7 +19,7 @@ public class AppStatsServiceImpl implements AppStatsService {
     AppStatsRepository appStatsRepository;
 
     @Override
-    public String getCacheStats() {
+    public List<Map<String, String>> getCacheStats() {
         return appStatsRepository.getCacheStats();
     }
 }
