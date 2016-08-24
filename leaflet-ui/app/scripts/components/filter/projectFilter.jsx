@@ -10,6 +10,7 @@ import translate from '../../util/translate';
 import Help from '../help/projectSearchHelp'
 import ProjectLink from '../project/projectLink'
 import { Pagination, Grid, Row, Col } from 'react-bootstrap';
+import {getActivePage} from '../../util/paginatorUtil';
 require('./projectFilter.scss');
 
 var typingTimer;                //timer identifier
@@ -152,16 +153,44 @@ class ProjectFilter extends React.Component {
   getContent(content, size){
     if(content && content.length >0){
       const {page} = this.state;
-      let subSet = content.slice(page*pageSize, page+1*pageSize);
+      let subSet = content.slice(page*pageSize, (page+1)*pageSize);
+      debugger;
       return (
         <div>{subSet.map((item)=>this.getRow(item))}</div>
       )
     }
   }
 
+/*
+  getActivePage(eventKey, totalPages, number){
+  //workaround for fix bootstrap paginator issues
+    let activePage = 0;
+    switch(eventKey.target.innerText) {
+      case "»":
+        activePage = totalPages-1;
+        break;
+      case "›":
+        activePage = number+1;
+        break;
+      case "«":
+        activePage = 0;
+        break;
+      case "‹":
+        activePage = number-1;
+        break;
+      default :
+        activePage = parseInt(eventKey.target.innerHTML)-1;
+        break;
+    }
+    return activePage;
+}
+*/
   handlePageChange(eventKey, items) {
     let totalPages = Math.ceil(items.length/pageSize);
-    this.setState({'page': getActivePage(eventKey, totalPages, this.state.page)});
+    let pg = getActivePage(eventKey, totalPages, this.state.page);
+    debugger;
+    this.setState({'page': pg});
+    //eventKey.stopPropagation();
   }
 
   render() {
