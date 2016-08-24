@@ -21,7 +21,7 @@ class Settings extends React.Component {
 	}
 
 	render(){
-		debugger;
+		
 		let settings=this.props.settings?this.props.settings.toJS():{}; 
 		return (
 			<ul className="settings">

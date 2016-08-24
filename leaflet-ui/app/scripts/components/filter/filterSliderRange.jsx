@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import InputRange from 'react-input-range';
 import { setFilterRange, fetchFilterDataIfNeeded } from '../../actions/filters';
-import { formatValue, formatAndRoundValue, roundValue } from '../../util/transactionUtil';
+import { formatValue, formatAndRoundValue, roundValue } from '../../util/format.js';
 import { getLogSliderValue, getLogSliderPosition } from '../../util/filterUtil';
 import translate from '../../util/translate.js';
 import Slider from 'rc-slider';

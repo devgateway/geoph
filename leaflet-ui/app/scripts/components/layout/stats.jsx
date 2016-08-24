@@ -1,7 +1,7 @@
 import React from 'react';
 import {LangSwitcher} from '../lan/'
 import translate from '../../util/translate';
-import {formatValue} from '../../util/transactionUtil';
+import {formatValue} from '../../util/format';
 require("./stats.scss");
 
 export default class Stats extends React.Component {

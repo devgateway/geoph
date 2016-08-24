@@ -2,7 +2,7 @@
 import React from 'react';
 import { Pagination, Grid, Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux'
-import { sumarizeValues } from '../../../util/transactionUtil'
+import { aggregateAmountsByType } from '../../../util/transactionUtil'
 import {collectValues} from '../../../util/filterUtil';
 import translate from '../../../util/translate.js';
 
@@ -69,7 +69,7 @@ export default class ProjectListTab extends React.Component {
               <Col md={2}>{translate('infowindow.projectlist.actualdisbursements')}</Col>
             </Row>  
             {projectsToShow.map((project) => {
-              let transactions = sumarizeValues(project.transactions);
+              let transactions = aggregateAmountsByType(project.transactions);
               return <Row className="project-list-item">
                   <Col className="project-title" title={project.title} md={5}>{this.dropLongText(project.title, 27)}</Col>
                   <Col md={3}>{project.fundingAgency.code}</Col>
