@@ -11,12 +11,12 @@ class Stats extends React.Component {
 	}
 
 	render() {	
-		return null;
-
 		const {stats, settings} = this.props;
-		const {fundingType} = settings;	
+		const {type, measure} = settings.fundingType;	
 		const {regional, national} = stats;
-		let fundingLabel = translate('stats.'+fundingType.type) + " " +  translate('stats.'+fundingType.measure);
+		let fundingLabel = translate('header.settings.'+type) + " " +  translate('header.settings.'+measure);
+		let regionalValue = regional[measure]? regional[measure][type] || 0 : 0;
+		let nationalValue = national[measure]? national[measure][type] || 0 : 0;
 		return (
 			<div className="stats-container">
 				<div className="stats-pair">
@@ -26,7 +26,7 @@ class Stats extends React.Component {
 	            		<p>{translate('stats.projects')}</p>
 	       			</div>
 	        		<div className="stats">
-	          			<h1>₱{formatValue(regional[fundingType.measure][fundingType.type], 1)}</h1>
+	          			<h1>₱{formatValue(regionalValue, 1)}</h1>
 	          			<p>{fundingLabel}</p>
 	        		</div>
 			    </div>
@@ -37,7 +37,7 @@ class Stats extends React.Component {
 	            		<p>{translate('stats.projects')}</p>
 	       			</div>
 	        		<div className="stats">
-	          			<h1>₱{formatValue(national[fundingType.measure][fundingType.type], 1)}</h1>
+	          			<h1>₱{formatValue(nationalValue, 1)}</h1>
 	          			<p>{fundingLabel}</p>
 	        		</div>
 			    </div>

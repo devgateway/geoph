@@ -174,7 +174,7 @@
 		"projects": "projects",
 		"commitments": "commitments",
 		"totalNational": "Total National",
-		"totalLocated": "Total Located"
+		"totalSubNational": "Total Sub-National"
 	},
 
 	"help": {
