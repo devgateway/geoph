@@ -6,13 +6,9 @@ import org.devgateway.geoph.core.response.ChartResponse;
 import org.devgateway.geoph.core.services.ChartService;
 import org.devgateway.geoph.dao.AgencyResultsDao;
 import org.devgateway.geoph.dao.PhysicalStatusDao;
-import org.devgateway.geoph.dao.SectorResultsDao;
-import org.devgateway.geoph.enums.TransactionStatusEnum;
-import org.devgateway.geoph.enums.TransactionTypeEnum;
 import org.devgateway.geoph.model.Agency;
-import org.devgateway.geoph.model.PhysicalStatus;
-import org.devgateway.geoph.model.Project;
-import org.devgateway.geoph.model.Sector;
+import org.devgateway.geoph.model.ProjectAgency;
+import org.devgateway.geoph.model.ProjectSector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +21,7 @@ import java.util.*;
 public class ChartServiceImpl implements ChartService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ChartServiceImpl.class);
+    private static final double FULL_UTILIZATION = 100D;
 
     @Autowired
     FundingAgencyRepository fundingAgencyRepository;
@@ -54,7 +51,7 @@ public class ChartServiceImpl implements ChartService {
                 chartResponse = new ChartResponse(helper.getAgency(), params.getTrxTypeSort(), params.getTrxStatusSort());
                 respMap.put(helper.getAgency().getId(), chartResponse);
             }
-            chartResponse.add(helper.getProject());
+            chartResponse.add(helper.getProject(), FULL_UTILIZATION);
         }
 
         List ret = new ArrayList(respMap.values());
@@ -75,7 +72,7 @@ public class ChartServiceImpl implements ChartService {
                 chartResponse = new ChartResponse(helper.getAgency(), params.getTrxTypeSort(), params.getTrxStatusSort());
                 respMap.put(helper.getAgency().getId(), chartResponse);
             }
-            chartResponse.add(helper.getProject());
+            chartResponse.add(helper.getProject(), FULL_UTILIZATION);
         }
 
         List ret = new ArrayList(respMap.values());
@@ -97,8 +94,8 @@ public class ChartServiceImpl implements ChartService {
 
         Map<Long, ChartResponse> respMap = new HashMap<>();
 
-        List<AgencyResultsDao> agenciesResults = implementingAgencyRepository.findFundingByImplementingAgency(params);
-        for (AgencyResultsDao helper : agenciesResults) {
+        List<ProjectAgency> agenciesResults = implementingAgencyRepository.findFundingByImplementingAgency(params);
+        for (ProjectAgency helper : agenciesResults) {
             Agency ia = helper.getAgency();
             if (showAll || iaParamsSet.contains(ia.getId())) {
                 ChartResponse chartResponse;
@@ -108,7 +105,7 @@ public class ChartServiceImpl implements ChartService {
                     chartResponse = new ChartResponse(helper.getAgency(), params.getTrxTypeSort(), params.getTrxStatusSort());
                     respMap.put(helper.getAgency().getId(), chartResponse);
                 }
-                chartResponse.add(helper.getProject());
+                chartResponse.add(helper.getProject(), helper.getUtilization());
             }
         }
 
@@ -121,8 +118,8 @@ public class ChartServiceImpl implements ChartService {
     public Collection<ChartResponse> getFundingBySector(Parameters params) {
         Map<Long, ChartResponse> respMap = new HashMap<>();
 
-        List<SectorResultsDao> results = sectorRepository.findFundingBySector(params);
-        for (SectorResultsDao helper : results) {
+        List<ProjectSector> results = sectorRepository.findFundingBySector(params);
+        for (ProjectSector helper : results) {
             ChartResponse chartResponse;
             if (respMap.get(helper.getSector().getId()) != null) {
                 chartResponse = respMap.get(helper.getSector().getId());
@@ -130,7 +127,7 @@ public class ChartServiceImpl implements ChartService {
                 chartResponse = new ChartResponse(helper.getSector(), params.getTrxTypeSort(), params.getTrxStatusSort());
                 respMap.put(helper.getSector().getId(), chartResponse);
             }
-            chartResponse.add(helper.getProject());
+            chartResponse.add(helper.getProject(), helper.getUtilization());
         }
 
         List ret = new ArrayList(respMap.values());
@@ -152,7 +149,7 @@ public class ChartServiceImpl implements ChartService {
                 chartResponse = new ChartResponse(helper.getPhysicalStatus(), params.getTrxTypeSort(), params.getTrxStatusSort());
                 respMap.put(helper.getPhysicalStatus().getId(), chartResponse);
             }
-            chartResponse.add(helper.getProject());
+            chartResponse.add(helper.getProject(), FULL_UTILIZATION);
         }
 
         List ret = new ArrayList(respMap.values());

@@ -2,6 +2,9 @@ package org.devgateway.geoph.core.repositories;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author dbianco
  *         created on mar 28 2016.
@@ -9,6 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface AppStatsRepository {
 
-    String getCacheStats();
+    List<Map<String, String>> getCacheStats();
 
 }

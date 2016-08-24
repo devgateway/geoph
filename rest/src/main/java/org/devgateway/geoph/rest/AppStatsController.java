@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+import java.util.Map;
+
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 /**
@@ -13,7 +16,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
  */
 @RestController
 @RequestMapping(value = "/appStats")
-public class AppStatsController {
+public class        AppStatsController {
 
 
     private final AppStatsService appStatsService;
@@ -25,7 +28,7 @@ public class AppStatsController {
 
 
     @RequestMapping(value = "/EhCache", method = GET)
-    public String getCacheStats() {
+    public List<Map<String, String>> getCacheStats() {
         return appStatsService.getCacheStats();
     }
 }

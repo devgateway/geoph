@@ -1,0 +1,58 @@
+@import '../../../stylesheets/base.scss';
+
+
+ul.lan-selector{
+  padding: 0px;
+  margin: 16px 50px 0px 0px;
+  //border: 1px solid red;
+    width: 70px;
+    list-style: none;
+	float: right;
+    color: #FFF;
+
+  li{
+    padding: 0px;
+    margin: 0px;
+    cursor: pointer;
+      ul{
+        padding: 0px;
+        margin:0px 0px 0px 22px;
+        position: absolute;
+        list-style:none;
+        li{
+          min-width: 70px;
+          font-size: 11px;
+          padding: 3px 10px 5px 5px;
+          border: 1px solid #D2E0E6;
+          background-color: #04466f;
+          margin: 1px 0px 0px 0px;
+        }
+        li.selected{
+          background-color: #04466f;
+        }
+      }
+  }
+
+  .arrow{
+    background: url("../../../assets/svg/down-chevron.svg");
+    background-position: 0px 0px;
+    background-size: 8px 10px;
+    background-repeat: no-repeat;
+    float: right;
+    width: 15px;
+    height: 17px;
+    margin: 4px 0px 0px 0px;
+
+  }
+
+  .icon{
+
+    background: url("../../../assets/svg/language.svg");
+    background-repeat: no-repeat;
+    margin: 4px 5px 0px 0px;
+    float: left;
+    width: 15px;
+    height: 17px;
+  }
+}
+

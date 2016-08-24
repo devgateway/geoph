@@ -2,10 +2,12 @@ package org.devgateway.geoph.core.repositories;
 
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.core.response.StatsResponse;
+import org.devgateway.geoph.dao.ProjectStatsResultsDao;
 import org.devgateway.geoph.model.Project;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author dbianco
@@ -18,6 +20,8 @@ public interface ProjectRepository {
     Project findById(long id);
 
     Page<Project> findProjectsByParams(Parameters params);
+
+    Map<String, List<ProjectStatsResultsDao>> getStats(Parameters params);
 
     Project save(Project project);
 
