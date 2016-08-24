@@ -39,6 +39,18 @@ public class FilterController extends BaseController {
         this.service = service;
     }
 
+    @RequestMapping(value = "/classification", method = GET)
+    public GenericResponse findAllClassifications() {
+        LOGGER.debug("findAllClassifications");
+        List<Classification> classification = service.findAllClassifications();
+        GenericResponse resp = new GenericResponse(
+                classification,
+                classification != null ? classification.size() : 0
+        );
+
+        return resp;
+    }
+
     @RequestMapping(value = "/climateChange", method = GET)
     public GenericResponse findAllClimateChanges() {
         LOGGER.debug("findAllClimateChanges");
@@ -70,18 +82,6 @@ public class FilterController extends BaseController {
         GenericResponse resp = new GenericResponse(
                 targetPhysicalProgressPeriod,
                 targetPhysicalProgressPeriod != null ? targetPhysicalProgressPeriod.size() : 0
-        );
-
-        return resp;
-    }
-
-    @RequestMapping(value = "/reachedPhysicalProgressPeriod", method = GET)
-    public GenericResponse findReachedPhysicalProgressPeriod() {
-        LOGGER.debug("findReachedPhysicalProgressPeriod");
-        List<Double> reachedPhysicalProgressPeriod = service.getReachedPhysicalProgressPeriod();
-        GenericResponse resp = new GenericResponse(
-                reachedPhysicalProgressPeriod,
-                reachedPhysicalProgressPeriod != null ? reachedPhysicalProgressPeriod.size() : 0
         );
 
         return resp;

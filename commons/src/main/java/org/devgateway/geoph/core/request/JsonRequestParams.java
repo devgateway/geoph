@@ -22,6 +22,8 @@ public class JsonRequestParams {
 
     private List<Long> pr;
 
+    private List<Long> cl;
+
     private List<Long> st;
 
     private List<Long> sa;
@@ -276,5 +278,13 @@ public class JsonRequestParams {
 
     public void setPp_end_min(String pp_end_min) {
         this.pp_end_min = pp_end_min;
+    }
+
+    public List<Long> getCl() {
+        return cl;
+    }
+
+    public void setCl(List<Long> cl) {
+        this.cl = cl;
     }
 }
