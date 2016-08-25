@@ -205,13 +205,14 @@ const onLoadLayer = (state,action) => {
     state = resize(state, id); 
   }
   const layer =getLayer(state,id);
+  
   const legendPath=getPath(id, ["legends"]);
   const dataPath=getPath(id, ["data"]);
   const {features}=data;
-
-  const classProviderInstance = getClassProvider(getLayerSettings(layer),features,fundingType);
-  const newData=Immutable.fromJS(makeStyledGeoJson(getLayerSettings(layer),data,fundingType,classProviderInstance));
-  const newLegends=Immutable.fromJS(getLegends(getLayerSettings(layer),classProviderInstance));
+  const settings=getLayerSettings(layer);
+  const classProviderInstance = getClassProvider(settings,features,fundingType);
+  const newData=Immutable.fromJS(makeStyledGeoJson(settings,data,fundingType,classProviderInstance));
+  const newLegends=Immutable.fromJS(getLegends(settings,classProviderInstance));
   
   return state.setIn(dataPath,newData).setIn(legendPath,newLegends);
 }

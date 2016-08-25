@@ -41,7 +41,6 @@ const view=React.createClass({
 					<TileLayer url={this.props.map.get('basemap').get('url')}/>
 					
 					{layers.map((l)=>{
-						console.log(l);
 						const {data}=l;
 						return (data && data.features)?<SvgLayer zIndex={l.zIndex}  features={data.features}>
 						<ProjectPopup id="projectPopup" onClosePopup={this.closePopup}/>
