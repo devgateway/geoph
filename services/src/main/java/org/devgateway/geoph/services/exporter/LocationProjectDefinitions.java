@@ -65,8 +65,8 @@ public class LocationProjectDefinitions implements DefinitionsProvider {
 
         columnsDef.add(new ColumnDefinitionImp<String>("Status", regularStylist, Formatters.stringFormatter(), Extractors.statusExtractor("project.getStatus")));
         columnsDef.add(new ColumnDefinitionImp<String>("Physical Status", regularStylist, Formatters.stringFormatter(), Extractors.stringExtractor("project.getPhysicalStatus")));
-        columnsDef.add(new ColumnDefinitionImp<Float>("Physical Progress(Actual)", decimalStylist, Formatters.floatFormatter(), Extractors.floatExtractor("project.getActualOwpa")));
-        columnsDef.add(new ColumnDefinitionImp<Float>("Physical Progress(Target)", decimalStylist, Formatters.floatFormatter(), Extractors.floatExtractor("project.getReachedOwpa")));
+        columnsDef.add(new ColumnDefinitionImp<Double>("Physical Progress(Actual)", decimalStylist, Formatters.doubleFormatter(), Extractors.doubleExtractor("project.getActualOwpa")));
+        columnsDef.add(new ColumnDefinitionImp<Double>("Physical Progress(Target)", decimalStylist, Formatters.doubleFormatter(), Extractors.doubleExtractor("project.getReachedOwpa")));
 
         columnsDef.add(new ColumnDefinitionImp<String>("Grant Classification", regularStylist, Formatters.stringFormatter(), Extractors.classificationExtractor("project.getGrantClassification")));
         columnsDef.add(new ColumnDefinitionImp<Double>("Total Disbursements", decimalStylist, Formatters.amountFormatter(), Extractors.disbursementExtractor("project.getTransactions")));
