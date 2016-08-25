@@ -73,6 +73,8 @@ public class Parameters {
 
     private List<Integer> grantSubTypes;
 
+    private List<Long> classifications;
+
     private List<Integer> locationLevels;
 
     private List<Long> climateChanges;
@@ -110,6 +112,7 @@ public class Parameters {
         this.setEndDateMin(filters.getDt_end_min());
         this.setLocations(filters.getLo());
         this.setProjects(filters.getPr());
+        this.setClassifications(filters.getCl());
         this.setPeriodPerformanceStartMax(filters.getPp_start_max());
         this.setPeriodPerformanceStartMin(filters.getPp_start_min());
         this.setPeriodPerformanceEndMax(filters.getPp_end_max());
@@ -145,6 +148,7 @@ public class Parameters {
         if(filters.getPr().size()>0) {
             this.setProjects(filters.getPr());
         }
+        this.setClassifications(filters.getCl());
         this.setPeriodPerformanceStartMax(filters.getPp_start_max());
         this.setPeriodPerformanceStartMin(filters.getPp_start_min());
         this.setPeriodPerformanceEndMax(filters.getPp_end_max());
@@ -380,6 +384,18 @@ public class Parameters {
 
     public void setProjects(String projects) {
         this.projects = projects != null ? convertStringToLongList(projects) : null;
+    }
+
+    public List<Long> getClassifications() {
+        return classifications;
+    }
+
+    public void setClassifications(List<Long> classifications) {
+        this.classifications = classifications;
+    }
+
+    public void setClassifications(String classifications) {
+        this.classifications = classifications != null ? convertStringToLongList(classifications) : null;
     }
 
     public List<Integer> getLocationLevels() {

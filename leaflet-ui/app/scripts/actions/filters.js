@@ -5,7 +5,7 @@ import {fetchChartData} from './charts';
 import {collectValues} from '../util/filterUtil';
 import {fetchStats} from './stats';
 
-const filterTypes = ['ft', 'fa', 'ia', 'st', 'cc', 'gr', 'dt_start', 'dt_end', 'pp_start', 'pp_end', 'sa', 'fin_amount', 'pr', 'ph'];
+const filterTypes = ['ft', 'fa', 'ia', 'st', 'cc', 'gr', 'dt_start', 'dt_end', 'pp_start', 'pp_end', 'sa', 'fin_amount', 'ao', 'ph'];
 
 export const applyFilter = (filtersToApply) => {
   return (dispatch, getState) => {

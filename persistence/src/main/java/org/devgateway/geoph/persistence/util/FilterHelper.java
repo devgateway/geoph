@@ -27,8 +27,9 @@ public class FilterHelper {
                     predicates.add(criteriaBuilder.like(criteriaBuilder.upper(projectRoot.get(Project_.title)), "%" + params.getProjectTitle().toUpperCase() + "%"));
                 }
                 if (params.getSectors() != null) {
-                    Join<Project, Sector> sectorJoin = projectRoot.join(Project_.sectors);
-                    predicates.add(sectorJoin.get(Sector_.id).in(params.getSectors()));
+                    Join<Project, ProjectSector> sectorJoin = projectRoot.join(Project_.sectors);
+                    Join<ProjectSector, ProjectSectorId> pk = sectorJoin.join(ProjectSector_.pk);
+                    predicates.add(pk.get(ProjectSectorId_.sector).in(params.getSectors()));
                 }
                 if (params.getStatuses() != null) {
                     Join<Project, Status> statusJoin = projectRoot.join(Project_.status);
@@ -75,9 +76,13 @@ public class FilterHelper {
                     Join<Project, Agency> fundingAgencyJoin = projectRoot.join(Project_.fundingAgency);
                     predicates.add(fundingAgencyJoin.get(FundingAgency_.id).in(params.getFundingAgencies()));
                 }
+                if(params.getClassifications() != null){
+                    predicates.add(projectRoot.get(Project_.grantClassification).in(params.getClassifications()));
+                }
                 if (params.getImpAgencies() != null) {
-                    Join<Project, Agency> impAgencyJoin = projectRoot.join(Project_.implementingAgencies);
-                    predicates.add(impAgencyJoin.get(ImplementingAgency_.id).in(params.getImpAgencies()));
+                    Join<Project, ProjectAgency> impAgencyJoin = projectRoot.join(Project_.implementingAgencies);
+                    Join<ProjectAgency, ProjectAgencyId> pk = impAgencyJoin.join(ProjectAgency_.pk);
+                    predicates.add(pk.get(ProjectAgencyId_.agency).in(params.getImpAgencies()));
                 }
                 if (params.getFlowTypes() != null || params.getGrantSubTypes() != null) {
                     Predicate ft = null;
@@ -150,12 +155,16 @@ public class FilterHelper {
                 if (params.getProjects() != null) {
                     predicates.add(projectJoin.in(params.getProjects()));
                 }
+                if(params.getClassifications() != null){
+                    predicates.add(projectJoin.get(Project_.grantClassification).in(params.getClassifications()));
+                }
                 if (StringUtils.isNotBlank(params.getProjectTitle())) {
                     predicates.add(criteriaBuilder.like(criteriaBuilder.upper(projectJoin.get(Project_.title)), "%" + params.getProjectTitle().toUpperCase() + "%"));
                 }
                 if (params.getSectors() != null) {
-                    Join<Project, Sector> sectorJoin = projectJoin.join(Project_.sectors, JoinType.LEFT);
-                    predicates.add(sectorJoin.get(Sector_.id).in(params.getSectors()));
+                    Join<Project, ProjectSector> sectorJoin = projectJoin.join(Project_.sectors, JoinType.LEFT);
+                    Join<ProjectSector, ProjectSectorId> pk = sectorJoin.join(ProjectSector_.pk);
+                    predicates.add(pk.get(ProjectSectorId_.sector).in(params.getSectors()));
                 }
                 if (params.getStatuses() != null) {
                     Join<Project, Status> statusJoin = projectJoin.join(Project_.status);
@@ -194,8 +203,9 @@ public class FilterHelper {
                     predicates.add(fundingAgencyJoin.get(FundingAgency_.id).in(params.getFundingAgencies()));
                 }
                 if (params.getImpAgencies() != null) {
-                    Join<Project, Agency> impAgencyJoin = projectJoin.join(Project_.implementingAgencies, JoinType.LEFT);
-                    predicates.add(impAgencyJoin.get(ImplementingAgency_.id).in(params.getImpAgencies()));
+                    Join<Project, ProjectAgency> impAgencyJoin = projectJoin.join(Project_.implementingAgencies, JoinType.LEFT);
+                    Join<ProjectAgency, ProjectAgencyId> pk = impAgencyJoin.join(ProjectAgency_.pk);
+                    predicates.add(pk.get(ProjectAgencyId_.agency).in(params.getImpAgencies()));
                 }
                 if (params.getFlowTypes() != null || params.getGrantSubTypes() != null) {
                     Predicate ft = null;

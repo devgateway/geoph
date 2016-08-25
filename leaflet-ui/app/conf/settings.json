@@ -60,7 +60,7 @@
 				"dp": "/filters/devprio",
 				"cs": "/filters/cscope",
 				"co": "/filters/coverage",
-				"pr": "/filters/reachedPhysicalProgressPeriod"				
+				"ao": "/filters/actualPhysicalProgressPeriod"				
 			},
 			"production": {
 				"st": "/filters/sector",
@@ -81,7 +81,7 @@
 				"dp": "/filters/devprio",
 				"cs": "/filters/cscope",
 				"co": "/filters/coverage",
-				"pr": "/filters/reachedPhysicalProgressPeriod"			
+				"ao": "/filters/actualPhysicalProgressPeriod"			
 			}
 		},
 

@@ -30,7 +30,11 @@ public class StaticResourceConfiguration extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
 
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
         if(staticPath != null) {
             LOGGER.info("Serving static content from " + staticPath);
             registry.addResourceHandler("/**").addResourceLocations("file:" + staticPath);

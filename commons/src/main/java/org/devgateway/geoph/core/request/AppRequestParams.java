@@ -16,6 +16,8 @@ public class AppRequestParams {
 
     private String cc;
 
+    private String cl;
+
     private String ph;
 
     private String pr;
@@ -294,6 +296,14 @@ public class AppRequestParams {
 
     public void setTrx_status_sort(int trx_status_sort) {
         this.trx_status_sort = trx_status_sort;
+    }
+
+    public String getCl() {
+        return cl;
+    }
+
+    public void setCl(String cl) {
+        this.cl = cl;
     }
 
     public Parameters getParameters() {

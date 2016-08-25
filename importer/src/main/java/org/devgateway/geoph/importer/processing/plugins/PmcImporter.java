@@ -24,7 +24,7 @@ public class PmcImporter extends GeophProjectsImporter {
     private static final Logger LOGGER = LoggerFactory.getLogger(PmcImporter.class);
     private static final int MAX_LENGTH = 255;
     private static final String UNDEFINED = "undefined";
-    private static final String LOCALLY_FUNDED = "Locally-funded";
+    private static final String LOCALLY_FUNDED = "locally-funded";
 
     @Autowired
     private PmcColumns pmcColumns;
@@ -43,22 +43,31 @@ public class PmcImporter extends GeophProjectsImporter {
             }
 
             String fa = getStringValueFromCell(row.getCell(pmcColumns.getFundingInstitution()), "funding institution", rowNumber, onProblem.NOTHING, true);
-            if(StringUtils.isBlank(fa)){
+            if(StringUtils.isBlank(fa) || importBaseData.getFundingAgencies().get(fa.trim()) == null){
                 fa = LOCALLY_FUNDED;
             }
-            p.setFundingAgency(importBaseData.getFundingAgencies().get(fa));
+            p.setFundingAgency(importBaseData.getFundingAgencies().get(fa.trim()));
 
             String[] ias = getStringArrayValueFromCell(row.getCell(pmcColumns.getImplementingAgency()), "implementing agency", rowNumber, onProblem.NOTHING);
-            Set<Agency> iaSet = new HashSet<>();
+            Set<ProjectAgency> iaSet = new HashSet<>();
+            boolean isFirstPA = true;
             for (String ia : ias) {
                 if (importBaseData.getImplementingAgencies().get(ia.toLowerCase().trim()) != null) {
-                    iaSet.add(importBaseData.getImplementingAgencies().get(ia.toLowerCase().trim()));
+                    ProjectAgency pa;
+                    if(isFirstPA) {
+                        pa = new ProjectAgency(p, importBaseData.getImplementingAgencies().get(ia.toLowerCase().trim()), 100D);
+                        isFirstPA = false;
+                    } else {
+                        pa = new ProjectAgency(p, importBaseData.getImplementingAgencies().get(ia.toLowerCase().trim()), 0D);
+                    }
+                    iaSet.add(pa);
                 }
             }
             if(iaSet.size()>0){
                 p.setImplementingAgencies(iaSet);
             } else {
-                p.setImplementingAgencies(new HashSet<>(Arrays.asList(importBaseData.getImplementingAgencies().get(UNDEFINED))));
+                ProjectAgency pa = new ProjectAgency(p, importBaseData.getImplementingAgencies().get(UNDEFINED), 100D);
+                p.setImplementingAgencies(new HashSet<>(Arrays.asList(pa)));
             }
 
             p.setGrantClassification(importBaseData.getClassifications().get(
@@ -66,10 +75,10 @@ public class PmcImporter extends GeophProjectsImporter {
             ));
 
             String ea = getStringValueFromCell(row.getCell(pmcColumns.getExecutingAgency()), "executing agency", rowNumber, onProblem.NOTHING, true);
-            if(StringUtils.isBlank(ea)){
+            if(StringUtils.isBlank(ea) || importBaseData.getExecutingAgencies().get(ea.trim()) == null){
                 ea = UNDEFINED;
             }
-            p.setExecutingAgency(importBaseData.getExecutingAgencies().get(ea));
+            p.setExecutingAgency(importBaseData.getExecutingAgencies().get(ea.trim()));
 
             p.setOriginalCurrency(importBaseData.getCurrencies().get(
                     getStringValueFromCell(row.getCell(pmcColumns.getOriginalCurrency()), "original currency", rowNumber, onProblem.NOTHING, true)
@@ -110,11 +119,14 @@ public class PmcImporter extends GeophProjectsImporter {
                     getDateValueFromCell(row.getCell(pmcColumns.getRevisedClosingDate()), "revised closing date", rowNumber, onProblem.NOTHING)
             );
 
-            String[] sectors = getStringArrayValueFromCell(row.getCell(pmcColumns.getSectors()), "sectors", rowNumber, onProblem.NOTHING);
-            Set<Sector> sectorSet = new HashSet<>();
-            for (String sector : sectors) {
-                if (importBaseData.getSectors().get(sector.toLowerCase().trim()) != null) {
-                    sectorSet.add(importBaseData.getSectors().get(sector.toLowerCase().trim()));
+            String sector = getStringValueFromCell(row.getCell(pmcColumns.getSectors()), "sectors", rowNumber, GeophProjectsImporter.onProblem.NOTHING, false);
+            Set<ProjectSector> sectorSet = new HashSet<>();
+            boolean isFirstSector = true;
+
+            if (sector!=null && importBaseData.getSectors().get(sector.toLowerCase().trim()) != null) {
+                if(isFirstSector) {
+                    ProjectSector ps = new ProjectSector(p, importBaseData.getSectors().get(sector.toLowerCase().trim()), 100D);
+                    sectorSet.add(ps);
                 }
             }
             if(sectorSet.size()>0){
