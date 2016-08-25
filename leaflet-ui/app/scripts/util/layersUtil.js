@@ -57,26 +57,11 @@ export const getValues=(features, valueProperty, fundingType)=>{
 		}
 		return val || 0
 	});
-	
-	return values;
+	return values.filter((val)=>{return val>0});//return array with values (zero values removed)
 }
 
-/*export const mergeAllLayersFeatures=(layers)=>{
-	let allLayersFeatures = [];
-	layers.sort(function(a, b){
-		return parseInt(a.zIndex) - parseInt(b.zIndex);
-	}).map((layer)=>{
-		const {data} = layer;
-		if (data && data.features){    
-			allLayersFeatures = allLayersFeatures.concat(data.features);
-		}	
-	})
-	return allLayersFeatures;
-}*/
-
-
 export const createCSSProviderInstance=(thresholds, values, cssProvider)=>{
-	const breaks = (thresholds > values.length)? values.length : thresholds;
+	const breaks = (thresholds > values.length)? values.length-1 : thresholds;
 	return (cssProvider)? new cssProvider(values,breaks):null;
 }
 
@@ -89,48 +74,47 @@ export const createLegendsByDomain=(domain,cssPrefix,css)=>{
 	const classNames=`legend-${cssPrefix} `
 	let legends;
 	if (domain && domain.length > 0){
-		legends=domain.map((val,i,arr)=>{
-			
-			const cls = classNames+css+i+'-9';
+		//domain=Array.from(new Set(domain));//removes duplicated ranges generated when provider has less values than breaks
+		legends=domain.map((val,i,arr)=>{			
+			const cls = `${classNames}${css}${i}-9`;
 			const start=formatValue(parseInt(val));
-			const end =formatValue(parseInt(arr[i+1]-1) );
-			let label =`${start}-${end}`;
+			const end =formatValue(parseInt(arr[i+1]-1));
+			let label =`${start} - ${end}`;
 			return {cls,label};
 		});
-
+		legends.pop();//removes the last element because is and invalid range added
 	} else {
-  			let cls = `${classNames}-none`;//put none class for show zero values in gray
-  			legends=[{cls, 'label': '0'}]
-  		}
-  		return legends;
+		let cls = `${classNames}${css}-none`;//put none class for show zero values in gray
+		legends=[{cls, 'label': '0'}]
+	}
+	return legends;
+}
 
-  	}
 
+const getFeatureValue=(feature,valueProperty,measure, type)=>{
+	return (valueProperty=='funding')? feature.properties[measure][type] : feature.properties[valueProperty];
+}
 
-  	const getFeatureValue=(feature,valueProperty,measure, type)=>{
-  		return (valueProperty=='funding')? feature.properties[measure][type] : feature.properties[valueProperty];
-  	}
+export const getStyledGeoJson=(geojson,layerSettings,classProviderInstance)=>{
+	
+	const {features}=geojson;
+	const {valueProperty, size, border, popupId='defaultPopup', name,fundingType,cssPrefix,css}= layerSettings;
+	const {measure, type} = fundingType;
+	const classes = `${cssPrefix} ${css}`;
 
-  	export const getStyledGeoJson=(geojson,layerSettings,classProviderInstance)=>{
-  		
-  		const {features}=geojson;
-  		const {valueProperty, size, border, popupId='defaultPopup', name,fundingType,cssPrefix,css}= layerSettings;
-  		const {measure, type} = fundingType;
-  		const classes = `${cssPrefix} ${css}`;
+	const newFeatures=features.map((feature)=>{
+		let className = ''
+		const value = getFeatureValue(feature,valueProperty,measure, type);
+		if (value){
+			className= classProviderInstance.getCssClass(value);
+		} else {
+			className = '-none';
+		}    		
 
-  		const newFeatures=features.map((feature)=>{
-  			let className = ''
-  			const value = getFeatureValue(feature,valueProperty,measure, type);
-  			if (value){
-  				className= classProviderInstance.getCssClass(value);
-  			} else {
-  				className = '-none';
-  			}    		
+		const newFeature=Object.assign({},feature);
+		Object.assign(newFeature.properties,{className:`${classes}${className}`,size, border, popupId, layerName: name});//Assign extra data to feature properties
+		return newFeature;
+	});	
 
-  			const newFeature=Object.assign({},feature);
-			Object.assign(newFeature.properties,{className:`${classes}${className}`,size, border, popupId, layerName: name});//Assign extra data to feature properties
-			return newFeature;
-		});	
-
-  		return Object.assign(geojson,{features:newFeatures});
-  	}
+	return Object.assign(geojson,{features:newFeatures});
+}
