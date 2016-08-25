@@ -133,10 +133,17 @@ public class LayerServiceImpl implements LayerService {
     }
 
     @Override
+    public FeatureCollection getGeoPhotoDataById(long kmlId) {
+        return getGeoPhotoDataFromRepo(geoPhotoRepository.getGeoPhotoGeometryByKmlId(kmlId));
+    }
 
-    public FeatureCollection getGeoPhotoData(long kmlId) {
+    @Override
+    public FeatureCollection getGeoPhotoData() {
+        return getGeoPhotoDataFromRepo(geoPhotoRepository.getGeoPhotoGeometry());
+    }
+
+    private FeatureCollection getGeoPhotoDataFromRepo(List<GeoPhotoGeometryDao> geometryHelpers) {
         FeatureCollection featureCollection = new FeatureCollection();
-        List<GeoPhotoGeometryDao> geometryHelpers = geoPhotoRepository.getGeoPhotoGeometryByKmlId(kmlId);
         for (GeoPhotoGeometryDao geometryHelper : geometryHelpers) {
             Feature feature = new Feature();
             feature.setProperty(GID, geometryHelper.getGid());

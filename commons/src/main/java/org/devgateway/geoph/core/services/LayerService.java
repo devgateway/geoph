@@ -23,5 +23,7 @@ public interface LayerService {
 
     List<GeoPhotoSource> getGeoPhotoSourceList();
 
-    FeatureCollection getGeoPhotoData(long kmlId);
+    FeatureCollection getGeoPhotoDataById(long kmlId);
+
+    FeatureCollection getGeoPhotoData();
 }

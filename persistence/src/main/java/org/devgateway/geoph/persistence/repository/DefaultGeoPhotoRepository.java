@@ -36,10 +36,21 @@ public class DefaultGeoPhotoRepository implements GeoPhotoRepository {
     }
 
     @Override
-    public List<GeoPhotoGeometryDao> getGeoPhotoGeometryByKmlId(long kmlId) {
-        Query q = em.createNativeQuery("SELECT gid,kmlid,name,symbolid,description,imagepath, " +
-                "ST_AsGeoJSON(geom) as geoJsonObject from geophoto_geometry where kmlid=:kmlId")
-                .setParameter("kmlId", kmlId);
+    public List<GeoPhotoGeometryDao> getGeoPhotoGeometry() {
+        return getGeoPhotoGeometryByKmlId(null);
+    }
+
+    @Override
+    public List<GeoPhotoGeometryDao> getGeoPhotoGeometryByKmlId(Long kmlId) {
+        Query q;
+        if(kmlId!=null) {
+            q = em.createNativeQuery("SELECT gid,kmlid,name,symbolid,description,imagepath, " +
+                    "ST_AsGeoJSON(geom) as geoJsonObject from geophoto_geometry where kmlid=:kmlId")
+                    .setParameter("kmlId", kmlId);
+        } else {
+            q = em.createNativeQuery("SELECT gid,kmlid,name,symbolid,description,imagepath, " +
+                    "ST_AsGeoJSON(geom) as geoJsonObject from geophoto_geometry");
+        }
         List<Object[]> resultList = q.getResultList();
         Gson g = new Gson();
         List<GeoPhotoGeometryDao> resp = new ArrayList<>();
@@ -49,7 +60,7 @@ public class DefaultGeoPhotoRepository implements GeoPhotoRepository {
             helper.setGid(((Integer) o[0]));
             helper.setKmlId(((BigDecimal) o[1]).longValue());
             helper.setName((String) o[2]);
-            helper.setSymbolId(((BigDecimal) o[3]).longValue());
+            helper.setSymbolId(o[3] != null ? ((BigDecimal) o[3]).longValue() : 0);
             helper.setDescription((String) o[4]);
             helper.setImagePath((String) o[5]);
             resp.add(helper);

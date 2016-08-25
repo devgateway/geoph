@@ -75,11 +75,18 @@ public class GeoJsonController extends BaseController {
     }
 
     @RequestMapping(value = "/geophotos/id/{kmlId}", method = GET)
-    public FeatureCollection getGeoPhotosData(@PathVariable final long kmlId) {
+    public FeatureCollection getGeoPhotosDataById(@PathVariable final long kmlId) {
         LOGGER.debug("getGeoPhotosData for kml id:" + kmlId);
-        return layerService.getGeoPhotoData(kmlId);
+        return layerService.getGeoPhotoDataById(kmlId);
     }
 
+
+
+    @RequestMapping(value = "/geophotos", method = GET)
+    public FeatureCollection getGeoPhotosData() {
+        LOGGER.debug("getGeoPhotosData");
+        return layerService.getGeoPhotoData();
+    }
 
 
     @RequestMapping(value = "/physicalProgress/{level}", method = GET)
