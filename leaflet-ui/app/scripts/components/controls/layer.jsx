@@ -35,7 +35,7 @@ class Settings extends React.Component {
 						</ul>
 					</li>
 				:null}
-				{(settings['valueProperties'])?
+				{(settings['valueProperty'])?
 					<li>
 						<ul className="level">
 							<li><b>{translate('toolview.layers.values')}:</b></li>

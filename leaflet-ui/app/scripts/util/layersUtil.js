@@ -45,6 +45,7 @@ export const getVisibles=(layers)=>{
 
 
 export const getValues=(features, valueProperty, fundingType)=>{
+	debugger;
 	const {measure, type} = fundingType;
 	let total = 0;
 	let values = features.map(function(f) { 

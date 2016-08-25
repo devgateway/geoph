@@ -1,12 +1,12 @@
-import {TOGGLE_LEGENDS_VIEW, SET_FUNDING_TYPE, SET_BASEMAP, LAYER_LOAD_SUCCESS, LAYER_LOAD_FAILURE, TOGGLE_LAYER, SET_LAYER_SETTING, INDICATOR_LIST_LOADED, GEOPHOTOS_LIST_LOADED, STATE_RESTORE, CHANGE_MAP_BOUNDS} from '../constants/constants';
+import {REFRESH_LAYER,TOGGLE_LEGENDS_VIEW, SET_FUNDING_TYPE, SET_BASEMAP, LAYER_LOAD_SUCCESS, LAYER_LOAD_FAILURE, TOGGLE_LAYER, SET_LAYER_SETTING, INDICATOR_LIST_LOADED, GEOPHOTOS_LIST_LOADED, STATE_RESTORE, CHANGE_MAP_BOUNDS} from '../constants/constants';
 import JenksCssProvider from '../util/jenksUtil.js'
 import Immutable from 'immutable';
 import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson, 
   createLegendsByDomain , getVisibles,getValues} from '../util/layersUtil.js';
 
   const statsIndex = 1;
-  const indicatorsIndex = 3;
-  const geophotosIndex = 4;
+  const indicatorsIndex = 2;
+  const geophotosIndex = 3;
   const size = 9;
 
   const defaultState = Immutable.fromJS(
@@ -33,10 +33,12 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
       visible: false
     },
 
-    layers: [{
+    layers: [
+    {
       id: 0,
       keyName: 'projects',
-      layers: [{
+      layers: [
+      {
           id: '0-0', //unique id 
           default: true,
           type: 'points',
@@ -55,7 +57,8 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
           thresholds: 5, //number of breaks 
           popupId: "projectPopup",
           supportFilters: true
-        }]
+        }
+        ]
       }, {
         id: '1',
         keyName: 'stats',
@@ -74,22 +77,43 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
           thresholds: 5,
           valueProperty: "funding",
           keyName: 'funding',
-          zIndex: 99,
           popupId: "projectPopup",
           supportFilters: true
         }]
-      }, {
+      }, 
+      {
         id: '2',
         keyName: 'indicators',
         layers: []
-      }, {
+      }, 
+      {
         id: '3',
         keyName: 'geophotos',
         layers: []
-      }
+      },
+      {
+        id: '4',
+        type: 'shapes',
+        ep: 'PHYSICAL_GEOJSON',
+        settings: {
+          'css': 'red','valueProperty':'avgActual'
+        },
+        cssPrefix: 'funding', //markers css prefix 
+        default: false,
+        border: 2,
+        zIndex: 99,
+        cssProvider: JenksCssProvider,
+        thresholds: 5,
+        keyName: 'physical',
+        popupId: "projectPopup",
+        supportFilters: true
+        }
 
-      ]
-    });
+        ]
+      });
+
+
+
 
   const setIndicators = (state, indicators) => {
     var index = 0;
@@ -180,7 +204,7 @@ const makeStyledGeoJson=(settings,data, fundingType, classProviderInstance)=>{
 const getLayerSettings=(layer)=>{
  const thresholds = layer.get('thresholds')
  const cssProvider = layer.get('cssProvider');
- const valueProperty =layer.get('valueProperty');
+ const valueProperty =layer.get('valueProperty') || layer.getIn(['settings','valueProperty']);
  const cssPrefix=layer.get('cssPrefix');
  const css=layer.getIn(['settings','css']);
  const name=layer.get('name');
@@ -194,27 +218,18 @@ const getLayerSettings=(layer)=>{
 const getClassProvider=(settings,features,fundingType)=>{
  const {thresholds,cssProvider,valueProperty}=settings;
  const values = getValues(features, valueProperty, fundingType); //extract values from features 
-  console.log(values);
+ console.log(values);
  return createCSSProviderInstance(thresholds, values, cssProvider);
 }
 
 
 const onLoadLayer = (state,action) => {
   var {id, data, fundingType} = action;
+
   if (state.getIn(getPath(id, ["keyName"])) == "projects") {
     state = resize(state, id); 
   }
-  const layer =getLayer(state,id);
-  
-  const legendPath=getPath(id, ["legends"]);
-  const dataPath=getPath(id, ["data"]);
-  const {features}=data;
-  const settings=getLayerSettings(layer);
-  const classProviderInstance = getClassProvider(settings,features,fundingType);
-  const newData=Immutable.fromJS(makeStyledGeoJson(settings,data,fundingType,classProviderInstance));
-  const newLegends=Immutable.fromJS(getLegends(settings,classProviderInstance));
-  
-  return state.setIn(dataPath,newData).setIn(legendPath,newLegends);
+  return updateLayer(state,action)
 }
 
 const onToggleLayer=(state,action)=>{
@@ -227,34 +242,40 @@ const onToggleLayer=(state,action)=>{
   return state.setIn(getPath(id, ['visible']), !visible)
 }
 
+
+
 const onSetSetting=(state,action)=>{
   var {id, name, value} = action;
-  if(name=='property'){
-    debugger;
-  }
-
+  debugger;
   return state.setIn(getPath(id, ["settings", name]), value);
 }
 
-const onChangeFundingType=(state,action)=>{
-  debugger;
-  var {fundingType} = action;
-  let layers = getVisibles(state.get('layers'));
+const updateLayer=(state,action,id)=>{
   
-  layers.forEach((layer)=>{
-    const id=layer.get('id');
-    const data=layer.get('data').toJS();
+    var {fundingType,data} = action;
+    
+     id= id || action.id; 
+      const layer=state.getIn(getPath(id));
+     data= data || layer.get('data').toJS();
+    
+    
     const {features}=data;
 
     const classProviderInstance = getClassProvider(getLayerSettings(layer),features,fundingType);
     const newData=Immutable.fromJS(makeStyledGeoJson(getLayerSettings(layer),data,fundingType,classProviderInstance));
     const newLegends=Immutable.fromJS(getLegends(getLayerSettings(layer),classProviderInstance));
     
-     const legendPath=getPath(id, ["legends"]);
-     const dataPath=getPath(id, ["data"]);
+    const legendPath=getPath(id, ["legends"]);
+    const dataPath=getPath(id, ["data"]);
+    return state.setIn(dataPath,newData).setIn(legendPath,newLegends);
+}
 
-
-    state=state.setIn(dataPath,newData).setIn(legendPath,newLegends);
+const onChangeFundingType=(state,action)=>{
+  var {fundingType} = action;
+  let layers = getVisibles(state.get('layers'));
+  
+  layers.forEach((layer)=>{
+      state=updateLayer(state,action,layer.get('id')) //update this layer
 
   })
   return state;
@@ -269,7 +290,11 @@ const map = (state = defaultState, action) => {
     return onToggleLayer(state,action);
 
     case SET_LAYER_SETTING:
-    return onSetSetting(state,action);
+      return onSetSetting(state,action);
+
+      case REFRESH_LAYER:
+      debugger;
+      return updateLayer(state,action);
 
     case LAYER_LOAD_SUCCESS:
     return onLoadLayer(state,action);
@@ -291,7 +316,7 @@ const map = (state = defaultState, action) => {
 
     case GEOPHOTOS_LIST_LOADED:
     //return setGeophotos(state, action.data);
-
+    return state;
     case TOGGLE_LEGENDS_VIEW:
     return state.setIn(['legends', 'visible'], !state.getIn(['legends', 'visible']));
 
