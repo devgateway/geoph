@@ -1,4 +1,4 @@
-import {TOGGLE_LEGENDS_VIEW, SET_BASEMAP, TOGGLE_LAYER,LAYER_LOAD_SUCCESS,LAYER_LOAD_FAILURE,SET_LAYER_SETTING,CHANGE_MAP_BOUNDS }  from '../constants/constants.js';
+import {REFRESH_LAYER,TOGGLE_LEGENDS_VIEW, SET_BASEMAP, TOGGLE_LAYER,LAYER_LOAD_SUCCESS,LAYER_LOAD_FAILURE,SET_LAYER_SETTING,CHANGE_MAP_BOUNDS }  from '../constants/constants.js';
 import Connector from '../connector/connector.js';
 import {getPath, getDefaults, getVisibles} from '../util/layersUtil.js';
 import {collectValues} from '../util/filterUtil';
@@ -35,6 +35,7 @@ export const applyFiltersToLayers=(filters)=>{
 }
 
 export const setSetting=(id, name, value)=>{
+	
 	return (dispatch, getState) => {
 		dispatch( {
 			type: SET_LAYER_SETTING,
@@ -42,7 +43,13 @@ export const setSetting=(id, name, value)=>{
 			name,
 			value
 		});
-		dispatch(loadLayerById(dispatch, getState,id));
+		if (name=='level'){
+			//reaload layer if level was changed
+			dispatch(loadLayerById(dispatch, getState,id));
+		}else{
+			//regenerate layer if a setting was changed
+			dispatch({type: REFRESH_LAYER,id,fundingType: getState().settings.fundingType});
+		}
 	}
 }
 
