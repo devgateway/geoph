@@ -237,25 +237,22 @@ const onSetSetting=(state,action)=>{
 }
 
 const onChangeFundingType=(state,action)=>{
-  debugger;
   var {fundingType} = action;
   let layers = getVisibles(state.get('layers'));
   
   layers.forEach((layer)=>{
-    const id=layer.get('id');
-    const data=layer.get('data').toJS();
-    const {features}=data;
-
-    const classProviderInstance = getClassProvider(getLayerSettings(layer),features,fundingType);
-    const newData=Immutable.fromJS(makeStyledGeoJson(getLayerSettings(layer),data,fundingType,classProviderInstance));
-    const newLegends=Immutable.fromJS(getLegends(getLayerSettings(layer),classProviderInstance));
-    
-     const legendPath=getPath(id, ["legends"]);
-     const dataPath=getPath(id, ["data"]);
-
-
-    state=state.setIn(dataPath,newData).setIn(legendPath,newLegends);
-
+    const valueProperty=layer.get('valueProperty');
+    if (valueProperty=="funding"){
+      const id=layer.get('id');
+      const data=layer.get('data').toJS();
+      const {features}=data;
+      const classProviderInstance = getClassProvider(getLayerSettings(layer),features,fundingType);
+      const newData=Immutable.fromJS(makeStyledGeoJson(getLayerSettings(layer),data,fundingType,classProviderInstance));
+      const newLegends=Immutable.fromJS(getLegends(getLayerSettings(layer),classProviderInstance));
+      const legendPath=getPath(id, ["legends"]);
+      const dataPath=getPath(id, ["data"]);
+      state=state.setIn(dataPath,newData).setIn(legendPath,newLegends);
+    }
   })
   return state;
 }
