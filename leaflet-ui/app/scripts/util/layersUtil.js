@@ -60,7 +60,7 @@ export const getValues=(features, valueProperty, fundingType)=>{
 	return values;
 }
 
-export const mergeAllLayersFeatures=(layers)=>{
+/*export const mergeAllLayersFeatures=(layers)=>{
 	let allLayersFeatures = [];
 	layers.sort(function(a, b){
 		return parseInt(a.zIndex) - parseInt(b.zIndex);
@@ -71,7 +71,7 @@ export const mergeAllLayersFeatures=(layers)=>{
 		}	
 	})
 	return allLayersFeatures;
-}
+}*/
 
 
 export const createCSSProviderInstance=(thresholds, values, cssProvider)=>{

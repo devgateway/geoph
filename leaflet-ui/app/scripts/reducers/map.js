@@ -236,6 +236,7 @@ const onSetSetting=(state,action)=>{
 }
 
 const onChangeFundingType=(state,action)=>{
+  debugger;
   var {fundingType} = action;
   let layers = getVisibles(state.get('layers'));
   

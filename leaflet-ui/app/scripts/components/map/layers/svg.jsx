@@ -4,7 +4,6 @@ import {MapLayer} from 'react-leaflet';
 import React from 'react';
 import d3 from 'd3';
 import { render, unmountComponentAtNode } from 'react-dom';
-import {mergeAllLayersFeatures} from '../../../util/layersUtil';
 
 /**
  * @author Sebas
@@ -32,10 +31,14 @@ export default class D3Layer extends MapLayer {
     this.leafletElement = geoJson();
     
     this.svg = d3.select(this.props.map.getPanes().overlayPane).append("svg"); 
+    this.svg.onClick=()=>{
+      debugger;
+    }
     this.svg.style("z-index",this.props.zIndex);
     this.g = this.svg.append("g").attr("class", "leaflet-zoom-hide");
     this.props.map.on('moveend', this.mapUpdate.bind(this));
     this.props.map.on('click', function(evt) {
+      debugger;
       evt.originalEvent.stopPropagation();
       this.renderPopupContent(Object.assign({}, evt.originalEvent.features, {latlng: evt.latlng}));
     }.bind(this));
@@ -74,6 +77,7 @@ export default class D3Layer extends MapLayer {
   }
 
   onClick(properties){
+    debugger;
     d3.event.features=properties;    
   }
 

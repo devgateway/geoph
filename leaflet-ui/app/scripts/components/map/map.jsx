@@ -12,7 +12,7 @@ import L from 'leaflet';
 import ProjectPopup from './popups/projectLayerPopup'
 import SimplePopup from './popups/simplePopup'
 import PhotoPopup from './popups/photoPopup'
-import {getVisibles, mergeAllLayersFeatures} from '../../util/layersUtil.js';
+import {getVisibles} from '../../util/layersUtil.js';
 import Legends from './legends/legends'
 
 require('leaflet/dist/leaflet.css')
@@ -33,18 +33,23 @@ const view=React.createClass({
 		const {southWest, northEast} = map.get('bounds').toJS();		
 		const bounds = L.latLngBounds(L.latLng(southWest.lat, southWest.lng),L.latLng(northEast.lat,northEast.lng));
 		let layers = getVisibles(this.props.map.get('layers')).toJS();
-		let layersfeatures = mergeAllLayersFeatures(layers);
+			debugger;
 		return (
 			<div>
 				<Map className="map" bounds={bounds} onMoveEnd={this.handleChangeBounds}>
+					
 					<TileLayer url={this.props.map.get('basemap').get('url')}/>
-					<SvgLayer  
-						map={this.props.map}
-						features={layersfeatures}>
+					
+					{layers.map((l)=>{
+						console.log(l);
+						const {data}=l;
+						return (data && data.features)?<SvgLayer zIndex={l.zIndex}  features={data.features}>
 						<ProjectPopup id="projectPopup" onClosePopup={this.closePopup}/>
 						<SimplePopup id="defaultPopup" onClosePopup={this.closePopup}/>
 						<PhotoPopup id="photoPopup" onClosePopup={this.closePopup}/>
-					</SvgLayer>		
+					</SvgLayer>:null;
+					})}
+				
 				</Map>
 				<Legends layers={this.props.map.get('layers')} />
 			</div>
