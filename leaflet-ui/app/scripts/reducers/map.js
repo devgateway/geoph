@@ -107,80 +107,80 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
         keyName: 'physical',
         popupId: "projectPopup",
         supportFilters: true
-        }
-
-        ]
-      });
-
-
-
-
-  const setIndicators = (state, indicators) => {
-    var index = 0;
-    let layers= indicators.map(it => {
-      const {id, colorScheme: css,name,keyName,unit} = it;
-      const layerId =  indicatorsIndex + "-" + index++;
-      return {
-        id: layerId,
-        indicator_id: id,
-        keyName,
-        border:2,
-        ep: "INDICATOR",
-        type: 'shapes',
-        zIndex: 98,
-        cssPrefix:'indicators',
-        cssProvider: JenksCssProvider,
-        thresholds: 5,
-        valueProperty: "value",
-        name,
-        settings: {
-          'css': css || 'red'
-        }
       }
+
+      ]
     });
 
-    return state.setIn(["layers", indicatorsIndex, "layers"], Immutable.fromJS(layers));
-  }
-  const setGeophotos = (state, geophotos) => {
-    var index = 0;
-    let layers = geophotos.map(it => {
-      const {id, colorScheme: css, name} = it;
-      const layerId =  geophotosIndex + "-" + index++;
-      return {
-        id: layerId,
-        geophotos_id: id,
-        zIndex: 101,
-        ep: "GEOPHOTOS",
-        type: 'points',
-        name,
-        size: 4, 
-        border: 2, 
-        popupId: "photoPopup",   
-        cssPrefix: 'points', 
-        settings: {
-          'css': css || 'blue'
-        }
+
+
+
+const setIndicators = (state, indicators) => {
+  var index = 0;
+  let layers= indicators.map(it => {
+    const {id, colorScheme: css,name,keyName,unit} = it;
+    const layerId =  indicatorsIndex + "-" + index++;
+    return {
+      id: layerId,
+      indicator_id: id,
+      keyName,
+      border:2,
+      ep: "INDICATOR",
+      type: 'shapes',
+      zIndex: 98,
+      cssPrefix:'indicators',
+      cssProvider: JenksCssProvider,
+      thresholds: 5,
+      valueProperty: "value",
+      name,
+      settings: {
+        'css': css || 'red'
       }
-    });
-
-    return state.setIn(["layers", geophotosIndex, "layers"], Immutable.fromJS(layers));
-  }
-
-  const getType = (state, id) => {
-    return state.getIn(getPath(id, ["type"]));
-  }
-
-  const resize = (state, id) => {
-    var level = state.getIn(getPath(id, ['settings', 'level']));
-    let newSize = size;
-    if (level == 'province') {
-      newSize = size / 2;
-    } else
-    if (level == 'municipality') {
-      newSize = size / 3;
     }
-    return state.setIn(getPath(id, ['size']), newSize)
+  });
+
+  return state.setIn(["layers", indicatorsIndex, "layers"], Immutable.fromJS(layers));
+}
+const setGeophotos = (state, geophotos) => {
+  var index = 0;
+  let layers = geophotos.map(it => {
+    const {id, colorScheme: css, name} = it;
+    const layerId =  geophotosIndex + "-" + index++;
+    return {
+      id: layerId,
+      geophotos_id: id,
+      zIndex: 101,
+      ep: "GEOPHOTOS",
+      type: 'points',
+      name,
+      size: 4, 
+      border: 2, 
+      popupId: "photoPopup",   
+      cssPrefix: 'points', 
+      settings: {
+        'css': css || 'blue'
+      }
+    }
+  });
+
+  return state.setIn(["layers", geophotosIndex, "layers"], Immutable.fromJS(layers));
+}
+
+const getType = (state, id) => {
+  return state.getIn(getPath(id, ["type"]));
+}
+
+const resize = (state, id) => {
+  var level = state.getIn(getPath(id, ['settings', 'level']));
+  let newSize = size;
+  if (level == 'province') {
+    newSize = size / 2;
+  } else
+  if (level == 'municipality') {
+    newSize = size / 3;
   }
+  return state.setIn(getPath(id, ['size']), newSize)
+}
 
 //get current layer configuration by path
 const getLayer=(state,id)=>{
@@ -237,7 +237,7 @@ const onToggleLayer=(state,action)=>{
   if (getType(state, id) == "shapes") {
     getShapeLayers(state.get('layers')).forEach(l=>{
       state=state.setIn(getPath(l.get('id'), ['visible']), false)
-    }); 
+  }); 
   }
   return state.setIn(getPath(id, ['visible']), !visible)
 }
@@ -251,23 +251,23 @@ const onSetSetting=(state,action)=>{
 }
 
 const updateLayer=(state,action,id)=>{
-  
-    var {fundingType,data} = action;
-    
-     id= id || action.id; 
-      const layer=state.getIn(getPath(id));
-     data= data || layer.get('data').toJS();
-    
-    
-    const {features}=data;
 
-    const classProviderInstance = getClassProvider(getLayerSettings(layer),features,fundingType);
-    const newData=Immutable.fromJS(makeStyledGeoJson(getLayerSettings(layer),data,fundingType,classProviderInstance));
-    const newLegends=Immutable.fromJS(getLegends(getLayerSettings(layer),classProviderInstance));
-    
-    const legendPath=getPath(id, ["legends"]);
-    const dataPath=getPath(id, ["data"]);
-    return state.setIn(dataPath,newData).setIn(legendPath,newLegends);
+  var {fundingType,data} = action;
+
+  id= id || action.id; 
+  const layer=state.getIn(getPath(id));
+  data= data || layer.get('data').toJS();
+
+
+  const {features}=data;
+
+  const classProviderInstance = getClassProvider(getLayerSettings(layer),features,fundingType);
+  const newData=Immutable.fromJS(makeStyledGeoJson(getLayerSettings(layer),data,fundingType,classProviderInstance));
+  const newLegends=Immutable.fromJS(getLegends(getLayerSettings(layer),classProviderInstance));
+
+  const legendPath=getPath(id, ["legends"]);
+  const dataPath=getPath(id, ["data"]);
+  return state.setIn(dataPath,newData).setIn(legendPath,newLegends);
 }
 
 const onChangeFundingType=(state,action)=>{
@@ -277,7 +277,7 @@ const onChangeFundingType=(state,action)=>{
   layers.forEach((layer)=>{
       state=updateLayer(state,action,layer.get('id')) //update this layer
 
-  })
+    })
   return state;
 }
 
@@ -290,11 +290,10 @@ const map = (state = defaultState, action) => {
     return onToggleLayer(state,action);
 
     case SET_LAYER_SETTING:
-      return onSetSetting(state,action);
+    return onSetSetting(state,action);
 
-      case REFRESH_LAYER:
-      debugger;
-      return updateLayer(state,action);
+    case REFRESH_LAYER:
+    return updateLayer(state,action);
 
     case LAYER_LOAD_SUCCESS:
     return onLoadLayer(state,action);
