@@ -8,6 +8,7 @@ import org.devgateway.geoph.model.Project;
 import org.devgateway.geoph.model.Project_;
 import org.devgateway.geoph.persistence.util.FilterHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -40,6 +41,7 @@ public class DefaultPhysicalStatusRepository implements PhysicalStatusRepository
     }
 
     @Override
+    @Cacheable("findPhysicalStatusById")
     public PhysicalStatus findById(Long id) {
         return em.createNamedQuery("findPhysicalStatusById", PhysicalStatus.class)
                 .setParameter("id", id)
@@ -54,6 +56,7 @@ public class DefaultPhysicalStatusRepository implements PhysicalStatusRepository
     }
 
     @Override
+    @Cacheable("findPhysicalStatusByParams")
     public List<PhysicalStatusDao> findFundingByPhysicalStatus(Parameters params) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<PhysicalStatusDao> criteriaQuery = criteriaBuilder.createQuery(PhysicalStatusDao.class);

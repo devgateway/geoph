@@ -22,6 +22,8 @@ public interface LocationRepository {
 
     List<Location> findLocationsByLevel(int level);
 
+    List<Location> findLocationsByLevelUacsNotNull(int level);
+
     List<Location> findLocationsByParentId(long parentId);
 
     List<ProjectLocationDao> findProjectLocationsByParams(Parameters params);

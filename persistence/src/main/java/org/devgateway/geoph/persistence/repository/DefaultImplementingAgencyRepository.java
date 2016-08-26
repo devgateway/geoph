@@ -8,6 +8,7 @@ import org.devgateway.geoph.model.ProjectAgency;
 import org.devgateway.geoph.model.Project_;
 import org.devgateway.geoph.persistence.util.FilterHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -33,6 +34,7 @@ public class DefaultImplementingAgencyRepository implements ImplementingAgencyRe
     }
 
     @Override
+    @Cacheable("findImplementingAgencyById")
     public ImplementingAgency findById(Long id) {
         return em.createNamedQuery("findImplementingAgencyById", ImplementingAgency.class)
                 .setParameter("id", id)
@@ -45,6 +47,7 @@ public class DefaultImplementingAgencyRepository implements ImplementingAgencyRe
     }
 
     @Override
+    @Cacheable("findImplementingAgencyByParams")
     public List<ProjectAgency> findFundingByImplementingAgency(Parameters params) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<ProjectAgency> criteriaQuery = criteriaBuilder.createQuery(ProjectAgency.class);

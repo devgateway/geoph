@@ -200,6 +200,21 @@ public class Extractors {
         };
     }
 
+    public static Extractor<String> physicalStatusExtractor(final String getter) {
+        return new Extractor<String>() {
+            @Override
+            public String extract(Map<String, Object> properties) {
+                Object value = properties.get(getter);
+                if (value instanceof PhysicalStatus) {
+                    PhysicalStatus status = (PhysicalStatus) value;
+                    return status.getName();
+                } else {
+                    return "";
+                }
+            }
+        };
+    }
+
     public static Extractor<String> currencyExtractor(final String getter) {
         return new Extractor<String>() {
             @Override
