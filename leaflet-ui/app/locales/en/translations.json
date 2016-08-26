@@ -115,6 +115,7 @@
 			"selectedresults": "Selected Results"
 		},
 		"layers": {
+
 			"title": "Adjust layers to see detailed data",
 			"level": "Level",
 			"colors": "Colors",
@@ -129,8 +130,13 @@
 			"poverty": "Poverty",
 			"population": "Population",
 			"funding": "Total Funding",
+			"physical":"Physical progress",
 			"indicators": "Statistical Indicators",
-			"geophotos": "Geotagged Photos"
+			"geophotos": "Geotagged Photos",
+			"values":"Values",
+			"target":"Target",
+			"actual":"Actual"
+				
 		}
 	},
 
