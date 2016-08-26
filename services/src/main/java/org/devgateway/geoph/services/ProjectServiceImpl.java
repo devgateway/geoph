@@ -44,7 +44,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<ProjectMiniDao> findProjectMiniByParams(Parameters params) {
+    public Page<ProjectMiniDao> findProjectMiniByParams(Parameters params) {
         return projectRepository.findProjectMiniByParams(params);
     }
 

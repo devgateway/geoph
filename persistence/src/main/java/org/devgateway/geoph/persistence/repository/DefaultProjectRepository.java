@@ -7,6 +7,7 @@ import org.devgateway.geoph.dao.ProjectMiniDao;
 import org.devgateway.geoph.dao.ProjectStatsResultsDao;
 import org.devgateway.geoph.model.*;
 import org.devgateway.geoph.persistence.util.FilterHelper;
+import org.hibernate.jpa.criteria.OrderImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +60,7 @@ public class DefaultProjectRepository implements ProjectRepository {
 
     @Override
     @Cacheable("findProjectMiniByParams")
-    public List<ProjectMiniDao> findProjectMiniByParams(Parameters params) {
+    public Page<ProjectMiniDao> findProjectMiniByParams(Parameters params) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<ProjectMiniDao> criteriaQuery = criteriaBuilder.createQuery(ProjectMiniDao.class);
         Root<Project> projectRoot = criteriaQuery.from(Project.class);
@@ -69,7 +70,6 @@ public class DefaultProjectRepository implements ProjectRepository {
         multiSelect.add(projectRoot.get(Project_.title).alias("title"));
 
         List<Predicate> predicates = new ArrayList<>();
-
         FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);
 
         if(predicates.size()>0) {
@@ -77,12 +77,12 @@ public class DefaultProjectRepository implements ProjectRepository {
             criteriaQuery.where(other);
         }
 
-        List<Expression<?>> groupByList = new ArrayList<>();
-        criteriaQuery.groupBy(groupByList);
-
+        criteriaQuery.orderBy(criteriaBuilder.asc(projectRoot.get(Project_.title)));
         TypedQuery<ProjectMiniDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
 
-        return query.getResultList();
+        List<ProjectMiniDao> projectList = query.getResultList();
+        int count = query.getResultList().size();
+        return new PageImpl<>(projectList, params.getPageable(), count);
     }
 
     @Override

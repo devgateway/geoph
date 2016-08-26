@@ -22,7 +22,7 @@ public interface ProjectService {
 
     Page<Project> findProjectsByParams(Parameters params);
 
-    List<ProjectMiniDao> findProjectMiniByParams(Parameters params);
+    Page<ProjectMiniDao> findProjectMiniByParams(Parameters params);
 
     Project save(Project project);
 

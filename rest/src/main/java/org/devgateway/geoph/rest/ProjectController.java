@@ -60,7 +60,7 @@ public class ProjectController extends BaseController {
     }
 
     @RequestMapping(value = "/all", method = GET)
-    public List<ProjectMiniDao> findAllProjects(AppRequestParams filters,
+    public Page<ProjectMiniDao> findAllProjects(AppRequestParams filters,
                                          ProjectOrder projectOrder) {
         LOGGER.debug("findAllProjects");
         Parameters params = filters.getParameters();

@@ -22,7 +22,7 @@ public interface ProjectRepository {
 
     Page<Project> findProjectsByParams(Parameters params);
 
-    List<ProjectMiniDao> findProjectMiniByParams(Parameters params);
+    Page<ProjectMiniDao> findProjectMiniByParams(Parameters params);
 
     Map<String, List<ProjectStatsResultsDao>> getStats(Parameters params);
 
