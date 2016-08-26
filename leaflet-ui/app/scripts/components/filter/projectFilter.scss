@@ -94,11 +94,13 @@
   }
 
   .selectable{
-	position: absolute;
 	float: left;
 	cursor: pointer;
   }
   .item-text{
+  	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 	float: left;
 	cursor: pointer;
   }

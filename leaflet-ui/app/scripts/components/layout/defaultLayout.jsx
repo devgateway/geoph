@@ -9,13 +9,12 @@ import FilterPopup from '../filter/filters.jsx'
 import Settings from '../controls/settings'
 import Share from '../controls/share'
 import Print from '../controls/print'
+import ProjectPage from '../project/projectPage'
 
 import Basemap from '../controls/baseMap.jsx'
 import SaveMap from '../save-restore/save'
 import {Message} from '../lan/'
 import {showSaveMap} from '../../actions/saveAndRestoreMap';
-
-
 
 require("./root.scss");
 
@@ -76,19 +75,18 @@ export default class DefaultLayout extends React.Component {
     super();
   }
 
-
   render() {
-
     return (
       <div className="root">
-      <Header>
-        <Menu items={items}/>
-      </Header>
-          <Landing/>
-          <Panel>
-              {this.props.children}
-          </Panel>
-          <Footer/>
+        <ProjectPage/>
+        <Header>
+          <Menu items={items}/>
+        </Header>
+        <Landing/>
+        <Panel showHelp={this.showHelp}>
+            {this.props.children}
+        </Panel>
+        <Footer/>
       </div>
     )
   }

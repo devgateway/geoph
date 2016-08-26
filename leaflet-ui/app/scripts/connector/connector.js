@@ -308,6 +308,16 @@ class Connector {
 		return this.call(GET,Settings.get('API','GEOPHOTOS_LIST'),{});
 	}
 	
+	getProjectInfo(id) {
+		return new Promise( (resolve, reject) => {
+			let path = Settings.get('API','PROJECT_INFO');
+			path=path.replace('${id}',id);
+			this.call(GET, path, id).then((data) => {
+				resolve(data); 	
+			}).catch(reject)
+		});
+	}
+
 }
 
 
