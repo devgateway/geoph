@@ -40,10 +40,10 @@ public class LoanImporter extends GeophProjectsImporter {
             }
 
             String fa = getStringValueFromCell(row.getCell(loanColumns.getFundingInstitution()), "funding institution", rowNumber, GeophProjectsImporter.onProblem.NOTHING, true);
-            if(StringUtils.isBlank(fa)){
+            if(StringUtils.isBlank(fa) || importBaseData.getFundingAgencies().get(fa.trim()) == null){
                 fa = UNDEFINED;
             }
-            p.setFundingAgency(importBaseData.getFundingAgencies().get(fa));
+            p.setFundingAgency(importBaseData.getFundingAgencies().get(fa.trim()));
 
             String[] ias = getStringArrayValueFromCell(row.getCell(loanColumns.getImplementingAgency()), "implementing agency", rowNumber, GeophProjectsImporter.onProblem.NOTHING);
             Set<ProjectAgency> iaSet = new HashSet<>();
@@ -68,10 +68,10 @@ public class LoanImporter extends GeophProjectsImporter {
             }
 
             String ea = getStringValueFromCell(row.getCell(loanColumns.getExecutingAgency()), "executing agency", rowNumber, GeophProjectsImporter.onProblem.NOTHING, true);
-            if(StringUtils.isBlank(ea)){
+            if(StringUtils.isBlank(ea) || importBaseData.getExecutingAgencies().get(ea.trim()) == null){
                 ea = UNDEFINED;
             }
-            p.setExecutingAgency(importBaseData.getExecutingAgencies().get(ea));
+            p.setExecutingAgency(importBaseData.getExecutingAgencies().get(ea.trim()));
 
             p.setOriginalCurrency(importBaseData.getCurrencies().get(
                     getStringValueFromCell(row.getCell(loanColumns.getOriginalCurrency()), "original currency", rowNumber, GeophProjectsImporter.onProblem.NOTHING, true)

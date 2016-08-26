@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { ButtonGroup, Button, Label } from 'react-bootstrap';
 import * as Constants from '../../constants/constants';
 import { parseDataChart } from '../../util/chartUtil';
-import {formatValue} from '../../util/transactionUtil';
+import {formatValue} from '../../util/format.js';
 import translate from '../../util/translate';
 require("./charts.scss");
 

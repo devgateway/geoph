@@ -4,7 +4,6 @@ import {MapLayer} from 'react-leaflet';
 import React from 'react';
 import d3 from 'd3';
 import { render, unmountComponentAtNode } from 'react-dom';
-import {mergeAllLayersFeatures} from '../../../util/layersUtil';
 
 /**
  * @author Sebas
@@ -18,7 +17,7 @@ export default class D3Layer extends MapLayer {
 
   componentDidUpdate(nextProps, nextState) {
     const {data, ...props} = this.props;
-    console.log('updating layer');
+  
     this.mapUpdate();
   }
 
@@ -32,6 +31,7 @@ export default class D3Layer extends MapLayer {
     this.leafletElement = geoJson();
     
     this.svg = d3.select(this.props.map.getPanes().overlayPane).append("svg"); 
+   
     this.svg.style("z-index",this.props.zIndex);
     this.g = this.svg.append("g").attr("class", "leaflet-zoom-hide");
     this.props.map.on('moveend', this.mapUpdate.bind(this));
@@ -40,6 +40,12 @@ export default class D3Layer extends MapLayer {
       this.renderPopupContent(Object.assign({}, evt.originalEvent.features, {latlng: evt.latlng}));
     }.bind(this));
     this.mapUpdate();//trigger first update
+  }
+
+  filter(data, map){
+    var bounds = map.getBounds();
+    const filtered = data.filter((f)=>f.geometry?bounds.contains(L.geoJson(f).getBounds()):false);
+    return filtered;
   }
 
   setSvgSize(path, data, size, border){
@@ -72,15 +78,12 @@ export default class D3Layer extends MapLayer {
   }
 
   mapUpdate(e) {
-    const {layers, fundingType, onCreateLegends} = this.props;
-    this.renderLayersPaths(layers.sort(function(a, b){
-        return parseInt(a.zIndex) - parseInt(b.zIndex);
-      }));
+    this.renderLayersPaths(this.props.features);
   }
 
-  renderLayersPaths(layers){
-    const {map, fundingType}=this.props;
-    const {size, border, allLayersFeatures} = mergeAllLayersFeatures(layers, fundingType, map);
+  renderLayersPaths(features){
+    const {map}=this.props;
+    const size=20, border=10;
 
     // Use Leaflet to implement a D3 geometric transformation.
     function projectPoint(x, y) {
@@ -89,14 +92,14 @@ export default class D3Layer extends MapLayer {
     }
     const transform = d3.geo.transform({ point: projectPoint});
     const path = d3.geo.path().projection(transform);
-    if (allLayersFeatures.length!=0){
-      this.setSvgSize(path, {type: "FeatureCollection", features: allLayersFeatures}, size, border); //set svg area 
+    if (features.length!=0){
+      this.setSvgSize(path, {type: "FeatureCollection", features}, size, border); //set svg area 
     }
     path.pointRadius((d)=>{
       return (d.properties.size/2 * map.getZoom()) ;
     });
     
-    var shapes = this.g.selectAll("path").data(allLayersFeatures);
+    var shapes = this.g.selectAll("path").data(features);
     shapes.enter().append("path");
     shapes.exit().remove();
     shapes.attr("class", function(f) {return f.properties.className;}.bind(this));

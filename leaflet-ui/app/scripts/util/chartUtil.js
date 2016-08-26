@@ -1,6 +1,6 @@
 import translate from './translate.js';
 import {capitalizeString, ellipseString} from './stringUtil.js';
-import {formatValue} from './transactionUtil';
+import {formatValue} from './format';
 
 export const parseDataChart=(chartType, props, chartContainerRef)=>{
     const {chartData, dimension, measure, width, height, hiddenlabels} = props;
