@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as Intro from 'intro.js';
-import Help from './Help.jsx';
+import Help from './help.jsx';
 import translate from '../../util/translate';
 
 export default class ProjectSearchHelp extends Help{
