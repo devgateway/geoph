@@ -98,7 +98,7 @@ public class Extractors {
                 Object value = properties.get(getter);
                 List<String> names = new ArrayList<>();
                 if (value instanceof PersistentSet) {
-                    names = ((Set<ImplementingAgency>) value).stream().map(implementingAgency -> implementingAgency.getName()).collect(Collectors.toList());
+                    names = ((Set<ProjectAgency>) value).stream().map(implementingAgency -> implementingAgency.getAgency().getName()).collect(Collectors.toList());
                 }
                 return names;
             }
@@ -127,7 +127,7 @@ public class Extractors {
                 Object value = properties.get(getter);
                 List<String> names = new ArrayList<>();
                 if (value instanceof PersistentSet) {
-                    names = ((Set<Sector>) value).stream().map(sector -> sector.getName()).collect(Collectors.toList());
+                    names = ((Set<ProjectSector>) value).stream().map(sector -> sector.getSector().getName()).collect(Collectors.toList());
                 }
                 return names;
             }

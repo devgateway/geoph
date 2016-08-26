@@ -14,5 +14,7 @@ public interface GeoPhotoRepository {
 
     GeoPhotoSource findByCode(String name);
 
-    List<GeoPhotoGeometryDao> getGeoPhotoGeometryByKmlId(long kmlId);
+    List<GeoPhotoGeometryDao> getGeoPhotoGeometryByKmlId(Long kmlId);
+
+    List<GeoPhotoGeometryDao> getGeoPhotoGeometry();
 }
