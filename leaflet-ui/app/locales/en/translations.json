@@ -185,6 +185,19 @@
 			"apply": "Apply selected projects as filter",
 			"clearall": "Clear all (results and selection)"
 		}
+	},
+
+	"project": {
+		"projectdetails": "Project Details",
+		"projectcost": "Project Cost",
+		"fundingagency": "Funding Agency",
+		"implementingagencies": "Implementing Agencies",
+		"sectors": "Sectors",
+		"locations": "Locations",
+		"physicalStartingDate": "Physical Starting Date",
+		"physicalClosingDate": "Physical Closing Date",
+		"status": "Status",
+		"physicalstatus": "Physical Status"
 	}
 
 }
