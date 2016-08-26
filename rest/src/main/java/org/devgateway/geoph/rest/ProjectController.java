@@ -5,6 +5,7 @@ import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.core.request.ProjectOrder;
 import org.devgateway.geoph.core.response.StatsResponse;
 import org.devgateway.geoph.core.services.ProjectService;
+import org.devgateway.geoph.dao.ProjectMiniDao;
 import org.devgateway.geoph.dao.ProjectStatsResultsDao;
 import org.devgateway.geoph.enums.TransactionStatusEnum;
 import org.devgateway.geoph.enums.TransactionTypeEnum;
@@ -59,12 +60,12 @@ public class ProjectController extends BaseController {
     }
 
     @RequestMapping(value = "/all", method = GET)
-    public Page<Project> findAllProjects(AppRequestParams filters,
+    public Page<ProjectMiniDao> findAllProjects(AppRequestParams filters,
                                          ProjectOrder projectOrder) {
         LOGGER.debug("findAllProjects");
         Parameters params = filters.getParameters();
         params.setProjectOrder(projectOrder);
-        return service.findProjectsByParams(params);
+        return service.findProjectMiniByParams(params);
     }
 
 

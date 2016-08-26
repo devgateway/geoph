@@ -3,9 +3,11 @@ package org.devgateway.geoph.persistence.repository;
 import org.devgateway.geoph.core.repositories.ProjectRepository;
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.core.response.StatsResponse;
+import org.devgateway.geoph.dao.ProjectMiniDao;
 import org.devgateway.geoph.dao.ProjectStatsResultsDao;
 import org.devgateway.geoph.model.*;
 import org.devgateway.geoph.persistence.util.FilterHelper;
+import org.hibernate.jpa.criteria.OrderImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +56,33 @@ public class DefaultProjectRepository implements ProjectRepository {
                 .setParameter(PROPERTY_PRJ_ID, id)
                 .setHint(QUERY_HINT, em.getEntityGraph(GRAPH_PROJECT_ALL))
                 .getSingleResult();
+    }
+
+    @Override
+    @Cacheable("findProjectMiniByParams")
+    public Page<ProjectMiniDao> findProjectMiniByParams(Parameters params) {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<ProjectMiniDao> criteriaQuery = criteriaBuilder.createQuery(ProjectMiniDao.class);
+        Root<Project> projectRoot = criteriaQuery.from(Project.class);
+        List<Selection<?>> multiSelect = new ArrayList<>();
+
+        multiSelect.add(projectRoot.get(Project_.id).alias("id"));
+        multiSelect.add(projectRoot.get(Project_.title).alias("title"));
+
+        List<Predicate> predicates = new ArrayList<>();
+        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);
+
+        if(predicates.size()>0) {
+            Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+            criteriaQuery.where(other);
+        }
+
+        criteriaQuery.orderBy(criteriaBuilder.asc(projectRoot.get(Project_.title)));
+        TypedQuery<ProjectMiniDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
+
+        List<ProjectMiniDao> projectList = query.getResultList();
+        int count = query.getResultList().size();
+        return new PageImpl<>(projectList, params.getPageable(), count);
     }
 
     @Override
@@ -246,6 +275,5 @@ public class DefaultProjectRepository implements ProjectRepository {
         CriteriaQuery<Project> cq = criteriaQuery.select(projectRoot).distinct(true);
         return em.createQuery(cq);
     }
-
 
 }
