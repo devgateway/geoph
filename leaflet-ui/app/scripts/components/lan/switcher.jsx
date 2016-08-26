@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import {showLanSelector,setLanguage} from '../../actions/index.js'
 require('./lan.scss');
 
-export default class LangSwitcher extends React.Component {
+class LangSwitcher extends React.Component {
 
 	
 	constructor() {

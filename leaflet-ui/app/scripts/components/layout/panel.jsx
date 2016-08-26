@@ -7,7 +7,7 @@ import translate from '../../util/translate';
 import Stats from './stats';
 require("./panel.scss");
 
-export default class Panel extends React.Component {
+class Panel extends React.Component {
 
   constructor() {
     super();
