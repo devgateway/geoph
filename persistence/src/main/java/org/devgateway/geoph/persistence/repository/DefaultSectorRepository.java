@@ -8,6 +8,7 @@ import org.devgateway.geoph.model.Project_;
 import org.devgateway.geoph.model.Sector;
 import org.devgateway.geoph.persistence.util.FilterHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -33,6 +34,7 @@ public class DefaultSectorRepository implements SectorRepository {
     }
 
     @Override
+    @Cacheable("findSectorById")
     public Sector findById(Long id) {
         return em.createNamedQuery("findSectorById", Sector.class)
                 .setParameter("id", id)
@@ -54,6 +56,7 @@ public class DefaultSectorRepository implements SectorRepository {
     }
 
     @Override
+    @Cacheable("findPhysicalStatusByParams")
     public List<ProjectSector> findFundingBySector(Parameters params) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<ProjectSector> criteriaQuery = criteriaBuilder.createQuery(ProjectSector.class);

@@ -40,10 +40,22 @@ public class CacheConfiguration {
         caches.add(new ConcurrentMapCache("locationsByCode"));
         caches.add(new ConcurrentMapCache("locationsById"));
         caches.add(new ConcurrentMapCache("locationsByParams"));
+        caches.add(new ConcurrentMapCache("findLocationsByParentId"));
+        caches.add(new ConcurrentMapCache("locationsByLevelUacsNotNull"));
         caches.add(new ConcurrentMapCache("findLocationsByParamsTypeStatus"));
         caches.add(new ConcurrentMapCache("countLocationProjectsByParams"));
         caches.add(new ConcurrentMapCache("shapesWithDetail"));
-
+        caches.add(new ConcurrentMapCache("getProjectStats"));
+        caches.add(new ConcurrentMapCache("findProjectsByParams"));
+        caches.add(new ConcurrentMapCache("findProjectsById"));
+        caches.add(new ConcurrentMapCache("findFundingAgencyById"));
+        caches.add(new ConcurrentMapCache("findFundingAgencyByParams"));
+        caches.add(new ConcurrentMapCache("findImplementingAgencyById"));
+        caches.add(new ConcurrentMapCache("findImplementingAgencyByParams"));
+        caches.add(new ConcurrentMapCache("findSectorById"));
+        caches.add(new ConcurrentMapCache("findSectorByParams"));
+        caches.add(new ConcurrentMapCache("findPhysicalStatusById"));
+        caches.add(new ConcurrentMapCache("findPhysicalStatusByParams"));
         cacheManager.setCaches(caches);
         return cacheManager;
     }

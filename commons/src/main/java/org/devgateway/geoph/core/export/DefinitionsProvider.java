@@ -8,6 +8,8 @@ import java.util.Map;
  */
 public interface DefinitionsProvider {
 
+    DefinitionsProvider getNewInstance(Stylists stylists);
+
     List<ColumnDefinition> getColumnsDefinitions();
 
     Map<String, List<String>> getMethodsToInvoke();

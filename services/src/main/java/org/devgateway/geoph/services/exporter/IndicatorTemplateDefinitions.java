@@ -10,34 +10,34 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-import static org.devgateway.geoph.core.constants.Constants.INDICATOR_DETAIL_CLASSNAME;
+import static org.devgateway.geoph.core.constants.Constants.ABSTRACT_PERSISTABLE_CLASSNAME;
 import static org.devgateway.geoph.core.constants.Constants.LOCATION_CLASSNAME;
 
 /**
  * @author dbianco
  *         created on jun 16 2016.
  */
-@Service("indicatorDefinitions")
-public class IndicatorDefinitions implements DefinitionsProvider {
+@Service("indicatorTemplateDefinitions")
+public class IndicatorTemplateDefinitions implements DefinitionsProvider {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LocationProjectDefinitions.class);
 
-    private Stylists stylists;
-
     private String wbName;
 
-    public IndicatorDefinitions() {
+    private Stylists stylists;
+
+    public IndicatorTemplateDefinitions() {
         this.wbName = UUID.randomUUID().toString();
     }
 
-    public IndicatorDefinitions(Stylists stylists) {
-        this.wbName = UUID.randomUUID().toString();
+    public IndicatorTemplateDefinitions(Stylists stylists) {
         this.stylists = stylists;
+        this.wbName = UUID.randomUUID().toString();
     }
 
     @Override
     public DefinitionsProvider getNewInstance(Stylists stylists) {
-        return new IndicatorDefinitions(stylists);
+        return new IndicatorTemplateDefinitions(stylists);
     }
 
     @Override
@@ -48,9 +48,9 @@ public class IndicatorDefinitions implements DefinitionsProvider {
         Stylist numberStyleStylist = stylists.getNumberStylist(wbName);
         Stylist regularStylist = stylists.getRegularStylist(wbName);
 
-        columnsDef.add(new ColumnDefinitionImp<Long>("Location ID", numberStyleStylist, Formatters.longFormatter(), Extractors.longExtractor("indicatordetail.getLocationId")));
+        columnsDef.add(new ColumnDefinitionImp<Long>("Location ID", numberStyleStylist, Formatters.longFormatter(), Extractors.longExtractor("location.getId")));
         columnsDef.add(new ColumnDefinitionImp<String>("UACS Code", regularStylist, Formatters.stringFormatter(), Extractors.stringExtractor("location.getCode")));
-        columnsDef.add(new ColumnDefinitionImp<String>("Indicator Value", regularStylist, Formatters.stringFormatter(), Extractors.stringExtractor("indicatordetail.getValue")));
+        columnsDef.add(new ColumnDefinitionImp<String>("Indicator Value", regularStylist, Formatters.stringFormatter(), null));
 
         return columnsDef;
     }
@@ -58,10 +58,10 @@ public class IndicatorDefinitions implements DefinitionsProvider {
     @Override
     public Map<String, List<String>> getMethodsToInvoke(){
         Map<String, List<String>> classMap = new HashMap<>();
-        List<String> indicatorDetailList = new ArrayList<>();
-        indicatorDetailList.add("getLocationId");
-        indicatorDetailList.add("getValue");
-        classMap.put(INDICATOR_DETAIL_CLASSNAME, indicatorDetailList);
+
+        List<String> abstractPersistableList = new ArrayList<>();
+        abstractPersistableList.add("getId");
+        classMap.put(ABSTRACT_PERSISTABLE_CLASSNAME, abstractPersistableList);
 
         List<String> locationList = new ArrayList<>();
         locationList.add("getCode");

@@ -9,6 +9,7 @@ import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.core.services.ExportService;
 import org.devgateway.geoph.core.services.FileService;
 import org.devgateway.geoph.dao.ProjectLocationDao;
+import org.devgateway.geoph.enums.LocationAdmLevelEnum;
 import org.devgateway.geoph.model.IndicatorDetail;
 import org.devgateway.geoph.model.Location;
 import org.devgateway.geoph.model.Project;
@@ -51,19 +52,20 @@ public class ExportServiceImpl implements ExportService {
 
     private Map<String, Object> toKeyValuePairs(Object instance, Class aClass, String className, List methodsToInvoke) {
         Map<String, Object> ret = new HashMap<>();
-        ret.putAll(Arrays.stream(aClass.getDeclaredMethods())
-                .filter(method -> methodsToInvoke.contains(method.getName()))
-                .collect(Collectors.toMap(method -> {
-                    return className + '.' + method.getName();
-                }, m -> {
-                    try {
-                        Object result = m.invoke(instance);
-                        return result != null ? result : "";
-                    } catch (Exception e) {
-                        return "";
-                    }
-                })));
-
+        if(methodsToInvoke!=null) {
+            ret.putAll(Arrays.stream(aClass.getDeclaredMethods())
+                    .filter(method -> methodsToInvoke.contains(method.getName()))
+                    .collect(Collectors.toMap(method -> {
+                        return className + '.' + method.getName();
+                    }, m -> {
+                        try {
+                            Object result = m.invoke(instance);
+                            return result != null ? result : "";
+                        } catch (Exception e) {
+                            return "";
+                        }
+                    })));
+        }
         return ret;
     }
 
@@ -71,12 +73,14 @@ public class ExportServiceImpl implements ExportService {
     private RawRowImpl getRow(List<ColumnDefinition> columnsDef, Map<String, Object> properties) {
         RawRowImpl row = new RawRowImpl();
         columnsDef.forEach(colDef -> {
-            row.addCell(colDef.getCell(colDef.getExtractor().extract(properties))); //TODO:format?
+            if(colDef.getExtractor()!=null) {
+                row.addCell(colDef.getCell(colDef.getExtractor().extract(properties)));
+            }
         });
         return row;
     }
 
-    public String exportLocationProject(DefinitionsProvider provider, Generator generator, Parameters parameters) throws Exception {
+    public File exportLocationProject(DefinitionsProvider provider, Generator generator, Parameters parameters) throws Exception {
 
         LOGGER.info("Querying Locations");
         List<ProjectLocationDao> projectLocationList = locationRepository.findProjectLocationsByParams(parameters);
@@ -97,14 +101,13 @@ public class ExportServiceImpl implements ExportService {
         String name = generator.getFileName();
 
         File file = fileService.createFile(name, true);
-        generator.toFile(file);
 
-        return name;
+        return generator.toFile(file);
 
     }
 
     @Override
-    public String exportIndicator(DefinitionsProvider provider, Generator generator, Long id) throws Exception {
+    public File exportIndicator(DefinitionsProvider provider, Generator generator, Long id) throws Exception {
         LOGGER.info("Querying Indicators");
         List<IndicatorDetail> indicatorDetails = indicatorDetailRepository.findByIndicatorId(id);
 
@@ -123,8 +126,31 @@ public class ExportServiceImpl implements ExportService {
         String name = generator.getFileName();
 
         File file = fileService.createFile(name, true);
-        generator.toFile(file);
-        return name;
+        return generator.toFile(file);
+    }
+
+    @Override
+    public File exportIndicatorTemplate(DefinitionsProvider provider, Generator generator, String levelStr) throws Exception {
+        LOGGER.info("Querying Locations By Level: " + levelStr);
+        int level =  LocationAdmLevelEnum.valueOf(levelStr.toUpperCase()).getLevel();
+
+        List<Location> locationList = locationRepository.findLocationsByLevelUacsNotNull(level);
+
+        LOGGER.info("Writing header");
+        generator.writeHeaders(provider.getColumnsDefinitions());
+
+        locationList.forEach(location -> {
+            Map<String, Object> properties = this.toKeyValuePairs(location, Location.class, provider.getMethodsToInvoke().get(LOCATION_CLASSNAME));
+            properties.putAll(this.toKeyValuePairs(location, AbstractPersistable.class, LOCATION_CLASSNAME, provider.getMethodsToInvoke().get(ABSTRACT_PERSISTABLE_CLASSNAME)));
+            LOGGER.info("Writing row");
+            generator.writeRow(getRow(provider.getColumnsDefinitions(), properties));
+        });
+
+        LOGGER.info("Writing file");
+        String name = generator.getFileName();
+
+        File file = fileService.createFile(name, true);
+        return generator.toFile(file);
     }
 
 

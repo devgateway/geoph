@@ -30,6 +30,10 @@ import java.util.Set;
         @NamedQuery(
                 name = "findLocationsByLevel",
                 query = "from Location l where l.level = :level"
+        ),
+        @NamedQuery(
+                name = "findLocationsByLevelUacsNotNull",
+                query = "from Location l where l.level = :level and l.code is not null"
         )
 })
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
