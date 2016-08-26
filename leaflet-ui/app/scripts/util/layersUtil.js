@@ -112,7 +112,7 @@ export const getStyledGeoJson=(geojson,layerSettings,classProviderInstance)=>{
 		}    		
 
 		const newFeature=Object.assign({},feature);
-		Object.assign(newFeature.properties,{className:`${classes}${className}`,size, border, popupId, layerName: name});//Assign extra data to feature properties
+		Object.assign(newFeature.properties,{className:`${classes}${className}`,size, border, popupId,valueProperty, layerName: name});//Assign extra data to feature properties
 		return newFeature;
 	});	
 

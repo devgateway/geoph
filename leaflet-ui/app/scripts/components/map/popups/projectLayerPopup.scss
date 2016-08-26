@@ -6,15 +6,19 @@
 
 .simple-popup-container{
   width: 350px;
-  height: 45px;
+  min-height: 45px;
 }
 
 .simple-popup-value{
-    display: inline-flex;
-    font-size: 11px;
+ 
+    font-size: 12px;
     color: #2f2f2f;
     padding-left: 10px;
+    margin:10px;
     >div{
+      div{
+        maring:10px;
+      }
         font-weight: bold;
         padding-left: 7px;
     }
@@ -34,6 +38,7 @@
 	padding: 6px;
     h2 {
         color: #044072;
+      clear:both;
     }
 }
 
