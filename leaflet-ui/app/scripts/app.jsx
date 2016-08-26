@@ -45,7 +45,7 @@ AjaxUtil.get('conf/settings.json').then((conf)=>{
 
   i18next.use(XHR).init(options, (err, t) => {
   	if(err){
-      //console.log(err);
+      console.log(err);
     }
 
     render((

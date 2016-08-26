@@ -26,6 +26,7 @@
 		},
 		"PROJECT_GEOJSON":"/geodata/${level}/projects",
 		"FUNDING_GEOJSON":"/geodata/stats/region/funding",
+		"PHYSICAL_GEOJSON":"/geodata/physicalProgress/region",
 			
 		"MAP":"/maps",
 		"MAP_LIST":"/maps",
@@ -109,6 +110,11 @@
 		"PROJECT_LIST": {
 			"development": "/projects/all",				
 			"production": "/projects/all"		
+		},
+
+		"PROJECT_INFO": {
+			"development": "/projects/${id}",				
+			"production": "/projects/${id}"		
 		},
 
 		"STATS": {

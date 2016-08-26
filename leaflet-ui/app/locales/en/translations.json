@@ -108,11 +108,14 @@
 		"projectsearch": {
 			"title": "Project Search",
 			"placeholder": "Search for Projects",
+			"clearall": "Clear All",
+			"selectall": "Select All",
 			"apply": "Apply",
 			"searchresults": "Search Results",
 			"selectedresults": "Selected Results"
 		},
 		"layers": {
+
 			"title": "Adjust layers to see detailed data",
 			"level": "Level",
 			"colors": "Colors",
@@ -127,8 +130,13 @@
 			"poverty": "Poverty",
 			"population": "Population",
 			"funding": "Total Funding",
+			"physical":"Physical progress",
 			"indicators": "Statistical Indicators",
-			"geophotos": "Geotagged Photos"
+			"geophotos": "Geotagged Photos",
+			"values":"Values",
+			"target":"Target",
+			"actual":"Actual"
+				
 		}
 	},
 
@@ -172,7 +180,30 @@
 		"projects": "projects",
 		"commitments": "commitments",
 		"totalNational": "Total National",
-		"totalLocated": "Total Located"
+		"totalSubNational": "Total Sub-National"
+	},
+
+	"help": {
+		"projectsearch": {
+			"selectall": "Click here to select all results matched",
+			"selectedresults": "Click here to see only selected",
+			"searchresults": "Click here to see all",
+			"apply": "Apply selected projects as filter",
+			"clearall": "Clear all (results and selection)"
+		}
+	},
+
+	"project": {
+		"projectdetails": "Project Details",
+		"projectcost": "Project Cost",
+		"fundingagency": "Funding Agency",
+		"implementingagencies": "Implementing Agencies",
+		"sectors": "Sectors",
+		"locations": "Locations",
+		"physicalStartingDate": "Physical Starting Date",
+		"physicalClosingDate": "Physical Closing Date",
+		"status": "Status",
+		"physicalstatus": "Physical Status"
 	}
 
 }

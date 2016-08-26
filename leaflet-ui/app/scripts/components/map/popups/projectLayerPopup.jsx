@@ -176,6 +176,7 @@ const mapStateToProps = (state, props) => {
     charts: state.popup,
     filters: state.filters.filterMain,
     projectSearch: state.projectSearch,
+    project: state.project,
     language: state.language
   }
 }

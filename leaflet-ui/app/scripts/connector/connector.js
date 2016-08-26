@@ -263,9 +263,7 @@ class Connector {
 	saveMap(dataToSave) {
 		return new Promise( (resolve, reject) => {
 			let path = Settings.get('API','SAVE');
-			//console.log("---saveMap connector---");
-			//this.call(POST,url,data,{ headers: this.getSecurityHeader()}).then(resolve).catch(reject)
-			//
+			
 			this.call(POST, path, dataToSave,{ headers: this.getSecurityHeader()}).then((data) => {
 				resolve(data); 	
 			}).catch(reject)
@@ -310,6 +308,16 @@ class Connector {
 		return this.call(GET,Settings.get('API','GEOPHOTOS_LIST'),{});
 	}
 	
+	getProjectInfo(id) {
+		return new Promise( (resolve, reject) => {
+			let path = Settings.get('API','PROJECT_INFO');
+			path=path.replace('${id}',id);
+			this.call(GET, path, id).then((data) => {
+				resolve(data); 	
+			}).catch(reject)
+		});
+	}
+
 }
 
 

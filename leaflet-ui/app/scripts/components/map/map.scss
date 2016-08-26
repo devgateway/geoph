@@ -5,6 +5,12 @@
 	height: 100%;
 }
 
+svg{
+	    pointer-events: none;
+}
+path{
+	    pointer-events: all;
+}
 
 @mixin breakStyle($color){
 	fill:$color; 

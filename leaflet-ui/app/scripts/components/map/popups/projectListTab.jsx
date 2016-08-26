@@ -2,9 +2,11 @@
 import React from 'react';
 import { Pagination, Grid, Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux'
-import { sumarizeValues } from '../../../util/transactionUtil'
+import { aggregateAmountsByType } from '../../../util/transactionUtil'
 import {collectValues} from '../../../util/filterUtil';
+import {getActivePage} from '../../../util/paginatorUtil';
 import translate from '../../../util/translate.js';
+import ProjectLink from '../../project/projectLink'
 
 require('./projectLayerPopup.scss');
 
@@ -17,27 +19,8 @@ export default class ProjectListTab extends React.Component {
   }
 
   handleSelect(eventKey) {
-    //workaround for fix bootstrap paginator issues
-    let activePage = 0;
     const {totalPages, number} = this.props.charts.projectList.data;
-    switch(eventKey.target.innerText) {
-      case "»":
-        activePage = totalPages-1;
-        break;
-      case "›":
-        activePage = number+1;
-        break;
-      case "«":
-        activePage = 0;
-        break;
-      case "‹":
-        activePage = number-1;
-        break;
-      default :
-        activePage = parseInt(eventKey.target.innerHTML)-1;
-        break;
-    }
-    this.getListData(activePage);
+    this.getListData(getActivePage(eventKey, totalPages, number));
   }
 
   getListData(activePage){
@@ -50,10 +33,6 @@ export default class ProjectListTab extends React.Component {
     });    
     this.props.onGetPopupData(filters, 'projectList');
     this.setState({activePage: activePage});
-  }
-
-  dropLongText(text, length){
-    return text.length>length? text.substr(0,length-3)+'...' : text;           
   }
 
   render() {
@@ -69,9 +48,11 @@ export default class ProjectListTab extends React.Component {
               <Col md={2}>{translate('infowindow.projectlist.actualdisbursements')}</Col>
             </Row>  
             {projectsToShow.map((project) => {
-              let transactions = sumarizeValues(project.transactions);
-              return <Row className="project-list-item">
-                  <Col className="project-title" title={project.title} md={5}>{this.dropLongText(project.title, 27)}</Col>
+              let transactions = aggregateAmountsByType(project.transactions);
+              return <Row className="project-list-item" key={project.id}>
+                  <Col className="project-title" title={project.title} md={5}>
+                    <ProjectLink {...project} store={this.props.store}/>
+                  </Col>
                   <Col md={3}>{project.fundingAgency.code}</Col>
                   <Col md={2}>₱ {transactions.actualCommitments}</Col>
                   <Col md={2}>₱ {transactions.actualDisbursements}</Col>
