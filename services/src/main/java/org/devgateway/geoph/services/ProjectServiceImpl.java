@@ -4,6 +4,7 @@ import org.devgateway.geoph.core.repositories.ProjectRepository;
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.core.response.StatsResponse;
 import org.devgateway.geoph.core.services.ProjectService;
+import org.devgateway.geoph.dao.ProjectMiniDao;
 import org.devgateway.geoph.dao.ProjectStatsResultsDao;
 import org.devgateway.geoph.model.Project;
 import org.slf4j.Logger;
@@ -40,6 +41,11 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public Page<Project> findProjectsByParams(Parameters params) {
         return projectRepository.findProjectsByParams(params);
+    }
+
+    @Override
+    public List<ProjectMiniDao> findProjectMiniByParams(Parameters params) {
+        return projectRepository.findProjectMiniByParams(params);
     }
 
     @Override
