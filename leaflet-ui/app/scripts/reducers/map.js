@@ -101,11 +101,12 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
         cssPrefix: 'funding', //markers css prefix 
         default: false,
         border: 2,
+        name:'Physical Progress',
         zIndex: 99,
         cssProvider: JenksCssProvider,
         thresholds: 5,
         keyName: 'physical',
-        popupId: "projectPopup",
+        popupId: "defaultPopup",
         supportFilters: true
       }
 
