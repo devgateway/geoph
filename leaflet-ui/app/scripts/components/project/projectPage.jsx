@@ -4,7 +4,7 @@ import {Modal, Button, Grid, Row, Col} from 'react-bootstrap';
 import {closeProjectPage}  from '../../actions/project';
 import { connect } from 'react-redux'
 import translate from '../../util/translate.js';
-import {formatValue} from '../../util/transactionUtil.js';
+import {formatValue} from '../../util/format.js';
 import Moment from 'moment'
 require("./project.scss");
 
@@ -38,9 +38,10 @@ class ProjectPage extends React.Component {
 						<div className="loading-css"><div></div></div>
 					: 
 						<Modal.Body>
-							<Grid className="">
-							    <Row className="project-title">
-							      <Col md={12}><h1>{title}</h1></Col>
+							<div className="project-grid"> 
+							<Grid>
+							    <Row className="project-page-title">
+							      <Col md={12}>{title}</Col>
 							    </Row>
 							    <Row className="project-field">
 							      <Col md={5}><h2>{translate('project.projectcost')}</h2></Col>
@@ -100,6 +101,7 @@ class ProjectPage extends React.Component {
 							    </Row>
 							    
 							</Grid>
+							</div>
 						</Modal.Body>
 				: null}
 			</Modal>
