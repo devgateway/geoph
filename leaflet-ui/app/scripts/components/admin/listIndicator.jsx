@@ -22,7 +22,7 @@ const Indicator = class extends React.Component {
 }
 
 
-export default class listIndicator extends React.Component {
+class listIndicator extends React.Component {
   static propTypes = {
     name: React.PropTypes.string,
   };

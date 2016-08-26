@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 require("./root.scss");
 import {requestRestoreMap}  from '../../actions/saveAndRestoreMap';
 
-export default class App extends DefaultLayout {
+class App extends DefaultLayout {
 
   constructor() {
     super();
