@@ -62,6 +62,15 @@ public class DefaultLocationRepository implements LocationRepository {
     }
 
     @Override
+    @Cacheable("locationsByLevelUacsNotNull")
+    public List<Location> findLocationsByLevelUacsNotNull(int level) {
+        return em.createNamedQuery("findLocationsByLevelUacsNotNull", Location.class)
+                .setParameter(PROPERTY_LOC_LEVEL, level)
+                .getResultList();
+    }
+
+    @Override
+    @Cacheable("findLocationsByParentId")
     public List<Location> findLocationsByParentId(long parentId) {
         return em.createNativeQuery("Select l.* from location l " +
                         "inner join location_items li on l.id=li.items_id " +

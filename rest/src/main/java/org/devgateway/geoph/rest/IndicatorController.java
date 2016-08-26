@@ -1,5 +1,6 @@
 package org.devgateway.geoph.rest;
 
+import org.devgateway.geoph.core.export.DefinitionsProvider;
 import org.devgateway.geoph.core.request.IndicatorRequest;
 import org.devgateway.geoph.core.response.IndicatorResponse;
 import org.devgateway.geoph.core.services.ImportService;
@@ -9,6 +10,7 @@ import org.devgateway.geoph.model.security.SystemUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,14 +31,17 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 @RequestMapping(value = "/indicators")
 public class IndicatorController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(IndicatorController.class);
-    private final LayerService layerService;
-    private final ImportService importService;
 
     @Autowired
-    public IndicatorController(LayerService layerService, ImportService importService) {
-        this.layerService = layerService;
-        this.importService = importService;
-    }
+    LayerService layerService;
+
+    @Autowired
+    ImportService importService;
+
+    @Autowired
+    @Qualifier("indicatorTemplateDefinitions")
+    DefinitionsProvider indicatorTemplateDefProvider;
+
 
     @RequestMapping(method = GET)
     public List<Indicator> getIndicatorsList() {

@@ -9,6 +9,7 @@ import org.devgateway.geoph.persistence.util.FilterHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
@@ -47,6 +48,7 @@ public class DefaultProjectRepository implements ProjectRepository {
     }
 
     @Override
+    @Cacheable("findProjectsById")
     public Project findById(long id) {
         return em.createNamedQuery("findProjectsById", Project.class)
                 .setParameter(PROPERTY_PRJ_ID, id)
@@ -55,6 +57,7 @@ public class DefaultProjectRepository implements ProjectRepository {
     }
 
     @Override
+    @Cacheable("findProjectsByParams")
     public Page<Project> findProjectsByParams(Parameters params) {
         TypedQuery<Project> query = getProjectTypedQuery(params);
         int count = query.getResultList().size();
@@ -76,6 +79,7 @@ public class DefaultProjectRepository implements ProjectRepository {
     }
 
     @Override
+    @Cacheable("getProjectStats")
     public Map<String, List<ProjectStatsResultsDao>> getStats(Parameters params) {
         Map<String, List<ProjectStatsResultsDao>> ret = new HashMap<>();
         ret.put("national", getStatsByAdmLevel(params, true));

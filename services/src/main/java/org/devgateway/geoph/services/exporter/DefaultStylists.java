@@ -2,24 +2,25 @@ package org.devgateway.geoph.services.exporter;
 
 import org.apache.poi.ss.usermodel.*;
 import org.devgateway.geoph.core.export.Stylist;
+import org.devgateway.geoph.core.export.Stylists;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
  * Created by Sebastian Dimunzio on 6/13/2016.
  */
 @Service
-public class Stylists {
+public class DefaultStylists implements Stylists{
 
-    private static final String NUMBER_STYLE = "numberStyle";
-    private static final String DECIMAL_STYLE = "decimalStyle";
-    private static final String BOLD_STYLE = "boldStyle";
-    private static final String REGULAR_STYLE = "regularStyle";
-    private static final String AMOUNT_STYLE = "amountStyle";
-    private static final String DATE_STYLE = "dateStyle";
+    public static final String NUMBER_STYLE = "numberStyle";
+    public static final String DECIMAL_STYLE = "decimalStyle";
+    public static final String BOLD_STYLE = "boldStyle";
+    public static final String REGULAR_STYLE = "regularStyle";
+    public static final String AMOUNT_STYLE = "amountStyle";
+    public static final String DATE_STYLE = "dateStyle";
     private static final String OPEN_SANS = "Open Sans";
 
     @Value("${export.style.number}")
@@ -34,48 +35,58 @@ public class Stylists {
     @Value("${export.style.decimal}")
     String decimalFormat;
 
-    static Map<String, CellStyle> cellStyleMap = new HashMap<>();
+    static Map<String, CellStyle> cellStyleMap = new LinkedHashMap(){
+        private static final int MAX_ENTRIES = 20;
 
-    public Stylist getDateStylist() {
+        @Override
+        protected boolean removeEldestEntry(Map.Entry eldest) {
+            return size() > MAX_ENTRIES;
+        }
+    };
+
+    public Stylist getDateStylist(String wbName) {
         return new Stylist() {
             @Override
             public CellStyle getStyle(Workbook wb) {
-                if(cellStyleMap.get(DATE_STYLE)==null) {
+                String entryName = wbName+DATE_STYLE;
+                if(cellStyleMap.get(entryName)==null) {
                     CreationHelper createHelper = wb.getCreationHelper();
                     CellStyle dataStyle = wb.createCellStyle();
                     dataStyle.setDataFormat(createHelper.createDataFormat().getFormat(dateFormat));
-                    cellStyleMap.put(DATE_STYLE, dataStyle);
+                    cellStyleMap.put(entryName, dataStyle);
                     return dataStyle;
                 } else {
-                    return cellStyleMap.get(DATE_STYLE);
+                    return cellStyleMap.get(entryName);
                 }
             }
         };
     }
 
-    public Stylist getAmountStylist() {
+    public Stylist getAmountStylist(String wbName) {
         return new Stylist() {
             @Override
             public CellStyle getStyle(Workbook wb) {
-                if(cellStyleMap.get(AMOUNT_STYLE)==null) {
+                String entryName = wbName+AMOUNT_STYLE;
+                if(cellStyleMap.get(entryName)==null) {
                     CreationHelper createHelper = wb.getCreationHelper();
                     DataFormat format = createHelper.createDataFormat();
                     CellStyle amountStyle = wb.createCellStyle();
                     amountStyle.setDataFormat(format.getFormat(amountFormat));
-                    cellStyleMap.put(AMOUNT_STYLE, amountStyle);
+                    cellStyleMap.put(entryName, amountStyle);
                     return amountStyle;
                 } else {
-                    return cellStyleMap.get(AMOUNT_STYLE);
+                    return cellStyleMap.get(entryName);
                 }
             }
         };
     }
 
-    public Stylist getRegularStylist() {
+    public Stylist getRegularStylist(String wbName) {
         return new Stylist() {
             @Override
             public CellStyle getStyle(Workbook wb) {
-                if(cellStyleMap.get(REGULAR_STYLE)==null) {
+                String entryName = wbName+REGULAR_STYLE;
+                if(cellStyleMap.get(entryName)==null) {
                     CellStyle style = wb.createCellStyle();
                     Font font = wb.createFont();
                     font.setFontName(OPEN_SANS);
@@ -86,20 +97,21 @@ public class Stylists {
                     style.setBorderRight(CellStyle.BORDER_NONE);
                     style.setBorderLeft(CellStyle.BORDER_NONE);
                     style.setWrapText(true);
-                    cellStyleMap.put(REGULAR_STYLE, style);
+                    cellStyleMap.put(entryName, style);
                     return style;
                 } else {
-                    return cellStyleMap.get(REGULAR_STYLE);
+                    return cellStyleMap.get(entryName);
                 }
             }
         };
     }
 
-    public Stylist getBoldStylist() {
+    public Stylist getBoldStylist(String wbName) {
         return new Stylist() {
             @Override
             public CellStyle getStyle(Workbook wb) {
-                if(cellStyleMap.get(BOLD_STYLE)==null) {
+                String entryName = wbName+BOLD_STYLE;
+                if(cellStyleMap.get(entryName)==null) {
                     CellStyle style = wb.createCellStyle();
                     Font font = wb.createFont();
                     font.setFontName(OPEN_SANS);
@@ -110,47 +122,49 @@ public class Stylists {
                     style.setBorderRight(CellStyle.BORDER_NONE);
                     style.setBorderLeft(CellStyle.BORDER_NONE);
                     style.setWrapText(true);
-                    cellStyleMap.put(BOLD_STYLE, style);
+                    cellStyleMap.put(entryName, style);
                     return style;
                 } else {
-                    return cellStyleMap.get(BOLD_STYLE);
+                    return cellStyleMap.get(entryName);
                 }
             }
         };
     }
 
-    public Stylist getDecimalStylist() {
+    public Stylist getDecimalStylist(String wbName) {
         return new Stylist() {
 
             @Override
             public CellStyle getStyle(Workbook wb) {
-                if(cellStyleMap.get(DECIMAL_STYLE)==null) {
+                String entryName = wbName+DECIMAL_STYLE;
+                if(cellStyleMap.get(entryName)==null) {
                     CreationHelper createHelper = wb.getCreationHelper();
                     DataFormat format = createHelper.createDataFormat();
                     CellStyle amountStyle = wb.createCellStyle();
                     amountStyle.setDataFormat(format.getFormat(decimalFormat));
-                    cellStyleMap.put(DECIMAL_STYLE, amountStyle);
+                    cellStyleMap.put(entryName, amountStyle);
                     return amountStyle;
                 } else {
-                    return cellStyleMap.get(DECIMAL_STYLE);
+                    return cellStyleMap.get(entryName);
                 }
             }
         };
     }
 
-    public Stylist getNumberStylist() {
+    public Stylist getNumberStylist(String wbName) {
         return new Stylist() {
             @Override
             public CellStyle getStyle(Workbook wb) {
-                if(cellStyleMap.get(NUMBER_STYLE)==null) {
+                String entryName = wbName+NUMBER_STYLE;
+                if(cellStyleMap.get(entryName)==null) {
                     CreationHelper createHelper = wb.getCreationHelper();
                     DataFormat format = createHelper.createDataFormat();
                     CellStyle amountStyle = wb.createCellStyle();
                     amountStyle.setDataFormat(format.getFormat(numberFormat));
-                    cellStyleMap.put(NUMBER_STYLE, amountStyle);
+                    cellStyleMap.put(entryName, amountStyle);
                     return amountStyle;
                 } else {
-                    return cellStyleMap.get(NUMBER_STYLE);
+                    return cellStyleMap.get(entryName);
                 }
             }
         };

@@ -3,9 +3,9 @@ package org.devgateway.geoph.services.exporter;
 import org.devgateway.geoph.core.export.ColumnDefinition;
 import org.devgateway.geoph.core.export.DefinitionsProvider;
 import org.devgateway.geoph.core.export.Stylist;
+import org.devgateway.geoph.core.export.Stylists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -20,16 +20,34 @@ public class LocationProjectDefinitions implements DefinitionsProvider {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LocationProjectDefinitions.class);
 
-    @Autowired
-    Stylists stylists;
+    private Stylists stylists;
+
+    private String wbName;
+
+    public LocationProjectDefinitions() {
+        this.wbName = UUID.randomUUID().toString();
+    }
+
+    public LocationProjectDefinitions(Stylists stylists) {
+        this.wbName = UUID.randomUUID().toString();
+        this.stylists = stylists;
+    }
+
+
+    @Override
+    public DefinitionsProvider getNewInstance(Stylists stylists) {
+        return new LocationProjectDefinitions(stylists);
+    }
 
     public List<ColumnDefinition> getColumnsDefinitions() {
+        LOGGER.debug("getColumnsDefinitions for wb: " + wbName);
+
         List<ColumnDefinition> columnsDef = new ArrayList<>();
-        Stylist numberStyleStylist = stylists.getNumberStylist();
-        Stylist regularStylist = stylists.getRegularStylist();
-        Stylist decimalStylist = stylists.getDecimalStylist();
-        Stylist dateStylist = stylists.getDateStylist();
-        Stylist boldStyle = stylists.getBoldStylist();
+        Stylist numberStyleStylist = stylists.getNumberStylist(wbName);
+        Stylist regularStylist = stylists.getRegularStylist(wbName);
+        Stylist decimalStylist = stylists.getDecimalStylist(wbName);
+        Stylist dateStylist = stylists.getDateStylist(wbName);
+        Stylist boldStyle = stylists.getBoldStylist(wbName);
 
 
         columnsDef.add(new ColumnDefinitionImp<Long>("Location ID", numberStyleStylist, Formatters.longFormatter(), Extractors.longExtractor("location.getId")));
@@ -64,7 +82,7 @@ public class LocationProjectDefinitions implements DefinitionsProvider {
         columnsDef.add(new ColumnDefinitionImp<String>("Period of Performance End", dateStylist, Formatters.stringFormatter(), Extractors.stringExtractor("project.getPeriodPerformanceEnd")));
 
         columnsDef.add(new ColumnDefinitionImp<String>("Status", regularStylist, Formatters.stringFormatter(), Extractors.statusExtractor("project.getStatus")));
-        columnsDef.add(new ColumnDefinitionImp<String>("Physical Status", regularStylist, Formatters.stringFormatter(), Extractors.stringExtractor("project.getPhysicalStatus")));
+        columnsDef.add(new ColumnDefinitionImp<String>("Physical Status", regularStylist, Formatters.stringFormatter(), Extractors.physicalStatusExtractor("project.getPhysicalStatus")));
         columnsDef.add(new ColumnDefinitionImp<Double>("Physical Progress(Actual)", decimalStylist, Formatters.doubleFormatter(), Extractors.doubleExtractor("project.getActualOwpa")));
         columnsDef.add(new ColumnDefinitionImp<Double>("Physical Progress(Target)", decimalStylist, Formatters.doubleFormatter(), Extractors.doubleExtractor("project.getReachedOwpa")));
 

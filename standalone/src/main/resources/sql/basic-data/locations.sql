@@ -1292,7 +1292,7 @@ INSERT INTO location (id,code,latitude,level,longitude,name,region_id,province_i
 INSERT INTO location (id,code,latitude,level,longitude,name,region_id,province_id) VALUES (1290,'1298',7.19991789,2,124.2375222,'Cotabato City',1236,1290);
 INSERT INTO location (id,code,latitude,level,longitude,name,region_id,province_id) VALUES (1291,'129804',7.199917875,3,124.2375222,'Cotabato City',1236,1290);
 INSERT INTO location (id,code,latitude,level,longitude,name,region_id,province_id) VALUES (1292,'13',14.59873547,1,121.0325745,'Metropolitan Manila',1292,null);
-INSERT INTO location (id,code,latitude,level,longitude,name,region_id,province_id) VALUES (1293,'',14.59974401,1,120.9846869,'First District',1293,null);
+INSERT INTO location (id,code,latitude,level,longitude,name,region_id,province_id) VALUES (1293,null,14.59974401,1,120.9846869,'First District',1293,null);
 INSERT INTO location (id,code,latitude,level,longitude,name,region_id,province_id) VALUES (1294,'1339',14.59974401,2,120.9846869,'First District',1292,1294);
 INSERT INTO location (id,code,latitude,level,longitude,name,region_id,province_id) VALUES (1295,'133901',14.61667,3,120.96667,'Tondo I/II',1292,1294);
 INSERT INTO location (id,code,latitude,level,longitude,name,region_id,province_id) VALUES (1296,'133902',14.60136,3,120.97402,'Binondo',1292,1294);
