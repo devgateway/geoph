@@ -171,6 +171,10 @@ public class LoanImporter extends GeophProjectsImporter {
                     getDoubleValueFromCell(row.getCell(loanColumns.getTargetOwpa()), "target owpa", rowNumber, GeophProjectsImporter.onProblem.NOTHING)
             );
 
+            if(p.getActualOwpa()!=null && p.getTargetOwpa()!=null){
+                p.setPhysicalProgress(p.getActualOwpa()/p.getTargetOwpa()*100);
+            }
+
             p.setIssueType(
                     getStringValueFromCell(row.getCell(loanColumns.getIssueType()), "issue type", rowNumber, GeophProjectsImporter.onProblem.NOTHING, true)
             );

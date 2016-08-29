@@ -124,8 +124,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
             feature.setProperty(PROPERTY_LOC_ID, location.getId());
             feature.setProperty(PROPERTY_LOC_NAME, location.getName());
             feature.setProperty(PROPERTY_LOC_CODE, location.getCode());
-            feature.setProperty(PROPERTY_LOC_ACTUAL_PHY_AVG, location.getActualPhysicalProgressAverage());
-            feature.setProperty(PROPERTY_LOC_TARGET_PHY_AVG, location.getTargetPhysicalProgressAverage());
+            feature.setProperty(PROPERTY_LOC_PHYSICAL_PROGRESS, location.getPhysicalProgressAverage());
 
             featureCollection.add(feature);
 
@@ -136,7 +135,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
     private void aggregatePhysicalProgress(Parameters params, int level, Map<Long, LocationProperty> locationPropertyMap) {
         Page<Project> projectPage = projectRepository.findProjectsByParams(params);
         for(Project project:projectPage) {
-            if(project.getActualOwpa()!=null || project.getTargetOwpa()!=null || project.getReachedOwpa()!=null) {
+            if(project.getPhysicalProgress()!=null) {
                 for (Location locHelper : project.getLocations()) {
                     LocationProperty lp = null;
                     if (level == LocationAdmLevelEnum.REGION.getLevel()) {
@@ -147,8 +146,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
                         lp = locationPropertyMap.get(locHelper.getId());
                     }
                     if (lp != null) {
-                        lp.addActualPhysicalProgress(project.getId(), project.getActualOwpa());
-                        lp.addTargetPhysicalProgress(project.getId(), project.getTargetOwpa());
+                        lp.addPhysicalProgress(project.getId(), project.getPhysicalProgress());
                     }
                 }
             }
@@ -279,8 +277,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
             feature.setProperty(PROPERTY_LOC_COMMITMENTS, location.getCommitments());
             feature.setProperty(PROPERTY_LOC_DISBURSEMENTS, location.getDisbursements());
             feature.setProperty(PROPERTY_LOC_EXPENDITURES, location.getExpenditures());
-            feature.setProperty(PROPERTY_LOC_ACTUAL_PHY_AVG, location.getActualPhysicalProgressAverage());
-            feature.setProperty(PROPERTY_LOC_TARGET_PHY_AVG, location.getTargetPhysicalProgressAverage());
+            feature.setProperty(PROPERTY_LOC_PHYSICAL_PROGRESS, location.getPhysicalProgressAverage());
             featureCollection.add(feature);
         }
 

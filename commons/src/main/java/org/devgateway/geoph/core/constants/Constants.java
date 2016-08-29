@@ -26,9 +26,7 @@ public class Constants {
     public static final String PROPERTY_LOC_NAME = "name";
     public static final String PROPERTY_LOC_PROJ_COUNT = "projectCount";
     public static final String PROPERTY_LOC_TRX_COUNT = "transactionCount";
-    public static final String PROPERTY_LOC_ACTUAL_PHY_AVG = "avgActual";
-    public static final String PROPERTY_LOC_TARGET_PHY_AVG = "avgTarget";
-    //public static final String PROPERTY_LOC_REACHED_PHY_AVG = "reachedPhysicalProgressAverage";
+    public static final String PROPERTY_LOC_PHYSICAL_PROGRESS = "physicalProgress";
 
     public static final String PROPERTY_PRJ_ID = "id";
     public static final String PROPERTY_PRJ_PH_ID = "phId";

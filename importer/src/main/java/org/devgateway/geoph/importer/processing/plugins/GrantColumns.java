@@ -76,9 +76,6 @@ public class GrantColumns {
     @Value("${grant.periodPerformanceEnd}")
     private int periodPerformanceEnd;
 
-    @Value("${grant.actualOwpa}")
-    private int actualOwpa;
-
     public int getProjectId() {
         return projectId;
     }
@@ -167,7 +164,4 @@ public class GrantColumns {
         return periodPerformanceEnd;
     }
 
-    public int getActualOwpa() {
-        return actualOwpa;
-    }
 }

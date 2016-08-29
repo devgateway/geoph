@@ -67,6 +67,9 @@ public class PmcColumns {
     @Value("${pmc.physicalStatus}")
     private int physicalStatus;
 
+    @Value("${pmc.physicalProgress}")
+    private int physicalProgress;
+
     @Value("${pmc.actualOwpa}")
     private int actualOwpa;
 
@@ -159,6 +162,10 @@ public class PmcColumns {
 
     public int getPhysicalStatus() {
         return physicalStatus;
+    }
+
+    public int getPhysicalProgress(){
+        return physicalProgress;
     }
 
     public int getActualOwpa() {
