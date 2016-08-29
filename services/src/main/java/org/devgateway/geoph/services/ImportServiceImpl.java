@@ -36,6 +36,8 @@ public class ImportServiceImpl implements ImportService {
     private static final int INDICATOR_VALUE_POS = 3;
     private static final String NUMBER_SUFFIX = ",000";
     private static final String FORMAT = "%.3f";
+    private static final String COMMA_VALUE = ",";
+    private static final String DOT_VALUE = ".";
 
     @Autowired
     IndicatorRepository indicatorRepository;
@@ -128,8 +130,11 @@ public class ImportServiceImpl implements ImportService {
                 String strValue = null;
                 if (value != null && value.getCellType() == Cell.CELL_TYPE_NUMERIC) {
                     strValue = String.format(FORMAT, Double.valueOf(value.getNumericCellValue()));
-                    if(strValue!=null && strValue.endsWith(NUMBER_SUFFIX)){
-                        strValue=strValue.substring(0, strValue.length()-NUMBER_SUFFIX.length());
+                    if(strValue!=null){
+                        if(strValue.endsWith(NUMBER_SUFFIX)) {
+                            strValue = strValue.substring(0, strValue.length() - NUMBER_SUFFIX.length());
+                        }
+                        strValue = strValue.replace(COMMA_VALUE, DOT_VALUE);
                     }
                 } else if (value != null && value.getCellType() == Cell.CELL_TYPE_STRING) {
                     strValue = value.getStringCellValue();

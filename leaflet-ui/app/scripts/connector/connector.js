@@ -58,10 +58,10 @@ class Connector {
 			});
 	}
 
-	delete(url) {
+	delete(url, data = {}, config={}) {
 		return new Promise(
 			function(resolve, reject) {
-				Axios.delete(url)
+				Axios.delete(url, config)
 				.then(function(response) {
 					resolve(response);
 				})
@@ -71,10 +71,10 @@ class Connector {
 			});
 	}	
 
-	post(url, data = {},config={}) {
+	post(url, data = {}, config={}) {
 		return new Promise(
 			function(resolve, reject) {
-				Axios.post(url, data,config)
+				Axios.post(url, data, config)
 				.then(function(response) {
 					resolve(response);
 				})
@@ -99,7 +99,7 @@ class Connector {
 
 
 		return new Promise((resolve, reject) => {
-			caller(url, params,config).then((response) => {
+			caller(url, params, config).then((response) => {
 				resolve(response.data);
 			}).catch((err) => {
 				//console.log('Error when trying to get backend data')
@@ -204,9 +204,9 @@ class Connector {
 
 
 	removeIndicator(id){
-		let url=Settings.get('API','INDICATOR');
-		url=url.replace('${id}',id);
-		return this.call(DELETE,url,{});
+		let url=Settings.get('API','REMOVE_INDICATOR');
+		url=url.replace('${indicator_id}',id);
+		return this.call(DELETE,url,{},{ headers: this.getSecurityHeader()});
 	}
 
 	removeDashboard(id){

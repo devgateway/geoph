@@ -36,7 +36,8 @@
 	  	
 	  	"INDICATOR_LIST":"/indicators",
 
-	  	"INDICATOR":"/indicators/${id}",
+	  	"INDICATOR":"/geodata/indicators/${indicator_id}",
+	  	"REMOVE_INDICATOR":"/indicators/${indicator_id}",
 	  	"GEOPHOTOS_LIST":"/geophotos/list",
 	  	"GEOPHOTOS":"/geodata/geophotos/id/${geophotos_id}",
 	  	
