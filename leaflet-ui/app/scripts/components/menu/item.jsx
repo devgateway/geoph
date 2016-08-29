@@ -26,21 +26,18 @@ const MenuItem =onClickOutside(React.createClass({
 		const active=this.props[id];
 		return (
 			<li className={active?`active ${className}`:className}>
-			<div className="link" onClick={this.handleClick}>
-			<div  className={"options-icons "+className}></div>
-			<span>{label}</span>
-			</div>
-			{
-
-				React.Children.map(this.props.children,(element)=>{return  React.cloneElement(element,{visible:active,
+				<div className="link" onClick={this.handleClick}>
+					<div className={"options-icons "+className}></div>
+					<span>{label}</span>
+				</div>
+				{
+					React.Children.map(this.props.children,(element)=>{return  React.cloneElement(element,{visible:active,
 					onHide:()=>{
 						onDeactivate(id);
 					}});})
-			}
-			
-
-			</li>)
-
+				}		
+			</li>
+		)
 	}
 }));
 
