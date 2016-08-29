@@ -97,7 +97,7 @@
                         <!-- optional: where to download node and npm from. Defaults to https://nodejs.org/dist/ -->
 
                         <!-- optional: where to install node and npm. Defaults to the working directory -->
-                        <installDirectory>target</installDirectory>
+                        <installDirectory>/opt/geoph/node</installDirectory>
                     </configuration>
 
             </plugin>

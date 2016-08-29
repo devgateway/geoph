@@ -30,19 +30,33 @@ const view=React.createClass({
 		this.props.onUpdateBounds(e.target.getBounds());
 	},
 
+	getPopUp(id){
+		debugger;
+		if (id=="projectPopup"){
+			return (<ProjectPopup  onClosePopup={this.closePopup}/>)
+		}
+		if (id="defaultPopup"){
+			return (<SimplePopup  onClosePopup={this.closePopup}/>)
+		}
+
+		if (id="photoPopup"){
+			return <PhotoPopup  onClosePopup={this.closePopup}/>
+		}
+	},
+
 	getLayer(l){
 		
 		console.log(l);
 		const {data,type,popupId}=l;
 		if (type=='clustered'){
 
-				return (<ClusteredLayer data={data}/>);
+			return (<ClusteredLayer data={data}>
+				{this.getPopUp(popupId)}
+				</ClusteredLayer>);
 		}else{
 			return (<SvgLayer zIndex={l.zIndex}  features={data.features}>
-						<ProjectPopup id="projectPopup" onClosePopup={this.closePopup}/>
-						<SimplePopup id="defaultPopup" onClosePopup={this.closePopup}/>
-						<PhotoPopup id="photoPopup" onClosePopup={this.closePopup}/>
-					</SvgLayer>)
+				{this.getPopUp(popupId)}
+				</SvgLayer>)
 		}
 	},
 
