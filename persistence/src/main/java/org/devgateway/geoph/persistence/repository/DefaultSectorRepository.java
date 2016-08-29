@@ -56,7 +56,7 @@ public class DefaultSectorRepository implements SectorRepository {
     }
 
     @Override
-    @Cacheable("findPhysicalStatusByParams")
+    @Cacheable("findSectorByParams")
     public List<ProjectSector> findFundingBySector(Parameters params) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<ProjectSector> criteriaQuery = criteriaBuilder.createQuery(ProjectSector.class);
