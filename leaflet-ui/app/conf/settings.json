@@ -27,7 +27,7 @@
 		"PROJECT_GEOJSON":"/geodata/${level}/projects",
 		"FUNDING_GEOJSON":"/geodata/stats/region/funding",
 		"PHYSICAL_GEOJSON":"/geodata/physicalProgress/region",
-			
+		"GEOPHOTOS_GEOJSON":"/geodata/geophotos",	
 		"MAP":"/maps",
 		"MAP_LIST":"/maps",
 
@@ -40,6 +40,7 @@
 	  	"REMOVE_INDICATOR":"/indicators/${indicator_id}",
 	  	"GEOPHOTOS_LIST":"/geophotos/list",
 	  	"GEOPHOTOS":"/geodata/geophotos/id/${geophotos_id}",
+
 	  	
 		"FILTER_LIST": {
 			"development": {

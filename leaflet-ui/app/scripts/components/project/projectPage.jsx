@@ -22,7 +22,7 @@ class ProjectPage extends React.Component {
 		const {project} = this.props;
 		const {projectData, isPopupOpen, loadingData} = project;
 		const {title, totalProjectAmount, fundingAgency, implementingAgencies, sectors, locations, periodPerformanceStart, periodPerformanceEnd, status, physicalStatus} = projectData;
-		debugger;
+	
 		return (
     		<Modal animation={false} aria-labelledby='contained-modal-title-lg'  
     		show={isPopupOpen} 

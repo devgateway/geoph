@@ -12,7 +12,6 @@ export default class Help extends React.Component{
 
 	show(){
 		let intro=Intro.introJs();
-		debugger;
 		intro.setOptions(Object.assign(this.options,{ showStepNumbers:false}));
 		intro.oncomplete(()=>{
 			document.body.style.overflow = 'auto';  // firefox, chrome

@@ -18,7 +18,7 @@ class Root extends DefaultLayout {
   componentWillMount() {
     this.props.onLoadAllFilters();
     this.props.onLoadIndicatorList(); 
-    this.props.onLoadGeophotosList(); 
+    //this.props.onLoadGeophotosList(); 
     this.props.onLoadDefaultLayer();
     this.props.onFetchStats();  
   }
