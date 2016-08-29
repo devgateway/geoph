@@ -7,7 +7,7 @@ import translate from '../../util/translate';
 export default class ProjectSearchHelp extends Help{
  
   help() {
-    debugger;
+    
     this.options=[
       {
         element:this.node().querySelector('#ps-selectall'),

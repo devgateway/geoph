@@ -80,14 +80,16 @@ const loadLayerById=(dispatch, getState, id)=>{
 		id:layer.get('id'),
 		indicator_id:layer.get("indicator_id"), 
 		geophotos_id:layer.get("geophotos_id"), 
-		ep:layer.get('ep'),settings:layer.get('settings').toObject(), 
+		ep:layer.get('ep'),settings:layer.get('settings')?layer.get('settings').toObject():{}, 
 		filters: getFilters(getState)
 	};
+	
 	dispatch(loadLayer(options, getState));
 }
 /*Get data of an specif layer passing layer options and getstate in order to take current filters*/
 
 const loadLayer=(options, getState)=>{
+	
 	return (dispatch, getState) =>{
 		Connector.loadLayerByOptions(options).then(
 			(results)=>{
