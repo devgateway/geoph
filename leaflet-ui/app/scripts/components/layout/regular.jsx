@@ -9,7 +9,7 @@ import {getGeophotosList} from '../../actions/geophotos.js'
 
 require("./root.scss");
 
-export default class Root extends DefaultLayout {
+class Root extends DefaultLayout {
 
   constructor() {
     super();
