@@ -9,7 +9,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
  * @author Sebas
  */
 
-export default class D3Layer extends MapLayer {
+ export default class D3Layer extends MapLayer {
 
   constructor() {
     super();
@@ -17,7 +17,7 @@ export default class D3Layer extends MapLayer {
 
   componentDidUpdate(nextProps, nextState) {
     const {data, ...props} = this.props;
-  
+    
     this.mapUpdate();
   }
 
@@ -31,7 +31,7 @@ export default class D3Layer extends MapLayer {
     this.leafletElement = geoJson();
     
     this.svg = d3.select(this.props.map.getPanes().overlayPane).append("svg"); 
-   
+    
     this.svg.style("z-index",this.props.zIndex);
     this.g = this.svg.append("g").attr("class", "leaflet-zoom-hide");
     this.props.map.on('moveend', this.mapUpdate.bind(this));
@@ -123,8 +123,7 @@ export default class D3Layer extends MapLayer {
     .setLatLng(latLong)
     .openOn(this.props.map);
     if (this.props.children) {
-      let pup = this.props.children.find(function(c) {return c.props.id==feature.properties.popupId});//find the child popup by layer.popupId 
-      render(React.cloneElement(pup, {feature, store:this.context.store}), popup._contentNode);
+      render(React.cloneElement(React.Children.only(this.props.children), {feature, store:this.context.store}), popup._contentNode);
       popup._updateLayout();
       popup._updatePosition()
       popup._adjustPan();
