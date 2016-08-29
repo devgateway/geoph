@@ -49,6 +49,7 @@ public class IndicatorTemplateDefinitions implements DefinitionsProvider {
         Stylist regularStylist = stylists.getRegularStylist(wbName);
 
         columnsDef.add(new ColumnDefinitionImp<Long>("Location ID", numberStyleStylist, Formatters.longFormatter(), Extractors.longExtractor("location.getId")));
+        columnsDef.add(new ColumnDefinitionImp<String>("Location Name", regularStylist, Formatters.stringFormatter(), Extractors.stringExtractor("location.getName")));
         columnsDef.add(new ColumnDefinitionImp<String>("UACS Code", regularStylist, Formatters.stringFormatter(), Extractors.stringExtractor("location.getCode")));
         columnsDef.add(new ColumnDefinitionImp<String>("Indicator Value", regularStylist, Formatters.stringFormatter(), null));
 
@@ -65,6 +66,7 @@ public class IndicatorTemplateDefinitions implements DefinitionsProvider {
 
         List<String> locationList = new ArrayList<>();
         locationList.add("getCode");
+        locationList.add("getName");
         classMap.put(LOCATION_CLASSNAME, locationList);
 
         return classMap;
