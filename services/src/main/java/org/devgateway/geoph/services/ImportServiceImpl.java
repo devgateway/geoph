@@ -31,8 +31,11 @@ public class ImportServiceImpl implements ImportService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ImportServiceImpl.class);
     private static final int SHEET_TO_READ = 0;
     private static final int STARTING_ROW = 0;
-    private static final int LOCATION_ID_POS = 1;
-    private static final int INDICATOR_VALUE_POS = 2;
+    private static final int LOCATION_ID_POS = 0;
+    private static final int UACS_ID_POS = 2;
+    private static final int INDICATOR_VALUE_POS = 3;
+    private static final String NUMBER_SUFFIX = ",000";
+    private static final String FORMAT = "%.3f";
 
     @Autowired
     IndicatorRepository indicatorRepository;
@@ -85,9 +88,9 @@ public class ImportServiceImpl implements ImportService {
             rowNumber++;
             String[] values = line.split(String.valueOf(CSV_RECORD_SEPARATOR)); //TODO:use a CSV reader
             Location location = null;
-            if (StringUtils.isNotBlank(values[LOCATION_ID_POS]) && StringUtils.isNumeric(values[LOCATION_ID_POS])) {
+            if (StringUtils.isNotBlank(values[UACS_ID_POS]) && StringUtils.isNumeric(values[UACS_ID_POS])) {
                 try {
-                    location = locationRepository.findByCode(values[LOCATION_ID_POS]);
+                    location = locationRepository.findByCode(values[UACS_ID_POS]);
                 } catch (Exception e) {
                     LOGGER.error(e.getMessage());
                 }
@@ -114,24 +117,27 @@ public class ImportServiceImpl implements ImportService {
                 rowNumber++;
                 IndicatorDetail detail = new IndicatorDetail();
                 Row row = rowIterator.next();
-                Cell locCode = row.getCell(LOCATION_ID_POS);
+                Cell cellLocId = row.getCell(LOCATION_ID_POS);
                 Cell value = row.getCell(INDICATOR_VALUE_POS);
-                String strCode = "";
-                if (locCode != null && locCode.getCellType() == Cell.CELL_TYPE_NUMERIC) {
-                    strCode += Double.valueOf(locCode.getNumericCellValue()).intValue();
-                } else if (locCode != null && locCode.getCellType() == Cell.CELL_TYPE_STRING) {
-                    strCode += locCode.getStringCellValue();
+                Long locId = null;
+                if (cellLocId != null && cellLocId.getCellType() == Cell.CELL_TYPE_NUMERIC) {
+                    locId = Double.valueOf(cellLocId.getNumericCellValue()).longValue();
+                } else if (cellLocId != null && cellLocId.getCellType() == Cell.CELL_TYPE_STRING) {
+                    locId = Long.valueOf(cellLocId.getStringCellValue());
                 }
-                String strValue = "";
+                String strValue = null;
                 if (value != null && value.getCellType() == Cell.CELL_TYPE_NUMERIC) {
-                    strValue += Double.valueOf(value.getNumericCellValue()).intValue();
+                    strValue = String.format(FORMAT, Double.valueOf(value.getNumericCellValue()));
+                    if(strValue!=null && strValue.endsWith(NUMBER_SUFFIX)){
+                        strValue=strValue.substring(0, strValue.length()-NUMBER_SUFFIX.length());
+                    }
                 } else if (value != null && value.getCellType() == Cell.CELL_TYPE_STRING) {
-                    strValue += value.getStringCellValue();
+                    strValue = value.getStringCellValue();
                 }
                 Location location = null;
-                if (StringUtils.isNotBlank(strCode) && StringUtils.isNumeric(strCode)) {
+                if (locId != null) {
                     try {
-                        location = locationRepository.findByCode(strCode);
+                        location = locationRepository.findById(locId);
                     } catch (Exception e) {
                         LOGGER.error(e.getMessage());
                     }
@@ -142,7 +148,7 @@ public class ImportServiceImpl implements ImportService {
                     detail.setIndicatorId(indicator.getId().longValue());
                     indicatorDetailRepository.save(detail);
                 } else {
-                    indicator.addError("Error at row #" + rowNumber + " - Missing/Wrong UACS code");
+                    indicator.addError("Error at row #" + rowNumber + " - Missing/Wrong Location Id");
                 }
             }
         } else {
