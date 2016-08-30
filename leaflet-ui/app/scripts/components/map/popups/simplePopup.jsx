@@ -26,7 +26,7 @@ const SimplePopup = onClickOutside(React.createClass({
        
     return (
       <div className="simple-popup-container">
-     x <div className="popup-title">
+        <div className="popup-title">
           <h2>{name}</h2>
            <div className="simple-popup-value">
               {valueProperty=='avgTarget'?<div>{layerName}<div> Average Target : {avgTarget}</div></div>:null}
