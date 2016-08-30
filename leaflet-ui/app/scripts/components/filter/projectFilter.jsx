@@ -7,7 +7,6 @@ import { fetchStats } from '../../actions/stats';
 import { Input } from 'react-bootstrap';
 import { cloneDeep,collectValues } from '../../util/filterUtil';
 import translate from '../../util/translate';
-import Help from '../help/projectSearchHelp'
 import ProjectLink from '../project/projectLink'
 import { Pagination, Grid, Row, Col } from 'react-bootstrap';
 import {getActivePage} from '../../util/paginatorUtil';
@@ -210,7 +209,6 @@ class ProjectFilter extends React.Component {
           <div className="">
             {this.getInput()}
           </div>
-          <Help parentId="ps-container"/>
           {this.getActions()}	        	
         </div>
         <div className="project-search-results">

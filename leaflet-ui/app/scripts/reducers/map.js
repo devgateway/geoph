@@ -89,7 +89,8 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
       {
         id: '3',
         keyName: 'geophotos',
-        layers: []
+        layers: [],
+        helpKey: "help.toolview.geophotos"
       },
       {
         id: '4',
@@ -142,6 +143,7 @@ const setIndicators = (state, indicators) => {
 
   return state.setIn(["layers", indicatorsIndex, "layers"], Immutable.fromJS(layers));
 }
+
 const setGeophotos = (state, geophotos) => {
   var index = 0;
   let layers = geophotos.map(it => {

@@ -8,6 +8,7 @@ import onClickOutside from 'react-onclickoutside'
 import {collectValues} from '../../../util/filterUtil';
 import { fetchPopupData } from '../../../actions/popup.js'
 import translate from '../../../util/translate.js';
+import {Tooltip, OverlayTrigger} from 'react-bootstrap';
 
 require('./projectLayerPopup.scss');
 
@@ -54,29 +55,39 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
         <div className="">
           <ul className='popup-tabs' role='tablist' >
             <li className={this.state.tabSelected=='fundingAgency'? 'active' : ''} role='tab' >
-              <div onClick={this.changeTab.bind(this, 'fundingAgency')}>
-                <span>{translate('infowindow.tab.financinginstitution')}</span>
-              </div>
+              <OverlayTrigger placement="top" overlay={(<Tooltip id="help.infowindow.financinginstitution">{translate('help.infowindow.financinginstitution')}</Tooltip>)}>
+                <div onClick={this.changeTab.bind(this, 'fundingAgency')}>
+                  <span>{translate('infowindow.tab.financinginstitution')}</span>
+                </div>
+              </OverlayTrigger>
             </li>
             <li className={this.state.tabSelected=='implementingAgency'? 'active' : ''} role='tab' >
-              <div onClick={this.changeTab.bind(this, 'implementingAgency')}>
-                <span>{translate('infowindow.tab.implementingagency')}</span>
-              </div>
+              <OverlayTrigger placement="top" overlay={(<Tooltip id="help.infowindow.implementingagency">{translate('help.infowindow.implementingagency')}</Tooltip>)}>
+                <div onClick={this.changeTab.bind(this, 'implementingAgency')}>
+                  <span>{translate('infowindow.tab.implementingagency')}</span>
+                </div>
+              </OverlayTrigger>
             </li>
             <li className={this.state.tabSelected=='physicalStatus'? 'active' : ''} role='tab' >
-              <div onClick={this.changeTab.bind(this, 'physicalStatus')}>
-                <span>{translate('infowindow.tab.physicalstatus')}</span>
-              </div>
+              <OverlayTrigger placement="top" overlay={(<Tooltip id="help.infowindow.physicalstatus">{translate('help.infowindow.physicalstatus')}</Tooltip>)}>
+                <div onClick={this.changeTab.bind(this, 'physicalStatus')}>
+                  <span>{translate('infowindow.tab.physicalstatus')}</span>
+                </div>
+              </OverlayTrigger>
             </li>
             <li className={this.state.tabSelected=='sector'? 'active' : ''} role='tab' >
-              <div onClick={this.changeTab.bind(this, 'sector')}>
-                <span>{translate('infowindow.tab.sector')}</span>
-              </div>
+              <OverlayTrigger placement="top" overlay={(<Tooltip id="help.infowindow.sector">{translate('help.infowindow.sector')}</Tooltip>)}>
+                <div onClick={this.changeTab.bind(this, 'sector')}>
+                  <span>{translate('infowindow.tab.sector')}</span>
+                </div>
+              </OverlayTrigger>
             </li>
             <li className={this.state.tabSelected=='projectList'? 'active' : ''} role='tab' >
-              <div onClick={this.changeTab.bind(this, 'projectList')}>
-                <span>{translate('infowindow.tab.projectlist')}</span>
-              </div>
+              <OverlayTrigger placement="top" overlay={(<Tooltip id="help.infowindow.projectlist">{translate('help.infowindow.projectlist')}</Tooltip>)}>
+                <div onClick={this.changeTab.bind(this, 'projectList')}>
+                  <span>{translate('infowindow.tab.projectlist')}</span>
+                </div>
+              </OverlayTrigger>
             </li>
           </ul>
         </div>

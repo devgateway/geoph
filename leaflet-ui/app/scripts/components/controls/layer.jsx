@@ -4,6 +4,7 @@ import {Message} from '../lan/'
 import {loadProjects,loadFunding,toggleVisibility,setSetting} from '../../actions/map.js'
 import * as Constants from '../../constants/constants.js';
 import translate from '../../util/translate.js';
+import {Tooltip, OverlayTrigger} from 'react-bootstrap';
 require('./layers.scss');
 const prefix="toolview.layers";
 
@@ -98,7 +99,7 @@ class Settings extends React.Component {
  	}
 
  	getTitle(){
- 		const {keyName,name} = this.props;
+ 		const {keyName, name} = this.props;
  		return(	
  			<div className="group-title"> 
  				<div/>
@@ -127,7 +128,7 @@ class Settings extends React.Component {
 
  		let childProperties = this.getChildProperties();	
  		return this.props.layers.map((l)=>{
- 			var props={key:l.get('id'), id:l.get('id'), settings:l.get('settings') ,visible:l.get('visible'),name:l.get('name'), keyName:l.get('keyName'), layers:l.get('layers')}
+ 			var props={key:l.get('id'), id:l.get('id'), settings:l.get('settings') ,visible:l.get('visible'),name:l.get('name'), keyName:l.get('keyName'), helpKey:l.get('helpKey'), layers:l.get('layers')}
  			
  			if (l.get('layers')){
  				return 	<LayerGroup {...props} {...childProperties} />
@@ -143,9 +144,16 @@ class Settings extends React.Component {
  */
  class LayerGroup extends ControlComponent {
  	render(){
- 		return( 
+	 	const {helpKey} = this.props;
+	 	return( 
  			<li className="group">
- 				{this.getTitle()}
+ 				{helpKey?
+ 					<OverlayTrigger placement="top" overlay={(<Tooltip id={helpKey}>{translate(helpKey)}</Tooltip>)}>
+ 						{this.getTitle()}
+ 					</OverlayTrigger>
+ 				: 
+ 					this.getTitle()
+ 				}
 				<div className="breadcrums">
 					({this.props.layers.filter(l=>l.get('visible')).size}/{this.props.layers.size})
 				</div>

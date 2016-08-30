@@ -49,7 +49,8 @@
 			"fundingtypeoda": "Uri ng Pondo (ODA)",
 			"fundingtype": "Uri ng Pondo ",
 			"financinginstitutionoda": "Nagpopondong Institusyon (ODA)",
-			"financinginstitution": "Nagpopondong Institusyon"
+			"financinginstitution": "Nagpopondong Institusyon",
+			"fundingclassification": "Funding Classification"
 		},
 		"agency": {
 			"agency": "Ahensya",
