@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>CLLEX</name>
+	<open>1</open>
+	<Style id="sh_ylw-circle">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/ylw-circle.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/ylw-circle-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<Style id="sn_ylw-circle">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/ylw-circle.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LabelStyle>
+			<scale>0</scale>
+		</LabelStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/ylw-circle-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<StyleMap id="msn_ylw-circle">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_ylw-circle</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_ylw-circle</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sn_ylw-pushpin">
+		<IconStyle>
+			<Icon>
+			</Icon>
+		</IconStyle>
+		<ListStyle>
+		</ListStyle>
+	</Style>
+	<Style id="sh_ylw-pushpin">
+		<IconStyle>
+			<Icon>
+			</Icon>
+		</IconStyle>
+		<ListStyle>
+		</ListStyle>
+	</Style>
+	<StyleMap id="msn_ylw-pushpin">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_ylw-pushpin</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_ylw-pushpin</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Folder>
+		<name>Picasa - Nov 6, 2015</name>
+		<open>1</open>
+		<Snippet maxLines="2">cllex</Snippet>
+		<description>Generated Nov 6, 201512:45:02 PM</description>
+		<Placemark>
+			<name>CLLEX Phase I</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[Terminus of SCTEX in Tarlac City
+<br>
+Length:  30.7 kilometer
+<br>
+No. of lanes: 4 lanes (2 lanes per direction)
+<br>
+No. of interchange: 5
+<br>
+No. and length of bridges: 7 bridges with total length of 1,886
+<br>
+ROW width: 60 meters
+<br>
+Embankment Height: 1.5 meters to 9 meters
+<br>
+No. of toll booths: 23 units
+<br>
+Status as of September 2015: Ongoing detailed engineering design (DED)
+<br> 
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image3_thumb.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 2:40:10 PM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>
+
+<br>
+
+
+            <tr>
+              <td>
+                <img src="files/image6_thumb.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 2:41:15 PM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>
+
+<br>
+
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image5_thumb.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 2:41:04 PM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>
+
+<br>
+
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image4_thumb.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 2:40:28 PM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+			<LookAt>
+				<longitude>120.681285</longitude>
+				<latitude>15.472635</latitude>
+				<altitude>0</altitude>
+				<heading>0</heading>
+				<tilt>0</tilt>
+				<range>3000</range>
+			</LookAt>
+			<styleUrl>#msn_ylw-circle</styleUrl>
+			<Point>
+				<coordinates>120.681285,15.472635,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>CLLEX Phase I</name>
+			<LookAt>
+				<longitude>120.6812850020382</longitude>
+				<latitude>15.47263499638623</latitude>
+				<altitude>0</altitude>
+				<heading>5.437587602843879e-010</heading>
+				<tilt>0</tilt>
+				<range>3000.002589130359</range>
+				<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+			</LookAt>
+			<styleUrl>#msn_ylw-pushpin</styleUrl>
+			<Point>
+				<gx:drawOrder>1</gx:drawOrder>
+				<coordinates>120.6812850020382,15.47263499638623,0</coordinates>
+			</Point>
+		</Placemark>
+	</Folder>
+</Document>
+</kml>
