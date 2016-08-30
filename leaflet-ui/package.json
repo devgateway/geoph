@@ -1,7 +1,7 @@
 {
-  "name": "open-aid-geocoder",
+  "name": "geoph",
   "version": "1.0.0",
-  "description": "A  tool for Geocoding aid projects",
+  "description": "Philippines Dashboard",
   "scripts": {
     "clean": "rimraf dist",
     "build:webpack": "webpack --config webpack.config.prod.js",
