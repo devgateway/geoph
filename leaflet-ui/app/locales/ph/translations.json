@@ -88,7 +88,7 @@
 		},
 		"physical": {
 			"physicalandfinancial": "Pisikal at Pinansyal",
-			"percentagereached": "Porsiyento ng Naabot na Target",
+			"physicalProgress": "Pisikal Pagsulong",
 			"minimum": "Minimo",
 			"maximum": "Maksimum",
 			"physicalstatus": "Pisikal Kalagayan",

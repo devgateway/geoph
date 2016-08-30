@@ -187,7 +187,7 @@ class PrintableFilters extends React.Component {
 		    	{filtersSelected["pr"]?
 	    			<div>	
 			    		<div className="print-filter-title">
-			    			{translate('filters.physical.percentagereached')}
+			    			{translate('filters.physical.physicalProgress')}
 			    		</div>
 			    		{filtersSelected["pr"].from?
 				    		<div className="print-filter-date">

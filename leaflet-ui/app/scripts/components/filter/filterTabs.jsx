@@ -114,10 +114,10 @@ class FilterTabContent extends React.Component {
 	                </Tab>
 	                <Tab className="filter-tab-content" eventKey={7} title={translate('filters.physical.physicalandfinancial')}>
 	                  	<Tabs defaultActiveKey={1} animation={false} position="left" tabWidth={3}>
-							<Tab className="filter-list-content" eventKey={1} title={translate('filters.physical.percentagereached')}>
-								<FilterSlider filterType="ao" valueSymbolPost="%" {...this.props.filters["ao"]} 
-									valueMin={this.props.filters["ao"]? parseInt(this.props.filters["ao"].items[1]) : 0} 
-									valueMax={this.props.filters["ao"]? parseInt(this.props.filters["ao"].items[0]) : 100}/>
+							<Tab className="filter-list-content" eventKey={1} title={translate('filters.physical.physicalProgress')}>
+								<FilterSlider filterType="php" valueSymbolPost="%" {...this.props.filters["php"]} 
+									valueMin={this.props.filters["php"]? parseInt(this.props.filters["php"].items[1]) : 0} 
+									valueMax={this.props.filters["php"]? parseInt(this.props.filters["php"].items[0]) : 100}/>
 						    </Tab>
 						    <Tab className="filter-list-content" eventKey={2} title={translate('filters.physical.physicalstatus')}>
 								<FilterList title="Physical Status" filterType="ph" {...this.props.filters["ph"]} />

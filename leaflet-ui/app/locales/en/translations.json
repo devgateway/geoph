@@ -88,7 +88,7 @@
 		},
 		"physical": {
 			"physicalandfinancial": "Physical and Financial",
-			"percentagereached": "Percentage of Target Reached",
+			"physicalProgress": "Physical Progress",
 			"minimum": "Minimum",
 			"maximum": "Maximum",
 			"physicalstatus": "Physical Status",

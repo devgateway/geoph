@@ -41,4 +41,6 @@ public interface ProjectRepository {
     List<Double> getActualPhysicalProgressPeriod();
 
     List<Double> getReachedPhysicalProgressPeriod();
+
+    List<Double> getPhysicalProgressPeriod();
 }

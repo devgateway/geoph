@@ -133,6 +133,12 @@ public class FilterHelper {
                 if(params.getActualOwpaMin() != null) {
                     predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectRoot.get(Project_.actualOwpa), params.getActualOwpaMin()));
                 }
+                if(params.getPhysicalProgressMin() != null) {
+                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectRoot.get(Project_.physicalProgress), params.getPhysicalProgressMin()));
+                }
+                if(params.getPhysicalProgressMax() != null) {
+                    predicates.add(criteriaBuilder.lessThanOrEqualTo(projectRoot.get(Project_.physicalProgress), params.getPhysicalProgressMax()));
+                }
             }
         }
     }
@@ -243,6 +249,12 @@ public class FilterHelper {
                 }
                 if(params.getTargetOwpaMax() != null) {
                     predicates.add(criteriaBuilder.lessThanOrEqualTo(projectJoin.get(Project_.targetOwpa), params.getTargetOwpaMax()));
+                }
+                if(params.getPhysicalProgressMin() != null) {
+                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectJoin.get(Project_.physicalProgress), params.getPhysicalProgressMin()));
+                }
+                if(params.getPhysicalProgressMax() != null) {
+                    predicates.add(criteriaBuilder.lessThanOrEqualTo(projectJoin.get(Project_.physicalProgress), params.getPhysicalProgressMax()));
                 }
                 if(params.getActualOwpaMin() != null) {
                     predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectJoin.get(Project_.actualOwpa), params.getActualOwpaMin()));
