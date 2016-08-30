@@ -89,6 +89,7 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
       {
         id: '3',
         keyName: 'geophotos',
+        helpKey: "help.toolview.geophotos",
         type: 'clustered',
         ep: 'GEOPHOTOS_GEOJSON',
         cssPrefix: 'geophotos', //markers css prefix 
