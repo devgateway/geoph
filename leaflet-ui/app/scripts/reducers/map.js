@@ -94,6 +94,7 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
         cssPrefix: 'geophotos', //markers css prefix 
         default: false,
         border: 2,
+        popupId:"PhotoPopup",
         name:'Geotagged Photos',
         computeOnload:false, //disable css addition for this later
       },

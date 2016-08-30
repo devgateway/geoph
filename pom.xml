@@ -48,7 +48,7 @@
         <module>standalone</module>
         <module>importer</module>
         <module>war</module>
-        <module>leaflet-ui</module>
+        <!--<module>leaflet-ui</module>-->
     </modules>
 
     <dependencyManagement>

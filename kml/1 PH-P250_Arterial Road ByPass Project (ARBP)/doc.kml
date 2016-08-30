@@ -1,0 +1,4105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>Arterial Road ByPass Project (Phases 1 &amp; 2).kmz</name>
+	<StyleMap id="picasaDisplayStyleMap_60ae10d370fbe0a0">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#picasaDisplayNormal_60ae10d370fbe0a00</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#picasaDisplayHighlight_60ae10d370fbe0a00</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="picasaDisplayHighlight_60ae10d370fbe0a0">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/red-circle.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/red-circle-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<Style id="sh_grn-circle">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/grn-circle.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/grn-circle-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<Style id="sn_grn-circle">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/grn-circle.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LabelStyle>
+			<scale>0</scale>
+		</LabelStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/grn-circle-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<Style id="picasaDisplayNormal_60ae10d370fbe0a0">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/red-circle.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LabelStyle>
+			<scale>0</scale>
+		</LabelStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/red-circle-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<Style id="picasaDisplayHighlight_60ae10d370fbe0a00">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/red-circle.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/red-circle-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<StyleMap id="picasaDisplayStyleMap_60ae10d370fbe0a00">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#picasaDisplayNormal_60ae10d370fbe0a0</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#picasaDisplayHighlight_60ae10d370fbe0a0</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="picasaDisplayNormal_60ae10d370fbe0a00">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/red-circle.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LabelStyle>
+			<scale>0</scale>
+		</LabelStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/red-circle-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<StyleMap id="msn_grn-circle">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_grn-circle</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_grn-circle</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Folder>
+		<name>Arterial Road ByPass Project (Phases 1 &amp; 2)</name>
+		<Folder>
+			<name>ARBP2</name>
+			<Snippet maxLines="2">ARBP2</Snippet>
+			<description>Generated Nov 5, 20155:42:10 PM</description>
+			<Placemark>
+				<name>Start</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image0_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:15:32 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.928763</longitude>
+					<latitude>14.955092</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.928763,14.955092,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446603365360</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image1_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:16:08 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.928971</longitude>
+					<latitude>14.957033</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.928971,14.957033,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446603378520</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image2_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:16:22 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.929012</longitude>
+					<latitude>14.957537</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.929012,14.957537,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446604189311</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image4_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:29:52 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.928982</longitude>
+					<latitude>14.958689</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.928982,14.958689,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446604197945</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image5_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:30:00 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.929001</longitude>
+					<latitude>14.95894</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.929001,14.95894,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446604207105</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image6_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:30:10 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.929134</longitude>
+					<latitude>14.959329</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.929134,14.959329,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446604216094</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image7_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:30:18 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.92921</longitude>
+					<latitude>14.959859</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.92921,14.959859,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446604234668</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image8_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:30:38 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.929388</longitude>
+					<latitude>14.961151</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.929388,14.961151,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446604246554</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image9_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:30:50 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.929477</longitude>
+					<latitude>14.961809</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.929477,14.961809,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446604263127</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image10_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:31:06 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.929586</longitude>
+					<latitude>14.962415</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.929586,14.962415,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446604278789</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image11_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:31:22 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.929648</longitude>
+					<latitude>14.962653</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.929648,14.962653,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446604294912</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image12_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:31:38 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.929684</longitude>
+					<latitude>14.962838</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.929684,14.962838,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446604314542</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image13_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:31:58 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.929714</longitude>
+					<latitude>14.963131</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.929714,14.963131,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446604328113</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image14_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:32:12 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.929756</longitude>
+					<latitude>14.96335</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.929756,14.96335,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446604336552</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image15_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:32:20 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.929773</longitude>
+					<latitude>14.96355</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.929773,14.96355,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446604360870</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image16_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:32:44 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.929827</longitude>
+					<latitude>14.963962</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.929827,14.963962,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446604372321</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image17_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:32:56 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.929831</longitude>
+					<latitude>14.964018</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.929831,14.964018,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446604381055</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image18_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:33:04 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.92983</longitude>
+					<latitude>14.964046</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.92983,14.964046,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446604402736</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image19_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:33:26 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.929895</longitude>
+					<latitude>14.964613</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.929895,14.964613,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446604416551</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image20_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:33:40 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.929928</longitude>
+					<latitude>14.965049</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.929928,14.965049,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446604436294</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image21_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:34:00 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.930003</longitude>
+					<latitude>14.965909</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.930003,14.965909,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446604455709</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image22_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:34:20 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.930119</longitude>
+					<latitude>14.966568</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.930119,14.966568,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446604466439</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image23_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:34:30 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.930179</longitude>
+					<latitude>14.966726</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.930179,14.966726,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446604483358</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image24_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:34:48 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.930229</longitude>
+					<latitude>14.967273</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.930229,14.967273,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446604500475</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image25_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:35:04 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.930209</longitude>
+					<latitude>14.967595</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.930209,14.967595,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446604517538</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image26_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:35:22 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.930324</longitude>
+					<latitude>14.968464</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.930324,14.968464,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446604526651</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image27_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:35:30 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.930374</longitude>
+					<latitude>14.968706</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.930374,14.968706,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446604539373</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image28_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:35:44 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.93052</longitude>
+					<latitude>14.969105</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.93052,14.969105,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446604615707</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image29_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:37:00 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.930718</longitude>
+					<latitude>14.969284</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.930718,14.969284,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446604649603</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image30_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:37:34 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.930652</longitude>
+					<latitude>14.969335</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.930652,14.969335,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446604710414</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image31_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:38:34 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.930664</longitude>
+					<latitude>14.969929</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.930664,14.969929,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446604736971</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image32_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:39:02 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.930594</longitude>
+					<latitude>14.970059</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.930594,14.970059,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446604745664</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image33_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:39:10 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.930594</longitude>
+					<latitude>14.970059</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.930594,14.970059,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446604771569</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image34_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:39:36 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.930769</longitude>
+					<latitude>14.970274</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.930769,14.970274,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446604791696</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image35_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:39:56 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.930721</longitude>
+					<latitude>14.970459</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.930721,14.970459,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446604814885</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image36_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:40:18 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.930684</longitude>
+					<latitude>14.970595</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.930684,14.970595,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446605002875</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image37_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:43:26 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.930765</longitude>
+					<latitude>14.96916</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.930765,14.96916,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446605084223</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image38_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:44:46 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.930449</longitude>
+					<latitude>14.968986</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.930449,14.968986,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446605115417</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image39_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:45:18 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.930564</longitude>
+					<latitude>14.967827</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.930564,14.967827,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446605149165</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image40_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:45:52 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.930126</longitude>
+					<latitude>14.966398</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.930126,14.966398,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446605169066</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image41_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:46:12 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.930031</longitude>
+					<latitude>14.965432</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.930031,14.965432,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446605186996</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image42_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:46:30 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.929914</longitude>
+					<latitude>14.964842</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.929914,14.964842,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446605195520</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image43_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:46:38 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.929915</longitude>
+					<latitude>14.964819</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.929915,14.964819,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446605213610</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image44_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:46:56 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.92989</longitude>
+					<latitude>14.964584</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.92989,14.964584,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446605219977</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image45_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:47:02 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.9299</longitude>
+					<latitude>14.964593</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.9299,14.964593,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446605234372</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image46_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:47:16 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.929832</longitude>
+					<latitude>14.964108</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.929832,14.964108,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446605253546</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image47_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:47:36 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.929777</longitude>
+					<latitude>14.963536</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.929777,14.963536,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446605274628</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image48_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:47:58 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.929758</longitude>
+					<latitude>14.963183</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.929758,14.963183,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446605283807</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image49_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:48:06 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.929712</longitude>
+					<latitude>14.962925</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.929712,14.962925,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446605348839</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image50_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:49:12 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.929341</longitude>
+					<latitude>14.960648</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.929341,14.960648,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446605765745</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image53_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:56:08 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.928525</longitude>
+					<latitude>14.953218</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.928525,14.953218,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446605788738</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image54_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 10:56:32 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.928496</longitude>
+					<latitude>14.952684</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_grn-circle</styleUrl>
+				<Point>
+					<coordinates>120.928496,14.952684,0</coordinates>
+				</Point>
+			</Placemark>
+		</Folder>
+		<Folder>
+			<name>ARBP1</name>
+			<Snippet maxLines="2">Search results for &quot;ARBP1&quot;</Snippet>
+			<description>Generated Nov 5, 20155:35:50 PM</description>
+			<Placemark>
+				<name>1446600960766</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image0_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:36:04 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.901232</longitude>
+					<latitude>14.834255</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.901232,14.834255,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446600983909</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image1_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:36:28 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.898645</longitude>
+					<latitude>14.836251</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.898645,14.836251,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446601016614</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image2_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:37:00 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.899915</longitude>
+					<latitude>14.83987</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.899915,14.83987,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446601030347</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image3_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:37:14 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.899602</longitude>
+					<latitude>14.840721</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.899602,14.840721,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446601047164</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image4_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:37:30 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.899219</longitude>
+					<latitude>14.84148</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.899219,14.84148,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446601076619</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image5_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:38:00 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.898861</longitude>
+					<latitude>14.842511</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.898861,14.842511,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446601093444</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image6_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:38:18 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.898584</longitude>
+					<latitude>14.843124</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.898584,14.843124,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446601106289</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image7_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:38:30 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.897971</longitude>
+					<latitude>14.844353</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.897971,14.844353,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446601115586</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image8_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:38:40 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>
+<BR>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image49_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 11:25:06 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.897616</longitude>
+					<latitude>14.845046</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a00</styleUrl>
+				<Point>
+					<coordinates>120.897616,14.845046,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446601135926</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image9_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:39:00 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.897172</longitude>
+					<latitude>14.846021</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.897172,14.846021,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446601150899</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image10_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:39:14 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.896557</longitude>
+					<latitude>14.847427</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.896557,14.847427,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446601161266</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image11_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:39:24 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.896008</longitude>
+					<latitude>14.848594</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.896008,14.848594,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446601188980</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image12_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:39:52 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.894471</longitude>
+					<latitude>14.851998</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.894471,14.851998,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446601210555</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image13_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:40:14 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.893164</longitude>
+					<latitude>14.854898</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.893164,14.854898,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446601238312</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image14_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:40:42 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.89159</longitude>
+					<latitude>14.858699</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.89159,14.858699,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446601253941</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image15_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:40:58 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.891041</longitude>
+					<latitude>14.860735</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.891041,14.860735,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446601267241</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image16_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:41:10 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.890779</longitude>
+					<latitude>14.862149</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.890779,14.862149,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446601311852</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image17_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:41:56 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.89069</longitude>
+					<latitude>14.867748</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.89069,14.867748,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446601329359</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image18_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:42:14 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.89108</longitude>
+					<latitude>14.870076</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.89108,14.870076,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446601349389</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image19_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:42:34 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.891771</longitude>
+					<latitude>14.872617</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.891771,14.872617,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446601370538</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image20_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:42:54 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.892802</longitude>
+					<latitude>14.875008</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.892802,14.875008,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446601386291</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image21_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:43:10 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.893629</longitude>
+					<latitude>14.876561</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.893629,14.876561,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446601420966</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image22_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:43:44 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.896093</longitude>
+					<latitude>14.880269</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.896093,14.880269,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446601446583</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image23_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:44:10 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.898438</longitude>
+					<latitude>14.883428</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.898438,14.883428,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446601478708</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image24_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:44:42 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.90143</longitude>
+					<latitude>14.887617</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.90143,14.887617,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446601497541</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image25_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:45:02 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.903181</longitude>
+					<latitude>14.890332</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.903181,14.890332,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446601560866</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image27_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:46:04 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.906806</longitude>
+					<latitude>14.90023</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.906806,14.90023,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446601572485</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image28_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:46:16 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.90693</longitude>
+					<latitude>14.90087</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.90693,14.90087,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446601595626</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image29_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:46:40 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.907334</longitude>
+					<latitude>14.902302</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.907334,14.902302,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446601607670</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image30_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:46:52 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.907433</longitude>
+					<latitude>14.902718</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.907433,14.902718,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446601630457</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image31_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:47:14 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.908116</longitude>
+					<latitude>14.905222</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.908116,14.905222,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446601637975</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image32_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:47:22 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.908169</longitude>
+					<latitude>14.90549</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.908169,14.90549,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446601669852</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image33_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:47:54 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.908839</longitude>
+					<latitude>14.907987</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.908839,14.907987,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446601722700</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image34_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:48:46 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.911943</longitude>
+					<latitude>14.916189</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.911943,14.916189,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446601779146</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image35_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:49:42 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.916912</longitude>
+					<latitude>14.924071</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.916912,14.924071,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446601866189</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image37_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:51:10 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.923561</longitude>
+					<latitude>14.934329</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.923561,14.934329,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446601906059</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image39_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:51:50 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.925528</longitude>
+					<latitude>14.9387</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.925528,14.9387,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446601933074</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image40_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:52:16 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.92652</longitude>
+					<latitude>14.941618</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.92652,14.941618,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446601940700</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image41_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:52:24 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.926621</longitude>
+					<latitude>14.941935</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.926621,14.941935,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446601955924</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image42_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:52:40 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.927101</longitude>
+					<latitude>14.943847</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.927101,14.943847,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446601972530</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image43_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:52:56 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.927589</longitude>
+					<latitude>14.946183</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.927589,14.946183,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446601979817</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image44_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:53:04 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.927728</longitude>
+					<latitude>14.947038</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.927728,14.947038,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446602010411</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image45_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:53:34 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.928041</longitude>
+					<latitude>14.949299</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.928041,14.949299,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446602035047</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image46_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 9:53:58 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.928132</longitude>
+					<latitude>14.95017</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.928132,14.95017,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446606673935</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image47_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 11:11:16 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.904931</longitude>
+					<latitude>14.894137</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a00</styleUrl>
+				<Point>
+					<coordinates>120.904931,14.894137,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>1446607167386</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image48_thumb_01.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/4/2015 11:19:30 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.893983</longitude>
+					<latitude>14.877218</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#picasaDisplayStyleMap_60ae10d370fbe0a0</styleUrl>
+				<Point>
+					<coordinates>120.893983,14.877218,0</coordinates>
+				</Point>
+			</Placemark>
+		</Folder>
+	</Folder>
+</Document>
+</kml>

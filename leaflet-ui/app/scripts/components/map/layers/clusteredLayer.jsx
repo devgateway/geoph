@@ -11,9 +11,9 @@ require('./cluster.scss');
  */
 
  var myIcon = L.divIcon({ 
-        iconSize: new L.Point(30, 30), 
-        className: 'cluster-marker-div-icon'
-    });
+ 	iconSize: new L.Point(30, 30), 
+ 	className: 'cluster-marker-div-icon'
+ });
 
  export default class ClusteredLayer extends MapLayer {
 
@@ -25,23 +25,20 @@ require('./cluster.scss');
  		var geojson = geoJson(data, 
  		{
  			
- 			onEachFeature: function (feature, layer) {},
+ 			onEachFeature: function (feature, layer) {
+ 				layer.on('click', function (e) {
+ 					console.log(e);
+
+ 				});
+ 			},
 
  			style: function (feature) {
-				
-			},
-			 pointToLayer: function (feature, latlng) {
-        	 	return L.marker(latlng, {icon: myIcon});
-    		},
-			onEachFeature: function (feature, layer) {
-				var popupText = 'geometry type: ' + feature.geometry.type;
-				if (feature.properties.color) {
-					popupText += '<br/>color: ' + feature.properties.color;
-				}
-				layer.bindPopup(popupText);
-			}
 
-
+ 			},
+ 			
+ 			pointToLayer: function (feature, latlng) {
+ 				return L.marker(latlng, {icon: myIcon});
+ 			}
 
  		});
 
@@ -69,6 +66,29 @@ require('./cluster.scss');
  		this.leafletElement.addLayer(geojson);
  		map.addLayer(this.leafletElement);
  	}
+
+
+ 	renderPopupContent(feature) {
+ 		if (!feature || !feature.geometry){
+ 			return null;
+ 		}
+ 		let latLong;
+ 		if (feature.geometry.type=="MultiPolygon"){
+ 			latLong = feature.latlng;
+ 		} else {
+ 			latLong = L.latLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0])
+ 		}
+ 		let popup = L.popup({maxWidth:"400", minWidth:"250", maxHeight:"280"})
+ 		.setLatLng(latLong)
+ 		.openOn(this.props.map);
+ 		if (this.props.children) {
+ 			render(React.cloneElement(React.Children.only(this.props.children), {feature, store:this.context.store}), popup._contentNode);
+ 			popup._updateLayout();
+ 			popup._updatePosition()
+ 			popup._adjustPan();
+ 		} 
+ 	}
+
 
  	render() {
  		return this.renderChildrenWithProps({
