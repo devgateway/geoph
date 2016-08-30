@@ -102,7 +102,7 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
         type: 'shapes',
         ep: 'PHYSICAL_GEOJSON',
         settings: {
-          'css': 'red','valueProperty':'avgActual'
+          'css': 'red','valueProperty':'physicalProgress'
         },
         cssPrefix: 'funding', //markers css prefix 
         default: false,
