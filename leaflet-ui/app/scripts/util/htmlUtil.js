@@ -3,7 +3,7 @@ export const encodeImages=(string, length)=>{
 
     /*
      for(var i=0;i < document.images.length;i++) {
-     debugger;
+     
      var img = new Image();
      img.setAttribute('crossOrigin', 'anonymous');
 

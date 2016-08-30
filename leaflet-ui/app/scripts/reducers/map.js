@@ -89,8 +89,14 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
       {
         id: '3',
         keyName: 'geophotos',
-        layers: [],
-        helpKey: "help.toolview.geophotos"
+        type: 'clustered',
+        ep: 'GEOPHOTOS_GEOJSON',
+        cssPrefix: 'geophotos', //markers css prefix 
+        default: false,
+        border: 2,
+        popupId:"PhotoPopup",
+        name:'Geotagged Photos',
+        computeOnload:false, //disable css addition for this later
       },
       {
         id: '4',
@@ -117,73 +123,72 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
 
 
 
-const setIndicators = (state, indicators) => {
-  var index = 0;
-  let layers= indicators.map(it => {
-    const {id, colorScheme: css,name,keyName,unit} = it;
-    const layerId =  indicatorsIndex + "-" + index++;
-    return {
-      id: layerId,
-      indicator_id: id,
-      keyName,
-      border:2,
-      ep: "INDICATOR",
-      type: 'shapes',
-      zIndex: 98,
-      cssPrefix:'indicators',
-      cssProvider: JenksCssProvider,
-      thresholds: 5,
-      valueProperty: "value",
-      name,
-      settings: {
-        'css': css || 'red'
+  const setIndicators = (state, indicators) => {
+    var index = 0;
+    let layers= indicators.map(it => {
+      const {id, colorScheme: css,name,keyName,unit} = it;
+      const layerId =  indicatorsIndex + "-" + index++;
+      return {
+        id: layerId,
+        indicator_id: id,
+        keyName,
+        border:2,
+        ep: "INDICATOR",
+        type: 'shapes',
+        zIndex: 98,
+        cssPrefix:'indicators',
+        cssProvider: JenksCssProvider,
+        thresholds: 5,
+        valueProperty: "value",
+        name,
+        settings: {
+          'css': css || 'red'
+        }
       }
-    }
-  });
+    });
 
-  return state.setIn(["layers", indicatorsIndex, "layers"], Immutable.fromJS(layers));
-}
-
-const setGeophotos = (state, geophotos) => {
-  var index = 0;
-  let layers = geophotos.map(it => {
-    const {id, colorScheme: css, name} = it;
-    const layerId =  geophotosIndex + "-" + index++;
-    return {
-      id: layerId,
-      geophotos_id: id,
-      zIndex: 101,
-      ep: "GEOPHOTOS",
-      type: 'points',
-      name,
-      size: 4, 
-      border: 2, 
-      popupId: "photoPopup",   
-      cssPrefix: 'points', 
-      settings: {
-        'css': css || 'blue'
-      }
-    }
-  });
-
-  return state.setIn(["layers", geophotosIndex, "layers"], Immutable.fromJS(layers));
-}
-
-const getType = (state, id) => {
-  return state.getIn(getPath(id, ["type"]));
-}
-
-const resize = (state, id) => {
-  var level = state.getIn(getPath(id, ['settings', 'level']));
-  let newSize = size;
-  if (level == 'province') {
-    newSize = size / 2;
-  } else
-  if (level == 'municipality') {
-    newSize = size / 3;
+    return state.setIn(["layers", indicatorsIndex, "layers"], Immutable.fromJS(layers));
   }
-  return state.setIn(getPath(id, ['size']), newSize)
-}
+  const setGeophotos = (state, geophotos) => {
+    var index = 0;
+    let layers = geophotos.map(it => {
+      const {id, colorScheme: css, name} = it;
+      const layerId =  geophotosIndex + "-" + index++;
+      return {
+        id: layerId,
+        geophotos_id: id,
+        zIndex: 101,
+        ep: "GEOPHOTOS",
+        type: 'points',
+        name,
+        size: 4, 
+        border: 2, 
+        popupId: "photoPopup",   
+        cssPrefix: 'points', 
+        settings: {
+          'css': css || 'blue'
+        }
+      }
+    });
+
+    return state.setIn(["layers", geophotosIndex, "layers"], Immutable.fromJS(layers));
+  }
+
+  const getType = (state, id) => {
+    return state.getIn(getPath(id, ["type"]));
+  }
+
+  const resize = (state, id) => {
+    var level = state.getIn(getPath(id, ['settings', 'level']));
+    let newSize = size;
+    if (level == 'province') {
+      newSize = size / 2;
+    } else
+    if (level == 'municipality') {
+      newSize = size / 3;
+    }
+    return state.setIn(getPath(id, ['size']), newSize)
+  }
 
 //get current layer configuration by path
 const getLayer=(state,id)=>{
@@ -228,11 +233,13 @@ const getClassProvider=(settings,features,fundingType)=>{
 
 const onLoadLayer = (state,action) => {
   var {id, data, fundingType} = action;
-
+  
   if (state.getIn(getPath(id, ["keyName"])) == "projects") {
     state = resize(state, id); 
   }
-  return updateLayer(state,action)
+
+   return updateLayer(state,action)
+  
 }
 
 const onToggleLayer=(state,action)=>{
@@ -240,7 +247,7 @@ const onToggleLayer=(state,action)=>{
   if (getType(state, id) == "shapes") {
     getShapeLayers(state.get('layers')).forEach(l=>{
       state=state.setIn(getPath(l.get('id'), ['visible']), false)
-  }); 
+    }); 
   }
   return state.setIn(getPath(id, ['visible']), !visible)
 }
@@ -249,15 +256,21 @@ const onToggleLayer=(state,action)=>{
 
 const onSetSetting=(state,action)=>{
   var {id, name, value} = action;
-  debugger;
+  
   return state.setIn(getPath(id, ["settings", name]), value);
 }
 
 const updateLayer=(state,action,id)=>{
 
   var {fundingType,data} = action;
-
   id= id || action.id; 
+  if (state.getIn(getPath(id, ["computeOnload"])) == false) {
+
+    return state.setIn(getPath(id, ["data"]),action.data);
+    
+  }
+
+ 
   const layer=state.getIn(getPath(id));
   data= data || layer.get('data').toJS();
 
@@ -317,12 +330,14 @@ const map = (state = defaultState, action) => {
     return setIndicators(state, action.data);
 
     case GEOPHOTOS_LIST_LOADED:
+    
     //return setGeophotos(state, action.data);
-    return state;
+    
     case TOGGLE_LEGENDS_VIEW:
     return state.setIn(['legends', 'visible'], !state.getIn(['legends', 'visible']));
 
     case LAYER_LOAD_FAILURE:
+    console.log('Error loading layer',action)
     default:
     return state
   }

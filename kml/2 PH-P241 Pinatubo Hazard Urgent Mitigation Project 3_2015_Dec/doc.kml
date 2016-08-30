@@ -1,0 +1,559 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>PHUMP3_4Q2015.kmz</name>
+	<Style id="sh_grn-circle0">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/grn-circle.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/grn-circle-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<StyleMap id="msn_red-circle">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_red-circle</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_red-circle0</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sh_red-circle0">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/red-circle.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/red-circle-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<StyleMap id="msn_grn-circle0">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_grn-circle0</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_grn-circle</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sh_grn-circle">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/grn-circle.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/grn-circle-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<Style id="sn_red-circle0">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/red-circle.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LabelStyle>
+			<scale>0</scale>
+		</LabelStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/red-circle-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<StyleMap id="msn_red-circle0">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_red-circle0</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_red-circle</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sn_grn-circle0">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/grn-circle.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LabelStyle>
+			<scale>0</scale>
+		</LabelStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/grn-circle-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<Style id="sn_red-circle">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/red-circle.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LabelStyle>
+			<scale>0</scale>
+		</LabelStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/red-circle-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<StyleMap id="msn_grn-circle">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_grn-circle</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_grn-circle0</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sn_grn-circle">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/grn-circle.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LabelStyle>
+			<scale>0</scale>
+		</LabelStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/grn-circle-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<Style id="sh_red-circle">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/red-circle.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/red-circle-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<Folder>
+		<name>PHUMP3_4Q2015</name>
+		<Snippet maxLines="2">PHUMP3_4Q2015</Snippet>
+		<description>Generated Feb 22, 20168:45:51 AM</description>
+		<Placemark>
+			<name>Spillway No. 3</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image0_thumb.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 1/29/2016 9:05:59 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+			<LookAt>
+				<longitude>120.640426</longitude>
+				<latitude>15.040351</latitude>
+				<altitude>0</altitude>
+				<heading>0</heading>
+				<tilt>0</tilt>
+				<range>3000</range>
+			</LookAt>
+			<styleUrl>#msn_grn-circle0</styleUrl>
+			<Point>
+				<coordinates>120.640426,15.040351,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Spillway No. 3</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image1_thumb.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 1/29/2016 9:10:53 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+			<LookAt>
+				<longitude>120.638626</longitude>
+				<latitude>15.038925</latitude>
+				<altitude>0</altitude>
+				<heading>0</heading>
+				<tilt>0</tilt>
+				<range>3000</range>
+			</LookAt>
+			<styleUrl>#msn_grn-circle0</styleUrl>
+			<Point>
+				<coordinates>120.638626,15.038925,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Spillway No. 3</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image2_thumb.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 1/29/2016 9:11:59 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+			<LookAt>
+				<longitude>120.638381</longitude>
+				<latitude>15.039001</latitude>
+				<altitude>0</altitude>
+				<heading>0</heading>
+				<tilt>0</tilt>
+				<range>3000</range>
+			</LookAt>
+			<styleUrl>#msn_grn-circle0</styleUrl>
+			<Point>
+				<coordinates>120.638381,15.039001,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>CP7: Sta. Filomena Bridge (Approach Road)</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image3_thumb.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 1/29/2016 10:12:28 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+			<LookAt>
+				<longitude>120.634583</longitude>
+				<latitude>14.965866</latitude>
+				<altitude>0</altitude>
+				<heading>0</heading>
+				<tilt>0</tilt>
+				<range>3000</range>
+			</LookAt>
+			<styleUrl>#msn_grn-circle</styleUrl>
+			<Point>
+				<coordinates>120.634583,14.965866,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>CP7: Sta. Filomena Bridge</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image4_thumb.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 1/29/2016 10:12:59 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+			<LookAt>
+				<longitude>120.634587</longitude>
+				<latitude>14.96585</latitude>
+				<altitude>0</altitude>
+				<heading>0</heading>
+				<tilt>0</tilt>
+				<range>3000</range>
+			</LookAt>
+			<styleUrl>#msn_grn-circle</styleUrl>
+			<Point>
+				<coordinates>120.634587,14.96585,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>CP7: Lubao-Sasmuan Road</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image5_thumb.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 1/29/2016 11:15:03 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+			<LookAt>
+				<longitude>120.619434</longitude>
+				<latitude>14.936864</latitude>
+				<altitude>0</altitude>
+				<heading>0</heading>
+				<tilt>0</tilt>
+				<range>3000</range>
+			</LookAt>
+			<styleUrl>#msn_red-circle</styleUrl>
+			<Point>
+				<coordinates>120.619434,14.936864,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>CP7: Lubao-Sasmuan Road</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image6_thumb.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 1/29/2016 11:16:47 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+			<LookAt>
+				<longitude>120.610553</longitude>
+				<latitude>14.938004</latitude>
+				<altitude>0</altitude>
+				<heading>0</heading>
+				<tilt>0</tilt>
+				<range>3000</range>
+			</LookAt>
+			<styleUrl>#msn_red-circle</styleUrl>
+			<Point>
+				<coordinates>120.610553,14.938004,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>CP7: Cailano Creek Upstream</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image7_thumb.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 1/29/2016 11:18:18 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+			<LookAt>
+				<longitude>120.609269</longitude>
+				<latitude>14.938207</latitude>
+				<altitude>0</altitude>
+				<heading>0</heading>
+				<tilt>0</tilt>
+				<range>3000</range>
+			</LookAt>
+			<styleUrl>#msn_red-circle0</styleUrl>
+			<Point>
+				<coordinates>120.609269,14.938207,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>CP7: Cailano Creek Downstream</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image8_thumb.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 1/29/2016 11:19:16 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+			<LookAt>
+				<longitude>120.609108</longitude>
+				<latitude>14.938206</latitude>
+				<altitude>0</altitude>
+				<heading>0</heading>
+				<tilt>0</tilt>
+				<range>3000</range>
+			</LookAt>
+			<styleUrl>#msn_red-circle0</styleUrl>
+			<Point>
+				<coordinates>120.609108,14.938206,0</coordinates>
+			</Point>
+		</Placemark>
+	</Folder>
+</Document>
+</kml>

@@ -1,0 +1,1519 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>ARISP III.kmz</name>
+	<Style id="sn_image10_roll">
+		<IconStyle>
+			<Icon>
+				<href>files/image10_roll.jpg</href>
+			</Icon>
+		</IconStyle>
+		<LabelStyle>
+			<scale>0</scale>
+		</LabelStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+	</Style>
+	<Style id="sh_image16_roll">
+		<IconStyle>
+			<scale>2</scale>
+			<Icon>
+				<href>files/image16_roll.jpg</href>
+			</Icon>
+		</IconStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+	</Style>
+	<Style id="sh_C">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/C.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/C-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<StyleMap id="msn_image7_roll">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_image7_roll</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_image7_roll</styleUrl>
+		</Pair>
+	</StyleMap>
+	<StyleMap id="msn_C">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_C4</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_C7</styleUrl>
+		</Pair>
+	</StyleMap>
+	<StyleMap id="msn_C0">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_C1</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_C1</styleUrl>
+		</Pair>
+	</StyleMap>
+	<StyleMap id="msn_image13_roll">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_image13_roll</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_image13_roll</styleUrl>
+		</Pair>
+	</StyleMap>
+	<StyleMap id="msn_image16_roll">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_image16_roll</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_image16_roll</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sh_image15_roll">
+		<IconStyle>
+			<scale>2</scale>
+			<Icon>
+				<href>files/image15_roll.jpg</href>
+			</Icon>
+		</IconStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+	</Style>
+	<Style id="sn_C">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/C.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LabelStyle>
+			<scale>0</scale>
+		</LabelStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/C-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<StyleMap id="msn_C1">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_C7</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_C0</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sn_C0">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/C.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LabelStyle>
+			<scale>0</scale>
+		</LabelStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/C-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<StyleMap id="msn_C2">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_C2</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_C6</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sh_C0">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/C.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/C-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<StyleMap id="msn_image3_roll">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_image3_roll</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_image3_roll</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sh_C1">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/C.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/C-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<Style id="sh_image3_roll">
+		<IconStyle>
+			<scale>2</scale>
+			<Icon>
+				<href>files/image3_roll.jpg</href>
+			</Icon>
+		</IconStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+	</Style>
+	<Style id="sn_C1">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/C.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LabelStyle>
+			<scale>0</scale>
+		</LabelStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/C-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<StyleMap id="msn_C3">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_C</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_C</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sn_image13_roll">
+		<IconStyle>
+			<Icon>
+				<href>files/image13_roll.jpg</href>
+			</Icon>
+		</IconStyle>
+		<LabelStyle>
+			<scale>0</scale>
+		</LabelStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+	</Style>
+	<Style id="sh_image13_roll">
+		<IconStyle>
+			<scale>2</scale>
+			<Icon>
+				<href>files/image13_roll.jpg</href>
+			</Icon>
+		</IconStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+	</Style>
+	<Style id="sn_image3_roll">
+		<IconStyle>
+			<Icon>
+				<href>files/image3_roll.jpg</href>
+			</Icon>
+		</IconStyle>
+		<LabelStyle>
+			<scale>0</scale>
+		</LabelStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+	</Style>
+	<Style id="sn_C2">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/C.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LabelStyle>
+			<scale>0</scale>
+		</LabelStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/C-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<StyleMap id="msn_C4">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_C3</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_C3</styleUrl>
+		</Pair>
+	</StyleMap>
+	<StyleMap id="msn_C5">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_C0</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_C2</styleUrl>
+		</Pair>
+	</StyleMap>
+	<StyleMap id="msn_C6">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_C5</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_C4</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sn_image16_roll">
+		<IconStyle>
+			<Icon>
+				<href>files/image16_roll.jpg</href>
+			</Icon>
+		</IconStyle>
+		<LabelStyle>
+			<scale>0</scale>
+		</LabelStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+	</Style>
+	<Style id="sh_C2">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/C.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/C-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<Style id="sn_C3">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/C.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LabelStyle>
+			<scale>0</scale>
+		</LabelStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/C-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<Style id="sn_C4">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/C.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LabelStyle>
+			<scale>0</scale>
+		</LabelStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/C-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<Style id="sh_C3">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/C.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/C-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<Style id="sn_C5">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/C.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LabelStyle>
+			<scale>0</scale>
+		</LabelStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/C-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<Style id="sh_C4">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/C.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/C-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<Style id="sh_image1_roll">
+		<IconStyle>
+			<scale>2</scale>
+			<Icon>
+				<href>files/image1_roll.jpg</href>
+			</Icon>
+		</IconStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+	</Style>
+	<Style id="sh_C5">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/C.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/C-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<Style id="sn_C6">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/C.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LabelStyle>
+			<scale>0</scale>
+		</LabelStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/C-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<Style id="sh_image10_roll">
+		<IconStyle>
+			<scale>2</scale>
+			<Icon>
+				<href>files/image10_roll.jpg</href>
+			</Icon>
+		</IconStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+	</Style>
+	<Style id="sn_image7_roll">
+		<IconStyle>
+			<Icon>
+				<href>files/image7_roll.jpg</href>
+			</Icon>
+		</IconStyle>
+		<LabelStyle>
+			<scale>0</scale>
+		</LabelStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+	</Style>
+	<StyleMap id="msn_image1_roll">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_image1_roll</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_image1_roll</styleUrl>
+		</Pair>
+	</StyleMap>
+	<StyleMap id="msn_image10_roll">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_image10_roll</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_image10_roll</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sn_image1_roll">
+		<IconStyle>
+			<Icon>
+				<href>files/image1_roll.jpg</href>
+			</Icon>
+		</IconStyle>
+		<LabelStyle>
+			<scale>0</scale>
+		</LabelStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+	</Style>
+	<Style id="sh_C6">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/C.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/C-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<Style id="sh_C7">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/C.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/C-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<StyleMap id="msn_C7">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_C6</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_C5</styleUrl>
+		</Pair>
+	</StyleMap>
+	<StyleMap id="msn_image15_roll">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_image15_roll</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_image15_roll</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sn_image15_roll">
+		<IconStyle>
+			<Icon>
+				<href>files/image15_roll.jpg</href>
+			</Icon>
+		</IconStyle>
+		<LabelStyle>
+			<scale>0</scale>
+		</LabelStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+	</Style>
+	<Style id="sh_image7_roll">
+		<IconStyle>
+			<scale>2</scale>
+			<Icon>
+				<href>files/image7_roll.jpg</href>
+			</Icon>
+		</IconStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+	</Style>
+	<Style id="sn_C7">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/C.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LabelStyle>
+			<scale>0</scale>
+		</LabelStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/C-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<Folder>
+		<name>ARISP III, City of Balanga, Bataan</name>
+		<Snippet maxLines="2">geotagged photos balanga bataan</Snippet>
+		<description>Generated Nov 5, 201510:23:36 AM</description>
+		<Placemark>
+			<name>Tuyo PHF</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[Project Title:             Agrarian Reform Infrastructure Support Project, Phase III (ARISP III)
+<br>
+Sub-component:       Post Harvest Facility (PHF)
+<br>
+Location:                   Brgy. Tuyo, City of Balanga, Bataan
+<br>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image0_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+<br>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image1_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+            <br>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image3_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/3/2015 10:21:22 AM</em>
+              ]]></description>
+			<LookAt>
+				<longitude>120.504906</longitude>
+				<latitude>14.689028</latitude>
+				<altitude>0</altitude>
+				<heading>0</heading>
+				<tilt>0</tilt>
+				<range>3000</range>
+			</LookAt>
+			<styleUrl>#msn_C4</styleUrl>
+			<Point>
+				<coordinates>120.504906,14.689028,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>1446517074710</name>
+			<visibility>0</visibility>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image1_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/3/2015 10:17:57 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+			<LookAt>
+				<longitude>120.504892</longitude>
+				<latitude>14.688997</latitude>
+				<altitude>0</altitude>
+				<heading>0</heading>
+				<tilt>0</tilt>
+				<range>3000</range>
+			</LookAt>
+			<styleUrl>#msn_image1_roll</styleUrl>
+			<Point>
+				<coordinates>120.504892,14.688997,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Tuyo PHF</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[Project Title:             Agrarian Reform Infrastructure Support Project, Phase III (ARISP III)
+<br>
+Sub-component:       Post Harvest Facility (PHF)
+<br>
+Location:                   Brgy. Tuyo, City of Balanga, Bataan
+<br>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image2_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/3/2015 10:19:11 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+			<LookAt>
+				<longitude>120.504787</longitude>
+				<latitude>14.689181</latitude>
+				<altitude>0</altitude>
+				<heading>0</heading>
+				<tilt>0</tilt>
+				<range>3000</range>
+			</LookAt>
+			<styleUrl>#msn_C3</styleUrl>
+			<Point>
+				<coordinates>120.504787,14.689181,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>1446517279916</name>
+			<visibility>0</visibility>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image3_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/3/2015 10:21:22 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+			<LookAt>
+				<longitude>120.504876</longitude>
+				<latitude>14.688944</latitude>
+				<altitude>0</altitude>
+				<heading>0</heading>
+				<tilt>0</tilt>
+				<range>3000</range>
+			</LookAt>
+			<styleUrl>#msn_image3_roll</styleUrl>
+			<Point>
+				<coordinates>120.504876,14.688944,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Tuyo FMR</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[Project Title:             Agrarian Reform Infrastructure Support Project, Phase III (ARISP III)
+<br>
+Sub-component:       Farm-to-Market Road (FMR) Phase I
+<br>
+Location:                   Brgy. Tuyo, City of Balanga, Bataan
+<br>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image4_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/3/2015 10:27:51 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+			<LookAt>
+				<longitude>120.504596</longitude>
+				<latitude>14.689149</latitude>
+				<altitude>0</altitude>
+				<heading>0</heading>
+				<tilt>0</tilt>
+				<range>3000</range>
+			</LookAt>
+			<styleUrl>#msn_C0</styleUrl>
+			<Point>
+				<coordinates>120.504596,14.689149,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Tuyo FMR</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[Project Title:             Agrarian Reform Infrastructure Support Project, Phase III (ARISP III)
+<br>
+Sub-component:       Farm-to-Market Road (FMR) Phase I
+<br>
+Location:                   Brgy. Tuyo, City of Balanga, Bataan
+<br>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image5_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/3/2015 10:30:15 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+			<LookAt>
+				<longitude>120.499788</longitude>
+				<latitude>14.688474</latitude>
+				<altitude>0</altitude>
+				<heading>0</heading>
+				<tilt>0</tilt>
+				<range>3000</range>
+			</LookAt>
+			<styleUrl>#msn_C2</styleUrl>
+			<Point>
+				<coordinates>120.499788,14.688474,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Tuyo FMR</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[Project Title:             Agrarian Reform Infrastructure Support Project, Phase III (ARISP III)
+<br>
+Sub-component:       Farm-to-Market Road (FMR) Phase I
+<br>
+Location:                   Brgy. Tuyo, City of Balanga, Bataan
+<br>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image6_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                
+<br>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image7_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/3/2015 10:35:20 AM</em>
+              ]]></description>
+			<LookAt>
+				<longitude>120.485043</longitude>
+				<latitude>14.686772</latitude>
+				<altitude>0</altitude>
+				<heading>0</heading>
+				<tilt>0</tilt>
+				<range>3000</range>
+			</LookAt>
+			<styleUrl>#msn_C7</styleUrl>
+			<Point>
+				<coordinates>120.485043,14.686772,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Tuyo FMR</name>
+			<visibility>0</visibility>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image7_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/3/2015 10:35:20 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+			<LookAt>
+				<longitude>120.485061</longitude>
+				<latitude>14.686771</latitude>
+				<altitude>0</altitude>
+				<heading>0</heading>
+				<tilt>0</tilt>
+				<range>3000</range>
+			</LookAt>
+			<styleUrl>#msn_image7_roll</styleUrl>
+			<Point>
+				<coordinates>120.485061,14.686771,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Tuyo FMR</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[Project Title:             Agrarian Reform Infrastructure Support Project, Phase III (ARISP III)
+<br>
+Sub-component:       Farm-to-Market Road (FMR) Phase II
+<br>
+Location:                   Brgy. Tuyo, City of Balanga, Bataan
+<br>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image9_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+               <br>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image10_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/3/2015 10:45:36 AM</em>]]></description>
+			<LookAt>
+				<longitude>120.51738</longitude>
+				<latitude>14.691364</latitude>
+				<altitude>0</altitude>
+				<heading>0</heading>
+				<tilt>0</tilt>
+				<range>3000</range>
+			</LookAt>
+			<styleUrl>#msn_C1</styleUrl>
+			<Point>
+				<coordinates>120.51738,14.691364,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>1446518733716</name>
+			<visibility>0</visibility>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image10_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/3/2015 10:45:36 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+			<LookAt>
+				<longitude>120.517496</longitude>
+				<latitude>14.691333</latitude>
+				<altitude>0</altitude>
+				<heading>0</heading>
+				<tilt>0</tilt>
+				<range>3000</range>
+			</LookAt>
+			<styleUrl>#msn_image10_roll</styleUrl>
+			<Point>
+				<coordinates>120.517496,14.691333,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Tuyo FMR</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[Project Title:             Agrarian Reform Infrastructure Support Project, Phase III (ARISP III)
+<br>
+Sub-component:       Farm-to-Market Road (FMR) Phase II
+<br>
+Location:                   Brgy. Tuyo, City of Balanga, Bataan
+<br>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image11_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/3/2015 10:49:34 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+			<LookAt>
+				<longitude>120.524618</longitude>
+				<latitude>14.693597</latitude>
+				<altitude>0</altitude>
+				<heading>0</heading>
+				<tilt>0</tilt>
+				<range>3000</range>
+			</LookAt>
+			<styleUrl>#msn_C5</styleUrl>
+			<Point>
+				<coordinates>120.524618,14.693597,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Tuyo FMR</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[Project Title:             Agrarian Reform Infrastructure Support Project, Phase III (ARISP III)
+<br>
+Sub-component:       Farm-to-Market Road (FMR) Phase I
+<br>
+Location:                   Brgy. Tuyo, City of Balanga, Bataan
+<br>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image12_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/3/2015 10:49:55 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+			<LookAt>
+				<longitude>120.524607</longitude>
+				<latitude>14.693553</latitude>
+				<altitude>0</altitude>
+				<heading>0</heading>
+				<tilt>0</tilt>
+				<range>3000</range>
+			</LookAt>
+			<styleUrl>#msn_C5</styleUrl>
+			<Point>
+				<coordinates>120.524607,14.693553,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>1446519327580</name>
+			<visibility>0</visibility>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image13_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/3/2015 10:55:30 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+			<LookAt>
+				<longitude>120.529179</longitude>
+				<latitude>14.696018</latitude>
+				<altitude>0</altitude>
+				<heading>0</heading>
+				<tilt>0</tilt>
+				<range>3000</range>
+			</LookAt>
+			<styleUrl>#msn_image13_roll</styleUrl>
+			<Point>
+				<coordinates>120.529179,14.696018,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Tuyo PCIP</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[Project Title:             Agrarian Reform Infrastructure Support Project, Phase III (ARISP III)
+<br>
+Sub-component:       Pump Communal Irrigation Project (PCIP)
+<br>
+Location:                   Brgy. Tuyo, City of Balanga, Bataan
+<br>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image14_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <br>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image13_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+<br>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image15_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/3/2015 10:56:23 AM</em>]]></description>
+			<LookAt>
+				<longitude>120.529168</longitude>
+				<latitude>14.695962</latitude>
+				<altitude>0</altitude>
+				<heading>0</heading>
+				<tilt>0</tilt>
+				<range>3000</range>
+			</LookAt>
+			<styleUrl>#msn_C6</styleUrl>
+			<Point>
+				<coordinates>120.529168,14.695962,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>1446519380524</name>
+			<visibility>0</visibility>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image15_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/3/2015 10:56:23 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+			<LookAt>
+				<longitude>120.52918</longitude>
+				<latitude>14.695898</latitude>
+				<altitude>0</altitude>
+				<heading>0</heading>
+				<tilt>0</tilt>
+				<range>3000</range>
+			</LookAt>
+			<styleUrl>#msn_image15_roll</styleUrl>
+			<Point>
+				<coordinates>120.52918,14.695898,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>1446519565406</name>
+			<visibility>0</visibility>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image16_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/3/2015 10:59:27 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+			<LookAt>
+				<longitude>120.530566</longitude>
+				<latitude>14.696583</latitude>
+				<altitude>0</altitude>
+				<heading>0</heading>
+				<tilt>0</tilt>
+				<range>3000</range>
+			</LookAt>
+			<styleUrl>#msn_image16_roll</styleUrl>
+			<Point>
+				<coordinates>120.530566,14.696583,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Tuyo PCIP</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[Project Title:             Agrarian Reform Infrastructure Support Project, Phase III (ARISP III)
+<br>
+Sub-component:       Pump Communal Irrigation Project (PCIP)
+<br>
+Location:                   Brgy. Tuyo, City of Balanga, Bataan
+<br>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image17_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+              <br>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image16_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/3/2015 10:59:27 AM</em>]]></description>
+			<LookAt>
+				<longitude>120.530543</longitude>
+				<latitude>14.696573</latitude>
+				<altitude>0</altitude>
+				<heading>0</heading>
+				<tilt>0</tilt>
+				<range>3000</range>
+			</LookAt>
+			<styleUrl>#msn_C</styleUrl>
+			<Point>
+				<coordinates>120.530543,14.696573,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Tuyo PWS</name>
+			<Snippet maxLines="0"></Snippet>
+			<description><![CDATA[Project Title:             Agrarian Reform Infrastructure Support Project, Phase III (ARISP III)
+<br>
+Sub-component:       Potable Water Supply (PWS)
+<br>
+Location:                   Brgy. Tuyo, City of Balanga, Bataan
+<br>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image20_thumb.jpg" width="400" height="225" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/3/2015 11:03:22 AM</em>
+            ]]></description>
+			<LookAt>
+				<longitude>120.530163</longitude>
+				<latitude>14.696814</latitude>
+				<altitude>0</altitude>
+				<heading>0</heading>
+				<tilt>0</tilt>
+				<range>3000</range>
+			</LookAt>
+			<styleUrl>#msn_C</styleUrl>
+			<Point>
+				<coordinates>120.530163,14.696814,0</coordinates>
+			</Point>
+		</Placemark>
+	</Folder>
+</Document>
+</kml>

@@ -153,7 +153,7 @@ class ProjectFilter extends React.Component {
     if(content && content.length >0){
       const {page} = this.state;
       let subSet = content.slice(page*pageSize, (page+1)*pageSize);
-      debugger;
+     
       return (
         <div>{subSet.map((item)=>this.getRow(item))}</div>
       )
@@ -187,7 +187,6 @@ class ProjectFilter extends React.Component {
   handlePageChange(eventKey, items) {
     let totalPages = Math.ceil(items.length/pageSize);
     let pg = getActivePage(eventKey, totalPages, this.state.page);
-    debugger;
     this.setState({'page': pg});
     //eventKey.stopPropagation();
   }
@@ -201,7 +200,7 @@ class ProjectFilter extends React.Component {
     const itemsPaginated = this.getContent(items);   
     const loading = showResults? this.getLoading(isFetching) : null;
     const noSelecion = !showResults? this.getNoSelection(items) : null;
-    debugger;
+    
     return (
       <div id="ps-container" className="project-search">
         <div className="project-search-keyword">

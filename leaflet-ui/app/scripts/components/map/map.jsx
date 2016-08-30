@@ -5,6 +5,8 @@ import { connect } from 'react-redux'
 import {loadProjects, updateBounds} from '../../actions/map.js'
 
 import SvgLayer from './layers/svg.jsx'
+import ClusteredLayer from './layers/clusteredLayer.jsx'
+
 import * as Constants from '../../constants/constants.js'
 import {loadDefaultLayer} from '../../actions/map.js'
 import {Popup, Map, Marker, TileLayer,ZoomControl,MapLayer,ScaleControl,LayerGroup} from 'react-leaflet'
@@ -25,8 +27,38 @@ const view=React.createClass({
 	},
 
 	handleChangeBounds(e) {		
-        this.props.onUpdateBounds(e.target.getBounds());
-    },
+		this.props.onUpdateBounds(e.target.getBounds());
+	},
+
+	getPopUp(id){
+		debugger;
+		if (id=="projectPopup"){
+			return (<ProjectPopup  onClosePopup={this.closePopup}/>)
+		}
+		if (id="defaultPopup"){
+			return (<SimplePopup  onClosePopup={this.closePopup}/>)
+		}
+
+		if (id="photoPopup"){
+			return <PhotoPopup  onClosePopup={this.closePopup}/>
+		}
+	},
+
+	getLayer(l){
+		
+		console.log(l);
+		const {data,type,popupId}=l;
+		if (type=='clustered'){
+
+			return (<ClusteredLayer data={data}>
+				{this.getPopUp(popupId)}
+				</ClusteredLayer>);
+		}else{
+			return (<SvgLayer zIndex={l.zIndex}  features={data.features}>
+				{this.getPopUp(popupId)}
+				</SvgLayer>)
+		}
+	},
 
 	render(){
 		const {map} = this.props;
@@ -36,33 +68,27 @@ const view=React.createClass({
 		
 		return (
 			<div>
-				<Map className="map" bounds={bounds} onMoveEnd={this.handleChangeBounds}>
-					
-					<TileLayer url={this.props.map.get('basemap').get('url')}/>
-					
-					{layers.map((l)=>{
-						const {data}=l;
-						return (data && data.features)?<SvgLayer zIndex={l.zIndex}  features={data.features}>
-						<ProjectPopup id="projectPopup" onClosePopup={this.closePopup}/>
-						<SimplePopup id="defaultPopup" onClosePopup={this.closePopup}/>
-						<PhotoPopup id="photoPopup" onClosePopup={this.closePopup}/>
-					</SvgLayer>:null;
-					})}
-				
-				</Map>
-				<Legends layers={this.props.map.get('layers')} />
+			<Map className="map" bounds={bounds}>
+			<TileLayer url={this.props.map.get('basemap').get('url')}/>
+			{layers.map((l)=>{
+				const {data,type}=l;
+				return (data && data.features)?this.getLayer(l):null;
+			})}
+
+			</Map>
+			<Legends layers={this.props.map.get('layers')} />
 			</div>
-		);
+			);
 	}
 })
 
 
 const mapDispatchToProps=(dispatch,ownProps)=>{
-  return {
-    onUpdateBounds: (newBounds) => {
-      dispatch(updateBounds(newBounds));
-    }
-  }
+	return {
+		onUpdateBounds: (newBounds) => {
+			dispatch(updateBounds(newBounds));
+		}
+	}
 }
 
 const stateToProps = (state,props) => {	
