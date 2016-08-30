@@ -68,4 +68,6 @@ public interface FilterService {
     Integer countExecutingAgencies();
 
     Map findAllTrxFunding();
+
+    List<Double> getPhysicalProgressPeriod();
 }

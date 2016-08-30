@@ -32,9 +32,9 @@ public class JsonRequestParams {
 
     private String pt;
 
-    private Double ro_max;
+    private Double php_max;
 
-    private Double ro_min;
+    private Double php_min;
 
     private Double ao_max;
 
@@ -152,20 +152,20 @@ public class JsonRequestParams {
         this.pt = pt;
     }
 
-    public Double getRo_max() {
-        return ro_max;
+    public Double getPhp_max() {
+        return php_max;
     }
 
-    public void setRo_max(Double ro_max) {
-        this.ro_max = ro_max;
+    public void setPhp_max(Double php_max) {
+        this.php_max = php_max;
     }
 
-    public Double getRo_min() {
-        return ro_min;
+    public Double getPhp_min() {
+        return php_min;
     }
 
-    public void setRo_min(Double ro_min) {
-        this.ro_min = ro_min;
+    public void setPhp_min(Double php_min) {
+        this.php_min = php_min;
     }
 
     public Double getAo_max() {

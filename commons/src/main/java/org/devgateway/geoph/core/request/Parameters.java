@@ -43,9 +43,9 @@ public class Parameters {
 
     private Date periodPerformanceEndMin;
 
-    private Double reachedOwpaMax;
+    private Double physicalProgressMax;
 
-    private Double reachedOwpaMin;
+    private Double physicalProgressMin;
 
     private Double targetOwpaMax;
 
@@ -129,8 +129,8 @@ public class Parameters {
         this.setGenderResponsiveness(filters.getGr());
         this.financialAmountMin = filters.getFin_amount_min();
         this.financialAmountMax = filters.getFin_amount_max();
-        this.reachedOwpaMax = filters.getRo_max();
-        this.reachedOwpaMin = filters.getRo_min();
+        this.physicalProgressMax = filters.getPhp_max();
+        this.physicalProgressMin = filters.getPhp_min();
         this.targetOwpaMax = filters.getTo_max();
         this.targetOwpaMin = filters.getTo_min();
         this.actualOwpaMax = filters.getAo_max();
@@ -165,8 +165,8 @@ public class Parameters {
         this.setGenderResponsiveness(filters.getGr());
         this.financialAmountMin = filters.getFin_amount_min();
         this.financialAmountMax = filters.getFin_amount_max();
-        this.reachedOwpaMax = filters.getRo_max();
-        this.reachedOwpaMin = filters.getRo_min();
+        this.physicalProgressMax = filters.getPhp_max();
+        this.physicalProgressMin = filters.getPhp_min();
         this.targetOwpaMax = filters.getTo_max();
         this.targetOwpaMin = filters.getTo_min();
         this.actualOwpaMax = filters.getAo_max();
@@ -181,20 +181,20 @@ public class Parameters {
         return new Parameters(filters);
     }
 
-    public Double getReachedOwpaMax() {
-        return reachedOwpaMax;
+    public Double getPhysicalProgressMax() {
+        return physicalProgressMax;
     }
 
-    public void setReachedOwpaMax(Double reachedOwpaMax) {
-        this.reachedOwpaMax = reachedOwpaMax;
+    public void setPhysicalProgressMax(Double physicalProgressMax) {
+        this.physicalProgressMax = physicalProgressMax;
     }
 
-    public Double getReachedOwpaMin() {
-        return reachedOwpaMin;
+    public Double getPhysicalProgressMin() {
+        return physicalProgressMin;
     }
 
-    public void setReachedOwpaMin(Double reachedOwpaMin) {
-        this.reachedOwpaMin = reachedOwpaMin;
+    public void setPhysicalProgressMin(Double reachedOwpaMin) {
+        this.physicalProgressMin = physicalProgressMin;
     }
 
     public Double getTargetOwpaMax() {

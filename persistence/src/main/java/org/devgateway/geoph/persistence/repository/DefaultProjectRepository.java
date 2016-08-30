@@ -7,7 +7,6 @@ import org.devgateway.geoph.dao.ProjectMiniDao;
 import org.devgateway.geoph.dao.ProjectStatsResultsDao;
 import org.devgateway.geoph.model.*;
 import org.devgateway.geoph.persistence.util.FilterHelper;
-import org.hibernate.jpa.criteria.OrderImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -245,6 +244,15 @@ public class DefaultProjectRepository implements ProjectRepository {
     public List<Double> getActualPhysicalProgressPeriod() {
         List<Double> ret = new ArrayList<>();
         Object[] o = (Object[]) em.createNativeQuery("select max(p.actual_owpa) as max_actual_owpa, min(p.actual_owpa) as min_actual_owpa from project p").getSingleResult();
+        ret.add((Double)o[0]);
+        ret.add((Double)o[1]);
+        return ret;
+    }
+
+    @Override
+    public List<Double> getPhysicalProgressPeriod() {
+        List<Double> ret = new ArrayList<>();
+        Object[] o = (Object[]) em.createNativeQuery("select max(p.physical_progress) as max_php, min(p.physical_progress) as min_php from project p").getSingleResult();
         ret.add((Double)o[0]);
         ret.add((Double)o[1]);
         return ret;
