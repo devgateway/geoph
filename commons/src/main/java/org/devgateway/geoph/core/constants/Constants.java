@@ -27,6 +27,18 @@ public class Constants {
     public static final String PROPERTY_LOC_PROJ_COUNT = "projectCount";
     public static final String PROPERTY_LOC_TRX_COUNT = "transactionCount";
     public static final String PROPERTY_LOC_PHYSICAL_PROGRESS = "physicalProgress";
+    public static final String PROPERTY_LAYER_GID = "gid";
+    public static final String PROPERTY_LAYER_KML_ID = "kmlId";
+    public static final String PROPERTY_LAYER_NAME = "name";
+    public static final String PROPERTY_LAYER_SYMBOL_ID = "symbolId";
+    public static final String PROPERTY_LAYER_TYPE = "type";
+    public static final String PROPERTY_LAYER_DESCRIPTION = "description";
+    public static final String PROPERTY_LAYER_IMAGE_PATH = "imagePath";
+    public static final String PROPERTY_INDICATOR_VALUE = "value";
+    public static final String PROPERTY_INDICATOR_ID = "indicatorId";
+    public static final String PROPERTY_INDICATOR_COLOR_SCHEME = "colorScheme";
+    public static final String PROPERTY_INDICATOR_LOC_ID = "locationId";
+    public static final String PROPERTY_INDICATOR_NAME = "name";
 
     public static final String PROPERTY_PRJ_ID = "id";
     public static final String PROPERTY_PRJ_PH_ID = "phId";

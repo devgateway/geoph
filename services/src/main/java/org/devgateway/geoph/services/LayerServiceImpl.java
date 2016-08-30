@@ -13,6 +13,7 @@ import org.devgateway.geoph.enums.LocationAdmLevelEnum;
 import org.devgateway.geoph.model.GeoPhotoSource;
 import org.devgateway.geoph.model.Indicator;
 import org.devgateway.geoph.model.IndicatorDetail;
+import org.devgateway.geoph.services.util.FeatureHelper;
 import org.geojson.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,13 +32,7 @@ public class LayerServiceImpl implements LayerService {
 
     private static final int LONG = 0;
     private static final int LAT = 1;
-    private static final String GID = "gid";
-    private static final String KML_ID = "kmlId";
-    private static final String NAME = "name";
-    private static final String SYMBOL_ID = "symbolId";
-    private static final String TYPE = "type";
-    private static final String DESCRIPTION = "description";
-    private static final String IMAGE_PATH = "imagePath";
+
 
     @Autowired
     IndicatorRepository indicatorRepository;
@@ -97,13 +92,11 @@ public class LayerServiceImpl implements LayerService {
             } else {
                 feature = new Feature();
             }
-            feature.setProperty("value", indicatorDetail.getValue());
-            feature.setProperty("indicatorId", indicatorDetail.getIndicatorId());
-            feature.setProperty("colorScheme", indicator.getColorScheme());
-            feature.setProperty("locationId", indicatorDetail.getLocationId());
+            String name = null;
             if(postGisHelperMap.get(indicatorDetail.getLocationId())!=null){
-                feature.setProperty("name", postGisHelperMap.get(indicatorDetail.getLocationId()).getName());
+                name = postGisHelperMap.get(indicatorDetail.getLocationId()).getName();
             }
+            FeatureHelper.setIndicatorDetailFeature(feature, indicatorDetail, name, indicator.getColorScheme());
             featureCollection.add(feature);
         }
         return featureCollection;
@@ -146,13 +139,7 @@ public class LayerServiceImpl implements LayerService {
         FeatureCollection featureCollection = new FeatureCollection();
         for (GeoPhotoGeometryDao geometryHelper : geometryHelpers) {
             Feature feature = new Feature();
-            feature.setProperty(GID, geometryHelper.getGid());
-            feature.setProperty(KML_ID, geometryHelper.getKmlId());
-            feature.setProperty(NAME, geometryHelper.getName());
-            feature.setProperty(SYMBOL_ID, geometryHelper.getSymbolId());
-            feature.setProperty(TYPE, geometryHelper.getType());
-            feature.setProperty(DESCRIPTION, geometryHelper.getDescription());
-            feature.setProperty(IMAGE_PATH, geometryHelper.getImagePath());
+            FeatureHelper.setGeoPhotoGeometryFeature(feature, geometryHelper);
             if (geometryHelper.getCoordinates() != null && geometryHelper.getCoordinates().length > LAT) {
                 Point point = new Point(geometryHelper.getCoordinates()[LONG], geometryHelper.getCoordinates()[LAT]);
                 feature.setGeometry(point);

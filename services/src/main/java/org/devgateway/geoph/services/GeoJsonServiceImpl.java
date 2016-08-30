@@ -13,6 +13,7 @@ import org.devgateway.geoph.enums.TransactionStatusEnum;
 import org.devgateway.geoph.enums.TransactionTypeEnum;
 import org.devgateway.geoph.model.Location;
 import org.devgateway.geoph.model.Project;
+import org.devgateway.geoph.services.util.FeatureHelper;
 import org.geojson.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -49,9 +50,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
         for(Location location : locationList) {
             Feature feature = new Feature();
             feature.setGeometry(new Point(location.getLongitude(), location.getLatitude()));
-            feature.setProperty(PROPERTY_LOC_NAME, location.getName());
-            feature.setProperty(PROPERTY_LOC_CODE, location.getCode());
-            feature.setProperty(PROPERTY_LOC_PROJ_COUNT, location.getProjects().size());
+            FeatureHelper.setLocationFeature(feature, location);
             featureCollection.add(feature);
         }
         return featureCollection;
@@ -73,14 +72,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
             if(location.getProjectCount()>0) {
                 Feature feature = new Feature();
                 feature.setGeometry(new Point(location.getLongitude(), location.getLatitude()));
-                feature.setProperty(PROPERTY_LOC_ID, location.getId());
-                feature.setProperty(PROPERTY_LOC_NAME, location.getName());
-                feature.setProperty(PROPERTY_LOC_CODE, location.getCode());
-                feature.setProperty(PROPERTY_LOC_PROJ_COUNT, location.getProjectCount());
-                feature.setProperty(PROPERTY_LOC_TRX_COUNT, location.getTransactionCount());
-                feature.setProperty(PROPERTY_LOC_COMMITMENTS, location.getCommitments());
-                feature.setProperty(PROPERTY_LOC_DISBURSEMENTS, location.getDisbursements());
-                feature.setProperty(PROPERTY_LOC_EXPENDITURES, location.getExpenditures());
+                FeatureHelper.setLocationPropertyFeature(feature, location);
                 featureCollection.add(feature);
             }
         }
@@ -121,10 +113,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
             } else {
                 feature = new Feature();
             }
-            feature.setProperty(PROPERTY_LOC_ID, location.getId());
-            feature.setProperty(PROPERTY_LOC_NAME, location.getName());
-            feature.setProperty(PROPERTY_LOC_CODE, location.getCode());
-            feature.setProperty(PROPERTY_LOC_PHYSICAL_PROGRESS, location.getPhysicalProgressAverage());
+            FeatureHelper.setLocationPropertyFeature(feature, location);
 
             featureCollection.add(feature);
 
@@ -269,15 +258,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
             } else {
                 feature = new Feature();
             }
-            feature.setProperty(PROPERTY_LOC_ID, location.getId());
-            feature.setProperty(PROPERTY_LOC_NAME, location.getName());
-            feature.setProperty(PROPERTY_LOC_CODE, location.getCode());
-            feature.setProperty(PROPERTY_LOC_PROJ_COUNT, location.getProjectCount());
-            feature.setProperty(PROPERTY_LOC_TRX_COUNT, location.getTransactionCount());
-            feature.setProperty(PROPERTY_LOC_COMMITMENTS, location.getCommitments());
-            feature.setProperty(PROPERTY_LOC_DISBURSEMENTS, location.getDisbursements());
-            feature.setProperty(PROPERTY_LOC_EXPENDITURES, location.getExpenditures());
-            feature.setProperty(PROPERTY_LOC_PHYSICAL_PROGRESS, location.getPhysicalProgressAverage());
+            FeatureHelper.setLocationPropertyFeature(feature, location);
             featureCollection.add(feature);
         }
 
