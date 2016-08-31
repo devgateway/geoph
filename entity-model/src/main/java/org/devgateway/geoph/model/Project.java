@@ -57,6 +57,12 @@ public class Project extends GenericPersistable implements Serializable {
     @OneToMany(cascade=CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "pk.project")
     private Set<ProjectAgency> implementingAgencies;
 
+    @OneToMany(cascade=CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "pk.project")
+    private Set<ProjectLocation> locations;
+
+    @OneToMany(cascade=CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "pk.project")
+    private Set<ProjectSector> sectors;
+
     @Column(name = "implementing_agency_office")
     private String implementingAgencyOffice;
 
@@ -101,17 +107,6 @@ public class Project extends GenericPersistable implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.MERGE)
     private Classification grantClassification;
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    @JoinTable(name = "project_location", joinColumns = {
-            @JoinColumn(name = "project_id", nullable = false, updatable = false) },
-            inverseJoinColumns = { @JoinColumn(name = "location_id",
-                    nullable = false, updatable = false) })
-    private Set<Location> locations;
-
-
-    @OneToMany(cascade=CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "pk.project")
-    private Set<ProjectSector> sectors;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable(name = "project_climate_change", joinColumns = {
@@ -213,21 +208,6 @@ public class Project extends GenericPersistable implements Serializable {
             }
         } else {
             this.transactions = transactions;
-        }
-    }
-
-    public Set<ProjectAgency> getImplementingAgencies() {
-        return implementingAgencies;
-    }
-
-    public void setImplementingAgencies(Set<ProjectAgency> implementingAgencies) {
-        if(this.implementingAgencies != null){
-            this.implementingAgencies.clear();
-            if (implementingAgencies != null) {
-                this.implementingAgencies.addAll(implementingAgencies);
-            }
-        } else {
-            this.implementingAgencies = implementingAgencies;
         }
     }
 
@@ -351,12 +331,30 @@ public class Project extends GenericPersistable implements Serializable {
         this.grantClassification = grantClassification;
     }
 
-    public Set<Location> getLocations() {
+    public Set<ProjectLocation> getLocations() {
         return locations;
     }
 
-    public void setLocations(Set<Location> locations) {
-        this.locations = locations;
+    public void setLocations(Set<ProjectLocation> locations) {
+        if(this.locations!=null) {
+            this.locations.clear();
+            this.locations.addAll(locations);
+        } else {
+            this.locations = locations;
+        }
+    }
+
+    public Set<ProjectAgency> getImplementingAgencies() {
+        return implementingAgencies;
+    }
+
+    public void setImplementingAgencies(Set<ProjectAgency> implementingAgencies) {
+        if(this.implementingAgencies != null){
+            this.implementingAgencies.clear();
+            this.implementingAgencies.addAll(implementingAgencies);
+        } else {
+            this.implementingAgencies = implementingAgencies;
+        }
     }
 
     public Set<ProjectSector> getSectors() {
@@ -366,9 +364,7 @@ public class Project extends GenericPersistable implements Serializable {
     public void setSectors(Set<ProjectSector> sectors) {
         if(this.sectors!=null) {
             this.sectors.clear();
-            if (sectors != null) {
-                this.sectors.addAll(sectors);
-            }
+            this.sectors.addAll(sectors);
         } else {
             this.sectors = sectors;
         }
@@ -578,7 +574,19 @@ public class Project extends GenericPersistable implements Serializable {
         this.periodPerformanceStart = project.getPeriodPerformanceStart();
         this.periodPerformanceEnd = project.getPeriodPerformanceEnd();
         this.grantClassification = project.getGrantClassification();
-        this.locations = project.getLocations();
+
+        if(this.locations!=null) {
+            this.locations.clear();
+        }
+        if (project.getLocations()!=null){
+            if(this.locations==null) {
+                this.locations = new HashSet<>();
+            }
+            for(ProjectLocation location:project.getLocations()) {
+                location.setProject(this);
+                this.locations.add(location);
+            }
+        }
 
         if(this.sectors!=null) {
             this.sectors.clear();

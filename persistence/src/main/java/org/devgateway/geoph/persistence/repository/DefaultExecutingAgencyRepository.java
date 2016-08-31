@@ -57,12 +57,14 @@ public class DefaultExecutingAgencyRepository implements ExecutingAgencyReposito
         List<Expression<?>> groupByList = new ArrayList<>();
 
         Join<Project, Agency> agencyJoin = projectRoot.join(Project_.executingAgency);
+
         multiSelect.add(agencyJoin);
         multiSelect.add(projectRoot);
+
         groupByList.add(agencyJoin);
         groupByList.add(projectRoot);
 
-        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);
+        FilterHelper.filterProjectQueryAdvanced(params, criteriaBuilder, projectRoot, predicates, multiSelect, groupByList);
 
         Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         criteriaQuery.where(other);

@@ -59,12 +59,8 @@ public class Location extends GenericPersistable implements Serializable {
     private List<Location> items = new ArrayList<>();
 
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    @JoinTable(name = "project_location", joinColumns = {
-            @JoinColumn(name = "location_id", nullable = false, updatable = false) },
-            inverseJoinColumns = { @JoinColumn(name = "project_id",
-                    nullable = false, updatable = false) })
-    private Set<Project> projects;
+    @OneToMany(cascade=CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "pk.location")
+    private Set<ProjectLocation> projects;
 
     @Column(name = "region_id")
     private Long regionId;
@@ -129,12 +125,17 @@ public class Location extends GenericPersistable implements Serializable {
         this.code = code;
     }
 
-    public Set<Project> getProjects() {
+    public Set<ProjectLocation> getProjects() {
         return projects;
     }
 
-    public void setProjects(Set<Project> projects) {
-        this.projects = projects;
+    public void setProjects(Set<ProjectLocation> projects) {
+        if(this.projects!=null) {
+            this.projects.clear();
+            this.projects.addAll(projects);
+        } else {
+            this.projects = projects;
+        }
     }
 
     public Long getRegionId() {
@@ -159,5 +160,19 @@ public class Location extends GenericPersistable implements Serializable {
             ret = getId();
         }
         return ret;
+    }
+
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Location)){
+            return false;
+        }
+        if (obj == this){
+            return true;
+        }
+        return this.getId().equals(((Location) obj).getId());
+    }
+
+    public int hashCode(){
+        return getId().intValue();
     }
 }

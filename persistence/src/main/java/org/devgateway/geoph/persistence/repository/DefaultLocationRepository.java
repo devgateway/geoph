@@ -94,7 +94,9 @@ public class DefaultLocationRepository implements LocationRepository {
         List<Expression<?>> groupByList = new ArrayList<>();
         groupByList.add(locationRoot);
 
-        Join<Location, Project> projectJoin = locationRoot.join(Location_.projects, JoinType.LEFT);
+        Join<Location, ProjectLocation> projectLocationJoin = locationRoot.join(Location_.projects, JoinType.LEFT);
+        Join<ProjectLocation, ProjectLocationId> idJoin = projectLocationJoin.join(ProjectLocation_.pk, JoinType.LEFT);
+        Join<ProjectLocationId, Project> projectJoin = idJoin.join(ProjectLocationId_.project, JoinType.LEFT);
         multiSelect.add(criteriaBuilder.countDistinct(projectJoin).alias("projectCount"));
 
         FilterHelper.filterLocationQuery(params, criteriaBuilder, locationRoot, predicates, projectJoin);
@@ -116,7 +118,9 @@ public class DefaultLocationRepository implements LocationRepository {
         CriteriaQuery<ProjectLocationDao> criteriaQuery = criteriaBuilder.createQuery(ProjectLocationDao.class);
 
         Root<Location> locationRoot = criteriaQuery.from(Location.class);
-        Join<Location, Project> projectJoin = locationRoot.join(Location_.projects, JoinType.LEFT);
+        Join<Location, ProjectLocation> projectLocationJoin = locationRoot.join(Location_.projects, JoinType.LEFT);
+        Join<ProjectLocation, ProjectLocationId> idJoin = projectLocationJoin.join(ProjectLocation_.pk, JoinType.LEFT);
+        Join<ProjectLocationId, Project> projectJoin = idJoin.join(ProjectLocationId_.project, JoinType.LEFT);
 
         List<Selection<?>> multiSelect = new ArrayList<>();
         multiSelect.add(locationRoot);
@@ -153,22 +157,21 @@ public class DefaultLocationRepository implements LocationRepository {
         List<Expression<?>> groupByList = new ArrayList<>();
         groupByList.add(locationRoot);
 
-        Join<Location, Project> projectJoin = locationRoot.join(Location_.projects, JoinType.LEFT);
+        Join<Location, ProjectLocation> projectLocationJoin = locationRoot.join(Location_.projects, JoinType.LEFT);
+        Join<ProjectLocation, ProjectLocationId> idJoin = projectLocationJoin.join(ProjectLocation_.pk, JoinType.LEFT);
+        Join<ProjectLocationId, Project> projectJoin = idJoin.join(ProjectLocationId_.project, JoinType.LEFT);
 
         if (trxTypeId != 0 && trxStatusId != 0) {
-            addTransactionJoin(criteriaBuilder, multiSelect, projectJoin, trxTypeId, trxStatusId);
+            addTransactionJoin(criteriaBuilder, multiSelect, projectLocationJoin, projectJoin, trxTypeId, trxStatusId);
         }
 
-        multiSelect.add(criteriaBuilder.sum(projectJoin.get(Project_.actualOwpa)).alias("actualPhysicalProgressAmount"));
-        multiSelect.add(criteriaBuilder.countDistinct(projectJoin.get(Project_.actualOwpa)).alias("actualPhysicalProgressCount"));
-        multiSelect.add(criteriaBuilder.sum(projectJoin.get(Project_.targetOwpa)).alias("targetPhysicalProgressAmount"));
-        multiSelect.add(criteriaBuilder.countDistinct(projectJoin.get(Project_.targetOwpa)).alias("targetPhysicalProgressCount"));
+        multiSelect.add(criteriaBuilder.sum(projectJoin.get(Project_.physicalProgress)).alias("physicalProgressAmount"));
+        multiSelect.add(criteriaBuilder.countDistinct(projectJoin.get(Project_.physicalProgress)).alias("physicalProgressCount"));
 
         FilterHelper.filterLocationQuery(params, criteriaBuilder, locationRoot, predicates, projectJoin);
 
         Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         criteriaQuery.where(other);
-
 
         criteriaQuery.groupBy(groupByList);
         TypedQuery<LocationResultsDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
@@ -177,11 +180,12 @@ public class DefaultLocationRepository implements LocationRepository {
     }
 
     private void addTransactionJoin(CriteriaBuilder criteriaBuilder, List<Selection<?>> multiSelect,
-                                    Join<Location, Project> projectJoin, int trxType, int trxStatus) {
+                                    Join<Location, ProjectLocation> projectLocationJoin,
+                                    Join<ProjectLocationId, Project> projectJoin, int trxType, int trxStatus) {
         Join<Project, Transaction> transactionJoin = projectJoin.join(Project_.transactions, JoinType.LEFT);
         transactionJoin.on(transactionJoin.get(Transaction_.transactionTypeId).in(trxType),
                 transactionJoin.get(Transaction_.transactionStatusId).in(trxStatus));
-        multiSelect.add(criteriaBuilder.sum(transactionJoin.get(Transaction_.amount)).alias("trxAmount"));
+        multiSelect.add(criteriaBuilder.sum(criteriaBuilder.prod(transactionJoin.get(Transaction_.amount), projectLocationJoin.get(ProjectLocation_.utilization))).alias("trxAmount"));
         multiSelect.add(criteriaBuilder.countDistinct(transactionJoin).alias("trxCount"));
     }
 

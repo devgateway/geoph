@@ -13,6 +13,7 @@ import org.devgateway.geoph.enums.TransactionStatusEnum;
 import org.devgateway.geoph.enums.TransactionTypeEnum;
 import org.devgateway.geoph.model.Location;
 import org.devgateway.geoph.model.Project;
+import org.devgateway.geoph.model.ProjectLocation;
 import org.devgateway.geoph.services.util.FeatureHelper;
 import org.geojson.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,8 +119,8 @@ public class GeoJsonServiceImpl implements GeoJsonService {
         Page<Project> projectPage = projectRepository.findProjectsByParams(params);
         for(Project project:projectPage) {
             if(project.getPhysicalProgress()!=null) {
-                for (Location locHelper : project.getLocations()) {
-                    LocationProperty lp = getLocationProperty(level, locationPropertyMap, locHelper);
+                for (ProjectLocation locHelper : project.getLocations()) {
+                    LocationProperty lp = getLocationProperty(level, locationPropertyMap, locHelper.getLocation());
                     if (lp != null) {
                         lp.addPhysicalProgress(project.getId(), project.getPhysicalProgress());
                     }

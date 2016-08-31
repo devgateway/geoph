@@ -68,16 +68,17 @@ public class DefaultPhysicalStatusRepository implements PhysicalStatusRepository
         List<Expression<?>> groupByList = new ArrayList<>();
 
         Join<Project, PhysicalStatus> physicalStatusJoin = projectRoot.join(Project_.physicalStatus);
+
         multiSelect.add(physicalStatusJoin);
         multiSelect.add(projectRoot);
+
         groupByList.add(physicalStatusJoin);
         groupByList.add(projectRoot);
 
-        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);
+        FilterHelper.filterProjectQueryAdvanced(params, criteriaBuilder, projectRoot, predicates, multiSelect, groupByList);
 
         Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         criteriaQuery.where(other);
-
 
         criteriaQuery.groupBy(groupByList);
         TypedQuery<PhysicalStatusDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));

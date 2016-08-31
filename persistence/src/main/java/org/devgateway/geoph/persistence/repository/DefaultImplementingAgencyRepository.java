@@ -2,10 +2,8 @@ package org.devgateway.geoph.persistence.repository;
 
 import org.devgateway.geoph.core.repositories.ImplementingAgencyRepository;
 import org.devgateway.geoph.core.request.Parameters;
-import org.devgateway.geoph.model.ImplementingAgency;
-import org.devgateway.geoph.model.Project;
-import org.devgateway.geoph.model.ProjectAgency;
-import org.devgateway.geoph.model.Project_;
+import org.devgateway.geoph.dao.AgencyResultsDao;
+import org.devgateway.geoph.model.*;
 import org.devgateway.geoph.persistence.util.FilterHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -48,9 +46,9 @@ public class DefaultImplementingAgencyRepository implements ImplementingAgencyRe
 
     @Override
     @Cacheable("findImplementingAgencyByParams")
-    public List<ProjectAgency> findFundingByImplementingAgency(Parameters params) {
+    public List<AgencyResultsDao> findFundingByImplementingAgency(Parameters params) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-        CriteriaQuery<ProjectAgency> criteriaQuery = criteriaBuilder.createQuery(ProjectAgency.class);
+        CriteriaQuery<AgencyResultsDao> criteriaQuery = criteriaBuilder.createQuery(AgencyResultsDao.class);
 
         Root<Project> projectRoot = criteriaQuery.from(Project.class);
 
@@ -59,19 +57,22 @@ public class DefaultImplementingAgencyRepository implements ImplementingAgencyRe
         List<Expression<?>> groupByList = new ArrayList<>();
 
         Join<Project, ProjectAgency> agencyJoin = projectRoot.join(Project_.implementingAgencies);
-        multiSelect.add(agencyJoin);
-        //multiSelect.add(projectRoot);
-        groupByList.add(agencyJoin);
-        //groupByList.add(projectRoot);
 
-        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);
+        multiSelect.add(agencyJoin);
+        multiSelect.add(agencyJoin.get(ProjectAgency_.utilization));
+
+        groupByList.add(agencyJoin);
+        groupByList.add(projectRoot);
+        groupByList.add(agencyJoin.get(ProjectAgency_.utilization));
+
+        FilterHelper.filterProjectQueryAdvanced(params, criteriaBuilder, projectRoot, predicates, multiSelect, groupByList);
 
         Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         criteriaQuery.where(other);
 
 
         criteriaQuery.groupBy(groupByList);
-        TypedQuery<ProjectAgency> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
+        TypedQuery<AgencyResultsDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
 
         return query.getResultList();
     }

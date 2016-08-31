@@ -2,6 +2,7 @@ package org.devgateway.geoph.importer.processing.plugins;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Row;
+import org.devgateway.geoph.enums.LocationAdmLevelEnum;
 import org.devgateway.geoph.importer.processing.GeophProjectsImporter;
 import org.devgateway.geoph.model.*;
 import org.slf4j.Logger;
@@ -24,6 +25,7 @@ public class GrantImporter extends GeophProjectsImporter {
     private static final Logger LOGGER = LoggerFactory.getLogger(GrantImporter.class);
     private static final int MAX_LENGTH = 255;
     private static final String UNDEFINED = "undefined";
+    private static final double UTILIZATION = 1D;
 
     @Autowired
     private GrantColumns grantColumns;
@@ -54,7 +56,7 @@ public class GrantImporter extends GeophProjectsImporter {
                 if (importBaseData.getImplementingAgencies().get(ia.toLowerCase().trim()) != null) {
                     ProjectAgency pa;
                     if(isFirstPA) {
-                        pa = new ProjectAgency(p, importBaseData.getImplementingAgencies().get(ia.toLowerCase().trim()), 100D);
+                        pa = new ProjectAgency(p, importBaseData.getImplementingAgencies().get(ia.toLowerCase().trim()), UTILIZATION);
                         isFirstPA = false;
                     } else {
                         pa = new ProjectAgency(p, importBaseData.getImplementingAgencies().get(ia.toLowerCase().trim()), 0D);
@@ -65,7 +67,7 @@ public class GrantImporter extends GeophProjectsImporter {
             if(iaSet.size()>0){
                 p.setImplementingAgencies(iaSet);
             } else {
-                ProjectAgency pa = new ProjectAgency(p, importBaseData.getImplementingAgencies().get(UNDEFINED), 100D);
+                ProjectAgency pa = new ProjectAgency(p, importBaseData.getImplementingAgencies().get(UNDEFINED), UTILIZATION);
                 p.setImplementingAgencies(new HashSet<>(Arrays.asList(pa)));
             }
 
@@ -125,15 +127,10 @@ public class GrantImporter extends GeophProjectsImporter {
 
             String sector = getStringValueFromCell(row.getCell(grantColumns.getSectors()), "sectors", rowNumber, GeophProjectsImporter.onProblem.NOTHING, false);
             Set<ProjectSector> sectorSet = new HashSet<>();
-            boolean isFirstSector = true;
-
             if (sector!=null && importBaseData.getSectors().get(sector.toLowerCase().trim()) != null) {
-                if(isFirstSector) {
-                    ProjectSector ps = new ProjectSector(p, importBaseData.getSectors().get(sector.toLowerCase().trim()), 100D);
-                    sectorSet.add(ps);
-                }
+                ProjectSector ps = new ProjectSector(p, importBaseData.getSectors().get(sector.toLowerCase().trim()), UTILIZATION);
+                sectorSet.add(ps);
             }
-
             if(sectorSet.size()>0){
                 p.setSectors(sectorSet);
             }
@@ -145,19 +142,32 @@ public class GrantImporter extends GeophProjectsImporter {
                     locations = getStringArrayValueFromCell(row.getCell(grantColumns.getRegion()), "region", rowNumber, onProblem.NOTHING);
                 }
             }
-            Set<Location> locationSet = new HashSet<>();
-            for (String loc : locations) {
-                if(StringUtils.isNotBlank(loc) && loc.indexOf(".")>0) {
-                    if (importBaseData.getLocations().get(loc.trim().split("\\.")[0]) != null) {
-                        locationSet.add(importBaseData.getLocations().get(loc.trim().split("\\.")[0]));
-                    }
-                } else {
-                    if (importBaseData.getLocations().get(loc.trim()) != null) {
-                        locationSet.add(importBaseData.getLocations().get(loc.trim()));
+            if(locations.length>0) {
+                Set<ProjectLocation> locationSet = new HashSet<>();
+                Set<Location> locationRegion = new HashSet<>();
+                Set<Location> locationProvince = new HashSet<>();
+                Set<Location> locationMunicipality = new HashSet<>();
+                for (String loc : locations) {
+                    String locOk = loc.trim().endsWith(".0")?loc.trim().substring(0,loc.length()-2):loc.trim();
+                    Location l = importBaseData.getLocations().get(locOk);
+                    if(l!=null) {
+                        if(l.getLevel()== LocationAdmLevelEnum.REGION.getLevel()){
+                            locationRegion.add(l);
+                        } else if(l.getLevel()==LocationAdmLevelEnum.PROVINCE.getLevel()){
+                            locationProvince.add(l);
+                            locationRegion.add(importBaseData.getLocationsById().get(l.getRegionId()));
+                        } else if(l.getLevel()==LocationAdmLevelEnum.MUNICIPALITY.getLevel()){
+                            locationMunicipality.add(l);
+                            locationProvince.add(importBaseData.getLocationsById().get(l.getProvinceId()));
+                            locationRegion.add(importBaseData.getLocationsById().get(l.getRegionId()));
+                        }
                     }
                 }
+                locationMunicipality.stream().forEach(l->locationSet.add(new ProjectLocation(p, l, 0D)));
+                locationProvince.stream().forEach(l->locationSet.add(new ProjectLocation(p, l, 0D)));
+                locationRegion.stream().forEach(l->locationSet.add(new ProjectLocation(p, l, UTILIZATION /locationRegion.size())));
+                p.setLocations(locationSet);
             }
-            p.setLocations(locationSet);
 
             p.setStatus(importBaseData.getStatuses().get(
                     getStringValueFromCell(row.getCell(grantColumns.getStatus()), "status", rowNumber, onProblem.NOTHING, true)

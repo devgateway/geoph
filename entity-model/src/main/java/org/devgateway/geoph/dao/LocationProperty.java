@@ -2,6 +2,7 @@ package org.devgateway.geoph.dao;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.devgateway.geoph.model.Location;
+import org.devgateway.geoph.model.Project;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +22,8 @@ public class LocationProperty {
     private double latitude;
 
     private double longitude;
+
+    private Map<Long, Project> projectMap = new HashMap<>();
 
     private Long projectCount = 0L;
 
@@ -168,6 +171,10 @@ public class LocationProperty {
             count ++;
         }
         return count>0?temp/count:temp;
+    }
+
+    public void addProject(Project project){
+        projectMap.put(project.getId(), project);
     }
 
 }

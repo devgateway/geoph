@@ -16,35 +16,27 @@ public class LocationResultsDao {
 
     private Long trxCount;
 
-    private Double actualPhysicalProgressAmount;
+    private Double physicalProgressAmount;
 
-    private Long actualPhysicalProgressCount;
-
-    private Double targetPhysicalProgressAmount;
-
-    private Long targetPhysicalProgressCount;
+    private Long physicalProgressCount;
 
     public LocationResultsDao(Location location, Long projectCount) {
         this.location = location;
         this.projectCount = projectCount;
     }
 
-    public LocationResultsDao(Location location, Double actualPhysicalProgressAmount, Long actualPhysicalProgressCount, Double targetPhysicalProgressAmount, Long targetPhysicalProgressCount) {
+    public LocationResultsDao(Location location, Double physicalProgressAmount, Long physicalProgressCount) {
         this.location = location;
-        this.actualPhysicalProgressAmount = actualPhysicalProgressAmount;
-        this.actualPhysicalProgressCount = actualPhysicalProgressCount;
-        this.targetPhysicalProgressAmount = targetPhysicalProgressAmount;
-        this.targetPhysicalProgressCount = targetPhysicalProgressCount;
+        this.physicalProgressAmount = physicalProgressAmount;
+        this.physicalProgressCount = physicalProgressCount;
     }
 
-    public LocationResultsDao(Location location, Double trxAmount, Long trxCount, Double actualPhysicalProgressAmount, Long actualPhysicalProgressCount, Double targetPhysicalProgressAmount, Long targetPhysicalProgressCount) {
+    public LocationResultsDao(Location location, Double trxAmount, Long trxCount, Double physicalProgressAmount, Long physicalProgressCount) {
         this.location = location;
         this.trxAmount = trxAmount;
         this.trxCount = trxCount;
-        this.actualPhysicalProgressAmount = actualPhysicalProgressAmount;
-        this.actualPhysicalProgressCount = actualPhysicalProgressCount;
-        this.targetPhysicalProgressAmount = targetPhysicalProgressAmount;
-        this.targetPhysicalProgressCount = targetPhysicalProgressCount;
+        this.physicalProgressAmount = physicalProgressAmount;
+        this.physicalProgressCount = physicalProgressCount;
     }
 
     public Location getLocation() {
@@ -79,50 +71,26 @@ public class LocationResultsDao {
         this.trxCount = trxCount;
     }
 
-    public Double getActualPhysicalProgressAmount() {
-        return actualPhysicalProgressAmount;
+    public Double getPhysicalProgressAmount() {
+        return physicalProgressAmount;
     }
 
-    public void setActualPhysicalProgressAmount(Double actualPhysicalProgressAmount) {
-        this.actualPhysicalProgressAmount = actualPhysicalProgressAmount;
+    public void setPhysicalProgressAmount(Double physicalProgressAmount) {
+        this.physicalProgressAmount = physicalProgressAmount;
     }
 
-    public Long getActualPhysicalProgressCount() {
-        return actualPhysicalProgressCount;
+    public Long getPhysicalProgressCount() {
+        return physicalProgressCount;
     }
 
-    public void setActualPhysicalProgressCount(Long actualPhysicalProgressCount) {
-        this.actualPhysicalProgressCount = actualPhysicalProgressCount;
+    public void setPhysicalProgressCount(Long physicalProgressCount) {
+        this.physicalProgressCount = physicalProgressCount;
     }
 
-    public Double getTargetPhysicalProgressAmount() {
-        return targetPhysicalProgressAmount;
-    }
-
-    public void setTargetPhysicalProgressAmount(Double targetPhysicalProgressAmount) {
-        this.targetPhysicalProgressAmount = targetPhysicalProgressAmount;
-    }
-
-    public Long getTargetPhysicalProgressCount() {
-        return targetPhysicalProgressCount;
-    }
-
-    public void setTargetPhysicalProgressCount(Long targetPhysicalProgressCount) {
-        this.targetPhysicalProgressCount = targetPhysicalProgressCount;
-    }
-
-    public Double getActualPhysicalProgressAverage() {
+    public Double getPhysicalProgressAverage() {
         Double ret = 0D;
-        if(actualPhysicalProgressAmount!=null && actualPhysicalProgressCount!=null && actualPhysicalProgressCount!=0D){
-            ret=actualPhysicalProgressAmount/actualPhysicalProgressCount;
-        }
-        return ret;
-    }
-
-    public Double getTargetPhysicalProgressAverage() {
-        Double ret = 0D;
-        if(targetPhysicalProgressAmount!=null && targetPhysicalProgressCount!=null && targetPhysicalProgressCount!=0D){
-            ret=targetPhysicalProgressAmount/targetPhysicalProgressCount;
+        if(physicalProgressAmount!=null && physicalProgressCount!=null && physicalProgressCount!=0D){
+            ret=physicalProgressAmount/physicalProgressCount;
         }
         return ret;
     }

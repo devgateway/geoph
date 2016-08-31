@@ -1,8 +1,8 @@
 package org.devgateway.geoph.core.repositories;
 
 import org.devgateway.geoph.core.request.Parameters;
+import org.devgateway.geoph.dao.AgencyResultsDao;
 import org.devgateway.geoph.model.ImplementingAgency;
-import org.devgateway.geoph.model.ProjectAgency;
 
 import java.util.List;
 
@@ -18,5 +18,5 @@ public interface ImplementingAgencyRepository {
 
     Integer countAll();
 
-    List<ProjectAgency> findFundingByImplementingAgency(Parameters params);
+    List<AgencyResultsDao> findFundingByImplementingAgency(Parameters params);
 }
