@@ -105,7 +105,7 @@
                                 <manifest>
                                     <addClasspath>true</addClasspath>
                                     <classpathPrefix>lib/</classpathPrefix>
-                                    <mainClass>org.devgateway.geoph.importer.spring.ProjectImport</mainClass>
+                                    <mainClass>org.devgateway.geoph.importer.spring.Application</mainClass>
                                 </manifest>
                             </archive>
                         </configuration>
