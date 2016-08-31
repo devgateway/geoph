@@ -164,6 +164,10 @@ public class PmcImporter extends GeophProjectsImporter {
                     getDoubleValueFromCell(row.getCell(pmcColumns.getTargetOwpa()), "target owpa", rowNumber, GeophProjectsImporter.onProblem.NOTHING)
             );
 
+            p.setPhysicalProgress(
+                    getDoubleValueFromCell(row.getCell(pmcColumns.getPhysicalProgress()), "physical performance", rowNumber, GeophProjectsImporter.onProblem.NOTHING)
+            );
+
             p.setIssueType(
                     getStringValueFromCell(row.getCell(pmcColumns.getIssueType()), "issue type", rowNumber, GeophProjectsImporter.onProblem.NOTHING, true)
             );

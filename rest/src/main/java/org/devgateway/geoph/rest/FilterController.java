@@ -63,6 +63,18 @@ public class FilterController extends BaseController {
         return resp;
     }
 
+    @RequestMapping(value = "/physicalProgressPeriod", method = GET)
+    public GenericResponse findPhysicalProgressPeriod() {
+        LOGGER.debug("findPhysicalProgressPeriod");
+        List<Double> physicalProgressPeriod = service.getPhysicalProgressPeriod();
+        GenericResponse resp = new GenericResponse(
+                physicalProgressPeriod,
+                physicalProgressPeriod != null ? physicalProgressPeriod.size() : 0
+        );
+
+        return resp;
+    }
+
     @RequestMapping(value = "/actualPhysicalProgressPeriod", method = GET)
     public GenericResponse findActualPhysicalProgressPeriod() {
         LOGGER.debug("findActualPhysicalProgressPeriod");

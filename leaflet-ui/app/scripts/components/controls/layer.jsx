@@ -36,15 +36,6 @@ class Settings extends React.Component {
 						</ul>
 					</li>
 				:null}
-				{(settings['valueProperty'])?
-					<li>
-						<ul className="level">
-							<li><b>{translate('toolview.layers.values')}:</b></li>
-							<li className={settings['valueProperty']=="avgActual"?"active":""}  onClick={()=>{this.set('valueProperty','avgActual')}}>{translate('toolview.layers.actual')}</li>
-							<li className={settings['valueProperty']=="avgTarget"?"active":""} onClick={()=>{this.set('valueProperty','avgTarget')}}>{translate('toolview.layers.target')}</li>
-						</ul>
-					</li>
-				:null}
 				
 				{(settings['quality'])?
 					<li>

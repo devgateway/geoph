@@ -13,6 +13,7 @@ import org.devgateway.geoph.enums.TransactionStatusEnum;
 import org.devgateway.geoph.enums.TransactionTypeEnum;
 import org.devgateway.geoph.model.Location;
 import org.devgateway.geoph.model.Project;
+import org.devgateway.geoph.services.util.FeatureHelper;
 import org.geojson.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -49,9 +50,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
         for(Location location : locationList) {
             Feature feature = new Feature();
             feature.setGeometry(new Point(location.getLongitude(), location.getLatitude()));
-            feature.setProperty(PROPERTY_LOC_NAME, location.getName());
-            feature.setProperty(PROPERTY_LOC_CODE, location.getCode());
-            feature.setProperty(PROPERTY_LOC_PROJ_COUNT, location.getProjects().size());
+            FeatureHelper.setLocationFeature(feature, location);
             featureCollection.add(feature);
         }
         return featureCollection;
@@ -73,14 +72,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
             if(location.getProjectCount()>0) {
                 Feature feature = new Feature();
                 feature.setGeometry(new Point(location.getLongitude(), location.getLatitude()));
-                feature.setProperty(PROPERTY_LOC_ID, location.getId());
-                feature.setProperty(PROPERTY_LOC_NAME, location.getName());
-                feature.setProperty(PROPERTY_LOC_CODE, location.getCode());
-                feature.setProperty(PROPERTY_LOC_PROJ_COUNT, location.getProjectCount());
-                feature.setProperty(PROPERTY_LOC_TRX_COUNT, location.getTransactionCount());
-                feature.setProperty(PROPERTY_LOC_COMMITMENTS, location.getCommitments());
-                feature.setProperty(PROPERTY_LOC_DISBURSEMENTS, location.getDisbursements());
-                feature.setProperty(PROPERTY_LOC_EXPENDITURES, location.getExpenditures());
+                FeatureHelper.setLocationPropertyFeature(feature, location);
                 featureCollection.add(feature);
             }
         }
@@ -91,14 +83,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
         int level = getUpperLevel(params);
 
         Map<Long, PostGisDao> postGisHelperMap = new HashMap<>();
-        List<PostGisDao> gisHelperList = null;
-        if(level == LocationAdmLevelEnum.REGION.getLevel()){
-            gisHelperList = locationRepository.getRegionShapesWithDetail(detail);
-        } else if(level == LocationAdmLevelEnum.PROVINCE.getLevel()) {
-            gisHelperList = locationRepository.getProvinceShapesWithDetail(detail);
-        } else if(level == LocationAdmLevelEnum.MUNICIPALITY.getLevel()) {
-            gisHelperList = locationRepository.getMunicipalityShapesWithDetail(detail);
-        }
+        List<PostGisDao> gisHelperList = getPostGisDao(detail, level);
         if(gisHelperList!=null) {
             for (PostGisDao helper : gisHelperList) {
                 postGisHelperMap.put(helper.getLocationId(), helper);
@@ -121,11 +106,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
             } else {
                 feature = new Feature();
             }
-            feature.setProperty(PROPERTY_LOC_ID, location.getId());
-            feature.setProperty(PROPERTY_LOC_NAME, location.getName());
-            feature.setProperty(PROPERTY_LOC_CODE, location.getCode());
-            feature.setProperty(PROPERTY_LOC_ACTUAL_PHY_AVG, location.getActualPhysicalProgressAverage());
-            feature.setProperty(PROPERTY_LOC_TARGET_PHY_AVG, location.getTargetPhysicalProgressAverage());
+            FeatureHelper.setLocationPropertyFeature(feature, location);
 
             featureCollection.add(feature);
 
@@ -136,24 +117,18 @@ public class GeoJsonServiceImpl implements GeoJsonService {
     private void aggregatePhysicalProgress(Parameters params, int level, Map<Long, LocationProperty> locationPropertyMap) {
         Page<Project> projectPage = projectRepository.findProjectsByParams(params);
         for(Project project:projectPage) {
-            if(project.getActualOwpa()!=null || project.getTargetOwpa()!=null || project.getReachedOwpa()!=null) {
+            if(project.getPhysicalProgress()!=null) {
                 for (Location locHelper : project.getLocations()) {
-                    LocationProperty lp = null;
-                    if (level == LocationAdmLevelEnum.REGION.getLevel()) {
-                        lp = locationPropertyMap.get(locHelper.getRegionId());
-                    } else if (level == LocationAdmLevelEnum.PROVINCE.getLevel()) {
-                        lp = locHelper.getProvinceId() != null ? locationPropertyMap.get(locHelper.getProvinceId()) : null;
-                    } else if (level == LocationAdmLevelEnum.MUNICIPALITY.getLevel()) {
-                        lp = locationPropertyMap.get(locHelper.getId());
-                    }
+                    LocationProperty lp = getLocationProperty(level, locationPropertyMap, locHelper);
                     if (lp != null) {
-                        lp.addActualPhysicalProgress(project.getId(), project.getActualOwpa());
-                        lp.addTargetPhysicalProgress(project.getId(), project.getTargetOwpa());
+                        lp.addPhysicalProgress(project.getId(), project.getPhysicalProgress());
                     }
                 }
             }
         }
     }
+
+
 
     public List<ProjectLocationDao> getLocationsForExport(Parameters params){
         return locationRepository.findProjectLocationsByParams(params);
@@ -163,14 +138,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
         List<LocationResultsDao> locationResults = locationRepository.countLocationProjectsByParams(params);
         for(LocationResultsDao resultsDao:locationResults) {
             Location l = resultsDao.getLocation();
-            LocationProperty lp = null;
-            if (level == LocationAdmLevelEnum.REGION.getLevel()) {
-                lp = locationPropertyMap.get(l.getRegionId());
-            } else if (level == LocationAdmLevelEnum.PROVINCE.getLevel()) {
-                lp = l.getProvinceId() != null ? locationPropertyMap.get(l.getProvinceId()) : null;
-            } else if (level == LocationAdmLevelEnum.MUNICIPALITY.getLevel()) {
-                lp = locationPropertyMap.get(l.getId());
-            }
+            LocationProperty lp = getLocationProperty(level, locationPropertyMap, l);
 
             if (lp != null) {
                 lp.addProjectCount(resultsDao.getProjectCount());
@@ -184,14 +152,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
             for(TransactionStatusEnum ts:TransactionStatusEnum.values()){
                 List<LocationResultsDao> locationResults = locationRepository.findLocationsByParamsTypeStatus(params, tt.getId(), ts.getId());
                 for(LocationResultsDao locHelper:locationResults){
-                    LocationProperty lp = null;
-                    if(level== LocationAdmLevelEnum.REGION.getLevel()){
-                        lp = locationPropertyMap.get(locHelper.getLocation().getRegionId());
-                    } else if(level== LocationAdmLevelEnum.PROVINCE.getLevel()){
-                        lp = locHelper.getLocation().getProvinceId()!=null ? locationPropertyMap.get(locHelper.getLocation().getProvinceId()) : null;
-                    } else if(level== LocationAdmLevelEnum.MUNICIPALITY.getLevel()){
-                        lp = locationPropertyMap.get(locHelper.getLocation().getId());
-                    }
+                    LocationProperty lp = getLocationProperty(level, locationPropertyMap, locHelper.getLocation());
 
                     if(lp!=null) {
                         if (tt.compareTo(TransactionTypeEnum.COMMITMENTS) == 0) {
@@ -243,14 +204,8 @@ public class GeoJsonServiceImpl implements GeoJsonService {
         List<Location> locations = locationRepository.findLocationsByLevel(level.getLevel());
 
         Map<Long, PostGisDao> postGisHelperMap = new HashMap<>();
-        List<PostGisDao> gisHelperList = null;
-        if(level == LocationAdmLevelEnum.REGION){
-            gisHelperList = locationRepository.getRegionShapesWithDetail(detail);
-        } else if(level == LocationAdmLevelEnum.PROVINCE) {
-            gisHelperList = locationRepository.getProvinceShapesWithDetail(detail);
-        } else if(level == LocationAdmLevelEnum.MUNICIPALITY) {
-            gisHelperList = locationRepository.getMunicipalityShapesWithDetail(detail);
-        }
+        List<PostGisDao> gisHelperList = getPostGisDao(detail, level.getLevel());
+
         if(gisHelperList!=null) {
             for (PostGisDao helper : gisHelperList) {
                 postGisHelperMap.put(helper.getLocationId(), helper);
@@ -271,22 +226,12 @@ public class GeoJsonServiceImpl implements GeoJsonService {
             } else {
                 feature = new Feature();
             }
-            feature.setProperty(PROPERTY_LOC_ID, location.getId());
-            feature.setProperty(PROPERTY_LOC_NAME, location.getName());
-            feature.setProperty(PROPERTY_LOC_CODE, location.getCode());
-            feature.setProperty(PROPERTY_LOC_PROJ_COUNT, location.getProjectCount());
-            feature.setProperty(PROPERTY_LOC_TRX_COUNT, location.getTransactionCount());
-            feature.setProperty(PROPERTY_LOC_COMMITMENTS, location.getCommitments());
-            feature.setProperty(PROPERTY_LOC_DISBURSEMENTS, location.getDisbursements());
-            feature.setProperty(PROPERTY_LOC_EXPENDITURES, location.getExpenditures());
-            feature.setProperty(PROPERTY_LOC_ACTUAL_PHY_AVG, location.getActualPhysicalProgressAverage());
-            feature.setProperty(PROPERTY_LOC_TARGET_PHY_AVG, location.getTargetPhysicalProgressAverage());
+            FeatureHelper.setLocationPropertyFeature(feature, location);
             featureCollection.add(feature);
         }
 
         return featureCollection;
     }
-
 
 
     private Feature parseGeoJson(PostGisDao helper){
@@ -305,5 +250,29 @@ public class GeoJsonServiceImpl implements GeoJsonService {
         }
         feature.setGeometry(multiPolygon);
         return feature;
+    }
+
+    private List<PostGisDao> getPostGisDao(double detail, int level) {
+        List<PostGisDao> gisHelperList = null;
+        if(level == LocationAdmLevelEnum.REGION.getLevel()){
+            gisHelperList = locationRepository.getRegionShapesWithDetail(detail);
+        } else if(level == LocationAdmLevelEnum.PROVINCE.getLevel()) {
+            gisHelperList = locationRepository.getProvinceShapesWithDetail(detail);
+        } else if(level == LocationAdmLevelEnum.MUNICIPALITY.getLevel()) {
+            gisHelperList = locationRepository.getMunicipalityShapesWithDetail(detail);
+        }
+        return gisHelperList;
+    }
+
+    private LocationProperty getLocationProperty(int level, Map<Long, LocationProperty> locationPropertyMap, Location locHelper) {
+        LocationProperty lp = null;
+        if (level == LocationAdmLevelEnum.REGION.getLevel()) {
+            lp = locationPropertyMap.get(locHelper.getRegionId());
+        } else if (level == LocationAdmLevelEnum.PROVINCE.getLevel()) {
+            lp = locHelper.getProvinceId() != null ? locationPropertyMap.get(locHelper.getProvinceId()) : null;
+        } else if (level == LocationAdmLevelEnum.MUNICIPALITY.getLevel()) {
+            lp = locationPropertyMap.get(locHelper.getId());
+        }
+        return lp;
     }
 }

@@ -175,10 +175,6 @@ public class GrantImporter extends GeophProjectsImporter {
                     getDateValueFromCell(row.getCell(grantColumns.getPeriodPerformanceEnd()), "period performance end", rowNumber, onProblem.NOTHING)
             );
 
-            p.setActualOwpa(
-                    getDoubleValueFromCell(row.getCell(grantColumns.getActualOwpa()), "actual owpa", rowNumber, onProblem.NOTHING)
-            );
-
             importBaseData.getProjectService().save(p);
             importStats.addSuccessProjectAndTransactions(p.getTransactions().size());
         } catch (Exception e) {

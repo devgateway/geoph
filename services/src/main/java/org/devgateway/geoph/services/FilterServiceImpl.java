@@ -259,6 +259,11 @@ public class FilterServiceImpl implements FilterService {
     }
 
     @Override
+    public List<Double> getPhysicalProgressPeriod(){
+        return projectRepository.getPhysicalProgressPeriod();
+    }
+
+    @Override
     public List<Double> getReachedPhysicalProgressPeriod(){
         return projectRepository.getReachedPhysicalProgressPeriod();
     }

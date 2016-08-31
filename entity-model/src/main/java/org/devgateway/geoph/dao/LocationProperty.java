@@ -27,10 +27,7 @@ public class LocationProperty {
     private Long transactionCount = 0L;
 
     @JsonIgnore
-    private Map<Long, Double> actualPhysicalProgress = new HashMap<>();
-
-    @JsonIgnore
-    private Map<Long, Double> targetPhysicalProgress = new HashMap<>();
+    private Map<Long, Double> physicalProgress = new HashMap<>();
 
     private Map<String, Double> commitments = new HashMap<>();
 
@@ -157,32 +154,16 @@ public class LocationProperty {
         }
     }
 
-    public void addActualPhysicalProgress(Long projectId, Double value){
+    public void addPhysicalProgress(Long projectId, Double value){
         if(value!=null) {
-            actualPhysicalProgress.put(projectId, value);
+            physicalProgress.put(projectId, value);
         }
     }
 
-    public void addTargetPhysicalProgress(Long projectId, Double value){
-        if(value!=null) {
-            targetPhysicalProgress.put(projectId, value);
-        }
-    }
-
-    public Double getActualPhysicalProgressAverage(){
+    public Double getPhysicalProgressAverage(){
         Double temp = 0D;
         int count = 0;
-        for(Double value:actualPhysicalProgress.values()){
-            temp += value;
-            count ++;
-        }
-        return count>0?temp/count:temp;
-    }
-
-    public Double getTargetPhysicalProgressAverage(){
-        Double temp = 0D;
-        int count = 0;
-        for(Double value:targetPhysicalProgress.values()){
+        for(Double value:physicalProgress.values()){
             temp += value;
             count ++;
         }

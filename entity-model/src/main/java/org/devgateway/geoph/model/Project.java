@@ -133,8 +133,8 @@ public class Project extends GenericPersistable implements Serializable {
     @Column(name = "target_owpa")
     private Double targetOwpa;
 
-    @Column(name = "reached_owpa")
-    private Double reachedOwpa;
+    @Column(name = "physical_progress")
+    private Double physicalProgress;
 
     @Column(name = "issue_type", columnDefinition = "TEXT")
     private String issueType;
@@ -406,12 +406,12 @@ public class Project extends GenericPersistable implements Serializable {
         this.targetOwpa = targetOwpa;
     }
 
-    public Double getReachedOwpa() {
-        return reachedOwpa;
+    public Double getPhysicalProgress() {
+        return physicalProgress;
     }
 
-    public void setReachedOwpa(Double reachedOwpa) {
-        this.reachedOwpa = reachedOwpa;
+    public void setPhysicalProgress(Double physicalProgress) {
+        this.physicalProgress = physicalProgress;
     }
 
     public String getIssueType() {
@@ -598,7 +598,7 @@ public class Project extends GenericPersistable implements Serializable {
         this.genderResponsiveness = project.getGenderResponsiveness();
         this.actualOwpa = project.getActualOwpa();
         this.targetOwpa = project.getTargetOwpa();
-        this.reachedOwpa = project.getReachedOwpa();
+        this.physicalProgress = project.getPhysicalProgress();
         this.issueType = project.getIssueType();
         this.issueDetail = project.getIssueDetail();
         this.actionTakenIa = project.getActionTakenIa();
