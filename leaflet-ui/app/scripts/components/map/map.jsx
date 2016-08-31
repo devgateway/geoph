@@ -51,7 +51,7 @@ const view=React.createClass({
 		if (type=='clustered'){
 
 			return (<ClusteredLayer data={data}>
-				{this.getPopUp(popupId)}
+				<PhotoPopup  onClosePopup={this.closePopup}/>
 				</ClusteredLayer>);
 		}else{
 			return (<SvgLayer zIndex={l.zIndex}  features={data.features}>

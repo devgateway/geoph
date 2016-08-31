@@ -20,14 +20,18 @@ const PhotoPopup = onClickOutside(React.createClass({
 
 
   render() {
-    debugger;
-    //const {feature: ftr={properties: {value: '', locationName: ''}}} = this.props;
+    const {feature} = this.props;
+    const {properties}   =feature;
+  const {name,urls}   =properties;
+  console.log(urls)
+     //const {feature: ftr={properties: {value: '', locationName: ''}}} = this.props;
     //const {locationName, value, layerName} = ftr.properties;
     return (
       <div>
-        <h2>Title</h2>
-          foto1 
-          foto2
+        <h2>{name}</h2>
+
+         {urls.map(url=>{return <div><img width="300" src={url}/></div>})}
+        
       </div>
     )
   }

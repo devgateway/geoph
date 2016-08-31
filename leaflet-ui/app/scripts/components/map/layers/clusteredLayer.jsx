@@ -29,8 +29,8 @@ require('./cluster.scss');
  				layer.on('click', function (e) {
  					console.log(feature)
  					this.renderPopupContent(feature);
- 				});
- 			},
+ 				}.bind(this));
+ 			}.bind(this),
 
  			style: function (feature) {
 
@@ -69,6 +69,7 @@ require('./cluster.scss');
 
 
  	renderPopupContent(feature) {
+ 		debugger;
  		if (!feature || !feature.geometry){
  			return null;
  		}
@@ -93,3 +94,18 @@ require('./cluster.scss');
  	}
 
  }
+
+
+const  storeShape=PropTypes.shape({
+  subscribe: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  getState: PropTypes.func.isRequired
+})
+
+ClusteredLayer.contextTypes = {
+  store: storeShape
+}
+
+ClusteredLayer.propTypes = {
+  store: storeShape
+}
