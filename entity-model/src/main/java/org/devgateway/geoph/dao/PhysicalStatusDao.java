@@ -13,12 +13,20 @@ public class PhysicalStatusDao {
 
     private Project project;
 
+    private Double locUtilization;
+
     public PhysicalStatusDao() {
     }
 
     public PhysicalStatusDao(PhysicalStatus physicalStatus, Project project) {
         this.physicalStatus = physicalStatus;
         this.project = project;
+    }
+
+    public PhysicalStatusDao(PhysicalStatus physicalStatus, Project project, Double locUtilization) {
+        this.physicalStatus = physicalStatus;
+        this.project = project;
+        this.locUtilization = locUtilization;
     }
 
     public PhysicalStatus getPhysicalStatus() {
@@ -35,5 +43,13 @@ public class PhysicalStatusDao {
 
     public void setProject(Project project) {
         this.project = project;
+    }
+
+    public Double getLocUtilization() {
+        return locUtilization;
+    }
+
+    public void setLocUtilization(Double locUtilization) {
+        this.locUtilization = locUtilization;
     }
 }

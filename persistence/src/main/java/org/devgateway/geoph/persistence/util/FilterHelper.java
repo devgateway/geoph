@@ -18,6 +18,13 @@ public class FilterHelper {
     private static final Object LOCK_TRANSACTION = new Object() {};
 
     public static void filterProjectQuery(Parameters params, CriteriaBuilder criteriaBuilder, Root<Project> projectRoot, List<Predicate> predicates) {
+        filterProjectQueryAdvanced(params, criteriaBuilder, projectRoot, predicates, null, null);
+    }
+
+    public static void filterProjectQueryAdvanced(Parameters params, CriteriaBuilder criteriaBuilder,
+                                                  Root<Project> projectRoot, List<Predicate> predicates,
+                                                  List<Selection<?>> multiSelect,
+                                                  List<Expression<?>> groupByList) {
         synchronized (LOCK_PROJECT) {
             if (params != null) {
                 if (params.getProjects() != null) {
@@ -45,6 +52,13 @@ public class FilterHelper {
                     Join<ProjectLocationId, Location> locationJoin = idJoin.join(ProjectLocationId_.location, JoinType.LEFT);
 
                     predicates.add(locationJoin.get(Location_.id).in(params.getLocations()));
+                    if(multiSelect!=null){
+                        multiSelect.add(projectLocationJoin.get(ProjectLocation_.utilization));
+                    }
+                    if(groupByList!=null){
+                        groupByList.add(projectLocationJoin.get(ProjectLocation_.utilization));
+                    }
+
                 }
                 if(params.getLocationLevels()!=null) {
                     Join<Project, ProjectLocation> projectLocationJoin = projectRoot.join(Project_.locations, JoinType.LEFT);

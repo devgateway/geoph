@@ -26,6 +26,7 @@ public class PmcImporter extends GeophProjectsImporter {
     private static final int MAX_LENGTH = 255;
     private static final String UNDEFINED = "undefined";
     private static final String LOCALLY_FUNDED = "locally-funded";
+    private static final double UTILIZATION = 1D;
 
     @Autowired
     private PmcColumns pmcColumns;
@@ -56,7 +57,7 @@ public class PmcImporter extends GeophProjectsImporter {
                 if (importBaseData.getImplementingAgencies().get(ia.toLowerCase().trim()) != null) {
                     ProjectAgency pa;
                     if(isFirstPA) {
-                        pa = new ProjectAgency(p, importBaseData.getImplementingAgencies().get(ia.toLowerCase().trim()), 1D);
+                        pa = new ProjectAgency(p, importBaseData.getImplementingAgencies().get(ia.toLowerCase().trim()), UTILIZATION);
                         isFirstPA = false;
                     } else {
                         pa = new ProjectAgency(p, importBaseData.getImplementingAgencies().get(ia.toLowerCase().trim()), 0D);
@@ -67,7 +68,7 @@ public class PmcImporter extends GeophProjectsImporter {
             if(iaSet.size()>0){
                 p.setImplementingAgencies(iaSet);
             } else {
-                ProjectAgency pa = new ProjectAgency(p, importBaseData.getImplementingAgencies().get(UNDEFINED), 1D);
+                ProjectAgency pa = new ProjectAgency(p, importBaseData.getImplementingAgencies().get(UNDEFINED), UTILIZATION);
                 p.setImplementingAgencies(new HashSet<>(Arrays.asList(pa)));
             }
 
@@ -124,7 +125,7 @@ public class PmcImporter extends GeophProjectsImporter {
             Set<ProjectSector> sectorSet = new HashSet<>();
 
             if (sector!=null && importBaseData.getSectors().get(sector.toLowerCase().trim()) != null) {
-                ProjectSector ps = new ProjectSector(p, importBaseData.getSectors().get(sector.toLowerCase().trim()), 1D);
+                ProjectSector ps = new ProjectSector(p, importBaseData.getSectors().get(sector.toLowerCase().trim()), UTILIZATION);
                 sectorSet.add(ps);
             }
             if(sectorSet.size()>0){
@@ -144,7 +145,8 @@ public class PmcImporter extends GeophProjectsImporter {
                 Set<Location> locationProvince = new HashSet<>();
                 Set<Location> locationMunicipality = new HashSet<>();
                 for (String loc : locations) {
-                    Location l = importBaseData.getLocations().get(loc.trim());
+                    String locOk = loc.trim().endsWith(".0")?loc.trim().substring(0,loc.length()-2):loc.trim();
+                    Location l = importBaseData.getLocations().get(locOk);
                     if(l!=null) {
                         if(l.getLevel()==LocationAdmLevelEnum.REGION.getLevel()){
                             locationRegion.add(l);
@@ -160,7 +162,7 @@ public class PmcImporter extends GeophProjectsImporter {
                 }
                 locationMunicipality.stream().forEach(l->locationSet.add(new ProjectLocation(p, l, 0D)));
                 locationProvince.stream().forEach(l->locationSet.add(new ProjectLocation(p, l, 0D)));
-                locationRegion.stream().forEach(l->locationSet.add(new ProjectLocation(p, l, 1D/locationRegion.size())));
+                locationRegion.stream().forEach(l->locationSet.add(new ProjectLocation(p, l, UTILIZATION/locationRegion.size())));
                 p.setLocations(locationSet);
             }
             p.setStatus(importBaseData.getStatuses().get(
