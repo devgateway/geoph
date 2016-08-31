@@ -128,7 +128,7 @@ public class KMLImport {
                         if (kmlsFound.length>0){
                             Kml kml= Kml.unmarshal(kmlsFound[0]);
                             Feature root=kml.getFeature();
-                            readFeature(p,root,"/"+phid);
+                            readFeature(p,root,"/kml/"+phid);
                         }
 
                     }
