@@ -65,9 +65,7 @@
                 <filtering>true</filtering>
                 <directory>src/main/resources</directory>
                 <includes>
-                    <include>**/*.properties</include>
-                    <include>**/*.sql</include>
-                    <include>**/*.xml</include>
+                    <include>**/*.*</include>
                 </includes>
 
             </resource>
@@ -107,7 +105,7 @@
                                 <manifest>
                                     <addClasspath>true</addClasspath>
                                     <classpathPrefix>lib/</classpathPrefix>
-                                    <mainClass>org.devgateway.geoph.importer.spring.ImporterApplication</mainClass>
+                                    <mainClass>org.devgateway.geoph.importer.spring.ProjectImport</mainClass>
                                 </manifest>
                             </archive>
                         </configuration>

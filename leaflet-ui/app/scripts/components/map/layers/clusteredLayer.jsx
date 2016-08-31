@@ -75,7 +75,7 @@ require('./cluster.scss');
  		}
  		const latLong = L.latLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0])
  		
- 		let popup = L.popup({maxWidth:"400", minWidth:"250", maxHeight:"280"})
+ 		let popup = L.popup({maxWidth:"500",maxHeight:"400"})
  		.setLatLng(latLong)
  		.openOn(this.props.map);
  		if (this.props.children) {

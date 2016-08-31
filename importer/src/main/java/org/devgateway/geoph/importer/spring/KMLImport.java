@@ -4,31 +4,17 @@ import com.vividsolutions.jts.geom.GeometryFactory;
 import de.micromata.opengis.kml.v_2_2_0.*;
 import de.micromata.opengis.kml.v_2_2_0.Document;
 import org.devgateway.geoph.core.repositories.GeoPhotoRepository1;
-import org.devgateway.geoph.core.repositories.GeoPhotoSourceRepository;
 import org.devgateway.geoph.core.repositories.ProjectRepository;
 import org.devgateway.geoph.model.GeoPhoto;
-import org.devgateway.geoph.model.GeoPhotoSource;
-import org.devgateway.geoph.persistence.spring.PersistenceApplication;
-import org.devgateway.geoph.services.spring.ServicesApplication;
+import org.devgateway.geoph.model.Project;
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.*;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.web.EmbeddedServletContainerAutoConfiguration;
-import org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration;
-import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.annotation.PropertySources;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,56 +23,37 @@ import java.util.List;
  * Created by sebas on 8/30/2016.
  */
 
-@Import({PersistenceApplication.class, ServicesApplication.class})
 
-
-@SpringBootApplication(exclude = {EmbeddedServletContainerAutoConfiguration.class,
-        WebMvcAutoConfiguration.class})
-
-@PropertySources({
-        @PropertySource("classpath:application.properties"),
-        @PropertySource(value = "file:${CONF_FILE}", ignoreResourceNotFound = true)
-})
-
-@Component
-public class KMLImport implements CommandLineRunner {
+@Service
+public class KMLImport {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(KMLImport.class);
 
-    public static void main(String[] args) {
-        SpringApplication.run(KMLImport.class, args);
-    }
-
-
     @Autowired
     GeoPhotoRepository1 geoPhotoRepository;
-
-    @Autowired
-    ProjectRepository projectRepository;
 
     @Value("${path}")
     private String kmlFolder;
 
 
-    @Value("${server.port}")
-    private String port;
+    @Autowired
+    ProjectRepository projectRepository;
 
-
-    private void readFeature(String phid,Feature feature){
+    private void readFeature(Project p,Feature feature,String path_prefix){
 
      //   LOGGER.info(feature.getName());
 
         if (feature instanceof Folder) {
             List<Feature> folders= ((Folder) feature).getFeature();
             folders.forEach(f ->{
-                readFeature(phid,f);
+                readFeature(p,f,path_prefix);
             } );
         }
         if (feature instanceof Document){
             Document doc=(Document) feature;
              List<Feature> features=doc.getFeature();
             features.forEach(f-> {
-                readFeature(phid,f);
+                readFeature(p,f,path_prefix);
             });
 
         }
@@ -110,7 +77,7 @@ public class KMLImport implements CommandLineRunner {
                 if (img.lastIndexOf("logo_kmz.gif") == -1) {
                     LOGGER.info(img);
                     if (img.startsWith("files")) {
-                        img = phid + "/" + img;
+                        img = path_prefix + "/" + img;
                     }
                     urls.add(img);
                 }
@@ -118,10 +85,12 @@ public class KMLImport implements CommandLineRunner {
 
             photo.setUrls(urls);
             }
+
             com.vividsolutions.jts.geom.Coordinate coord = new com.vividsolutions.jts.geom.Coordinate(geometry.getCoordinates().get(0).getLatitude(),geometry.getCoordinates().get(0).getLongitude());
             com.vividsolutions.jts.geom.Point point = gf.createPoint(coord);
 
             photo.setPoint(point);
+            photo.setProject(p);
             geoPhotoRepository.save(photo);
             geoPhotoRepository.flush();
 
@@ -129,6 +98,19 @@ public class KMLImport implements CommandLineRunner {
     }
 
 
+    private Project findProjectByPhId(String id){
+        String[] parts=id.split("-");
+        Project  p=projectRepository.findByPhId(id);
+
+        if (p==null && parts.length>1){
+            p=projectRepository.findByPhId(parts[0]+"-"+parts[1]);
+            if (p==null){
+                p=projectRepository.findByPhId(parts[1]+"-"+parts[0]);
+
+            }
+        }
+        return p;
+    }
 
     public void run(String... strings) throws Exception {
         geoPhotoRepository.deleteAll();
@@ -137,12 +119,16 @@ public class KMLImport implements CommandLineRunner {
         File[] files =folder.listFiles();
                 for(File f:files){
                     if (f.isDirectory()){
-                        String phid=f.getName(); //name should be project id
+                        String phid=f.getName(); //name should be project id < get project by id
+                        Project p=findProjectByPhId(phid);
+                        if (p==null){
+                            LOGGER.warn("Wasn't able to find a related project for this kml, records will be saved without project_id");
+                        }
                         File[] kmlsFound=f.listFiles((dir, n) -> n.endsWith(".kml"));
                         if (kmlsFound.length>0){
                             Kml kml= Kml.unmarshal(kmlsFound[0]);
                             Feature root=kml.getFeature();
-                            readFeature(phid,root);
+                            readFeature(p,root,"/"+phid);
                         }
 
                     }

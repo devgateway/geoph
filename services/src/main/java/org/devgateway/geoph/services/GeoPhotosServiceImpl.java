@@ -33,6 +33,8 @@ public class GeoPhotosServiceImpl implements GeoPhotosService {
        return  featureCollection;
     }
 
+
+    /*TODO: move properties to constant*/
     private Feature toFeature(GeoPhoto geoPhoto){
         Feature f=new Feature();
         f.setGeometry(new Point(geoPhoto.getPoint().getCoordinate().y, geoPhoto.getPoint().getCoordinate().x));
@@ -40,6 +42,7 @@ public class GeoPhotosServiceImpl implements GeoPhotosService {
         properties.put("name",geoPhoto.getName());
         //properties.put("description",geoPhoto.getDescription());
         properties.put("urls",geoPhoto.getUrls());
+        properties.put("project",geoPhoto.getProject());
         f.setProperties(properties);
         return  f;
     }
