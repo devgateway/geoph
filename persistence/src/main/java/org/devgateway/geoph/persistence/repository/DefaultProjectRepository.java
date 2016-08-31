@@ -58,6 +58,20 @@ public class DefaultProjectRepository implements ProjectRepository {
     }
 
     @Override
+    public Project findByPhId(String phid) {
+           List<Project> projects=em.createNamedQuery("findProjectsByPhId", Project.class)
+                .setParameter(PROPERTY_PRJ_PH_ID, phid).getResultList();
+        if (projects.isEmpty()){
+            return null;
+        }else{
+            if(projects.size() > 1){
+                LOGGER.warn("..... Warning PH_ID "+phid+" used in "+projects.size()+ " projects this function wil return first result .... ");
+            }
+            return  projects.iterator().next();
+        }
+    }
+
+    @Override
     @Cacheable("findProjectMiniByParams")
     public Page<ProjectMiniDao> findProjectMiniByParams(Parameters params) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();

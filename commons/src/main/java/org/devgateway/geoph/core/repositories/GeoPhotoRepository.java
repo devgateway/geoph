@@ -2,6 +2,7 @@ package org.devgateway.geoph.core.repositories;
 
 import org.devgateway.geoph.dao.GeoPhotoGeometryDao;
 import org.devgateway.geoph.model.GeoPhotoSource;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
