@@ -21,7 +21,7 @@ import java.util.*;
 public class ChartServiceImpl implements ChartService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ChartServiceImpl.class);
-    private static final double FULL_UTILIZATION = 100D;
+    private static final double FULL_UTILIZATION = 1D;
 
     @Autowired
     FundingAgencyRepository fundingAgencyRepository;

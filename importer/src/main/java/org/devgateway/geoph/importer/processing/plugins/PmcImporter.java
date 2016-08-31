@@ -55,7 +55,7 @@ public class PmcImporter extends GeophProjectsImporter {
                 if (importBaseData.getImplementingAgencies().get(ia.toLowerCase().trim()) != null) {
                     ProjectAgency pa;
                     if(isFirstPA) {
-                        pa = new ProjectAgency(p, importBaseData.getImplementingAgencies().get(ia.toLowerCase().trim()), 100D);
+                        pa = new ProjectAgency(p, importBaseData.getImplementingAgencies().get(ia.toLowerCase().trim()), 1D);
                         isFirstPA = false;
                     } else {
                         pa = new ProjectAgency(p, importBaseData.getImplementingAgencies().get(ia.toLowerCase().trim()), 0D);
@@ -66,7 +66,7 @@ public class PmcImporter extends GeophProjectsImporter {
             if(iaSet.size()>0){
                 p.setImplementingAgencies(iaSet);
             } else {
-                ProjectAgency pa = new ProjectAgency(p, importBaseData.getImplementingAgencies().get(UNDEFINED), 100D);
+                ProjectAgency pa = new ProjectAgency(p, importBaseData.getImplementingAgencies().get(UNDEFINED), 1D);
                 p.setImplementingAgencies(new HashSet<>(Arrays.asList(pa)));
             }
 

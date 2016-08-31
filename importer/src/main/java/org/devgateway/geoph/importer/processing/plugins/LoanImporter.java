@@ -63,7 +63,7 @@ public class LoanImporter extends GeophProjectsImporter {
             if(iaSet.size()>0){
                 p.setImplementingAgencies(iaSet);
             } else {
-                ProjectAgency pa = new ProjectAgency(p, importBaseData.getImplementingAgencies().get(UNDEFINED), 100D);
+                ProjectAgency pa = new ProjectAgency(p, importBaseData.getImplementingAgencies().get(UNDEFINED), 1D);
                 p.setImplementingAgencies(new HashSet<>(Arrays.asList(pa)));
             }
 
@@ -117,7 +117,7 @@ public class LoanImporter extends GeophProjectsImporter {
 
             if (sector!=null && importBaseData.getSectors().get(sector.toLowerCase().trim()) != null) {
                 if(isFirstSector) {
-                    ProjectSector ps = new ProjectSector(p, importBaseData.getSectors().get(sector.toLowerCase().trim()), 100D);
+                    ProjectSector ps = new ProjectSector(p, importBaseData.getSectors().get(sector.toLowerCase().trim()), 1D);
                     sectorSet.add(ps);
                 }
             }
