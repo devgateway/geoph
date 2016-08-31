@@ -43,12 +43,14 @@ public class FilterHelper {
                     Join<Project, ProjectLocation> projectLocationJoin = projectRoot.join(Project_.locations, JoinType.LEFT);
                     Join<ProjectLocation, ProjectLocationId> idJoin = projectLocationJoin.join(ProjectLocation_.pk, JoinType.LEFT);
                     Join<ProjectLocationId, Location> locationJoin = idJoin.join(ProjectLocationId_.location, JoinType.LEFT);
-                    Predicate findInAnyAdmLevel = criteriaBuilder.or(
-                            locationJoin.get(Location_.id).in(params.getLocations()),
-                            locationJoin.get(Location_.regionId).in(params.getLocations()),
-                            locationJoin.get(Location_.provinceId
-                            ).in(params.getLocations()));
-                    predicates.add(findInAnyAdmLevel);
+
+                    predicates.add(locationJoin.get(Location_.id).in(params.getLocations()));
+                }
+                if(params.getLocationLevels()!=null) {
+                    Join<Project, ProjectLocation> projectLocationJoin = projectRoot.join(Project_.locations, JoinType.LEFT);
+                    Join<ProjectLocation, ProjectLocationId> idJoin = projectLocationJoin.join(ProjectLocation_.pk, JoinType.LEFT);
+                    Join<ProjectLocationId, Location> locationJoin = idJoin.join(ProjectLocationId_.location, JoinType.LEFT);
+                    predicates.add(locationJoin.get(Location_.level).in(params.getLocationLevels()));
                 }
                 if (params.getStartDateMin() != null) {
                     predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectRoot.get(Project_.startDate), params.getStartDateMin()));
@@ -148,9 +150,9 @@ public class FilterHelper {
     public static void filterLocationQuery(Parameters params, CriteriaBuilder criteriaBuilder, Root<Location> locationRoot, List<Predicate> predicates, Join<ProjectLocationId, Project> projectJoin) {
         synchronized (LOCK_LOCATION) {
             if (params != null) {
-            /*if(params.getLocationLevels()!=null) {
-                predicates.add(locationRoot.get(Location_.level).in(params.getLocationLevels()));
-            }*/
+                if(params.getLocationLevels()!=null) {
+                    predicates.add(locationRoot.get(Location_.level).in(params.getLocationLevels()));
+                }
                 if (params.getLocations() != null) {
                     predicates.add(locationRoot.get(Location_.id).in(params.getLocations()));
                 }

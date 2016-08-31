@@ -50,10 +50,12 @@ public class GeoJsonController extends BaseController {
     public FeatureCollection getGeoJsonStatistical(
             @PathVariable final String level, AppRequestParams filters) {
         LOGGER.debug("getGeoJsonForShapes");
+        Parameters parameters = filters.getParameters();
+        parameters.setLocationLevel(level);
         return geoJsonService.getShapesByLevelAndDetail(
                 LocationAdmLevelEnum.valueOf(level.toUpperCase()),
                 GeometryDetailLevelEnum.MEDIUM.getLevel(),
-                filters.getParameters());
+                parameters);
     }
 
     @RequestMapping(value = "/stats/{level}/funding/detail/{detail:.+}", method = GET)
