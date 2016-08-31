@@ -58,7 +58,7 @@
 				"fs": "/filters/fsource",
 				"ph": "/filters/physicalStatus",
 				"fin_amount": "/filters/financialAmountPeriod",
-				
+				"cl": "/filters/classification",
 				"dp": "/filters/devprio",
 				"cs": "/filters/cscope",
 				"co": "/filters/coverage",
@@ -80,7 +80,7 @@
 				"fs": "/filters/fsource",
 				"ph": "/filters/physicalStatus",
 				"fin_amount": "/filters/financialAmountPeriod",
-				
+				"cl": "/filters/classification",
 				"dp": "/filters/devprio",
 				"cs": "/filters/cscope",
 				"co": "/filters/coverage",
@@ -139,7 +139,9 @@
 		"RESTORE": {
 			"development": "/maps/key/${mapId}",				
 			"production": "/maps/key/${mapId}"		
-		}
+		},
+
+		"EXPORT_DATA": "/export/data/${type}"
 		
 	},
 

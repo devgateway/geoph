@@ -1,4 +1,6 @@
 import React from 'react';
+import {Tooltip, OverlayTrigger} from 'react-bootstrap';
+import translate from '../../util/translate.js';
 require('./expandableControl.scss');
 
 const Expandable = React.createClass({
@@ -13,19 +15,22 @@ const Expandable = React.createClass({
 
   render() {
   	const {expanded}=this.state;
+    const {title, children, tooltipText}=this.props;
     return (
       <div className={(expanded==true)?"expandable-control":"expandable-control collapsed"}>
-       
-        <div className="title" onClick={this.toggleView}>
-          {this.props.title}
-          <div className="toggle">
-            <span>{(expanded==true)?'–':'+'}</span>
+        
+        <OverlayTrigger placement="top" overlay={(<Tooltip id={tooltipText}>{translate(tooltipText)}</Tooltip>)}>
+          <div className="title" onClick={this.toggleView}>
+            {title}
+            <div className="toggle">
+              <span>{(expanded==true)?'–':'+'}</span>
+            </div>
           </div>
-        </div>
+        </OverlayTrigger>
         
         {(this.state.expanded==true)? 
           <div className="content">
-            {this.props.children}
+            {children}
           </div>
           :null}
       </div>

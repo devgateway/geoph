@@ -6,6 +6,8 @@ import {applyFilter, openFilter, cancelFilter, resetFilter}  from '../../actions
 import { clearAllResults, clearAllProjectSelected } from '../../actions/projectSearch';
 import { connect } from 'react-redux'
 import translate from '../../util/translate.js';
+import {Tooltip, OverlayTrigger} from 'react-bootstrap';
+
 require('./filters.scss');
 
 class FilterPopup extends React.Component {
@@ -49,10 +51,16 @@ class FilterPopup extends React.Component {
 					<FilterTabs />
 				</Modal.Body>
 				<Modal.Footer>
-					<Button className="btn btn-sm" bsStyle='danger' onClick={this.reset.bind(this)}>{translate('filters.buttons.reset')}</Button>
-        			<Button className="btn btn-sm" bsStyle='warning' onClick={this.cancel.bind(this)}>{translate('filters.buttons.cancel')}</Button>
-        			<Button className="btn btn-sm" bsStyle='success' onClick={this.apply.bind(this)}>{translate('filters.buttons.apply')}</Button>
-				</Modal.Footer>
+					<OverlayTrigger placement="top" overlay={(<Tooltip id="help.filters.reset">{translate('help.filters.reset')}</Tooltip>)}>
+						<Button className="btn btn-sm" bsStyle='danger' onClick={this.reset.bind(this)}>{translate('filters.buttons.reset')}</Button>
+        			</OverlayTrigger>
+        			<OverlayTrigger placement="top" overlay={(<Tooltip id="help.filters.cancel">{translate('help.filters.cancel')}</Tooltip>)}>
+        				<Button className="btn btn-sm" bsStyle='warning' onClick={this.cancel.bind(this)}>{translate('filters.buttons.cancel')}</Button>
+        			</OverlayTrigger>
+        			<OverlayTrigger placement="top" overlay={(<Tooltip id="help.filters.apply">{translate('help.filters.apply')}</Tooltip>)}>
+        				<Button className="btn btn-sm" bsStyle='success' onClick={this.apply.bind(this)}>{translate('filters.buttons.apply')}</Button>
+					</OverlayTrigger>
+        		</Modal.Footer>
 			</Modal>
 	  	);
   	}

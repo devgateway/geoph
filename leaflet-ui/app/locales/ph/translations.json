@@ -49,7 +49,8 @@
 			"fundingtypeoda": "Uri ng Pondo (ODA)",
 			"fundingtype": "Uri ng Pondo ",
 			"financinginstitutionoda": "Nagpopondong Institusyon (ODA)",
-			"financinginstitution": "Nagpopondong Institusyon"
+			"financinginstitution": "Nagpopondong Institusyon",
+			"fundingclassification": "Funding Classification"
 		},
 		"agency": {
 			"agency": "Ahensya",
@@ -124,12 +125,17 @@
 			"quality": "Kalidad",
 			
 			"projects": "Proyekto",
+			"project": "Projects points",
 			"stats": "Estadistika",
 			"poverty": "Kahirapan",
 			"population": "Populasyon",
 			"funding": "Pagpopondo Total",
+			"physical":"Physical progress",
 			"indicators": "Tagapagpahiwatig Estatistiko",
-			"geophotos": "Geo Litrato"
+			"geophotos": "Geo Litrato",
+			"values":"Values",
+			"target":"Target",
+			"actual":"Actual"
 		}
 	},
 
@@ -177,14 +183,72 @@
 	},
 
 	"help": {
+		"header": {
+			"settings": "I-klik dito para piliin ang funding type",
+			"basemap": "I-klik dito para piliin ang basemap",
+			"share": "I-klik dito para ibahagi ang link sa dashboard, kasama ang inilapat na filters",
+			"print": "I-klik dito para gumawa ng PDF image ng mapa.",
+			"export": "I-klik dito para mag-export.",
+			"save": "Click here to save this map",
+			"filter": "I-klik dito para ilapat ang filters sa datos sa mapa at charts."
+		},
+		"stats": "Ito ay nagpapakita ng kabuuang bilang at pondo ng proyekto na may lokasyon, at ng national-level na proyekto.",
+		"filters": {
+			"reset": "I-klik ang reset para mabago o' maghanap ng bagong impormasyon",
+			"cancel": "I-klik ang cancel kung ninanais na huwag magpatuloy sa paghahanap ng impormasyon",
+			"apply": "I-klik ang apply button kung ipinapakita na ang ninanais na impormasyon ",
+			"search": "I-klik ang search pagkatapos i-type ang ninanais na impormasyon",
+			"go": "I-klik ang Pumunta! pagkatapos i-type ang ninanais na impormasyon"
+		},
+		"toolview": {
+			"toolviewtab": "I-klik and search para maghanap ng proyekto o' baguhin ang map layers",
+			"projectsearch": "Maghanap ng project title dito.",
+			"layerscontrol": "Piliin ang Rehiyon, Probinsiya, o' Munisipyo para makita sa mapa.",
+			"geophotos": "Ang layer na eto ay ipinapakita ang larawan ng progreso ng pagpapatupad ng proyekto"
+		},
+		"chartview": {
+			"chartviewtab": "I-klik dito para makita ang charts na may kabuuang datos.",
+			"barchart": "Tingnan ang bar chart",
+			"piechart": "Tingnan ang pie chart",
+			"funding": "Tingnan ang charts gamit ang project funding",
+			"projectcount": "Tingnan ang charts gamit ang bilang ng proyekto",
+			"less": "Ipakita ang mas kaunting kategorya sa chart",
+			"more": "Ipakita ang mas maraming kategorya sa chart",
+			"expand": "Palawakin ang chart view panel",
+			"collapse": "Bawasan and chart view panel",
+			"financinginstitution": "Ang chart na eto ay nagpapakita ng pinakamalaking institusyong nagpopondo (donors) para sa lahat ng lokasyon",
+			"implementingagency": "Ang chart na eto ay nagpapakita ng pinakamalaking ahensyang nagpapatupad para sa lahat ng lokasyon",
+			"physicalstatus": "Ang chart na eto ay nagpapakita ng buod na pisikal na kalagayan ng proyekto (hal. on schedule, ahead of schedule, delayed) para sa lahat ng lokasyon",
+			"sector": "Ang chart na eto ay nagpapakita ng pinakamalaking sektor sa lahat ng lokasyon"
+		},
+		"infowindow": {
+			"financinginstitution": "Ang chart na eto ay nagpapakita ng pinakamalaking nagpopondong institusyon (donors) para sa partikular na lokasyion",
+			"implementingagency": "Ang chart na eto ay nagpapakita ng pinakamalaking ahensyang nagpapatupad para sa partikular na lokasyon",
+			"physicalstatus": "Ang chart na eto ay nagpapakita ng buod sa physical status ng proyekto (hal. On schedule, ahead of schedule, delayed) sa lahat ng lokasyon",
+			"sector": "Ang chart na eto ay nagpapakita ng pinakamalaking sektor para sa partkular na lokasyon ",
+			"projectlist": "Tingnan ang listahan ng lahat ng proyekto sa napiling filters para sa lokasyon na eto."
+		},
+		"legends": "Click here to show map legends",
 		"projectsearch": {
-			"selectall": "Click here to select all results matched",
-			"selectedresults": "Click here to see only selected",
-			"searchresults": "Click here to see all",
-			"apply": "Apply selected projects as filter",
-			"clearall": "Clear all (results and selection)"
+			"selectall": "Piliin ang lahat ng proyektong nakuha sa listahan ng proyekto ayon sa nai-type na impormasyon sa taas.",
+			"selectedresults": "Ipakita lamang ang piniling proyekto.",
+			"searchresults": "Ipakita ang lahat ng proyekto.",
+			"apply": "Ilapat ang filter ng listahan ng proyekto sa mapa. Kung nailapat na ang filter sa Filter Window, parehong filters sa Projects + Filters ang mailalapat.",
+			"clearall": "Tanggalin ang lahat na piniling proyekto sa listahan ng proyekto"
 		}
-	}
+	},
 
+	"project": {
+		"projectdetails": "Project Details",
+		"projectcost": "Project Cost",
+		"fundingagency": "Funding Agency",
+		"implementingagencies": "Implementing Agencies",
+		"sectors": "Sectors",
+		"locations": "Locations",
+		"physicalStartingDate": "Physical Starting Date",
+		"physicalClosingDate": "Physical Closing Date",
+		"status": "Status",
+		"physicalstatus": "Physical Status"
+	}
 
 }

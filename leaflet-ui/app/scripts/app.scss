@@ -10,8 +10,6 @@ html, body {
 	font-family: 'Open Sans', 'Helvetica Neue', Helvetica,sans-serif ;
 }
 
-
-
 h1{
 	color: $blue; 
 	padding:0px;
@@ -68,3 +66,24 @@ ul.colors{
 		border: 1px solid #000;
 	}
 }
+
+.tooltip.top .tooltip-arrow{
+	border-top-color: #6d6f7b !important;
+}
+
+.tooltip.left .tooltip-arrow{
+	border-left-color: #6d6f7b !important;
+}
+
+.tooltip.bottom .tooltip-arrow{
+	border-bottom-color : #6d6f7b !important;
+}
+
+.tooltip.right .tooltip-arrow{
+	border-right-color: #6d6f7b !important;
+}
+
+.tooltip-inner{
+    background-color: #6d6f7b;
+}
+

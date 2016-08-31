@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { togglePanelExpand } from '../../actions/panel';
 import translate from '../../util/translate';
 import Stats from './stats';
+import {Tooltip, OverlayTrigger} from 'react-bootstrap';
 require("./panel.scss");
 
 class Panel extends React.Component {
@@ -24,20 +25,24 @@ class Panel extends React.Component {
       <div className={this.props.panel.expanded? "panel panel-expanded" : "panel"}>
        
         <ul>
-          <li id='tools-tab' className={(this.props.currentView=='/map' || this.props.currentView=='/map/tools')?"panel-tab active":"panel-tab"}>
-            <div onClick={this.togglePanel.bind(this)}>
-              <Link to="map/tools" >
-                <div className="icon tools"/>
-                <span>{translate('toolview.title')}</span>
+          <OverlayTrigger placement="top" overlay={(<Tooltip id="help.toolview.toolviewtab">{translate('help.toolview.toolviewtab')}</Tooltip>)}>
+            <li id='tools-tab' className={(this.props.currentView=='/map' || this.props.currentView=='/map/tools')?"panel-tab active":"panel-tab"}>
+              <div onClick={this.togglePanel.bind(this)}>
+                <Link to="map/tools" >
+                  <div className="icon tools"/>
+                  <span>{translate('toolview.title')}</span>
+                </Link>
+              </div>
+            </li>
+          </OverlayTrigger>
+          <OverlayTrigger placement="top" overlay={(<Tooltip id="help.chartview.chartviewtab">{translate('help.chartview.chartviewtab')}</Tooltip>)}>
+            <li id='charts-tab' className={(this.props.currentView=='/map/charts')?"panel-tab active":"panel-tab"}>
+              <Link to="map/charts">
+                <div className="icon chart"/>
+                <span>{translate('chartview.title')}</span>
               </Link>
-            </div>
-          </li>
-          <li id='charts-tab' className={(this.props.currentView=='/map/charts')?"panel-tab active":"panel-tab"}>
-            <Link to="map/charts">
-              <div className="icon chart"/>
-              <span>{translate('chartview.title')}</span>
-            </Link>
-          </li>
+            </li>
+          </OverlayTrigger>
         </ul>
         <Stats/>
         {this.props.children}

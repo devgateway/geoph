@@ -318,6 +318,14 @@ class Connector {
 		});
 	}
 
+	getExportURL(type, filters) {
+		let apiRoot = Settings.get('API', 'API_BASE_URL');
+		let path = Settings.get('API','EXPORT_DATA');
+		path=path.replace('${type}', type);
+		let params = Qs.stringify(filters, {arrayFormat: 'repeat'});
+		let url = `${apiRoot}${path}?${params}`; 
+		return url;
+	}
 }
 
 

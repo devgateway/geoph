@@ -33,6 +33,9 @@ class FilterTabContent extends React.Component {
 						    <Tab className="filter-list-content" eventKey={2} title={translate('filters.funding.financinginstitutionoda')}>
 								<FilterList title="Financing Institution (ODA)" filterType="fa" {...this.props.filters["fa"]} />
 						    </Tab>
+						    <Tab className="filter-list-content" eventKey={3} title={translate('filters.funding.fundingclassification')}>
+								<FilterList title="Funding Classification" filterType="cl" {...this.props.filters["cl"]} />
+						    </Tab>
 						</Tabs>
 	                </Tab>
 	                <Tab className="filter-tab-content" eventKey={2} title={translate('filters.agency.agency')}>

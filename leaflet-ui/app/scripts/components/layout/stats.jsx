@@ -2,6 +2,7 @@ import React from 'react';
 import translate from '../../util/translate';
 import {formatValue} from '../../util/format';
 import { connect } from 'react-redux';
+import {Tooltip, OverlayTrigger} from 'react-bootstrap';
 require("./stats.scss");
 
 class Stats extends React.Component {
@@ -18,30 +19,32 @@ class Stats extends React.Component {
 		let regionalValue = regional[measure]? regional[measure][type] || 0 : 0;
 		let nationalValue = national[measure]? national[measure][type] || 0 : 0;
 		return (
-			<div className="stats-container">
-				<div className="stats-pair">
-					<p>{translate('stats.totalSubNational')}</p>
-					<div className="stats">
-	            		<h1>{regional.projectCount}</h1>
-	            		<p>{translate('stats.projects')}</p>
-	       			</div>
-	        		<div className="stats">
-	          			<h1>₱{formatValue(regionalValue, 1)}</h1>
-	          			<p>{fundingLabel}</p>
-	        		</div>
-			    </div>
-			    <div className="stats-pair">
-			    	<p>{translate('stats.totalNational')}</p>
-					<div className="stats">
-	            		<h1>{national.projectCount}</h1>
-	            		<p>{translate('stats.projects')}</p>
-	       			</div>
-	        		<div className="stats">
-	          			<h1>₱{formatValue(nationalValue, 1)}</h1>
-	          			<p>{fundingLabel}</p>
-	        		</div>
-			    </div>
-			</div>
+			<OverlayTrigger placement="top" overlay={(<Tooltip id="help.stats">{translate('help.stats')}</Tooltip>)}>
+				<div className="stats-container">
+					<div className="stats-pair">
+						<p>{translate('stats.totalSubNational')}</p>
+						<div className="stats">
+		            		<h1>{regional.projectCount}</h1>
+		            		<p>{translate('stats.projects')}</p>
+		       			</div>
+		        		<div className="stats">
+		          			<h1>₱{formatValue(regionalValue, 1)}</h1>
+		          			<p>{fundingLabel}</p>
+		        		</div>
+				    </div>
+				    <div className="stats-pair">
+				    	<p>{translate('stats.totalNational')}</p>
+						<div className="stats">
+		            		<h1>{national.projectCount}</h1>
+		            		<p>{translate('stats.projects')}</p>
+		       			</div>
+		        		<div className="stats">
+		          			<h1>₱{formatValue(nationalValue, 1)}</h1>
+		          			<p>{fundingLabel}</p>
+		        		</div>
+				    </div>
+				</div>
+			</OverlayTrigger>
 		)
 	}
 }
