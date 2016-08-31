@@ -153,7 +153,7 @@ public class LoanImporter extends GeophProjectsImporter {
                 }
                 locationMunicipality.stream().forEach(l->locationSet.add(new ProjectLocation(p, l, 0D)));
                 locationProvince.stream().forEach(l->locationSet.add(new ProjectLocation(p, l, 0D)));
-                locationRegion.stream().forEach(l->locationSet.add(new ProjectLocation(p, l, 1/locationRegion.size())));
+                locationRegion.stream().forEach(l->locationSet.add(new ProjectLocation(p, l, 1D/locationRegion.size())));
                 p.setLocations(locationSet);
             }
 

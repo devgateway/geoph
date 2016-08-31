@@ -39,7 +39,7 @@ public class ProjectLocationId implements Serializable {
         return location;
     }
 
-    public void setLocation(Location sector) {
+    public void setLocation(Location location) {
         this.location = location;
     }
 
