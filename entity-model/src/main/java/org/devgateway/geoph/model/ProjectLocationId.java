@@ -11,18 +11,18 @@ import java.io.Serializable;
  *         created on ago 22 2016.
  */
 @Embeddable
-public class ProjectSectorId implements Serializable {
+public class ProjectLocationId implements Serializable {
 
     @JsonIgnore
     private Project project;
 
-    private Sector sector;
+    private Location location;
 
-    public ProjectSectorId(){}
+    public ProjectLocationId(){}
 
-    public ProjectSectorId(Project project, Sector sector) {
+    public ProjectLocationId(Project project, Location location) {
         this.project = project;
-        this.sector = sector;
+        this.location = location;
     }
 
     @ManyToOne
@@ -35,27 +35,26 @@ public class ProjectSectorId implements Serializable {
     }
 
     @ManyToOne
-    public Sector getSector() {
-        return sector;
+    public Location getLocation() {
+        return location;
     }
 
-    public void setSector(Sector sector) {
-        this.sector = sector;
+    public void setLocation(Location sector) {
+        this.location = location;
     }
 
 
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) {
+        if (o == null || getClass() != o.getClass()){
             return false;
         }
 
-        ProjectSectorId that = (ProjectSectorId) o;
-
-        if (project != null ? !project.equals(that.project) : that.project != null) {
+        ProjectLocationId that = (ProjectLocationId) o;
+        if (project != null ? !project.equals(that.project) : that.project != null){
             return false;
         }
-        if (sector != null ? !sector.equals(that.sector) : that.sector != null){
+        if (location != null ? !location.equals(that.location) : that.location != null) {
             return false;
         }
 
@@ -65,7 +64,7 @@ public class ProjectSectorId implements Serializable {
     public int hashCode() {
         int result;
         result = (project != null ? project.hashCode() : 0);
-        result = 31 * result + (sector != null ? sector.hashCode() : 0);
+        result = 31 * result + (location != null ? location.hashCode() : 0);
         return result;
     }
 }

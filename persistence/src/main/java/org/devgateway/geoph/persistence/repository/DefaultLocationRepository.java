@@ -94,7 +94,9 @@ public class DefaultLocationRepository implements LocationRepository {
         List<Expression<?>> groupByList = new ArrayList<>();
         groupByList.add(locationRoot);
 
-        Join<Location, Project> projectJoin = locationRoot.join(Location_.projects, JoinType.LEFT);
+        Join<Location, ProjectLocation> projectLocationJoin = locationRoot.join(Location_.projects, JoinType.LEFT);
+        Join<ProjectLocation, ProjectLocationId> idJoin = projectLocationJoin.join(ProjectLocation_.pk, JoinType.LEFT);
+        Join<ProjectLocationId, Project> projectJoin = idJoin.join(ProjectLocationId_.project, JoinType.LEFT);
         multiSelect.add(criteriaBuilder.countDistinct(projectJoin).alias("projectCount"));
 
         FilterHelper.filterLocationQuery(params, criteriaBuilder, locationRoot, predicates, projectJoin);
@@ -116,7 +118,9 @@ public class DefaultLocationRepository implements LocationRepository {
         CriteriaQuery<ProjectLocationDao> criteriaQuery = criteriaBuilder.createQuery(ProjectLocationDao.class);
 
         Root<Location> locationRoot = criteriaQuery.from(Location.class);
-        Join<Location, Project> projectJoin = locationRoot.join(Location_.projects, JoinType.LEFT);
+        Join<Location, ProjectLocation> projectLocationJoin = locationRoot.join(Location_.projects, JoinType.LEFT);
+        Join<ProjectLocation, ProjectLocationId> idJoin = projectLocationJoin.join(ProjectLocation_.pk, JoinType.LEFT);
+        Join<ProjectLocationId, Project> projectJoin = idJoin.join(ProjectLocationId_.project, JoinType.LEFT);
 
         List<Selection<?>> multiSelect = new ArrayList<>();
         multiSelect.add(locationRoot);
@@ -153,7 +157,9 @@ public class DefaultLocationRepository implements LocationRepository {
         List<Expression<?>> groupByList = new ArrayList<>();
         groupByList.add(locationRoot);
 
-        Join<Location, Project> projectJoin = locationRoot.join(Location_.projects, JoinType.LEFT);
+        Join<Location, ProjectLocation> projectLocationJoin = locationRoot.join(Location_.projects, JoinType.LEFT);
+        Join<ProjectLocation, ProjectLocationId> idJoin = projectLocationJoin.join(ProjectLocation_.pk, JoinType.LEFT);
+        Join<ProjectLocationId, Project> projectJoin = idJoin.join(ProjectLocationId_.project, JoinType.LEFT);
 
         if (trxTypeId != 0 && trxStatusId != 0) {
             addTransactionJoin(criteriaBuilder, multiSelect, projectJoin, trxTypeId, trxStatusId);
@@ -177,7 +183,7 @@ public class DefaultLocationRepository implements LocationRepository {
     }
 
     private void addTransactionJoin(CriteriaBuilder criteriaBuilder, List<Selection<?>> multiSelect,
-                                    Join<Location, Project> projectJoin, int trxType, int trxStatus) {
+                                    Join<ProjectLocationId, Project> projectJoin, int trxType, int trxStatus) {
         Join<Project, Transaction> transactionJoin = projectJoin.join(Project_.transactions, JoinType.LEFT);
         transactionJoin.on(transactionJoin.get(Transaction_.transactionTypeId).in(trxType),
                 transactionJoin.get(Transaction_.transactionStatusId).in(trxStatus));

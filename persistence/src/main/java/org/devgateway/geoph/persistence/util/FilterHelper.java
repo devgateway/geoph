@@ -40,7 +40,9 @@ public class FilterHelper {
                     predicates.add(physicalStatusJoin.get(PhysicalStatus_.id).in(params.getPhysicalStatuses()));
                 }
                 if (params.getLocations() != null) {
-                    Join<Project, Location> locationJoin = projectRoot.join(Project_.locations);
+                    Join<Project, ProjectLocation> projectLocationJoin = projectRoot.join(Project_.locations, JoinType.LEFT);
+                    Join<ProjectLocation, ProjectLocationId> idJoin = projectLocationJoin.join(ProjectLocation_.pk, JoinType.LEFT);
+                    Join<ProjectLocationId, Location> locationJoin = idJoin.join(ProjectLocationId_.location, JoinType.LEFT);
                     Predicate findInAnyAdmLevel = criteriaBuilder.or(
                             locationJoin.get(Location_.id).in(params.getLocations()),
                             locationJoin.get(Location_.regionId).in(params.getLocations()),
@@ -143,7 +145,7 @@ public class FilterHelper {
         }
     }
 
-    public static void filterLocationQuery(Parameters params, CriteriaBuilder criteriaBuilder, Root<Location> locationRoot, List<Predicate> predicates, Join<Location, Project> projectJoin) {
+    public static void filterLocationQuery(Parameters params, CriteriaBuilder criteriaBuilder, Root<Location> locationRoot, List<Predicate> predicates, Join<ProjectLocationId, Project> projectJoin) {
         synchronized (LOCK_LOCATION) {
             if (params != null) {
             /*if(params.getLocationLevels()!=null) {

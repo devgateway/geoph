@@ -2,6 +2,7 @@ package org.devgateway.geoph.importer.processing.plugins;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Row;
+import org.devgateway.geoph.enums.LocationAdmLevelEnum;
 import org.devgateway.geoph.importer.processing.GeophProjectsImporter;
 import org.devgateway.geoph.model.*;
 import org.slf4j.Logger;
@@ -121,13 +122,10 @@ public class PmcImporter extends GeophProjectsImporter {
 
             String sector = getStringValueFromCell(row.getCell(pmcColumns.getSectors()), "sectors", rowNumber, GeophProjectsImporter.onProblem.NOTHING, false);
             Set<ProjectSector> sectorSet = new HashSet<>();
-            boolean isFirstSector = true;
 
             if (sector!=null && importBaseData.getSectors().get(sector.toLowerCase().trim()) != null) {
-                if(isFirstSector) {
-                    ProjectSector ps = new ProjectSector(p, importBaseData.getSectors().get(sector.toLowerCase().trim()), 100D);
-                    sectorSet.add(ps);
-                }
+                ProjectSector ps = new ProjectSector(p, importBaseData.getSectors().get(sector.toLowerCase().trim()), 1D);
+                sectorSet.add(ps);
             }
             if(sectorSet.size()>0){
                 p.setSectors(sectorSet);
@@ -140,14 +138,31 @@ public class PmcImporter extends GeophProjectsImporter {
                     locations = getStringArrayValueFromCell(row.getCell(pmcColumns.getRegion()), "region", rowNumber, onProblem.NOTHING);
                 }
             }
-            Set<Location> locationSet = new HashSet<>();
-            for (String loc : locations) {
-                if (StringUtils.isNotBlank(loc) && importBaseData.getLocations().get(loc.trim())!=null) {
-                    locationSet.add(importBaseData.getLocations().get(loc.trim()));
+            if(locations.length>0) {
+                Set<ProjectLocation> locationSet = new HashSet<>();
+                Set<Location> locationRegion = new HashSet<>();
+                Set<Location> locationProvince = new HashSet<>();
+                Set<Location> locationMunicipality = new HashSet<>();
+                for (String loc : locations) {
+                    Location l = importBaseData.getLocations().get(loc.trim());
+                    if(l!=null) {
+                        if(l.getLevel()==LocationAdmLevelEnum.REGION.getLevel()){
+                            locationRegion.add(l);
+                        } else if(l.getLevel()==LocationAdmLevelEnum.PROVINCE.getLevel()){
+                            locationProvince.add(l);
+                            locationRegion.add(importBaseData.getLocationsById().get(l.getRegionId()));
+                        } else if(l.getLevel()==LocationAdmLevelEnum.MUNICIPALITY.getLevel()){
+                            locationMunicipality.add(l);
+                            locationProvince.add(importBaseData.getLocationsById().get(l.getProvinceId()));
+                            locationRegion.add(importBaseData.getLocationsById().get(l.getRegionId()));
+                        }
+                    }
                 }
+                locationMunicipality.stream().forEach(l->locationSet.add(new ProjectLocation(p, l, 0D)));
+                locationProvince.stream().forEach(l->locationSet.add(new ProjectLocation(p, l, 0D)));
+                locationRegion.stream().forEach(l->locationSet.add(new ProjectLocation(p, l, 1/locationRegion.size())));
+                p.setLocations(locationSet);
             }
-            p.setLocations(locationSet);
-
             p.setStatus(importBaseData.getStatuses().get(
                     getStringValueFromCell(row.getCell(pmcColumns.getStatus()), "status", rowNumber, onProblem.NOTHING, true)
             ));

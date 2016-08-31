@@ -131,11 +131,12 @@ public class DefaultProjectRepository implements ProjectRepository {
 
         FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);
 
-        Join<Project, Location> locationJoin = projectRoot.join(Project_.locations, JoinType.LEFT);
+        Join<Project, ProjectLocation> locationJoin = projectRoot.join(Project_.locations, JoinType.LEFT);
+        Join<ProjectLocation, ProjectLocationId> pk = locationJoin.join(ProjectLocation_.pk, JoinType.LEFT);
         if(isNationalLevel) {
-            predicates.add(locationJoin.get(Location_.id).isNull());
+            predicates.add(pk.get(ProjectLocationId_.location).isNull());
         } else {
-            predicates.add(locationJoin.get(Location_.id).isNotNull());
+            predicates.add(pk.get(ProjectLocationId_.location).isNotNull());
         }
 
         if(predicates.size()>0) {
@@ -176,6 +177,9 @@ public class DefaultProjectRepository implements ProjectRepository {
             }
             if(project.getImplementingAgencies()!=null) {
                 project.getImplementingAgencies().forEach(em::persist);
+            }
+            if(project.getLocations()!=null) {
+                project.getLocations().forEach(em::persist);
             }
         }
         return project;
