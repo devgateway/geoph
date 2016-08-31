@@ -20,6 +20,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.web.EmbeddedServletContainerAutoConfiguration;
+import org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
@@ -35,9 +37,12 @@ import java.util.List;
  * Created by sebas on 8/30/2016.
  */
 
-@SpringBootApplication
 @Import({PersistenceApplication.class, ServicesApplication.class})
-@EnableJpaRepositories("org.devgateway.geoph")
+
+
+@SpringBootApplication(exclude = {EmbeddedServletContainerAutoConfiguration.class,
+        WebMvcAutoConfiguration.class})
+
 @PropertySources({
         @PropertySource("classpath:application.properties"),
         @PropertySource(value = "file:${CONF_FILE}", ignoreResourceNotFound = true)
@@ -63,22 +68,25 @@ public class KMLImport implements CommandLineRunner {
     private String kmlFolder;
 
 
+    @Value("${server.port}")
+    private String port;
 
-    private void readFeature(Feature feature){
-        geoPhotoRepository.deleteAll();
+
+    private void readFeature(String phid,Feature feature){
+
      //   LOGGER.info(feature.getName());
 
         if (feature instanceof Folder) {
             List<Feature> folders= ((Folder) feature).getFeature();
             folders.forEach(f ->{
-                readFeature(f);
+                readFeature(phid,f);
             } );
         }
         if (feature instanceof Document){
             Document doc=(Document) feature;
              List<Feature> features=doc.getFeature();
             features.forEach(f-> {
-                readFeature(f);
+                readFeature(phid,f);
             });
 
         }
@@ -91,6 +99,7 @@ public class KMLImport implements CommandLineRunner {
             photo.setDescription(description);
             photo.setName(name);
             GeometryFactory gf = new GeometryFactory();
+            if (description!=null){
             org.jsoup.nodes.Document doc = Jsoup.parse(description);
             Elements elements=doc.getElementsByTag("img");
             List<String> urls=new ArrayList<>();
@@ -100,12 +109,15 @@ public class KMLImport implements CommandLineRunner {
                 String img = element.attr("src");
                 if (img.lastIndexOf("logo_kmz.gif") == -1) {
                     LOGGER.info(img);
+                    if (img.startsWith("files")) {
+                        img = phid + "/" + img;
+                    }
                     urls.add(img);
                 }
             });
 
-            photo.setUrl(urls);
-
+            photo.setUrls(urls);
+            }
             com.vividsolutions.jts.geom.Coordinate coord = new com.vividsolutions.jts.geom.Coordinate(geometry.getCoordinates().get(0).getLatitude(),geometry.getCoordinates().get(0).getLongitude());
             com.vividsolutions.jts.geom.Point point = gf.createPoint(coord);
 
@@ -119,18 +131,18 @@ public class KMLImport implements CommandLineRunner {
 
 
     public void run(String... strings) throws Exception {
-
+        geoPhotoRepository.deleteAll();
         File folder=new File(kmlFolder);
 
         File[] files =folder.listFiles();
                 for(File f:files){
                     if (f.isDirectory()){
-                        String name=f.getName(); //name should be project id
+                        String phid=f.getName(); //name should be project id
                         File[] kmlsFound=f.listFiles((dir, n) -> n.endsWith(".kml"));
                         if (kmlsFound.length>0){
                             Kml kml= Kml.unmarshal(kmlsFound[0]);
                             Feature root=kml.getFeature();
-                            readFeature(root);
+                            readFeature(phid,root);
                         }
 
                     }

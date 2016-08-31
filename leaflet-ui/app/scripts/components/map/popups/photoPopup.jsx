@@ -18,15 +18,17 @@ const PhotoPopup = onClickOutside(React.createClass({
     }
   },
 
-  createMarkupHTML(){ 
-    return {__html: "<div className='photo-popup-container'>"+this.props.feature.properties.popupHTML+"</div>"}; 
-  },
 
   render() {
+    debugger;
     //const {feature: ftr={properties: {value: '', locationName: ''}}} = this.props;
     //const {locationName, value, layerName} = ftr.properties;
     return (
-      <div ></div>
+      <div>
+        <h2>Title</h2>
+          foto1 
+          foto2
+      </div>
     )
   }
 }));

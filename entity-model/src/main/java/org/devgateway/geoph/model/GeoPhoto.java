@@ -4,10 +4,7 @@ import com.vividsolutions.jts.geom.Point;
 import org.hibernate.annotations.Columns;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -25,15 +22,15 @@ public class GeoPhoto extends GenericPersistable implements Serializable {
     String description;
 
 
-    @ElementCollection
-    private Collection<String> url;
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Collection<String> urls;
 
-    public Collection<String> getUrl() {
-        return url;
+    public Collection<String> getUrls() {
+        return urls;
     }
 
-    public void setUrl(Collection<String> url) {
-        this.url = url;
+    public void setUrls(Collection<String> urls) {
+        this.urls = urls;
     }
 
     @Type(type = "org.hibernate.spatial.GeometryType")
