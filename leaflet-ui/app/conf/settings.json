@@ -137,7 +137,9 @@
 		"RESTORE": {
 			"development": "/maps/key/${mapId}",				
 			"production": "/maps/key/${mapId}"		
-		}
+		},
+
+		"EXPORT_DATA": "/export/data/${type}"
 		
 	},
 

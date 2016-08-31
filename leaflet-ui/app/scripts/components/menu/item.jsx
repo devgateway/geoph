@@ -25,7 +25,6 @@ const MenuItem =onClickOutside(React.createClass({
 	render() {
 		const {id,label,className,onDeactivate, tooltip}=this.props;
 		const active=this.props[id];
-		debugger;
 		return (
 			<li className={active?`active ${className}`:className}>
 				<OverlayTrigger placement="bottom" overlay={tooltip}>

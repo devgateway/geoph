@@ -116,7 +116,6 @@
 			"selectedresults": "Selected Results"
 		},
 		"layers": {
-
 			"title": "Adjust layers to see detailed data",
 			"level": "Level",
 			"colors": "Colors",
@@ -136,8 +135,7 @@
 			"geophotos": "Geotagged Photos",
 			"values":"Values",
 			"target":"Target",
-			"actual":"Actual"
-				
+			"actual":"Actual"				
 		}
 	},
 
@@ -232,11 +230,11 @@
 		},
 		"legends": "Click here to show map legends",
 		"projectsearch": {
-			"selectall": "Click here to select all results matched",
-			"selectedresults": "Click here to see only selected",
-			"searchresults": "Click here to see all",
-			"apply": "Apply selected projects as filter",
-			"clearall": "Clear all (results and selection)"
+			"selectall": "Select all projects retrieved in the Project List according to the text entered above",
+			"selectedresults": "Show only the selected projects",
+			"searchresults": "Show result projects",
+			"apply": "Apply the Project Title filter to the map. If you have applied a filter in the Filter window, both filters Projects + Filters will be applied",
+			"clearall": "Deselect all projects from the project list"
 		}
 	},
 

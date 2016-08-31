@@ -10,6 +10,7 @@ import translate from '../../util/translate';
 import ProjectLink from '../project/projectLink'
 import { Pagination, Grid, Row, Col } from 'react-bootstrap';
 import {getActivePage} from '../../util/paginatorUtil';
+import {Tooltip, OverlayTrigger} from 'react-bootstrap';
 require('./projectFilter.scss');
 
 var typingTimer;                //timer identifier
@@ -110,15 +111,27 @@ class ProjectFilter extends React.Component {
   getActions(){
     return (  
      <div className="project-search-actions">
-        <a id="ps-selectall" href="#" onClick={this.selectAllMatched.bind(this)}><div className="btn btn-xs btn-all"></div><span>{translate('toolview.projectsearch.selectall')}</span></a>
+        <OverlayTrigger placement="top" overlay={(<Tooltip id="help.projectsearch.selectall">{translate('help.projectsearch.selectall')}</Tooltip>)}>
+          <a href="#" onClick={this.selectAllMatched.bind(this)}><div className="btn btn-xs btn-all"></div><span>{translate('toolview.projectsearch.selectall')}</span></a>
+        </OverlayTrigger>
         <span>/</span>
         {this.state.showResults?
-          <a id="ps-selectedresults" href="#" onClick={this.showSelected.bind(this)}>{translate('toolview.projectsearch.selectedresults')} ({this.props.projectSearch.selected.length}) </a>:
-          <a id="ps-searchresults" href="#" onClick={this.showResults.bind(this)}>{translate('toolview.projectsearch.searchresults')}</a>}
+          <OverlayTrigger placement="top" overlay={(<Tooltip id="help.projectsearch.selectedresults">{translate('help.projectsearch.selectedresults')}</Tooltip>)}>
+            <a href="#" onClick={this.showSelected.bind(this)}>{translate('toolview.projectsearch.selectedresults')} ({this.props.projectSearch.selected.length}) </a>
+          </OverlayTrigger>
+          :
+          <OverlayTrigger placement="top" overlay={(<Tooltip id="help.projectsearch.searchresults">{translate('help.projectsearch.searchresults')}</Tooltip>)}>
+            <a href="#" onClick={this.showResults.bind(this)}>{translate('toolview.projectsearch.searchresults')}</a>}
+          </OverlayTrigger>
+        }
         <span>/</span>
-        <a id="ps-apply" href="#" onClick={this.applySelection.bind(this)}><div className="btn btn-xs btn-apply"></div> <span>{translate('toolview.projectsearch.apply')}</span></a>
+        <OverlayTrigger placement="top" overlay={(<Tooltip id="help.projectsearch.apply">{translate('help.projectsearch.apply')}</Tooltip>)}>
+          <a href="#" onClick={this.applySelection.bind(this)}><div className="btn btn-xs btn-apply"></div> <span>{translate('toolview.projectsearch.apply')}</span></a>
+        </OverlayTrigger>
         <span>/</span>
-        <a id="ps-clearall" href="#" onClick={this.clearAllSelection.bind(this)}><div className="btn btn-xs btn-clear"></div><span>{translate('toolview.projectsearch.clearall')}</span></a>
+        <OverlayTrigger placement="top" overlay={(<Tooltip id="help.projectsearch.clearall">{translate('help.projectsearch.clearall')}</Tooltip>)}>
+          <a href="#" onClick={this.clearAllSelection.bind(this)}><div className="btn btn-xs btn-clear"></div><span>{translate('toolview.projectsearch.clearall')}</span></a>
+        </OverlayTrigger>
       </div>                       
     )
   }
@@ -160,30 +173,6 @@ class ProjectFilter extends React.Component {
     }
   }
 
-/*
-  getActivePage(eventKey, totalPages, number){
-  //workaround for fix bootstrap paginator issues
-    let activePage = 0;
-    switch(eventKey.target.innerText) {
-      case "»":
-        activePage = totalPages-1;
-        break;
-      case "›":
-        activePage = number+1;
-        break;
-      case "«":
-        activePage = 0;
-        break;
-      case "‹":
-        activePage = number-1;
-        break;
-      default :
-        activePage = parseInt(eventKey.target.innerHTML)-1;
-        break;
-    }
-    return activePage;
-}
-*/
   handlePageChange(eventKey, items) {
     let totalPages = Math.ceil(items.length/pageSize);
     let pg = getActivePage(eventKey, totalPages, this.state.page);
