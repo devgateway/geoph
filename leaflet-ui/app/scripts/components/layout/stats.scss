@@ -1,39 +1,74 @@
 
 .stats-container{
-	width: 100%;
-	height: 100px;
+	margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    border: 1px solid #cfe1f0;
+    border-radius: 6px;
+    >div:first-child{
+    	>div{
+	        border-top-left-radius: 6px;
+	        border-right: 1px solid #cfe1f0;
+	    }
+    }
+    >div:last-child{
+        >div:first-child{
+	        border-top-right-radius: 6px;
+	    }
+	    >div:not(:last-child):not(:first-child){
+	        border-right: 1px solid #cfe1f0;
+	    }
+    }
 }
 
 .stats-pair{
 	width: 50%;
 	display: inline-block;
-	>p {
-		height: 20px !important;
-		margin: 5px 0px !important;
-	    text-align: center;
-	    text-transform: uppercase;
+	
+}
+
+@mixin stats ($width){
+	text-align: center;
+  	display: inline-block;
+	width: $width;
+	h1{
+		font-size: 2.5vh;
+	    margin: 0px;
+	    color: #000 !important;
+	    line-height: 2vw;
 	    font-weight: bold;
-	    font-size: 12px;
+	    margin: 0px 0px 10px 0px!important;
+	}
+	p{
+		font-size: 1.3vh;
+	  	height: 10px !important;
+		margin: 10px 0px 0px 0px !important;
+		display: inline-block;
+		text-transform: uppercase;
+	  	color: #7dbe5e;
 	}
 }
 
-.stats{
-	text-align: center;
-  	display: inline-block;
-	padding-bottom:20px;
-  	width: 50%;
-	h1{
-	font-size: 1.7vw;
-    margin: 0px;
-    /* border: 1px solid red; */
-    line-height: 2vw;
-    font-weight: bold;
-	}
-	p{
-		font-size:12px;
-	  	height: 10px !important;
-		margin: 0px !important;
-		display: inline-block;
-	  	color: rgb(172, 208, 138);
+.stats-projects{
+	@include stats(40%);
+}
+
+.stats-funding{
+	@include stats(60%);
+}
+
+.stats-title{
+	border-bottom: 1px solid #cfe1f0;
+	background-color: #f8fdff;
+	height: 5vh;
+	padding-left: 10px;
+	display: flex;
+    align-items: center;
+    >p {
+		height: 20px !important;
+		margin: 5px 0px !important;
+	    text-align: center;
+	    font-weight: bold;
+	    font-size: 1.9vh;
 	}
 }

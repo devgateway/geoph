@@ -135,7 +135,9 @@
 			"geophotos": "Geo Litrato",
 			"values":"Values",
 			"target":"Target",
-			"actual":"Actual"
+			"actual":"Actual",
+			"photos": "Photos",
+			"progress":"Progress"
 		}
 	},
 
