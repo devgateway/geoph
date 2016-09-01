@@ -1,7 +1,7 @@
 package org.devgateway.geoph.core.repositories;
 
 import org.devgateway.geoph.core.request.Parameters;
-import org.devgateway.geoph.model.ProjectSector;
+import org.devgateway.geoph.dao.SectorResultsDao;
 import org.devgateway.geoph.model.Sector;
 
 import java.util.List;
@@ -18,7 +18,7 @@ public interface SectorRepository {
 
     List<Sector> findByLevel(int level);
 
-    List<ProjectSector> findFundingBySector(Parameters params);
+    List<SectorResultsDao> findFundingBySector(Parameters params);
 
     Sector findById(Long id);
 }

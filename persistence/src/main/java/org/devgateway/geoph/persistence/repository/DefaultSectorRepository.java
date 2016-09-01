@@ -2,10 +2,8 @@ package org.devgateway.geoph.persistence.repository;
 
 import org.devgateway.geoph.core.repositories.SectorRepository;
 import org.devgateway.geoph.core.request.Parameters;
-import org.devgateway.geoph.model.Project;
-import org.devgateway.geoph.model.ProjectSector;
-import org.devgateway.geoph.model.Project_;
-import org.devgateway.geoph.model.Sector;
+import org.devgateway.geoph.dao.SectorResultsDao;
+import org.devgateway.geoph.model.*;
 import org.devgateway.geoph.persistence.util.FilterHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -57,9 +55,9 @@ public class DefaultSectorRepository implements SectorRepository {
 
     @Override
     @Cacheable("findSectorByParams")
-    public List<ProjectSector> findFundingBySector(Parameters params) {
+    public List<SectorResultsDao> findFundingBySector(Parameters params) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-        CriteriaQuery<ProjectSector> criteriaQuery = criteriaBuilder.createQuery(ProjectSector.class);
+        CriteriaQuery<SectorResultsDao> criteriaQuery = criteriaBuilder.createQuery(SectorResultsDao.class);
 
         Root<Project> projectRoot = criteriaQuery.from(Project.class);
 
@@ -68,17 +66,21 @@ public class DefaultSectorRepository implements SectorRepository {
         List<Expression<?>> groupByList = new ArrayList<>();
 
         Join<Project, ProjectSector> sectorJoin = projectRoot.join(Project_.sectors);
-        multiSelect.add(sectorJoin);
-        groupByList.add(sectorJoin);
 
-        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);
+        multiSelect.add(sectorJoin);
+        multiSelect.add(sectorJoin.get(ProjectSector_.utilization));
+
+        groupByList.add(sectorJoin);
+        groupByList.add(projectRoot);
+        groupByList.add(sectorJoin.get(ProjectSector_.utilization));
+
+        FilterHelper.filterProjectQueryAdvanced(params, criteriaBuilder, projectRoot, predicates, multiSelect, groupByList);
 
         Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         criteriaQuery.where(other);
 
-
         criteriaQuery.groupBy(groupByList);
-        TypedQuery<ProjectSector> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
+        TypedQuery<SectorResultsDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
 
         return query.getResultList();
     }

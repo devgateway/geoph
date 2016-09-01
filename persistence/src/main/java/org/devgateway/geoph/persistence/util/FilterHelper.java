@@ -18,6 +18,13 @@ public class FilterHelper {
     private static final Object LOCK_TRANSACTION = new Object() {};
 
     public static void filterProjectQuery(Parameters params, CriteriaBuilder criteriaBuilder, Root<Project> projectRoot, List<Predicate> predicates) {
+        filterProjectQueryAdvanced(params, criteriaBuilder, projectRoot, predicates, null, null);
+    }
+
+    public static void filterProjectQueryAdvanced(Parameters params, CriteriaBuilder criteriaBuilder,
+                                                  Root<Project> projectRoot, List<Predicate> predicates,
+                                                  List<Selection<?>> multiSelect,
+                                                  List<Expression<?>> groupByList) {
         synchronized (LOCK_PROJECT) {
             if (params != null) {
                 if (params.getProjects() != null) {
@@ -40,13 +47,24 @@ public class FilterHelper {
                     predicates.add(physicalStatusJoin.get(PhysicalStatus_.id).in(params.getPhysicalStatuses()));
                 }
                 if (params.getLocations() != null) {
-                    Join<Project, Location> locationJoin = projectRoot.join(Project_.locations);
-                    Predicate findInAnyAdmLevel = criteriaBuilder.or(
-                            locationJoin.get(Location_.id).in(params.getLocations()),
-                            locationJoin.get(Location_.regionId).in(params.getLocations()),
-                            locationJoin.get(Location_.provinceId
-                            ).in(params.getLocations()));
-                    predicates.add(findInAnyAdmLevel);
+                    Join<Project, ProjectLocation> projectLocationJoin = projectRoot.join(Project_.locations, JoinType.LEFT);
+                    Join<ProjectLocation, ProjectLocationId> idJoin = projectLocationJoin.join(ProjectLocation_.pk, JoinType.LEFT);
+                    Join<ProjectLocationId, Location> locationJoin = idJoin.join(ProjectLocationId_.location, JoinType.LEFT);
+
+                    predicates.add(locationJoin.get(Location_.id).in(params.getLocations()));
+                    if(multiSelect!=null){
+                        multiSelect.add(projectLocationJoin.get(ProjectLocation_.utilization));
+                    }
+                    if(groupByList!=null){
+                        groupByList.add(projectLocationJoin.get(ProjectLocation_.utilization));
+                    }
+
+                }
+                if(params.getLocationLevels()!=null) {
+                    Join<Project, ProjectLocation> projectLocationJoin = projectRoot.join(Project_.locations, JoinType.LEFT);
+                    Join<ProjectLocation, ProjectLocationId> idJoin = projectLocationJoin.join(ProjectLocation_.pk, JoinType.LEFT);
+                    Join<ProjectLocationId, Location> locationJoin = idJoin.join(ProjectLocationId_.location, JoinType.LEFT);
+                    predicates.add(locationJoin.get(Location_.level).in(params.getLocationLevels()));
                 }
                 if (params.getStartDateMin() != null) {
                     predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectRoot.get(Project_.startDate), params.getStartDateMin()));
@@ -143,12 +161,12 @@ public class FilterHelper {
         }
     }
 
-    public static void filterLocationQuery(Parameters params, CriteriaBuilder criteriaBuilder, Root<Location> locationRoot, List<Predicate> predicates, Join<Location, Project> projectJoin) {
+    public static void filterLocationQuery(Parameters params, CriteriaBuilder criteriaBuilder, Root<Location> locationRoot, List<Predicate> predicates, Join<ProjectLocationId, Project> projectJoin) {
         synchronized (LOCK_LOCATION) {
             if (params != null) {
-            /*if(params.getLocationLevels()!=null) {
-                predicates.add(locationRoot.get(Location_.level).in(params.getLocationLevels()));
-            }*/
+                if(params.getLocationLevels()!=null) {
+                    predicates.add(locationRoot.get(Location_.level).in(params.getLocationLevels()));
+                }
                 if (params.getLocations() != null) {
                     predicates.add(locationRoot.get(Location_.id).in(params.getLocations()));
                 }

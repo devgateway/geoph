@@ -47,13 +47,18 @@ public class ProjectAgencyId implements Serializable {
 
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         ProjectAgencyId that = (ProjectAgencyId) o;
 
-        if (project != null ? !project.equals(that.project) : that.project != null) return false;
-        if (agency != null ? !agency.equals(that.agency) : that.agency != null)
+        if (project != null ? !project.equals(that.project) : that.project != null) {
             return false;
+        }
+        if (agency != null ? !agency.equals(that.agency) : that.agency != null) {
+            return false;
+        }
 
         return true;
     }

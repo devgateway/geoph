@@ -60,16 +60,14 @@ public class DefaultFundingAgencyRepository implements FundingAgencyRepository {
         List<Expression<?>> groupByList = new ArrayList<>();
 
         Join<Project, Agency> agencyJoin = projectRoot.join(Project_.fundingAgency);
+
         multiSelect.add(agencyJoin);
         multiSelect.add(projectRoot);
+
         groupByList.add(agencyJoin);
         groupByList.add(projectRoot);
 
-        /*if (trxTypeId != 0 && trxStatusId != 0) {
-            FilterHelper.addTransactionJoin(criteriaBuilder, multiSelect, projectRoot, trxTypeId, trxStatusId);
-        }*/
-
-        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);
+        FilterHelper.filterProjectQueryAdvanced(params, criteriaBuilder, projectRoot, predicates, multiSelect, groupByList);
 
         Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         criteriaQuery.where(other);

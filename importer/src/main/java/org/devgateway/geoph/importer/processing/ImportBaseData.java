@@ -26,6 +26,8 @@ public class ImportBaseData {
 
     protected final Map<String, Location> locations;
 
+    protected final Map<Long, Location> locationsById;
+
     protected final Map<String, Status> statuses;
 
     protected final Map<String, PhysicalStatus> physicalStatuses;
@@ -45,6 +47,7 @@ public class ImportBaseData {
         this.grantSubTypes = filterService.findAllGrantSubTypes().stream().collect(Collectors.toMap(x -> x.getName().toLowerCase(), x -> x));
         this.sectors = filterService.findAllSectors().stream().collect(Collectors.toMap(x -> x.getName().toLowerCase(), x -> x));
         this.locations = filterService.findAllLocations().stream().collect(Collectors.toMap(x -> x.getCode(), x -> x));
+        this.locationsById = filterService.findAllLocations().stream().collect(Collectors.toMap(x -> x.getId(), x -> x));
         this.statuses = filterService.findAllStatuses().stream().collect(Collectors.toMap(x -> x.getName().toLowerCase(), x -> x));
         this.physicalStatuses = filterService.findAllPhysicalStatus().stream().collect(Collectors.toMap(x -> x.getName().toLowerCase(), x -> x));
         this.fundingAgencies = filterService.findAllFundingAgencies().stream().collect(Collectors.toMap(x -> x.getCode().toLowerCase(), x -> x));
@@ -71,6 +74,10 @@ public class ImportBaseData {
 
     public Map<String, Location> getLocations() {
         return locations;
+    }
+
+    public Map<Long, Location> getLocationsById() {
+        return locationsById;
     }
 
     public Map<String, Status> getStatuses() {

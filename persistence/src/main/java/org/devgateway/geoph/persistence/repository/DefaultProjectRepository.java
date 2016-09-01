@@ -58,6 +58,20 @@ public class DefaultProjectRepository implements ProjectRepository {
     }
 
     @Override
+    public Project findByPhId(String phid) {
+           List<Project> projects=em.createNamedQuery("findProjectsByPhId", Project.class)
+                .setParameter(PROPERTY_PRJ_PH_ID, phid).getResultList();
+        if (projects.isEmpty()){
+            return null;
+        }else{
+            if(projects.size() > 1){
+                LOGGER.warn("..... Warning PH_ID "+phid+" used in "+projects.size()+ " projects this function wil return first result .... ");
+            }
+            return  projects.iterator().next();
+        }
+    }
+
+    @Override
     @Cacheable("findProjectMiniByParams")
     public Page<ProjectMiniDao> findProjectMiniByParams(Parameters params) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
@@ -131,11 +145,12 @@ public class DefaultProjectRepository implements ProjectRepository {
 
         FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);
 
-        Join<Project, Location> locationJoin = projectRoot.join(Project_.locations, JoinType.LEFT);
+        Join<Project, ProjectLocation> locationJoin = projectRoot.join(Project_.locations, JoinType.LEFT);
+        Join<ProjectLocation, ProjectLocationId> pk = locationJoin.join(ProjectLocation_.pk, JoinType.LEFT);
         if(isNationalLevel) {
-            predicates.add(locationJoin.get(Location_.id).isNull());
+            predicates.add(pk.get(ProjectLocationId_.location).isNull());
         } else {
-            predicates.add(locationJoin.get(Location_.id).isNotNull());
+            predicates.add(pk.get(ProjectLocationId_.location).isNotNull());
         }
 
         if(predicates.size()>0) {
@@ -176,6 +191,9 @@ public class DefaultProjectRepository implements ProjectRepository {
             }
             if(project.getImplementingAgencies()!=null) {
                 project.getImplementingAgencies().forEach(em::persist);
+            }
+            if(project.getLocations()!=null) {
+                project.getLocations().forEach(em::persist);
             }
         }
         return project;

@@ -3,6 +3,7 @@ package org.devgateway.geoph.rest;
 import org.devgateway.geoph.core.request.AppRequestParams;
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.core.services.GeoJsonService;
+import org.devgateway.geoph.core.services.GeoPhotosService;
 import org.devgateway.geoph.core.services.LayerService;
 import org.devgateway.geoph.enums.GeometryDetailLevelEnum;
 import org.devgateway.geoph.enums.LocationAdmLevelEnum;
@@ -28,11 +29,13 @@ public class GeoJsonController extends BaseController {
 
     private final GeoJsonService geoJsonService;
 
+    private final GeoPhotosService geoPhotosService;
     private final LayerService layerService;
 
     @Autowired
-    public GeoJsonController(GeoJsonService geoJsonService, LayerService layerService) {
+    public GeoJsonController(GeoJsonService geoJsonService, LayerService layerService,GeoPhotosService geoPhotosService) {
         this.geoJsonService = geoJsonService;
+        this.geoPhotosService = geoPhotosService;
         this.layerService = layerService;
     }
 
@@ -50,10 +53,12 @@ public class GeoJsonController extends BaseController {
     public FeatureCollection getGeoJsonStatistical(
             @PathVariable final String level, AppRequestParams filters) {
         LOGGER.debug("getGeoJsonForShapes");
+        Parameters parameters = filters.getParameters();
+        parameters.setLocationLevel(level);
         return geoJsonService.getShapesByLevelAndDetail(
                 LocationAdmLevelEnum.valueOf(level.toUpperCase()),
                 GeometryDetailLevelEnum.MEDIUM.getLevel(),
-                filters.getParameters());
+                parameters);
     }
 
     @RequestMapping(value = "/stats/{level}/funding/detail/{detail:.+}", method = GET)
@@ -85,7 +90,7 @@ public class GeoJsonController extends BaseController {
     @RequestMapping(value = "/geophotos", method = GET)
     public FeatureCollection getGeoPhotosData() {
         LOGGER.debug("getGeoPhotosData");
-        return layerService.getGeoPhotoData();
+        return geoPhotosService.getGeoPhotoData();
     }
 
 
