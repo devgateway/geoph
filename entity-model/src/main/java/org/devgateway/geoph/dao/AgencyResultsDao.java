@@ -1,8 +1,6 @@
 package org.devgateway.geoph.dao;
 
 import org.devgateway.geoph.model.Agency;
-import org.devgateway.geoph.model.Project;
-import org.devgateway.geoph.model.ProjectAgency;
 
 /**
  * @author dbianco
@@ -12,37 +10,17 @@ public class AgencyResultsDao  {
 
     private Agency agency;
 
-    private Project project;
+    private Double trxAmount;
 
-    private Double utilization;
-
-    private Double locUtilization;
+    private long projectCount;
 
     public AgencyResultsDao() {
     }
 
-    public AgencyResultsDao(Agency agency, Project project) {
+    public AgencyResultsDao(Agency agency, Double trxAmount, long projectCount) {
         this.agency = agency;
-        this.project = project;
-    }
-
-    public AgencyResultsDao(Agency agency, Project project, Double locUtilization) {
-        this.agency = agency;
-        this.project = project;
-        this.locUtilization = locUtilization;
-    }
-
-    public AgencyResultsDao(ProjectAgency projectAgency, Double utilization) {
-        this.agency = projectAgency.getAgency();
-        this.project = projectAgency.getProject();
-        this.utilization = utilization;
-    }
-
-    public AgencyResultsDao(ProjectAgency projectAgency, Double utilization, Double locUtilization) {
-        this.agency = projectAgency.getAgency();
-        this.project = projectAgency.getProject();
-        this.utilization = utilization;
-        this.locUtilization = locUtilization;
+        this.trxAmount = trxAmount;
+        this.projectCount = projectCount;
     }
 
     public Agency getAgency() {
@@ -53,27 +31,19 @@ public class AgencyResultsDao  {
         this.agency = agency;
     }
 
-    public Project getProject() {
-        return project;
+    public Double getTrxAmount() {
+        return trxAmount;
     }
 
-    public void setProject(Project project) {
-        this.project = project;
+    public void setTrxAmount(Double trxAmount) {
+        this.trxAmount = trxAmount;
     }
 
-    public Double getUtilization() {
-        return utilization;
+    public long getProjectCount() {
+        return projectCount;
     }
 
-    public void setUtilization(Double utilization) {
-        this.utilization = utilization;
-    }
-
-    public Double getLocUtilization() {
-        return locUtilization;
-    }
-
-    public void setLocUtilization(Double locUtilization) {
-        this.locUtilization = locUtilization;
+    public void setProjectCount(long projectCount) {
+        this.projectCount = projectCount;
     }
 }

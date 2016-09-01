@@ -1,7 +1,6 @@
 package org.devgateway.geoph.dao;
 
 import org.devgateway.geoph.model.PhysicalStatus;
-import org.devgateway.geoph.model.Project;
 
 /**
  * @author dbianco
@@ -11,22 +10,17 @@ public class PhysicalStatusDao {
 
     private PhysicalStatus physicalStatus;
 
-    private Project project;
+    private Double trxAmount;
 
-    private Double locUtilization;
+    private long projectCount;
 
     public PhysicalStatusDao() {
     }
 
-    public PhysicalStatusDao(PhysicalStatus physicalStatus, Project project) {
+    public PhysicalStatusDao(PhysicalStatus physicalStatus, Double trxAmount, long projectCount) {
         this.physicalStatus = physicalStatus;
-        this.project = project;
-    }
-
-    public PhysicalStatusDao(PhysicalStatus physicalStatus, Project project, Double locUtilization) {
-        this.physicalStatus = physicalStatus;
-        this.project = project;
-        this.locUtilization = locUtilization;
+        this.trxAmount = trxAmount;
+        this.projectCount = projectCount;
     }
 
     public PhysicalStatus getPhysicalStatus() {
@@ -37,19 +31,19 @@ public class PhysicalStatusDao {
         this.physicalStatus = physicalStatus;
     }
 
-    public Project getProject() {
-        return project;
+    public Double getTrxAmount() {
+        return trxAmount;
     }
 
-    public void setProject(Project project) {
-        this.project = project;
+    public void setTrxAmount(Double trxAmount) {
+        this.trxAmount = trxAmount;
     }
 
-    public Double getLocUtilization() {
-        return locUtilization;
+    public long getProjectCount() {
+        return projectCount;
     }
 
-    public void setLocUtilization(Double locUtilization) {
-        this.locUtilization = locUtilization;
+    public void setProjectCount(long projectCount) {
+        this.projectCount = projectCount;
     }
 }
