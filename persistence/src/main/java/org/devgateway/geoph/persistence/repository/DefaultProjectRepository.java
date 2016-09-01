@@ -122,7 +122,14 @@ public class DefaultProjectRepository implements ProjectRepository {
         List<Selection<?>> multiSelect = new ArrayList<>();
 
         Join<Project, Transaction> transactionJoin = projectRoot.join(Project_.transactions, JoinType.LEFT);
-        multiSelect.add(criteriaBuilder.sum(transactionJoin.get(Transaction_.amount)).alias("trxAmount"));
+        Join<Project, ProjectLocation> locationJoin = projectRoot.join(Project_.locations, JoinType.LEFT);
+        Join<ProjectLocation, ProjectLocationId> pk = locationJoin.join(ProjectLocation_.pk, JoinType.LEFT);
+
+        if(isNationalLevel) {
+            multiSelect.add(criteriaBuilder.sum(transactionJoin.get(Transaction_.amount)).alias("trxAmount"));
+        } else {
+            multiSelect.add(criteriaBuilder.sum(criteriaBuilder.prod(transactionJoin.get(Transaction_.amount), locationJoin.get(ProjectLocation_.utilization))).alias("trxAmount"));
+        }
         multiSelect.add(criteriaBuilder.countDistinct(projectRoot.get(Project_.id)).alias("projectCount"));
         multiSelect.add(transactionJoin.get(Transaction_.transactionStatusId).alias("statusId"));
         multiSelect.add(transactionJoin.get(Transaction_.transactionTypeId).alias("typeId"));
@@ -130,9 +137,6 @@ public class DefaultProjectRepository implements ProjectRepository {
         List<Predicate> predicates = new ArrayList<>();
 
         FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);
-
-        Join<Project, ProjectLocation> locationJoin = projectRoot.join(Project_.locations, JoinType.LEFT);
-        Join<ProjectLocation, ProjectLocationId> pk = locationJoin.join(ProjectLocation_.pk, JoinType.LEFT);
         if(isNationalLevel) {
             predicates.add(pk.get(ProjectLocationId_.location).isNull());
         } else {
