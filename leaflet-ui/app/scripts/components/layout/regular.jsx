@@ -5,6 +5,7 @@ import {getList} from '../../actions/indicators.js'
 import {loadDefaultLayer} from '../../actions/map.js'
 import {loadAllFilterLists} from '../../actions/filters.js'
 import {fetchStats} from '../../actions/stats.js'
+import {fetchChartData} from '../../actions/charts.js'
 import {getGeophotosList} from '../../actions/geophotos.js'
 
 require("./root.scss");
@@ -18,7 +19,7 @@ class Root extends DefaultLayout {
   componentWillMount() {
     this.props.onLoadAllFilters();
     this.props.onLoadIndicatorList(); 
-    //this.props.onLoadGeophotosList(); 
+    this.props.onLoadDefaultCharts(); 
     this.props.onLoadDefaultLayer();
     this.props.onFetchStats();  
   }
@@ -31,7 +32,8 @@ const mapDispatchToProps=(dispatch,ownProps)=>{
     onLoadIndicatorList:()=>{dispatch(getList())},
     onLoadGeophotosList:()=>{dispatch(getGeophotosList())},
     onLoadDefaultLayer:()=>{dispatch(loadDefaultLayer())},
-    onFetchStats :_=>{dispatch(fetchStats())}
+    onLoadDefaultCharts:()=>{dispatch(fetchChartData())},
+    onFetchStats :()=>{dispatch(fetchStats())}
   }
 }
 

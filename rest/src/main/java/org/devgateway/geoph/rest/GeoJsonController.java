@@ -3,6 +3,7 @@ package org.devgateway.geoph.rest;
 import org.devgateway.geoph.core.request.AppRequestParams;
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.core.services.GeoJsonService;
+import org.devgateway.geoph.core.services.GeoPhotosService;
 import org.devgateway.geoph.core.services.LayerService;
 import org.devgateway.geoph.enums.GeometryDetailLevelEnum;
 import org.devgateway.geoph.enums.LocationAdmLevelEnum;
@@ -28,11 +29,13 @@ public class GeoJsonController extends BaseController {
 
     private final GeoJsonService geoJsonService;
 
+    private final GeoPhotosService geoPhotosService;
     private final LayerService layerService;
 
     @Autowired
-    public GeoJsonController(GeoJsonService geoJsonService, LayerService layerService) {
+    public GeoJsonController(GeoJsonService geoJsonService, LayerService layerService,GeoPhotosService geoPhotosService) {
         this.geoJsonService = geoJsonService;
+        this.geoPhotosService = geoPhotosService;
         this.layerService = layerService;
     }
 
@@ -87,7 +90,7 @@ public class GeoJsonController extends BaseController {
     @RequestMapping(value = "/geophotos", method = GET)
     public FeatureCollection getGeoPhotosData() {
         LOGGER.debug("getGeoPhotosData");
-        return layerService.getGeoPhotoData();
+        return geoPhotosService.getGeoPhotoData();
     }
 
 

@@ -2,12 +2,12 @@
 
 .settings-container{
 	@include controlBox();
-	height: 150px;
+	height: 125px;
 	.list{
 		clear: both;
 	}
 	.setting{
-		width: 220px;
+		width: 190px;
 		margin-left: 40px;
 		float:left
 	}

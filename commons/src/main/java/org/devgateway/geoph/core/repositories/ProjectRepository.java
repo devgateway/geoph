@@ -20,6 +20,8 @@ public interface ProjectRepository {
 
     Project findById(long id);
 
+    Project findByPhId(String phid);
+
     Page<Project> findProjectsByParams(Parameters params);
 
     Page<ProjectMiniDao> findProjectMiniByParams(Parameters params);

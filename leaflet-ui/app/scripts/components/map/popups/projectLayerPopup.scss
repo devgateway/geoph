@@ -1,7 +1,16 @@
 
 .photo-popup-container{
-  width: 550px;
-  height: 450px;
+    width: 350px;
+    max-height: 350px;
+    overflow: hidden;
+
+  .images{
+    overflow-y: scroll;
+    height:350px;
+    div{
+      margin:4px;
+    }
+  }
 }
 
 .simple-popup-container{
