@@ -1,7 +1,6 @@
 package org.devgateway.geoph.core.services;
 
 import org.devgateway.geoph.core.response.IndicatorResponse;
-import org.devgateway.geoph.model.GeoPhotoSource;
 import org.devgateway.geoph.model.Indicator;
 import org.geojson.FeatureCollection;
 
@@ -20,10 +19,4 @@ public interface LayerService {
     void deleteIndicator(Long id);
 
     FeatureCollection getIndicatorsData(long indicatorId);
-
-    List<GeoPhotoSource> getGeoPhotoSourceList();
-
-    FeatureCollection getGeoPhotoDataById(long kmlId);
-
-    FeatureCollection getGeoPhotoData();
 }

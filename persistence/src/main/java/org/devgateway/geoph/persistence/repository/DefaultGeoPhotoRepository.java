@@ -1,15 +1,18 @@
 package org.devgateway.geoph.persistence.repository;
 
-import com.google.gson.Gson;
-import org.devgateway.geoph.core.repositories.GeoPhotoRepository;
-import org.devgateway.geoph.dao.GeoPhotoGeometryDao;
-import org.devgateway.geoph.model.GeoPhotoSource;
+import org.devgateway.geoph.core.repositories.GeoPhotoRepositoryCustom;
+import org.devgateway.geoph.core.request.Parameters;
+import org.devgateway.geoph.dao.GeoPhotoDao;
+import org.devgateway.geoph.model.GeoPhoto;
+import org.devgateway.geoph.model.Project;
+import org.devgateway.geoph.model.Project_;
+import org.devgateway.geoph.persistence.util.FilterHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
-import java.math.BigDecimal;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,53 +21,28 @@ import java.util.List;
  *         created on abr 29 2016.
  */
 @Service
-public class DefaultGeoPhotoRepository implements GeoPhotoRepository {
+public class DefaultGeoPhotoRepository implements GeoPhotoRepositoryCustom {
 
     @Autowired
     EntityManager em;
 
-    @Override
-    public List<GeoPhotoSource> findAllGeoPhotoSources() {
-        return em.createNamedQuery("findAllGeoPhotoSources", GeoPhotoSource.class).getResultList();
-    }
+    public List<GeoPhotoDao> findGeoPhotosByParams(Parameters params){
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<GeoPhotoDao> criteriaQuery = criteriaBuilder
+                .createQuery(GeoPhotoDao.class);
+        Root<Project> projectRoot = criteriaQuery.from(Project.class);
+        Join<Project, GeoPhoto> geoPhotoJoin = projectRoot.join(Project_.geoPhotos);
+        List<Predicate> predicates = new ArrayList<>();
+        List<Selection<?>> multiSelect = new ArrayList<>();
+        multiSelect.add(geoPhotoJoin);
+        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);
 
-    @Override
-    public GeoPhotoSource findByCode(String name) {
-        return em.createNamedQuery("findGeoPhotoSourcesByName", GeoPhotoSource.class)
-                .setParameter("name", name)
-                .getSingleResult();
-    }
-
-    @Override
-    public List<GeoPhotoGeometryDao> getGeoPhotoGeometry() {
-        return getGeoPhotoGeometryByKmlId(null);
-    }
-
-    @Override
-    public List<GeoPhotoGeometryDao> getGeoPhotoGeometryByKmlId(Long kmlId) {
-        Query q;
-        if(kmlId!=null) {
-            q = em.createNativeQuery("SELECT gid,kmlid,name,symbolid,description,imagepath, " +
-                    "ST_AsGeoJSON(geom) as geoJsonObject from geophoto_geometry where kmlid=:kmlId")
-                    .setParameter("kmlId", kmlId);
-        } else {
-            q = em.createNativeQuery("SELECT gid,kmlid,name,symbolid,description,imagepath, " +
-                    "ST_AsGeoJSON(geom) as geoJsonObject from geophoto_geometry");
+        if(predicates.size()>0) {
+            Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+            criteriaQuery.where(other);
         }
-        List<Object[]> resultList = q.getResultList();
-        Gson g = new Gson();
-        List<GeoPhotoGeometryDao> resp = new ArrayList<>();
-        //Native queries cant be mapped to a class, only to an entity, that is why we create the DAO from objects
-        for (Object[] o : resultList) {
-            GeoPhotoGeometryDao helper = g.fromJson((String) o[6], GeoPhotoGeometryDao.class);
-            helper.setGid(((Integer) o[0]));
-            helper.setKmlId(((BigDecimal) o[1]).longValue());
-            helper.setName((String) o[2]);
-            helper.setSymbolId(o[3] != null ? ((BigDecimal) o[3]).longValue() : 0);
-            helper.setDescription((String) o[4]);
-            helper.setImagePath((String) o[5]);
-            resp.add(helper);
-        }
-        return resp;
+
+        TypedQuery<GeoPhotoDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
+        return query.getResultList();
     }
 }

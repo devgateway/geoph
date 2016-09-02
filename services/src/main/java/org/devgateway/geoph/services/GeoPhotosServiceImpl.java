@@ -1,6 +1,7 @@
 package org.devgateway.geoph.services;
 
-import org.devgateway.geoph.core.repositories.GeoPhotoRepository1;
+import org.devgateway.geoph.core.repositories.GeoPhotoRepositoryCustom;
+import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.core.services.GeoPhotosService;
 import org.devgateway.geoph.model.GeoPhoto;
 import org.geojson.Feature;
@@ -9,7 +10,6 @@ import org.geojson.Point;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,11 +23,11 @@ import java.util.stream.Collectors;
 public class GeoPhotosServiceImpl implements GeoPhotosService {
 
     @Autowired
-    GeoPhotoRepository1 geoPhotoRepository1;
+    GeoPhotoRepositoryCustom geoPhotoRepository;
 
-   public FeatureCollection getGeoPhotoData(){
+   public FeatureCollection getGeoPhotoData(Parameters parameters){
 
-     List<Feature> features=geoPhotoRepository1.findAll().stream().map(geoPhoto -> toFeature(geoPhoto)).collect(Collectors.toList());
+     List<Feature> features=geoPhotoRepository.findGeoPhotosByParams(parameters).stream().map(dao -> toFeature(dao.getGeoPhoto())).collect(Collectors.toList());
        FeatureCollection featureCollection =new FeatureCollection();
        featureCollection.addAll(features);
        return  featureCollection;
