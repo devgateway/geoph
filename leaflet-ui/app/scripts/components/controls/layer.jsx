@@ -4,6 +4,7 @@ import {Message} from '../lan/'
 import {loadProjects,loadFunding,toggleVisibility,setSetting} from '../../actions/map.js'
 import * as Constants from '../../constants/constants.js';
 import translate from '../../util/translate.js';
+import {Tooltip, OverlayTrigger} from 'react-bootstrap';
 require('./layers.scss');
 const prefix="toolview.layers";
 
@@ -28,11 +29,15 @@ class Settings extends React.Component {
 				{(settings['level'])?
 					<li>
 						<ul className="level">
-							<li><b>{translate('toolview.layers.level')}:</b></li>
-							<li className={settings['level']=="region"?"active":""}  onClick={()=>{this.set('level','region')}}>{translate('toolview.layers.region')}</li>
-							<li className={settings['level']=="province"?"active":""} onClick={()=>{this.set('level','province')}}>{translate('toolview.layers.province')}</li>
-							<li className={settings['level']=="municipality"?"active":""} onClick={()=>{this.set('level','municipality')}}>{translate('toolview.layers.municipality')}</li>
+							<li className="setting-name"><b>{translate('toolview.layers.level')}:</b></li>
+							<li onClick={()=>{this.set('level','region')}}>
+								<div className={settings['level']=="region"?"active":""} >{translate('toolview.layers.region')}</div></li>
+							<li onClick={()=>{this.set('level','province')}}>
+								<div className={settings['level']=="province"?"active":""} >{translate('toolview.layers.province')}</div></li>
+							<li onClick={()=>{this.set('level','municipality')}}>
+								<div className={settings['level']=="municipality"?"active":""} >{translate('toolview.layers.municipality')}</div></li>
 						</ul>
+						<div className="separator"/>				
 					</li>
 				:null}
 				
@@ -49,7 +54,7 @@ class Settings extends React.Component {
 				{(settings['css'])?
 					<li>
 						<ul  className="css colors">
-							<li><b>{translate('toolview.layers.colors')}</b></li>
+							<li className="setting-name"><b>{translate('toolview.layers.colors')}:</b></li>
 							<li className={settings['css']=="red"?"scheme red active":"scheme red "}  onClick={()=>{this.set('css','red')}} ></li>
 							<li className={settings['css']=="yellow"?"scheme yellow active":"scheme yellow "} onClick={()=>{this.set('css','yellow')}}></li>
 							<li className={settings['css']=="green"?"scheme green active":"scheme green "} onClick={()=>{this.set('css','green')}}></li>
@@ -89,7 +94,7 @@ class Settings extends React.Component {
  	}
 
  	getTitle(){
- 		const {keyName,name} = this.props;
+ 		const {keyName, name} = this.props;
  		return(	
  			<div className="group-title"> 
  				<div/>
@@ -102,7 +107,7 @@ class Settings extends React.Component {
  		let selectionClass = "selectable " + (this.props.visible? "selected" : "");
  		const {keyName,name} = this.props;
  		return(	
- 			<div className="group-title" onClick={this.onChange.bind(this)}> 
+ 			<div className="layer-title" onClick={this.onChange.bind(this)}> 
  				<div className={selectionClass}/>
  				{keyName?<Message prefix={prefix} k={keyName}/>:<span>{name}</span>}
  			</div>
@@ -118,7 +123,7 @@ class Settings extends React.Component {
 
  		let childProperties = this.getChildProperties();	
  		return this.props.layers.map((l)=>{
- 			var props={key:l.get('id'), id:l.get('id'), settings:l.get('settings') ,visible:l.get('visible'),name:l.get('name'), keyName:l.get('keyName'), layers:l.get('layers')}
+ 			var props={key:l.get('id'), id:l.get('id'), settings:l.get('settings') ,visible:l.get('visible'),name:l.get('name'), keyName:l.get('keyName'), helpKey:l.get('helpKey'), layers:l.get('layers')}
  			
  			if (l.get('layers')){
  				return 	<LayerGroup {...props} {...childProperties} />
@@ -134,9 +139,16 @@ class Settings extends React.Component {
  */
  class LayerGroup extends ControlComponent {
  	render(){
- 		return( 
+	 	const {helpKey} = this.props;
+	 	return( 
  			<li className="group">
- 				{this.getTitle()}
+ 				{helpKey?
+ 					<OverlayTrigger placement="top" overlay={(<Tooltip id={helpKey}>{translate(helpKey)}</Tooltip>)}>
+ 						{this.getTitle()}
+ 					</OverlayTrigger>
+ 				: 
+ 					this.getTitle()
+ 				}
 				<div className="breadcrums">
 					({this.props.layers.filter(l=>l.get('visible')).size}/{this.props.layers.size})
 				</div>

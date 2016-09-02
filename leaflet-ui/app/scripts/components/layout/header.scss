@@ -121,6 +121,9 @@ ul.options{
 	.options-icons.print{
 		@include icons('../../../assets/svg/print.svg',0,0);
 	}
+	.options-icons.export{
+		@include icons('../../../assets/svg/save.svg',0,0);
+	}
 
 
 	.example-enter {

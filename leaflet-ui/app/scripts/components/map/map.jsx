@@ -31,7 +31,6 @@ const view=React.createClass({
 	},
 
 	getPopUp(id){
-		debugger;
 		if (id=="projectPopup"){
 			return (<ProjectPopup  onClosePopup={this.closePopup}/>)
 		}
@@ -46,17 +45,19 @@ const view=React.createClass({
 
 	getLayer(l){
 		
-		console.log(l);
-		const {data,type,popupId}=l;
+		const {data, type, popupId, id, zIndex}=l;
 		if (type=='clustered'){
-
-			return (<ClusteredLayer data={data}>
-				{this.getPopUp(popupId)}
-				</ClusteredLayer>);
-		}else{
-			return (<SvgLayer zIndex={l.zIndex}  features={data.features}>
-				{this.getPopUp(popupId)}
-				</SvgLayer>)
+			return (
+				<ClusteredLayer data={data}>
+					<PhotoPopup onClosePopup={this.closePopup}/>
+				</ClusteredLayer>
+			);
+		} else {
+			return (
+				<SvgLayer key={id} zIndex={zIndex} features={data.features}>
+					{this.getPopUp(popupId)}
+				</SvgLayer>
+			)
 		}
 	},
 
@@ -68,15 +69,14 @@ const view=React.createClass({
 		
 		return (
 			<div>
-			<Map className="map" bounds={bounds}>
-			<TileLayer url={this.props.map.get('basemap').get('url')}/>
-			{layers.map((l)=>{
-				const {data,type}=l;
-				return (data && data.features)?this.getLayer(l):null;
-			})}
-
-			</Map>
-			<Legends layers={this.props.map.get('layers')} />
+				<Map className="map" bounds={bounds}>
+					<TileLayer url={this.props.map.get('basemap').get('url')}/>
+					{layers.map((l)=>{
+						const {data,type}=l;
+						return (data && data.features)?this.getLayer(l):null;
+					})}
+				</Map>
+				<Legends layers={this.props.map.get('layers')} />
 			</div>
 			);
 	}

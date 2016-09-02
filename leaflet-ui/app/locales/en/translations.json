@@ -49,7 +49,8 @@
 			"fundingtypeoda": "Funding Type (ODA)",
 			"fundingtype": "Funding Type",
 			"financinginstitutionoda": "Financing Institution (ODA)",
-			"financinginstitution": "Financing Institution"
+			"financinginstitution": "Financing Institution",
+			"fundingclassification": "Funding Classification"
 		},
 		"agency": {
 			"agency": "Agency",
@@ -115,7 +116,6 @@
 			"selectedresults": "Selected Results"
 		},
 		"layers": {
-
 			"title": "Adjust layers to see detailed data",
 			"level": "Level",
 			"colors": "Colors",
@@ -135,8 +135,9 @@
 			"geophotos": "Geotagged Photos",
 			"values":"Values",
 			"target":"Target",
-			"actual":"Actual"
-				
+			"actual":"Actual",
+			"photos": "Photos",
+			"progress":"Progress"			
 		}
 	},
 
@@ -184,12 +185,58 @@
 	},
 
 	"help": {
+		"header": {
+			"settings": "Click here to select the funding type",
+			"basemap": "Click here to select the basemap",
+			"share": "Click here to share a link to this dashboard, including applied filters",
+			"print": "Click here to create a PDF image of this map",
+			"export": "Click here to export map data",
+			"save": "Click here to save this map",
+			"filter": "Click here to apply filters to the data in the map and charts"
+		},
+		"stats": "This displays the total number and funding of projects with locations, and of national-level projects",
+		"filters": {
+			"reset": "Click reset to change or search for new information.",
+			"cancel": "Click cancel if you wish not to continue searching for an information",
+			"apply": "Hit the apply button if all desired information are displayed",
+			"search": "Click search after typing desired information",
+			"go": "Click Go after typing the information in the search bar"
+		},
+		"toolview": {
+			"toolviewtab": "Click here to search for projects or change the map layers",
+			"projectsearch": "Search for a project title here",
+			"layerscontrol": "Select Region, Province, or Municipality level to view in map",
+			"geophotos": "This layer includes photos of implementation progress at project locations"
+		},
+		"chartview": {
+			"chartviewtab": "Click here to view charts showing overall data",
+			"barchart": "View bar chart",
+			"piechart": "View pie chart",
+			"funding": "View charts using project funding",
+			"projectcount": "View charts using count of projects",
+			"less": "Show fewer categories in chart",
+			"more": "Show more categories in chart",
+			"expand": "Expand the chart view panel",
+			"collapse": "Reduce the chart view panel",
+			"financinginstitution": "This chart shows the largest financing institutions (donors) for all locations",
+			"implementingagency": "This chart shows the largest implementing agencies for all locations",
+			"physicalstatus": "This chart shows a summary of projects by physical status (e.g. on schedule, ahead of schedule, delayed) for all locations",
+			"sector": "This chart shows the largest sectors for all locations"
+		},
+		"infowindow": {
+			"financinginstitution": "This chart shows the largest financing institutions (donors) for this location",
+			"implementingagency": "This chart shows the largest implementing agencies for this location",
+			"physicalstatus": "This chart shows a summary of projects by physical status (e.g. on schedule, ahead of schedule, delayed) for this location",
+			"sector": "This chart shows the largest sectors for this location",
+			"projectlist": "View a list of all projects matching the applied filters in this location"
+		},
+		"legends": "Click here to show map legends",
 		"projectsearch": {
-			"selectall": "Click here to select all results matched",
-			"selectedresults": "Click here to see only selected",
-			"searchresults": "Click here to see all",
-			"apply": "Apply selected projects as filter",
-			"clearall": "Clear all (results and selection)"
+			"selectall": "Select all projects retrieved in the Project List according to the text entered above",
+			"selectedresults": "Show only the selected projects",
+			"searchresults": "Show result projects",
+			"apply": "Apply the Project Title filter to the map. If you have applied a filter in the Filter window, both filters Projects + Filters will be applied",
+			"clearall": "Deselect all projects from the project list"
 		}
 	},
 

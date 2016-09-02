@@ -22,23 +22,25 @@ import { render, unmountComponentAtNode } from 'react-dom';
   }
 
   componentWillUnmount() {
-    this.svg.remove();  
-    //this.svg=null;  
+    this.svg.remove();
+    this.props.map.off("click",this.mapClick.bind(this));
   }
 
+
+  mapClick(evt){
+      evt.originalEvent.stopPropagation();
+      this.renderPopupContent(Object.assign({}, evt.originalEvent.features, {latlng: evt.latlng}));
+  }
+  
   componentWillMount() {
     super.componentWillMount();
     this.leafletElement = geoJson();
     
     this.svg = d3.select(this.props.map.getPanes().overlayPane).append("svg"); 
-    
     this.svg.style("z-index",this.props.zIndex);
     this.g = this.svg.append("g").attr("class", "leaflet-zoom-hide");
     this.props.map.on('moveend', this.mapUpdate.bind(this));
-    this.props.map.on('click', function(evt) {
-      evt.originalEvent.stopPropagation();
-      this.renderPopupContent(Object.assign({}, evt.originalEvent.features, {latlng: evt.latlng}));
-    }.bind(this));
+    this.props.map.on('click', this.mapClick.bind(this));
     this.mapUpdate();//trigger first update
   }
 
@@ -74,6 +76,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
   }
 
   onClick(properties){
+    console.log("onClick!!");
     d3.event.features=properties;    
   }
 
@@ -141,7 +144,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
     } else {
       latLong = L.latLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0])
     }
-    let popup = L.popup({maxWidth:"400", minWidth:"250", maxHeight:"280"})
+    let popup = L.popup({maxWidth:"400", maxHeight:"300"})
     .setLatLng(latLong)
     .openOn(this.props.map);
     if (this.props.children) {

@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import translate from '../../../util/translate.js';
 import {Message} from '../../lan/'
 import {getVisibles} from '../../../util/layersUtil.js';
+import {Tooltip, OverlayTrigger} from 'react-bootstrap';
 const prefix="toolview.layers";
 
 require('./legends.scss');
@@ -40,9 +41,11 @@ class Legends extends React.Component {
     const  visible = map.get('legends').get('visible');
     return (
       <div className='legends-container'>
-        <div className='show-legends-button' onClick={this.props.onToggleView}>
-          <div className='show-legends-button-icon' />
-        </div>
+        <OverlayTrigger placement="top" overlay={(<Tooltip id="help.legends">{translate('help.legends')}</Tooltip>)}>
+          <div className='show-legends-button' onClick={this.props.onToggleView}>
+            <div className='show-legends-button-icon' />
+          </div>
+        </OverlayTrigger>
         {visible?
           <div className='legends-content'>
             {layersVisible.map((layer)=>{

@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>HFEP Tarlac</name>
+	<open>1</open>
+	<Snippet maxLines="2">By Tessa Sibal</Snippet>
+	<description><![CDATA[<table><tr><td style="padding: 0 5px"><a href="https://picasaweb.google.com/112579409855592723681/HFEPTarlac"><img style="border:1px solid #5C7FB9" src="https://lh3.googleusercontent.com/-HhVMuk2NZ_8/VjrBEFZrUCE/AAAAAAAABMM/rT7ZMqHNEPk/s160-c-Ic42/HFEPTarlac.jpg" alt="HFEP Tarlac"/></a></td><td valign="top"><p><font color="#333333"></font></p><font color="#6B6B6B">Location: </font><font color="#333333">Tarlac, Philippines</font><br/><font color="#6B6B6B">Date: </font><font color="#333333">Nov 4, 2015</font><br/><font color="#6B6B6B">Number of Photos in Album: </font><font color="#333333">22</font><br/></td></tr><tr><td colspan="2"<p><a href="https://picasaweb.google.com/112579409855592723681/HFEPTarlac"><font color=\"#3964C2\">View Album</font></a></p></td></tr></table>]]></description>
+	<styleUrl>#document</styleUrl>
+	<StyleMap id="msn_grn-circle">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_grn-circle</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_grn-circle</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sn_red-circle">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/red-circle.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LabelStyle>
+			<scale>0</scale>
+		</LabelStyle>
+		<BalloonStyle>
+			<text><![CDATA[<a href="https://picasaweb.google.com"><img src="http://www.google.com/accounts/lh2/picasaweblogo-en_US.gif" alt="Picasa Web Albums"></a><hr color="#dfdfdf"/><font face="Arial" style="font-size:10pt" color="#4d4d4d"><b>$[name]</b>$[description]</font>]]></text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/red-circle-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<Style id="sn_grn-circle">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/grn-circle.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LabelStyle>
+			<scale>0</scale>
+		</LabelStyle>
+		<BalloonStyle>
+			<text><![CDATA[<a href="https://picasaweb.google.com"><img src="http://www.google.com/accounts/lh2/picasaweblogo-en_US.gif" alt="Picasa Web Albums"></a><hr color="#dfdfdf"/><font face="Arial" style="font-size:10pt" color="#4d4d4d"><b>$[name]</b>$[description]</font>]]></text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/grn-circle-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<Style id="document_on">
+		<IconStyle>
+			<scale>0.8</scale>
+			<Icon>
+				<href>https://picasaweb.google.com/s/v/lighthousefe_20150907.00_p0/picasa_pinOn.png</href>
+			</Icon>
+		</IconStyle>
+		<BalloonStyle>
+			<text><![CDATA[<a href="https://picasaweb.google.com"><img src="http://www.google.com/accounts/lh2/picasaweblogo-en_US.gif" alt="Picasa Web Albums"></a><hr color="#dfdfdf"/><font face="Arial" style="font-size:10pt" color="#4d4d4d"><b>$[name]</b>$[description]</font>]]></text>
+		</BalloonStyle>
+	</Style>
+	<StyleMap id="msn_red-diamond">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_red-diamond</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_red-diamond</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sh_grn-circle">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/grn-circle.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<BalloonStyle>
+			<text><![CDATA[<a href="https://picasaweb.google.com"><img src="http://www.google.com/accounts/lh2/picasaweblogo-en_US.gif" alt="Picasa Web Albums"></a><hr color="#dfdfdf"/><font face="Arial" style="font-size:10pt" color="#4d4d4d"><b>$[name]</b>$[description]</font>]]></text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/grn-circle-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<StyleMap id="document">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#document_off</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#document_on</styleUrl>
+		</Pair>
+	</StyleMap>
+	<StyleMap id="msn_red-circle">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_red-circle</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_red-circle</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sh_red-circle">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/red-circle.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<BalloonStyle>
+			<text><![CDATA[<a href="https://picasaweb.google.com"><img src="http://www.google.com/accounts/lh2/picasaweblogo-en_US.gif" alt="Picasa Web Albums"></a><hr color="#dfdfdf"/><font face="Arial" style="font-size:10pt" color="#4d4d4d"><b>$[name]</b>$[description]</font>]]></text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/red-circle-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<Style id="sh_red-diamond">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/red-diamond.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<BalloonStyle>
+			<text><![CDATA[<a href="https://picasaweb.google.com"><img src="http://www.google.com/accounts/lh2/picasaweblogo-en_US.gif" alt="Picasa Web Albums"></a><hr color="#dfdfdf"/><font face="Arial" style="font-size:10pt" color="#4d4d4d"><b>$[name]</b>$[description]</font>]]></text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/red-diamond-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<Style id="sn_red-diamond">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/red-diamond.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LabelStyle>
+			<scale>0</scale>
+		</LabelStyle>
+		<BalloonStyle>
+			<text><![CDATA[<a href="https://picasaweb.google.com"><img src="http://www.google.com/accounts/lh2/picasaweblogo-en_US.gif" alt="Picasa Web Albums"></a><hr color="#dfdfdf"/><font face="Arial" style="font-size:10pt" color="#4d4d4d"><b>$[name]</b>$[description]</font>]]></text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/red-diamond-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<Style id="document_off">
+		<IconStyle>
+			<scale>0.7</scale>
+			<Icon>
+				<href>https://picasaweb.google.com/s/v/lighthousefe_20150907.00_p0/picasa_pinOff.png</href>
+			</Icon>
+		</IconStyle>
+		<LabelStyle>
+			<scale>0</scale>
+		</LabelStyle>
+		<BalloonStyle>
+			<text><![CDATA[<a href="https://picasaweb.google.com"><img src="http://www.google.com/accounts/lh2/picasaweblogo-en_US.gif" alt="Picasa Web Albums"></a><hr color="#dfdfdf"/><font face="Arial" style="font-size:10pt" color="#4d4d4d"><b>$[name]</b>$[description]</font>]]></text>
+		</BalloonStyle>
+	</Style>
+	<Placemark id="entry1">
+		<name>Lapaz</name>
+		<Snippet maxLines="0"></Snippet>
+		<description><![CDATA[<table><tr><td style="padding: 0 5px"><a href="https://picasaweb.google.com/112579409855592723681/HFEPTarlac#6213490913317370338"><img style="border:1px solid #5C7FB9" src="https://lh3.googleusercontent.com/-b5CJZQnpuwQ/VjrBEK9mOeI/AAAAAAAABKE/DGQ_yvuBeKI/s400-Ic42/Lapaz%252520MunHall.jpg" alt="Lapaz MunHall.jpg"/></a></td><td valign="top"><font color="#6B6B6B">Date: </font><font color="#333333">Nov 4, 2015, 7:05 AM</font><br/><font color=\"#6B6B6B\">Number of Comments on Photo:</font><font color=\"#333333\">0</font><br/><p><a href="https://picasaweb.google.com/112579409855592723681/HFEPTarlac#6213490913317370338"><font color="#3964C2">View Photo</font></a></p></td></tr></table>
+<br>
+<table><tr><td style="padding: 0 5px"><a href="https://picasaweb.google.com/112579409855592723681/HFEPTarlac#6213490912807513106"><img style="border:1px solid #5C7FB9" src="https://lh3.googleusercontent.com/-zYufz12whTs/VjrBEJECbBI/AAAAAAAABJ4/kCpdDmpvB9o/s400-Ic42/Lapaz%252520RHU%252520front.jpg" alt="Lapaz RHU front.jpg"/></a></td><td valign="top"><font color="#6B6B6B">Date: </font><font color="#333333">Nov 4, 2015, 7:32 AM</font><br/><font color=\"#6B6B6B\">Number of Comments on Photo:</font><font color=\"#333333\">0</font><br/><p><a href="https://picasaweb.google.com/112579409855592723681/HFEPTarlac#6213490912807513106"><font color="#3964C2">View Photo</font></a></p></td></tr></table>
+<br>
+<table><tr><td style="padding: 0 5px"><a href="https://picasaweb.google.com/112579409855592723681/HFEPTarlac#6213490918296580690"><img style="border:1px solid #5C7FB9" src="https://lh3.googleusercontent.com/-WmVEtpG9hjQ/VjrBEdgu8lI/AAAAAAAABMI/kBuexEEI9fQ/s400-Ic42/Lapaz%252520RHU.jpg" alt="Lapaz RHU.jpg"/></a></td><td valign="top"><font color="#6B6B6B">Date: </font><font color="#333333">Nov 4, 2015, 7:06 AM</font><br/><font color=\"#6B6B6B\">Number of Comments on Photo:</font><font color=\"#333333\">0</font><br/><p><a href="https://picasaweb.google.com/112579409855592723681/HFEPTarlac#6213490918296580690"><font color="#3964C2">View Photo</font></a></p></td></tr></table>
+<br>
+<table><tr><td style="padding: 0 5px"><a href="https://picasaweb.google.com/112579409855592723681/HFEPTarlac#6213490925120999554"><img style="border:1px solid #5C7FB9" src="https://lh3.googleusercontent.com/-3LP2IAhldR0/VjrBE27zUII/AAAAAAAABKU/fRbPZZI2hcw/s400-Ic42/Lapaz%252520RHUb.jpg" alt="Lapaz RHUb.jpg"/></a></td><td valign="top"><font color="#6B6B6B">Date: </font><font color="#333333">Nov 4, 2015, 7:06 AM</font><br/><font color=\"#6B6B6B\">Number of Comments on Photo:</font><font color=\"#333333\">0</font><br/><p><a href="https://picasaweb.google.com/112579409855592723681/HFEPTarlac#6213490925120999554"><font color="#3964C2">View Photo</font></a></p></td></tr></table>
+<br>
+<table><tr><td style="padding: 0 5px"><a href="https://picasaweb.google.com/112579409855592723681/HFEPTarlac#6213490923666142194"><img style="border:1px solid #5C7FB9" src="https://lh3.googleusercontent.com/-FQ7ZGWy3Opg/VjrBExg78_I/AAAAAAAABKg/3U-xOkFMsdI/s400-Ic42/Lapaz%252520RHUc.jpg" alt="Lapaz RHUc.jpg"/></a></td><td valign="top"><font color="#6B6B6B">Date: </font><font color="#333333">Nov 4, 2015, 7:07 AM</font><br/><font color=\"#6B6B6B\">Number of Comments on Photo:</font><font color=\"#333333\">0</font><br/><p><a href="https://picasaweb.google.com/112579409855592723681/HFEPTarlac#6213490923666142194"><font color="#3964C2">View Photo</font></a></p></td></tr></table>
+<br>
+<table><tr><td style="padding: 0 5px"><a href="https://picasaweb.google.com/112579409855592723681/HFEPTarlac#6213490930105129618"><img style="border:1px solid #5C7FB9" src="https://lh3.googleusercontent.com/-FqFY3Xv5dJw/VjrBFJgHGpI/AAAAAAAABKk/Rj6-BTkrZTA/s400-Ic42/Lapaz%252520RHUd.jpg" alt="Lapaz RHUd.jpg"/></a></td><td valign="top"><font color="#6B6B6B">Date: </font><font color="#333333">Nov 4, 2015, 7:07 AM</font><br/><font color=\"#6B6B6B\">Number of Comments on Photo:</font><font color=\"#333333\">0</font><br/><p><a href="https://picasaweb.google.com/112579409855592723681/HFEPTarlac#6213490930105129618"><font color="#3964C2">View Photo</font></a></p></td></tr></table>
+<br>
+<table><tr><td style="padding: 0 5px"><a href="https://picasaweb.google.com/112579409855592723681/HFEPTarlac#6213490938674523970"><img style="border:1px solid #5C7FB9" src="https://lh3.googleusercontent.com/-N7DIiYtDwFw/VjrBFpbNr0I/AAAAAAAABL8/VxyyONL9FnE/s400-Ic42/Lapaz%252520TempRHUb.jpg" alt="Lapaz TempRHUb.jpg"/></a></td><td valign="top"><font color="#6B6B6B">Date: </font><font color="#333333">Nov 4, 2015, 7:03 AM</font><br/><font color=\"#6B6B6B\">Number of Comments on Photo:</font><font color=\"#333333\">0</font><br/><p><a href="https://picasaweb.google.com/112579409855592723681/HFEPTarlac#6213490938674523970"><font color="#3964C2">View Photo</font></a></p></td></tr></table>]]></description>
+		<styleUrl>#msn_red-diamond</styleUrl>
+		<Point>
+			<coordinates>120.7297027,15.4411805,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="entry9">
+		<name>Pura RHU</name>
+		<Snippet maxLines="0"></Snippet>
+		<description><![CDATA[<table><tr><td style="padding: 0 5px"><a href="https://picasaweb.google.com/112579409855592723681/HFEPTarlac#6213490938379355842"><img style="border:1px solid #5C7FB9" src="https://lh3.googleusercontent.com/-Sr8sEgl-mSg/VjrBFoU1xsI/AAAAAAAABK4/WBcx_z39Nro/s400-Ic42/Pura%252520RHU%252520front.jpg" alt="Pura RHU front.jpg"/></a></td><td valign="top"><font color="#6B6B6B">Date: </font><font color="#333333">Nov 4, 2015, 6:03 AM</font><br/><font color=\"#6B6B6B\">Number of Comments on Photo:</font><font color=\"#333333\">0</font><br/><p><a href="https://picasaweb.google.com/112579409855592723681/HFEPTarlac#6213490938379355842"><font color="#3964C2">View Photo</font></a></p></td></tr></table>
+<br>
+<table><tr><td style="padding: 0 5px"><a href="https://picasaweb.google.com/112579409855592723681/HFEPTarlac#6213490943558173778"><img style="border:1px solid #5C7FB9" src="https://lh3.googleusercontent.com/-ac3pdCZR9Fg/VjrBF7nkRFI/AAAAAAAABLI/AGuCl1Btpik/s400-Ic42/Pura%252520RHU%252520sidev.jpg" alt="Pura RHU sidev.jpg"/></a></td><td valign="top"><font color="#6B6B6B">Date: </font><font color="#333333">Nov 4, 2015, 6:03 AM</font><br/><font color=\"#6B6B6B\">Number of Comments on Photo:</font><font color=\"#333333\">0</font><br/><p><a href="https://picasaweb.google.com/112579409855592723681/HFEPTarlac#6213490943558173778"><font color="#3964C2">View Photo</font></a></p></td></tr></table>]]></description>
+		<styleUrl>#msn_red-circle</styleUrl>
+		<Point>
+			<coordinates>120.6384305,15.589325,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="entry12">
+		<name>Ramos RHUb.jpg</name>
+		<Snippet maxLines="0"></Snippet>
+		<description><![CDATA[<table><tr><td style="padding: 0 5px"><a href="https://picasaweb.google.com/112579409855592723681/HFEPTarlac#6213490950385515330"><img style="border:1px solid #5C7FB9" src="https://lh3.googleusercontent.com/-_33rizHpCaY/VjrBGVDVO0I/AAAAAAAABK0/MGDDrb5trtI/s400-Ic42/Ramos%252520RHUb.jpg" alt="Ramos RHUb.jpg"/></a></td><td valign="top"><font color="#6B6B6B">Date: </font><font color="#333333">Nov 4, 2015, 5:26 AM</font><br/><font color=\"#6B6B6B\">Number of Comments on Photo:</font><font color=\"#333333\">0</font><br/><p><a href="https://picasaweb.google.com/112579409855592723681/HFEPTarlac#6213490950385515330"><font color="#3964C2">View Photo</font></a></p></td></tr></table>
+<br>
+<table><tr><td style="padding: 0 5px"><a href="https://picasaweb.google.com/112579409855592723681/HFEPTarlac#6213490947037999634"><img style="border:1px solid #5C7FB9" src="https://lh3.googleusercontent.com/-rPCnDwcAAt0/VjrBGIlOMhI/AAAAAAAABKw/PBq3BiMP7-Y/s400-Ic42/Ramos%252520RHU.jpg" alt="Ramos RHU.jpg"/></a></td><td valign="top"><font color="#6B6B6B">Date: </font><font color="#333333">Nov 4, 2015, 5:25 AM</font><br/><font color=\"#6B6B6B\">Number of Comments on Photo:</font><font color=\"#333333\">0</font><br/><p><a href="https://picasaweb.google.com/112579409855592723681/HFEPTarlac#6213490947037999634"><font color="#3964C2">View Photo</font></a></p></td></tr></table>]]></description>
+		<styleUrl>#msn_red-circle</styleUrl>
+		<Point>
+			<coordinates>120.6380777,15.6642722,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="entry13">
+		<name>Tarlac PH</name>
+		<Snippet maxLines="0"></Snippet>
+		<description><![CDATA[<table><tr><td style="padding: 0 5px"><a href="https://picasaweb.google.com/112579409855592723681/HFEPTarlac#6213490955175861618"><img style="border:1px solid #5C7FB9" src="https://lh3.googleusercontent.com/-7hxFD0xch58/VjrBGm5cHXI/AAAAAAAABLQ/yEbrZ5r2WQ0/s400-Ic42/TPH1.jpg" alt="TPH1.jpg"/></a></td><td valign="top"><font color="#6B6B6B">Date: </font><font color="#333333">Nov 4, 2015, 2:39 AM</font><br/><font color=\"#6B6B6B\">Number of Comments on Photo:</font><font color=\"#333333\">0</font><br/><p><a href="https://picasaweb.google.com/112579409855592723681/HFEPTarlac#6213490955175861618"><font color="#3964C2">View Photo</font></a></p></td></tr></table>
+<br>
+<table><tr><td style="padding: 0 5px"><a href="https://picasaweb.google.com/112579409855592723681/HFEPTarlac#6213490958072979090"><img style="border:1px solid #5C7FB9" src="https://lh3.googleusercontent.com/-xA7k5ZS9dCY/VjrBGxsKnpI/AAAAAAAABL0/Q7PWAiwjFfg/s400-Ic42/TPH2.jpg" alt="TPH2.jpg"/></a></td><td valign="top"><font color="#6B6B6B">Date: </font><font color="#333333">Nov 4, 2015, 2:39 AM</font><br/><font color=\"#6B6B6B\">Number of Comments on Photo:</font><font color=\"#333333\">0</font><br/><p><a href="https://picasaweb.google.com/112579409855592723681/HFEPTarlac#6213490958072979090"><font color="#3964C2">View Photo</font></a></p></td></tr></table>
+<br>
+<table><tr><td style="padding: 0 5px"><a href="https://picasaweb.google.com/112579409855592723681/HFEPTarlac#6213490959143017314"><img style="border:1px solid #5C7FB9" src="https://lh3.googleusercontent.com/-lfIUxxeuRQE/VjrBG1rSG2I/AAAAAAAABLE/up0EAVmFsyo/s400-Ic42/TPH3.jpg" alt="TPH3.jpg"/></a></td><td valign="top"><font color="#6B6B6B">Date: </font><font color="#333333">Nov 4, 2015, 2:40 AM</font><br/><font color=\"#6B6B6B\">Number of Comments on Photo:</font><font color=\"#333333\">0</font><br/><p><a href="https://picasaweb.google.com/112579409855592723681/HFEPTarlac#6213490959143017314"><font color="#3964C2">View Photo</font></a></p></td></tr></table>]]></description>
+		<styleUrl>#msn_grn-circle</styleUrl>
+		<Point>
+			<coordinates>120.5864222,15.4754972,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="entry18">
+		<name>Victoria RHU2</name>
+		<Snippet maxLines="0"></Snippet>
+		<description><![CDATA[<table><tr><td style="padding: 0 5px"><a href="https://picasaweb.google.com/112579409855592723681/HFEPTarlac#6213490971694268738"><img style="border:1px solid #5C7FB9" src="https://lh3.googleusercontent.com/-vI7oMsR6JcA/VjrBHkbvAUI/AAAAAAAABME/UTVPMcgZdOs/s400-Ic42/Victoria%252520RHU.jpg" alt="Victoria RHU.jpg"/></a></td><td valign="top"><font color="#6B6B6B">Date: </font><font color="#333333">Nov 4, 2015, 4:41 AM</font><br/><font color=\"#6B6B6B\">Number of Comments on Photo:</font><font color=\"#333333\">0</font><br/><p><a href="https://picasaweb.google.com/112579409855592723681/HFEPTarlac#6213490971694268738"><font color="#3964C2">View Photo</font></a></p></td></tr></table>
+<br>
+<table><tr><td style="padding: 0 5px"><a href="https://picasaweb.google.com/112579409855592723681/HFEPTarlac#6213490981186228546"><img style="border:1px solid #5C7FB9" src="https://lh3.googleusercontent.com/-7Dt1vbtbViM/VjrBIHyy0UI/AAAAAAAABLk/xMu51T4wSII/s400-Ic42/Victoria%252520RHUc.jpg" alt="Victoria RHUc.jpg"/></a></td><td valign="top"><font color="#6B6B6B">Date: </font><font color="#333333">Nov 4, 2015, 4:46 AM</font><br/><font color=\"#6B6B6B\">Number of Comments on Photo:</font><font color=\"#333333\">0</font><br/><p><a href="https://picasaweb.google.com/112579409855592723681/HFEPTarlac#6213490981186228546"><font color="#3964C2">View Photo</font></a></p></td></tr></table>
+<br>
+<table><tr><td style="padding: 0 5px"><a href="https://picasaweb.google.com/112579409855592723681/HFEPTarlac#6213490985138560962"><img style="border:1px solid #5C7FB9" src="https://lh3.googleusercontent.com/-zx7VWKiYYAs/VjrBIWhGn8I/AAAAAAAABLw/YMQmNlKP3oE/s400-Ic42/Victoria%252520RHUd.jpg" alt="Victoria RHUd.jpg"/></a></td><td valign="top"><font color="#6B6B6B">Date: </font><font color="#333333">Nov 4, 2015, 4:45 AM</font><br/><font color=\"#6B6B6B\">Number of Comments on Photo:</font><font color=\"#333333\">0</font><br/><p><a href="https://picasaweb.google.com/112579409855592723681/HFEPTarlac#6213490985138560962"><font color="#3964C2">View Photo</font></a></p></td></tr></table>
+<br>
+<table><tr><td style="padding: 0 5px"><a href="https://picasaweb.google.com/112579409855592723681/HFEPTarlac#6213490983803370370"><img style="border:1px solid #5C7FB9" src="https://lh3.googleusercontent.com/-LNJS0s5VGgY/VjrBIRixO4I/AAAAAAAABL4/d5LWLu2TLJI/s400-Ic42/Victoria%252520RHUe.jpg" alt="Victoria RHUe.jpg"/></a></td><td valign="top"><font color="#6B6B6B">Date: </font><font color="#333333">Nov 4, 2015, 4:44 AM</font><br/><font color=\"#6B6B6B\">Number of Comments on Photo:</font><font color=\"#333333\">0</font><br/><p><a href="https://picasaweb.google.com/112579409855592723681/HFEPTarlac#6213490983803370370"><font color="#3964C2">View Photo</font></a></p></td></tr></table>]]></description>
+		<styleUrl>#msn_grn-circle</styleUrl>
+		<Point>
+			<coordinates>120.7244666,15.5971527,0</coordinates>
+		</Point>
+	</Placemark>
+</Document>
+</kml>

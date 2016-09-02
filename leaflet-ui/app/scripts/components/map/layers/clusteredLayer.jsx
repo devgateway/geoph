@@ -19,18 +19,16 @@ require('./cluster.scss');
 
 
  	componentWillMount() {
- 		debugger;
- 		
+ 
  		const {data,map}=this.props 
  		var geojson = geoJson(data, 
  		{
  			
  			onEachFeature: function (feature, layer) {
  				layer.on('click', function (e) {
- 					console.log(e);
-
- 				});
- 			},
+ 					this.renderPopupContent(feature);
+ 				}.bind(this));
+ 			}.bind(this),
 
  			style: function (feature) {
 
@@ -72,13 +70,9 @@ require('./cluster.scss');
  		if (!feature || !feature.geometry){
  			return null;
  		}
- 		let latLong;
- 		if (feature.geometry.type=="MultiPolygon"){
- 			latLong = feature.latlng;
- 		} else {
- 			latLong = L.latLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0])
- 		}
- 		let popup = L.popup({maxWidth:"400", minWidth:"250", maxHeight:"280"})
+ 		const latLong = L.latLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0])
+ 		
+ 		let popup = L.popup({maxWidth:"500",maxHeight:"400"})
  		.setLatLng(latLong)
  		.openOn(this.props.map);
  		if (this.props.children) {
@@ -97,3 +91,18 @@ require('./cluster.scss');
  	}
 
  }
+
+
+const  storeShape=PropTypes.shape({
+  subscribe: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  getState: PropTypes.func.isRequired
+})
+
+ClusteredLayer.contextTypes = {
+  store: storeShape
+}
+
+ClusteredLayer.propTypes = {
+  store: storeShape
+}

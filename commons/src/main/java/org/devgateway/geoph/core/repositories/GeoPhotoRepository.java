@@ -1,20 +1,11 @@
 package org.devgateway.geoph.core.repositories;
 
-import org.devgateway.geoph.dao.GeoPhotoGeometryDao;
-import org.devgateway.geoph.model.GeoPhotoSource;
-
-import java.util.List;
+import org.devgateway.geoph.model.GeoPhoto;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
- * @author dbianco
- *         created on abr 29 2016.
+ * Created by sebas on 8/30/2016.
  */
-public interface GeoPhotoRepository {
-    List<GeoPhotoSource> findAllGeoPhotoSources();
+public interface GeoPhotoRepository extends JpaRepository<GeoPhoto,Long>  {
 
-    GeoPhotoSource findByCode(String name);
-
-    List<GeoPhotoGeometryDao> getGeoPhotoGeometryByKmlId(Long kmlId);
-
-    List<GeoPhotoGeometryDao> getGeoPhotoGeometry();
 }

@@ -3,6 +3,7 @@ package org.devgateway.geoph.rest;
 import org.devgateway.geoph.core.request.AppRequestParams;
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.core.services.GeoJsonService;
+import org.devgateway.geoph.core.services.GeoPhotosService;
 import org.devgateway.geoph.core.services.LayerService;
 import org.devgateway.geoph.enums.GeometryDetailLevelEnum;
 import org.devgateway.geoph.enums.LocationAdmLevelEnum;
@@ -28,11 +29,14 @@ public class GeoJsonController extends BaseController {
 
     private final GeoJsonService geoJsonService;
 
+    private final GeoPhotosService geoPhotosService;
+
     private final LayerService layerService;
 
     @Autowired
-    public GeoJsonController(GeoJsonService geoJsonService, LayerService layerService) {
+    public GeoJsonController(GeoJsonService geoJsonService, LayerService layerService,GeoPhotosService geoPhotosService) {
         this.geoJsonService = geoJsonService;
+        this.geoPhotosService = geoPhotosService;
         this.layerService = layerService;
     }
 
@@ -76,18 +80,11 @@ public class GeoJsonController extends BaseController {
         return layerService.getIndicatorsData(indicatorId);
     }
 
-    @RequestMapping(value = "/geophotos/id/{kmlId}", method = GET)
-    public FeatureCollection getGeoPhotosDataById(@PathVariable final long kmlId) {
-        LOGGER.debug("getGeoPhotosData for kml id:" + kmlId);
-        return layerService.getGeoPhotoDataById(kmlId);
-    }
-
-
 
     @RequestMapping(value = "/geophotos", method = GET)
-    public FeatureCollection getGeoPhotosData() {
+    public FeatureCollection getGeoPhotosData(AppRequestParams filters) {
         LOGGER.debug("getGeoPhotosData");
-        return layerService.getGeoPhotoData();
+        return geoPhotosService.getGeoPhotoData(filters.getParameters());
     }
 
 

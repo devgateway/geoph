@@ -4,9 +4,9 @@ import Immutable from 'immutable';
 import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson, 
   createLegendsByDomain , getVisibles,getValues} from '../util/layersUtil.js';
 
-  const statsIndex = 1;
-  const indicatorsIndex = 2;
-  const geophotosIndex = 3;
+  const geophotosIndex = 1;
+  const statsIndex = 2;
+  const indicatorsIndex = 3;
   const size = 9;
 
   const defaultState = Immutable.fromJS(
@@ -35,7 +35,7 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
 
     layers: [
     {
-      id: 0,
+      id: '0',
       keyName: 'projects',
       layers: [
       {
@@ -59,11 +59,36 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
           supportFilters: true
         }
         ]
-      }, {
+      }, 
+      {
         id: '1',
-        keyName: 'stats',
+        keyName: 'photos',
         layers: [{
           id: '1-0',
+          keyName: 'geophotos',
+          helpKey: "help.toolview.geophotos",
+          type: 'clustered',
+          ep: 'GEOPHOTOS_GEOJSON',
+          cssPrefix: 'geophotos', //markers css prefix 
+          default: false,
+          border: 2,
+          popupId:"PhotoPopup",
+          name:'Geotagged Photos',
+          computeOnload:false, //disable css addition for this later
+          legends:[
+            {cls: 'legend-photos more-100', 'label': 'more than 100'},
+            {cls: 'legend-photos less-100', 'label': 'less than 100'},
+            {cls: 'legend-photos less-10', 'label': 'less than 10'},
+            {cls: 'legend-photos single-photo', 'label': 'single photo'},
+          ]
+
+        }]
+      }, 
+      {
+        id: '2',
+        keyName: 'stats',
+        layers: [{
+          id: '2-0',
           type: 'shapes',
           ep: 'FUNDING_GEOJSON',
           settings: {
@@ -82,39 +107,31 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
         }]
       }, 
       {
-        id: '2',
+        id: '3',
         keyName: 'indicators',
         layers: []
-      }, 
-      {
-        id: '3',
-        keyName: 'geophotos',
-        type: 'clustered',
-        ep: 'GEOPHOTOS_GEOJSON',
-        cssPrefix: 'geophotos', //markers css prefix 
-        default: false,
-        border: 2,
-        popupId:"PhotoPopup",
-        name:'Geotagged Photos',
-        computeOnload:false, //disable css addition for this later
       },
       {
         id: '4',
-        type: 'shapes',
-        ep: 'PHYSICAL_GEOJSON',
-        settings: {
-          'css': 'red','valueProperty':'physicalProgress'
-        },
-        cssPrefix: 'funding', //markers css prefix 
-        default: false,
-        border: 2,
-        name:'Physical Progress',
-        zIndex: 99,
-        cssProvider: JenksCssProvider,
-        thresholds: 5,
-        keyName: 'physical',
-        popupId: "defaultPopup",
-        supportFilters: true
+        keyName: 'progress',
+        layers: [{
+          id: '4-0',
+          type: 'shapes',
+          ep: 'PHYSICAL_GEOJSON',
+          settings: {
+            'css': 'red','valueProperty':'physicalProgress'
+          },
+          cssPrefix: 'funding', //markers css prefix 
+          default: false,
+          border: 2,
+          name:'Physical Progress',
+          zIndex: 99,
+          cssProvider: JenksCssProvider,
+          thresholds: 5,
+          keyName: 'physical',
+          popupId: "defaultPopup",
+          supportFilters: true
+        }]
       }
 
       ]
@@ -141,6 +158,7 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
         thresholds: 5,
         valueProperty: "value",
         name,
+        popupId: "defaultPopup",
         settings: {
           'css': css || 'red'
         }
@@ -149,31 +167,7 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
 
     return state.setIn(["layers", indicatorsIndex, "layers"], Immutable.fromJS(layers));
   }
-  const setGeophotos = (state, geophotos) => {
-    var index = 0;
-    let layers = geophotos.map(it => {
-      const {id, colorScheme: css, name} = it;
-      const layerId =  geophotosIndex + "-" + index++;
-      return {
-        id: layerId,
-        geophotos_id: id,
-        zIndex: 101,
-        ep: "GEOPHOTOS",
-        type: 'points',
-        name,
-        size: 4, 
-        border: 2, 
-        popupId: "photoPopup",   
-        cssPrefix: 'points', 
-        settings: {
-          'css': css || 'blue'
-        }
-      }
-    });
-
-    return state.setIn(["layers", geophotosIndex, "layers"], Immutable.fromJS(layers));
-  }
-
+  
   const getType = (state, id) => {
     return state.getIn(getPath(id, ["type"]));
   }
@@ -210,24 +204,23 @@ const makeStyledGeoJson=(settings,data, fundingType, classProviderInstance)=>{
 }
 
 const getLayerSettings=(layer)=>{
- const thresholds = layer.get('thresholds')
- const cssProvider = layer.get('cssProvider');
- const valueProperty =layer.get('valueProperty') || layer.getIn(['settings','valueProperty']);
- const cssPrefix=layer.get('cssPrefix');
- const css=layer.getIn(['settings','css']);
- const name=layer.get('name');
- const popupId=layer.get('popupId');
- const border=layer.get('border');
- const size=layer.get('size');
- return {thresholds,cssProvider,valueProperty,cssPrefix,css,name,popupId,border,size}
+  const thresholds = layer.get('thresholds')
+  const cssProvider = layer.get('cssProvider');
+  const valueProperty =layer.get('valueProperty') || layer.getIn(['settings','valueProperty']);
+  const cssPrefix=layer.get('cssPrefix');
+  const css=layer.getIn(['settings','css']);
+  const name=layer.get('name');
+  const popupId=layer.get('popupId');
+  const border=layer.get('border');
+  const size=layer.get('size');
+  return {thresholds,cssProvider,valueProperty,cssPrefix,css,name,popupId,border,size}
 }
 
 /*Extract layer properties and create class provider */
 const getClassProvider=(settings,features,fundingType)=>{
- const {thresholds,cssProvider,valueProperty}=settings;
- const values = getValues(features, valueProperty, fundingType); //extract values from features 
- console.log(values);
- return createCSSProviderInstance(thresholds, values, cssProvider);
+  const {thresholds,cssProvider,valueProperty}=settings;
+  const values = getValues(features, valueProperty, fundingType); //extract values from features 
+  return createCSSProviderInstance(thresholds, values, cssProvider);
 }
 
 
@@ -265,11 +258,8 @@ const updateLayer=(state,action,id)=>{
   var {fundingType,data} = action;
   id= id || action.id; 
   if (state.getIn(getPath(id, ["computeOnload"])) == false) {
-
     return state.setIn(getPath(id, ["data"]),action.data);
-    
   }
-
  
   const layer=state.getIn(getPath(id));
   data= data || layer.get('data').toJS();

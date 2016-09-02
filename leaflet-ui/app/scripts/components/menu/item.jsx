@@ -2,6 +2,7 @@ import React from 'react';
 import {LangSwitcher} from '../lan/'
 import FilterPopup from '../filter/filters.jsx'
 import onClickOutside from 'react-onclickoutside';
+import {Tooltip, OverlayTrigger} from 'react-bootstrap';
 
 const MenuItem =onClickOutside(React.createClass({
 	
@@ -20,27 +21,26 @@ const MenuItem =onClickOutside(React.createClass({
 		}
 	},
 
-
+ 
 	render() {
-		const {id,label,className,onDeactivate}=this.props;
+		const {id,label,className,onDeactivate, tooltip}=this.props;
 		const active=this.props[id];
 		return (
 			<li className={active?`active ${className}`:className}>
-			<div className="link" onClick={this.handleClick}>
-			<div  className={"options-icons "+className}></div>
-			<span>{label}</span>
-			</div>
-			{
-
-				React.Children.map(this.props.children,(element)=>{return  React.cloneElement(element,{visible:active,
+				<OverlayTrigger placement="bottom" overlay={tooltip}>
+					<div className="link" onClick={this.handleClick}>
+						<div className={"options-icons "+className}></div>
+						<span>{label}</span>
+					</div>
+				</OverlayTrigger>
+				{
+					React.Children.map(this.props.children,(element)=>{return  React.cloneElement(element,{visible:active,
 					onHide:()=>{
 						onDeactivate(id);
 					}});})
-			}
-			
-
-			</li>)
-
+				}		
+			</li>
+		)
 	}
 }));
 

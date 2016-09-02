@@ -18,29 +18,34 @@ public class FilterHelper {
     private static final Object LOCK_TRANSACTION = new Object() {};
 
     public static void filterProjectQuery(Parameters params, CriteriaBuilder criteriaBuilder, Root<Project> projectRoot, List<Predicate> predicates) {
-        filterProjectQueryAdvanced(params, criteriaBuilder, projectRoot, predicates, null, null, null, null);
+        filterProjectQueryAdvanced(params, criteriaBuilder, projectRoot, predicates, null, null, null, null, false);
     }
 
     public static void filterProjectQueryForIAs(Parameters params, CriteriaBuilder criteriaBuilder, Root<Project> projectRoot,
                                                 List<Predicate> predicates, List<Selection<?>> multiSelect,
                                                 Join<Project, ProjectAgency> agencyJoin,
                                                 Join<Project, Transaction> transactionJoin) {
-        filterProjectQueryAdvanced(params, criteriaBuilder, projectRoot, predicates, multiSelect, agencyJoin, null, transactionJoin);
+        filterProjectQueryAdvanced(params, criteriaBuilder, projectRoot, predicates, multiSelect, agencyJoin, null, transactionJoin, false);
     }
 
     public static void filterProjectQueryForSectors(Parameters params, CriteriaBuilder criteriaBuilder, Root<Project> projectRoot,
                                                 List<Predicate> predicates, List<Selection<?>> multiSelect,
                                                 Join<Project, ProjectSector> sectorJoin,
                                                 Join<Project, Transaction> transactionJoin) {
-        filterProjectQueryAdvanced(params, criteriaBuilder, projectRoot, predicates, multiSelect, null, sectorJoin, transactionJoin);
+        filterProjectQueryAdvanced(params, criteriaBuilder, projectRoot, predicates, multiSelect, null, sectorJoin, transactionJoin, false);
+    }
+
+    public static void filterProjectQueryWithUtilization(Parameters params, CriteriaBuilder criteriaBuilder, Root<Project> projectRoot, List<Predicate> predicates, List<Selection<?>> multiSelect, Join<Project, Transaction> transactionJoin) {
+        filterProjectQueryAdvanced(params, criteriaBuilder, projectRoot, predicates, multiSelect, null, null, transactionJoin, true);
     }
 
     public static void filterProjectQueryAdvanced(Parameters params, CriteriaBuilder criteriaBuilder,
                                                   Root<Project> projectRoot, List<Predicate> predicates,
                                                   List<Selection<?>> multiSelect,
-                                                  Join<Project, ProjectAgency> agencyJoin,
+                                                  Join<Project, ProjectAgency> projectAgencyJoin,
                                                   Join<Project, ProjectSector> sectorJoin,
-                                                  Join<Project, Transaction> transactionJoin) {
+                                                  Join<Project, Transaction> transactionJoin,
+                                                  boolean isUtilizationSelectNeeded) {
         synchronized (LOCK_PROJECT) {
             if (params != null) {
                 if (params.getLocations() != null) {
@@ -49,14 +54,19 @@ public class FilterHelper {
                     Join<ProjectLocationId, Location> locationJoin = idJoin.join(ProjectLocationId_.location, JoinType.LEFT);
 
                     predicates.add(locationJoin.get(Location_.id).in(params.getLocations()));
-                    if(agencyJoin!=null & multiSelect!=null){
+                    if(projectAgencyJoin!=null & multiSelect!=null){
                         multiSelect.add(criteriaBuilder.sum(
-                                criteriaBuilder.prod(agencyJoin.get(ProjectAgency_.utilization), criteriaBuilder.prod(projectLocationJoin.get(ProjectLocation_.utilization), transactionJoin.get(Transaction_.amount)))
+                                criteriaBuilder.prod(projectAgencyJoin.get(ProjectAgency_.utilization), criteriaBuilder.prod(projectLocationJoin.get(ProjectLocation_.utilization), transactionJoin.get(Transaction_.amount)))
                         ));
                     }
                     if(sectorJoin!=null & multiSelect!=null){
                         multiSelect.add(criteriaBuilder.sum(
                                 criteriaBuilder.prod(sectorJoin.get(ProjectSector_.utilization), criteriaBuilder.prod(projectLocationJoin.get(ProjectLocation_.utilization), transactionJoin.get(Transaction_.amount)))
+                        ));
+                    }
+                    if(isUtilizationSelectNeeded & multiSelect!=null){
+                        multiSelect.add(criteriaBuilder.sum(
+                                criteriaBuilder.prod(projectLocationJoin.get(ProjectLocation_.utilization), transactionJoin.get(Transaction_.amount))
                         ));
                     }
                 }
@@ -119,10 +129,10 @@ public class FilterHelper {
                     predicates.add(projectRoot.get(Project_.grantClassification).in(params.getClassifications()));
                 }
                 if (params.getImpAgencies() != null) {
-                    if(agencyJoin==null) {
-                        agencyJoin = projectRoot.join(Project_.implementingAgencies);
+                    if(projectAgencyJoin==null) {
+                        projectAgencyJoin = projectRoot.join(Project_.implementingAgencies);
                     }
-                    Join<ProjectAgency, ProjectAgencyId> pk = agencyJoin.join(ProjectAgency_.pk);
+                    Join<ProjectAgency, ProjectAgencyId> pk = projectAgencyJoin.join(ProjectAgency_.pk);
                     predicates.add(pk.get(ProjectAgencyId_.agency).in(params.getImpAgencies()));
                 }
                 if (params.getFlowTypes() != null || params.getGrantSubTypes() != null) {

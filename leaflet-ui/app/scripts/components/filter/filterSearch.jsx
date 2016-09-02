@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { searchItemByText } from '../../actions/filters'
 import translate from '../../util/translate.js';
+import {Tooltip, OverlayTrigger} from 'react-bootstrap';
 
 class SearchText extends React.Component {
 
@@ -25,9 +26,13 @@ class SearchText extends React.Component {
   		return (
 	        <div>
 	        	<div className="input-group">
-			      <input ref="keyword" type="text" className="form-control" placeholder={translate('filters.buttons.search')+"..."} onKeyUp={this.onKeyUp.bind(this)}/>
+			      	<OverlayTrigger placement="top" overlay={(<Tooltip id="help.filters.search">{translate('help.filters.search')}</Tooltip>)}>
+						<input ref="keyword" type="text" className="form-control" placeholder={translate('filters.buttons.search')+"..."} onKeyUp={this.onKeyUp.bind(this)}/>
+					</OverlayTrigger>
 			      <span className="input-group-btn">
-			        <button className="btn btn-success" type="button" onClick={this.triggerSearch.bind(this)}>{translate('filters.buttons.go')}!</button>
+			        <OverlayTrigger placement="top" overlay={(<Tooltip id="help.filters.go">{translate('help.filters.go')}</Tooltip>)}>
+						<button className="btn btn-success" type="button" onClick={this.triggerSearch.bind(this)}>{translate('filters.buttons.go')}!</button>
+					</OverlayTrigger>
 			      </span>
 			    </div>
        

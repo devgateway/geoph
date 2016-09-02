@@ -3,22 +3,27 @@
 .share-container{
 	@include controlBox();
 
-ul.share{
-  @include list-horizontal
-  float:right;
-  width: 580px;
-  
-  li{
-    border:1px solid #fff;
-    background-color:#fff; 
-    min-width:50px;
-    @include box-sizing(34px,34px);
+  ul.share{
+    @include list-horizontal
+    float:right;
+    width: 520px;
+    padding-bottom: 10px;
+    li{
+      border:1px solid #fff;
+      background-color:#fff; 
+      min-width:50px;
+      @include box-sizing(34px,34px);
+    }
+
+  }
+  .share-link{
+    margin-bottom: 15px;
+    padding-left: 20px;
   }
 
-}
-
-input.form-control{
+  input.form-control{
     width: 450px;
-} 
+    margin-bottom: 10px;
+  } 
 
 }

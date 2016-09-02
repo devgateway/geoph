@@ -18,15 +18,24 @@ const PhotoPopup = onClickOutside(React.createClass({
     }
   },
 
-  createMarkupHTML(){ 
-    return {__html: "<div className='photo-popup-container'>"+this.props.feature.properties.popupHTML+"</div>"}; 
-  },
 
   render() {
-    //const {feature: ftr={properties: {value: '', locationName: ''}}} = this.props;
-    //const {locationName, value, layerName} = ftr.properties;
+    const {feature} = this.props;
+    if (!feature){
+      return null;
+    }
+    const {properties}   =feature;
+    const {name,urls,project}   =properties;
     return (
-      <div ></div>
+     <div className="photo-popup-container">
+        <div className="popup-title">
+          <h2>{project.phId} {project.title}</h2>
+       </div>
+        <div className="images">
+         {urls.map(url=>{return <div><img width="300" src={url}/></div>})}
+        </div>
+      
+      </div>
     )
   }
 }));

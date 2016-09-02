@@ -21,9 +21,12 @@ const SimplePopup = onClickOutside(React.createClass({
 
 
   render() {
-    const {feature: ftr={properties: {value: '', locationName: ''}}} = this.props;
-    const {name, value, physicalProgress, layerName, valueProperty} = ftr.properties;
-       
+    
+    const {feature} = this.props;
+    if (!feature){
+      return null;
+    }
+    const {name, value, physicalProgress, layerName, valueProperty} = feature.properties;
     return (
       <div className="simple-popup-container">
         <div className="popup-title">

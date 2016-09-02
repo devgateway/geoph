@@ -5,6 +5,7 @@ import ExpandableControl from '../controls/expandableControl';
 import ProjectFilter from '../filter/projectFilter';
 import translate from '../../util/translate.js';
 import { collectValues } from '../../util/filterUtil';
+import {Tooltip, OverlayTrigger} from 'react-bootstrap';
 require('./tools.scss');
 
 class Tools extends React.Component {
@@ -19,12 +20,12 @@ class Tools extends React.Component {
   render() {
     return (
     	<div className="tools-view">
-        <ExpandableControl title={translate('toolview.projectsearch.title')} iconClass="search-icon">
+        <ExpandableControl title={translate('toolview.projectsearch.title')} iconClass="search-icon" tooltipText="help.toolview.projectsearch">
           <div><ProjectFilter/></div>
         </ExpandableControl>
-        <ExpandableControl title={translate('toolview.layers.title')} defaultExpanded={true}  iconClass="layers-icon">
+        <ExpandableControl title={translate('toolview.layers.title')} defaultExpanded={true}  iconClass="layers-icon" tooltipText="help.toolview.layerscontrol">
           <div><LayerControl/></div>
-        </ExpandableControl>        
+        </ExpandableControl>
       </div>
     )
   }
