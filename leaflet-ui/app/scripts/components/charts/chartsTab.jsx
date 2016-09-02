@@ -16,7 +16,7 @@ class Charts extends React.Component {
 
   componentDidMount() {
     let filters = collectValues(this.props.filters, this.props.projectSearch);
-    this.props.onLoadChartData(filters);    
+    //this.props.onLoadChartData(filters);    
   }
 
   togglePanel(){
@@ -43,6 +43,14 @@ class Charts extends React.Component {
     let helpKeyExpand = panel.expanded? "help.chartview.collapse" : "help.chartview.expand";
     return (
       <div className="chart-view">
+        <OverlayTrigger placement="left" overlay={(<Tooltip id={helpKeyExpand}>{translate(helpKeyExpand)}</Tooltip>)}>
+          <div className="expand-button" onClick={this.togglePanel.bind(this)}>
+            <div className={panel.expanded? "chart-collapse-icon" : "chart-expand-icon"}/>
+            <div className="expand-button-legend">
+              {panel.expanded? translate('chartview.collapsepanel') : translate('chartview.expandpanel')}
+            </div>
+          </div> 
+        </OverlayTrigger>
         <div className="charts-container">
           <Chart chartData={fundingAgency || {}}
             title={translate('chartview.fundingagency')}
@@ -81,14 +89,6 @@ class Charts extends React.Component {
             onChangeType={this.changeType.bind(this)}
             dimension="name"/>
         </div>
-        <div className="expand-button" >
-          <div className={panel.expanded? "expand-button-arrow right" : "expand-button-arrow left"}/>
-          <OverlayTrigger placement="top" overlay={(<Tooltip id={helpKeyExpand}>{translate(helpKeyExpand)}</Tooltip>)}>
-            <div className="expand-button-inner" onClick={this.togglePanel.bind(this)}>
-              {panel.expanded? translate('chartview.collapsepanel') : translate('chartview.expandpanel')}
-            </div>
-          </OverlayTrigger>
-        </div> 
       </div>
     )
   }

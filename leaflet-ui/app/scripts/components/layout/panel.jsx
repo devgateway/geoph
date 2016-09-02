@@ -22,27 +22,26 @@ class Panel extends React.Component {
 
   render() {
     return (
-      <div className={this.props.panel.expanded? "panel panel-expanded" : "panel"}>
-       
+      <div className={this.props.panel.expanded? "panel panel-expanded" : "panel"}>       
         <ul>
-          <OverlayTrigger placement="top" overlay={(<Tooltip id="help.toolview.toolviewtab">{translate('help.toolview.toolviewtab')}</Tooltip>)}>
-            <li id='tools-tab' className={(this.props.currentView=='/map' || this.props.currentView=='/map/tools')?"panel-tab active":"panel-tab"}>
-              <div onClick={this.togglePanel.bind(this)}>
-                <Link to="map/tools" >
+          <Link to="/map/tools" >
+            <OverlayTrigger placement="top" overlay={(<Tooltip id="help.toolview.toolviewtab">{translate('help.toolview.toolviewtab')}</Tooltip>)}>
+              <li id='tools-tab' className={(this.props.currentView=='/map' || this.props.currentView=='/map/tools')?"panel-tab active":"panel-tab"}>
+                <div onClick={this.togglePanel.bind(this)}>
                   <div className="icon tools"/>
-                  <span>{translate('toolview.title')}</span>
-                </Link>
-              </div>
-            </li>
-          </OverlayTrigger>
-          <OverlayTrigger placement="top" overlay={(<Tooltip id="help.chartview.chartviewtab">{translate('help.chartview.chartviewtab')}</Tooltip>)}>
-            <li id='charts-tab' className={(this.props.currentView=='/map/charts')?"panel-tab active":"panel-tab"}>
-              <Link to="map/charts">
+                  <span>{translate('toolview.title')}</span>                
+                </div>
+              </li>
+            </OverlayTrigger>
+          </Link>
+          <Link to="/map/charts">
+            <OverlayTrigger placement="top" overlay={(<Tooltip id="help.chartview.chartviewtab">{translate('help.chartview.chartviewtab')}</Tooltip>)}>
+              <li id='charts-tab' className={(this.props.currentView=='/map/charts')?"panel-tab active":"panel-tab"}>
                 <div className="icon chart"/>
                 <span>{translate('chartview.title')}</span>
-              </Link>
-            </li>
-          </OverlayTrigger>
+              </li>
+            </OverlayTrigger>
+          </Link>
         </ul>
         <Stats/>
         {this.props.children}

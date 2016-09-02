@@ -72,11 +72,11 @@ const Share = React.createClass({
                 </li>
               </ul>
             </div>
-            <div className={"form-group"}>
-            <input className="form-control" type="text" value={shareUrl} />
-            <CopyToClipboard text={shareUrl} >
-              <button className="btn btn-sm btn-success">Copy URL</button>
-            </CopyToClipboard>
+            <div className="share-link">
+              <input className="form-control" type="text" value={shareUrl} />
+              <CopyToClipboard text={shareUrl} >
+                <button className="btn btn-sm btn-success">Copy URL</button>
+              </CopyToClipboard>
             </div>
           </div>
 
