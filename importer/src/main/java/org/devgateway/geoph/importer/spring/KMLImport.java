@@ -24,7 +24,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
         @PropertySource("classpath:application.properties"),
         @PropertySource(value = "file:${CONF_FILE}", ignoreResourceNotFound = true)
 })
-
 public class KMLImport {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ImporterApplication.class);
