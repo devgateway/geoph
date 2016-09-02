@@ -24,8 +24,6 @@ import { render, unmountComponentAtNode } from 'react-dom';
   componentWillUnmount() {
     this.svg.remove();
     this.props.map.off("click",this.mapClick.bind(this));
-    debugger;
-    //this.svg=null;  
   }
 
 
@@ -33,6 +31,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
       evt.originalEvent.stopPropagation();
       this.renderPopupContent(Object.assign({}, evt.originalEvent.features, {latlng: evt.latlng}));
   }
+  
   componentWillMount() {
     super.componentWillMount();
     this.leafletElement = geoJson();

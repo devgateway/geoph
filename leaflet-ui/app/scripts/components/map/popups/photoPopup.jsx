@@ -21,6 +21,9 @@ const PhotoPopup = onClickOutside(React.createClass({
 
   render() {
     const {feature} = this.props;
+    if (!feature){
+      return null;
+    }
     const {properties}   =feature;
     const {name,urls,project}   =properties;
     return (

@@ -29,8 +29,11 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
     }
   },
 
-  componentDidMount(){
-    this.getTabData('fundingAgency');
+  componentWillMount(){
+    const {feature} = this.props;
+    if (feature){
+      this.getTabData('fundingAgency');
+    }    
   },
 
   getTabData(tab){
@@ -47,6 +50,9 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
 
   render() {
     const {charts, fundingType, feature} = this.props;
+    if (!feature){
+      return null;
+    }
     return (
       <div className="popup-container">
         <div className="popup-title">

@@ -45,7 +45,6 @@ const view=React.createClass({
 
 	getLayer(l){
 		
-		console.log(l);
 		const {data, type, popupId, id, zIndex}=l;
 		if (type=='clustered'){
 			return (

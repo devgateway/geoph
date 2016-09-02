@@ -26,7 +26,6 @@ require('./cluster.scss');
  			
  			onEachFeature: function (feature, layer) {
  				layer.on('click', function (e) {
- 					console.log(feature)
  					this.renderPopupContent(feature);
  				}.bind(this));
  			}.bind(this),

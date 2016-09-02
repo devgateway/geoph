@@ -75,6 +75,13 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
           popupId:"PhotoPopup",
           name:'Geotagged Photos',
           computeOnload:false, //disable css addition for this later
+          legends:[
+            {cls: 'legend-photos more-100', 'label': 'more than 100'},
+            {cls: 'legend-photos less-100', 'label': 'less than 100'},
+            {cls: 'legend-photos less-10', 'label': 'less than 10'},
+            {cls: 'legend-photos single-photo', 'label': 'single photo'},
+          ]
+
         }]
       }, 
       {
@@ -160,31 +167,7 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
 
     return state.setIn(["layers", indicatorsIndex, "layers"], Immutable.fromJS(layers));
   }
-  /*const setGeophotos = (state, geophotos) => {
-    var index = 0;
-    let layers = geophotos.map(it => {
-      const {id, colorScheme: css, name} = it;
-      const layerId =  geophotosIndex + "-" + index++;
-      return {
-        id: layerId,
-        geophotos_id: id,
-        zIndex: 101,
-        ep: "GEOPHOTOS",
-        type: 'points',
-        name,
-        size: 4, 
-        border: 2, 
-        popupId: "photoPopup",   
-        cssPrefix: 'points', 
-        settings: {
-          'css': css || 'blue'
-        }
-      }
-    });
-
-    return state.setIn(["layers", geophotosIndex, "layers"], Immutable.fromJS(layers));
-  }
-*/
+  
   const getType = (state, id) => {
     return state.getIn(getPath(id, ["type"]));
   }
@@ -221,24 +204,23 @@ const makeStyledGeoJson=(settings,data, fundingType, classProviderInstance)=>{
 }
 
 const getLayerSettings=(layer)=>{
- const thresholds = layer.get('thresholds')
- const cssProvider = layer.get('cssProvider');
- const valueProperty =layer.get('valueProperty') || layer.getIn(['settings','valueProperty']);
- const cssPrefix=layer.get('cssPrefix');
- const css=layer.getIn(['settings','css']);
- const name=layer.get('name');
- const popupId=layer.get('popupId');
- const border=layer.get('border');
- const size=layer.get('size');
- return {thresholds,cssProvider,valueProperty,cssPrefix,css,name,popupId,border,size}
+  const thresholds = layer.get('thresholds')
+  const cssProvider = layer.get('cssProvider');
+  const valueProperty =layer.get('valueProperty') || layer.getIn(['settings','valueProperty']);
+  const cssPrefix=layer.get('cssPrefix');
+  const css=layer.getIn(['settings','css']);
+  const name=layer.get('name');
+  const popupId=layer.get('popupId');
+  const border=layer.get('border');
+  const size=layer.get('size');
+  return {thresholds,cssProvider,valueProperty,cssPrefix,css,name,popupId,border,size}
 }
 
 /*Extract layer properties and create class provider */
 const getClassProvider=(settings,features,fundingType)=>{
- const {thresholds,cssProvider,valueProperty}=settings;
- const values = getValues(features, valueProperty, fundingType); //extract values from features 
- console.log(values);
- return createCSSProviderInstance(thresholds, values, cssProvider);
+  const {thresholds,cssProvider,valueProperty}=settings;
+  const values = getValues(features, valueProperty, fundingType); //extract values from features 
+  return createCSSProviderInstance(thresholds, values, cssProvider);
 }
 
 
@@ -276,11 +258,8 @@ const updateLayer=(state,action,id)=>{
   var {fundingType,data} = action;
   id= id || action.id; 
   if (state.getIn(getPath(id, ["computeOnload"])) == false) {
-
     return state.setIn(getPath(id, ["data"]),action.data);
-    
   }
-
  
   const layer=state.getIn(getPath(id));
   data= data || layer.get('data').toJS();
