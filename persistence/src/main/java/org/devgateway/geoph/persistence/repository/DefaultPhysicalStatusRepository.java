@@ -69,12 +69,15 @@ public class DefaultPhysicalStatusRepository implements PhysicalStatusRepository
         Join<Project, Transaction> transactionJoin = projectRoot.join(Project_.transactions);
 
         multiSelect.add(physicalStatusJoin);
-        multiSelect.add(criteriaBuilder.sum(transactionJoin.get(Transaction_.amount)));
+        if(params.getLocations()==null) {
+            multiSelect.add(criteriaBuilder.sum(transactionJoin.get(Transaction_.amount)));
+            FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);
+        } else {
+            FilterHelper.filterProjectQueryWithUtilization(params, criteriaBuilder, projectRoot, predicates, multiSelect, transactionJoin);
+        }
         multiSelect.add(criteriaBuilder.count(projectRoot.get(Project_.id)));
-
         groupByList.add(physicalStatusJoin);
 
-        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);
         predicates.add(transactionJoin.get(Transaction_.transactionTypeId).in(trxType));
         predicates.add(transactionJoin.get(Transaction_.transactionStatusId).in(trxStatus));
         Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
