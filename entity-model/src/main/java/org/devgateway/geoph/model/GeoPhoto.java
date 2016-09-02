@@ -1,7 +1,6 @@
 package org.devgateway.geoph.model;
 
 import com.vividsolutions.jts.geom.Point;
-import org.hibernate.annotations.Columns;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -17,10 +16,8 @@ public class GeoPhoto extends GenericPersistable implements Serializable {
     @Column(columnDefinition = "varchar(255)")
     String name;
 
-
     @Column(columnDefinition = "varchar(5000)")
     String description;
-
 
     @ElementCollection(fetch = FetchType.EAGER)
     private Collection<String> urls;
@@ -36,9 +33,7 @@ public class GeoPhoto extends GenericPersistable implements Serializable {
     @Type(type = "org.hibernate.spatial.GeometryType")
     com.vividsolutions.jts.geom.Point point;
 
-    @ManyToOne(targetEntity = Project.class,optional = true)
-
-
+    @ManyToOne(fetch = FetchType.EAGER)
     Project project;
 
     public String getName() {
@@ -57,7 +52,6 @@ public class GeoPhoto extends GenericPersistable implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-
 
     public Point getPoint() {
         return point;

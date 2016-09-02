@@ -2,8 +2,7 @@ package org.devgateway.geoph.importer.spring;
 
 import com.vividsolutions.jts.geom.GeometryFactory;
 import de.micromata.opengis.kml.v_2_2_0.*;
-import de.micromata.opengis.kml.v_2_2_0.Document;
-import org.devgateway.geoph.core.repositories.GeoPhotoRepository1;
+import org.devgateway.geoph.core.repositories.GeoPhotoRepository;
 import org.devgateway.geoph.core.repositories.ProjectRepository;
 import org.devgateway.geoph.model.GeoPhoto;
 import org.devgateway.geoph.model.Project;
@@ -30,7 +29,7 @@ public class KMLImport {
     private static final Logger LOGGER = LoggerFactory.getLogger(KMLImport.class);
 
     @Autowired
-    GeoPhotoRepository1 geoPhotoRepository;
+    GeoPhotoRepository geoPhotoRepository;
 
     @Value("${path}")
     private String kmlFolder;

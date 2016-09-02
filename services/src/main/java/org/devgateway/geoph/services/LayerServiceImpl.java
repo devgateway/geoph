@@ -1,6 +1,5 @@
 package org.devgateway.geoph.services;
 
-import org.devgateway.geoph.core.repositories.GeoPhotoRepository;
 import org.devgateway.geoph.core.repositories.IndicatorDetailRepository;
 import org.devgateway.geoph.core.repositories.IndicatorRepository;
 import org.devgateway.geoph.core.repositories.LocationRepository;
@@ -10,7 +9,6 @@ import org.devgateway.geoph.dao.GeoPhotoGeometryDao;
 import org.devgateway.geoph.dao.PostGisDao;
 import org.devgateway.geoph.enums.GeometryDetailLevelEnum;
 import org.devgateway.geoph.enums.LocationAdmLevelEnum;
-import org.devgateway.geoph.model.GeoPhotoSource;
 import org.devgateway.geoph.model.Indicator;
 import org.devgateway.geoph.model.IndicatorDetail;
 import org.devgateway.geoph.services.util.FeatureHelper;
@@ -39,9 +37,6 @@ public class LayerServiceImpl implements LayerService {
 
     @Autowired
     IndicatorDetailRepository indicatorDetailRepository;
-
-    @Autowired
-    GeoPhotoRepository geoPhotoRepository;
 
     @Autowired
     LocationRepository locationRepository;
@@ -118,21 +113,6 @@ public class LayerServiceImpl implements LayerService {
         }
         feature.setGeometry(multiPolygon);
         return feature;
-    }
-
-    @Override
-    public List<GeoPhotoSource> getGeoPhotoSourceList() {
-        return geoPhotoRepository.findAllGeoPhotoSources();
-    }
-
-    @Override
-    public FeatureCollection getGeoPhotoDataById(long kmlId) {
-        return getGeoPhotoDataFromRepo(geoPhotoRepository.getGeoPhotoGeometryByKmlId(kmlId));
-    }
-
-    @Override
-    public FeatureCollection getGeoPhotoData() {
-        return getGeoPhotoDataFromRepo(geoPhotoRepository.getGeoPhotoGeometry());
     }
 
     private FeatureCollection getGeoPhotoDataFromRepo(List<GeoPhotoGeometryDao> geometryHelpers) {
