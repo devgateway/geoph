@@ -151,6 +151,7 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
         thresholds: 5,
         valueProperty: "value",
         name,
+        popupId: "defaultPopup",
         settings: {
           'css': css || 'red'
         }

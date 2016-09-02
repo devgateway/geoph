@@ -19,8 +19,7 @@ require('./cluster.scss');
 
 
  	componentWillMount() {
- 		debugger;
- 		
+ 
  		const {data,map}=this.props 
  		var geojson = geoJson(data, 
  		{
@@ -69,7 +68,6 @@ require('./cluster.scss');
 
 
  	renderPopupContent(feature) {
- 		debugger;
  		if (!feature || !feature.geometry){
  			return null;
  		}
