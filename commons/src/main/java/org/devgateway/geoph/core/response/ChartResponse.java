@@ -3,11 +3,12 @@ package org.devgateway.geoph.core.response;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.devgateway.geoph.enums.TransactionStatusEnum;
 import org.devgateway.geoph.enums.TransactionTypeEnum;
-import org.devgateway.geoph.model.*;
+import org.devgateway.geoph.model.Agency;
+import org.devgateway.geoph.model.PhysicalStatus;
+import org.devgateway.geoph.model.Sector;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * @author dbianco
@@ -25,8 +26,6 @@ public class ChartResponse implements Comparable {
 
     private Map<String, Map<String, Double>> trxAmounts = new HashMap<>();
 
-    private Long transactionCount = 0L;
-
     @JsonIgnore
     private int orderType;
 
@@ -40,6 +39,8 @@ public class ChartResponse implements Comparable {
         this.id = agency.getId();
         this.code = agency.getCode();
         this.name = agency.getName();
+        this.orderType = orderType;
+        this.orderStatus = orderStatus;
         for(TransactionTypeEnum typeEnum:TransactionTypeEnum.values()){
             Map<String, Double> statusMap = new HashMap<>();
             for(TransactionStatusEnum statusEnum:TransactionStatusEnum.values()){
@@ -68,6 +69,8 @@ public class ChartResponse implements Comparable {
         this.id = physicalStatus.getId();
         this.code = physicalStatus.getCode();
         this.name = physicalStatus.getName();
+        this.orderType = orderType;
+        this.orderStatus = orderStatus;
         for(TransactionTypeEnum typeEnum:TransactionTypeEnum.values()){
             Map<String, Double> statusMap = new HashMap<>();
             for(TransactionStatusEnum statusEnum:TransactionStatusEnum.values()){
@@ -117,39 +120,6 @@ public class ChartResponse implements Comparable {
         this.trxAmounts = trxAmounts;
     }
 
-    public Long getTransactionCount() {
-        return transactionCount;
-    }
-
-    public void setTransactionCount(Long transactionCount) {
-        this.transactionCount = transactionCount;
-    }
-
-    public void add(Project project, Double specificUtilization, Double locUtilization) {
-        this.projectCount ++;
-        Set<Transaction> transactionSet = project.getTransactions();
-        if(transactionSet.size()>0) {
-            this.transactionCount += Long.valueOf(transactionSet.size());
-            for(Transaction trx:transactionSet){
-                Double validLocUtilization = locUtilization!=null?locUtilization:1D;
-                Double trxAmount = trx.getAmount()!=null ? trx.getAmount() * specificUtilization  * validLocUtilization: 0;
-                Map<String, Double> typeMap = trxAmounts.get(trx.getTransactionType().getName());
-                if (typeMap != null) {
-                    typeMap.put(trx.getTransactionStatus().getName(), trxAmount + typeMap.get(trx.getTransactionStatus().getName()));
-                } else {
-                    Map<String, Double> trxStatusMap = new HashMap<>();
-                    trxStatusMap.put(trx.getTransactionStatus().getName(), trxAmount);
-                    trxAmounts.put(trx.getTransactionType().getName(), trxStatusMap);
-                }
-            }
-        }
-    }
-
-    public Double getDisbursementFunding(){
-        Map<String, Double> typeMap = trxAmounts.get(TransactionTypeEnum.DISBURSEMENTS.getName());
-        return typeMap!=null?typeMap.get(TransactionStatusEnum.ACTUAL.getName()):0D;
-    }
-
     public Double retrieveMaxFunding(){
         Double maxFunding = 0D;
         if(orderType>0 && orderStatus>0) {
@@ -173,5 +143,14 @@ public class ChartResponse implements Comparable {
     @Override
     public int compareTo(Object o) {
         return ((ChartResponse)o).retrieveMaxFunding().compareTo(retrieveMaxFunding());
+    }
+
+    public Double getDisbursementFunding(){
+        Map<String, Double> typeMap = trxAmounts.get(TransactionTypeEnum.DISBURSEMENTS.getName());
+        return typeMap!=null?typeMap.get(TransactionStatusEnum.ACTUAL.getName()):0D;
+    }
+
+    public void add(Double amount, String trxTypeName, String trxStatusName) {
+        trxAmounts.get(trxTypeName).put(trxStatusName, amount);
     }
 }

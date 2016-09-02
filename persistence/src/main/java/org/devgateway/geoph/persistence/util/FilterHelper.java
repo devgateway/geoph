@@ -18,15 +18,58 @@ public class FilterHelper {
     private static final Object LOCK_TRANSACTION = new Object() {};
 
     public static void filterProjectQuery(Parameters params, CriteriaBuilder criteriaBuilder, Root<Project> projectRoot, List<Predicate> predicates) {
-        filterProjectQueryAdvanced(params, criteriaBuilder, projectRoot, predicates, null, null);
+        filterProjectQueryAdvanced(params, criteriaBuilder, projectRoot, predicates, null, null, null, null, false);
+    }
+
+    public static void filterProjectQueryForIAs(Parameters params, CriteriaBuilder criteriaBuilder, Root<Project> projectRoot,
+                                                List<Predicate> predicates, List<Selection<?>> multiSelect,
+                                                Join<Project, ProjectAgency> agencyJoin,
+                                                Join<Project, Transaction> transactionJoin) {
+        filterProjectQueryAdvanced(params, criteriaBuilder, projectRoot, predicates, multiSelect, agencyJoin, null, transactionJoin, false);
+    }
+
+    public static void filterProjectQueryForSectors(Parameters params, CriteriaBuilder criteriaBuilder, Root<Project> projectRoot,
+                                                List<Predicate> predicates, List<Selection<?>> multiSelect,
+                                                Join<Project, ProjectSector> sectorJoin,
+                                                Join<Project, Transaction> transactionJoin) {
+        filterProjectQueryAdvanced(params, criteriaBuilder, projectRoot, predicates, multiSelect, null, sectorJoin, transactionJoin, false);
+    }
+
+    public static void filterProjectQueryWithUtilization(Parameters params, CriteriaBuilder criteriaBuilder, Root<Project> projectRoot, List<Predicate> predicates, List<Selection<?>> multiSelect, Join<Project, Transaction> transactionJoin) {
+        filterProjectQueryAdvanced(params, criteriaBuilder, projectRoot, predicates, multiSelect, null, null, transactionJoin, true);
     }
 
     public static void filterProjectQueryAdvanced(Parameters params, CriteriaBuilder criteriaBuilder,
                                                   Root<Project> projectRoot, List<Predicate> predicates,
                                                   List<Selection<?>> multiSelect,
-                                                  List<Expression<?>> groupByList) {
+                                                  Join<Project, ProjectAgency> projectAgencyJoin,
+                                                  Join<Project, ProjectSector> sectorJoin,
+                                                  Join<Project, Transaction> transactionJoin,
+                                                  boolean isUtilizationSelectNeeded) {
         synchronized (LOCK_PROJECT) {
             if (params != null) {
+                if (params.getLocations() != null) {
+                    Join<Project, ProjectLocation> projectLocationJoin = projectRoot.join(Project_.locations, JoinType.LEFT);
+                    Join<ProjectLocation, ProjectLocationId> idJoin = projectLocationJoin.join(ProjectLocation_.pk, JoinType.LEFT);
+                    Join<ProjectLocationId, Location> locationJoin = idJoin.join(ProjectLocationId_.location, JoinType.LEFT);
+
+                    predicates.add(locationJoin.get(Location_.id).in(params.getLocations()));
+                    if(projectAgencyJoin!=null & multiSelect!=null){
+                        multiSelect.add(criteriaBuilder.sum(
+                                criteriaBuilder.prod(projectAgencyJoin.get(ProjectAgency_.utilization), criteriaBuilder.prod(projectLocationJoin.get(ProjectLocation_.utilization), transactionJoin.get(Transaction_.amount)))
+                        ));
+                    }
+                    if(sectorJoin!=null & multiSelect!=null){
+                        multiSelect.add(criteriaBuilder.sum(
+                                criteriaBuilder.prod(sectorJoin.get(ProjectSector_.utilization), criteriaBuilder.prod(projectLocationJoin.get(ProjectLocation_.utilization), transactionJoin.get(Transaction_.amount)))
+                        ));
+                    }
+                    if(isUtilizationSelectNeeded & multiSelect!=null){
+                        multiSelect.add(criteriaBuilder.sum(
+                                criteriaBuilder.prod(projectLocationJoin.get(ProjectLocation_.utilization), transactionJoin.get(Transaction_.amount))
+                        ));
+                    }
+                }
                 if (params.getProjects() != null) {
                     predicates.add(projectRoot.get(Project_.id).in(params.getProjects()));
                 }
@@ -34,7 +77,9 @@ public class FilterHelper {
                     predicates.add(criteriaBuilder.like(criteriaBuilder.upper(projectRoot.get(Project_.title)), "%" + params.getProjectTitle().toUpperCase() + "%"));
                 }
                 if (params.getSectors() != null) {
-                    Join<Project, ProjectSector> sectorJoin = projectRoot.join(Project_.sectors);
+                    if(sectorJoin==null){
+                        sectorJoin=projectRoot.join(Project_.sectors);
+                    }
                     Join<ProjectSector, ProjectSectorId> pk = sectorJoin.join(ProjectSector_.pk);
                     predicates.add(pk.get(ProjectSectorId_.sector).in(params.getSectors()));
                 }
@@ -45,20 +90,6 @@ public class FilterHelper {
                 if (params.getPhysicalStatuses() != null){
                     Join<Project, PhysicalStatus> physicalStatusJoin = projectRoot.join(Project_.physicalStatus);
                     predicates.add(physicalStatusJoin.get(PhysicalStatus_.id).in(params.getPhysicalStatuses()));
-                }
-                if (params.getLocations() != null) {
-                    Join<Project, ProjectLocation> projectLocationJoin = projectRoot.join(Project_.locations, JoinType.LEFT);
-                    Join<ProjectLocation, ProjectLocationId> idJoin = projectLocationJoin.join(ProjectLocation_.pk, JoinType.LEFT);
-                    Join<ProjectLocationId, Location> locationJoin = idJoin.join(ProjectLocationId_.location, JoinType.LEFT);
-
-                    predicates.add(locationJoin.get(Location_.id).in(params.getLocations()));
-                    if(multiSelect!=null){
-                        multiSelect.add(projectLocationJoin.get(ProjectLocation_.utilization));
-                    }
-                    if(groupByList!=null){
-                        groupByList.add(projectLocationJoin.get(ProjectLocation_.utilization));
-                    }
-
                 }
                 if(params.getLocationLevels()!=null) {
                     Join<Project, ProjectLocation> projectLocationJoin = projectRoot.join(Project_.locations, JoinType.LEFT);
@@ -98,22 +129,25 @@ public class FilterHelper {
                     predicates.add(projectRoot.get(Project_.grantClassification).in(params.getClassifications()));
                 }
                 if (params.getImpAgencies() != null) {
-                    Join<Project, ProjectAgency> impAgencyJoin = projectRoot.join(Project_.implementingAgencies);
-                    Join<ProjectAgency, ProjectAgencyId> pk = impAgencyJoin.join(ProjectAgency_.pk);
+                    if(projectAgencyJoin==null) {
+                        projectAgencyJoin = projectRoot.join(Project_.implementingAgencies);
+                    }
+                    Join<ProjectAgency, ProjectAgencyId> pk = projectAgencyJoin.join(ProjectAgency_.pk);
                     predicates.add(pk.get(ProjectAgencyId_.agency).in(params.getImpAgencies()));
                 }
                 if (params.getFlowTypes() != null || params.getGrantSubTypes() != null) {
                     Predicate ft = null;
                     boolean isFlowType = false;
+                    if(transactionJoin==null){
+                        transactionJoin = projectRoot.join(Project_.transactions);
+                    }
                     if(params.getFlowTypes()!=null){
-                        Join<Project, Transaction> transactionJoin = projectRoot.join(Project_.transactions);
                         ft = transactionJoin.get(Transaction_.flowType).in(params.getFlowTypes());
                         isFlowType = true;
                     }
                     Predicate gst = null;
                     boolean isGrantType = false;
                     if(params.getGrantSubTypes()!=null) {
-                        Join<Project, Transaction> transactionJoin = projectRoot.join(Project_.transactions);
                         gst = transactionJoin.get(Transaction_.grantSubTypeId).in(params.getGrantSubTypes());
                         isGrantType = true;
                     }
