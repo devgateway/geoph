@@ -18,6 +18,8 @@ public class Constants {
     public static final String PROPERTY_LOC_COMMITMENTS = "commitments";
     public static final String PROPERTY_LOC_DISBURSEMENTS = "disbursements";
     public static final String PROPERTY_LOC_EXPENDITURES = "expenditures";
+    public static final String PROPERTY_LOC_TRANSACTIONS = "expenditures";
+
     public static final String PROPERTY_LOC_TARGET = "target";
     public static final String PROPERTY_LOC_ACTUAL = "actual";
     public static final String PROPERTY_LOC_CANCELLED = "cancelled";

@@ -4,10 +4,7 @@ import org.devgateway.geoph.core.repositories.LocationRepository;
 import org.devgateway.geoph.core.repositories.ProjectRepository;
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.core.services.GeoJsonService;
-import org.devgateway.geoph.dao.LocationProperty;
-import org.devgateway.geoph.dao.LocationResultsDao;
-import org.devgateway.geoph.dao.PostGisDao;
-import org.devgateway.geoph.dao.ProjectLocationDao;
+import org.devgateway.geoph.dao.*;
 import org.devgateway.geoph.enums.LocationAdmLevelEnum;
 import org.devgateway.geoph.enums.TransactionStatusEnum;
 import org.devgateway.geoph.enums.TransactionTypeEnum;
@@ -24,6 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static org.devgateway.geoph.core.constants.Constants.*;
 
@@ -58,26 +56,29 @@ public class GeoJsonServiceImpl implements GeoJsonService {
     }
 
     public FeatureCollection getLocationsByParams(Parameters params) {
-        int level = getUpperLevel(params);
-        List<Location> locations = locationRepository.findLocationsByLevel(level);
-        Map<Long, LocationProperty> locationPropertyMap = new HashMap<>();
-        for(Location location:locations){
-            locationPropertyMap.put(location.getId(), new LocationProperty(location));
-        }
+        //results should be ordered by ID!;
+        List<LocationResultsDao> locationResultsDaos = locationRepository.findLocationsByParams(params);
 
-        aggregateResults(params, level, locationPropertyMap);
-        addProjectCount(params, level, locationPropertyMap);
+        Map<Location, List<LocationResultsDao>> groupByLocation = locationResultsDaos.stream().collect(Collectors.groupingBy(LocationResultsDao::getLocation));
 
-        FeatureCollection featureCollection = new FeatureCollection();
-        for(LocationProperty location : locationPropertyMap.values()) {
-            if(location.getProjectCount()>0) {
-                Feature feature = new Feature();
-                feature.setGeometry(new Point(location.getLongitude(), location.getLatitude()));
-                FeatureHelper.setLocationPropertyFeature(feature, location);
-                featureCollection.add(feature);
+        LocationSummaryDao LocationSummaryDao=new LocationSummaryDao(groupByLocation.keySet().iterator().next());
+
+        groupByLocation.forEach((location, daos) -> {
+            if (LocationSummaryDao.getLocation().getId()!=location.getId()){
+
+
             }
-        }
-        return featureCollection;
+            daos.forEach(dao -> {
+                TransactionTypeEnum type = TransactionTypeEnum.getEnumById(dao.getTransactionTypeId());
+                TransactionStatusEnum status= TransactionStatusEnum.getEnumById(dao.getTransactionStatusId());
+                Double amount=dao.getAmount();
+
+
+            });
+
+        });
+
+        return null;
     }
 
     public FeatureCollection getPhysicalProgressAverageByParamsAndDetail(Parameters params, double detail) {
@@ -135,60 +136,6 @@ public class GeoJsonServiceImpl implements GeoJsonService {
         return locationRepository.findProjectLocationsByParams(params);
     }
 
-    private void addProjectCount(Parameters params, int level, Map<Long, LocationProperty> locationPropertyMap) {
-        List<LocationResultsDao> locationResults = locationRepository.countLocationProjectsByParams(params);
-        for(LocationResultsDao resultsDao:locationResults) {
-            Location l = resultsDao.getLocation();
-            LocationProperty lp = getLocationProperty(level, locationPropertyMap, l);
-
-            if (lp != null) {
-                lp.addProjectCount(resultsDao.getProjectCount());
-            }
-        }
-    }
-
-    private void aggregateResults(Parameters params, int level, Map<Long, LocationProperty> locationPropertyMap) {
-
-        for(TransactionTypeEnum tt:TransactionTypeEnum.values()){
-            for(TransactionStatusEnum ts:TransactionStatusEnum.values()){
-                List<LocationResultsDao> locationResults = locationRepository.findLocationsByParamsTypeStatus(params, tt.getId(), ts.getId());
-                for(LocationResultsDao locHelper:locationResults){
-                    LocationProperty lp = getLocationProperty(level, locationPropertyMap, locHelper.getLocation());
-
-                    if(lp!=null) {
-                        if (tt.compareTo(TransactionTypeEnum.COMMITMENTS) == 0) {
-                            if(ts.compareTo(TransactionStatusEnum.TARGET) == 0) {
-                                lp.addCommitment(PROPERTY_LOC_TARGET, locHelper.getTrxAmount());
-                            } else if(ts.compareTo(TransactionStatusEnum.ACTUAL) == 0) {
-                                lp.addCommitment(PROPERTY_LOC_ACTUAL, locHelper.getTrxAmount());
-                            } else if(ts.compareTo(TransactionStatusEnum.CANCELLED) == 0) {
-                                lp.addCommitment(PROPERTY_LOC_CANCELLED, locHelper.getTrxAmount());
-                            }
-                        }else if (tt.compareTo(TransactionTypeEnum.DISBURSEMENTS) == 0) {
-                            if(ts.compareTo(TransactionStatusEnum.TARGET) == 0) {
-                                lp.addDisbursement(PROPERTY_LOC_TARGET, locHelper.getTrxAmount());
-                            } else if(ts.compareTo(TransactionStatusEnum.ACTUAL) == 0) {
-                                lp.addDisbursement(PROPERTY_LOC_ACTUAL, locHelper.getTrxAmount());
-                            } else if(ts.compareTo(TransactionStatusEnum.CANCELLED) == 0) {
-                                lp.addDisbursement(PROPERTY_LOC_CANCELLED, locHelper.getTrxAmount());
-                            }
-                        }else if (tt.compareTo(TransactionTypeEnum.EXPENDITURES) == 0) {
-                            if(ts.compareTo(TransactionStatusEnum.TARGET) == 0) {
-                                lp.addExpenditure(PROPERTY_LOC_TARGET, locHelper.getTrxAmount());
-                            } else if(ts.compareTo(TransactionStatusEnum.ACTUAL) == 0) {
-                                lp.addExpenditure(PROPERTY_LOC_ACTUAL, locHelper.getTrxAmount());
-                            } else if(ts.compareTo(TransactionStatusEnum.CANCELLED) == 0) {
-                                lp.addExpenditure(PROPERTY_LOC_CANCELLED, locHelper.getTrxAmount());
-                            }
-                        }
-
-                        lp.addTransactionCount(locHelper.getTrxCount());
-
-                    }
-                }
-            }
-        }
-    }
 
     private int getUpperLevel(Parameters params) {
         int level = LocationAdmLevelEnum.MUNICIPALITY.getLevel();
@@ -216,8 +163,6 @@ public class GeoJsonServiceImpl implements GeoJsonService {
         for(Location location:locations){
             locationPropertyMap.put(location.getId(), new LocationProperty(location));
         }
-        aggregateResults(params, level.getLevel(), locationPropertyMap);
-        addProjectCount(params, level.getLevel(), locationPropertyMap);
 
         FeatureCollection featureCollection = new FeatureCollection();
         for(LocationProperty location : locationPropertyMap.values()) {

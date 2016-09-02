@@ -2,42 +2,17 @@ package org.devgateway.geoph.dao;
 
 import org.devgateway.geoph.model.Location;
 
-/**
- * @author dbianco
- *         created on jun 08 2016.
- */
 public class LocationResultsDao {
 
     private Location location;
 
-    private Long projectCount;
+    private Long count;
 
-    private Double trxAmount;
+    private Double amount;
 
-    private Long trxCount;
+    private Long transactionStatusId;
 
-    private Double physicalProgressAmount;
-
-    private Long physicalProgressCount;
-
-    public LocationResultsDao(Location location, Long projectCount) {
-        this.location = location;
-        this.projectCount = projectCount;
-    }
-
-    public LocationResultsDao(Location location, Double physicalProgressAmount, Long physicalProgressCount) {
-        this.location = location;
-        this.physicalProgressAmount = physicalProgressAmount;
-        this.physicalProgressCount = physicalProgressCount;
-    }
-
-    public LocationResultsDao(Location location, Double trxAmount, Long trxCount, Double physicalProgressAmount, Long physicalProgressCount) {
-        this.location = location;
-        this.trxAmount = trxAmount;
-        this.trxCount = trxCount;
-        this.physicalProgressAmount = physicalProgressAmount;
-        this.physicalProgressCount = physicalProgressCount;
-    }
+    private Long transactionTypeId;
 
     public Location getLocation() {
         return location;
@@ -47,51 +22,45 @@ public class LocationResultsDao {
         this.location = location;
     }
 
-    public Long getProjectCount() {
-        return projectCount;
+    public Long getCount() {
+        return count;
     }
 
-    public void setProjectCount(Long projectCount) {
-        this.projectCount = projectCount;
+    public void setCount(Long count) {
+        this.count = count;
     }
 
-    public Double getTrxAmount() {
-        return trxAmount;
+    public Double getAmount() {
+        return amount;
     }
 
-    public void setTrxAmount(Double trxAmount) {
-        this.trxAmount = trxAmount;
+    public void setAmount(Double amount) {
+        this.amount = amount;
     }
 
-    public Long getTrxCount() {
-        return trxCount;
+    public Long getTransactionStatusId() {
+        return transactionStatusId;
     }
 
-    public void setTrxCount(Long trxCount) {
-        this.trxCount = trxCount;
+    public void setTransactionStatusId(Long transactionStatusId) {
+        this.transactionStatusId = transactionStatusId;
     }
 
-    public Double getPhysicalProgressAmount() {
-        return physicalProgressAmount;
+    public Long getTransactionTypeId() {
+        return transactionTypeId;
     }
 
-    public void setPhysicalProgressAmount(Double physicalProgressAmount) {
-        this.physicalProgressAmount = physicalProgressAmount;
+    public void setTransactionTypeId(Long transactionTypeId) {
+        this.transactionTypeId = transactionTypeId;
     }
 
-    public Long getPhysicalProgressCount() {
-        return physicalProgressCount;
+    public LocationResultsDao(Location location,  Long transactionStatusId, Long transactionTypeId, Double amount,Long count) {
+        this.location = location;
+        this.count = count;
+        this.amount = amount;
+        this.transactionStatusId = transactionStatusId;
+        this.transactionTypeId = transactionTypeId;
     }
 
-    public void setPhysicalProgressCount(Long physicalProgressCount) {
-        this.physicalProgressCount = physicalProgressCount;
-    }
 
-    public Double getPhysicalProgressAverage() {
-        Double ret = 0D;
-        if(physicalProgressAmount!=null && physicalProgressCount!=null && physicalProgressCount!=0D){
-            ret=physicalProgressAmount/physicalProgressCount;
-        }
-        return ret;
-    }
 }
