@@ -3,10 +3,7 @@ package org.devgateway.geoph.persistence.repository;
 import org.devgateway.geoph.core.repositories.FundingAgencyRepository;
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.dao.AgencyResultsDao;
-import org.devgateway.geoph.model.Agency;
-import org.devgateway.geoph.model.FundingAgency;
-import org.devgateway.geoph.model.Project;
-import org.devgateway.geoph.model.Project_;
+import org.devgateway.geoph.model.*;
 import org.devgateway.geoph.persistence.util.FilterHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -49,7 +46,7 @@ public class DefaultFundingAgencyRepository implements FundingAgencyRepository {
 
     @Override
     @Cacheable("findFundingAgencyByParams")
-    public List<AgencyResultsDao> findFundingByFundingAgency(Parameters params) {
+    public List<AgencyResultsDao> findFundingByFundingAgency(Parameters params, int trxType, int trxStatus) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<AgencyResultsDao> criteriaQuery = criteriaBuilder.createQuery(AgencyResultsDao.class);
 
@@ -60,15 +57,20 @@ public class DefaultFundingAgencyRepository implements FundingAgencyRepository {
         List<Expression<?>> groupByList = new ArrayList<>();
 
         Join<Project, Agency> agencyJoin = projectRoot.join(Project_.fundingAgency);
+        Join<Project, Transaction> transactionJoin = projectRoot.join(Project_.transactions);
 
         multiSelect.add(agencyJoin);
-        multiSelect.add(projectRoot);
-
+        if(params.getLocations()==null) {
+            multiSelect.add(criteriaBuilder.sum(transactionJoin.get(Transaction_.amount)));
+            FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);
+        } else {
+            FilterHelper.filterProjectQueryWithUtilization(params, criteriaBuilder, projectRoot, predicates, multiSelect, transactionJoin);
+        }
+        multiSelect.add(criteriaBuilder.count(projectRoot.get(Project_.id)));
         groupByList.add(agencyJoin);
-        groupByList.add(projectRoot);
 
-        FilterHelper.filterProjectQueryAdvanced(params, criteriaBuilder, projectRoot, predicates, multiSelect, groupByList);
-
+        predicates.add(transactionJoin.get(Transaction_.transactionTypeId).in(trxType));
+        predicates.add(transactionJoin.get(Transaction_.transactionStatusId).in(trxStatus));
         Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         criteriaQuery.where(other);
 

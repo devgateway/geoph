@@ -46,7 +46,7 @@ public class DefaultImplementingAgencyRepository implements ImplementingAgencyRe
 
     @Override
     @Cacheable("findImplementingAgencyByParams")
-    public List<AgencyResultsDao> findFundingByImplementingAgency(Parameters params) {
+    public List<AgencyResultsDao> findFundingByImplementingAgency(Parameters params, int trxType, int trxStatus) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<AgencyResultsDao> criteriaQuery = criteriaBuilder.createQuery(AgencyResultsDao.class);
 
@@ -57,19 +57,23 @@ public class DefaultImplementingAgencyRepository implements ImplementingAgencyRe
         List<Expression<?>> groupByList = new ArrayList<>();
 
         Join<Project, ProjectAgency> agencyJoin = projectRoot.join(Project_.implementingAgencies);
+        Join<ProjectAgency, ProjectAgencyId> projectAgencyIdJoin = agencyJoin.join(ProjectAgency_.pk);
+        Join<Project, Transaction> transactionJoin = projectRoot.join(Project_.transactions);
+        multiSelect.add(projectAgencyIdJoin.get(ProjectAgencyId_.agency));
+        if(params.getLocations()==null) {
+            multiSelect.add(criteriaBuilder.sum(criteriaBuilder.prod(transactionJoin.get(Transaction_.amount), agencyJoin.get(ProjectAgency_.utilization))));
+            FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);
+        } else {
+            FilterHelper.filterProjectQueryForIAs(params, criteriaBuilder, projectRoot, predicates, multiSelect, agencyJoin, transactionJoin);
+        }
 
-        multiSelect.add(agencyJoin);
-        multiSelect.add(agencyJoin.get(ProjectAgency_.utilization));
+        multiSelect.add(criteriaBuilder.count(projectRoot.get(Project_.id)));
+        groupByList.add(projectAgencyIdJoin.get(ProjectAgencyId_.agency));
 
-        groupByList.add(agencyJoin);
-        groupByList.add(projectRoot);
-        groupByList.add(agencyJoin.get(ProjectAgency_.utilization));
-
-        FilterHelper.filterProjectQueryAdvanced(params, criteriaBuilder, projectRoot, predicates, multiSelect, groupByList);
-
+        predicates.add(transactionJoin.get(Transaction_.transactionTypeId).in(trxType));
+        predicates.add(transactionJoin.get(Transaction_.transactionStatusId).in(trxStatus));
         Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         criteriaQuery.where(other);
-
 
         criteriaQuery.groupBy(groupByList);
         TypedQuery<AgencyResultsDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));

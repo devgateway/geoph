@@ -1,7 +1,5 @@
 package org.devgateway.geoph.dao;
 
-import org.devgateway.geoph.model.Project;
-import org.devgateway.geoph.model.ProjectSector;
 import org.devgateway.geoph.model.Sector;
 
 /**
@@ -12,26 +10,17 @@ public class SectorResultsDao {
 
     private Sector sector;
 
-    private Project project;
+    private Double trxAmount;
 
-    private Double utilization;
-
-    private Double locUtilization;
+    private long projectCount;
 
     public SectorResultsDao() {
     }
 
-    public SectorResultsDao(ProjectSector projectSector, Double utilization) {
-        this.sector = projectSector.getSector();
-        this.project = projectSector.getProject();
-        this.utilization = utilization;
-    }
-
-    public SectorResultsDao(ProjectSector projectSector, Double utilization, Double locUtilization) {
-        this.sector = projectSector.getSector();
-        this.project = projectSector.getProject();
-        this.utilization = utilization;
-        this.locUtilization = locUtilization;
+    public SectorResultsDao(Sector sector, Double trxAmount, long projectCount) {
+        this.sector = sector;
+        this.trxAmount = trxAmount;
+        this.projectCount = projectCount;
     }
 
     public Sector getSector() {
@@ -42,27 +31,19 @@ public class SectorResultsDao {
         this.sector = sector;
     }
 
-    public Project getProject() {
-        return project;
+    public Double getTrxAmount() {
+        return trxAmount;
     }
 
-    public void setProject(Project project) {
-        this.project = project;
+    public void setTrxAmount(Double trxAmount) {
+        this.trxAmount = trxAmount;
     }
 
-    public Double getUtilization() {
-        return utilization;
+    public long getProjectCount() {
+        return projectCount;
     }
 
-    public void setUtilization(Double utilization) {
-        this.utilization = utilization;
-    }
-
-    public Double getLocUtilization() {
-        return locUtilization;
-    }
-
-    public void setLocUtilization(Double locUtilization) {
-        this.locUtilization = locUtilization;
+    public void setProjectCount(long projectCount) {
+        this.projectCount = projectCount;
     }
 }

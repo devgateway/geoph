@@ -55,7 +55,7 @@ public class DefaultSectorRepository implements SectorRepository {
 
     @Override
     @Cacheable("findSectorByParams")
-    public List<SectorResultsDao> findFundingBySector(Parameters params) {
+    public List<SectorResultsDao> findFundingBySector(Parameters params, int trxType, int trxStatus) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<SectorResultsDao> criteriaQuery = criteriaBuilder.createQuery(SectorResultsDao.class);
 
@@ -66,16 +66,21 @@ public class DefaultSectorRepository implements SectorRepository {
         List<Expression<?>> groupByList = new ArrayList<>();
 
         Join<Project, ProjectSector> sectorJoin = projectRoot.join(Project_.sectors);
+        Join<ProjectSector, ProjectSectorId> projectSectorIdJoin = sectorJoin.join(ProjectSector_.pk);
+        Join<Project, Transaction> transactionJoin = projectRoot.join(Project_.transactions);
+        multiSelect.add(projectSectorIdJoin.get(ProjectSectorId_.sector));
+        if(params.getLocations()==null) {
+            multiSelect.add(criteriaBuilder.sum(criteriaBuilder.prod(transactionJoin.get(Transaction_.amount), sectorJoin.get(ProjectSector_.utilization))));
+            FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);
+        } else {
+            FilterHelper.filterProjectQueryForSectors(params, criteriaBuilder, projectRoot, predicates, multiSelect, sectorJoin, transactionJoin);
+        }
 
-        multiSelect.add(sectorJoin);
-        multiSelect.add(sectorJoin.get(ProjectSector_.utilization));
+        multiSelect.add(criteriaBuilder.count(projectRoot.get(Project_.id)));
+        groupByList.add(projectSectorIdJoin.get(ProjectSectorId_.sector));
 
-        groupByList.add(sectorJoin);
-        groupByList.add(projectRoot);
-        groupByList.add(sectorJoin.get(ProjectSector_.utilization));
-
-        FilterHelper.filterProjectQueryAdvanced(params, criteriaBuilder, projectRoot, predicates, multiSelect, groupByList);
-
+        predicates.add(transactionJoin.get(Transaction_.transactionTypeId).in(trxType));
+        predicates.add(transactionJoin.get(Transaction_.transactionStatusId).in(trxStatus));
         Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         criteriaQuery.where(other);
 
