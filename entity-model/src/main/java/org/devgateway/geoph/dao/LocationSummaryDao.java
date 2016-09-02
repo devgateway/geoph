@@ -11,8 +11,10 @@ import java.util.HashMap;
 public class LocationSummaryDao {
 
     Location location;
-    Long projectCount;
-    ArrayList<HashMap<String,HashMap>> transactions;
+    Long projectCount=0L;
+    HashMap<String,Double> commitments;
+    HashMap<String,Double> expenditures;
+    HashMap<String,Double> disbursements;
 
     public Location getLocation() {
         return location;
@@ -20,6 +22,7 @@ public class LocationSummaryDao {
 
     public void setLocation(Location location) {
         this.location = location;
+
     }
 
     public Long getProjectCount() {
@@ -30,15 +33,41 @@ public class LocationSummaryDao {
         this.projectCount = projectCount;
     }
 
-    public ArrayList<HashMap<String, HashMap>> getTransactions() {
-        return transactions;
+
+    public void addProjectCount(Long projectCount) {
+        this.projectCount=this.projectCount + projectCount;
     }
 
-    public LocationSummaryDao(Location location) {
-        this.location = location;
+    public HashMap<String, Double> getCommitments() {
+        if (commitments==null){
+            commitments=new HashMap<>();
+        }
+        return commitments;
     }
 
-    public void setTransactions(ArrayList<HashMap<String, HashMap>> transactions) {
-        this.transactions = transactions;
+    public void setCommitments(HashMap<String, Double> commitments) {
+          this.commitments = commitments;
+    }
+
+    public HashMap<String, Double> getExpenditure() {
+        return expenditures;
+    }
+
+    public void setExpenditure(HashMap<String, Double> expenditures) {
+        if (expenditures==null){
+            expenditures=new HashMap<>();
+        }
+        this.expenditures = expenditures;
+    }
+
+    public HashMap<String, Double> getDisbursements() {
+        if (disbursements==null){
+            disbursements=new HashMap<>();
+        }
+        return disbursements;
+    }
+
+    public void setDisbursements(HashMap<String, Double> disbursements) {
+        this.disbursements = disbursements;
     }
 }

@@ -18,15 +18,15 @@ import static org.devgateway.geoph.core.constants.Constants.PROPERTY_LOC_PHYSICA
 public class LocationSummaryConverter extends AbstractConverter<LocationSummaryDao> {
 
 
-
-
     @Override
     public Feature convert(LocationSummaryDao dao) {
-        Feature feature=new Feature();
-         Feature locationFeature=new LocationConverter().convert(dao.getLocation());
-        ConverterUtil.merge(feature,locationFeature);
+        Feature feature = new Feature();
+        Feature locationFeature = new LocationConverter().convert(dao.getLocation());
+        ConverterUtil.merge(feature, locationFeature);
         feature.setProperty(PROPERTY_LOC_PROJ_COUNT, dao.getProjectCount());
-        feature.setProperty(PROPERTY_LOC_TRANSACTIONS, dao.getTransactions());
+        feature.setProperty(PROPERTY_LOC_COMMITMENTS, dao.getCommitments());
+        feature.setProperty(PROPERTY_LOC_DISBURSEMENTS, dao.getDisbursements());
+        feature.setProperty(PROPERTY_LOC_EXPENDITURES, dao.getExpenditure());
         return feature;
     }
 }

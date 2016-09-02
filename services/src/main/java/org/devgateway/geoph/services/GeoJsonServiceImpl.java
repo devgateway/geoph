@@ -11,6 +11,8 @@ import org.devgateway.geoph.enums.TransactionTypeEnum;
 import org.devgateway.geoph.model.Location;
 import org.devgateway.geoph.model.Project;
 import org.devgateway.geoph.model.ProjectLocation;
+import org.devgateway.geoph.services.geojson.ConverterFactory;
+import org.devgateway.geoph.services.geojson.GeoJsonBuilder;
 import org.devgateway.geoph.services.util.FeatureHelper;
 import org.geojson.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,24 +63,29 @@ public class GeoJsonServiceImpl implements GeoJsonService {
 
         Map<Location, List<LocationResultsDao>> groupByLocation = locationResultsDaos.stream().collect(Collectors.groupingBy(LocationResultsDao::getLocation));
 
-        LocationSummaryDao LocationSummaryDao=new LocationSummaryDao(groupByLocation.keySet().iterator().next());
+        GeoJsonBuilder builder=new GeoJsonBuilder();
 
         groupByLocation.forEach((location, daos) -> {
-            if (LocationSummaryDao.getLocation().getId()!=location.getId()){
+            LocationSummaryDao summaryDao=new LocationSummaryDao();
+            summaryDao.setLocation(location);
+            daos.forEach(locationResultsDao -> {
+                if (locationResultsDao.getTransactionTypeId() == TransactionTypeEnum.COMMITMENTS.getId()) {
+                    summaryDao.getCommitments().put(TransactionStatusEnum.getEnumById(locationResultsDao.getTransactionStatusId()).getName(),locationResultsDao.getAmount());
+                }
+                if (locationResultsDao.getTransactionTypeId() == TransactionTypeEnum.EXPENDITURES.getId()) {
+                    summaryDao.getExpenditure().put(TransactionStatusEnum.getEnumById(locationResultsDao.getTransactionStatusId()).getName(), locationResultsDao.getAmount());
 
+                }
+                if (locationResultsDao.getTransactionTypeId()==TransactionTypeEnum.DISBURSEMENTS.getId()){
+                    summaryDao.getDisbursements().put(TransactionStatusEnum.getEnumById(locationResultsDao.getTransactionStatusId()).getName(),locationResultsDao.getAmount());
 
-            }
-            daos.forEach(dao -> {
-                TransactionTypeEnum type = TransactionTypeEnum.getEnumById(dao.getTransactionTypeId());
-                TransactionStatusEnum status= TransactionStatusEnum.getEnumById(dao.getTransactionStatusId());
-                Double amount=dao.getAmount();
-
-
+                }
+                summaryDao.addProjectCount(locationResultsDao.getCount());//add project counts they are group by tr status and type
             });
-
+            builder.addFeature(ConverterFactory.createLocationSummaryConverter().convert(summaryDao));
         });
 
-        return null;
+      return builder.getFeatures();
     }
 
     public FeatureCollection getPhysicalProgressAverageByParamsAndDetail(Parameters params, double detail) {
