@@ -110,7 +110,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
     shapes.attr("d", (feature)=>{ return path(feature)});
     shapes.on("click",this.onClick.bind(this)); 
 
-
+/*
 
     this.g.append("g")
   .attr("class", "states-names")
@@ -119,7 +119,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
   .enter()
   .append("svg:text")
   .text(function(d){
-    return names[d.id];
+    return "1";
   })
   .attr("x", function(d){
       return path.centroid(d)[0];
@@ -130,7 +130,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
   .attr("text-anchor","middle")
   .attr('fill', 'white');
 
-
+*/
   }
 
 

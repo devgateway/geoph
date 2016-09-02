@@ -95,7 +95,7 @@ const loadLayer=(options, getState)=>{
 			(results)=>{
 				dispatch(loadLayerCompleted(results, getState))
 			}).catch((err)=>{ 
-				console.error(err);
+				console.log(err);
 				dispatch(loadLayerFailed(err));
 			});
 		} 

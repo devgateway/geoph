@@ -302,8 +302,12 @@ const map = (state = defaultState, action) => {
     return updateLayer(state,action);
 
     case LAYER_LOAD_SUCCESS:
-    return onLoadLayer(state,action);
-
+    try{
+      newState= onLoadLayer(state,action);
+      return newState;
+    }catch(e){
+      console.log(e)
+    }
     case SET_FUNDING_TYPE:
     return onChangeFundingType(state,action);
 

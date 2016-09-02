@@ -62,6 +62,7 @@ const view=React.createClass({
 	},
 
 	render(){
+		debugger;
 		const {map} = this.props;
 		const {southWest, northEast} = map.get('bounds').toJS();		
 		const bounds = L.latLngBounds(L.latLng(southWest.lat, southWest.lng),L.latLng(northEast.lat,northEast.lng));
