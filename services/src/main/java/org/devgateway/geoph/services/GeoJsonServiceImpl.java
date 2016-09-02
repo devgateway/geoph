@@ -61,13 +61,18 @@ public class GeoJsonServiceImpl implements GeoJsonService {
         //results should be ordered by ID!;
         List<LocationResultsDao> locationResultsDaos = locationRepository.findLocationsByParams(params);
 
-        Map<Location, List<LocationResultsDao>> groupByLocation = locationResultsDaos.stream().collect(Collectors.groupingBy(LocationResultsDao::getLocation));
+        Map<Long, List<LocationResultsDao>> groupByLocation = locationResultsDaos.stream().collect(Collectors.groupingBy(LocationResultsDao::getLocationId));
 
         GeoJsonBuilder builder=new GeoJsonBuilder();
 
-        groupByLocation.forEach((location, daos) -> {
+        groupByLocation.forEach((id, daos) -> {
             LocationSummaryDao summaryDao=new LocationSummaryDao();
-            summaryDao.setLocation(location);
+            LocationResultsDao first=daos.iterator().next();
+            summaryDao.setId(first.getLocationId());
+            summaryDao.setName(first.getName());
+            summaryDao.setLatitude(first.getLatitude());
+            summaryDao.setLongitude(first.getLongitude());
+
             daos.forEach(locationResultsDao -> {
                 if (locationResultsDao.getTransactionTypeId() == TransactionTypeEnum.COMMITMENTS.getId()) {
                     summaryDao.getCommitments().put(TransactionStatusEnum.getEnumById(locationResultsDao.getTransactionStatusId()).getName(),locationResultsDao.getAmount());

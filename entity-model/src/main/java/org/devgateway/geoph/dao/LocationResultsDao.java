@@ -4,7 +4,13 @@ import org.devgateway.geoph.model.Location;
 
 public class LocationResultsDao {
 
-    private Location location;
+    private Long locationId;
+
+    private String name;
+
+    private Double latitude;
+
+    private  Double longitude;
 
     private Long count;
 
@@ -14,12 +20,20 @@ public class LocationResultsDao {
 
     private Long transactionTypeId;
 
-    public Location getLocation() {
-        return location;
+    public Long getLocationId() {
+        return locationId;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
+    public void setLocationId(Long locationId) {
+        this.locationId = locationId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Long getCount() {
@@ -54,13 +68,30 @@ public class LocationResultsDao {
         this.transactionTypeId = transactionTypeId;
     }
 
-    public LocationResultsDao(Location location,  Long transactionStatusId, Long transactionTypeId, Double amount,Long count) {
-        this.location = location;
+    public LocationResultsDao(Long  locationId,String name ,Double latitude,Double longitude ,Long transactionStatusId, Long transactionTypeId, Double amount,Long count) {
+        this.locationId = locationId;
+        this.name=name;
         this.count = count;
         this.amount = amount;
         this.transactionStatusId = transactionStatusId;
         this.transactionTypeId = transactionTypeId;
+        this.latitude=latitude;
+        this.longitude=longitude;
     }
 
+    public Double getLatitude() {
+        return latitude;
+    }
 
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
 }

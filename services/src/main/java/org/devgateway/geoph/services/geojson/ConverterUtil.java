@@ -10,13 +10,16 @@ import org.geojson.Point;
 public class ConverterUtil {
 
     //add f2 properties to f1
-    public static Feature merge(Feature f1, Feature f2){
+    public static Feature merge(Feature f1, Feature f2,Boolean preserve){
         f1.getProperties().putAll(f2.getProperties());
+        if(preserve==false){
+         f1.setGeometry(f2.getGeometry());
+        }
         return f1;
     }
 
 
     public  static Point xyToPoint(Double latitude, Double longitude){
-        return new Point(latitude, longitude);
+        return new Point(longitude,latitude);
     }
 }

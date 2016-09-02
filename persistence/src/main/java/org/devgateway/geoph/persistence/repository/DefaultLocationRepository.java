@@ -149,11 +149,25 @@ public class DefaultLocationRepository implements LocationRepository {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery  criteriaQuery = criteriaBuilder.createQuery(LocationResultsDao.class);
         Root<Location> locationRoot = criteriaQuery.from(Location.class);
-        List<Selection<?>> multiSelect = new ArrayList<>();
-        multiSelect.add(locationRoot);
 
+        List<Selection<?>> multiSelect = new ArrayList<>();
         List<Predicate> predicates = new ArrayList<>();
         List<Expression<?>> groupByList = new ArrayList<>();
+
+
+        multiSelect.add(locationRoot.get(Location_.id));
+        groupByList.add(locationRoot.get(Location_.id));
+        multiSelect.add(locationRoot.get(Location_.name));
+        groupByList.add(locationRoot.get(Location_.id));
+
+
+        multiSelect.add(locationRoot.get(Location_.latitude));
+        groupByList.add(locationRoot.get(Location_.longitude));
+
+
+        multiSelect.add(locationRoot.get(Location_.longitude));
+        groupByList.add(locationRoot.get(Location_.longitude));
+
         groupByList.add(locationRoot);
 
         Join<Location, ProjectLocation> projectLocationJoin = locationRoot.join(Location_.projects, JoinType.INNER); //location -> project_location

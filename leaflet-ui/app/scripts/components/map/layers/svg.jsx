@@ -106,6 +106,28 @@ import { render, unmountComponentAtNode } from 'react-dom';
     shapes.attr("stroke-width", function(f) {return f.properties.border || 0;}.bind(this));
     shapes.attr("d", (feature)=>{ return path(feature)});
     shapes.on("click",this.onClick.bind(this)); 
+
+
+
+    this.g.append("g")
+  .attr("class", "states-names")
+  .selectAll("text")
+  .data(features)
+  .enter()
+  .append("svg:text")
+  .text(function(d){
+    return names[d.id];
+  })
+  .attr("x", function(d){
+      return path.centroid(d)[0];
+  })
+  .attr("y", function(d){
+      return  path.centroid(d)[1];
+  })
+  .attr("text-anchor","middle")
+  .attr('fill', 'white');
+
+
   }
 
 

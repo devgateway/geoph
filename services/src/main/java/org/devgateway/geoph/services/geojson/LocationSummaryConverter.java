@@ -21,8 +21,13 @@ public class LocationSummaryConverter extends AbstractConverter<LocationSummaryD
     @Override
     public Feature convert(LocationSummaryDao dao) {
         Feature feature = new Feature();
-        Feature locationFeature = new LocationConverter().convert(dao.getLocation());
-        ConverterUtil.merge(feature, locationFeature);
+
+        feature.setProperty(PROPERTY_LOC_NAME, dao.getName());
+
+        feature.setProperty(PROPERTY_LOC_ID, dao.getId());
+        feature.setGeometry(ConverterUtil.xyToPoint(dao.getLatitude(),dao.getLongitude()));
+
+
         feature.setProperty(PROPERTY_LOC_PROJ_COUNT, dao.getProjectCount());
         feature.setProperty(PROPERTY_LOC_COMMITMENTS, dao.getCommitments());
         feature.setProperty(PROPERTY_LOC_DISBURSEMENTS, dao.getDisbursements());
