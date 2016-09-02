@@ -18,6 +18,7 @@ public class LocationConverter extends AbstractConverter<Location> {
         feature.setProperty(PROPERTY_LOC_ID, location.getId());
         feature.setProperty(PROPERTY_LOC_NAME, location.getName());
         feature.setProperty(PROPERTY_LOC_CODE, location.getCode());
+        feature.setGeometry(ConverterUtil.xyToPoint(location.getLatitude(),location.getLongitude()));
 
         return feature;
     }

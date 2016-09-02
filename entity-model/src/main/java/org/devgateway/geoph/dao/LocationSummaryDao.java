@@ -50,6 +50,9 @@ public class LocationSummaryDao {
     }
 
     public HashMap<String, Double> getExpenditure() {
+        if (expenditures==null){
+            expenditures=new HashMap<>();
+        }
         return expenditures;
     }
 
