@@ -75,7 +75,7 @@ class ProjectPage extends React.Component {
 							      <Col md={5}><h2>{translate('project.locations')}</h2></Col>
 							      <Col md={7}>
 							      	<ul>
-							      	{locations? locations.map(loc=>{return <li>{loc.name}</li>}) : "Not Available"}
+							      	{locations? locations.map(loc=>{return <li>{loc.pk.location.name}</li>}) : "Not Available"}
 							      	</ul>
 							      </Col>
 							    </Row>

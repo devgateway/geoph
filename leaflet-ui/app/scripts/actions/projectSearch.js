@@ -27,6 +27,12 @@ export const clearAllProjectSelected = () => {
   }
 }
 
+export const applyProjectSelected = () => {
+  return {
+    type: Constants.APPLY_PROJECT_SELECTED
+  }
+}
+
 export const receiveProjectsByText = (filters, data) => {
   return {
     type: Constants.RECEIVE_PROJECT_BY_TEXT,
