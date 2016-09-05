@@ -30,6 +30,8 @@
     align-items: center;
     display: inline-flex;
     float: left;
+    z-index: 100000;
+    position: relative;
 }
 
 .chart-title{

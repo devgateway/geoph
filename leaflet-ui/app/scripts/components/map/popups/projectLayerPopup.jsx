@@ -15,12 +15,16 @@ require('./projectLayerPopup.scss');
 const ProjectLayerPopup = onClickOutside(React.createClass({
 
   getInitialState() {
-    return {'tabSelected': 'fundingAgency'};
+    return {'tabSelected': 'fundingAgency', 'measureType': 'projectCount'};
   },
 
   changeTab(tabSelected){
     this.setState({'tabSelected': tabSelected});
     this.getTabData(tabSelected);
+  },
+
+  changeMeasure(chart, measureType){
+    this.setState({'measureType': measureType});
   },
 
   handleClickOutside (evt) {
@@ -53,10 +57,12 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
     if (!feature){
       return null;
     }
+    const {level, name} = feature.properties;
+    debugger;
     return (
       <div className="popup-container">
         <div className="popup-title">
-          <h2>{feature? feature.properties.name : ""} </h2>
+          <h2>{name || ""} </h2>
         </div>
         <div className="">
           <ul className='popup-tabs' role='tablist' >
@@ -102,12 +108,13 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
             {charts.fundingAgency?
               !charts.fundingAgency.isFetching?
                 <div className="">
-                  <Chart chartData={charts.fundingAgency}
+                  <Chart chartData={Object.assign(charts.fundingAgency, {'measureType': this.state.measureType})}
                   measure={fundingType} 
                   chartType='pie'
                   width='400'
                   height='200'
                   showTotalHeader={true}
+                  onChangeMeasure={level==1? this.changeMeasure.bind(this):null}
                   dimension="name"/>
                 </div>
               : <div className="loading-css"><div></div></div>
@@ -119,12 +126,13 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
             {charts.implementingAgency?
               !charts.implementingAgency.isFetching?
                 <div className="">
-                  <Chart chartData={charts.implementingAgency}
+                  <Chart chartData={Object.assign(charts.implementingAgency, {'measureType': this.state.measureType})}
                   measure={fundingType} 
                   chartType='pie'
                   width='400'
                   height='200'
                   showTotalHeader={true}
+                  onChangeMeasure={level==1? this.changeMeasure.bind(this):null}
                   dimension="name"/>
                 </div>
               : <div className="loading-css"><div></div></div>
@@ -136,12 +144,13 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
             {charts.physicalStatus?
               !charts.physicalStatus.isFetching?
                 <div className="">
-                  <Chart chartData={charts.physicalStatus}
+                  <Chart chartData={Object.assign(charts.physicalStatus, {'measureType': this.state.measureType})}
                   measure={fundingType} 
                   chartType='pie'
                   width='400'
                   height='200'
                   showTotalHeader={true}
+                  onChangeMeasure={level==1? this.changeMeasure.bind(this):null}
                   dimension="name"/>
                 </div>
               : <div className="loading-css"><div></div></div>
@@ -153,12 +162,13 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
             {charts.sector?
               !charts.sector.isFetching?
                 <div className="">
-                  <Chart chartData={charts.sector}
+                  <Chart chartData={Object.assign(charts.sector, {'measureType': this.state.measureType})}
                   measure={fundingType} 
                   chartType='pie'
                   width='400'
                   height='200'
                   showTotalHeader={true}
+                  onChangeMeasure={level==1? this.changeMeasure.bind(this):null}
                   dimension="name"/>
                 </div>
               : <div className="loading-css"><div></div></div>

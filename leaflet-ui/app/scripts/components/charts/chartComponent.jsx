@@ -65,14 +65,6 @@ export default class ChartComponent extends React.Component {
 		}
 	}
 
-	getTotalFormatted(value){
-  		if (this.props.chartData.measureType=='projectCount'){
-  			return formatValue(value) +" "+translate('chartview.projects');
-  		} else {
-  			return " ₱ "+formatValue(value);
-  		}
-	}
-
 	getChartInfo(chartType){
 		let properties = Object.assign({}, this.props, {hiddenlabels: this.state.hiddenlabels});//add hidden labels to props
 		return parseDataChart(chartType, properties, this.refs.chartContainer);
@@ -152,7 +144,10 @@ export default class ChartComponent extends React.Component {
 					</div>
 	    		: null}	
 	    		{this.props.showTotalHeader?
-	    			<div className="total-funding-chart">{translate('infowindow.tab.totalamount')}: <div>{this.getTotalFormatted(chartInfo.totalAmount)}</div></div>
+	    			measureType ==='projectCount'?
+	    				<div className="total-funding-chart">{translate('infowindow.tab.totalamount')+" "+translate('chartview.projects')}: <div>{formatValue(chartInfo.totalAmount)}</div></div>
+	    			:
+	    				<div className="total-funding-chart">{translate('infowindow.tab.totalamount')+" "+translate('header.settings.'+measure.type)+" "+translate('header.settings.'+measure.measure)}: <div>{" ₱ "+formatValue(chartInfo.totalAmount)}</div></div>
                 : null}	
 	    		{!this.hasValuesToShow(chartInfo)?
 	    			<div className="no-data">
