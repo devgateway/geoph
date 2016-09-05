@@ -57,41 +57,46 @@ public class KMLImport {
 
         }
         if (feature instanceof  Placemark){
-            Placemark placemark=(Placemark)feature;
-            String name=placemark.getName();
-            String description=placemark.getDescription();
-            de.micromata.opengis.kml.v_2_2_0.Point geometry= (de.micromata.opengis.kml.v_2_2_0.Point) placemark.getGeometry();
-            GeoPhoto photo=new GeoPhoto();
-            photo.setDescription(description);
-            photo.setName(name);
-            GeometryFactory gf = new GeometryFactory();
-            if (description!=null){
-            org.jsoup.nodes.Document doc = Jsoup.parse(description);
-            Elements elements=doc.getElementsByTag("img");
-            List<String> urls=new ArrayList<>();
-            LOGGER.info(String.valueOf(elements.size()));
-            elements.forEach(element -> {
+            try {
+                Placemark placemark = (Placemark) feature;
+                String name = placemark.getName();
+                String description = placemark.getDescription();
+                de.micromata.opengis.kml.v_2_2_0.Point geometry = (de.micromata.opengis.kml.v_2_2_0.Point) placemark.getGeometry();
+                GeoPhoto photo = new GeoPhoto();
+                photo.setDescription(description);
+                photo.setName(name);
+                GeometryFactory gf = new GeometryFactory();
+                if (description != null) {
+                    org.jsoup.nodes.Document doc = Jsoup.parse(description);
+                    Elements elements = doc.getElementsByTag("img");
+                    List<String> urls = new ArrayList<>();
+                    LOGGER.info(String.valueOf(elements.size()));
+                    elements.forEach(element -> {
 
-                String img = element.attr("src");
-                if (img.lastIndexOf("logo_kmz.gif") == -1) {
-                    LOGGER.info(img);
-                    if (img.startsWith("files")) {
-                        img = path_prefix + "/" + img;
-                    }
-                    urls.add(img);
+                        String img = element.attr("src");
+                        if (img.lastIndexOf("logo_kmz.gif") == -1) {
+                            LOGGER.info(img);
+                            if (img.startsWith("files")) {
+                                img = path_prefix + "/" + img;
+                            }
+                            urls.add(img);
+                        }
+                    });
+
+                    photo.setUrls(urls);
                 }
-            });
 
-            photo.setUrls(urls);
+                com.vividsolutions.jts.geom.Coordinate coord = new com.vividsolutions.jts.geom.Coordinate(geometry.getCoordinates().get(0).getLatitude(), geometry.getCoordinates().get(0).getLongitude());
+                com.vividsolutions.jts.geom.Point point = gf.createPoint(coord);
+
+                photo.setPoint(point);
+                photo.setProject(p);
+                geoPhotoRepository.save(photo);
+                geoPhotoRepository.flush();
+            } catch (Exception e){
+                LOGGER.error("Error at: " + e.getMessage());
             }
 
-            com.vividsolutions.jts.geom.Coordinate coord = new com.vividsolutions.jts.geom.Coordinate(geometry.getCoordinates().get(0).getLatitude(),geometry.getCoordinates().get(0).getLongitude());
-            com.vividsolutions.jts.geom.Point point = gf.createPoint(coord);
-
-            photo.setPoint(point);
-            photo.setProject(p);
-            geoPhotoRepository.save(photo);
-            geoPhotoRepository.flush();
 
         }
     }
