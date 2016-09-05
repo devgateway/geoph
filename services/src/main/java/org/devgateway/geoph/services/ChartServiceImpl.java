@@ -53,7 +53,7 @@ public class ChartServiceImpl implements ChartService {
                         chartResponse = new ChartResponse(helper.getAgency(), params.getTrxTypeSort(), params.getTrxStatusSort());
                         respMap.put(helper.getAgency().getId(), chartResponse);
                     }
-                    chartResponse.add(helper.getTrxAmount(), tt.getName(), ts.getName());
+                    chartResponse.add(helper.getProjectCount(), helper.getTrxAmount(), tt.getName(), ts.getName());
                 }
             }
         }
@@ -77,7 +77,7 @@ public class ChartServiceImpl implements ChartService {
                         chartResponse = new ChartResponse(helper.getAgency(), params.getTrxTypeSort(), params.getTrxStatusSort());
                         respMap.put(helper.getAgency().getId(), chartResponse);
                     }
-                    chartResponse.add(helper.getTrxAmount(), tt.getName(), ts.getName());
+                    chartResponse.add(helper.getProjectCount(), helper.getTrxAmount(), tt.getName(), ts.getName());
                 }
             }
         }
@@ -113,7 +113,7 @@ public class ChartServiceImpl implements ChartService {
                             chartResponse = new ChartResponse(helper.getAgency(), params.getTrxTypeSort(), params.getTrxStatusSort());
                             respMap.put(helper.getAgency().getId(), chartResponse);
                         }
-                        chartResponse.add(helper.getTrxAmount(), tt.getName(), ts.getName());
+                        chartResponse.add(helper.getProjectCount(), helper.getTrxAmount(), tt.getName(), ts.getName());
                     }
                 }
             }
@@ -138,7 +138,7 @@ public class ChartServiceImpl implements ChartService {
                         chartResponse = new ChartResponse(helper.getSector(), params.getTrxTypeSort(), params.getTrxStatusSort());
                         respMap.put(helper.getSector().getId(), chartResponse);
                     }
-                    chartResponse.add(helper.getTrxAmount(), tt.getName(), ts.getName());
+                    chartResponse.add(helper.getProjectCount(), helper.getTrxAmount(), tt.getName(), ts.getName());
                 }
             }
         }
@@ -163,7 +163,7 @@ public class ChartServiceImpl implements ChartService {
                         chartResponse = new ChartResponse(helper.getPhysicalStatus(), params.getTrxTypeSort(), params.getTrxStatusSort());
                         respMap.put(helper.getPhysicalStatus().getId(), chartResponse);
                     }
-                    chartResponse.add(helper.getTrxAmount(), tt.getName(), ts.getName());
+                    chartResponse.add(helper.getProjectCount(), helper.getTrxAmount(), tt.getName(), ts.getName());
                 }
             }
         }
