@@ -76,6 +76,12 @@ public class GrantColumns {
     @Value("${grant.periodPerformanceEnd}")
     private int periodPerformanceEnd;
 
+    @Value("${grant.climateChangeClassification}")
+    private int climateChangeClassification;
+
+    @Value("${grant.genderClassification}")
+    private int genderClassification;
+
     public int getProjectId() {
         return projectId;
     }
@@ -164,4 +170,11 @@ public class GrantColumns {
         return periodPerformanceEnd;
     }
 
+    public int getClimateChangeClassification() {
+        return climateChangeClassification;
+    }
+
+    public int getGenderClassification() {
+        return genderClassification;
+    }
 }
