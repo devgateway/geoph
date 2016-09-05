@@ -13,9 +13,9 @@ public interface GeoJsonService {
 
     FeatureCollection getLocationsByLevel(LocationAdmLevelEnum level);
 
-    FeatureCollection getLocationsByParams(Parameters params);
+    FeatureCollection getGeoProjects(Parameters params);
 
-    FeatureCollection getShapesByLevelAndDetail(LocationAdmLevelEnum level, double detail, Parameters params);
+    FeatureCollection getGeoFunding(LocationAdmLevelEnum level, double detail, Parameters params);
 
     FeatureCollection getPhysicalProgressAverageByParamsAndDetail(Parameters params, double detail);
 }

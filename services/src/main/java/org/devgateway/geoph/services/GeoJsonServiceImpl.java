@@ -15,6 +15,8 @@ import org.devgateway.geoph.services.geojson.ConverterFactory;
 import org.devgateway.geoph.services.geojson.GeoJsonBuilder;
 import org.devgateway.geoph.services.util.FeatureHelper;
 import org.geojson.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -33,6 +35,8 @@ import static org.devgateway.geoph.core.constants.Constants.*;
  */
 @Service
 public class GeoJsonServiceImpl implements GeoJsonService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(GeoJsonServiceImpl.class);
 
     private static final int LONG = 0;
     private static final int LAT = 1;
@@ -57,12 +61,13 @@ public class GeoJsonServiceImpl implements GeoJsonService {
         return featureCollection;
     }
 
-    public FeatureCollection getLocationsByParams(Parameters params) {
+    public FeatureCollection getGoProjects(Parameters params) {
+        long start_time = System.currentTimeMillis();
         //results should be ordered by ID!;
         List<LocationResultsDao> locationResultsDaos = locationRepository.findLocationsByParams(params);
-
+        LOGGER.info("---after querying "+ (System.currentTimeMillis()- start_time)+"---") ;
         Map<Long, List<LocationResultsDao>> groupByLocation = locationResultsDaos.stream().collect(Collectors.groupingBy(LocationResultsDao::getLocationId));
-
+        LOGGER.info("---after grouping "+ (System.currentTimeMillis()- start_time)+"---") ;
         GeoJsonBuilder builder=new GeoJsonBuilder();
 
         groupByLocation.forEach((id, daos) -> {
@@ -89,8 +94,8 @@ public class GeoJsonServiceImpl implements GeoJsonService {
             });
             builder.addFeature(ConverterFactory.createLocationSummaryConverter().convert(summaryDao));
         });
-
-      return builder.getFeatures();
+        LOGGER.info("---after creating features" + (System.currentTimeMillis() - start_time) + "---") ;
+        return builder.getFeatures();
     }
 
     public FeatureCollection getPhysicalProgressAverageByParamsAndDetail(Parameters params, double detail) {
@@ -142,8 +147,6 @@ public class GeoJsonServiceImpl implements GeoJsonService {
         }
     }
 
-
-
     public List<ProjectLocationDao> getLocationsForExport(Parameters params){
         return locationRepository.findProjectLocationsByParams(params);
     }
@@ -160,7 +163,9 @@ public class GeoJsonServiceImpl implements GeoJsonService {
     }
 
     @Override
-    public FeatureCollection getShapesByLevelAndDetail(LocationAdmLevelEnum level, double detail, Parameters params) {
+    public FeatureCollection getGeoFunding(LocationAdmLevelEnum level, double detail, Parameters params) {
+
+/*
         List<Location> locations = locationRepository.findLocationsByLevel(level.getLevel());
 
         Map<Long, PostGisDao> postGisHelperMap = new HashMap<>();
@@ -187,7 +192,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
             FeatureHelper.setLocationPropertyFeature(feature, location);
             featureCollection.add(feature);
         }
-
+        */
         return featureCollection;
     }
 
