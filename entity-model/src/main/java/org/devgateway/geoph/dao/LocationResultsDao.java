@@ -1,5 +1,7 @@
 package org.devgateway.geoph.dao;
 
+import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.Point;
 import org.devgateway.geoph.model.Location;
 
 public class LocationResultsDao {
@@ -8,13 +10,13 @@ public class LocationResultsDao {
 
     private String name;
 
-    private Double latitude;
-
-    private  Double longitude;
+    Point centroid;
+    Geometry geometry;
 
     private Long count;
 
     private Double amount;
+
 
     private Long transactionStatusId;
 
@@ -52,6 +54,24 @@ public class LocationResultsDao {
         this.amount = amount;
     }
 
+
+    public Point getCentroid() {
+        return centroid;
+    }
+
+    public void setCentroid(Point centroid) {
+        this.centroid = centroid;
+    }
+
+    public Geometry getGeometry() {
+        return geometry;
+    }
+
+    public void setGeometry(Geometry geometry) {
+        this.geometry = geometry;
+    }
+
+
     public Long getTransactionStatusId() {
         return transactionStatusId;
     }
@@ -67,31 +87,29 @@ public class LocationResultsDao {
     public void setTransactionTypeId(Long transactionTypeId) {
         this.transactionTypeId = transactionTypeId;
     }
-
-    public LocationResultsDao(Long  locationId,String name ,Double latitude,Double longitude ,Long transactionStatusId, Long transactionTypeId, Double amount,Long count) {
+//Expected arguments are:           long, java.lang.String, com.vividsolutions.jts.geom.Geometry, long, long, double, long
+    public LocationResultsDao(Long  locationId,String name ,Geometry centroid,Long transactionStatusId, Long transactionTypeId, Double amount,Long count) {
         this.locationId = locationId;
         this.name=name;
         this.count = count;
         this.amount = amount;
         this.transactionStatusId = transactionStatusId;
         this.transactionTypeId = transactionTypeId;
-        this.latitude=latitude;
-        this.longitude=longitude;
+        this.centroid= (Point) centroid;
+
+
     }
 
-    public Double getLatitude() {
-        return latitude;
+    public LocationResultsDao(Long  locationId,String name ,Geometry centroid,Geometry geometry ,Long transactionStatusId, Long transactionTypeId, Double amount,Long count) {
+        this.locationId = locationId;
+        this.name=name;
+        this.count = count;
+        this.amount = amount;
+        this.transactionStatusId = transactionStatusId;
+        this.transactionTypeId = transactionTypeId;
+        this.centroid= (Point) centroid;
+        this.geometry=geometry;
+
     }
 
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
-    }
-
-    public Double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
-    }
 }

@@ -16,4 +16,13 @@ public enum LocationAdmLevelEnum {
     public int getLevel() {
         return level;
     }
+
+    public static LocationAdmLevelEnum getEnumByLevel(long level){
+        for(LocationAdmLevelEnum e:LocationAdmLevelEnum.values()){
+            if(e.getLevel()==level){
+                return e;
+            }
+        }
+        return null;
+    }
 }

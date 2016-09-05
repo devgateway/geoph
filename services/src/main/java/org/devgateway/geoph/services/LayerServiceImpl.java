@@ -7,7 +7,6 @@ import org.devgateway.geoph.core.response.IndicatorResponse;
 import org.devgateway.geoph.core.services.LayerService;
 import org.devgateway.geoph.dao.GeoPhotoGeometryDao;
 import org.devgateway.geoph.dao.PostGisDao;
-import org.devgateway.geoph.enums.GeometryDetailLevelEnum;
 import org.devgateway.geoph.enums.LocationAdmLevelEnum;
 import org.devgateway.geoph.model.Indicator;
 import org.devgateway.geoph.model.IndicatorDetail;
@@ -69,11 +68,11 @@ public class LayerServiceImpl implements LayerService {
         Map<Long, PostGisDao> postGisHelperMap = new HashMap<>();
         List<PostGisDao> gisHelperList = null;
         if (indicator.getAdmLevel().toUpperCase().equals(LocationAdmLevelEnum.REGION.name())) {
-            gisHelperList = locationRepository.getRegionShapesWithDetail(GeometryDetailLevelEnum.MEDIUM.getLevel());
+            //gisHelperList = locationRepository.getRegionShapesWithDetail(GeometryDetail.MEDIUM.getValue());
         } else if (indicator.getAdmLevel().toUpperCase().equals(LocationAdmLevelEnum.PROVINCE.name())) {
-            gisHelperList = locationRepository.getProvinceShapesWithDetail(GeometryDetailLevelEnum.MEDIUM.getLevel());
+            //gisHelperList = locationRepository.getProvinceShapesWithDetail(GeometryDetail.MEDIUM.getValue());
         } else if (indicator.getAdmLevel().toUpperCase().equals(LocationAdmLevelEnum.MUNICIPALITY.name())) {
-            gisHelperList = locationRepository.getMunicipalityShapesWithDetail(GeometryDetailLevelEnum.MEDIUM.getLevel());
+            //gisHelperList = locationRepository.getMunicipalityShapesWithDetail(GeometryDetail.MEDIUM.getValue());
         }
         if (gisHelperList != null) {
             for (PostGisDao helper : gisHelperList) {

@@ -1,5 +1,7 @@
 package org.devgateway.geoph.dao;
 
+import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.Point;
 import org.devgateway.geoph.model.Location;
 
 import java.util.ArrayList;
@@ -12,8 +14,8 @@ public class LocationSummaryDao {
 
     Long id;
     String name;
-    Double latitude;
-    Double longitude;
+    Point centroid;
+    Geometry geometry;
     Long projectCount=0L;
     HashMap<String,Double> commitments;
     HashMap<String,Double> expenditures;
@@ -35,21 +37,24 @@ public class LocationSummaryDao {
         this.name = name;
     }
 
-    public Double getLatitude() {
-        return latitude;
+
+    public Point getCentroid() {
+        return centroid;
     }
 
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
+    public void setCentroid(Point centroid) {
+        this.centroid = centroid;
     }
 
-    public Double getLongitude() {
-        return longitude;
+    public Geometry getGeometry() {
+        return geometry;
     }
 
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
+    public void setGeometry(Geometry geometry) {
+        this.geometry = geometry;
     }
+
+
 
     public HashMap<String, Double> getExpenditures() {
         return expenditures;

@@ -1,10 +1,10 @@
 package org.devgateway.geoph.persistence.repository;
 
-import com.google.gson.Gson;
+import com.vividsolutions.jts.geom.Geometry;
 import org.devgateway.geoph.core.repositories.LocationRepository;
 import org.devgateway.geoph.core.request.Parameters;
+import org.devgateway.geoph.dao.GeometryDao;
 import org.devgateway.geoph.dao.LocationResultsDao;
-import org.devgateway.geoph.dao.PostGisDao;
 import org.devgateway.geoph.dao.ProjectLocationDao;
 import org.devgateway.geoph.model.*;
 import org.devgateway.geoph.persistence.util.FilterHelper;
@@ -13,10 +13,8 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,8 +71,8 @@ public class DefaultLocationRepository implements LocationRepository {
     @Cacheable("findLocationsByParentId")
     public List<Location> findLocationsByParentId(long parentId) {
         return em.createNativeQuery("Select l.* from location l " +
-                        "inner join location_items li on l.id=li.items_id " +
-                        "where li.location_id = :parentId", Location.class)
+                "inner join location_items li on l.id=li.items_id " +
+                "where li.location_id = :parentId", Location.class)
                 .setParameter("parentId", parentId)
                 .getResultList();
     }
@@ -160,17 +158,24 @@ public class DefaultLocationRepository implements LocationRepository {
         multiSelect.add(locationRoot.get(Location_.name));
         groupByList.add(locationRoot.get(Location_.id));
 
+          multiSelect.add(locationRoot.get(Location_.centroid));
+        groupByList.add(locationRoot.get(Location_.centroid));
 
-        multiSelect.add(locationRoot.get(Location_.latitude));
-        groupByList.add(locationRoot.get(Location_.longitude));
-
-
-        multiSelect.add(locationRoot.get(Location_.longitude));
-        groupByList.add(locationRoot.get(Location_.longitude));
 
         groupByList.add(locationRoot);
 
         Join<Location, ProjectLocation> projectLocationJoin = locationRoot.join(Location_.projects, JoinType.INNER); //location -> project_location
+
+       // Join<Location, LocationGeometry> geometryJoin = locationRoot.join(Location_.locationGeometry, JoinType.LEFT); //project to transaction (left in order to be able to count projects without transactions)
+
+
+        //ParameterExpression<Double> level = criteriaBuilder.parameter(Double.class, "level");
+
+        //Expression function=criteriaBuilder.function("ST_Simplify", Geometry.class, geometryJoin.get(LocationGeometry_.geometry),level);
+
+        //multiSelect.add(function);
+        //groupByList.add(geometryJoin.get(LocationGeometry_.geometry));
+
 
         Join<ProjectLocation, ProjectLocationId> idJoin = projectLocationJoin.join(ProjectLocation_.pk, JoinType.INNER); //
 
@@ -188,6 +193,7 @@ public class DefaultLocationRepository implements LocationRepository {
         multiSelect.add(criteriaBuilder.countDistinct(projectJoin).alias("count"));
 
         //add params filters
+
         FilterHelper.filterLocationQuery(params, criteriaBuilder, locationRoot, predicates, projectJoin);
 
         Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
@@ -196,11 +202,43 @@ public class DefaultLocationRepository implements LocationRepository {
 
         criteriaQuery.groupBy(groupByList);
         TypedQuery<LocationResultsDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
+        //query.setParameter("level",GeometryDetail.MEDIUM.getValue());
 
         return query.getResultList();
     }
 
 
+    @Cacheable(value = "shapesWithDetail" , unless = "#result.size() == 0" )
+    public List<GeometryDao> getShapesByLevelAndDetail(int level,double detail) {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery  criteriaQuery = criteriaBuilder.createQuery(GeometryDao.class);
+        Root<Location> locationRoot = criteriaQuery.from(Location.class);
+
+        List<Selection<?>> multiSelect = new ArrayList<>();
+        List<Predicate> predicates = new ArrayList<>();
+        predicates.add(locationRoot.get(Location_.level).in(level));
+
+        Join<Location, LocationGeometry> geometryJoin = locationRoot.join(Location_.locationGeometry, JoinType.LEFT); //project to transaction (left in order to be able to count projects without transactions)
+
+        predicates.add(geometryJoin.get(LocationGeometry_.geometry).isNotNull());
+
+        //multiSelect.add(geometryJoin.get(LocationGeometry_.geometry));
+        ParameterExpression<Double> detailparam = criteriaBuilder.parameter(Double.class, "detail");
+        Expression function=criteriaBuilder.function("ST_Simplify", Geometry.class, geometryJoin.get(LocationGeometry_.geometry), detailparam);
+
+        multiSelect.add(locationRoot.get(Location_.id));
+        multiSelect.add(function);
+
+        TypedQuery<GeometryDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
+        criteriaQuery.where(criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()])));
+        query.setParameter("detail", detail);
+        return query.getResultList();
+    }
+
+
+
+
+/*
     @Override
     public List<PostGisDao> getRegionShapesWithDetail(double detail) {
         return getShapesWithDetail(detail, "region_geometry");
@@ -232,5 +270,5 @@ public class DefaultLocationRepository implements LocationRepository {
             resp.add(helper);
         }
         return resp;
-    }
+    }*/
 }
