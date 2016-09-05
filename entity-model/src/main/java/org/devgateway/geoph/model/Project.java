@@ -52,6 +52,9 @@ public class Project extends GenericPersistable implements Serializable {
     private String title;
 
     @OneToMany(cascade=CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "project")
+    private Set<GeoPhoto> geoPhotos;
+
+    @OneToMany(cascade=CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "project")
     private Set<Transaction> transactions;
 
     @OneToMany(cascade=CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "pk.project")
@@ -530,6 +533,14 @@ public class Project extends GenericPersistable implements Serializable {
         this.cumulativeObligations = cumulativeObligations;
     }
 
+    public Set<GeoPhoto> getGeoPhotos() {
+        return geoPhotos;
+    }
+
+    public void setGeoPhotos(Set<GeoPhoto> geoPhotos) {
+        this.geoPhotos = geoPhotos;
+    }
+
     public void updateFields(Project project){
         this.title = project.getTitle();
 
@@ -545,7 +556,18 @@ public class Project extends GenericPersistable implements Serializable {
                 this.transactions.add(transaction);
             }
         }
-
+        if(this.geoPhotos!=null) {
+            this.geoPhotos.clear();
+        }
+        if (project.getGeoPhotos()!=null){
+            if(this.geoPhotos==null) {
+                this.geoPhotos = new HashSet<>();
+            }
+            for(GeoPhoto geoPhoto:project.getGeoPhotos()) {
+                geoPhoto.setProject(this);
+                this.geoPhotos.add(geoPhoto);
+            }
+        }
         if(this.implementingAgencies!=null) {
             this.implementingAgencies.clear();
         }

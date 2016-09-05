@@ -30,6 +30,7 @@ public class GeoJsonController extends BaseController {
     private final GeoJsonService geoJsonService;
 
     private final GeoPhotosService geoPhotosService;
+
     private final LayerService layerService;
 
     @Autowired
@@ -79,18 +80,11 @@ public class GeoJsonController extends BaseController {
         return layerService.getIndicatorsData(indicatorId);
     }
 
-    @RequestMapping(value = "/geophotos/id/{kmlId}", method = GET)
-    public FeatureCollection getGeoPhotosDataById(@PathVariable final long kmlId) {
-        LOGGER.debug("getGeoPhotosData for kml id:" + kmlId);
-        return layerService.getGeoPhotoDataById(kmlId);
-    }
-
-
 
     @RequestMapping(value = "/geophotos", method = GET)
-    public FeatureCollection getGeoPhotosData() {
+    public FeatureCollection getGeoPhotosData(AppRequestParams filters) {
         LOGGER.debug("getGeoPhotosData");
-        return geoPhotosService.getGeoPhotoData();
+        return geoPhotosService.getGeoPhotoData(filters.getParameters());
     }
 
 

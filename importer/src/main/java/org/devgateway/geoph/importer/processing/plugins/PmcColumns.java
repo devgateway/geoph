@@ -88,6 +88,12 @@ public class PmcColumns {
     @Value("${pmc.cumulativeObligations}")
     private int cumulativeObligations;
 
+    @Value("${pmc.climateChangeClassification}")
+    private int climateChangeClassification;
+
+    @Value("${pmc.genderClassification}")
+    private int genderClassification;
+
     public int getProjectId() {
         return projectId;
     }
@@ -190,5 +196,13 @@ public class PmcColumns {
 
     public int getCumulativeObligations() {
         return cumulativeObligations;
+    }
+
+    public int getClimateChangeClassification() {
+        return climateChangeClassification;
+    }
+
+    public int getGenderClassification() {
+        return genderClassification;
     }
 }

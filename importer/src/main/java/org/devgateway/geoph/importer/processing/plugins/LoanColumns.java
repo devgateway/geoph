@@ -121,6 +121,12 @@ public class LoanColumns {
     @Value("${loan.complianceToConditions}")
     private int complianceToConditions;
 
+    @Value("${loan.climateChangeClassification}")
+    private int climateChangeClassification;
+
+    @Value("${loan.genderClassification}")
+    private int genderClassification;
+
     public int getProjectId() {
         return projectId;
     }
@@ -267,5 +273,13 @@ public class LoanColumns {
 
     public int getPeriodPerformanceEnd() {
         return periodPerformanceEnd;
+    }
+
+    public int getClimateChangeClassification() {
+        return climateChangeClassification;
+    }
+
+    public int getGenderClassification() {
+        return genderClassification;
     }
 }

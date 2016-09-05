@@ -1,5 +1,6 @@
 package org.devgateway.geoph.core.services;
 
+import org.devgateway.geoph.core.request.Parameters;
 import org.geojson.FeatureCollection;
 
 /**
@@ -7,5 +8,5 @@ import org.geojson.FeatureCollection;
  */
 public interface GeoPhotosService {
 
-    FeatureCollection getGeoPhotoData();
+    FeatureCollection getGeoPhotoData(Parameters parameters);
 }
