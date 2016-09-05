@@ -21,7 +21,6 @@ import java.util.Set;
 @Service("loanImporter")
 public class LoanImporter extends GeophProjectsImporter {
     private static final Logger LOGGER = LoggerFactory.getLogger(LoanImporter.class);
-    private static final int MAX_LENGTH = 255;
     private static final String UNDEFINED = "undefined";
     private static final double UTILIZATION = 1D;
 
@@ -32,14 +31,10 @@ public class LoanImporter extends GeophProjectsImporter {
     protected void addProject(Row row, final int rowNumber) {
         Project p = new Project();
         try {
-            p.setPhId(getStringValueFromCell(row.getCell(loanColumns.getProjectId()), "project id", rowNumber, GeophProjectsImporter.onProblem.NOTHING, false));
+            p.setPhId(getCorrectPhId(getStringValueFromCell(row.getCell(loanColumns.getProjectId()), "project id", rowNumber, GeophProjectsImporter.onProblem.NOTHING, false)));
 
             String title = getStringValueFromCell(row.getCell(loanColumns.getProjectTitle()), "project title", rowNumber, GeophProjectsImporter.onProblem.NOTHING, false);
-            if(title.length()> MAX_LENGTH){
-                p.setTitle(title.substring(0, MAX_LENGTH));
-            } else {
-                p.setTitle(title);
-            }
+            p.setTitle(getMaxString(title));
 
             String fa = getStringValueFromCell(row.getCell(loanColumns.getFundingInstitution()), "funding institution", rowNumber, GeophProjectsImporter.onProblem.NOTHING, true);
             if(StringUtils.isBlank(fa) || importBaseData.getFundingAgencies().get(fa.trim()) == null){
@@ -212,32 +207,54 @@ public class LoanImporter extends GeophProjectsImporter {
             );
 
             p.setNatureRre(
-                    getStringValueFromCell(row.getCell(loanColumns.getNatureRRE()), "nature rre", rowNumber, GeophProjectsImporter.onProblem.NOTHING, true)
+                    getMaxString(getStringValueFromCell(row.getCell(loanColumns.getNatureRRE()), "nature rre", rowNumber, GeophProjectsImporter.onProblem.NOTHING, true))
             );
 
             p.setReasonRre(
-                    getStringValueFromCell(row.getCell(loanColumns.getReasonRRE()), "reason rre", rowNumber, GeophProjectsImporter.onProblem.NOTHING, true)
+                    getMaxString(getStringValueFromCell(row.getCell(loanColumns.getReasonRRE()), "reason rre", rowNumber, GeophProjectsImporter.onProblem.NOTHING, true))
             );
 
             p.setLevelRre(
-                    getStringValueFromCell(row.getCell(loanColumns.getLevelRRE()), "level rre", rowNumber, GeophProjectsImporter.onProblem.NOTHING, true)
+                    getMaxString(getStringValueFromCell(row.getCell(loanColumns.getLevelRRE()), "level rre", rowNumber, GeophProjectsImporter.onProblem.NOTHING, true))
             );
 
             p.setDateRre(
-                    getStringValueFromCell(row.getCell(loanColumns.getDateRRE()), "date rre", rowNumber, GeophProjectsImporter.onProblem.NOTHING, true)
+                    getMaxString(getStringValueFromCell(row.getCell(loanColumns.getDateRRE()), "date rre", rowNumber, GeophProjectsImporter.onProblem.NOTHING, true))
             );
 
             p.setIccNbConditions(
-                    getStringValueFromCell(row.getCell(loanColumns.getIccNbConditions()), "icc nb conditions", rowNumber, GeophProjectsImporter.onProblem.NOTHING, true)
+                    getMaxString(getStringValueFromCell(row.getCell(loanColumns.getIccNbConditions()), "icc nb conditions", rowNumber, GeophProjectsImporter.onProblem.NOTHING, true))
             );
 
             p.setIccNbAction(
-                    getStringValueFromCell(row.getCell(loanColumns.getIccNbAction()), "icc nb action", rowNumber, GeophProjectsImporter.onProblem.NOTHING, true)
+                    getMaxString(getStringValueFromCell(row.getCell(loanColumns.getIccNbAction()), "icc nb action", rowNumber, GeophProjectsImporter.onProblem.NOTHING, true))
             );
 
             p.setComplianceToConditions(
                     getStringValueFromCell(row.getCell(loanColumns.getComplianceToConditions()), "compliance to conditions", rowNumber, GeophProjectsImporter.onProblem.NOTHING, true)
             );
+
+            String[] climates = getStringArrayValueFromCell(row.getCell(loanColumns.getClimateChangeClassification()), "climate change", rowNumber, onProblem.NOTHING);
+            Set<ClimateChange> climatesSet = new HashSet<>();
+            for (String cc : climates) {
+                if (importBaseData.getClimateChanges().get(cc.toLowerCase().trim()) != null) {
+                    climatesSet.add(importBaseData.getClimateChanges().get(cc.toLowerCase().trim()));
+                }
+            }
+            if(climatesSet.size()>0){
+                p.setClimateChange(climatesSet);
+            }
+
+            String[] genders = getStringArrayValueFromCell(row.getCell(loanColumns.getGenderClassification()), "gender classification", rowNumber, onProblem.NOTHING);
+            Set<GenderResponsiveness> genderSet = new HashSet<>();
+            for (String gender : genders) {
+                if (importBaseData.getGenderResponsiveness().get(gender.toLowerCase().trim()) != null) {
+                    genderSet.add(importBaseData.getGenderResponsiveness().get(gender.toLowerCase().trim()));
+                }
+            }
+            if(genderSet.size()>0){
+                p.setGenderResponsiveness(genderSet);
+            }
 
 
             importBaseData.getProjectService().save(p);

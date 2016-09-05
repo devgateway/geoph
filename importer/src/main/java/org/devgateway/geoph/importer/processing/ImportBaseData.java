@@ -40,6 +40,10 @@ public class ImportBaseData {
 
     protected final Map<String, ExecutingAgency> executingAgencies;
 
+    protected final Map<String, ClimateChange> climateChanges;
+
+    protected final Map<String, GenderResponsiveness> genderResponsiveness;
+
     @Autowired
     public ImportBaseData(FilterService filterService, ProjectService projectService){
         this.projectService = projectService;
@@ -54,6 +58,8 @@ public class ImportBaseData {
         this.implementingAgencies = filterService.findAllImpAgencies().stream().collect(Collectors.toMap(x -> x.getCode().toLowerCase(), x -> x));
         this.classifications = filterService.findAllClassifications().stream().collect(Collectors.toMap(x -> x.getName().toLowerCase(), x -> x));
         this.executingAgencies = filterService.findAllExecutingAgencies().stream().collect(Collectors.toMap(x -> x.getCode().toLowerCase(), x -> x));
+        this.climateChanges = filterService.findAllClimateChanges().stream().collect(Collectors.toMap(x -> x.getCode().toLowerCase(), x -> x));
+        this.genderResponsiveness = filterService.findAllGenderResponsiveness().stream().collect(Collectors.toMap(x -> x.getCode().toLowerCase(), x -> x));
     }
 
     public ProjectService getProjectService() {
@@ -102,5 +108,13 @@ public class ImportBaseData {
 
     public Map<String, ExecutingAgency> getExecutingAgencies() {
         return executingAgencies;
+    }
+
+    public Map<String, ClimateChange> getClimateChanges() {
+        return climateChanges;
+    }
+
+    public Map<String, GenderResponsiveness> getGenderResponsiveness() {
+        return genderResponsiveness;
     }
 }

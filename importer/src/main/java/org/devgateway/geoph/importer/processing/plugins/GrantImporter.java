@@ -34,7 +34,7 @@ public class GrantImporter extends GeophProjectsImporter {
     protected void addProject(Row row, final int rowNumber) {
         Project p = new Project();
         try {
-            p.setPhId(getStringValueFromCell(row.getCell(grantColumns.getProjectId()), "project id", rowNumber, onProblem.NOTHING, false));
+            p.setPhId(getCorrectPhId(getStringValueFromCell(row.getCell(grantColumns.getProjectId()), "project id", rowNumber, onProblem.NOTHING, false)));
 
             String title = getStringValueFromCell(row.getCell(grantColumns.getProjectTitle()), "project title", rowNumber, onProblem.NOTHING, false);
             if(title.length()> MAX_LENGTH){
@@ -184,6 +184,28 @@ public class GrantImporter extends GeophProjectsImporter {
             p.setPeriodPerformanceEnd(
                     getDateValueFromCell(row.getCell(grantColumns.getPeriodPerformanceEnd()), "period performance end", rowNumber, onProblem.NOTHING)
             );
+
+            String[] climates = getStringArrayValueFromCell(row.getCell(grantColumns.getClimateChangeClassification()), "climate change", rowNumber, onProblem.NOTHING);
+            Set<ClimateChange> climatesSet = new HashSet<>();
+            for (String cc : climates) {
+                if (importBaseData.getClimateChanges().get(cc.toLowerCase().trim()) != null) {
+                    climatesSet.add(importBaseData.getClimateChanges().get(cc.toLowerCase().trim()));
+                }
+            }
+            if(climatesSet.size()>0){
+                p.setClimateChange(climatesSet);
+            }
+
+            String[] genders = getStringArrayValueFromCell(row.getCell(grantColumns.getGenderClassification()), "gender classification", rowNumber, onProblem.NOTHING);
+            Set<GenderResponsiveness> genderSet = new HashSet<>();
+            for (String gender : genders) {
+                if (importBaseData.getGenderResponsiveness().get(gender.toLowerCase().trim()) != null) {
+                    genderSet.add(importBaseData.getGenderResponsiveness().get(gender.toLowerCase().trim()));
+                }
+            }
+            if(genderSet.size()>0){
+                p.setGenderResponsiveness(genderSet);
+            }
 
             importBaseData.getProjectService().save(p);
             importStats.addSuccessProjectAndTransactions(p.getTransactions().size());
