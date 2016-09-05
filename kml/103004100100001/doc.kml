@@ -1,0 +1,1720 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>BuB.kmz</name>
+	<StyleMap id="msn_image15_roll">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_image15_roll</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_image15_roll</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sn_grn-pushpin">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/grn-circle.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LabelStyle>
+			<scale>0</scale>
+		</LabelStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/grn-circle-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<Style id="sh_red-circle">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/red-circle.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/red-circle-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<Style id="sn_red-circle">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/red-circle.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LabelStyle>
+			<scale>0</scale>
+		</LabelStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/red-circle-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<Style id="sn_image15_roll">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/grn-circle.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LabelStyle>
+			<scale>0</scale>
+		</LabelStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/grn-circle-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<StyleMap id="msn_red-circle">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_red-circle</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_red-circle</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sn_B">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/B.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LabelStyle>
+			<scale>0</scale>
+		</LabelStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/B-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<Style id="sh_image15_roll">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/grn-circle.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/grn-circle-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<Style id="sh_B">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/B.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/B-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<Style id="sh_grn-pushpin">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/grn-circle.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/grn-circle-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<StyleMap id="msn_B">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_B</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_B</styleUrl>
+		</Pair>
+	</StyleMap>
+	<StyleMap id="msn_grn-pushpin">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_grn-pushpin</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_grn-pushpin</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Folder>
+		<name>BuB</name>
+		<open>1</open>
+		<Folder>
+			<name>Guiguinto_Projects</name>
+			<open>1</open>
+			<Snippet maxLines="2">Municipal Project</Snippet>
+			<description>Generated Dec 3, 20159:36:01 PM</description>
+			<Placemark>
+				<name>MUNICIPAL COLUMBARIUM</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image15_thumb.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+               </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>
+<BR>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image18_thumb.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>
+<BR>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image19_thumb.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.856904</longitude>
+					<latitude>14.850669</latitude>
+					<altitude>0</altitude>
+					<heading>0.000128</heading>
+					<tilt>22.275298</tilt>
+					<range>197.808649</range>
+				</LookAt>
+				<styleUrl>#msn_image15_roll</styleUrl>
+				<Point>
+					<coordinates>120.856904,14.850669,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>GMACC</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image2_thumb.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+            </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>
+
+<br>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image3_thumb.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>
+<br>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image4_thumb.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>
+<br>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image5_thumb.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>
+<BR>
+
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image16_thumb.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+             </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>
+<BR>
+
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image17_thumb.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+               </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.856904</longitude>
+					<latitude>14.850669</latitude>
+					<altitude>0</altitude>
+					<heading>0.000128</heading>
+					<tilt>22.275298</tilt>
+					<range>197.808649</range>
+				</LookAt>
+				<styleUrl>#msn_image15_roll</styleUrl>
+				<Point>
+					<coordinates>120.856904,14.850669,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>3 STOREY 15 CLASSROOM KOLEHIYO NG GUIGUINTO</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image13_thumb.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>
+<BR>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image12_thumb.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+               </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>
+<BR>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image11_thumb.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.856904</longitude>
+					<latitude>14.850669</latitude>
+					<altitude>0</altitude>
+					<heading>0.000128</heading>
+					<tilt>22.275298</tilt>
+					<range>197.808649</range>
+				</LookAt>
+				<styleUrl>#msn_image15_roll</styleUrl>
+				<Point>
+					<coordinates>120.856904,14.850669,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>GUIGUINTO FOOT BRIDGE</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image25_thumb.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>
+<BR>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image23_thumb.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>
+<BR>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image24_thumb.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>
+<BR>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image26_thumb.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+             </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.856904</longitude>
+					<latitude>14.850669</latitude>
+					<altitude>0</altitude>
+					<heading>0.000128</heading>
+					<tilt>22.275298</tilt>
+					<range>197.808649</range>
+				</LookAt>
+				<styleUrl>#msn_image15_roll</styleUrl>
+				<Point>
+					<coordinates>120.856904,14.850669,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>4 STOREY 20 CLASSROOM GNVHS</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image9_thumb.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>
+<br>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image10_thumb.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>
+<BR>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image20_thumb.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>
+
+<BR>
+
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image21_thumb.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a href="http://picasa.google.com/index.html"><img width="150" height="25" src="http://picasa.google.com/assets/logo_kmz.gif"></a>
+              </td>
+            </tr>
+          </table>]]></description>
+				<LookAt>
+					<longitude>120.856904</longitude>
+					<latitude>14.850669</latitude>
+					<altitude>0</altitude>
+					<heading>0.000128</heading>
+					<tilt>22.275298</tilt>
+					<range>197.808649</range>
+				</LookAt>
+				<styleUrl>#msn_image15_roll</styleUrl>
+				<Point>
+					<coordinates>120.856904,14.850669,0</coordinates>
+				</Point>
+			</Placemark>
+		</Folder>
+		<Folder>
+			<name>BuB - Guagua, Pampanga</name>
+			<Placemark>
+				<name>Rehabilitation of Guagua Trading Post</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<center><b><u><i><FONT SIZE="+2">100% Accomplished Repair/Rehabilitation of Guagua Trading Post/Food Terminal at Market Area</FONT SIZE="+2"></u></b></i></center>
+<table width="400">          
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image2_thumb_01.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/2/2015 11:23:22 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                
+              </td>
+            </tr>
+          </table>
+<br>
+<font size="+0.50"><TT> Implementing National Government Agency: <b>Department of Agriculture </b><font size="0.50"></TT>
+<br>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image0_thumb.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/2/2015 11:22:42 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                
+              </td>
+            </tr>
+          </table>
+<br>
+<font size="+1"><TT> Total Project Cost: <b> Php 1,200, 000.00 </b>
+<br>
+Budget Requested from NGAs :<b> Php 1,020,000.00 </b>
+<br>
+LGU Counterpart: <b> Php 180,000.00 </b></TT></font size="+1">
+<br>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image1_thumb.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/2/2015 11:22:52 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+               
+              </td>
+            </tr>
+          </table>
+<br>
+<center><b><i><FONT COLOR = "purple"><FONT SIZE="+2.5">☺☺☺M.P.D.C. OFFICE- GUAGUA☺☺☺</FONT SIZE="+2.5"></FONT COLOR = "purple"></b>]]></description>
+				<LookAt>
+					<longitude>120.6324820155381</longitude>
+					<latitude>14.96097160823252</latitude>
+					<altitude>0</altitude>
+					<heading>-0.0001895200761968863</heading>
+					<tilt>30.00140113603238</tilt>
+					<range>311.9681891605889</range>
+					<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+				</LookAt>
+				<styleUrl>#msn_red-circle</styleUrl>
+				<Point>
+					<coordinates>120.6326226234105,14.96122407349051,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Patakid Creek</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<center><b><u><i> <FONT COLOR="blue"><FONT SIZE="+2">90% Accomplished Repair of Irrigation Canal along Agricultural Brgys at Mauli Pulungmasle <br>
+(PATAKID CREEK)
+</font></u></b> </i></center>
+<br>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image0_thumb_1.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/2/2015 11:59:08 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+             
+              </td>
+            </tr>
+          </table>
+<br>
+Repair of Irrigation Canals with 1,200 farmers beneficiaries
+<br>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image3_thumb_1.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/2/2015 12:01:38 PM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                
+              </td>
+            </tr>
+          </table>
+<br>
+<font size="+0.50"><TT> Total Project Cost: <b> Php 1,000,000.00 </b>
+<br>
+Budget Requested from NGAs :<b> Php 850,000.00</b>
+<br>
+LGU Counterpart: <b> Php150,000.00 </b></TT></font size="+0.50">
+<br> 
+
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image1_thumb_1.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/2/2015 12:00:32 PM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+              
+              </td>
+            </tr>
+          </table>
+<br>
+<center><b><i><FONT COLOR = "purple"><FONT SIZE="+2.5">☺☺☺M.P.D.C. OFFICE- GUAGUA☺☺☺</FONT SIZE="+2.5"></FONT COLOR = "purple"></b>]]></description>
+				<LookAt>
+					<longitude>120.5548966310776</longitude>
+					<latitude>15.00024843580714</latitude>
+					<altitude>0</altitude>
+					<heading>1.992338066200543</heading>
+					<tilt>23.11735681207888</tilt>
+					<range>253.0010341572367</range>
+					<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+				</LookAt>
+				<styleUrl>#msn_grn-pushpin</styleUrl>
+				<Point>
+					<coordinates>120.5542511958915,15.0006260606982,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Murrah Buffalo BUB Project Sta. Ines</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<center><font size="+1">
+Production Development of Dairy Products 
+<br>for Agricultural Barangays of Guagua, Pampanga 
+<br>
+(Murrah Buffalo Dispersal) </font> </center>
+<br>
+Melva Yuzon - BAFC Sta. Ines
+<br>
+Eartag number: 05344
+<table width="400">
+
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image3_thumb_01.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/5/2015 10:12:46 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a ></a>
+              </td>
+            </tr>
+          </table>
+<br>
+<font size="+1"> <TT>Implementing National Government Agency: <b>Department of Agriculture </b><font size="1"></TT>
+<br>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image0_thumb_01.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/5/2015 10:12:14 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a ></a>
+              </td>
+            </tr>
+          </table>
+<br>
+<font size="+0.50"><TT> Total Project Cost: <b> Php 500, 000.00 </b>
+<br>
+Budget Requested from NGAs :<b> Php 425,000.00</b>
+<br>
+LGU Counterpart: <b> Php 75,000.00 </b></TT></font size="+0.50">
+<br> 
+
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image1_thumb_01.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/5/2015 10:12:24 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a 
+              </td>
+            </tr>
+          </table>
+<br>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image2_thumb_01_01.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/5/2015 10:12:34 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a ></a>
+              </td>
+            </tr>
+          </table>
+<br>
+<center><b><i><FONT COLOR = "purple"><FONT SIZE="+2.5">☺☺☺M.P.D.C. OFFICE- GUAGUA☺☺☺</FONT SIZE="+2.5"></FONT COLOR = "purple"></b>]]></description>
+				<LookAt>
+					<longitude>120.651855</longitude>
+					<latitude>14.975875</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_B</styleUrl>
+				<Point>
+					<coordinates>120.651855,14.975875,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Murrah Buffalo BUB Project San Juan Nepomuceno 2</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<center><font size="+1">
+Production Development of Dairy Products 
+<br>for Agricultural Barangays of Guagua, Pampanga 
+<br>
+(Murrah Buffalo Dispersal) </font> </center>
+<br>
+Joselito Santos -  BAFC San Juan Nepomuceno
+<br>
+Eartag number: 13479
+<table width="400">
+<br>
+<table width="400"> 
+<tr>
+<td>
+<img src="files/image3_thumb_01_01.jpg" width="400" height="300" >
+<br />
+</td>
+</tr>
+<tr><td>&nbsp;</td></tr>
+<tr>
+<td></td>
+</tr>
+<tr><td>&nbsp;</td></tr>
+<tr>
+<td>
+<em>Date : 11/5/2015 11:18:24 AM</em>
+</td>
+</tr>
+<tr>
+<td align="right">
+<hr />
+</td>
+</tr>
+</table>
+<br>
+<font size="+1"><TT> Implementing National Government Agency: <b>Department of Agriculture </b><font size="1"></TT>
+<br>
+<table width="400"> 
+<tr>
+<td>
+<img src="files/image0_thumb_02.jpg" width="400" height="300" >
+<br />
+</td>
+</tr>
+<tr><td>&nbsp;</td></tr>
+<tr>
+<td></td>
+</tr>
+<tr><td>&nbsp;</td></tr>
+<tr>
+<td>
+<em>Date : 11/5/2015 11:17:04 AM</em>
+</td>
+</tr>
+<tr>
+<td align="right">
+<hr />
+</td>
+</tr>
+</table>
+<br>
+<font size="+0.50"><TT> Total Project Cost: <b> Php 500, 000.00 </b>
+<br>
+Budget Requested from NGAs :<b> Php 425,000.00</b>
+<br>
+LGU Counterpart: <b> Php 75,000.00 </b></TT></font size="+0.50">
+<br> 
+
+<table width="400"> 
+<tr>
+<td>
+<img src="files/image1_thumb_02.jpg" width="400" height="300" >
+<br />
+</td>
+</tr>
+<tr><td>&nbsp;</td></tr>
+<tr>
+<td></td>
+</tr>
+<tr><td>&nbsp;</td></tr>
+<tr>
+<td>
+<em>Date : 11/5/2015 11:17:54 AM</em>
+</td>
+</tr>
+<tr>
+<td align="right">
+<hr />
+</td>
+</tr>
+</table>
+<br>
+<table width="400"> 
+<tr>
+<td>
+<img src="files/image2_thumb_02.jpg" width="400" height="300" >
+<br />
+</td>
+</tr>
+<tr><td>&nbsp;</td></tr>
+<tr>
+<td></td>
+</tr>
+<tr><td>&nbsp;</td></tr>
+<tr>
+<td>
+<em>Date : 11/5/2015 11:18:12 AM</em>
+</td>
+</tr>
+<tr>
+<td align="right">
+<hr />
+</td>
+</tr>
+</table>
+<br>
+<center><b><i><FONT COLOR = "purple"><FONT SIZE="+2.5">☺☺☺M.P.D.C. OFFICE- GUAGUA☺☺☺</FONT SIZE="+2.5"></FONT COLOR = "purple"></b>]]></description>
+				<LookAt>
+					<longitude>120.620575</longitude>
+					<latitude>14.995331</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_B</styleUrl>
+				<Point>
+					<coordinates>120.620575,14.995331,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Murrah Buffalo BUB Project San Juan Nepomuceno</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<center><font size="+1">
+Production Development of Dairy Products 
+<br>for Agricultural Barangays of Guagua, Pampanga 
+<br>
+(Murrah Buffalo Dispersal) </font> </center>
+<br>
+Paterno Estrella - BAFC San Juan Nepomuceno
+<br>
+Eartag number: 1301
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image3_thumb_02.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/5/2015 10:38:48 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a 
+              </td>
+            </tr>
+          </table>
+<br>
+<font size="+1"><TT> Implementing National Government Agency: <b>Department of Agriculture </b><font size="1"></TT>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image2_thumb_03.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/5/2015 10:38:34 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a 
+              </td>
+            </tr>
+          </table>
+<br>
+<font size="+0.50"><TT> Total Project Cost: <b> Php 500, 000.00 </b>
+<br>
+Budget Requested from NGAs :<b> Php 425,000.00</b>
+<br>
+LGU Counterpart: <b> Php 75,000.00 </b></TT></font size="+0.50">
+<br> 
+
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image0_thumb_03.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/5/2015 10:37:26 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a 
+              </td>
+            </tr>
+          </table>
+<br>
+
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image1_thumb_03.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/5/2015 10:37:56 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                <a 
+              </td>
+            </tr>
+          </table>
+<br>
+<center><b><i><FONT COLOR = "purple"><FONT SIZE="+2.5">☺☺☺M.P.D.C. OFFICE- GUAGUA☺☺☺</FONT SIZE="+2.5"></FONT COLOR = "purple"></b>]]></description>
+				<LookAt>
+					<longitude>120.634109</longitude>
+					<latitude>14.988735</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_B</styleUrl>
+				<Point>
+					<coordinates>120.634109,14.988735,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Murrah Buffalo BUB Project San Agustin</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<center><font size="+1">
+Production Development of Dairy Products 
+<br>for Agricultural Barangays of Guagua, Pampanga 
+<br>
+(Murrah Buffalo Dispersal) </font> </center>
+<br>
+Juan Ocampo -  BAFC San Agustin
+<br>
+Eartag number: 08106
+<table width="400">
+<br>
+<table width="400"> 
+<tr>
+<td>
+<img src="files/image3_thumb_03.jpg" width="400" height="300" >
+<br />
+</td>
+</tr>
+<tr><td>&nbsp;</td></tr>
+<tr>
+<td></td>
+</tr>
+<tr><td>&nbsp;</td></tr>
+<tr>
+<td>
+<em>Date : 11/5/2015 9:50:18 AM</em>
+</td>
+</tr>
+<tr>
+<td align="right">
+<hr />
+</td>
+</tr>
+</table>
+<br>
+<font size="+1"> <TT>Implementing National Government Agency: <b>Department of Agriculture </b><font size="1"></TT>
+<br>
+<table width="400"> 
+<tr>
+<td>
+<img src="files/image0_thumb_04.jpg" width="400" height="300" >
+<br />
+</td>
+</tr>
+<tr><td>&nbsp;</td></tr>
+<tr>
+<td></td>
+</tr>
+<tr><td>&nbsp;</td></tr>
+<tr>
+<td>
+<em>Date : 11/5/2015 9:49:28 AM</em>
+</td>
+</tr>
+<tr>
+<td align="right">
+<hr />
+</td>
+</tr>
+</table>
+<br>
+<font size="+0.50"><TT> Total Project Cost: <b> Php 500, 000.00 </b>
+<br>
+Budget Requested from NGAs :<b> Php 425,000.00</b>
+<br>
+LGU Counterpart: <b> Php 75,000.00 </b></TT></font size="+0.50">
+<br> 
+
+<table width="400"> 
+<tr>
+<td>
+<img src="files/image1_thumb_04.jpg" width="400" height="300" >
+<br />
+</td>
+</tr>
+<tr><td>&nbsp;</td></tr>
+<tr>
+<td></td>
+</tr>
+<tr><td>&nbsp;</td></tr>
+<tr>
+<td>
+<em>Date : 11/5/2015 9:49:40 AM</em>
+</td>
+</tr>
+<tr>
+<td align="right">
+<hr />
+</td>
+</tr>
+</table>
+<br>
+<table width="400"> 
+<tr>
+<td>
+<img src="files/image2_thumb_04.jpg" width="400" height="300" >
+<br />
+</td>
+</tr>
+<tr><td>&nbsp;</td></tr>
+<tr>
+<td></td>
+</tr>
+<tr><td>&nbsp;</td></tr>
+<tr>
+<td>
+<em>Date : 11/5/2015 9:50:08 AM</em>
+</td>
+</tr>
+<tr>
+<td align="right">
+<hr />
+</td>
+</tr>
+</table>
+<br>
+<center><b><i><FONT COLOR = "purple"><FONT SIZE="+2.5">☺☺☺M.P.D.C. OFFICE- GUAGUA☺☺☺</FONT SIZE="+2.5"></FONT COLOR = "purple"></b>]]></description>
+				<LookAt>
+					<longitude>120.638134</longitude>
+					<latitude>14.975898</latitude>
+					<altitude>0</altitude>
+					<heading>0</heading>
+					<tilt>0</tilt>
+					<range>3000</range>
+				</LookAt>
+				<styleUrl>#msn_B</styleUrl>
+				<Point>
+					<coordinates>120.638134,14.975898,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>FMR Sn.Rafael</name>
+				<Snippet maxLines="0"></Snippet>
+				<description><![CDATA[<center><b><u><i><FONT SIZE="+2">100% Accomplished Farm to Market Road 
+<br>
+(including flood damage facilities)
+<br>
+Lenght= +/- 300 mts.</FONT SIZE="+2"></center> </i></u></b>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image1_thumb_0.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/2/2015 10:58:04 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                
+              </td>
+            </tr>
+          </table>
+<br>
+<font size="+1"> <TT>Implementing National Government Agency: <b>Department of Agriculture </b></font size="1"></TT>
+<br>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image0_thumb_0.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/2/2015 10:57:34 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+             
+              </td>
+            </tr>
+          </table>
+<br>
+<font size="+1"><TT> <EM><u>Total Project Cost: <b> Php 3,390, 000.00 </b> </font size="1"></EM></u>
+<br>
+Budget Requested from NGAs :<b> Php 2,881,500.00 </b>
+<br>
+LGU Counterpart: <b> Php 508,500.00 </b></TT>
+
+<br>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image2_thumb_0.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/2/2015 10:59:50 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                
+              </td>
+            </tr>
+          </table>
+<br>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image3_thumb_0.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/2/2015 11:00:00 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                
+              </td>
+            </tr>
+          </table>
+<br>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image6_thumb.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/2/2015 11:01:24 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                
+            </tr>
+          </table>
+<br>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image5_thumb_01.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/2/2015 11:01:00 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                
+              </td>
+            </tr>
+          </table>
+<br>
+<table width="400">          
+            <tr>
+              <td>
+                <img src="files/image7_thumb.jpg" width="400" height="300" >
+                <br />
+              </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
+              <td>
+                <em>Date : 11/2/2015 11:03:00 AM</em>
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <hr />
+                
+              </td>
+            </tr>
+          </table>
+<br>
+<center><b><i><FONT COLOR = "purple"><FONT SIZE="+2.5">☺☺☺M.P.D.C. OFFICE- GUAGUA☺☺☺</FONT SIZE="+2.5"></FONT COLOR = "purple"></b>]]></description>
+				<LookAt>
+					<longitude>120.6358263384162</longitude>
+					<latitude>14.96500879684812</latitude>
+					<altitude>0</altitude>
+					<heading>-0.0001979527383235566</heading>
+					<tilt>34.40597655436835</tilt>
+					<range>507.8278573294303</range>
+					<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+				</LookAt>
+				<styleUrl>#msn_red-circle</styleUrl>
+				<Point>
+					<coordinates>120.6352998143758,14.96546929225319,0</coordinates>
+				</Point>
+			</Placemark>
+		</Folder>
+	</Folder>
+</Document>
+</kml>
