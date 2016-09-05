@@ -2,14 +2,27 @@
 <kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
 <Document>
 	<name>BuB.kmz</name>
-	<Style id="sh_image15_roll">
+	<StyleMap id="msn_image15_roll">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_image15_roll</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_image15_roll</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sn_grn-pushpin">
 		<IconStyle>
-			<scale>1.3</scale>
+			<scale>1.1</scale>
 			<Icon>
 				<href>http://maps.google.com/mapfiles/kml/paddle/grn-circle.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
+		<LabelStyle>
+			<scale>0</scale>
+		</LabelStyle>
 		<BalloonStyle>
 			<text>$[description]</text>
 		</BalloonStyle>
@@ -36,46 +49,6 @@
 			</ItemIcon>
 		</ListStyle>
 	</Style>
-	<StyleMap id="msn_grn-pushpin">
-		<Pair>
-			<key>normal</key>
-			<styleUrl>#sn_grn-pushpin</styleUrl>
-		</Pair>
-		<Pair>
-			<key>highlight</key>
-			<styleUrl>#sh_grn-pushpin</styleUrl>
-		</Pair>
-	</StyleMap>
-	<Style id="sn_B">
-		<IconStyle>
-			<scale>1.1</scale>
-			<Icon>
-				<href>http://maps.google.com/mapfiles/kml/paddle/B.png</href>
-			</Icon>
-			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
-		</IconStyle>
-		<LabelStyle>
-			<scale>0</scale>
-		</LabelStyle>
-		<BalloonStyle>
-			<text>$[description]</text>
-		</BalloonStyle>
-		<ListStyle>
-			<ItemIcon>
-				<href>http://maps.google.com/mapfiles/kml/paddle/B-lv.png</href>
-			</ItemIcon>
-		</ListStyle>
-	</Style>
-	<StyleMap id="msn_B">
-		<Pair>
-			<key>normal</key>
-			<styleUrl>#sn_B</styleUrl>
-		</Pair>
-		<Pair>
-			<key>highlight</key>
-			<styleUrl>#sh_B</styleUrl>
-		</Pair>
-	</StyleMap>
 	<Style id="sn_red-circle">
 		<IconStyle>
 			<scale>1.1</scale>
@@ -96,70 +69,6 @@
 			</ItemIcon>
 		</ListStyle>
 	</Style>
-	<Style id="sh_grn-pushpin">
-		<IconStyle>
-			<scale>1.3</scale>
-			<Icon>
-				<href>http://maps.google.com/mapfiles/kml/paddle/grn-circle.png</href>
-			</Icon>
-			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
-		</IconStyle>
-		<BalloonStyle>
-			<text>$[description]</text>
-		</BalloonStyle>
-		<ListStyle>
-			<ItemIcon>
-				<href>http://maps.google.com/mapfiles/kml/paddle/grn-circle-lv.png</href>
-			</ItemIcon>
-		</ListStyle>
-	</Style>
-	<Style id="sn_grn-pushpin">
-		<IconStyle>
-			<scale>1.1</scale>
-			<Icon>
-				<href>http://maps.google.com/mapfiles/kml/paddle/grn-circle.png</href>
-			</Icon>
-			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
-		</IconStyle>
-		<LabelStyle>
-			<scale>0</scale>
-		</LabelStyle>
-		<BalloonStyle>
-			<text>$[description]</text>
-		</BalloonStyle>
-		<ListStyle>
-			<ItemIcon>
-				<href>http://maps.google.com/mapfiles/kml/paddle/grn-circle-lv.png</href>
-			</ItemIcon>
-		</ListStyle>
-	</Style>
-	<Style id="sh_B">
-		<IconStyle>
-			<scale>1.3</scale>
-			<Icon>
-				<href>http://maps.google.com/mapfiles/kml/paddle/B.png</href>
-			</Icon>
-			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
-		</IconStyle>
-		<BalloonStyle>
-			<text>$[description]</text>
-		</BalloonStyle>
-		<ListStyle>
-			<ItemIcon>
-				<href>http://maps.google.com/mapfiles/kml/paddle/B-lv.png</href>
-			</ItemIcon>
-		</ListStyle>
-	</Style>
-	<StyleMap id="msn_image15_roll">
-		<Pair>
-			<key>normal</key>
-			<styleUrl>#sn_image15_roll</styleUrl>
-		</Pair>
-		<Pair>
-			<key>highlight</key>
-			<styleUrl>#sh_image15_roll</styleUrl>
-		</Pair>
-	</StyleMap>
 	<Style id="sn_image15_roll">
 		<IconStyle>
 			<scale>1.1</scale>
@@ -190,6 +99,97 @@
 			<styleUrl>#sh_red-circle</styleUrl>
 		</Pair>
 	</StyleMap>
+	<Style id="sn_B">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/B.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LabelStyle>
+			<scale>0</scale>
+		</LabelStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/B-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<Style id="sh_image15_roll">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/grn-circle.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/grn-circle-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<Style id="sh_B">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/B.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/B-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<Style id="sh_grn-pushpin">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/grn-circle.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/grn-circle-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<StyleMap id="msn_B">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_B</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_B</styleUrl>
+		</Pair>
+	</StyleMap>
+	<StyleMap id="msn_grn-pushpin">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_grn-pushpin</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_grn-pushpin</styleUrl>
+		</Pair>
+	</StyleMap>
 	<Folder>
 		<name>BuB</name>
 		<open>1</open>
@@ -204,7 +204,7 @@
 				<description><![CDATA[<table width="400">          
             <tr>
               <td>
-                <img src="image15_thumb.jpg" width="400" height="300" >
+                <img src="files/image15_thumb.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
@@ -228,7 +228,7 @@
 <table width="400">          
             <tr>
               <td>
-                <img src="image18_thumb.jpg" width="400" height="300" >
+                <img src="files/image18_thumb.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
@@ -252,7 +252,7 @@
 <table width="400">          
             <tr>
               <td>
-                <img src="image19_thumb.jpg" width="400" height="300" >
+                <img src="files/image19_thumb.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
@@ -291,7 +291,7 @@
 				<description><![CDATA[<table width="400">          
             <tr>
               <td>
-                <img src="image2_thumb.jpg" width="400" height="300" >
+                <img src="files/image2_thumb.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
@@ -316,7 +316,7 @@
 <table width="400">          
             <tr>
               <td>
-                <img src="image3_thumb.jpg" width="400" height="300" >
+                <img src="files/image3_thumb.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
@@ -340,7 +340,7 @@
 <table width="400">          
             <tr>
               <td>
-                <img src="image4_thumb.jpg" width="400" height="300" >
+                <img src="files/image4_thumb.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
@@ -364,7 +364,7 @@
 <table width="400">          
             <tr>
               <td>
-                <img src="image5_thumb.jpg" width="400" height="300" >
+                <img src="files/image5_thumb.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
@@ -389,7 +389,7 @@
 <table width="400">          
             <tr>
               <td>
-                <img src="image16_thumb.jpg" width="400" height="300" >
+                <img src="files/image16_thumb.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
@@ -414,7 +414,7 @@
 <table width="400">          
             <tr>
               <td>
-                <img src="image17_thumb.jpg" width="400" height="300" >
+                <img src="files/image17_thumb.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
@@ -453,7 +453,7 @@
 				<description><![CDATA[<table width="400">          
             <tr>
               <td>
-                <img src="image13_thumb.jpg" width="400" height="300" >
+                <img src="files/image13_thumb.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
@@ -477,7 +477,7 @@
 <table width="400">          
             <tr>
               <td>
-                <img src="image12_thumb.jpg" width="400" height="300" >
+                <img src="files/image12_thumb.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
@@ -501,7 +501,7 @@
 <table width="400">          
             <tr>
               <td>
-                <img src="image11_thumb.jpg" width="400" height="300" >
+                <img src="files/image11_thumb.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
@@ -540,7 +540,7 @@
 				<description><![CDATA[<table width="400">          
             <tr>
               <td>
-                <img src="image25_thumb.jpg" width="400" height="300" >
+                <img src="files/image25_thumb.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
@@ -564,7 +564,7 @@
 <table width="400">          
             <tr>
               <td>
-                <img src="image23_thumb.jpg" width="400" height="300" >
+                <img src="files/image23_thumb.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
@@ -588,7 +588,7 @@
 <table width="400">          
             <tr>
               <td>
-                <img src="image24_thumb.jpg" width="400" height="300" >
+                <img src="files/image24_thumb.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
@@ -612,7 +612,7 @@
 <table width="400">          
             <tr>
               <td>
-                <img src="image26_thumb.jpg" width="400" height="300" >
+                <img src="files/image26_thumb.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
@@ -651,7 +651,7 @@
 				<description><![CDATA[<table width="400">          
             <tr>
               <td>
-                <img src="image9_thumb.jpg" width="400" height="300" >
+                <img src="files/image9_thumb.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
@@ -675,7 +675,7 @@
 <table width="400">          
             <tr>
               <td>
-                <img src="image10_thumb.jpg" width="400" height="300" >
+                <img src="files/image10_thumb.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
@@ -699,7 +699,7 @@
 <table width="400">          
             <tr>
               <td>
-                <img src="image20_thumb.jpg" width="400" height="300" >
+                <img src="files/image20_thumb.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
@@ -725,7 +725,7 @@
 <table width="400">          
             <tr>
               <td>
-                <img src="image21_thumb.jpg" width="400" height="300" >
+                <img src="files/image21_thumb.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
@@ -769,7 +769,7 @@
 <table width="400">          
             <tr>
               <td>
-                <img src="image2_thumb_01.jpg" width="400" height="300" >
+                <img src="files/image2_thumb_01.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
@@ -796,7 +796,7 @@
 <table width="400">          
             <tr>
               <td>
-                <img src="image0_thumb.jpg" width="400" height="300" >
+                <img src="files/image0_thumb.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
@@ -827,7 +827,7 @@ LGU Counterpart: <b> Php 180,000.00 </b></TT></font size="+1">
 <table width="400">          
             <tr>
               <td>
-                <img src="image1_thumb.jpg" width="400" height="300" >
+                <img src="files/image1_thumb.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
@@ -874,7 +874,7 @@ LGU Counterpart: <b> Php 180,000.00 </b></TT></font size="+1">
 <table width="400">          
             <tr>
               <td>
-                <img src="image0_thumb_1.jpg" width="400" height="300" >
+                <img src="files/image0_thumb_1.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
@@ -901,7 +901,7 @@ Repair of Irrigation Canals with 1,200 farmers beneficiaries
 <table width="400">          
             <tr>
               <td>
-                <img src="image3_thumb_1.jpg" width="400" height="300" >
+                <img src="files/image3_thumb_1.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
@@ -933,7 +933,7 @@ LGU Counterpart: <b> Php150,000.00 </b></TT></font size="+0.50">
 <table width="400">          
             <tr>
               <td>
-                <img src="image1_thumb_1.jpg" width="400" height="300" >
+                <img src="files/image1_thumb_1.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
@@ -987,7 +987,7 @@ Eartag number: 05344
 <table width="400">          
             <tr>
               <td>
-                <img src="image3_thumb_01.jpg" width="400" height="300" >
+                <img src="files/image3_thumb_01.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
@@ -1014,7 +1014,7 @@ Eartag number: 05344
 <table width="400">          
             <tr>
               <td>
-                <img src="image0_thumb_01.jpg" width="400" height="300" >
+                <img src="files/image0_thumb_01.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
@@ -1046,7 +1046,7 @@ LGU Counterpart: <b> Php 75,000.00 </b></TT></font size="+0.50">
 <table width="400">          
             <tr>
               <td>
-                <img src="image1_thumb_01.jpg" width="400" height="300" >
+                <img src="files/image1_thumb_01.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
@@ -1071,7 +1071,7 @@ LGU Counterpart: <b> Php 75,000.00 </b></TT></font size="+0.50">
 <table width="400">          
             <tr>
               <td>
-                <img src="image2_thumb_01_01.jpg" width="400" height="300" >
+                <img src="files/image2_thumb_01_01.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
@@ -1124,7 +1124,7 @@ Eartag number: 13479
 <table width="400"> 
 <tr>
 <td>
-<img src="image3_thumb_01_01.jpg" width="400" height="300" >
+<img src="files/image3_thumb_01_01.jpg" width="400" height="300" >
 <br />
 </td>
 </tr>
@@ -1150,7 +1150,7 @@ Eartag number: 13479
 <table width="400"> 
 <tr>
 <td>
-<img src="image0_thumb_02.jpg" width="400" height="300" >
+<img src="files/image0_thumb_02.jpg" width="400" height="300" >
 <br />
 </td>
 </tr>
@@ -1181,7 +1181,7 @@ LGU Counterpart: <b> Php 75,000.00 </b></TT></font size="+0.50">
 <table width="400"> 
 <tr>
 <td>
-<img src="image1_thumb_02.jpg" width="400" height="300" >
+<img src="files/image1_thumb_02.jpg" width="400" height="300" >
 <br />
 </td>
 </tr>
@@ -1205,7 +1205,7 @@ LGU Counterpart: <b> Php 75,000.00 </b></TT></font size="+0.50">
 <table width="400"> 
 <tr>
 <td>
-<img src="image2_thumb_02.jpg" width="400" height="300" >
+<img src="files/image2_thumb_02.jpg" width="400" height="300" >
 <br />
 </td>
 </tr>
@@ -1255,7 +1255,7 @@ Eartag number: 1301
 <table width="400">          
             <tr>
               <td>
-                <img src="image3_thumb_02.jpg" width="400" height="300" >
+                <img src="files/image3_thumb_02.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
@@ -1281,7 +1281,7 @@ Eartag number: 1301
 <table width="400">          
             <tr>
               <td>
-                <img src="image2_thumb_03.jpg" width="400" height="300" >
+                <img src="files/image2_thumb_03.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
@@ -1313,7 +1313,7 @@ LGU Counterpart: <b> Php 75,000.00 </b></TT></font size="+0.50">
 <table width="400">          
             <tr>
               <td>
-                <img src="image0_thumb_03.jpg" width="400" height="300" >
+                <img src="files/image0_thumb_03.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
@@ -1339,7 +1339,7 @@ LGU Counterpart: <b> Php 75,000.00 </b></TT></font size="+0.50">
 <table width="400">          
             <tr>
               <td>
-                <img src="image1_thumb_03.jpg" width="400" height="300" >
+                <img src="files/image1_thumb_03.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
@@ -1392,7 +1392,7 @@ Eartag number: 08106
 <table width="400"> 
 <tr>
 <td>
-<img src="image3_thumb_03.jpg" width="400" height="300" >
+<img src="files/image3_thumb_03.jpg" width="400" height="300" >
 <br />
 </td>
 </tr>
@@ -1418,7 +1418,7 @@ Eartag number: 08106
 <table width="400"> 
 <tr>
 <td>
-<img src="image0_thumb_04.jpg" width="400" height="300" >
+<img src="files/image0_thumb_04.jpg" width="400" height="300" >
 <br />
 </td>
 </tr>
@@ -1449,7 +1449,7 @@ LGU Counterpart: <b> Php 75,000.00 </b></TT></font size="+0.50">
 <table width="400"> 
 <tr>
 <td>
-<img src="image1_thumb_04.jpg" width="400" height="300" >
+<img src="files/image1_thumb_04.jpg" width="400" height="300" >
 <br />
 </td>
 </tr>
@@ -1473,7 +1473,7 @@ LGU Counterpart: <b> Php 75,000.00 </b></TT></font size="+0.50">
 <table width="400"> 
 <tr>
 <td>
-<img src="image2_thumb_04.jpg" width="400" height="300" >
+<img src="files/image2_thumb_04.jpg" width="400" height="300" >
 <br />
 </td>
 </tr>
@@ -1519,7 +1519,7 @@ Lenght= +/- 300 mts.</FONT SIZE="+2"></center> </i></u></b>
 <table width="400">          
             <tr>
               <td>
-                <img src="image1_thumb_0.jpg" width="400" height="300" >
+                <img src="files/image1_thumb_0.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
@@ -1546,7 +1546,7 @@ Lenght= +/- 300 mts.</FONT SIZE="+2"></center> </i></u></b>
 <table width="400">          
             <tr>
               <td>
-                <img src="image0_thumb_0.jpg" width="400" height="300" >
+                <img src="files/image0_thumb_0.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
@@ -1578,7 +1578,7 @@ LGU Counterpart: <b> Php 508,500.00 </b></TT>
 <table width="400">          
             <tr>
               <td>
-                <img src="image2_thumb_0.jpg" width="400" height="300" >
+                <img src="files/image2_thumb_0.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
@@ -1603,7 +1603,7 @@ LGU Counterpart: <b> Php 508,500.00 </b></TT>
 <table width="400">          
             <tr>
               <td>
-                <img src="image3_thumb_0.jpg" width="400" height="300" >
+                <img src="files/image3_thumb_0.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
@@ -1628,7 +1628,7 @@ LGU Counterpart: <b> Php 508,500.00 </b></TT>
 <table width="400">          
             <tr>
               <td>
-                <img src="image6_thumb.jpg" width="400" height="300" >
+                <img src="files/image6_thumb.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
@@ -1652,7 +1652,7 @@ LGU Counterpart: <b> Php 508,500.00 </b></TT>
 <table width="400">          
             <tr>
               <td>
-                <img src="image5_thumb_01.jpg" width="400" height="300" >
+                <img src="files/image5_thumb_01.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
@@ -1677,7 +1677,7 @@ LGU Counterpart: <b> Php 508,500.00 </b></TT>
 <table width="400">          
             <tr>
               <td>
-                <img src="image7_thumb.jpg" width="400" height="300" >
+                <img src="files/image7_thumb.jpg" width="400" height="300" >
                 <br />
               </td>
             </tr>
