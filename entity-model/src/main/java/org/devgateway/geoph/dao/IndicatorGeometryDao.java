@@ -13,7 +13,8 @@ public class IndicatorGeometryDao extends LocationDao {
     String description;
     String value;
     Integer level;
-
+    String unit;
+    
     public String getValue() {
         return value;
     }

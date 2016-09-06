@@ -1,9 +1,6 @@
 package org.devgateway.geoph.services;
 
-import org.devgateway.geoph.core.repositories.GeoPhotoRepositoryCustom;
-import org.devgateway.geoph.core.repositories.IndicatorRepository;
-import org.devgateway.geoph.core.repositories.LocationRepository;
-import org.devgateway.geoph.core.repositories.ProjectRepository;
+import org.devgateway.geoph.core.repositories.*;
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.core.services.GeoJsonService;
 import org.devgateway.geoph.dao.*;
@@ -11,10 +8,7 @@ import org.devgateway.geoph.enums.GeometryDetail;
 import org.devgateway.geoph.enums.LocationAdmLevelEnum;
 import org.devgateway.geoph.enums.TransactionStatusEnum;
 import org.devgateway.geoph.enums.TransactionTypeEnum;
-import org.devgateway.geoph.model.GeoPhoto;
-import org.devgateway.geoph.model.Indicator;
-import org.devgateway.geoph.model.IndicatorDetail;
-import org.devgateway.geoph.model.Location;
+import org.devgateway.geoph.model.*;
 import org.devgateway.geoph.services.geojson.Converter;
 import org.devgateway.geoph.services.geojson.ConverterFactory;
 import org.devgateway.geoph.services.geojson.GeoJsonBuilder;
@@ -47,6 +41,9 @@ public class GeoJsonServiceImpl implements GeoJsonService {
 
     @Autowired
     ProjectRepository projectRepository;
+
+    @Autowired
+    IndicatorDetailRepository indicatorDetailRepository;
 
     @Autowired
     IndicatorRepository indicatorRepository;
@@ -138,7 +135,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
     @Override
     public FeatureCollection getIndicatorShapes(Long indicatorId, GeometryDetail detail) {
         Indicator indicator = indicatorRepository.findOne(indicatorId);
-        List<IndicatorDetail> details = indicator.getDetails();
+        List<IndicatorDetail> details = indicatorDetailRepository.findByIndicatorId(indicatorId);
 
         Map<Long, IndicatorDetail> detailsMap = details.stream().collect(Collectors.toMap(IndicatorDetail::getLocationId, IndicatorDetail -> IndicatorDetail));
         LocationAdmLevelEnum level = LocationAdmLevelEnum.getEnumByName(indicator.getAdmLevel());
