@@ -33,7 +33,7 @@ public class GeoPhoto extends GenericPersistable implements Serializable {
     @Type(type = "org.hibernate.spatial.GeometryType")
     com.vividsolutions.jts.geom.Point point;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     Project project;
 
     public String getName() {

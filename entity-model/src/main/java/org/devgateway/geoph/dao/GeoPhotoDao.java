@@ -28,12 +28,12 @@ public class GeoPhotoDao {
         this.geometry = geoPhoto.getPoint();
     }
 
-    public GeoPhotoDao(Long id, String name, Collection<String> urls, Long projectId, String projectTitle, Geometry geometry) {
+    public GeoPhotoDao(Long id, String name, Long projectId, String projectTitle, Geometry geometry) {
 
         this.id = id;
         this.name = name;
         this.projectTitle = projectTitle;
-        this.urls = urls;
+
         this.projectId = projectId;
         this.geometry = geometry;
     }
