@@ -43,7 +43,7 @@ export const setSetting=(id, name, value)=>{
 			name,
 			value
 		});
-		if (name=='level'){
+		if (name=='level' || name=='detail'){
 			//reaload layer if level was changed
 			dispatch(loadLayerById(dispatch, getState,id));
 		}else{
