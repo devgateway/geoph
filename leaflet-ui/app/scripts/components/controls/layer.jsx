@@ -124,7 +124,7 @@ class Settings extends React.Component {
 
  	getSettings(){
  		let childProperties=this.getChildProperties();
- 		return <Settings {...this.props} {...childProperties}/>
+ 		return <Settings key={this.props.id} {...this.props} {...childProperties}/>
  	}
 
  	renderChildren(){
