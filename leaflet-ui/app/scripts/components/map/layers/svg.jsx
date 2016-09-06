@@ -76,7 +76,6 @@ import { render, unmountComponentAtNode } from 'react-dom';
   }
 
   onClick(properties){
-    console.log("onClick!!");
     d3.event.features=properties;    
   }
 

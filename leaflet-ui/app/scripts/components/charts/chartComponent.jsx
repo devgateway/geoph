@@ -74,13 +74,11 @@ export default class ChartComponent extends React.Component {
 		const {measure, chartData, chartType, helpKey} = this.props;
 		const {chartType: chType, itemsToShow, measureType} = chartData;
 		let chartInfo;
-		console.time("TIME "+this.props.title);
 		if (chartType){
 			chartInfo = this.getChartInfo(chartType);
 		} else {
 			chartInfo = this.getChartInfo(chartData.chartType);
 		}
-		console.timeEnd("TIME "+this.props.title);
 		return (
 	    	<div className="chart" ref="chartContainer">
 	    		{this.props.title?
