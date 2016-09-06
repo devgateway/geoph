@@ -1,14 +1,19 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import {changeStep, changeProperty, updateErrors, upload} from '../../actions/indicators.js'
+import {changeStep, changeProperty, updateErrors, upload, downloadTemplate} from '../../actions/indicators.js'
 import {Map} from 'immutable'
 import { Link } from 'react-router'
 import BaseForm from './baseForm.jsx'
 import Messages from '../messages/messages.jsx'
+import Connector from '../../connector/connector';
 
 var Dropzone = require('react-dropzone');
 
 class SelectTemplate extends BaseForm {
+    getDownloadTemplateURL(level){
+        return Connector.getDownloadTemplateURL(level);
+    }
+
     render() {
         const {template,onStepChange}=this.props;
 
@@ -24,9 +29,12 @@ class SelectTemplate extends BaseForm {
                     </select>
                 </div>
                 <div className="form-group ">
-                    <input type="button" className="btn btn-xs btn-info" value="Download Template"></input>
+                    <a target="_blank" href={this.getDownloadTemplateURL(this.props.template)}>
+                        <input type="button" className="btn btn-xs btn-info" 
+                             value="Download Template"></input>
+                    </a>
                     <input type="button" className="btn btn-xs btn-success pull-right"
-                           onClick={()=>{onStepChange('indicator')}} value="Next"></input>
+                        onClick={()=>{onStepChange('indicator')}} value="Next"></input>
                 </div>
             </form>
         )

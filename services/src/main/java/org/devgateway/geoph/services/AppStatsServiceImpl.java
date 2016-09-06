@@ -22,4 +22,8 @@ public class AppStatsServiceImpl implements AppStatsService {
     public List<Map<String, String>> getCacheStats() {
         return appStatsRepository.getCacheStats();
     }
+
+    public void clearAllCache(){
+        appStatsRepository.clearAllCache();
+    }
 }

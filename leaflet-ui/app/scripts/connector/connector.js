@@ -327,6 +327,14 @@ class Connector {
 		let url = `${apiRoot}${path}?${params}`; 
 		return url;
 	}
+
+	getDownloadTemplateURL(level) {
+		let apiRoot = Settings.get('API', 'API_BASE_URL');
+		let path = Settings.get('API','EXPORT_TEMPLATE');
+		path=path.replace('${level}', level);
+		let url = `${apiRoot}${path}`; 
+		return url;
+	}
 }
 
 
