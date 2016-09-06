@@ -41,7 +41,7 @@ class Legends extends React.Component {
     const  visible = map.get('legends').get('visible');
     return (
       <div className='legends-container'>
-        <OverlayTrigger placement="top" overlay={(<Tooltip id="help.legends">{translate('help.legends')}</Tooltip>)}>
+        <OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id="help.legends">{translate('help.legends')}</Tooltip>)}>
           <div className='show-legends-button' onClick={this.props.onToggleView}>
             <div className='show-legends-button-icon' />
           </div>

@@ -43,7 +43,7 @@ class Charts extends React.Component {
     let helpKeyExpand = panel.expanded? "help.chartview.collapse" : "help.chartview.expand";
     return (
       <div className="chart-view">
-        <OverlayTrigger placement="left" overlay={(<Tooltip id={helpKeyExpand}>{translate(helpKeyExpand)}</Tooltip>)}>
+        <OverlayTrigger delayShow={1000} placement="left" overlay={(<Tooltip id={helpKeyExpand}>{translate(helpKeyExpand)}</Tooltip>)}>
           <div className="expand-button" onClick={this.togglePanel.bind(this)}>
             <div className={panel.expanded? "chart-collapse-icon" : "chart-expand-icon"}/>
             <div className="expand-button-legend">

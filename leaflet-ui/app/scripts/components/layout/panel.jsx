@@ -25,7 +25,7 @@ class Panel extends React.Component {
       <div className={this.props.panel.expanded? "panel panel-expanded" : "panel"}>       
         <ul>
           <Link to="/map/tools" >
-            <OverlayTrigger placement="top" overlay={(<Tooltip id="help.toolview.toolviewtab">{translate('help.toolview.toolviewtab')}</Tooltip>)}>
+            <OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id="help.toolview.toolviewtab">{translate('help.toolview.toolviewtab')}</Tooltip>)}>
               <li id='tools-tab' className={(this.props.currentView=='/map' || this.props.currentView=='/map/tools')?"panel-tab active":"panel-tab"}>
                 <div onClick={this.togglePanel.bind(this)}>
                   <div className="icon tools"/>
@@ -35,7 +35,7 @@ class Panel extends React.Component {
             </OverlayTrigger>
           </Link>
           <Link to="/map/charts">
-            <OverlayTrigger placement="top" overlay={(<Tooltip id="help.chartview.chartviewtab">{translate('help.chartview.chartviewtab')}</Tooltip>)}>
+            <OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id="help.chartview.chartviewtab">{translate('help.chartview.chartviewtab')}</Tooltip>)}>
               <li id='charts-tab' className={(this.props.currentView=='/map/charts')?"panel-tab active":"panel-tab"}>
                 <div className="icon chart"/>
                 <span>{translate('chartview.title')}</span>

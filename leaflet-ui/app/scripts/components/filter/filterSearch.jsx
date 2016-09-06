@@ -26,11 +26,11 @@ class SearchText extends React.Component {
   		return (
 	        <div>
 	        	<div className="input-group">
-			      	<OverlayTrigger placement="top" overlay={(<Tooltip id="help.filters.search">{translate('help.filters.search')}</Tooltip>)}>
+			      	<OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id="help.filters.search">{translate('help.filters.search')}</Tooltip>)}>
 						<input ref="keyword" type="text" className="form-control" placeholder={translate('filters.buttons.search')+"..."} onKeyUp={this.onKeyUp.bind(this)}/>
 					</OverlayTrigger>
 			      <span className="input-group-btn">
-			        <OverlayTrigger placement="top" overlay={(<Tooltip id="help.filters.go">{translate('help.filters.go')}</Tooltip>)}>
+			        <OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id="help.filters.go">{translate('help.filters.go')}</Tooltip>)}>
 						<button className="btn btn-success" type="button" onClick={this.triggerSearch.bind(this)}>{translate('filters.buttons.go')}!</button>
 					</OverlayTrigger>
 			      </span>

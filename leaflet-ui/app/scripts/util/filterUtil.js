@@ -42,7 +42,7 @@ export const collectValues = (filters, projectSearch)=>{
 	////console.log(params)
 	if (projectSearch){
 		let idsSelected = [];
-	  	projectSearch.selected.map(it => idsSelected.push(it.id));
+	  	projectSearch.applied.map(it => idsSelected.push(it.id));
 	  	Object.assign(params, {'pr': idsSelected});		
 	}
 	return params;
