@@ -56,6 +56,7 @@ public class DefaultGeoPhotoRepository implements GeoPhotoRepositoryCustom {
             Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
             criteriaQuery.where(other);
         }
+        //DO NOT REMOVE THE ORDER, A KITTIE COULD DIE
         criteriaQuery.orderBy(criteriaBuilder.asc(geoPhotoJoin.get(GeoPhoto_.id)));
         TypedQuery<GeoPhotoDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
         return query.getResultList();
