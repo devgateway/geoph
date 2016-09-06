@@ -1,5 +1,5 @@
 import {PropTypes} from 'react';
-import {geoJson, latlng, marker, divIcon, DomEvent} from 'leaflet';
+import {geoJson, latlng, marker} from 'leaflet';
 import {MapLayer} from 'react-leaflet';
 import React from 'react';
 import d3 from 'd3';
@@ -8,6 +8,10 @@ import { render, unmountComponentAtNode } from 'react-dom';
 /**
  * @author Sebas
  */
+//Leaflet deals with event listeners by reference, so if you want to add a listener and then remove it, define it as a function:
+function clickListener(evt){
+      this.mapClick(evt)
+    }
 
  export default class D3Layer extends MapLayer {
 
@@ -22,25 +26,33 @@ import { render, unmountComponentAtNode } from 'react-dom';
   }
 
   componentWillUnmount() {
+      super.componentWillUnmount();
+    const {map}=this.props;
+    debugger;
+    map.removeEventListener("click",clickListener,this);
+    map.off("moveend", this.mapUpdate.bind(this));
+
     this.svg.remove();
-    this.props.map.off("click",this.mapClick.bind(this));
   }
 
 
   mapClick(evt){
-      evt.originalEvent.stopPropagation();
+    if(this.props.id==evt.originalEvent.layer_id){
       this.renderPopupContent(Object.assign({}, evt.originalEvent.features, {latlng: evt.latlng}));
+    }
   }
   
   componentWillMount() {
-    super.componentWillMount();
+       super.componentWillMount();
+    const {map}=this.props;
     this.leafletElement = geoJson();
     
     this.svg = d3.select(this.props.map.getPanes().overlayPane).append("svg"); 
     this.svg.style("z-index",this.props.zIndex);
     this.g = this.svg.append("g").attr("class", "leaflet-zoom-hide");
-    this.props.map.on('moveend', this.mapUpdate.bind(this));
-    this.props.map.on('click', this.mapClick.bind(this));
+    map.addEventListener('click',clickListener,this)
+    map.on('moveend', this.mapUpdate.bind(this));
+    //map.on('click', this.mapClick.bind(this));
     this.mapUpdate();//trigger first update
   }
 
@@ -76,8 +88,9 @@ import { render, unmountComponentAtNode } from 'react-dom';
   }
 
   onClick(properties){
-    console.log("onClick!!");
-    d3.event.features=properties;    
+    debugger;
+    d3.event.features=properties; 
+    d3.event.layer_id=this.props.id;  
   }
 
   mapUpdate(e) {
