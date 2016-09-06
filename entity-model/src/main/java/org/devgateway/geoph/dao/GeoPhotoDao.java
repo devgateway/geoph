@@ -3,7 +3,8 @@ package org.devgateway.geoph.dao;
 import com.vividsolutions.jts.geom.Geometry;
 import org.devgateway.geoph.model.GeoPhoto;
 
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GeoPhotoDao {
 
@@ -13,7 +14,7 @@ public class GeoPhotoDao {
 
     private String projectTitle;
 
-    private Collection<String> urls;
+    private List<String> urls = new ArrayList<>();
 
     private Long projectId;
 
@@ -24,16 +25,14 @@ public class GeoPhotoDao {
         this.name = geoPhoto.getName();
         this.projectId = projectId;
         this.projectTitle = projectTitle;
-        this.urls = geoPhoto.getUrls();
+        geoPhoto.getUrls().stream().forEach(x->this.urls.add(x.getUrls()));
         this.geometry = geoPhoto.getPoint();
     }
 
     public GeoPhotoDao(Long id, String name, Long projectId, String projectTitle, Geometry geometry) {
-
         this.id = id;
         this.name = name;
         this.projectTitle = projectTitle;
-
         this.projectId = projectId;
         this.geometry = geometry;
     }
@@ -62,11 +61,11 @@ public class GeoPhotoDao {
         this.projectTitle = projectTitle;
     }
 
-    public Collection<String> getUrls() {
+    public List<String> getUrls() {
         return urls;
     }
 
-    public void setUrls(Collection<String> urls) {
+    public void setUrls(List<String> urls) {
         this.urls = urls;
     }
 

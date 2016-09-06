@@ -4,7 +4,6 @@ import org.devgateway.geoph.core.repositories.GeoPhotoRepositoryCustom;
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.dao.GeoPhotoDao;
 import org.devgateway.geoph.model.GeoPhoto;
-import org.devgateway.geoph.model.GeoPhoto_;
 import org.devgateway.geoph.model.Project;
 import org.devgateway.geoph.model.Project_;
 import org.devgateway.geoph.persistence.util.FilterHelper;
@@ -41,12 +40,10 @@ public class DefaultGeoPhotoRepository implements GeoPhotoRepositoryCustom {
 
         List<Selection<?>> multiSelect = new ArrayList<>();
 
-        multiSelect.add(geoPhotoJoin.get(GeoPhoto_.id));
-        multiSelect.add(geoPhotoJoin.get(GeoPhoto_.name));
+        multiSelect.add(geoPhotoJoin);
 
         multiSelect.add(projectRoot.get(Project_.id));
         multiSelect.add(projectRoot.get(Project_.title));
-        multiSelect.add(geoPhotoJoin.get(GeoPhoto_.point));
 
         //   public GeoPhotoDao(Long id, String name, Collection<String> urls, Long projectId, String projectTitle, Geometry geometry) {
 
