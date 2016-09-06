@@ -58,8 +58,10 @@ public class GeoJsonServiceImpl implements GeoJsonService {
         summary.setName(result.getName());
         summary.setLevel(level.getLevel());
         summary.setId(result.getLocationId());
-        if (geometries.get(result.getLocationId()) != null) {
-            summary.setGeometry(geometries.get(result.getLocationId()).getGeometry());
+        GeometryDao dao = geometries.get(result.getLocationId());
+        if (dao != null) {
+            summary.setGeometry(dao.getGeometry());
+            dao.setUsed(true);
         }
         return summary;
     }
@@ -105,28 +107,29 @@ public class GeoJsonServiceImpl implements GeoJsonService {
             LocationFundingStatsDao current = createSummary(locationResultsDaos.iterator().next(), geometries, level);
 
             for (LocationResultsDao result : locationResultsDaos) {
-                {
-                    if (current.getId() != result.getLocationId()) {
-                        builder.addFeature(ConverterFactory.locationShapeConverter().convert(current));
-                        current = createSummary(result, geometries, level);
-
-                    }
-                    if (result.getTransactionTypeId() == TransactionTypeEnum.COMMITMENTS.getId()) {
-                        current.getCommitments().put(TransactionStatusEnum.getEnumById(result.getTransactionStatusId()).getName(), result.getAmount());
-                    }
-                    if (result.getTransactionTypeId() == TransactionTypeEnum.EXPENDITURES.getId()) {
-                        current.getExpenditure().put(TransactionStatusEnum.getEnumById(result.getTransactionStatusId()).getName(), result.getAmount());
-
-                    }
-                    if (result.getTransactionTypeId() == TransactionTypeEnum.DISBURSEMENTS.getId()) {
-                        current.getDisbursements().put(TransactionStatusEnum.getEnumById(result.getTransactionStatusId()).getName(), result.getAmount());
-
-                    }
-
+                if (current.getId() != result.getLocationId()) {
+                    builder.addFeature(ConverterFactory.locationShapeConverter().convert(current));
+                    current = createSummary(result, geometries, level);
+                }
+                if (result.getTransactionTypeId() == TransactionTypeEnum.COMMITMENTS.getId()) {
+                    current.getCommitments().put(TransactionStatusEnum.getEnumById(result.getTransactionStatusId()).getName(), result.getAmount());
+                }
+                if (result.getTransactionTypeId() == TransactionTypeEnum.EXPENDITURES.getId()) {
+                    current.getExpenditure().put(TransactionStatusEnum.getEnumById(result.getTransactionStatusId()).getName(), result.getAmount());
+                }
+                if (result.getTransactionTypeId() == TransactionTypeEnum.DISBURSEMENTS.getId()) {
+                    current.getDisbursements().put(TransactionStatusEnum.getEnumById(result.getTransactionStatusId()).getName(), result.getAmount());
                 }
             }
 
             LOGGER.info("---returning features " + (System.currentTimeMillis() - start_time) + "---");
+        }
+        for(GeometryDao geometryDao:geometries.values()){
+            if(!geometryDao.isUsed()){
+                LocationFundingStatsDao loc = new LocationFundingStatsDao();
+                loc.setGeometry(geometryDao.getGeometry());
+                builder.addFeature(ConverterFactory.locationShapeConverter().convert(loc));
+            }
         }
         return builder.getFeatures();
     }
