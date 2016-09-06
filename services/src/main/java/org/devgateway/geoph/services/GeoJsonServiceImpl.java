@@ -1,31 +1,26 @@
 package org.devgateway.geoph.services;
 
-import org.devgateway.geoph.core.repositories.LocationRepository;
-import org.devgateway.geoph.core.repositories.ProjectRepository;
+import org.devgateway.geoph.core.repositories.*;
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.core.services.GeoJsonService;
-import org.devgateway.geoph.dao.LocationProperty;
-import org.devgateway.geoph.dao.LocationResultsDao;
-import org.devgateway.geoph.dao.PostGisDao;
-import org.devgateway.geoph.dao.ProjectLocationDao;
+import org.devgateway.geoph.dao.*;
+import org.devgateway.geoph.enums.GeometryDetail;
 import org.devgateway.geoph.enums.LocationAdmLevelEnum;
 import org.devgateway.geoph.enums.TransactionStatusEnum;
 import org.devgateway.geoph.enums.TransactionTypeEnum;
-import org.devgateway.geoph.model.Location;
-import org.devgateway.geoph.model.Project;
-import org.devgateway.geoph.model.ProjectLocation;
-import org.devgateway.geoph.services.util.FeatureHelper;
-import org.geojson.*;
+import org.devgateway.geoph.model.Indicator;
+import org.devgateway.geoph.model.IndicatorDetail;
+import org.devgateway.geoph.services.geojson.ConverterFactory;
+import org.devgateway.geoph.services.geojson.GeoJsonBuilder;
+import org.geojson.FeatureCollection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static org.devgateway.geoph.core.constants.Constants.*;
+import java.util.stream.Collectors;
 
 /**
  * @author dbianco
@@ -33,6 +28,8 @@ import static org.devgateway.geoph.core.constants.Constants.*;
  */
 @Service
 public class GeoJsonServiceImpl implements GeoJsonService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(GeoJsonServiceImpl.class);
 
     private static final int LONG = 0;
     private static final int LAT = 1;
@@ -44,236 +41,206 @@ public class GeoJsonServiceImpl implements GeoJsonService {
     @Autowired
     ProjectRepository projectRepository;
 
-    public FeatureCollection getLocationsByLevel(LocationAdmLevelEnum level) {
-        List<Location> locationList = locationRepository.findLocationsByLevel(level.getLevel());
+    @Autowired
+    IndicatorDetailRepository indicatorDetailRepository;
 
-        FeatureCollection featureCollection = new FeatureCollection();
-        for(Location location : locationList) {
-            Feature feature = new Feature();
-            feature.setGeometry(new Point(location.getLongitude(), location.getLatitude()));
-            FeatureHelper.setLocationFeature(feature, location);
-            featureCollection.add(feature);
+    @Autowired
+    IndicatorRepository indicatorRepository;
+
+
+    @Autowired
+    GeoPhotoRepositoryCustom geoPhotoRepository;
+
+
+    /*Helper to create LocationFundingStatsDao, can be moved to a different class*/
+    private LocationFundingStatsDao createSummary(LocationResultsDao result, Map<Long, GeometryDao> geometries, LocationAdmLevelEnum level) {
+        LocationFundingStatsDao summary = new LocationFundingStatsDao();
+        summary.setName(result.getName());
+        summary.setLevel(level.getLevel());
+        summary.setId(result.getLocationId());
+        if (geometries.get(result.getLocationId()) != null) {
+            summary.setGeometry(geometries.get(result.getLocationId()).getGeometry());
         }
-        return featureCollection;
-    }
-
-    public FeatureCollection getLocationsByParams(Parameters params) {
-        int level = getUpperLevel(params);
-        List<Location> locations = locationRepository.findLocationsByLevel(level);
-        Map<Long, LocationProperty> locationPropertyMap = new HashMap<>();
-        for(Location location:locations){
-            locationPropertyMap.put(location.getId(), new LocationProperty(location));
-        }
-
-        aggregateResults(params, level, locationPropertyMap);
-        addProjectCount(params, level, locationPropertyMap);
-
-        FeatureCollection featureCollection = new FeatureCollection();
-        for(LocationProperty location : locationPropertyMap.values()) {
-            if(location.getProjectCount()>0) {
-                Feature feature = new Feature();
-                feature.setGeometry(new Point(location.getLongitude(), location.getLatitude()));
-                FeatureHelper.setLocationPropertyFeature(feature, location);
-                featureCollection.add(feature);
-            }
-        }
-        return featureCollection;
-    }
-
-    public FeatureCollection getPhysicalProgressAverageByParamsAndDetail(Parameters params, double detail) {
-        int level = getUpperLevel(params);
-
-        Map<Long, PostGisDao> postGisHelperMap = new HashMap<>();
-        List<PostGisDao> gisHelperList = getPostGisDao(detail, level);
-        if(gisHelperList!=null) {
-            for (PostGisDao helper : gisHelperList) {
-                postGisHelperMap.put(helper.getLocationId(), helper);
-            }
-        }
-
-        List<Location> locations = locationRepository.findLocationsByLevel(level);
-        Map<Long, LocationProperty> locationPropertyMap = new HashMap<>();
-        for(Location location:locations){
-            locationPropertyMap.put(location.getId(), new LocationProperty(location));
-        }
-
-        aggregatePhysicalProgress(params, level, locationPropertyMap);
-
-        FeatureCollection featureCollection = new FeatureCollection();
-        for(LocationProperty location : locationPropertyMap.values()) {
-            Feature feature;
-            if(postGisHelperMap.get(location.getId()) != null) {
-                feature = parseGeoJson(postGisHelperMap.get(location.getId()));
-            } else {
-                feature = new Feature();
-            }
-            FeatureHelper.setLocationPropertyFeature(feature, location);
-
-            featureCollection.add(feature);
-
-        }
-        return featureCollection;
-    }
-
-    private void aggregatePhysicalProgress(Parameters params, int level, Map<Long, LocationProperty> locationPropertyMap) {
-        Page<Project> projectPage = projectRepository.findProjectsByParams(params);
-        for(Project project:projectPage) {
-            if(project.getPhysicalProgress()!=null) {
-                for (ProjectLocation locHelper : project.getLocations()) {
-                    LocationProperty lp = getLocationProperty(level, locationPropertyMap, locHelper.getLocation());
-                    if (lp != null) {
-                        lp.addPhysicalProgress(project.getId(), project.getPhysicalProgress());
-                    }
-                }
-            }
-        }
+        return summary;
     }
 
 
-
-    public List<ProjectLocationDao> getLocationsForExport(Parameters params){
-        return locationRepository.findProjectLocationsByParams(params);
+    /*
+    * Returns map of <Location_id, Geometry >
+    * */
+    Map<Long, GeometryDao> getShapesMap(List<GeometryDao> geometryDaos) {
+        return geometryDaos.stream().collect(Collectors.toMap(GeometryDao::getLocationId, (GeometryDao) -> GeometryDao));
     }
 
-    private void addProjectCount(Parameters params, int level, Map<Long, LocationProperty> locationPropertyMap) {
-        List<LocationResultsDao> locationResults = locationRepository.countLocationProjectsByParams(params);
-        for(LocationResultsDao resultsDao:locationResults) {
-            Location l = resultsDao.getLocation();
-            LocationProperty lp = getLocationProperty(level, locationPropertyMap, l);
 
-            if (lp != null) {
-                lp.addProjectCount(resultsDao.getProjectCount());
-            }
-        }
+    Map<Long, LocationResultsDao> resultsDaoMap(List<LocationResultsDao> locationResultsDaos) {
+        return locationResultsDaos.stream().collect(Collectors.toMap(LocationResultsDao::getLocationId, LocationResultsDao -> LocationResultsDao));
     }
 
-    private void aggregateResults(Parameters params, int level, Map<Long, LocationProperty> locationPropertyMap) {
 
-        for(TransactionTypeEnum tt:TransactionTypeEnum.values()){
-            for(TransactionStatusEnum ts:TransactionStatusEnum.values()){
-                List<LocationResultsDao> locationResults = locationRepository.findLocationsByParamsTypeStatus(params, tt.getId(), ts.getId());
-                for(LocationResultsDao locHelper:locationResults){
-                    LocationProperty lp = getLocationProperty(level, locationPropertyMap, locHelper.getLocation());
-
-                    if(lp!=null) {
-                        if (tt.compareTo(TransactionTypeEnum.COMMITMENTS) == 0) {
-                            if(ts.compareTo(TransactionStatusEnum.TARGET) == 0) {
-                                lp.addCommitment(PROPERTY_LOC_TARGET, locHelper.getTrxAmount());
-                            } else if(ts.compareTo(TransactionStatusEnum.ACTUAL) == 0) {
-                                lp.addCommitment(PROPERTY_LOC_ACTUAL, locHelper.getTrxAmount());
-                            } else if(ts.compareTo(TransactionStatusEnum.CANCELLED) == 0) {
-                                lp.addCommitment(PROPERTY_LOC_CANCELLED, locHelper.getTrxAmount());
-                            }
-                        }else if (tt.compareTo(TransactionTypeEnum.DISBURSEMENTS) == 0) {
-                            if(ts.compareTo(TransactionStatusEnum.TARGET) == 0) {
-                                lp.addDisbursement(PROPERTY_LOC_TARGET, locHelper.getTrxAmount());
-                            } else if(ts.compareTo(TransactionStatusEnum.ACTUAL) == 0) {
-                                lp.addDisbursement(PROPERTY_LOC_ACTUAL, locHelper.getTrxAmount());
-                            } else if(ts.compareTo(TransactionStatusEnum.CANCELLED) == 0) {
-                                lp.addDisbursement(PROPERTY_LOC_CANCELLED, locHelper.getTrxAmount());
-                            }
-                        }else if (tt.compareTo(TransactionTypeEnum.EXPENDITURES) == 0) {
-                            if(ts.compareTo(TransactionStatusEnum.TARGET) == 0) {
-                                lp.addExpenditure(PROPERTY_LOC_TARGET, locHelper.getTrxAmount());
-                            } else if(ts.compareTo(TransactionStatusEnum.ACTUAL) == 0) {
-                                lp.addExpenditure(PROPERTY_LOC_ACTUAL, locHelper.getTrxAmount());
-                            } else if(ts.compareTo(TransactionStatusEnum.CANCELLED) == 0) {
-                                lp.addExpenditure(PROPERTY_LOC_CANCELLED, locHelper.getTrxAmount());
-                            }
-                        }
-
-                        lp.addTransactionCount(locHelper.getTrxCount());
-
-                    }
-                }
-            }
-        }
-    }
-
-    private int getUpperLevel(Parameters params) {
-        int level = LocationAdmLevelEnum.MUNICIPALITY.getLevel();
-        for(int paramLevel:params.getLocationLevels()){
-            if(paramLevel<level){
-                level=paramLevel;
-            }
-        }
-        return level;
+    Map<Long, LocationProjectStatsDao> resultProjectsMap(List<LocationProjectStatsDao> locationProjectStatsDaos) {
+        return locationProjectStatsDaos.stream().collect(Collectors.toMap(LocationProjectStatsDao::getId, LocationProjectStatsDao -> LocationProjectStatsDao));
     }
 
     @Override
-    public FeatureCollection getShapesByLevelAndDetail(LocationAdmLevelEnum level, double detail, Parameters params) {
-        List<Location> locations = locationRepository.findLocationsByLevel(level.getLevel());
+    /**
+     * Returns locations with transaction aggregated data group by transaction type and transactions status with MultiPolygon as location geometry
+     */
+    public FeatureCollection getFundingShapes(LocationAdmLevelEnum level, GeometryDetail detail, Parameters params) {
+        long start_time = System.currentTimeMillis();
+        //results should be ordered by ID!;
 
-        Map<Long, PostGisDao> postGisHelperMap = new HashMap<>();
-        List<PostGisDao> gisHelperList = getPostGisDao(detail, level.getLevel());
+        List<LocationResultsDao> locationResultsDaos = locationRepository.getLocationWithTransactionStats(params); //records should be order by location id
+        List<GeometryDao> geometriesList = locationRepository.getShapesByLevelAndDetail(level.getLevel(), detail.getValue());
 
-        if(gisHelperList!=null) {
-            for (PostGisDao helper : gisHelperList) {
-                postGisHelperMap.put(helper.getLocationId(), helper);
-            }
-        }
-        Map<Long, LocationProperty> locationPropertyMap = new HashMap<>();
-        for(Location location:locations){
-            locationPropertyMap.put(location.getId(), new LocationProperty(location));
-        }
-        aggregateResults(params, level.getLevel(), locationPropertyMap);
-        addProjectCount(params, level.getLevel(), locationPropertyMap);
+        GeoJsonBuilder builder = new GeoJsonBuilder();
 
-        FeatureCollection featureCollection = new FeatureCollection();
-        for(LocationProperty location : locationPropertyMap.values()) {
-            Feature feature;
-            if(postGisHelperMap.get(location.getId()) != null) {
-                feature = parseGeoJson(postGisHelperMap.get(location.getId()));
-            } else {
-                feature = new Feature();
-            }
-            FeatureHelper.setLocationPropertyFeature(feature, location);
-            featureCollection.add(feature);
+        Map<Long, GeometryDao> geometries = getShapesMap(geometriesList);
+        if (geometries.size() == 0) {
+            LOGGER.warn("Shapes map is empty!!!!");
         }
 
-        return featureCollection;
-    }
 
+        if (locationResultsDaos.iterator().hasNext()) {
+            LocationFundingStatsDao current = createSummary(locationResultsDaos.iterator().next(), geometries, level);
 
-    private Feature parseGeoJson(PostGisDao helper){
-        Feature feature = new Feature();
-        MultiPolygon multiPolygon = new MultiPolygon();
-        for(Double[][][] inner:helper.getCoordinates()){
-            Polygon polygon = new Polygon();
-            for(Double[][] inner2:inner){
-                List<LngLatAlt> pointList = new ArrayList<>();
-                for(Double[] inner3:inner2){
-                    pointList.add(new LngLatAlt(inner3[LONG], inner3[LAT]));
+            for (LocationResultsDao result : locationResultsDaos) {
+                {
+                    if (current.getId() != result.getLocationId()) {
+                        builder.addFeature(ConverterFactory.locationShapeConverter().convert(current));
+                        current = createSummary(result, geometries, level);
+
+                    }
+                    if (result.getTransactionTypeId() == TransactionTypeEnum.COMMITMENTS.getId()) {
+                        current.getCommitments().put(TransactionStatusEnum.getEnumById(result.getTransactionStatusId()).getName(), result.getAmount());
+                    }
+                    if (result.getTransactionTypeId() == TransactionTypeEnum.EXPENDITURES.getId()) {
+                        current.getExpenditure().put(TransactionStatusEnum.getEnumById(result.getTransactionStatusId()).getName(), result.getAmount());
+
+                    }
+                    if (result.getTransactionTypeId() == TransactionTypeEnum.DISBURSEMENTS.getId()) {
+                        current.getDisbursements().put(TransactionStatusEnum.getEnumById(result.getTransactionStatusId()).getName(), result.getAmount());
+
+                    }
+
                 }
-                polygon.add(pointList);
             }
-            multiPolygon.add(polygon);
+
+            LOGGER.info("---returning features " + (System.currentTimeMillis() - start_time) + "---");
         }
-        feature.setGeometry(multiPolygon);
-        return feature;
+        return builder.getFeatures();
     }
 
-    private List<PostGisDao> getPostGisDao(double detail, int level) {
-        List<PostGisDao> gisHelperList = null;
-        if(level == LocationAdmLevelEnum.REGION.getLevel()){
-            gisHelperList = locationRepository.getRegionShapesWithDetail(detail);
-        } else if(level == LocationAdmLevelEnum.PROVINCE.getLevel()) {
-            gisHelperList = locationRepository.getProvinceShapesWithDetail(detail);
-        } else if(level == LocationAdmLevelEnum.MUNICIPALITY.getLevel()) {
-            gisHelperList = locationRepository.getMunicipalityShapesWithDetail(detail);
-        }
-        return gisHelperList;
+    @Override
+    public FeatureCollection getIndicatorShapes(Long indicatorId, GeometryDetail detail) {
+        Indicator indicator = indicatorRepository.findOne(indicatorId);
+        List<IndicatorDetail> details = indicatorDetailRepository.findByIndicatorId(indicatorId);
+
+        Map<Long, IndicatorDetail> detailsMap = details.stream().collect(Collectors.toMap(IndicatorDetail::getLocationId, IndicatorDetail -> IndicatorDetail));
+        LocationAdmLevelEnum level = LocationAdmLevelEnum.getEnumByName(indicator.getAdmLevel());
+        GeoJsonBuilder builder = new GeoJsonBuilder();
+
+
+        List<GeometryDao> geometriesList = locationRepository.getShapesByLevelAndDetail(level.getLevel(), detail.getValue());
+
+        builder.setFeatures(
+                geometriesList.stream().map(geometryDao -> {
+                    IndicatorDetail indicatorDetail = detailsMap.get(geometryDao.getLocationId());//get indicator detail for this location
+                    IndicatorGeometryDao dao = new IndicatorGeometryDao(geometryDao.getLocationId(),
+                            geometryDao.getName(), geometryDao.getGeometry(), indicator.getId(), indicator.getName(), indicator.getDescription(),
+                            indicator.getColorScheme(), indicatorDetail.getValue(), level.getLevel(),indicator.getUnit());
+                    return ConverterFactory.indicatorGeometryConverter().convert(dao);
+
+                }).collect(Collectors.toList()));
+
+        return builder.getFeatures();
     }
 
-    private LocationProperty getLocationProperty(int level, Map<Long, LocationProperty> locationPropertyMap, Location locHelper) {
-        LocationProperty lp = null;
-        if (level == LocationAdmLevelEnum.REGION.getLevel()) {
-            lp = locationPropertyMap.get(locHelper.getRegionId());
-        } else if (level == LocationAdmLevelEnum.PROVINCE.getLevel()) {
-            lp = locHelper.getProvinceId() != null ? locationPropertyMap.get(locHelper.getProvinceId()) : null;
-        } else if (level == LocationAdmLevelEnum.MUNICIPALITY.getLevel()) {
-            lp = locationPropertyMap.get(locHelper.getId());
-        }
-        return lp;
+
+    @Override
+    /**
+     * Returns project aggregated data (count and  average of physical progress) by location with Point as geometry only location with values are returned //TODO:check
+     */
+    public FeatureCollection getProjectPoints(LocationAdmLevelEnum level, Parameters params) {
+        long start_time = System.currentTimeMillis();
+
+        List<LocationProjectStatsDao> locationProjectStatDaos = locationRepository.getLocationWithProjectStats(params); //return project count + physicalProgress group by location filtered by params
+
+        GeoJsonBuilder builder = new GeoJsonBuilder();
+
+        builder.setFeatures(locationProjectStatDaos.stream().map(locationStatsDao ->
+                {
+                    locationStatsDao.setLevel(level.getLevel()); //The ui needs level on each feature
+                    return ConverterFactory.locationPointConverter().convert(locationStatsDao);
+                }
+        ).collect(Collectors.toList()));
+
+        LOGGER.info("---returning features " + (System.currentTimeMillis() - start_time) + "---");
+
+        return builder.getFeatures();
     }
+
+
+    @Override
+    /**
+     * Returns project aggregated data (count and average of physical progress) by location with MultiPolygon as geometry
+     * all geometries ara always returned
+     */
+    public FeatureCollection getProjectShapes(LocationAdmLevelEnum level, GeometryDetail detail, Parameters params) {
+        long start_time = System.currentTimeMillis();
+
+        List<LocationProjectStatsDao> locationProjectStatDaos = locationRepository.getLocationWithProjectStats(params); //return project count + physicalProgress group by location filtered by params
+
+        GeoJsonBuilder builder = new GeoJsonBuilder();
+
+        List<GeometryDao> geometries = locationRepository.getShapesByLevelAndDetail(level.getLevel(), detail.getValue());
+
+        Map<Long, LocationProjectStatsDao> resultMap = resultProjectsMap(locationProjectStatDaos);//get result as Map<location_id,values) format
+
+        builder.setFeatures(
+                geometries.stream().map(geometryDao -> {//to ensure we return all shapes this method iterates the geometries list , previously data was converted to  map
+
+                    LocationProjectStatsDao locationProjectStatsDao;
+                    if (resultMap.get(geometryDao.getLocationId()) != null) {
+                        locationProjectStatsDao = resultMap.get(geometryDao.getLocationId());
+                    } else {
+                        locationProjectStatsDao = new LocationProjectStatsDao();
+                    }
+                    locationProjectStatsDao.setGeometry(geometryDao.getGeometry());
+                    locationProjectStatsDao.setName(geometryDao.getName());
+                    return ConverterFactory.locationPointConverter().convert(locationProjectStatsDao);
+                }).collect(Collectors.toList()));
+
+
+        LOGGER.info("---returning features " + (System.currentTimeMillis() - start_time) + "---");
+
+        return builder.getFeatures();
+    }
+
+    /**
+     *
+     * @param parameters
+     * @return
+     */
+    public FeatureCollection getPhotoPoints(Parameters parameters) {
+        GeoJsonBuilder geoJsonBuilder = new GeoJsonBuilder();
+        List<GeoPhotoDao> daos = geoPhotoRepository.findGeoPhotosByParams(parameters);
+
+        if(daos!=null) {
+            GeoPhotoDao first = daos.iterator().next();
+            GeoPhotoSummaryDao current = new GeoPhotoSummaryDao(first);
+            for (GeoPhotoDao geoPhotoDao : daos) {
+                if (!current.getId().equals(geoPhotoDao.getId())) {
+                    geoJsonBuilder.addFeature(ConverterFactory.geoPhotoConverter().convert(current));
+                    current = new GeoPhotoSummaryDao(geoPhotoDao);
+                } else {
+                    current.addUrl(geoPhotoDao.getUrl());
+                }
+            }
+            geoJsonBuilder.addFeature(ConverterFactory.geoPhotoConverter().convert(current));
+        }
+        return geoJsonBuilder.getFeatures();
+    }
+
+
 }

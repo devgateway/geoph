@@ -114,11 +114,14 @@ class Connector {
 		return new Promise( (resolve, reject) => {
 			
 			let url=Settings.get('API',options.ep);
-			const {level,quality} = options.settings;
+			const {level,detail} = options.settings;
 			const {id, filters, indicator_id, geophotos_id}=options;
-
+			debugger;
 			if (level){
 				url=url.replace('${level}',level);
+			}
+			if (detail){
+				url=url.replace('${detail}',detail);
 			}
 			if (indicator_id){
 				url=url.replace('${indicator_id}',indicator_id);
@@ -126,9 +129,7 @@ class Connector {
 			if (geophotos_id){
 				url=url.replace('${geophotos_id}',geophotos_id);
 			}
-			if (quality){
-				Object.assign(params,{quality})
-			}
+			
 			Object.assign(params, filters)
 			
 			this.call(GET,url, params).then((data) => {

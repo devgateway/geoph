@@ -48,7 +48,7 @@ public class Project extends GenericPersistable implements Serializable {
 
     private String phId;
 
-    @Size(max=255)
+    @Size(max=500)
     private String title;
 
     @OneToMany(cascade=CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "project")
@@ -161,6 +161,7 @@ public class Project extends GenericPersistable implements Serializable {
     @Column(name = "level_rre")
     private String levelRre;
 
+    @Size(max=500)
     @Column(name = "date_rre")
     private String dateRre;
 

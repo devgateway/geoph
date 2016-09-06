@@ -182,11 +182,17 @@
             </dependency>
 
 
-            <!-- https://mvnrepository.com/artifact/com.vividsolutions/jts -->
+            <!-- https://mvnrepository.com/artifact/com.vividsolutions/jts-core -->
             <dependency>
                 <groupId>com.vividsolutions</groupId>
-                <artifactId>jts</artifactId>
-                <version>1.13</version>
+                <artifactId>jts-core</artifactId>
+                <version>1.14.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wololo</groupId>
+                <artifactId>jts2geojson</artifactId>
+                <version>0.8.0</version>
             </dependency>
 
 
@@ -272,7 +278,10 @@
             <id>OSGEO GeoTools repo</id>
             <url>http://download.osgeo.org/webdav/geotools</url>
         </repository>
-
+        <repository>
+            <id> https://mvnrepository.com/artifact/com.vividsolutions/jts-core</id>
+            <url> https://mvnrepository.com/artifact/com.vividsolutions/jts-core</url>
+        </repository>
         <repository>
             <id>Hibernate Spatial repo</id>
             <url>http://www.hibernatespatial.org/repository</url>

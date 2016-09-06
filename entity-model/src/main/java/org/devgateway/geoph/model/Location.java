@@ -1,8 +1,10 @@
 package org.devgateway.geoph.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.vividsolutions.jts.geom.Point;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -50,6 +52,17 @@ public class Location extends GenericPersistable implements Serializable {
     private Double latitude;
 
     private Double longitude;
+
+
+    @Type(type = "org.hibernate.spatial.GeometryType")
+    private Point centroid;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    LocationGeometry locationGeometry;
+
+
+
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "location_items", joinColumns = {
@@ -107,6 +120,14 @@ public class Location extends GenericPersistable implements Serializable {
 
     public void setLatitude(Double latitude) {
         this.latitude = latitude;
+    }
+
+    public Point getCentroid() {
+        return centroid;
+    }
+
+    public void setCentroid(Point centroid) {
+        this.centroid = centroid;
     }
 
     public Double getLongitude() {
@@ -170,6 +191,15 @@ public class Location extends GenericPersistable implements Serializable {
             return true;
         }
         return this.getId().equals(((Location) obj).getId());
+    }
+
+
+    public LocationGeometry getLocationGeometry() {
+        return locationGeometry;
+    }
+
+    public void setLocationGeometry(LocationGeometry locationGeometry) {
+        this.locationGeometry = locationGeometry;
     }
 
     public int hashCode(){

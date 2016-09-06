@@ -71,7 +71,8 @@ public class BootMetadata {
                 "/sql/basic-data/transactions2.sql",
                 "/sql/basic-data/indicator.sql",
                 "/sql/basic-data/indicator_detail.sql",
-                "/sql/basic-data/hibernate_sequence.sql"
+                "/sql/basic-data/hibernate_sequence.sql",
+                "/sql/basic-data/add_geometry_to_location.sql"
         );
 
         //The princess is in another castle

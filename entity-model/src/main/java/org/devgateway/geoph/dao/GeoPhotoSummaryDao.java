@@ -2,7 +2,10 @@ package org.devgateway.geoph.dao;
 
 import com.vividsolutions.jts.geom.Geometry;
 
-public class GeoPhotoDao {
+import java.util.ArrayList;
+import java.util.List;
+
+public class GeoPhotoSummaryDao {
 
     private Long id;
 
@@ -10,19 +13,28 @@ public class GeoPhotoDao {
 
     private String projectTitle;
 
-    private String url;
+    private List<String> urls = new ArrayList<>();;
 
     private Long projectId;
 
     private Geometry geometry;
 
-    public GeoPhotoDao(long id, String name, String url, long projectId, String projectTitle, Geometry geometry) {
+    public GeoPhotoSummaryDao(GeoPhotoDao geoPhotoDao) {
+        this.id = geoPhotoDao.getId();
+        this.name = geoPhotoDao.getName();
+        this.projectTitle = geoPhotoDao.getProjectTitle();
+        this.projectId = geoPhotoDao.getProjectId();
+        this.geometry = geoPhotoDao.getGeometry();
+        this.urls.add(geoPhotoDao.getUrl());
+    }
+
+    public GeoPhotoSummaryDao(long id, String name, List<String> urls, long projectId, String projectTitle, Geometry geometry) {
         this.id = id;
         this.name = name;
         this.projectTitle = projectTitle;
         this.projectId = projectId;
         this.geometry = geometry;
-        this.url = url;
+        this.urls = urls;
     }
 
     public Long getId() {
@@ -49,12 +61,12 @@ public class GeoPhotoDao {
         this.projectTitle = projectTitle;
     }
 
-    public String getUrl() {
-        return url;
+    public List<String> getUrls() {
+        return urls;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setUrls(List<String> urls) {
+        this.urls = urls;
     }
 
     public Long getProjectId() {
@@ -71,5 +83,9 @@ public class GeoPhotoDao {
 
     public void setGeometry(Geometry geometry) {
         this.geometry = geometry;
+    }
+
+    public void addUrl(String url){
+        this.urls.add(url);
     }
 }
