@@ -27,7 +27,7 @@ const MenuItem =onClickOutside(React.createClass({
 		const active=this.props[id];
 		return (
 			<li className={active?`active ${className}`:className}>
-				<OverlayTrigger placement="bottom" overlay={tooltip}>
+				<OverlayTrigger delayShow={1000} placement="bottom" overlay={tooltip}>
 					<div className="link" onClick={this.handleClick}>
 						<div className={"options-icons "+className}></div>
 						<span>{label}</span>

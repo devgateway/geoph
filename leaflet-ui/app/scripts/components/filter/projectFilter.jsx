@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import InputRange from 'react-input-range';
-import { clearAllResults, searchProjectsByText, toggleProjectSelection, selectAllMatchedProject, clearAllProjectSelected } from '../../actions/projectSearch';
+import { clearAllResults, searchProjectsByText, toggleProjectSelection, selectAllMatchedProject, clearAllProjectSelected, applyProjectSelected } from '../../actions/projectSearch';
 import { applyFilter } from '../../actions/filters';
 import { fetchStats } from '../../actions/stats';
 import { Input } from 'react-bootstrap';
@@ -24,8 +24,8 @@ class ProjectFilter extends React.Component {
   }
 
   componentDidMount() {
-    let filters = collectValues(this.props.filters);
-    this.props.onGetStats(filters);		
+    //let filters = collectValues(this.props.filters);
+    //this.props.onGetStats(filters);		
   }
 
   validateState() {
@@ -93,8 +93,10 @@ class ProjectFilter extends React.Component {
   }
 
   applySelection(){
-    let filters = collectValues(this.props.filters, this.props.projectSearch);
-    this.props.onFilterByProjects(filters);
+    const {projectSearch, filters} = this.props;
+    let projectFilter = Object.assign({}, projectSearch, {applied: projectSearch.selected});//move selected to applied
+    let filtersCollected = collectValues(filters, projectFilter);
+    this.props.onFilterByProjects(filtersCollected);
   }
 
   getInput(){
@@ -111,25 +113,25 @@ class ProjectFilter extends React.Component {
   getActions(){
     return (  
      <div className="project-search-actions">
-        <OverlayTrigger placement="top" overlay={(<Tooltip id="help.projectsearch.selectall">{translate('help.projectsearch.selectall')}</Tooltip>)}>
+        <OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id="help.projectsearch.selectall">{translate('help.projectsearch.selectall')}</Tooltip>)}>
           <a href="#" onClick={this.selectAllMatched.bind(this)}><div className="btn btn-xs btn-all"></div><span>{translate('toolview.projectsearch.selectall')}</span></a>
         </OverlayTrigger>
         <span>/</span>
         {this.state.showResults?
-          <OverlayTrigger placement="top" overlay={(<Tooltip id="help.projectsearch.selectedresults">{translate('help.projectsearch.selectedresults')}</Tooltip>)}>
+          <OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id="help.projectsearch.selectedresults">{translate('help.projectsearch.selectedresults')}</Tooltip>)}>
             <a href="#" onClick={this.showSelected.bind(this)}>{translate('toolview.projectsearch.selectedresults')} ({this.props.projectSearch.selected.length}) </a>
           </OverlayTrigger>
           :
-          <OverlayTrigger placement="top" overlay={(<Tooltip id="help.projectsearch.searchresults">{translate('help.projectsearch.searchresults')}</Tooltip>)}>
-            <a href="#" onClick={this.showResults.bind(this)}>{translate('toolview.projectsearch.searchresults')}</a>}
+          <OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id="help.projectsearch.searchresults">{translate('help.projectsearch.searchresults')}</Tooltip>)}>
+            <a href="#" onClick={this.showResults.bind(this)}>{translate('toolview.projectsearch.searchresults')}</a>
           </OverlayTrigger>
         }
         <span>/</span>
-        <OverlayTrigger placement="top" overlay={(<Tooltip id="help.projectsearch.apply">{translate('help.projectsearch.apply')}</Tooltip>)}>
-          <a href="#" onClick={this.applySelection.bind(this)}><div className="btn btn-xs btn-apply"></div> <span>{translate('toolview.projectsearch.apply')}</span></a>
+        <OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id="help.projectsearch.apply">{translate('help.projectsearch.apply')}</Tooltip>)}>
+          <a href="#" onClick={this.applySelection.bind(this)}><div className="btn btn-xs btn-apply"></div><span>{translate('toolview.projectsearch.apply')}</span></a>
         </OverlayTrigger>
         <span>/</span>
-        <OverlayTrigger placement="top" overlay={(<Tooltip id="help.projectsearch.clearall">{translate('help.projectsearch.clearall')}</Tooltip>)}>
+        <OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id="help.projectsearch.clearall">{translate('help.projectsearch.clearall')}</Tooltip>)}>
           <a href="#" onClick={this.clearAllSelection.bind(this)}><div className="btn btn-xs btn-clear"></div><span>{translate('toolview.projectsearch.clearall')}</span></a>
         </OverlayTrigger>
       </div>                       
@@ -247,12 +249,14 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     
     onFilterByProjects: (filters) => {
+      dispatch(applyProjectSelected());
       dispatch(applyFilter(filters));
-    },
+    }
+    /*,
 
     onGetStats: (filters) => {
       dispatch(fetchStats(filters));
-    }
+    }*/
   }
 }
 

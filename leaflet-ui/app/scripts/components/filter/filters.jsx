@@ -51,13 +51,13 @@ class FilterPopup extends React.Component {
 					<FilterTabs />
 				</Modal.Body>
 				<Modal.Footer>
-					<OverlayTrigger placement="top" overlay={(<Tooltip id="help.filters.reset">{translate('help.filters.reset')}</Tooltip>)}>
+					<OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id="help.filters.reset">{translate('help.filters.reset')}</Tooltip>)}>
 						<Button className="btn btn-sm" bsStyle='danger' onClick={this.reset.bind(this)}>{translate('filters.buttons.reset')}</Button>
         			</OverlayTrigger>
-        			<OverlayTrigger placement="top" overlay={(<Tooltip id="help.filters.cancel">{translate('help.filters.cancel')}</Tooltip>)}>
+        			<OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id="help.filters.cancel">{translate('help.filters.cancel')}</Tooltip>)}>
         				<Button className="btn btn-sm" bsStyle='warning' onClick={this.cancel.bind(this)}>{translate('filters.buttons.cancel')}</Button>
         			</OverlayTrigger>
-        			<OverlayTrigger placement="top" overlay={(<Tooltip id="help.filters.apply">{translate('help.filters.apply')}</Tooltip>)}>
+        			<OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id="help.filters.apply">{translate('help.filters.apply')}</Tooltip>)}>
         				<Button className="btn btn-sm" bsStyle='success' onClick={this.apply.bind(this)}>{translate('filters.buttons.apply')}</Button>
 					</OverlayTrigger>
         		</Modal.Footer>

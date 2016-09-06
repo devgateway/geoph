@@ -24,14 +24,14 @@ export default class ProjectListTab extends React.Component {
   }
 
   getListData(activePage){
-    const {filtes, projectSearch, feature} = this.props;
-    let filters = collectValues(filters, projectSearch);    
-    Object.assign(filters, {
+    const {filters, projectSearch, feature} = this.props;
+    let filtersApplied = collectValues(filters, projectSearch);    
+    Object.assign(filtersApplied, {
       'lo': [feature.properties.id],
       'page': activePage,
       'size': pageSize
     });    
-    this.props.onGetPopupData(filters, 'projectList');
+    this.props.onGetPopupData(filtersApplied, 'projectList');
     this.setState({activePage: activePage});
   }
 

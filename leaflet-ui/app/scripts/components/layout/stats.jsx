@@ -19,7 +19,7 @@ class Stats extends React.Component {
 		let regionalValue = regional[measure]? regional[measure][type] || 0 : 0;
 		let nationalValue = national[measure]? national[measure][type] || 0 : 0;
 		return (
-			<OverlayTrigger placement="top" overlay={(<Tooltip id="help.stats">{translate('help.stats')}</Tooltip>)}>
+			<OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id="help.stats">{translate('help.stats')}</Tooltip>)}>
 				<div className="stats-container">
 					<div className="stats-pair">
 						<div className="stats-title">

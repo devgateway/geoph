@@ -19,7 +19,7 @@ const Expandable = React.createClass({
     return (
       <div className={(expanded==true)?"expandable-control":"expandable-control collapsed"}>
         
-        <OverlayTrigger placement="top" overlay={(<Tooltip id={tooltipText}>{translate(tooltipText)}</Tooltip>)}>
+        <OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id={tooltipText}>{translate(tooltipText)}</Tooltip>)}>
           <div className="title" onClick={this.toggleView}>
             {title}
             <div className="toggle">

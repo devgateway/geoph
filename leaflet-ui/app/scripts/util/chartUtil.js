@@ -54,7 +54,11 @@ export const parseDataChart=(chartType, props, chartContainerRef)=>{
         if (hiddenlabels.indexOf(translate('chartview.others'))==-1){
           totalAmount = totalAmount+parseInt(others);
         }
-        text.push(translate('header.settings.'+measure.type) + " " + translate('header.settings.'+measure.measure) + " ₱ " + formatValue(parseFloat(others)));
+        if (measureType=='projectCount'){
+          text.push(translate('chartview.projectcount')+": " + others);
+        } else {
+          text.push(translate('header.settings.'+measure.type) + " " + translate('header.settings.'+measure.measure) + " ₱ " + formatValue(parseFloat(others)));
+        }        
       }
     }
     

@@ -29,6 +29,8 @@ public abstract class GeophProjectsImporter {
 
     private static final String EMPTY_STRING = "";
 
+    private static final int MAX_LENGTH = 255;
+
     @Value("${import.sheetToRead}")
     private int sheetToRead;
 
@@ -257,5 +259,22 @@ public abstract class GeophProjectsImporter {
         } catch (ParseException e){
             return null;
         }
+    }
+
+    protected String getMaxString(String str) {
+        return str!=null && str.length() > MAX_LENGTH ? str.substring(0, MAX_LENGTH) : str;
+    }
+
+    protected String getCorrectPhId(String str) {
+        if(str.indexOf("\n")>0){
+            return str.substring(0, str.indexOf("\n"));
+        }
+        if(str.indexOf("/n")>0){
+            return str.substring(0, str.indexOf("/n"));
+        }
+        if(str.indexOf(".0")>0){
+            return str.substring(0, str.indexOf(".0"));
+        }
+        return str;
     }
 }

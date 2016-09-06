@@ -150,7 +150,8 @@ public class ChartResponse implements Comparable {
         return typeMap!=null?typeMap.get(TransactionStatusEnum.ACTUAL.getName()):0D;
     }
 
-    public void add(Double amount, String trxTypeName, String trxStatusName) {
-        trxAmounts.get(trxTypeName).put(trxStatusName, amount);
+    public void add(Long projectCount, Double amount, String trxTypeName, String trxStatusName) {
+        this.trxAmounts.get(trxTypeName).put(trxStatusName, amount);
+        this.projectCount += projectCount;
     }
 }

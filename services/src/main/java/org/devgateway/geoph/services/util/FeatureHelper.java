@@ -23,6 +23,7 @@ public class FeatureHelper {
 
     public synchronized static Feature setLocationPropertyFeature(final Feature feature, final LocationProperty location){
         feature.setProperty(PROPERTY_LOC_ID, location.getId());
+        feature.setProperty(PROPERTY_LOC_LEVEL, location.getLevel());
         feature.setProperty(PROPERTY_LOC_NAME, location.getName());
         feature.setProperty(PROPERTY_LOC_CODE, location.getCode());
         feature.setProperty(PROPERTY_LOC_PROJ_COUNT, location.getProjectCount());

@@ -15,12 +15,16 @@ require('./projectLayerPopup.scss');
 const ProjectLayerPopup = onClickOutside(React.createClass({
 
   getInitialState() {
-    return {'tabSelected': 'fundingAgency'};
+    return {'tabSelected': 'fundingAgency', 'measureType': 'projectCount'};
   },
 
   changeTab(tabSelected){
     this.setState({'tabSelected': tabSelected});
     this.getTabData(tabSelected);
+  },
+
+  changeMeasure(chart, measureType){
+    this.setState({'measureType': measureType});
   },
 
   handleClickOutside (evt) {
@@ -53,43 +57,45 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
     if (!feature){
       return null;
     }
+    const {level, name} = feature.properties;
+    debugger;
     return (
       <div className="popup-container">
         <div className="popup-title">
-          <h2>{feature? feature.properties.name : ""} </h2>
+          <h2>{name || ""} </h2>
         </div>
         <div className="">
           <ul className='popup-tabs' role='tablist' >
             <li className={this.state.tabSelected=='fundingAgency'? 'active' : ''} role='tab' >
-              <OverlayTrigger placement="top" overlay={(<Tooltip id="help.infowindow.financinginstitution">{translate('help.infowindow.financinginstitution')}</Tooltip>)}>
+              <OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id="help.infowindow.financinginstitution">{translate('help.infowindow.financinginstitution')}</Tooltip>)}>
                 <div onClick={this.changeTab.bind(this, 'fundingAgency')}>
                   <span>{translate('infowindow.tab.financinginstitution')}</span>
                 </div>
               </OverlayTrigger>
             </li>
             <li className={this.state.tabSelected=='implementingAgency'? 'active' : ''} role='tab' >
-              <OverlayTrigger placement="top" overlay={(<Tooltip id="help.infowindow.implementingagency">{translate('help.infowindow.implementingagency')}</Tooltip>)}>
+              <OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id="help.infowindow.implementingagency">{translate('help.infowindow.implementingagency')}</Tooltip>)}>
                 <div onClick={this.changeTab.bind(this, 'implementingAgency')}>
                   <span>{translate('infowindow.tab.implementingagency')}</span>
                 </div>
               </OverlayTrigger>
             </li>
             <li className={this.state.tabSelected=='physicalStatus'? 'active' : ''} role='tab' >
-              <OverlayTrigger placement="top" overlay={(<Tooltip id="help.infowindow.physicalstatus">{translate('help.infowindow.physicalstatus')}</Tooltip>)}>
+              <OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id="help.infowindow.physicalstatus">{translate('help.infowindow.physicalstatus')}</Tooltip>)}>
                 <div onClick={this.changeTab.bind(this, 'physicalStatus')}>
                   <span>{translate('infowindow.tab.physicalstatus')}</span>
                 </div>
               </OverlayTrigger>
             </li>
             <li className={this.state.tabSelected=='sector'? 'active' : ''} role='tab' >
-              <OverlayTrigger placement="top" overlay={(<Tooltip id="help.infowindow.sector">{translate('help.infowindow.sector')}</Tooltip>)}>
+              <OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id="help.infowindow.sector">{translate('help.infowindow.sector')}</Tooltip>)}>
                 <div onClick={this.changeTab.bind(this, 'sector')}>
                   <span>{translate('infowindow.tab.sector')}</span>
                 </div>
               </OverlayTrigger>
             </li>
             <li className={this.state.tabSelected=='projectList'? 'active' : ''} role='tab' >
-              <OverlayTrigger placement="top" overlay={(<Tooltip id="help.infowindow.projectlist">{translate('help.infowindow.projectlist')}</Tooltip>)}>
+              <OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id="help.infowindow.projectlist">{translate('help.infowindow.projectlist')}</Tooltip>)}>
                 <div onClick={this.changeTab.bind(this, 'projectList')}>
                   <span>{translate('infowindow.tab.projectlist')}</span>
                 </div>
@@ -102,12 +108,13 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
             {charts.fundingAgency?
               !charts.fundingAgency.isFetching?
                 <div className="">
-                  <Chart chartData={charts.fundingAgency}
+                  <Chart chartData={Object.assign(charts.fundingAgency, {'measureType': this.state.measureType})}
                   measure={fundingType} 
                   chartType='pie'
                   width='400'
                   height='200'
                   showTotalHeader={true}
+                  onChangeMeasure={level==1? this.changeMeasure:null}
                   dimension="name"/>
                 </div>
               : <div className="loading-css"><div></div></div>
@@ -119,12 +126,13 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
             {charts.implementingAgency?
               !charts.implementingAgency.isFetching?
                 <div className="">
-                  <Chart chartData={charts.implementingAgency}
+                  <Chart chartData={Object.assign(charts.implementingAgency, {'measureType': this.state.measureType})}
                   measure={fundingType} 
                   chartType='pie'
                   width='400'
                   height='200'
                   showTotalHeader={true}
+                  onChangeMeasure={level==1? this.changeMeasure:null}
                   dimension="name"/>
                 </div>
               : <div className="loading-css"><div></div></div>
@@ -136,12 +144,13 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
             {charts.physicalStatus?
               !charts.physicalStatus.isFetching?
                 <div className="">
-                  <Chart chartData={charts.physicalStatus}
+                  <Chart chartData={Object.assign(charts.physicalStatus, {'measureType': this.state.measureType})}
                   measure={fundingType} 
                   chartType='pie'
                   width='400'
                   height='200'
                   showTotalHeader={true}
+                  onChangeMeasure={level==1? this.changeMeasure:null}
                   dimension="name"/>
                 </div>
               : <div className="loading-css"><div></div></div>
@@ -153,12 +162,13 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
             {charts.sector?
               !charts.sector.isFetching?
                 <div className="">
-                  <Chart chartData={charts.sector}
+                  <Chart chartData={Object.assign(charts.sector, {'measureType': this.state.measureType})}
                   measure={fundingType} 
                   chartType='pie'
                   width='400'
                   height='200'
                   showTotalHeader={true}
+                  onChangeMeasure={level==1? this.changeMeasure:null}
                   dimension="name"/>
                 </div>
               : <div className="loading-css"><div></div></div>

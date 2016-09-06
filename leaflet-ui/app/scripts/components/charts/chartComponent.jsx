@@ -65,14 +65,6 @@ export default class ChartComponent extends React.Component {
 		}
 	}
 
-	getTotalFormatted(value){
-  		if (this.props.chartData.measureType=='projectCount'){
-  			return formatValue(value) +" "+translate('chartview.projects');
-  		} else {
-  			return " ₱ "+formatValue(value);
-  		}
-	}
-
 	getChartInfo(chartType){
 		let properties = Object.assign({}, this.props, {hiddenlabels: this.state.hiddenlabels});//add hidden labels to props
 		return parseDataChart(chartType, properties, this.refs.chartContainer);
@@ -94,7 +86,7 @@ export default class ChartComponent extends React.Component {
 	    		{this.props.title?
 		    		<div className="chart-title">
 		    			<div className="chart-title-text">
-		    				<OverlayTrigger placement="top" overlay={(<Tooltip id={helpKey}>{translate(helpKey)}</Tooltip>)}>
+		    				<OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id={helpKey}>{translate(helpKey)}</Tooltip>)}>
 		    					<div className="title">
 			    					{this.props.title || ""}
 			    				</div>
@@ -107,12 +99,12 @@ export default class ChartComponent extends React.Component {
 		    	: null}
 	    		{this.props.onChangeItemToShow?
 	    			<div className="chart-items-selector">
-	    				<OverlayTrigger placement="top" overlay={(<Tooltip id="help.chartview.less">{translate('help.chartview.less')}</Tooltip>)}>
+	    				<OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id="help.chartview.less">{translate('help.chartview.less')}</Tooltip>)}>
 		    				<Button disabled={itemsToShow > Constants.CHART_ITEMS_STEP_AMOUNT? false : true} onClick={this.setItemsToShow.bind(this, "less")}>
 		    					<span>{"<"}</span><span className="less-items">{translate('chartview.less')}</span>
 		    				</Button>
 	    				</OverlayTrigger>
-	    				<OverlayTrigger placement="top" overlay={(<Tooltip id="help.chartview.more">{translate('help.chartview.more')}</Tooltip>)}>
+	    				<OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id="help.chartview.more">{translate('help.chartview.more')}</Tooltip>)}>
 		    				<Button disabled={chartData.data && (itemsToShow < chartData.data.length)? false : true} onClick={this.setItemsToShow.bind(this, "more")}>
 		    					<span className="more-items">{translate('chartview.more')}</span><span>{">"}</span>
 		    				</Button>
@@ -122,13 +114,13 @@ export default class ChartComponent extends React.Component {
 	    		{this.props.onChangeType?
 	    			<div className="chart-type-selector">
 	    				<div className="toggle-button-pair">
-						    <OverlayTrigger placement="top" overlay={(<Tooltip id="help.chartview.barchart">{translate('help.chartview.barchart')}</Tooltip>)}>
-		    					<div className={chType ==='bar'? "active" : ""} onClick={this.setChartType.bind(this, 'bar')} title={translate('chartview.barchart')}>
+						    <OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id="help.chartview.barchart">{translate('help.chartview.barchart')}</Tooltip>)}>
+		    					<div className={chType ==='bar'? "active" : ""} onClick={this.setChartType.bind(this, 'bar')}>
 							    	<div className={chType ==='bar'? "chart-bar-icon" : "chart-bar-icon-disabled"}></div>
 							    </div>
 							</OverlayTrigger>
-	    					<OverlayTrigger placement="top" overlay={(<Tooltip id="help.chartview.piechart">{translate('help.chartview.piechart')}</Tooltip>)}>
-		    			    	<div className={chType ==='pie'? "active" : ""} onClick={this.setChartType.bind(this, 'pie')} title={translate('chartview.piechart')}>
+	    					<OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id="help.chartview.piechart">{translate('help.chartview.piechart')}</Tooltip>)}>
+		    			    	<div className={chType ==='pie'? "active" : ""} onClick={this.setChartType.bind(this, 'pie')}>
 							    	<div className={chType ==='pie'? "chart-pie-icon" : "chart-pie-icon-disabled"}></div>
 							    </div>
 							</OverlayTrigger>
@@ -138,13 +130,13 @@ export default class ChartComponent extends React.Component {
 	    		{this.props.onChangeMeasure?
 	    			<div className="chart-measure-selector">
 	    				<div className="toggle-button-pair">
-						    <OverlayTrigger placement="top" overlay={(<Tooltip id="help.chartview.funding">{translate('help.chartview.funding')}</Tooltip>)}>
-			    				<div className={measureType ==='funding'? "active" : ""} onClick={this.setMeasType.bind(this, 'funding')} title={translate('chartview.funding')}>
+						    <OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id="help.chartview.funding">{translate('help.chartview.funding')}</Tooltip>)}>
+			    				<div className={measureType ==='funding'? "active" : ""} onClick={this.setMeasType.bind(this, 'funding')}>
 							    	<div className={measureType ==='funding'? "chart-funding-icon" : "chart-funding-icon-disabled"}></div>
 							    </div>
 							</OverlayTrigger>
-	    					<OverlayTrigger placement="top" overlay={(<Tooltip id="help.chartview.projectcount">{translate('help.chartview.projectcount')}</Tooltip>)}>
-		    			        <div className={measureType ==='projectCount'? "active" : ""} onClick={this.setMeasType.bind(this, 'projectCount')} title={translate('chartview.projectcount')}>
+	    					<OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id="help.chartview.projectcount">{translate('help.chartview.projectcount')}</Tooltip>)}>
+		    			        <div className={measureType ==='projectCount'? "active" : ""} onClick={this.setMeasType.bind(this, 'projectCount')}>
 							    	<div className={measureType ==='projectCount'? "chart-projects-icon" : "chart-projects-icon-disabled"}></div>
 							    </div>
 							</OverlayTrigger>
@@ -152,7 +144,10 @@ export default class ChartComponent extends React.Component {
 					</div>
 	    		: null}	
 	    		{this.props.showTotalHeader?
-	    			<div className="total-funding-chart">{translate('infowindow.tab.totalamount')}: <div>{this.getTotalFormatted(chartInfo.totalAmount)}</div></div>
+	    			measureType ==='projectCount'?
+	    				<div className="total-funding-chart">{translate('infowindow.tab.totalamount')+" "+translate('chartview.projects')}: <div>{formatValue(chartInfo.totalAmount)}</div></div>
+	    			:
+	    				<div className="total-funding-chart">{translate('infowindow.tab.totalamount')+" "+translate('header.settings.'+measure.type)+" "+translate('header.settings.'+measure.measure)}: <div>{" ₱ "+formatValue(chartInfo.totalAmount)}</div></div>
                 : null}	
 	    		{!this.hasValuesToShow(chartInfo)?
 	    			<div className="no-data">

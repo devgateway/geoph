@@ -143,7 +143,7 @@ class Settings extends React.Component {
 	 	return( 
  			<li className="group">
  				{helpKey?
- 					<OverlayTrigger placement="top" overlay={(<Tooltip id={helpKey}>{translate(helpKey)}</Tooltip>)}>
+ 					<OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id={helpKey}>{translate(helpKey)}</Tooltip>)}>
  						{this.getTitle()}
  					</OverlayTrigger>
  				: 

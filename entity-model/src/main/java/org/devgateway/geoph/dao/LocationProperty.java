@@ -15,6 +15,8 @@ public class LocationProperty {
 
     private long id;
 
+    private int level;
+
     private String name;
 
     private String code;
@@ -44,6 +46,7 @@ public class LocationProperty {
 
     public LocationProperty(Location location) {
         this.id = location.getId();
+        this.level = location.getLevel();
         this.name = location.getName();
         this.code = location.getCode();
         this.latitude = location.getLatitude();
@@ -56,6 +59,14 @@ public class LocationProperty {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     public String getName() {

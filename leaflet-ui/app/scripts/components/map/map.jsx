@@ -30,6 +30,10 @@ const view=React.createClass({
 		this.props.onUpdateBounds(e.target.getBounds());
 	},
 
+	closePopup(){
+		this.refs.map.leafletElement.closePopup();
+	},
+
 	getPopUp(id){
 		if (id=="projectPopup"){
 			return (<ProjectPopup  onClosePopup={this.closePopup}/>)
@@ -48,7 +52,7 @@ const view=React.createClass({
 		const {data, type, popupId, id, zIndex}=l;
 		if (type=='clustered'){
 			return (
-				<ClusteredLayer data={data}>
+				<ClusteredLayer key={id} data={data}>
 					<PhotoPopup onClosePopup={this.closePopup}/>
 				</ClusteredLayer>
 			);
@@ -70,7 +74,7 @@ const view=React.createClass({
 		
 		return (
 			<div>
-				<Map className="map" bounds={bounds}>
+				<Map ref="map" className="map" bounds={bounds}>
 					<TileLayer url={this.props.map.get('basemap').get('url')}/>
 					{layers.map((l)=>{
 						const {data,type}=l;
