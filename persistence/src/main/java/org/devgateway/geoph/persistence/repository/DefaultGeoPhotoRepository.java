@@ -45,6 +45,7 @@ public class DefaultGeoPhotoRepository implements GeoPhotoRepositoryCustom {
         multiSelect.add(geoPhotoJoin.get(GeoPhoto_.name));
         multiSelect.add(geoPhotoJoin.get(GeoPhoto_.urls));
         multiSelect.add(projectRoot.get(Project_.id));
+        multiSelect.add(projectRoot.get(Project_.title));
         multiSelect.add(geoPhotoJoin.get(GeoPhoto_.point));
 
         //TODO: Dani What happens if transaction filters are applied??

@@ -3,7 +3,7 @@ package org.devgateway.geoph.rest;
 import org.devgateway.geoph.core.request.AppRequestParams;
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.core.services.GeoJsonService;
-import org.devgateway.geoph.core.services.GeoPhotosService;
+
 import org.devgateway.geoph.core.services.LayerService;
 import org.devgateway.geoph.enums.GeometryDetail;
 import org.devgateway.geoph.enums.LocationAdmLevelEnum;
@@ -31,7 +31,7 @@ public class GeoJsonController extends BaseController {
 
 
     @Autowired
-    public GeoJsonController(GeoJsonService geoJsonService, LayerService layerService,GeoPhotosService geoPhotosService) {
+    public GeoJsonController(GeoJsonService geoJsonService) {
         this.geoJsonService = geoJsonService;
 
 
@@ -66,9 +66,14 @@ public class GeoJsonController extends BaseController {
         return geoJsonService.getFundingShapes(LocationAdmLevelEnum.valueOf(level.toUpperCase()), GeometryDetail.valueOf(detail.toUpperCase()), filters.getParameters());
     }
 
+    @RequestMapping(value = "/indicators/{indicatorId}", method = GET)
+    public FeatureCollection getIndicatorsData(@PathVariable final long indicatorId) {
+        LOGGER.debug("getIndicatorsData for indicator id:" + indicatorId);
+        return geoJsonService.getIndicatorShapes(indicatorId, GeometryDetail.MEDIUM);
+    }
 
     @RequestMapping(value = "/indicators/{indicatorId}/detail/{detail:.+}", method = GET)
-    public FeatureCollection getIndicatorsData(@PathVariable final long indicatorId,   @PathVariable final String detail) {
+    public FeatureCollection getIndicatorsWithDetail(@PathVariable final long indicatorId,   @PathVariable final String detail) {
         LOGGER.debug("getIndicatorsData for indicator id:" + indicatorId);
         return geoJsonService.getIndicatorShapes(indicatorId,GeometryDetail.valueOf(detail.toUpperCase()));
     }

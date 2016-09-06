@@ -3,6 +3,7 @@ package org.devgateway.geoph.dao;
 import com.vividsolutions.jts.geom.Geometry;
 import org.devgateway.geoph.model.GeoPhoto;
 
+import java.util.Collection;
 import java.util.List;
 
 public class GeoPhotoDao {
@@ -11,7 +12,7 @@ public class GeoPhotoDao {
     Long id;
     String name;
     String projectTitle;
-    List<String> urls;
+    Collection<String> urls;
     Long projectId;
     Geometry geometry;
 
@@ -39,11 +40,11 @@ public class GeoPhotoDao {
         this.projectTitle = projectTitle;
     }
 
-    public List<String> getUrls() {
+    public Collection<String> getUrls() {
         return urls;
     }
 
-    public void setUrls(List<String> urls) {
+    public void setUrls(Collection<String> urls) {
         this.urls = urls;
     }
 
@@ -63,7 +64,8 @@ public class GeoPhotoDao {
         this.geometry = geometry;
     }
 
-    public GeoPhotoDao(Long id, String name, String projectTitle, List<String> urls, Long projectId, Geometry geometry) {
+    // long, String, java.util.Collection, long, String, jts.geom.Geometry
+    public GeoPhotoDao(Long id, String name, Collection<String> urls, Long projectId, String projectTitle, Geometry geometry) {
 
         this.id = id;
         this.name = name;
