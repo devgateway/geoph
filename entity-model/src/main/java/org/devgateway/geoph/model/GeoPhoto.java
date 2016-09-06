@@ -16,7 +16,7 @@ public class GeoPhoto extends GenericPersistable implements Serializable {
     @Column(columnDefinition = "varchar(255)")
     String name;
 
-    @Column(columnDefinition = "varchar(5000)")
+    @Column(columnDefinition = "TEXT")
     String description;
 
     @ElementCollection(fetch = FetchType.EAGER)
