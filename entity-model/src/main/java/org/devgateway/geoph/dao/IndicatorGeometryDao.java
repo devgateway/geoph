@@ -14,7 +14,7 @@ public class IndicatorGeometryDao extends LocationDao {
     String value;
     Integer level;
     String unit;
-    
+
     public String getValue() {
         return value;
     }
@@ -64,7 +64,7 @@ public class IndicatorGeometryDao extends LocationDao {
     }
 
     public IndicatorGeometryDao(Long id, String name, Geometry geometry,  Long indicatorId,String indicatorName, String colorScheme, String description,
-                                String value, Integer level) {
+                                String value, Integer level,String unit) {
         this.indicatorName = indicatorName;
         this.indicatorId = indicatorId;
         this.colorScheme = colorScheme;
@@ -74,5 +74,6 @@ public class IndicatorGeometryDao extends LocationDao {
         this.id = id;
         this.name = name;
         this.geometry = geometry;
+        this.unit=unit;
     }
 }

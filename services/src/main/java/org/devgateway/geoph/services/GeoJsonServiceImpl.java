@@ -147,7 +147,9 @@ public class GeoJsonServiceImpl implements GeoJsonService {
         builder.setFeatures(
                 geometriesList.stream().map(geometryDao -> {
                     IndicatorDetail indicatorDetail = detailsMap.get(geometryDao.getLocationId());//get indicator detail for this location
-                    IndicatorGeometryDao dao = new IndicatorGeometryDao(geometryDao.getLocationId(), geometryDao.getName(), geometryDao.getGeometry(), indicator.getId(), indicator.getName(), indicator.getDescription(), indicator.getColorScheme(), indicatorDetail.getValue(), level.getLevel());
+                    IndicatorGeometryDao dao = new IndicatorGeometryDao(geometryDao.getLocationId(),
+                            geometryDao.getName(), geometryDao.getGeometry(), indicator.getId(), indicator.getName(), indicator.getDescription(),
+                            indicator.getColorScheme(), indicatorDetail.getValue(), level.getLevel(),indicator.getUnit());
                     return ConverterFactory.indicatorGeometryConverter().convert(dao);
 
                 }).collect(Collectors.toList()));
@@ -195,6 +197,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
         List<GeometryDao> geometries = locationRepository.getShapesByLevelAndDetail(level.getLevel(), detail.getValue());
 
         Map<Long, LocationProjectStatsDao> resultMap = resultProjectsMap(locationProjectStatDaos);//get result as Map<location_id,values) format
+
         builder.setFeatures(
                 geometries.stream().map(geometryDao -> {//to ensure we return all shapes this method iterates the geometries list , previously data was converted to  map
 
