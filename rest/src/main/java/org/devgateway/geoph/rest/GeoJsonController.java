@@ -46,7 +46,7 @@ public class GeoJsonController extends BaseController {
         Parameters params = filters.getParameters();
         params.setLocationLevel(level);
         // REGION(1), PROVINCE(2), MUNICIPALITY(3);
-        return geoJsonService.getGeoProjects(LocationAdmLevelEnum.valueOf(level.toUpperCase()),params);
+        return geoJsonService.getProjectPoints(LocationAdmLevelEnum.valueOf(level.toUpperCase()), params);
     }
 
     @RequestMapping(value = "/{level}/funding", method = GET)
@@ -55,7 +55,7 @@ public class GeoJsonController extends BaseController {
         Parameters parameters = filters.getParameters();
         parameters.setLocationLevel(level);
         // REGION(1), PROVINCE(2), MUNICIPALITY(3);
-        return geoJsonService.getGeoFunding(LocationAdmLevelEnum.valueOf(level.toUpperCase()), GeometryDetail.MEDIUM,parameters);
+        return geoJsonService.getFundingShapes(LocationAdmLevelEnum.valueOf(level.toUpperCase()), GeometryDetail.MEDIUM, parameters);
     }
 
     @RequestMapping(value = "/{level}/funding/detail/{detail:.+}", method = GET)
@@ -66,7 +66,7 @@ public class GeoJsonController extends BaseController {
         // LOW(0.05), MEDIUM(0.025), HIGH(0.01), ULTRA(0.005);
         // REGION(1), PROVINCE(2), MUNICIPALITY(3);
         LOGGER.debug("getGeoJsonForShapes with detail from param");
-        return geoJsonService.getGeoFunding(LocationAdmLevelEnum.valueOf(level.toUpperCase()),GeometryDetail.valueOf(detail.toUpperCase()),filters.getParameters());
+        return geoJsonService.getFundingShapes(LocationAdmLevelEnum.valueOf(level.toUpperCase()), GeometryDetail.valueOf(detail.toUpperCase()), filters.getParameters());
     }
 
 
@@ -89,15 +89,15 @@ public class GeoJsonController extends BaseController {
         LOGGER.debug("getGeoJsonByPhysicalProgress");
         Parameters params = filters.getParameters();
         params.setLocationLevel(level);
-        return geoJsonService.getPhysicalProgressAverageByParamsAndDetail(params, GeometryDetail.MEDIUM.getValue());
+        return geoJsonService.getProjectShapes(LocationAdmLevelEnum.valueOf(level.toUpperCase()), GeometryDetail.MEDIUM, params);
     }
 
     @RequestMapping(value = "/{level}/physicalProgress/detail/{detail:.+}", method = GET)
-    public FeatureCollection getGeoJsonByPhysicalProgressDetailed(@PathVariable final String level,@PathVariable final double detail,AppRequestParams filters) {
+    public FeatureCollection getGeoJsonByPhysicalProgressDetailed(@PathVariable final String level,@PathVariable final String detail,AppRequestParams filters) {
         LOGGER.debug("getGeoJsonByPhysicalProgressDetailed");
         Parameters params = filters.getParameters();
         params.setLocationLevel(level);
-        return geoJsonService.getPhysicalProgressAverageByParamsAndDetail(params, detail);
+        return geoJsonService.getProjectShapes(LocationAdmLevelEnum.valueOf(level.toUpperCase()), GeometryDetail.valueOf(detail.toUpperCase()), params);
     }
 
 }

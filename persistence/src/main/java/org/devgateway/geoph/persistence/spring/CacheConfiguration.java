@@ -45,6 +45,7 @@ public class CacheConfiguration {
         caches.add(new ConcurrentMapCache("findLocationsByParamsTypeStatus"));
         caches.add(new ConcurrentMapCache("countLocationProjectsByParams"));
         caches.add(new ConcurrentMapCache("shapesWithDetail"));
+        caches.add(new ConcurrentMapCache("locationStats"));
         caches.add(new ConcurrentMapCache("getProjectStats"));
         caches.add(new ConcurrentMapCache("findProjectsByParams"));
         caches.add(new ConcurrentMapCache("findProjectMiniByParams"));

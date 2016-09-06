@@ -25,7 +25,7 @@
 			"production": "http://geoph.developmentgateway.org/export/download/"
 		},
 		"PROJECT_GEOJSON":"/geodata/${level}/projects",
-		"FUNDING_GEOJSON":"/geodata/region/funding",
+		"FUNDING_GEOJSON":"/geodata/${level}/funding",
 		"PHYSICAL_GEOJSON":"/geodata/region/physicalProgress",
 		"GEOPHOTOS_GEOJSON":"/geodata/geophotos",	
 		"MAP":"/maps",

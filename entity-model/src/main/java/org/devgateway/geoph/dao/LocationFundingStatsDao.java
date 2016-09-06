@@ -10,16 +10,15 @@ import java.util.HashMap;
 /**
  * Created by sebas on 9/2/2016.
  */
-public class LocationSummaryDao {
+public class LocationFundingStatsDao extends LocationDao{
 
     Long id;
     String name;
-    Point centroid;
-    Geometry geometry;
-    Long projectCount=0L;
-    HashMap<String,Double> commitments;
+
+   HashMap<String,Double> commitments;
     HashMap<String,Double> expenditures;
     HashMap<String,Double> disbursements;
+
 
     public Long getId() {
         return id;
@@ -38,13 +37,6 @@ public class LocationSummaryDao {
     }
 
 
-    public Point getCentroid() {
-        return centroid;
-    }
-
-    public void setCentroid(Point centroid) {
-        this.centroid = centroid;
-    }
 
     public Geometry getGeometry() {
         return geometry;
@@ -64,18 +56,7 @@ public class LocationSummaryDao {
         this.expenditures = expenditures;
     }
 
-    public Long getProjectCount() {
-        return projectCount;
-    }
 
-    public void setProjectCount(Long projectCount) {
-        this.projectCount = projectCount;
-    }
-
-
-    public void addProjectCount(Long projectCount) {
-        this.projectCount=this.projectCount + projectCount;
-    }
 
     public HashMap<String, Double> getCommitments() {
         if (commitments==null){

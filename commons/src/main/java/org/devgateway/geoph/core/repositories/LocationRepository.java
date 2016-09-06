@@ -1,14 +1,9 @@
 package org.devgateway.geoph.core.repositories;
 
-import com.vividsolutions.jts.geom.Geometry;
 import org.devgateway.geoph.core.request.Parameters;
-import org.devgateway.geoph.dao.GeometryDao;
-import org.devgateway.geoph.dao.LocationResultsDao;
-import org.devgateway.geoph.dao.PostGisDao;
-import org.devgateway.geoph.dao.ProjectLocationDao;
+import org.devgateway.geoph.dao.*;
 import org.devgateway.geoph.model.Location;
 
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -31,9 +26,12 @@ public interface LocationRepository {
 
     List<ProjectLocationDao> findProjectLocationsByParams(Parameters params);
 
-    List<LocationResultsDao> findLocationsByParams(Parameters params);
-
     List<LocationResultsDao> countLocationProjectsByParams(Parameters params);
 
+
     List<GeometryDao> getShapesByLevelAndDetail(int level,double detail);
+
+    List<LocationResultsDao> getLocationWithTransactionStats(Parameters params);
+
+    List<LocationProjectStatsDao> getLocationWithProjectStats(Parameters params);
 }

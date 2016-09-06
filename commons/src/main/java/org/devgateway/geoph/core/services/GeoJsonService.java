@@ -12,11 +12,11 @@ import org.geojson.FeatureCollection;
  */
 public interface GeoJsonService {
 
-    FeatureCollection getLocationsByLevel(LocationAdmLevelEnum level);
 
-    FeatureCollection getGeoProjects(LocationAdmLevelEnum level, Parameters params);
+    FeatureCollection getProjectPoints(LocationAdmLevelEnum level, Parameters params);
 
-    FeatureCollection getGeoFunding(LocationAdmLevelEnum level, GeometryDetail detail, Parameters params);
+    FeatureCollection getProjectShapes(LocationAdmLevelEnum level, GeometryDetail detail, Parameters params);
 
-    FeatureCollection getPhysicalProgressAverageByParamsAndDetail(Parameters params, Double detail);
+    FeatureCollection getFundingShapes(LocationAdmLevelEnum level, GeometryDetail detail, Parameters params);
+
 }

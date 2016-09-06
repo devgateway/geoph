@@ -92,6 +92,7 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
           type: 'shapes',
           ep: 'FUNDING_GEOJSON',
           settings: {
+            'level': 'region',
             'css': 'red'
           },
           cssPrefix: 'funding', //markers css prefix 
