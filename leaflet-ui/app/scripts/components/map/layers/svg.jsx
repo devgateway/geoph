@@ -43,6 +43,7 @@ function clickListener(evt){
   }
   
   componentWillMount() {
+    //generate unique id 
        super.componentWillMount();
     const {map}=this.props;
     this.leafletElement = geoJson();
