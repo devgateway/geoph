@@ -93,7 +93,8 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
           ep: 'FUNDING_GEOJSON',
           settings: {
             'level': 'region',
-            'css': 'red'
+            'css': 'red',
+            'detail':'medium'
           },
           cssPrefix: 'funding', //markers css prefix 
           default: false,
@@ -121,6 +122,7 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
           ep: 'PHYSICAL_GEOJSON',
           settings: {
              'level': 'region',
+                'detail':'medium',
             'css': 'red','valueProperty':'physicalProgress'
           },
           cssPrefix: 'funding', //markers css prefix 
