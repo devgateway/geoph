@@ -4,17 +4,39 @@ import com.vividsolutions.jts.geom.Geometry;
 import org.devgateway.geoph.model.GeoPhoto;
 
 import java.util.Collection;
-import java.util.List;
 
 public class GeoPhotoDao {
 
+    private Long id;
 
-    Long id;
-    String name;
-    String projectTitle;
-    Collection<String> urls;
-    Long projectId;
-    Geometry geometry;
+    private String name;
+
+    private String projectTitle;
+
+    private Collection<String> urls;
+
+    private Long projectId;
+
+    private Geometry geometry;
+
+    public GeoPhotoDao(GeoPhoto geoPhoto, long projectId, String projectTitle) {
+        this.id = geoPhoto.getId();
+        this.name = geoPhoto.getName();
+        this.projectId = projectId;
+        this.projectTitle = projectTitle;
+        this.urls = geoPhoto.getUrls();
+        this.geometry = geoPhoto.getPoint();
+    }
+
+    public GeoPhotoDao(Long id, String name, Collection<String> urls, Long projectId, String projectTitle, Geometry geometry) {
+
+        this.id = id;
+        this.name = name;
+        this.projectTitle = projectTitle;
+        this.urls = urls;
+        this.projectId = projectId;
+        this.geometry = geometry;
+    }
 
     public Long getId() {
         return id;
@@ -61,17 +83,6 @@ public class GeoPhotoDao {
     }
 
     public void setGeometry(Geometry geometry) {
-        this.geometry = geometry;
-    }
-
-    // long, String, java.util.Collection, long, String, jts.geom.Geometry
-    public GeoPhotoDao(Long id, String name, Collection<String> urls, Long projectId, String projectTitle, Geometry geometry) {
-
-        this.id = id;
-        this.name = name;
-        this.projectTitle = projectTitle;
-        this.urls = urls;
-        this.projectId = projectId;
         this.geometry = geometry;
     }
 }
