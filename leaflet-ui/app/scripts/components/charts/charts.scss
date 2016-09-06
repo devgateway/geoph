@@ -240,8 +240,13 @@
     font-size: 11px;
     color: #2f2f2f;
     padding-top: 2px;
+    padding-left: 7px;
     >div{
         font-weight: bold;
         padding-left: 7px;
     }
+}
+
+.popup-tab-content .chart-measure-selector{
+    margin-top: 2px;
 }

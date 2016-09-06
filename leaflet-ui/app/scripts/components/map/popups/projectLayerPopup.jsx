@@ -114,7 +114,7 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
                   width='400'
                   height='200'
                   showTotalHeader={true}
-                  onChangeMeasure={level==1? this.changeMeasure.bind(this):null}
+                  onChangeMeasure={level==1? this.changeMeasure:null}
                   dimension="name"/>
                 </div>
               : <div className="loading-css"><div></div></div>
@@ -132,7 +132,7 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
                   width='400'
                   height='200'
                   showTotalHeader={true}
-                  onChangeMeasure={level==1? this.changeMeasure.bind(this):null}
+                  onChangeMeasure={level==1? this.changeMeasure:null}
                   dimension="name"/>
                 </div>
               : <div className="loading-css"><div></div></div>
@@ -150,7 +150,7 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
                   width='400'
                   height='200'
                   showTotalHeader={true}
-                  onChangeMeasure={level==1? this.changeMeasure.bind(this):null}
+                  onChangeMeasure={level==1? this.changeMeasure:null}
                   dimension="name"/>
                 </div>
               : <div className="loading-css"><div></div></div>
@@ -168,7 +168,7 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
                   width='400'
                   height='200'
                   showTotalHeader={true}
-                  onChangeMeasure={level==1? this.changeMeasure.bind(this):null}
+                  onChangeMeasure={level==1? this.changeMeasure:null}
                   dimension="name"/>
                 </div>
               : <div className="loading-css"><div></div></div>

@@ -115,12 +115,12 @@ export default class ChartComponent extends React.Component {
 	    			<div className="chart-type-selector">
 	    				<div className="toggle-button-pair">
 						    <OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id="help.chartview.barchart">{translate('help.chartview.barchart')}</Tooltip>)}>
-		    					<div className={chType ==='bar'? "active" : ""} onClick={this.setChartType.bind(this, 'bar')} title={translate('chartview.barchart')}>
+		    					<div className={chType ==='bar'? "active" : ""} onClick={this.setChartType.bind(this, 'bar')}>
 							    	<div className={chType ==='bar'? "chart-bar-icon" : "chart-bar-icon-disabled"}></div>
 							    </div>
 							</OverlayTrigger>
 	    					<OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id="help.chartview.piechart">{translate('help.chartview.piechart')}</Tooltip>)}>
-		    			    	<div className={chType ==='pie'? "active" : ""} onClick={this.setChartType.bind(this, 'pie')} title={translate('chartview.piechart')}>
+		    			    	<div className={chType ==='pie'? "active" : ""} onClick={this.setChartType.bind(this, 'pie')}>
 							    	<div className={chType ==='pie'? "chart-pie-icon" : "chart-pie-icon-disabled"}></div>
 							    </div>
 							</OverlayTrigger>
@@ -131,12 +131,12 @@ export default class ChartComponent extends React.Component {
 	    			<div className="chart-measure-selector">
 	    				<div className="toggle-button-pair">
 						    <OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id="help.chartview.funding">{translate('help.chartview.funding')}</Tooltip>)}>
-			    				<div className={measureType ==='funding'? "active" : ""} onClick={this.setMeasType.bind(this, 'funding')} title={translate('chartview.funding')}>
+			    				<div className={measureType ==='funding'? "active" : ""} onClick={this.setMeasType.bind(this, 'funding')}>
 							    	<div className={measureType ==='funding'? "chart-funding-icon" : "chart-funding-icon-disabled"}></div>
 							    </div>
 							</OverlayTrigger>
 	    					<OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id="help.chartview.projectcount">{translate('help.chartview.projectcount')}</Tooltip>)}>
-		    			        <div className={measureType ==='projectCount'? "active" : ""} onClick={this.setMeasType.bind(this, 'projectCount')} title={translate('chartview.projectcount')}>
+		    			        <div className={measureType ==='projectCount'? "active" : ""} onClick={this.setMeasType.bind(this, 'projectCount')}>
 							    	<div className={measureType ==='projectCount'? "chart-projects-icon" : "chart-projects-icon-disabled"}></div>
 							    </div>
 							</OverlayTrigger>
