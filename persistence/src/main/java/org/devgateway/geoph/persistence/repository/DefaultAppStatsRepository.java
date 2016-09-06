@@ -34,4 +34,12 @@ public class DefaultAppStatsRepository implements AppStatsRepository {
         }
         return cacheList;
     }
+
+    public void clearAllCache(){
+        CacheManager cacheManager = conf.getCacheManager();
+        cacheManager.getCacheNames();
+        for(String cacheName : cacheManager.getCacheNames()) {
+            cacheManager.getCache(cacheName).clear();
+        }
+    }
 }

@@ -14,4 +14,6 @@ public interface AppStatsRepository {
 
     List<Map<String, String>> getCacheStats();
 
+    void clearAllCache();
+
 }

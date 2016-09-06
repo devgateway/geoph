@@ -78,3 +78,15 @@ const uploadOK=(data)=>{
   return redirect(url,[`Indicator "${name}" was added`],errors);
 
 }
+
+export const downloadTemplate=(level)=>{
+  return (dispatch, getState) =>{
+    Connector.uploadIndicator(getState().indicators.toJS()).then((data)=>{
+     dispatch(uploadOK(data));
+     dispatch(getList());
+   }).catch((httpError)=>{
+       dispatch(makeAction(Constants.INDICATOR_UPLOAD_FAILURE,{httpError:httpError}));
+   });
+ }
+
+}

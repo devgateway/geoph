@@ -141,7 +141,9 @@
 			"production": "/maps/key/${mapId}"		
 		},
 
-		"EXPORT_DATA": "/export/data/${type}"
+		"EXPORT_DATA": "/export/data/${type}",
+
+		"EXPORT_TEMPLATE": "/export/template/${level}"
 		
 	},
 
