@@ -2,7 +2,6 @@ package org.devgateway.geoph.services.geojson;
 
 import org.geojson.Feature;
 import org.geojson.FeatureCollection;
-import org.geojson.GeoJsonObject;
 
 import java.util.List;
 
@@ -12,6 +11,7 @@ import java.util.List;
 public class GeoJsonBuilder {
 
     private final FeatureCollection features;
+
     public GeoJsonBuilder() {
         this.features=new FeatureCollection();
     }

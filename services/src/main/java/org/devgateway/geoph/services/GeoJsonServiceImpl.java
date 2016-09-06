@@ -8,17 +8,16 @@ import org.devgateway.geoph.enums.GeometryDetail;
 import org.devgateway.geoph.enums.LocationAdmLevelEnum;
 import org.devgateway.geoph.enums.TransactionStatusEnum;
 import org.devgateway.geoph.enums.TransactionTypeEnum;
-import org.devgateway.geoph.model.*;
-import org.devgateway.geoph.services.geojson.Converter;
+import org.devgateway.geoph.model.Indicator;
+import org.devgateway.geoph.model.IndicatorDetail;
 import org.devgateway.geoph.services.geojson.ConverterFactory;
 import org.devgateway.geoph.services.geojson.GeoJsonBuilder;
-import org.geojson.*;
+import org.geojson.FeatureCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -226,8 +225,20 @@ public class GeoJsonServiceImpl implements GeoJsonService {
     public FeatureCollection getPhotoPoints(Parameters parameters) {
         GeoJsonBuilder geoJsonBuilder = new GeoJsonBuilder();
         List<GeoPhotoDao> daos = geoPhotoRepository.findGeoPhotosByParams(parameters);
-        geoJsonBuilder.setFeatures(daos.stream().map(geoPhotoDao -> ConverterFactory.geoPhotoConverter().convert(geoPhotoDao)).collect(Collectors.toList()));
 
+        if(daos!=null) {
+            GeoPhotoDao first = daos.iterator().next();
+            GeoPhotoSummaryDao current = new GeoPhotoSummaryDao(first);
+            for (GeoPhotoDao geoPhotoDao : daos) {
+                if (!current.getId().equals(geoPhotoDao.getId())) {
+                    geoJsonBuilder.addFeature(ConverterFactory.geoPhotoConverter().convert(current));
+                    current = new GeoPhotoSummaryDao(geoPhotoDao);
+                } else {
+                    current.addUrl(geoPhotoDao.getUrl());
+                }
+            }
+            geoJsonBuilder.addFeature(ConverterFactory.geoPhotoConverter().convert(current));
+        }
         return geoJsonBuilder.getFeatures();
     }
 

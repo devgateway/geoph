@@ -1,9 +1,9 @@
 package org.devgateway.geoph.services.geojson;
 
-import org.devgateway.geoph.dao.GeoPhotoDao;
+import org.devgateway.geoph.dao.GeoPhotoSummaryDao;
 import org.devgateway.geoph.dao.IndicatorGeometryDao;
-import org.devgateway.geoph.dao.LocationProjectStatsDao;
 import org.devgateway.geoph.dao.LocationFundingStatsDao;
+import org.devgateway.geoph.dao.LocationProjectStatsDao;
 
 /**
  * Created by sebas on 9/2/2016.
@@ -24,7 +24,7 @@ public class ConverterFactory {
         return new IndicatorGeometryConverter();
     }
 
-    public static Converter<GeoPhotoDao> geoPhotoConverter(){
+    public static Converter<GeoPhotoSummaryDao> geoPhotoConverter(){
         return new GeoPhotoGeometryConverter();
     }
 }
