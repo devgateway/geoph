@@ -61,7 +61,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
         GeometryDao dao = geometries.get(result.getLocationId());
         if (dao != null) {
             summary.setGeometry(dao.getGeometry());
-            dao.setUsed(true);
+            geometries.remove(result.getLocationId());
         }
         return summary;
     }
@@ -124,12 +124,10 @@ public class GeoJsonServiceImpl implements GeoJsonService {
 
             LOGGER.info("---returning features " + (System.currentTimeMillis() - start_time) + "---");
         }
-        for(GeometryDao geometryDao:geometries.values()){
-            if(!geometryDao.isUsed()){
-                LocationFundingStatsDao loc = new LocationFundingStatsDao();
-                loc.setGeometry(geometryDao.getGeometry());
-                builder.addFeature(ConverterFactory.locationShapeConverter().convert(loc));
-            }
+        for(GeometryDao geometryDao:geometries.values()) {
+            LocationFundingStatsDao loc = new LocationFundingStatsDao();
+            loc.setGeometry(geometryDao.getGeometry());
+            builder.addFeature(ConverterFactory.locationShapeConverter().convert(loc));
         }
         return builder.getFeatures();
     }
