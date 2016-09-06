@@ -29,15 +29,12 @@ public class GeoJsonController extends BaseController {
 
     private final GeoJsonService geoJsonService;
 
-    private final GeoPhotosService geoPhotosService;
-
-    private final LayerService layerService;
 
     @Autowired
     public GeoJsonController(GeoJsonService geoJsonService, LayerService layerService,GeoPhotosService geoPhotosService) {
         this.geoJsonService = geoJsonService;
-        this.geoPhotosService = geoPhotosService;
-        this.layerService = layerService;
+
+
     }
 
     @RequestMapping(value = "/{level}/projects", method = GET)
@@ -70,17 +67,17 @@ public class GeoJsonController extends BaseController {
     }
 
 
-    @RequestMapping(value = "/indicators/{indicatorId}", method = GET)
-    public FeatureCollection getIndicatorsData(@PathVariable final long indicatorId) {
+    @RequestMapping(value = "/indicators/{indicatorId}/detail/{detail:.+}", method = GET)
+    public FeatureCollection getIndicatorsData(@PathVariable final long indicatorId,   @PathVariable final String detail) {
         LOGGER.debug("getIndicatorsData for indicator id:" + indicatorId);
-        return layerService.getIndicatorsData(indicatorId);
+        return geoJsonService.getIndicatorShapes(indicatorId,GeometryDetail.valueOf(detail.toUpperCase()));
     }
 
 
     @RequestMapping(value = "/geophotos", method = GET)
     public FeatureCollection getGeoPhotosData(AppRequestParams filters) {
         LOGGER.debug("getGeoPhotosData");
-        return geoPhotosService.getGeoPhotoData(filters.getParameters());
+        return geoJsonService.getPhotoPoints(filters.getParameters());
     }
 
 

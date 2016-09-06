@@ -2,9 +2,13 @@ package org.devgateway.geoph.model;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Fetch;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author dbianco
@@ -23,6 +27,10 @@ public class Indicator extends GenericPersistable implements Serializable {
     private String admLevel;
 
     private String unit;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    List<IndicatorDetail> details;
+
 
     public Indicator() {
     }
@@ -65,6 +73,14 @@ public class Indicator extends GenericPersistable implements Serializable {
 
     public String getUnit() {
         return unit;
+    }
+
+    public List<IndicatorDetail> getDetails() {
+        return details;
+    }
+
+    public void setDetails(List<IndicatorDetail> details) {
+        this.details = details;
     }
 
     public void setUnit(String unit) {

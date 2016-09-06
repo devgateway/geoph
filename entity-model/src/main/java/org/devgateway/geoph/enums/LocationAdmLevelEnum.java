@@ -25,4 +25,14 @@ public enum LocationAdmLevelEnum {
         }
         return null;
     }
+
+
+    public static LocationAdmLevelEnum getEnumByName(String name){
+        for(LocationAdmLevelEnum e:LocationAdmLevelEnum.values()){
+            if(e.name().equalsIgnoreCase(name)){
+                return e;
+            }
+        }
+        return null;
+    }
 }

@@ -15,6 +15,16 @@ public class LocationFundingStatsDao extends LocationDao{
     Long id;
     String name;
 
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
+    Integer level;
+
    HashMap<String,Double> commitments;
     HashMap<String,Double> expenditures;
     HashMap<String,Double> disbursements;

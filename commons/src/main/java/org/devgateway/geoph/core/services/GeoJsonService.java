@@ -19,4 +19,8 @@ public interface GeoJsonService {
 
     FeatureCollection getFundingShapes(LocationAdmLevelEnum level, GeometryDetail detail, Parameters params);
 
+    FeatureCollection getIndicatorShapes(Long indicatorId,GeometryDetail detail);
+
+    FeatureCollection getPhotoPoints(Parameters parameters);
+
 }

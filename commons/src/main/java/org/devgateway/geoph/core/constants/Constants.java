@@ -40,6 +40,12 @@ public class Constants {
     public static final String PROPERTY_INDICATOR_ID = "indicatorId";
     public static final String PROPERTY_INDICATOR_COLOR_SCHEME = "colorScheme";
     public static final String PROPERTY_INDICATOR_LOC_ID = "locationId";
+
+    public static final String PROPERTY_GEO_PHOTO_NAME = "photo_name";
+
+    public static final String PROPERTY_GEO_PHOTO_URLS = "urls";
+    public static final String PROPERTY_GEO_PHOTO_PROJECT_TITLE = "project_title";
+    public static final String PROPERTY_GEO_PHOTO_PROJECT_ID = "project_id";
     public static final String PROPERTY_INDICATOR_NAME = "name";
 
     public static final String PROPERTY_PRJ_ID = "id";
@@ -54,7 +60,7 @@ public class Constants {
     public static final String EXPORT_DATA_FILENAME = "NEDA_data_";
 
     public static final String CSV_LINE_SEPARATOR = "line.separator";
-    public static final char CSV_RECORD_SEPARATOR =  '|';
+    public static final char CSV_RECORD_SEPARATOR = '|';
     public static final Character CSV_DOUBLE_QUOTE_CHAR = Character.valueOf('"');
 
     public static final String COMMA = ",";

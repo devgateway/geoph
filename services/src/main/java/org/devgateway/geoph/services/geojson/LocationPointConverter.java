@@ -16,6 +16,8 @@ public class LocationPointConverter extends AbstractConverter<LocationProjectSta
         Feature feature = new Feature();
         feature.setProperty(PROPERTY_LOC_NAME, dao.getName());
         feature.setProperty(PROPERTY_LOC_ID, dao.getId());
+
+        feature.setProperty(PROPERTY_LOC_LEVEL,dao.getLevel());
         if (dao.getGeometry() != null) {
             feature.setGeometry(ConverterUtil.convert(dao.getGeometry()));
         } else {

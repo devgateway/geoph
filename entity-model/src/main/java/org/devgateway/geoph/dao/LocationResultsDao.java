@@ -10,7 +10,10 @@ public class LocationResultsDao {
 
     private String name;
 
+
+
     Point centroid;
+
     Geometry geometry;
 
     private Long count;
@@ -87,7 +90,7 @@ public class LocationResultsDao {
     public void setTransactionTypeId(Long transactionTypeId) {
         this.transactionTypeId = transactionTypeId;
     }
-//Expected arguments are:           long, java.lang.String, com.vividsolutions.jts.geom.Geometry, long, long, double, long
+//Expected arguments are:      long, java.lang.String, com.vividsolutions.jts.geom.Geometry, long, long, double, long
     public LocationResultsDao(Long  locationId,String name ,Geometry centroid,Long transactionStatusId, Long transactionTypeId, Double amount,Long count) {
         this.locationId = locationId;
         this.name=name;
@@ -99,6 +102,7 @@ public class LocationResultsDao {
 
 
     }
+
 
     public LocationResultsDao(Long  locationId,String name ,Geometry centroid,Geometry geometry ,Long transactionStatusId, Long transactionTypeId, Double amount,Long count) {
         this.locationId = locationId;

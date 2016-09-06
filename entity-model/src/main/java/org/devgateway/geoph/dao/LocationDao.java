@@ -9,7 +9,7 @@ public class LocationDao {
 
     Long id;
     String name;
-     Geometry geometry;
+    Geometry geometry;
 
     public Geometry getGeometry() {
         return geometry;
