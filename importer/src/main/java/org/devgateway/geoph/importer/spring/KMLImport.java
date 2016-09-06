@@ -88,7 +88,7 @@ public class KMLImport {
                 }
                 if (photo.getUrls()!=null && photo.getUrls().size()>0) {
                     de.micromata.opengis.kml.v_2_2_0.Point geometry = (de.micromata.opengis.kml.v_2_2_0.Point) placemark.getGeometry();
-                    com.vividsolutions.jts.geom.Coordinate coordinate = new com.vividsolutions.jts.geom.Coordinate(geometry.getCoordinates().get(0).getLatitude(), geometry.getCoordinates().get(0).getLongitude());
+                    com.vividsolutions.jts.geom.Coordinate coordinate = new com.vividsolutions.jts.geom.Coordinate(geometry.getCoordinates().get(0).getLongitude(),geometry.getCoordinates().get(0).getLatitude());
                     com.vividsolutions.jts.geom.Point point = gf.createPoint(coordinate);
 
                     photo.setPoint(point);
