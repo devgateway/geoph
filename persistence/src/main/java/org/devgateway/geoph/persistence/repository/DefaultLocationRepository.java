@@ -243,21 +243,17 @@ public class DefaultLocationRepository implements LocationRepository {
     }
 
 
-
+    @Cacheable(value = "shapesWithDetail")
     public List<GeometryDao> getShapesByLevelAndDetail(int level,double detail) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery  criteriaQuery = criteriaBuilder.createQuery(GeometryDao.class);
         Root<Location> locationRoot = criteriaQuery.from(Location.class);
 
         List<Selection<?>> multiSelect = new ArrayList<>();
-
         List<Predicate> predicates = new ArrayList<>();
-
-        Join<Location, LocationGeometry> geometryJoin = locationRoot.join(Location_.locationGeometry, JoinType.INNER);
-
-
-
         predicates.add(locationRoot.get(Location_.level).in(level));
+
+        Join<Location, LocationGeometry> geometryJoin = locationRoot.join(Location_.locationGeometry, JoinType.LEFT);
 
         predicates.add(geometryJoin.get(LocationGeometry_.geometry).isNotNull());
 
@@ -266,12 +262,12 @@ public class DefaultLocationRepository implements LocationRepository {
         Expression function=criteriaBuilder.function("ST_Simplify", Geometry.class, geometryJoin.get(LocationGeometry_.geometry), detailparam);
 
         multiSelect.add(locationRoot.get(Location_.id));
+        multiSelect.add(locationRoot.get(Location_.name));
         multiSelect.add(function);
+        criteriaQuery.where(criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()])));
 
         TypedQuery<GeometryDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
-        criteriaQuery.where(criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()])));
         query.setParameter("detail", detail);
-
         return query.getResultList();
     }
 

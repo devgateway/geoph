@@ -48,8 +48,10 @@ public class GeoJsonServiceImpl implements GeoJsonService {
         LocationFundingStatsDao summary = new LocationFundingStatsDao();
         summary.setName(result.getName());
         summary.setId(result.getLocationId());
+        if (geometries.get(result.getLocationId())!=null){
         summary.setGeometry(geometries.get(result.getLocationId()).getGeometry());
-        return summary;
+        }
+            return summary;
     }
 
 
@@ -125,7 +127,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
 
     @Override
     /**
-     * Return project aggregated data (count aand  average of physical progress) by location with Point as geometry
+     * Returns project aggregated data (count and  average of physical progress) by location with Point as geometry only location with values are returned //TODO:check
      */
     public FeatureCollection getProjectPoints(LocationAdmLevelEnum level, Parameters params) {
         long start_time = System.currentTimeMillis();
@@ -144,7 +146,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
 
     @Override
     /**
-     * Return project aggregated data (count and  average of physical progress) by location with MultiPolygon as geometry
+     * Returns project aggregated data (count and average of physical progress) by location with MultiPolygon as geometry
      * all geometries ara always returned
      */
     public FeatureCollection getProjectShapes(LocationAdmLevelEnum level,GeometryDetail detail, Parameters params) {
@@ -156,19 +158,20 @@ public class GeoJsonServiceImpl implements GeoJsonService {
 
         List<GeometryDao> geometries = locationRepository.getShapesByLevelAndDetail(level.getLevel(), detail.getValue());
 
-        Map<Long,LocationProjectStatsDao> resultMap=resultProjectsMap(locationProjectStatDaos);
+        Map<Long,LocationProjectStatsDao> resultMap=resultProjectsMap(locationProjectStatDaos);//get result as Map<location_id,values) format
         builder.setFeatures(
-        geometries.stream().map(geometryDao -> {
+                geometries.stream().map(geometryDao -> {//to ensure we return all shapes this method iterates the geometries list , previously data was converted to  map
 
-            LocationProjectStatsDao locationProjectStatsDao;
-            if (resultMap.get(geometryDao.getLocationId()) != null) {
-                locationProjectStatsDao = resultMap.get(geometryDao.getLocationId());
-            } else {
-                locationProjectStatsDao = new LocationProjectStatsDao();
-            }
-            locationProjectStatsDao.setGeometry(geometryDao.getGeometry());
-            return ConverterFactory.locationPointConverter().convert(locationProjectStatsDao);
-        }).collect(Collectors.toList()));
+                    LocationProjectStatsDao locationProjectStatsDao;
+                    if (resultMap.get(geometryDao.getLocationId()) != null) {
+                        locationProjectStatsDao = resultMap.get(geometryDao.getLocationId());
+                    } else {
+                        locationProjectStatsDao = new LocationProjectStatsDao();
+                    }
+                    locationProjectStatsDao.setGeometry(geometryDao.getGeometry());
+                    locationProjectStatsDao.setName(geometryDao.getName());
+                    return ConverterFactory.locationPointConverter().convert(locationProjectStatsDao);
+                }).collect(Collectors.toList()));
 
 
 

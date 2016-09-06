@@ -26,7 +26,7 @@
 		},
 		"PROJECT_GEOJSON":"/geodata/${level}/projects",
 		"FUNDING_GEOJSON":"/geodata/${level}/funding",
-		"PHYSICAL_GEOJSON":"/geodata/region/physicalProgress",
+		"PHYSICAL_GEOJSON":"/geodata/${level}/physicalProgress",
 		"GEOPHOTOS_GEOJSON":"/geodata/geophotos",	
 		"MAP":"/maps",
 		"MAP_LIST":"/maps",

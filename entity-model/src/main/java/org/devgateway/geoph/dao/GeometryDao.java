@@ -7,6 +7,7 @@ import com.vividsolutions.jts.geom.Geometry;
  */
 public class GeometryDao {
     Long locationId;
+    String name;
     Geometry geometry;
 
     public Long getLocationId() {
@@ -21,9 +22,18 @@ public class GeometryDao {
         return geometry;
     }
 
-    public GeometryDao(Long locationId, Geometry geometry) {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public GeometryDao(Long locationId,String name, Geometry geometry) {
         this.locationId = locationId;
         this.geometry = geometry;
+        this.name=name;
     }
 
     public void setGeometry(Geometry geometry) {

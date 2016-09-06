@@ -120,6 +120,7 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
           type: 'shapes',
           ep: 'PHYSICAL_GEOJSON',
           settings: {
+             'level': 'region',
             'css': 'red','valueProperty':'physicalProgress'
           },
           cssPrefix: 'funding', //markers css prefix 
