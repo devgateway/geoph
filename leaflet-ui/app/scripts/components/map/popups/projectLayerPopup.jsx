@@ -59,17 +59,18 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
   },
 
   render() {
-    const {charts, fundingType, feature} = this.props;
+    const {stats, charts, fundingType, feature} = this.props;
     if (!feature){
       return null;
     }
     const {level, name} = feature.properties;
     const {type, measure} = fundingType;
-    const statsData = stats.get('global').get('data');
-    const {projectCount, trxAmounts} = statsData;
+    const statsData = stats.get('location').get('data')[0];
+    const statsLoading = stats.get('location').get('isFetching');
+    const {projectCount, trxAmounts={}} = statsData;
+    debugger;
     let fundingLabel = translate('header.settings.'+type) + " " +  translate('header.settings.'+measure);
     let fundingValue = trxAmounts[measure]? trxAmounts[measure][type] || 0 : 0;
-    debugger;
     return (
       <div className="popup-container">
         <div className="popup-title">
@@ -78,11 +79,11 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
         <div className="popup-stats">
           <div className="projects">
               <p>{translate('stats.projects')}</p>
-              <div>{projectCount}</div>
+              <div>{statsLoading?"0":projectCount}</div>
           </div>
           <div className="funding">
               <p>{fundingLabel}</p>
-              <div>₱{formatValue(fundingValue)}</div>
+              <div>₱{statsLoading?"0":formatValue(fundingValue)}</div>
           </div>  
         </div>
         <div className="">

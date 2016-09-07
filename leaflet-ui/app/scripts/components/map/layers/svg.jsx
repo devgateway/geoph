@@ -26,12 +26,10 @@ function clickListener(evt){
   }
 
   componentWillUnmount() {
-      super.componentWillUnmount();
+    super.componentWillUnmount();
     const {map}=this.props;
-    debugger;
     map.removeEventListener("click",clickListener,this);
     map.off("moveend", this.mapUpdate.bind(this));
-
     this.svg.remove();
   }
 
@@ -89,7 +87,6 @@ function clickListener(evt){
   }
 
   onClick(properties){
-    debugger;
     d3.event.features=properties; 
     d3.event.layer_id=this.props.id;  
   }

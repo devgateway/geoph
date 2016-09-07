@@ -116,7 +116,6 @@ class Connector {
 			let url=Settings.get('API',options.ep);
 			const {level,detail} = options.settings;
 			const {id, filters, indicator_id, geophotos_id}=options;
-			debugger;
 			if (level){
 				url=url.replace('${level}',level);
 			}
@@ -257,9 +256,16 @@ class Connector {
 				resolve(data); 	
 			}).catch(reject)
 		});
-
 	}
 
+	getLocationStats(filters) {
+		return new Promise( (resolve, reject) => {
+			let path = Settings.get('API','LOCATION_STATS');
+			this.call(GET, path, filters).then((data) => {
+				resolve(data); 	
+			}).catch(reject)
+		});
+	}
 
 	saveMap(dataToSave) {
 		return new Promise( (resolve, reject) => {
