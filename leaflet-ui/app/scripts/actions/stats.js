@@ -22,3 +22,25 @@ export const fetchStats = (filters) => {
     .then(req => dispatch(receiveStats(req)))
   }
 }
+
+export const requestLocationStats = () => {
+  return {
+    type: Constants.REQUEST_LOCATION_STATS
+  }
+}
+
+export const receiveLocationStats = (data) => {
+  return {
+    type: Constants.RECEIVE_LOCATION_STATS,
+    data: data,
+    receivedAt: Date.now()
+  }
+}
+
+export const fetchLocationStats = (filters) => {
+  return dispatch => {
+    dispatch(requestLocationStats())
+    return Connector.getLocationStats(filters)
+    .then(req => dispatch(receiveLocationStats(req)))
+  }
+}
