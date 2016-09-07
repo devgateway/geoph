@@ -53,7 +53,7 @@ public class Location extends GenericPersistable implements Serializable {
 
     private Double longitude;
 
-
+    @JsonIgnore
     @Type(type = "org.hibernate.spatial.GeometryType")
     private Point centroid;
 
