@@ -367,6 +367,20 @@
     margin-left: 2px;
 }
 
+.rc-slider-mark {
+    >span:first-child{
+      width: 20px !important;
+      margin-left: 0 !important;
+      left: -10 !important;
+    }
+    >span:last-child{
+      width: 20px !important;
+      right: -10;
+      margin-left: 0 !important;
+      left: 99%  !important;
+    }    
+}
+
 .rc-slider-mark-text {
     margin-top: 8px;
 }
