@@ -5,7 +5,7 @@ import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.core.response.ChartResponse;
 import org.devgateway.geoph.core.services.ChartService;
 import org.devgateway.geoph.dao.AgencyResultsDao;
-import org.devgateway.geoph.dao.LocationProjectStatsDao;
+import org.devgateway.geoph.dao.LocationResultsDao;
 import org.devgateway.geoph.dao.PhysicalStatusDao;
 import org.devgateway.geoph.dao.SectorResultsDao;
 import org.devgateway.geoph.enums.TransactionStatusEnum;
@@ -181,16 +181,16 @@ public class ChartServiceImpl implements ChartService {
         Map<Long, ChartResponse> respMap = new HashMap<>();
         for(TransactionTypeEnum tt:TransactionTypeEnum.values()) {
             for (TransactionStatusEnum ts : TransactionStatusEnum.values()) {
-                List<LocationProjectStatsDao> results = locationRepository.getLocationWithProjectStats(params, tt.getId(), ts.getId());
-                for (LocationProjectStatsDao helper : results) {
+                List<LocationResultsDao> results = locationRepository.getLocationWithTransactionStats(params, tt.getId(), ts.getId());
+                for (LocationResultsDao helper : results) {
                     ChartResponse chartResponse;
-                    if (respMap.get(helper.getId()) != null) {
-                        chartResponse = respMap.get(helper.getId());
+                    if (respMap.get(helper.getLocationId()) != null) {
+                        chartResponse = respMap.get(helper.getLocationId());
                     } else {
-                        chartResponse = new ChartResponse(helper.getId(), helper.getName(), params.getTrxTypeSort(), params.getTrxStatusSort());
-                        respMap.put(helper.getId(), chartResponse);
+                        chartResponse = new ChartResponse(helper.getLocationId(), helper.getName(), params.getTrxTypeSort(), params.getTrxStatusSort());
+                        respMap.put(helper.getLocationId(), chartResponse);
                     }
-                    chartResponse.add(helper.getProjectCount(), helper.getTrxAmount(), tt.getName(), ts.getName());
+                    chartResponse.add(helper.getCount(), helper.getAmount(), tt.getName(), ts.getName());
                 }
             }
         }

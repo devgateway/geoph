@@ -94,7 +94,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
         long start_time = System.currentTimeMillis();
         //results should be ordered by ID!;
 
-        List<LocationResultsDao> locationResultsDaos = locationRepository.getLocationWithTransactionStats(params); //records should be order by location id
+        List<LocationResultsDao> locationResultsDaos = locationRepository.getLocationWithTransactionStats(params, NO_TRX_TYPE, NO_TRX_STATUS); //records should be order by location id
         List<GeometryDao> geometriesList = locationRepository.getShapesByLevelAndDetail(level.getLevel(), detail.getValue());
 
         GeoJsonBuilder builder = new GeoJsonBuilder();
@@ -168,7 +168,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
     public FeatureCollection getProjectPoints(LocationAdmLevelEnum level, Parameters params) {
         long start_time = System.currentTimeMillis();
 
-        List<LocationProjectStatsDao> locationProjectStatDaos = locationRepository.getLocationWithProjectStats(params, NO_TRX_TYPE, NO_TRX_STATUS); //return project count + physicalProgress group by location filtered by params
+        List<LocationProjectStatsDao> locationProjectStatDaos = locationRepository.getLocationWithProjectStats(params); //return project count + physicalProgress group by location filtered by params
 
         GeoJsonBuilder builder = new GeoJsonBuilder();
 
@@ -193,7 +193,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
     public FeatureCollection getProjectShapes(LocationAdmLevelEnum level, GeometryDetail detail, Parameters params) {
         long start_time = System.currentTimeMillis();
 
-        List<LocationProjectStatsDao> locationProjectStatDaos = locationRepository.getLocationWithProjectStats(params, NO_TRX_TYPE, NO_TRX_STATUS); //return project count + physicalProgress group by location filtered by params
+        List<LocationProjectStatsDao> locationProjectStatDaos = locationRepository.getLocationWithProjectStats(params); //return project count + physicalProgress group by location filtered by params
 
         GeoJsonBuilder builder = new GeoJsonBuilder();
 

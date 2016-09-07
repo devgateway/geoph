@@ -13,19 +13,16 @@ public class LocationProjectStatsDao extends LocationDao {
 
     private Integer level;
 
-    private Double trxAmount;
-
 
     public LocationProjectStatsDao() {
     }
 
-    public LocationProjectStatsDao(Long id, String name, Geometry geometry, Long projectCount, Double physicalProgress, Double trxAmount) {
+    public LocationProjectStatsDao(Long id, String name, Geometry geometry, Long projectCount, Double physicalProgress) {
         this.id = id;
         this.physicalProgress = physicalProgress;
         this.projectCount = projectCount;
         this.geometry=geometry;
         this.name=name;
-        this.trxAmount=trxAmount;
     }
 
     public Double getPhysicalProgress() {
@@ -52,11 +49,4 @@ public class LocationProjectStatsDao extends LocationDao {
         this.level = level;
     }
 
-    public Double getTrxAmount() {
-        return trxAmount;
-    }
-
-    public void setTrxAmount(Double trxAmount) {
-        this.trxAmount = trxAmount;
-    }
 }
