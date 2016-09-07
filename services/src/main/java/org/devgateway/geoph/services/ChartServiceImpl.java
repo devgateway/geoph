@@ -180,8 +180,10 @@ public class ChartServiceImpl implements ChartService {
     public Collection<ChartResponse> getFundingByLocation(Parameters params) {
         Map<Long, ChartResponse> respMap = new HashMap<>();
         for(TransactionTypeEnum tt:TransactionTypeEnum.values()) {
+            params.setTrxType(tt.getId());
             for (TransactionStatusEnum ts : TransactionStatusEnum.values()) {
-                List<LocationResultsDao> results = locationRepository.getLocationWithTransactionStats(params, tt.getId(), ts.getId());
+                params.setTrxStatus(ts.getId());
+                List<LocationResultsDao> results = locationRepository.getLocationWithTransactionStats(params);
                 for (LocationResultsDao helper : results) {
                     ChartResponse chartResponse;
                     if (respMap.get(helper.getLocationId()) != null) {
