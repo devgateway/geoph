@@ -1,4 +1,4 @@
-import {REFRESH_LAYER,TOGGLE_LEGENDS_VIEW, SET_BASEMAP, TOGGLE_LAYER,LAYER_LOAD_SUCCESS,LAYER_LOAD_FAILURE,SET_LAYER_SETTING,CHANGE_MAP_BOUNDS }  from '../constants/constants.js';
+import {REFRESH_LAYER, TOGGLE_LEGENDS_VIEW, SET_BASEMAP, TOGGLE_LAYER, LAYER_LOAD_SUCCESS, LAYER_LOAD_FAILURE, SET_LAYER_SETTING, CHANGE_MAP_BOUNDS, LOAD_LAYER_BY_ID}  from '../constants/constants.js';
 import Connector from '../connector/connector.js';
 import {getPath, getDefaults, getVisibles} from '../util/layersUtil.js';
 import {collectValues} from '../util/filterUtil';
@@ -43,7 +43,7 @@ export const setSetting=(id, name, value)=>{
 			name,
 			value
 		});
-		if (name=='level'){
+		if (name=='level' || name=='detail'){
 			//reaload layer if level was changed
 			dispatch(loadLayerById(dispatch, getState,id));
 		}else{
@@ -85,6 +85,7 @@ const loadLayerById=(dispatch, getState, id)=>{
 	};
 	
 	dispatch(loadLayer(options, getState));
+	return {'type': LOAD_LAYER_BY_ID};
 }
 /*Get data of an specif layer passing layer options and getstate in order to take current filters*/
 
@@ -95,7 +96,7 @@ const loadLayer=(options, getState)=>{
 			(results)=>{
 				dispatch(loadLayerCompleted(results, getState))
 			}).catch((err)=>{ 
-				console.error(err);
+				console.log(err);
 				dispatch(loadLayerFailed(err));
 			});
 		} 

@@ -38,15 +38,17 @@
 
 	.btn-apply,.btn-apply:hover{
 		background:url('../../../assets/png/apply_btn_circle.png');
+		margin-bottom: 5px;
 	}
 
 	.btn-all,.btn-all:hover{
 		background-color:#FFF;
 		background:url('../../../assets/png/select_all_btn.png');
-		    margin-bottom: 5px;
+		margin-bottom: 5px;
 	}
 	.btn-clear,.btn-clear:hover{
 	  background:url('../../../assets/png/clear_btn_circle.png');
+	  margin-bottom: 5px;
 	}
 
   input[type=text] {
@@ -108,11 +110,11 @@
 
 .project-search-actions{
 	padding-bottom: 10px;
-	span{
-	  margin: 2px;
+	>span{
+	  margin: 4px;
 	}
   >a{
-		font-size: 13px;
+		font-size: 12px;
 		margin-bottom: 15px;
 		padding-left: 0px;
 	}

@@ -1,6 +1,7 @@
 package org.devgateway.geoph.core.services;
 
 import org.devgateway.geoph.core.request.Parameters;
+import org.devgateway.geoph.enums.GeometryDetail;
 import org.devgateway.geoph.enums.LocationAdmLevelEnum;
 import org.geojson.FeatureCollection;
 
@@ -11,11 +12,15 @@ import org.geojson.FeatureCollection;
  */
 public interface GeoJsonService {
 
-    FeatureCollection getLocationsByLevel(LocationAdmLevelEnum level);
 
-    FeatureCollection getLocationsByParams(Parameters params);
+    FeatureCollection getProjectPoints(LocationAdmLevelEnum level, Parameters params);
 
-    FeatureCollection getShapesByLevelAndDetail(LocationAdmLevelEnum level, double detail, Parameters params);
+    FeatureCollection getProjectShapes(LocationAdmLevelEnum level, GeometryDetail detail, Parameters params);
 
-    FeatureCollection getPhysicalProgressAverageByParamsAndDetail(Parameters params, double detail);
+    FeatureCollection getFundingShapes(LocationAdmLevelEnum level, GeometryDetail detail, Parameters params);
+
+    FeatureCollection getIndicatorShapes(Long indicatorId,GeometryDetail detail);
+
+    FeatureCollection getPhotoPoints(Parameters parameters);
+
 }

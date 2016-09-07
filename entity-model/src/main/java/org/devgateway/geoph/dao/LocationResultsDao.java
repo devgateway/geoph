@@ -1,97 +1,119 @@
 package org.devgateway.geoph.dao;
 
+import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.Point;
 import org.devgateway.geoph.model.Location;
 
-/**
- * @author dbianco
- *         created on jun 08 2016.
- */
 public class LocationResultsDao {
 
-    private Location location;
+    private Long locationId;
 
-    private Long projectCount;
+    private String name;
 
-    private Double trxAmount;
 
-    private Long trxCount;
 
-    private Double physicalProgressAmount;
+    Point centroid;
 
-    private Long physicalProgressCount;
+    Geometry geometry;
 
-    public LocationResultsDao(Location location, Long projectCount) {
-        this.location = location;
-        this.projectCount = projectCount;
+    private Long count;
+
+    private Double amount;
+
+
+    private Long transactionStatusId;
+
+    private Long transactionTypeId;
+
+    public Long getLocationId() {
+        return locationId;
     }
 
-    public LocationResultsDao(Location location, Double physicalProgressAmount, Long physicalProgressCount) {
-        this.location = location;
-        this.physicalProgressAmount = physicalProgressAmount;
-        this.physicalProgressCount = physicalProgressCount;
+    public void setLocationId(Long locationId) {
+        this.locationId = locationId;
     }
 
-    public LocationResultsDao(Location location, Double trxAmount, Long trxCount, Double physicalProgressAmount, Long physicalProgressCount) {
-        this.location = location;
-        this.trxAmount = trxAmount;
-        this.trxCount = trxCount;
-        this.physicalProgressAmount = physicalProgressAmount;
-        this.physicalProgressCount = physicalProgressCount;
+    public String getName() {
+        return name;
     }
 
-    public Location getLocation() {
-        return location;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
+    public Long getCount() {
+        return count;
     }
 
-    public Long getProjectCount() {
-        return projectCount;
+    public void setCount(Long count) {
+        this.count = count;
     }
 
-    public void setProjectCount(Long projectCount) {
-        this.projectCount = projectCount;
+    public Double getAmount() {
+        return amount;
     }
 
-    public Double getTrxAmount() {
-        return trxAmount;
+    public void setAmount(Double amount) {
+        this.amount = amount;
     }
 
-    public void setTrxAmount(Double trxAmount) {
-        this.trxAmount = trxAmount;
+
+    public Point getCentroid() {
+        return centroid;
     }
 
-    public Long getTrxCount() {
-        return trxCount;
+    public void setCentroid(Point centroid) {
+        this.centroid = centroid;
     }
 
-    public void setTrxCount(Long trxCount) {
-        this.trxCount = trxCount;
+    public Geometry getGeometry() {
+        return geometry;
     }
 
-    public Double getPhysicalProgressAmount() {
-        return physicalProgressAmount;
+    public void setGeometry(Geometry geometry) {
+        this.geometry = geometry;
     }
 
-    public void setPhysicalProgressAmount(Double physicalProgressAmount) {
-        this.physicalProgressAmount = physicalProgressAmount;
+
+    public Long getTransactionStatusId() {
+        return transactionStatusId;
     }
 
-    public Long getPhysicalProgressCount() {
-        return physicalProgressCount;
+    public void setTransactionStatusId(Long transactionStatusId) {
+        this.transactionStatusId = transactionStatusId;
     }
 
-    public void setPhysicalProgressCount(Long physicalProgressCount) {
-        this.physicalProgressCount = physicalProgressCount;
+    public Long getTransactionTypeId() {
+        return transactionTypeId;
     }
 
-    public Double getPhysicalProgressAverage() {
-        Double ret = 0D;
-        if(physicalProgressAmount!=null && physicalProgressCount!=null && physicalProgressCount!=0D){
-            ret=physicalProgressAmount/physicalProgressCount;
-        }
-        return ret;
+    public void setTransactionTypeId(Long transactionTypeId) {
+        this.transactionTypeId = transactionTypeId;
     }
+//Expected arguments are:      long, java.lang.String, com.vividsolutions.jts.geom.Geometry, long, long, double, long
+    public LocationResultsDao(Long  locationId,String name ,Geometry centroid,Long transactionStatusId, Long transactionTypeId, Double amount,Long count) {
+        this.locationId = locationId;
+        this.name=name;
+        this.count = count;
+        this.amount = amount;
+        this.transactionStatusId = transactionStatusId;
+        this.transactionTypeId = transactionTypeId;
+        this.centroid= (Point) centroid;
+
+
+    }
+
+
+    public LocationResultsDao(Long  locationId,String name ,Geometry centroid,Geometry geometry ,Long transactionStatusId, Long transactionTypeId, Double amount,Long count) {
+        this.locationId = locationId;
+        this.name=name;
+        this.count = count;
+        this.amount = amount;
+        this.transactionStatusId = transactionStatusId;
+        this.transactionTypeId = transactionTypeId;
+        this.centroid= (Point) centroid;
+        this.geometry=geometry;
+
+    }
+
 }

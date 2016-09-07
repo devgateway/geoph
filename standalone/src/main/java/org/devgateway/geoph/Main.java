@@ -20,13 +20,14 @@ import java.util.Arrays;
 
 @SpringBootApplication
 @Configuration
+@Import({
+        PersistenceApplication.class
+})
 @PropertySources({
         @PropertySource("classpath:/org/devgateway/geoph/application.properties"),
         @PropertySource(value = "file:${CONF_FILE}", ignoreResourceNotFound = true)
 })
-@Import({
-        PersistenceApplication.class
-})
+
 public class Main {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);

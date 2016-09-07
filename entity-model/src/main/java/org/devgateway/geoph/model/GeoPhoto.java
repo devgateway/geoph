@@ -5,7 +5,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.Set;
 
 /**
  * Created by sebas on 8/30/2016.
@@ -19,21 +19,13 @@ public class GeoPhoto extends GenericPersistable implements Serializable {
     @Column(columnDefinition = "TEXT")
     String description;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    private Collection<String> urls;
-
-    public Collection<String> getUrls() {
-        return urls;
-    }
-
-    public void setUrls(Collection<String> urls) {
-        this.urls = urls;
-    }
+    @OneToMany(cascade=CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "geoPhoto")
+    private Set<GeoPhotoUrls> urls;
 
     @Type(type = "org.hibernate.spatial.GeometryType")
     com.vividsolutions.jts.geom.Point point;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     Project project;
 
     public String getName() {
@@ -43,7 +35,6 @@ public class GeoPhoto extends GenericPersistable implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-
 
     public String getDescription() {
         return description;
@@ -67,5 +58,13 @@ public class GeoPhoto extends GenericPersistable implements Serializable {
 
     public void setProject(Project project) {
         this.project = project;
+    }
+
+    public Set<GeoPhotoUrls> getUrls() {
+        return urls;
+    }
+
+    public void setUrls(Set<GeoPhotoUrls> urls) {
+        this.urls = urls;
     }
 }

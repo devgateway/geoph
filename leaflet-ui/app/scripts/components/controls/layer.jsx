@@ -41,16 +41,22 @@ class Settings extends React.Component {
 					</li>
 				:null}
 				
-				{(settings['quality'])?
-					<li>
-						<ul>
-							<li><b>{translate('toolview.layers.quality')}</b></li>
-							<li>
-							<InputRange maxValue={100} minValue={1} value={settings['quality']} onChange={this.setQuality.bind(this)}/>
-							</li>
+				{(settings['detail'])?
+						<li>
+						<ul className="level">
+							<li className="setting-name"><b>Details:</b></li>
+							<li onClick={()=>{this.set('detail','low')}}>
+								<div className={settings['detail']=="low"?"active":""} >Low</div></li>
+							<li onClick={()=>{this.set('detail','medium')}}>
+								<div className={settings['detail']=="medium"?"active":""}>medium</div></li>
+							<li onClick={()=>{this.set('detail','high')}}>
+								<div className={settings['detail']=="high"?"active":""}>high</div></li>
 						</ul>
+						<div className="separator"/>				
 					</li>
 				:null}
+
+			
 				{(settings['css'])?
 					<li>
 						<ul  className="css colors">
@@ -63,6 +69,8 @@ class Settings extends React.Component {
 						</ul>
 					</li>
 				:null}
+
+					
 
 				
 			</ul>
@@ -116,7 +124,7 @@ class Settings extends React.Component {
 
  	getSettings(){
  		let childProperties=this.getChildProperties();
- 		return <Settings {...this.props} {...childProperties}/>
+ 		return <Settings key={this.props.id} {...this.props} {...childProperties}/>
  	}
 
  	renderChildren(){
@@ -143,7 +151,7 @@ class Settings extends React.Component {
 	 	return( 
  			<li className="group">
  				{helpKey?
- 					<OverlayTrigger placement="top" overlay={(<Tooltip id={helpKey}>{translate(helpKey)}</Tooltip>)}>
+ 					<OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id={helpKey}>{translate(helpKey)}</Tooltip>)}>
  						{this.getTitle()}
  					</OverlayTrigger>
  				: 

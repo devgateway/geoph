@@ -5,6 +5,7 @@ import de.micromata.opengis.kml.v_2_2_0.*;
 import org.devgateway.geoph.core.repositories.GeoPhotoRepository;
 import org.devgateway.geoph.core.repositories.ProjectRepository;
 import org.devgateway.geoph.model.GeoPhoto;
+import org.devgateway.geoph.model.GeoPhotoUrls;
 import org.devgateway.geoph.model.Project;
 import org.jsoup.Jsoup;
 import org.jsoup.select.Elements;
@@ -15,8 +16,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by sebas on 8/30/2016.
@@ -70,7 +72,7 @@ public class KMLImport {
                 if (description != null) {
                     org.jsoup.nodes.Document doc = Jsoup.parse(description);
                     Elements elements = doc.getElementsByTag("img");
-                    List<String> urls = new ArrayList<>();
+                    Set<GeoPhotoUrls> urls = new HashSet<>();
                     LOGGER.info(String.valueOf(elements.size()));
                     elements.forEach(element -> {
                         String img = element.attr("src");
@@ -79,14 +81,14 @@ public class KMLImport {
                             if (img.startsWith("files")) {
                                 img = path_prefix + "/" + img;
                             }
-                            urls.add(img);
+                            urls.add(new GeoPhotoUrls(photo, img));
                         }
                     });
                     photo.setUrls(urls);
                 }
                 if (photo.getUrls()!=null && photo.getUrls().size()>0) {
                     de.micromata.opengis.kml.v_2_2_0.Point geometry = (de.micromata.opengis.kml.v_2_2_0.Point) placemark.getGeometry();
-                    com.vividsolutions.jts.geom.Coordinate coordinate = new com.vividsolutions.jts.geom.Coordinate(geometry.getCoordinates().get(0).getLatitude(), geometry.getCoordinates().get(0).getLongitude());
+                    com.vividsolutions.jts.geom.Coordinate coordinate = new com.vividsolutions.jts.geom.Coordinate(geometry.getCoordinates().get(0).getLongitude(),geometry.getCoordinates().get(0).getLatitude());
                     com.vividsolutions.jts.geom.Point point = gf.createPoint(coordinate);
 
                     photo.setPoint(point);

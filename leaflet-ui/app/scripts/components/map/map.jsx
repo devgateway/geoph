@@ -30,8 +30,11 @@ const view=React.createClass({
 		this.props.onUpdateBounds(e.target.getBounds());
 	},
 
+	closePopup(){
+		this.refs.map.leafletElement.closePopup();
+	},
+
 	getPopUp(id){
-		debugger;
 		if (id=="projectPopup"){
 			return (<ProjectPopup  onClosePopup={this.closePopup}/>)
 		}
@@ -46,21 +49,24 @@ const view=React.createClass({
 
 	getLayer(l){
 		
-		console.log(l);
-		const {data,type,popupId}=l;
+		const {data, type, popupId, id, zIndex}=l;
 		if (type=='clustered'){
-
-			return (<ClusteredLayer data={data}>
-				<PhotoPopup  onClosePopup={this.closePopup}/>
-				</ClusteredLayer>);
-		}else{
-			return (<SvgLayer zIndex={l.zIndex}  features={data.features}>
-				{this.getPopUp(popupId)}
-				</SvgLayer>)
+			return (
+				<ClusteredLayer key={id} data={data}>
+					<PhotoPopup onClosePopup={this.closePopup}/>
+				</ClusteredLayer>
+			);
+		} else {
+			return (
+				<SvgLayer key={id} id={id} zIndex={zIndex} features={data.features}>
+					{this.getPopUp(popupId)}
+				</SvgLayer>
+			)
 		}
 	},
 
 	render(){
+		debugger;
 		const {map} = this.props;
 		const {southWest, northEast} = map.get('bounds').toJS();		
 		const bounds = L.latLngBounds(L.latLng(southWest.lat, southWest.lng),L.latLng(northEast.lat,northEast.lng));
@@ -68,15 +74,14 @@ const view=React.createClass({
 		
 		return (
 			<div>
-			<Map className="map" bounds={bounds}>
-			<TileLayer url={this.props.map.get('basemap').get('url')}/>
-			{layers.map((l)=>{
-				const {data,type}=l;
-				return (data && data.features)?this.getLayer(l):null;
-			})}
-
-			</Map>
-			<Legends layers={this.props.map.get('layers')} />
+				<Map ref="map"  className="map" bounds={bounds}>
+					<TileLayer url={this.props.map.get('basemap').get('url')}/>
+					{layers.map((l)=>{
+						const {data,type}=l;
+						return (data && data.features)?this.getLayer(l):null;
+					})}
+				</Map>
+				<Legends layers={this.props.map.get('layers')} />
 			</div>
 			);
 	}

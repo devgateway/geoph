@@ -1,5 +1,5 @@
 import {PropTypes} from 'react';
-import {geoJson, latlng, marker, divIcon, DomEvent} from 'leaflet';
+import {geoJson, latlng, marker} from 'leaflet';
 import {MapLayer} from 'react-leaflet';
 import React from 'react';
 import d3 from 'd3';
@@ -8,6 +8,10 @@ import { render, unmountComponentAtNode } from 'react-dom';
 /**
  * @author Sebas
  */
+//Leaflet deals with event listeners by reference, so if you want to add a listener and then remove it, define it as a function:
+function clickListener(evt){
+      this.mapClick(evt)
+    }
 
  export default class D3Layer extends MapLayer {
 
@@ -22,23 +26,34 @@ import { render, unmountComponentAtNode } from 'react-dom';
   }
 
   componentWillUnmount() {
-    this.svg.remove();  
-    //this.svg=null;  
+      super.componentWillUnmount();
+    const {map}=this.props;
+    debugger;
+    map.removeEventListener("click",clickListener,this);
+    map.off("moveend", this.mapUpdate.bind(this));
+
+    this.svg.remove();
   }
 
+
+  mapClick(evt){
+    if(this.props.id==evt.originalEvent.layer_id){
+      this.renderPopupContent(Object.assign({}, evt.originalEvent.features, {latlng: evt.latlng}));
+    }
+  }
+  
   componentWillMount() {
-    super.componentWillMount();
+    //generate unique id 
+       super.componentWillMount();
+    const {map}=this.props;
     this.leafletElement = geoJson();
     
     this.svg = d3.select(this.props.map.getPanes().overlayPane).append("svg"); 
-    
     this.svg.style("z-index",this.props.zIndex);
     this.g = this.svg.append("g").attr("class", "leaflet-zoom-hide");
-    this.props.map.on('moveend', this.mapUpdate.bind(this));
-    this.props.map.on('click', function(evt) {
-      evt.originalEvent.stopPropagation();
-      this.renderPopupContent(Object.assign({}, evt.originalEvent.features, {latlng: evt.latlng}));
-    }.bind(this));
+    map.addEventListener('click',clickListener,this)
+    map.on('moveend', this.mapUpdate.bind(this));
+    //map.on('click', this.mapClick.bind(this));
     this.mapUpdate();//trigger first update
   }
 
@@ -74,7 +89,9 @@ import { render, unmountComponentAtNode } from 'react-dom';
   }
 
   onClick(properties){
-    d3.event.features=properties;    
+    debugger;
+    d3.event.features=properties; 
+    d3.event.layer_id=this.props.id;  
   }
 
   mapUpdate(e) {
@@ -106,6 +123,28 @@ import { render, unmountComponentAtNode } from 'react-dom';
     shapes.attr("stroke-width", function(f) {return f.properties.border || 0;}.bind(this));
     shapes.attr("d", (feature)=>{ return path(feature)});
     shapes.on("click",this.onClick.bind(this)); 
+
+/*
+
+    this.g.append("g")
+  .attr("class", "states-names")
+  .selectAll("text")
+  .data(features)
+  .enter()
+  .append("svg:text")
+  .text(function(d){
+    return "1";
+  })
+  .attr("x", function(d){
+      return path.centroid(d)[0];
+  })
+  .attr("y", function(d){
+      return  path.centroid(d)[1];
+  })
+  .attr("text-anchor","middle")
+  .attr('fill', 'white');
+
+*/
   }
 
 
