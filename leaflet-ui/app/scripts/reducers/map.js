@@ -92,7 +92,9 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
           type: 'shapes',
           ep: 'FUNDING_GEOJSON',
           settings: {
-            'css': 'red'
+            'level': 'region',
+            'css': 'red',
+            'detail':'medium'
           },
           cssPrefix: 'funding', //markers css prefix 
           default: false,
@@ -119,6 +121,8 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
           type: 'shapes',
           ep: 'PHYSICAL_GEOJSON',
           settings: {
+             'level': 'region',
+                'detail':'medium',
             'css': 'red','valueProperty':'physicalProgress'
           },
           cssPrefix: 'funding', //markers css prefix 
@@ -302,8 +306,12 @@ const map = (state = defaultState, action) => {
     return updateLayer(state,action);
 
     case LAYER_LOAD_SUCCESS:
-    return onLoadLayer(state,action);
-
+    try{
+      newState= onLoadLayer(state,action);
+      return newState;
+    }catch(e){
+      console.log(e)
+    }
     case SET_FUNDING_TYPE:
     return onChangeFundingType(state,action);
 

@@ -6,50 +6,50 @@ package org.devgateway.geoph.dao;
  */
 public class ProjectStatsResultsDao {
 
-    private Double trxAmount;
+    private double trxAmount;
 
-    private Long projectCount;
+    private int projectCount;
 
-    private Long statusId;
+    private int statusId;
 
-    private Long typeId;
+    private int typeId;
 
     public ProjectStatsResultsDao(Double trxAmount, Long projectCount, Long statusId, Long typeId) {
         this.trxAmount = trxAmount!=null?trxAmount:0D;
-        this.projectCount = projectCount!=null?projectCount:0;
-        this.statusId = statusId;
-        this.typeId = typeId;
+        this.projectCount = projectCount!=null?projectCount.intValue():0;
+        this.statusId = statusId.intValue();
+        this.typeId = typeId.intValue();
     }
 
-    public Double getTrxAmount() {
+    public double getTrxAmount() {
         return trxAmount;
     }
 
-    public void setTrxAmount(Double trxAmount) {
+    public void setTrxAmount(double trxAmount) {
         this.trxAmount = trxAmount;
     }
 
-    public Long getProjectCount() {
+    public int getProjectCount() {
         return projectCount;
     }
 
-    public void setProjectCount(Long projectCount) {
+    public void setProjectCount(int projectCount) {
         this.projectCount = projectCount;
     }
 
-    public Long getStatusId() {
+    public int getStatusId() {
         return statusId;
     }
 
-    public void setStatusId(Long statusId) {
+    public void setStatusId(int statusId) {
         this.statusId = statusId;
     }
 
-    public Long getTypeId() {
+    public int getTypeId() {
         return typeId;
     }
 
-    public void setTypeId(Long typeId) {
+    public void setTypeId(int typeId) {
         this.typeId = typeId;
     }
 }

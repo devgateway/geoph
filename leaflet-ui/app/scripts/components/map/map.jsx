@@ -58,7 +58,7 @@ const view=React.createClass({
 			);
 		} else {
 			return (
-				<SvgLayer key={id} zIndex={zIndex} features={data.features}>
+				<SvgLayer key={id} id={id} zIndex={zIndex} features={data.features}>
 					{this.getPopUp(popupId)}
 				</SvgLayer>
 			)
@@ -66,6 +66,7 @@ const view=React.createClass({
 	},
 
 	render(){
+		debugger;
 		const {map} = this.props;
 		const {southWest, northEast} = map.get('bounds').toJS();		
 		const bounds = L.latLngBounds(L.latLng(southWest.lat, southWest.lng),L.latLng(northEast.lat,northEast.lng));
@@ -73,7 +74,7 @@ const view=React.createClass({
 		
 		return (
 			<div>
-				<Map ref="map" className="map" bounds={bounds}>
+				<Map ref="map"  className="map" bounds={bounds}>
 					<TileLayer url={this.props.map.get('basemap').get('url')}/>
 					{layers.map((l)=>{
 						const {data,type}=l;

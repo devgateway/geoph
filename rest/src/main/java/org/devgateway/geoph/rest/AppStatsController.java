@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Map;
 
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 /**
@@ -16,7 +17,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
  */
 @RestController
 @RequestMapping(value = "/appStats")
-public class        AppStatsController {
+public class AppStatsController {
 
 
     private final AppStatsService appStatsService;
@@ -26,9 +27,13 @@ public class        AppStatsController {
         this.appStatsService = appStatsService;
     }
 
-
     @RequestMapping(value = "/EhCache", method = GET)
     public List<Map<String, String>> getCacheStats() {
         return appStatsService.getCacheStats();
+    }
+
+    @RequestMapping(value = "/EhCache", method = DELETE)
+    public void clearCache() {
+        appStatsService.clearAllCache();
     }
 }

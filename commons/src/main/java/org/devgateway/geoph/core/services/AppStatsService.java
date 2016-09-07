@@ -10,4 +10,6 @@ import java.util.Map;
 public interface AppStatsService {
 
     List<Map<String, String>> getCacheStats();
+
+    void clearAllCache();
 }

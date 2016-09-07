@@ -18,5 +18,4 @@ public interface LayerService {
 
     void deleteIndicator(Long id);
 
-    FeatureCollection getIndicatorsData(long indicatorId);
 }

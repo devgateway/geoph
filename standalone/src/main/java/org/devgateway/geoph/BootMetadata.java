@@ -69,9 +69,12 @@ public class BootMetadata {
                 "/sql/basic-data/project_climate_change2.sql",
                 "/sql/basic-data/project_gender_responsiveness2.sql",
                 "/sql/basic-data/transactions2.sql",
+                "/sql/basic-data/geo_photo.sql",
+                "/sql/basic-data/geo_photo_urls.sql",
                 "/sql/basic-data/indicator.sql",
                 "/sql/basic-data/indicator_detail.sql",
-                "/sql/basic-data/hibernate_sequence.sql"
+                "/sql/basic-data/hibernate_sequence.sql",
+                "/sql/basic-data/add_geometry_to_location.sql"
         );
 
         //The princess is in another castle
