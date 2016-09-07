@@ -33,6 +33,8 @@ public class GeoJsonServiceImpl implements GeoJsonService {
 
     private static final int LONG = 0;
     private static final int LAT = 1;
+    private static final int NO_TRX_TYPE = 0;
+    private static final int NO_TRX_STATUS = 0;
 
 
     @Autowired
@@ -166,7 +168,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
     public FeatureCollection getProjectPoints(LocationAdmLevelEnum level, Parameters params) {
         long start_time = System.currentTimeMillis();
 
-        List<LocationProjectStatsDao> locationProjectStatDaos = locationRepository.getLocationWithProjectStats(params); //return project count + physicalProgress group by location filtered by params
+        List<LocationProjectStatsDao> locationProjectStatDaos = locationRepository.getLocationWithProjectStats(params, NO_TRX_TYPE, NO_TRX_STATUS); //return project count + physicalProgress group by location filtered by params
 
         GeoJsonBuilder builder = new GeoJsonBuilder();
 
@@ -191,7 +193,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
     public FeatureCollection getProjectShapes(LocationAdmLevelEnum level, GeometryDetail detail, Parameters params) {
         long start_time = System.currentTimeMillis();
 
-        List<LocationProjectStatsDao> locationProjectStatDaos = locationRepository.getLocationWithProjectStats(params); //return project count + physicalProgress group by location filtered by params
+        List<LocationProjectStatsDao> locationProjectStatDaos = locationRepository.getLocationWithProjectStats(params, NO_TRX_TYPE, NO_TRX_STATUS); //return project count + physicalProgress group by location filtered by params
 
         GeoJsonBuilder builder = new GeoJsonBuilder();
 

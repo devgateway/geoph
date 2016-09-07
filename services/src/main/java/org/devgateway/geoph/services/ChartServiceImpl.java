@@ -5,6 +5,7 @@ import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.core.response.ChartResponse;
 import org.devgateway.geoph.core.services.ChartService;
 import org.devgateway.geoph.dao.AgencyResultsDao;
+import org.devgateway.geoph.dao.LocationProjectStatsDao;
 import org.devgateway.geoph.dao.PhysicalStatusDao;
 import org.devgateway.geoph.dao.SectorResultsDao;
 import org.devgateway.geoph.enums.TransactionStatusEnum;
@@ -38,6 +39,9 @@ public class ChartServiceImpl implements ChartService {
 
     @Autowired
     PhysicalStatusRepository physicalStatusRepository;
+
+    @Autowired
+    LocationRepository locationRepository;
 
     @Override
     public Collection<ChartResponse> getFundingByFundingAgency(Parameters params) {
@@ -148,7 +152,6 @@ public class ChartServiceImpl implements ChartService {
         return ret;
     }
 
-
     @Override
     public Collection<ChartResponse> getFundingByPhysicalStatus(Parameters params) {
         Map<Long, ChartResponse> respMap = new HashMap<>();
@@ -162,6 +165,30 @@ public class ChartServiceImpl implements ChartService {
                     } else {
                         chartResponse = new ChartResponse(helper.getPhysicalStatus(), params.getTrxTypeSort(), params.getTrxStatusSort());
                         respMap.put(helper.getPhysicalStatus().getId(), chartResponse);
+                    }
+                    chartResponse.add(helper.getProjectCount(), helper.getTrxAmount(), tt.getName(), ts.getName());
+                }
+            }
+        }
+
+        List ret = new ArrayList(respMap.values());
+        Collections.sort(ret);
+        return ret;
+    }
+
+    @Override
+    public Collection<ChartResponse> getFundingByLocation(Parameters params) {
+        Map<Long, ChartResponse> respMap = new HashMap<>();
+        for(TransactionTypeEnum tt:TransactionTypeEnum.values()) {
+            for (TransactionStatusEnum ts : TransactionStatusEnum.values()) {
+                List<LocationProjectStatsDao> results = locationRepository.getLocationWithProjectStats(params, tt.getId(), ts.getId());
+                for (LocationProjectStatsDao helper : results) {
+                    ChartResponse chartResponse;
+                    if (respMap.get(helper.getId()) != null) {
+                        chartResponse = respMap.get(helper.getId());
+                    } else {
+                        chartResponse = new ChartResponse(helper.getId(), helper.getName(), params.getTrxTypeSort(), params.getTrxStatusSort());
+                        respMap.put(helper.getId(), chartResponse);
                     }
                     chartResponse.add(helper.getProjectCount(), helper.getTrxAmount(), tt.getName(), ts.getName());
                 }
