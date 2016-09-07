@@ -121,6 +121,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
                     current.getDisbursements().put(TransactionStatusEnum.getEnumById(result.getTransactionStatusId()).getName(), result.getAmount());
                 }
             }
+            builder.addFeature(ConverterFactory.locationShapeConverter().convert(current));
 
             LOGGER.info("---returning features " + (System.currentTimeMillis() - start_time) + "---");
         }
