@@ -34,7 +34,7 @@ public interface LocationRepository {
 
     List<GeometryDao> getShapesByLevelAndDetail(int level,double detail);
 
-    List<LocationResultsDao> getLocationWithTransactionStats(Parameters params, int trxType, int trxStatus);
+    List<LocationResultsDao> getLocationWithTransactionStats(Parameters params);
 
     List<LocationProjectStatsDao> getLocationWithProjectStats(Parameters params);
 }

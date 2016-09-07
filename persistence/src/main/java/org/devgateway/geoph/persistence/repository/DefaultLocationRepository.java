@@ -180,7 +180,7 @@ public class DefaultLocationRepository implements LocationRepository {
         return query.getResultList();
     }
 
-    public List<LocationResultsDao> getLocationWithTransactionStats(Parameters params, int trxType, int trxStatus) {
+    public List<LocationResultsDao> getLocationWithTransactionStats(Parameters params) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery  criteriaQuery = criteriaBuilder.createQuery(LocationResultsDao.class);
         Root<Location> locationRoot = criteriaQuery.from(Location.class);
@@ -215,12 +215,6 @@ public class DefaultLocationRepository implements LocationRepository {
         //add params filters
         FilterHelper.filterLocationQuery(params, criteriaBuilder, locationRoot, predicates, projectJoin);
 
-        if(trxType>0) {
-            predicates.add(transactionJoin.get(Transaction_.transactionTypeId).in(trxType));
-        }
-        if(trxStatus>0) {
-            predicates.add(transactionJoin.get(Transaction_.transactionStatusId).in(trxStatus));
-        }
         Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         criteriaQuery.where(other);
         criteriaQuery.orderBy(criteriaBuilder.asc(locationRoot.get(Location_.id)));
@@ -234,7 +228,7 @@ public class DefaultLocationRepository implements LocationRepository {
 
 
     @Cacheable(value = "shapesWithDetail")
-    public List<GeometryDao> getShapesByLevelAndDetail(int level,double detail) {
+    public List<GeometryDao> getShapesByLevelAndDetail(int level, double detail) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery  criteriaQuery = criteriaBuilder.createQuery(GeometryDao.class);
         Root<Location> locationRoot = criteriaQuery.from(Location.class);
