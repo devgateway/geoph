@@ -107,7 +107,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
             LocationFundingStatsDao current = createSummary(locationResultsDaos.iterator().next(), geometries, level);
 
             for (LocationResultsDao result : locationResultsDaos) {
-                if (current.getId() != result.getLocationId()) {
+                if (!current.getId().equals(result.getLocationId())) {
                     builder.addFeature(ConverterFactory.locationShapeConverter().convert(current));
                     current = createSummary(result, geometries, level);
                 }
