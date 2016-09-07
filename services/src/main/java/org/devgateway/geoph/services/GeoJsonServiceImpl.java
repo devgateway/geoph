@@ -61,7 +61,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
         GeometryDao dao = geometries.get(result.getLocationId());
         if (dao != null) {
             summary.setGeometry(dao.getGeometry());
-            dao.setUsed(true);
+            geometries.remove(result.getLocationId());
         }
         return summary;
     }
@@ -107,7 +107,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
             LocationFundingStatsDao current = createSummary(locationResultsDaos.iterator().next(), geometries, level);
 
             for (LocationResultsDao result : locationResultsDaos) {
-                if (current.getId() != result.getLocationId()) {
+                if (!current.getId().equals(result.getLocationId())) {
                     builder.addFeature(ConverterFactory.locationShapeConverter().convert(current));
                     current = createSummary(result, geometries, level);
                 }
@@ -121,15 +121,14 @@ public class GeoJsonServiceImpl implements GeoJsonService {
                     current.getDisbursements().put(TransactionStatusEnum.getEnumById(result.getTransactionStatusId()).getName(), result.getAmount());
                 }
             }
+            builder.addFeature(ConverterFactory.locationShapeConverter().convert(current));
 
             LOGGER.info("---returning features " + (System.currentTimeMillis() - start_time) + "---");
         }
-        for(GeometryDao geometryDao:geometries.values()){
-            if(!geometryDao.isUsed()){
-                LocationFundingStatsDao loc = new LocationFundingStatsDao();
-                loc.setGeometry(geometryDao.getGeometry());
-                builder.addFeature(ConverterFactory.locationShapeConverter().convert(loc));
-            }
+        for(GeometryDao geometryDao:geometries.values()) {
+            LocationFundingStatsDao loc = new LocationFundingStatsDao();
+            loc.setGeometry(geometryDao.getGeometry());
+            builder.addFeature(ConverterFactory.locationShapeConverter().convert(loc));
         }
         return builder.getFeatures();
     }

@@ -76,4 +76,3 @@ INSERT INTO "public"."project_climate_change" (project_id,climate_change_id) VAL
 INSERT INTO "public"."project_climate_change" (project_id,climate_change_id) VALUES (991,1);
 INSERT INTO "public"."project_climate_change" (project_id,climate_change_id) VALUES (1007,1);
 INSERT INTO "public"."project_climate_change" (project_id,climate_change_id) VALUES (1009,1);
-

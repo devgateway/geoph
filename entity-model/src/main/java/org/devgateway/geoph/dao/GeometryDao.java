@@ -13,13 +13,10 @@ public class GeometryDao {
 
     Geometry geometry;
 
-    boolean isUsed;
-
     public GeometryDao(Long locationId, String name, Geometry geometry) {
         this.locationId = locationId;
         this.geometry = geometry;
         this.name=name;
-        isUsed = false;
     }
 
     public Long getLocationId() {
@@ -44,13 +41,5 @@ public class GeometryDao {
 
     public void setGeometry(Geometry geometry) {
         this.geometry = geometry;
-    }
-
-    public boolean isUsed() {
-        return isUsed;
-    }
-
-    public void setUsed(boolean isUsed) {
-        this.isUsed = isUsed;
     }
 }

@@ -3,8 +3,6 @@ package org.devgateway.geoph.rest;
 import org.devgateway.geoph.core.request.AppRequestParams;
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.core.services.GeoJsonService;
-
-import org.devgateway.geoph.core.services.LayerService;
 import org.devgateway.geoph.enums.GeometryDetail;
 import org.devgateway.geoph.enums.LocationAdmLevelEnum;
 import org.geojson.FeatureCollection;
@@ -63,7 +61,9 @@ public class GeoJsonController extends BaseController {
         // LOW(0.05), MEDIUM(0.025), HIGH(0.01), ULTRA(0.005);
         // REGION(1), PROVINCE(2), MUNICIPALITY(3);
         LOGGER.debug("getGeoJsonForShapes with detail from param");
-        return geoJsonService.getFundingShapes(LocationAdmLevelEnum.valueOf(level.toUpperCase()), GeometryDetail.valueOf(detail.toUpperCase()), filters.getParameters());
+        Parameters params = filters.getParameters();
+        params.setLocationLevel(level.toUpperCase());
+        return geoJsonService.getFundingShapes(LocationAdmLevelEnum.valueOf(level.toUpperCase()), GeometryDetail.valueOf(detail.toUpperCase()), params);
     }
 
     @RequestMapping(value = "/indicators/{indicatorId}", method = GET)
