@@ -5,6 +5,7 @@ import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.core.response.ChartResponse;
 import org.devgateway.geoph.core.services.ChartService;
 import org.devgateway.geoph.dao.AgencyResultsDao;
+import org.devgateway.geoph.dao.LocationResultsDao;
 import org.devgateway.geoph.dao.PhysicalStatusDao;
 import org.devgateway.geoph.dao.SectorResultsDao;
 import org.devgateway.geoph.enums.TransactionStatusEnum;
@@ -38,6 +39,9 @@ public class ChartServiceImpl implements ChartService {
 
     @Autowired
     PhysicalStatusRepository physicalStatusRepository;
+
+    @Autowired
+    LocationRepository locationRepository;
 
     @Override
     public Collection<ChartResponse> getFundingByFundingAgency(Parameters params) {
@@ -148,7 +152,6 @@ public class ChartServiceImpl implements ChartService {
         return ret;
     }
 
-
     @Override
     public Collection<ChartResponse> getFundingByPhysicalStatus(Parameters params) {
         Map<Long, ChartResponse> respMap = new HashMap<>();
@@ -164,6 +167,32 @@ public class ChartServiceImpl implements ChartService {
                         respMap.put(helper.getPhysicalStatus().getId(), chartResponse);
                     }
                     chartResponse.add(helper.getProjectCount(), helper.getTrxAmount(), tt.getName(), ts.getName());
+                }
+            }
+        }
+
+        List ret = new ArrayList(respMap.values());
+        Collections.sort(ret);
+        return ret;
+    }
+
+    @Override
+    public Collection<ChartResponse> getFundingByLocation(Parameters params) {
+        Map<Long, ChartResponse> respMap = new HashMap<>();
+        for(TransactionTypeEnum tt:TransactionTypeEnum.values()) {
+            params.setTrxType(tt.getId());
+            for (TransactionStatusEnum ts : TransactionStatusEnum.values()) {
+                params.setTrxStatus(ts.getId());
+                List<LocationResultsDao> results = locationRepository.getLocationWithTransactionStats(params);
+                for (LocationResultsDao helper : results) {
+                    ChartResponse chartResponse;
+                    if (respMap.get(helper.getLocationId()) != null) {
+                        chartResponse = respMap.get(helper.getLocationId());
+                    } else {
+                        chartResponse = new ChartResponse(helper.getLocationId(), helper.getName(), params.getTrxTypeSort(), params.getTrxStatusSort());
+                        respMap.put(helper.getLocationId(), chartResponse);
+                    }
+                    chartResponse.add(helper.getCount(), helper.getAmount(), tt.getName(), ts.getName());
                 }
             }
         }

@@ -228,7 +228,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
         GeoJsonBuilder geoJsonBuilder = new GeoJsonBuilder();
         List<GeoPhotoDao> daos = geoPhotoRepository.findGeoPhotosByParams(parameters);
 
-        if(daos!=null) {
+        if(daos!=null && daos.size()>0) {
             GeoPhotoDao first = daos.iterator().next();
             GeoPhotoSummaryDao current = new GeoPhotoSummaryDao(first);
             for (GeoPhotoDao geoPhotoDao : daos) {

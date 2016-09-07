@@ -89,6 +89,10 @@ public class Parameters {
 
     private Double financialAmountMax;
 
+    private Integer trxType;
+
+    private Integer trxStatus;
+
     private int trxTypeSort;
 
     private int trxStatusSort;
@@ -585,5 +589,21 @@ public class Parameters {
 
     public void setProjectOrder(ProjectOrder projectOrder) {
         this.projectOrder = projectOrder;
+    }
+
+    public Integer getTrxType() {
+        return trxType;
+    }
+
+    public void setTrxType(Integer trxType) {
+        this.trxType = trxType;
+    }
+
+    public Integer getTrxStatus() {
+        return trxStatus;
+    }
+
+    public void setTrxStatus(Integer trxStatus) {
+        this.trxStatus = trxStatus;
     }
 }

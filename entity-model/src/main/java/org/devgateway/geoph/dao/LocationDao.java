@@ -8,7 +8,9 @@ import com.vividsolutions.jts.geom.Geometry;
 public class LocationDao {
 
     Long id;
+
     String name;
+
     Geometry geometry;
 
     public Geometry getGeometry() {

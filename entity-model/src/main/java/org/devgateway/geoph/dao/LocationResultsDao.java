@@ -2,7 +2,6 @@ package org.devgateway.geoph.dao;
 
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.Point;
-import org.devgateway.geoph.model.Location;
 
 public class LocationResultsDao {
 
@@ -10,20 +9,38 @@ public class LocationResultsDao {
 
     private String name;
 
+    private Point centroid;
 
-
-    Point centroid;
-
-    Geometry geometry;
+    private Geometry geometry;
 
     private Long count;
 
     private Double amount;
 
-
     private Long transactionStatusId;
 
     private Long transactionTypeId;
+
+    public LocationResultsDao(Long  locationId, String name, Geometry centroid, Long transactionStatusId, Long transactionTypeId, Double amount, Long count) {
+        this.locationId = locationId;
+        this.name=name;
+        this.count = count;
+        this.amount = amount;
+        this.transactionStatusId = transactionStatusId;
+        this.transactionTypeId = transactionTypeId;
+        this.centroid= (Point) centroid;
+    }
+
+    public LocationResultsDao(Long  locationId, String name,Geometry centroid, Geometry geometry, Long transactionStatusId, Long transactionTypeId, Double amount, Long count) {
+        this.locationId = locationId;
+        this.name=name;
+        this.count = count;
+        this.amount = amount;
+        this.transactionStatusId = transactionStatusId;
+        this.transactionTypeId = transactionTypeId;
+        this.centroid= (Point) centroid;
+        this.geometry=geometry;
+    }
 
     public Long getLocationId() {
         return locationId;
@@ -57,7 +74,6 @@ public class LocationResultsDao {
         this.amount = amount;
     }
 
-
     public Point getCentroid() {
         return centroid;
     }
@@ -89,31 +105,6 @@ public class LocationResultsDao {
 
     public void setTransactionTypeId(Long transactionTypeId) {
         this.transactionTypeId = transactionTypeId;
-    }
-//Expected arguments are:      long, java.lang.String, com.vividsolutions.jts.geom.Geometry, long, long, double, long
-    public LocationResultsDao(Long  locationId,String name ,Geometry centroid,Long transactionStatusId, Long transactionTypeId, Double amount,Long count) {
-        this.locationId = locationId;
-        this.name=name;
-        this.count = count;
-        this.amount = amount;
-        this.transactionStatusId = transactionStatusId;
-        this.transactionTypeId = transactionTypeId;
-        this.centroid= (Point) centroid;
-
-
-    }
-
-
-    public LocationResultsDao(Long  locationId,String name ,Geometry centroid,Geometry geometry ,Long transactionStatusId, Long transactionTypeId, Double amount,Long count) {
-        this.locationId = locationId;
-        this.name=name;
-        this.count = count;
-        this.amount = amount;
-        this.transactionStatusId = transactionStatusId;
-        this.transactionTypeId = transactionTypeId;
-        this.centroid= (Point) centroid;
-        this.geometry=geometry;
-
     }
 
 }

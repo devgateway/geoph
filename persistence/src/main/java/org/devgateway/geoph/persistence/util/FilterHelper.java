@@ -198,6 +198,7 @@ public class FilterHelper {
     public static void filterLocationQuery(Parameters params, CriteriaBuilder criteriaBuilder, Root<Location> locationRoot, List<Predicate> predicates, Join<ProjectLocationId, Project> projectJoin) {
         synchronized (LOCK_LOCATION) {
             if (params != null) {
+                Join<Project, Transaction> transactionJoin = projectJoin.join(Project_.transactions);
                 if(params.getLocationLevels()!=null) {
                     predicates.add(locationRoot.get(Location_.level).in(params.getLocationLevels()));
                 }
@@ -263,14 +264,12 @@ public class FilterHelper {
                     Predicate ft = null;
                     boolean isFlowType = false;
                     if(params.getFlowTypes()!=null){
-                        Join<Project, Transaction> transactionJoin = projectJoin.join(Project_.transactions);
                         ft = transactionJoin.get(Transaction_.flowType).in(params.getFlowTypes());
                         isFlowType = true;
                     }
                     Predicate gst = null;
                     boolean isGrantType = false;
                     if(params.getGrantSubTypes()!=null) {
-                        Join<Project, Transaction> transactionJoin = projectJoin.join(Project_.transactions);
                         gst = transactionJoin.get(Transaction_.grantSubTypeId).in(params.getGrantSubTypes());
                         isGrantType = true;
                     }
@@ -313,6 +312,12 @@ public class FilterHelper {
                 }
                 if(params.getActualOwpaMax() != null) {
                     predicates.add(criteriaBuilder.lessThanOrEqualTo(projectJoin.get(Project_.actualOwpa), params.getActualOwpaMax()));
+                }
+                if(params.getTrxType() != null) {
+                    predicates.add(transactionJoin.get(Transaction_.transactionTypeId).in(params.getTrxType()));
+                }
+                if(params.getTrxStatus() != null) {
+                    predicates.add(transactionJoin.get(Transaction_.transactionStatusId).in(params.getTrxStatus()));
                 }
             }
         }

@@ -21,5 +21,7 @@ public interface ChartService {
     Collection<ChartResponse> getFundingBySector(Parameters params);
 
     Collection<ChartResponse> getFundingByPhysicalStatus(Parameters params);
+
+    Collection<ChartResponse> getFundingByLocation(Parameters params);
     
 }
