@@ -46,4 +46,3 @@ INSERT INTO "public"."project_gender_responsiveness" (project_id,gender_responsi
 INSERT INTO "public"."project_gender_responsiveness" (project_id,gender_responsiveness_id) VALUES (1017,2);
 INSERT INTO "public"."project_gender_responsiveness" (project_id,gender_responsiveness_id) VALUES (1019,3);
 INSERT INTO "public"."project_gender_responsiveness" (project_id,gender_responsiveness_id) VALUES (1021,1);
-

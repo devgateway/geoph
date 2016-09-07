@@ -124,8 +124,17 @@ public class DefaultProjectRepository implements ProjectRepository {
     @Cacheable("getProjectStats")
     public Map<String, List<ProjectStatsResultsDao>> getStats(Parameters params) {
         Map<String, List<ProjectStatsResultsDao>> ret = new HashMap<>();
-        ret.put("national", getStatsByAdmLevel(params, true));
-        ret.put("regional", getStatsByAdmLevel(params, false));
+        List<ProjectStatsResultsDao> national = getStatsByAdmLevel(params, true);
+        List<ProjectStatsResultsDao> regional = getStatsByAdmLevel(params, false);
+        //Fix for UI, it needs at least one result per ADM level
+        if(national.size()==0){
+            national.add(new ProjectStatsResultsDao(0D, 0L, 1L, 1L));
+        }
+        if(regional.size()==0){
+            regional.add(new ProjectStatsResultsDao(0D, 0L, 1L, 1L));
+        }
+        ret.put("national", national);
+        ret.put("regional", regional);
         return ret;
     }
 
