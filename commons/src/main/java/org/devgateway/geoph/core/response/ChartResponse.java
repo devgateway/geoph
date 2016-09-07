@@ -80,6 +80,20 @@ public class ChartResponse implements Comparable {
         }
     }
 
+    public ChartResponse(Long id, String name, int trxType, int trxStatus) {
+        this.id = id;
+        this.name = name;
+        this.orderType = trxType;
+        this.orderStatus = trxStatus;
+        for(TransactionTypeEnum typeEnum:TransactionTypeEnum.values()){
+            Map<String, Double> statusMap = new HashMap<>();
+            for(TransactionStatusEnum statusEnum:TransactionStatusEnum.values()){
+                statusMap.put(statusEnum.getName(), 0D);
+            }
+            trxAmounts.put(typeEnum.getName(), statusMap);
+        }
+    }
+
     public Long getId() {
         return id;
     }
@@ -145,6 +159,7 @@ public class ChartResponse implements Comparable {
         return ((ChartResponse)o).retrieveMaxFunding().compareTo(retrieveMaxFunding());
     }
 
+    @JsonIgnore
     public Double getDisbursementFunding(){
         Map<String, Double> typeMap = trxAmounts.get(TransactionTypeEnum.DISBURSEMENTS.getName());
         return typeMap!=null?typeMap.get(TransactionStatusEnum.ACTUAL.getName()):0D;

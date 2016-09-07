@@ -33,6 +33,8 @@ public class GeoJsonServiceImpl implements GeoJsonService {
 
     private static final int LONG = 0;
     private static final int LAT = 1;
+    private static final int NO_TRX_TYPE = 0;
+    private static final int NO_TRX_STATUS = 0;
 
 
     @Autowired
@@ -92,7 +94,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
         long start_time = System.currentTimeMillis();
         //results should be ordered by ID!;
 
-        List<LocationResultsDao> locationResultsDaos = locationRepository.getLocationWithTransactionStats(params); //records should be order by location id
+        List<LocationResultsDao> locationResultsDaos = locationRepository.getLocationWithTransactionStats(params, NO_TRX_TYPE, NO_TRX_STATUS); //records should be order by location id
         List<GeometryDao> geometriesList = locationRepository.getShapesByLevelAndDetail(level.getLevel(), detail.getValue());
 
         GeoJsonBuilder builder = new GeoJsonBuilder();
