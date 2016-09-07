@@ -6,9 +6,11 @@ import Chart from '../../charts/chartComponent'
 import ProjectList from './projectListTab'
 import onClickOutside from 'react-onclickoutside'
 import {collectValues} from '../../../util/filterUtil';
-import { fetchPopupData } from '../../../actions/popup.js'
+import { fetchPopupData } from '../../../actions/popup.js';
+import {fetchLocationStats} from '../../../actions/stats.js';
 import translate from '../../../util/translate.js';
 import {Tooltip, OverlayTrigger} from 'react-bootstrap';
+import {formatValue} from '../../../util/format';
 
 require('./projectLayerPopup.scss');
 
@@ -37,32 +39,52 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
     const {feature} = this.props;
     if (feature){
       this.getTabData('fundingAgency');
+      const {projectSearch, filters} = this.props;
+      let filtersCollected = collectValues(filters, projectSearch);
+      Object.assign(filtersCollected, {'lo': [feature.properties.id]}); 
+      this.props.onLoadLocationStats(filtersCollected); 
     }    
   },
 
   getTabData(tab){
     const {filters, projectSearch, feature} = this.props;
     if (feature){
-      let filt = collectValues(filters, projectSearch);  
-      Object.assign(filt, {'lo': [feature.properties.id]});  
+      let filtersCollected = collectValues(filters, projectSearch);  
+      Object.assign(filtersCollected, {'lo': [feature.properties.id]});  
       if (tab=='projectList'){
-        Object.assign(filt, {'page': 0, 'size': 25}); 
+        Object.assign(filtersCollected, {'page': 0, 'size': 25}); 
       }  
-      this.props.onGetPopupData(filt, tab);
+      this.props.onGetPopupData(filtersCollected, tab);
     }
   },
 
   render() {
-    const {charts, fundingType, feature} = this.props;
+    const {stats, charts, fundingType, feature} = this.props;
     if (!feature){
       return null;
     }
     const {level, name} = feature.properties;
+    const {type, measure} = fundingType;
+    const statsData = stats.get('location').get('data')[0];
+    const statsLoading = stats.get('location').get('isFetching');
+    const {projectCount, trxAmounts={}} = statsData;
     debugger;
+    let fundingLabel = translate('header.settings.'+type) + " " +  translate('header.settings.'+measure);
+    let fundingValue = trxAmounts[measure]? trxAmounts[measure][type] || 0 : 0;
     return (
       <div className="popup-container">
         <div className="popup-title">
           <h2>{name || ""} </h2>
+        </div>
+        <div className="popup-stats">
+          <div className="projects">
+              <p>{translate('stats.projects')}</p>
+              <div>{statsLoading?"0":projectCount}</div>
+          </div>
+          <div className="funding">
+              <p>{fundingLabel}</p>
+              <div>₱{statsLoading?"0":formatValue(fundingValue)}</div>
+          </div>  
         </div>
         <div className="">
           <ul className='popup-tabs' role='tablist' >
@@ -193,6 +215,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onGetPopupData: (filters, tab) => {
       dispatch(fetchPopupData(filters, tab));
+    },
+    onLoadLocationStats: (filters) => {
+      dispatch(fetchLocationStats(filters));
     }
   }
 }
@@ -204,7 +229,8 @@ const mapStateToProps = (state, props) => {
     filters: state.filters.filterMain,
     projectSearch: state.projectSearch,
     project: state.project,
-    language: state.language
+    language: state.language,
+    stats: state.stats
   }
 }
 

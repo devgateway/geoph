@@ -35,20 +35,57 @@
 
 .popup-container{
 	width: 400px;
-	height: 280px;
+	height: 320px;
 }
 
 .popup-tab-content{
-	margin-top: 40px;
-    border-top: 1px solid #A7AEBB;
+	margin-top: 45px;
+  border-top: 1px solid #A7AEBB;
 }
 
 .popup-title{
-	padding: 6px;
+  padding: 6px;
     h2 {
         color: #044072;
       clear:both;
     }
+}
+
+.popup-stats{
+  height: 28px;
+  border: 1px solid #cfe1f0;
+  border-radius: 6px;
+  margin-bottom: 5px;
+  >div{
+    display: inline-block;
+    height: 27px;
+    div{
+      font-size: 14px;
+      margin: 0px;
+      color: #000 !important;
+      font-weight: bold;
+      display: inline-block;
+      padding: 4px 10px 0px 0px !important;
+      float: right;
+    }
+    p{
+      font-size: 9px;
+      height: 10px !important;
+      margin: 0px !important;
+      padding: 8px 0px 0px 10px !important;
+      display: inline-block;
+      text-transform: uppercase;
+      color: #7dbe5e;
+      float: left;
+    }
+  }
+  >div:first-child{
+    width: 40%;
+    border-right: 1px solid #cfe1f0;
+  }
+  >div:last-child{
+    width: 60%;
+  }
 }
 
 .popup-tabs{

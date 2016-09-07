@@ -19,7 +19,6 @@ require('./cluster.scss');
 
 
  	componentWillMount() {
- 		debugger;
  		const {data,map}=this.props 
  		var geojson = geoJson(data, 
  		{

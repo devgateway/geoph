@@ -1,18 +1,35 @@
 import * as Constants from '../constants/constants';
-import {cloneDeep} from '../util/filterUtil';
+import Immutable from 'immutable';
 
-const stats = (state = {}, action) => {
-  switch (action.type) {
+const defaultState = Immutable.fromJS({
+  'global': {
+    'isFetching': false, 'data': {}
+  }, 
+  'location': {
+    'isFetching': false, 'data': {}
+  }
+})
+
+const stats =(state = defaultState, action) => {
+  switch (action.type) {    
     case Constants.REQUEST_STATS:
-      return Object.assign({}, state, {
-        isFetching: true,
-      })
+        return state.setIn(['global','isFetching'], true);
+   
     case Constants.RECEIVE_STATS:
-      let stateCloned = cloneDeep(state);
-      return Object.assign({}, stateCloned, action.data);
+        state = state.setIn(['global','isFetching'], false);
+        return state.setIn(['global','data'], action.data);
+        
+    case Constants.REQUEST_LOCATION_STATS:
+        return state.setIn(['location','isFetching'], true);
+   
+    case Constants.RECEIVE_LOCATION_STATS:
+        state = state.setIn(['location','isFetching'], false);
+        debugger;
+        return state.setIn(['location','data'], action.data);
+        
     default:
-      return state
+        return state
   }
 }
 
-export default stats
+export default stats;

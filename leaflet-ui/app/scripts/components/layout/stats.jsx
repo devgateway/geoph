@@ -13,8 +13,9 @@ class Stats extends React.Component {
 
 	render() {	
 		const {stats, settings} = this.props;
+		const statsData = stats.get('global').get('data');
 		const {type, measure} = settings.fundingType;	
-		const {regional={}, national={}} = stats;
+		const {regional={}, national={}} = statsData;
 		let fundingLabel = translate('header.settings.'+type) + " " +  translate('header.settings.'+measure);
 		let regionalValue = regional[measure]? regional[measure][type] || 0 : 0;
 		let nationalValue = national[measure]? national[measure][type] || 0 : 0;
