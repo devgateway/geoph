@@ -66,6 +66,12 @@ public class Project extends GenericPersistable implements Serializable {
     @OneToMany(cascade=CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "pk.project")
     private Set<ProjectSector> sectors;
 
+    @OneToMany(cascade=CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "pk.project")
+    private Set<ProjectClimateChange> climateChange;
+
+    @OneToMany(cascade=CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "pk.project")
+    private Set<ProjectGenderResponsiveness> genderResponsiveness;
+
     @Column(name = "implementing_agency_office")
     private String implementingAgencyOffice;
 
@@ -110,20 +116,6 @@ public class Project extends GenericPersistable implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.MERGE)
     private Classification grantClassification;
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    @JoinTable(name = "project_climate_change", joinColumns = {
-            @JoinColumn(name = "project_id", nullable = false, updatable = false) },
-            inverseJoinColumns = { @JoinColumn(name = "climate_change_id",
-                    nullable = false, updatable = false) })
-    private Set<ClimateChange> climateChange;
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    @JoinTable(name = "project_gender_responsiveness", joinColumns = {
-            @JoinColumn(name = "project_id", nullable = false, updatable = false) },
-            inverseJoinColumns = { @JoinColumn(name = "gender_responsiveness_id",
-                    nullable = false, updatable = false) })
-    private Set<GenderResponsiveness> genderResponsiveness;
 
     @Column(name = "actual_owpa")
     private Double actualOwpa;
@@ -374,19 +366,19 @@ public class Project extends GenericPersistable implements Serializable {
         }
     }
 
-    public Set<ClimateChange> getClimateChange() {
+    public Set<ProjectClimateChange> getClimateChange() {
         return climateChange;
     }
 
-    public void setClimateChange(Set<ClimateChange> climateChange) {
+    public void setClimateChange(Set<ProjectClimateChange> climateChange) {
         this.climateChange = climateChange;
     }
 
-    public Set<GenderResponsiveness> getGenderResponsiveness() {
+    public Set<ProjectGenderResponsiveness> getGenderResponsiveness() {
         return genderResponsiveness;
     }
 
-    public void setGenderResponsiveness(Set<GenderResponsiveness> genderResponsiveness) {
+    public void setGenderResponsiveness(Set<ProjectGenderResponsiveness> genderResponsiveness) {
         this.genderResponsiveness = genderResponsiveness;
     }
 
@@ -624,9 +616,32 @@ public class Project extends GenericPersistable implements Serializable {
             }
         }
 
+        if(this.climateChange!=null) {
+            this.climateChange.clear();
+        }
+        if (project.getClimateChange()!=null){
+            if(this.climateChange==null) {
+                this.climateChange = new HashSet<>();
+            }
+            for(ProjectClimateChange climateChange:project.getClimateChange()) {
+                climateChange.setProject(this);
+                this.climateChange.add(climateChange);
+            }
+        }
 
-        this.climateChange = project.getClimateChange();
-        this.genderResponsiveness = project.getGenderResponsiveness();
+        if(this.genderResponsiveness!=null) {
+            this.genderResponsiveness.clear();
+        }
+        if (project.getGenderResponsiveness()!=null){
+            if(this.genderResponsiveness==null) {
+                this.genderResponsiveness = new HashSet<>();
+            }
+            for(ProjectGenderResponsiveness genderResp:project.getGenderResponsiveness()) {
+                genderResp.setProject(this);
+                this.genderResponsiveness.add(genderResp);
+            }
+        }
+
         this.actualOwpa = project.getActualOwpa();
         this.targetOwpa = project.getTargetOwpa();
         this.physicalProgress = project.getPhysicalProgress();

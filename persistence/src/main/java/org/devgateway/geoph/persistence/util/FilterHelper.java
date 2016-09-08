@@ -17,30 +17,31 @@ public class FilterHelper {
     private static final Object LOCK_LOCATION = new Object() {};
     private static final Object LOCK_TRANSACTION = new Object() {};
 
-    public static void filterProjectQuery(Parameters params, CriteriaBuilder criteriaBuilder, Root<Project> projectRoot, List<Predicate> predicates) {
-        filterProjectQueryAdvanced(params, criteriaBuilder, projectRoot, predicates, null, null, null, null, false);
+    public static Expression<Double> filterProjectQuery(Parameters params, CriteriaBuilder criteriaBuilder, Root<Project> projectRoot, List<Predicate> predicates, Expression<Double> expression) {
+        return filterProjectQueryAdvanced(params, criteriaBuilder, projectRoot, predicates, expression, null, null, null, null, false);
     }
 
     public static void filterProjectQueryForIAs(Parameters params, CriteriaBuilder criteriaBuilder, Root<Project> projectRoot,
                                                 List<Predicate> predicates, List<Selection<?>> multiSelect,
                                                 Join<Project, ProjectAgency> agencyJoin,
                                                 Join<Project, Transaction> transactionJoin) {
-        filterProjectQueryAdvanced(params, criteriaBuilder, projectRoot, predicates, multiSelect, agencyJoin, null, transactionJoin, false);
+        filterProjectQueryAdvanced(params, criteriaBuilder, projectRoot, predicates, null, multiSelect, agencyJoin, null, transactionJoin, false);
     }
 
     public static void filterProjectQueryForSectors(Parameters params, CriteriaBuilder criteriaBuilder, Root<Project> projectRoot,
                                                 List<Predicate> predicates, List<Selection<?>> multiSelect,
                                                 Join<Project, ProjectSector> sectorJoin,
                                                 Join<Project, Transaction> transactionJoin) {
-        filterProjectQueryAdvanced(params, criteriaBuilder, projectRoot, predicates, multiSelect, null, sectorJoin, transactionJoin, false);
+        filterProjectQueryAdvanced(params, criteriaBuilder, projectRoot, predicates, null, multiSelect, null, sectorJoin, transactionJoin, false);
     }
 
     public static void filterProjectQueryWithUtilization(Parameters params, CriteriaBuilder criteriaBuilder, Root<Project> projectRoot, List<Predicate> predicates, List<Selection<?>> multiSelect, Join<Project, Transaction> transactionJoin) {
-        filterProjectQueryAdvanced(params, criteriaBuilder, projectRoot, predicates, multiSelect, null, null, transactionJoin, true);
+        filterProjectQueryAdvanced(params, criteriaBuilder, projectRoot, predicates, null, multiSelect, null, null, transactionJoin, true);
     }
 
-    public static void filterProjectQueryAdvanced(Parameters params, CriteriaBuilder criteriaBuilder,
+    public static Expression<Double> filterProjectQueryAdvanced(Parameters params, CriteriaBuilder criteriaBuilder,
                                                   Root<Project> projectRoot, List<Predicate> predicates,
+                                                  Expression<Double> expression,
                                                   List<Selection<?>> multiSelect,
                                                   Join<Project, ProjectAgency> projectAgencyJoin,
                                                   Join<Project, ProjectSector> sectorJoin,
@@ -54,20 +55,8 @@ public class FilterHelper {
                     Join<ProjectLocationId, Location> locationJoin = idJoin.join(ProjectLocationId_.location, JoinType.LEFT);
 
                     predicates.add(locationJoin.get(Location_.id).in(params.getLocations()));
-                    if(projectAgencyJoin!=null & multiSelect!=null){
-                        multiSelect.add(criteriaBuilder.sum(
-                                criteriaBuilder.prod(projectAgencyJoin.get(ProjectAgency_.utilization), criteriaBuilder.prod(projectLocationJoin.get(ProjectLocation_.utilization), transactionJoin.get(Transaction_.amount)))
-                        ));
-                    }
-                    if(sectorJoin!=null & multiSelect!=null){
-                        multiSelect.add(criteriaBuilder.sum(
-                                criteriaBuilder.prod(sectorJoin.get(ProjectSector_.utilization), criteriaBuilder.prod(projectLocationJoin.get(ProjectLocation_.utilization), transactionJoin.get(Transaction_.amount)))
-                        ));
-                    }
-                    if(isUtilizationSelectNeeded & multiSelect!=null){
-                        multiSelect.add(criteriaBuilder.sum(
-                                criteriaBuilder.prod(projectLocationJoin.get(ProjectLocation_.utilization), transactionJoin.get(Transaction_.amount))
-                        ));
+                    if(expression!=null) {
+                        expression = criteriaBuilder.prod(projectLocationJoin.get(ProjectLocation_.utilization), expression);
                     }
                 }
                 if (params.getProjects() != null) {
@@ -82,6 +71,9 @@ public class FilterHelper {
                     }
                     Join<ProjectSector, ProjectSectorId> pk = sectorJoin.join(ProjectSector_.pk);
                     predicates.add(pk.get(ProjectSectorId_.sector).in(params.getSectors()));
+                    if(expression!=null) {
+                        expression = criteriaBuilder.prod(sectorJoin.get(ProjectSector_.utilization), expression);
+                    }
                 }
                 if (params.getStatuses() != null) {
                     Join<Project, Status> statusJoin = projectRoot.join(Project_.status);
@@ -134,6 +126,9 @@ public class FilterHelper {
                     }
                     Join<ProjectAgency, ProjectAgencyId> pk = projectAgencyJoin.join(ProjectAgency_.pk);
                     predicates.add(pk.get(ProjectAgencyId_.agency).in(params.getImpAgencies()));
+                    if(expression!=null) {
+                        expression = criteriaBuilder.prod(projectAgencyJoin.get(ProjectAgency_.utilization), expression);
+                    }
                 }
                 if (params.getFlowTypes() != null || params.getGrantSubTypes() != null) {
                     Predicate ft = null;
@@ -160,12 +155,20 @@ public class FilterHelper {
                     }
                 }
                 if (params.getClimateChanges() != null) {
-                    Join<Project, ClimateChange> climateChangeJoin = projectRoot.join(Project_.climateChange);
-                    predicates.add(climateChangeJoin.get(ClimateChange_.id).in(params.getClimateChanges()));
+                    Join<Project, ProjectClimateChange> climateChangeJoin = projectRoot.join(Project_.climateChange);
+                    Join<ProjectClimateChange, ProjectClimateChangeId> pk = climateChangeJoin.join(ProjectClimateChange_.pk);
+                    predicates.add(pk.get(ProjectClimateChangeId_.climateChange).in(params.getClimateChanges()));
+                    if(expression!=null) {
+                        expression = criteriaBuilder.prod(climateChangeJoin.get(ProjectClimateChange_.utilization), expression);
+                    }
                 }
                 if (params.getGenderResponsiveness() != null) {
-                    Join<Project, GenderResponsiveness> genderResponsivenessJoin = projectRoot.join(Project_.genderResponsiveness);
-                    predicates.add(genderResponsivenessJoin.get(GenderResponsiveness_.id).in(params.getGenderResponsiveness()));
+                    Join<Project, ProjectGenderResponsiveness> genderResponsivenessJoin = projectRoot.join(Project_.genderResponsiveness);
+                    Join<ProjectGenderResponsiveness, ProjectGenderResponsivenessId> pk = genderResponsivenessJoin.join(ProjectGenderResponsiveness_.pk);
+                    predicates.add(pk.get(ProjectGenderResponsivenessId_.gender_responsiveness).in(params.getGenderResponsiveness()));
+                    if(expression!=null) {
+                        expression = criteriaBuilder.prod(genderResponsivenessJoin.get(ProjectGenderResponsiveness_.utilization), expression);
+                    }
                 }
                 if(params.getFinancialAmountMin() != null) {
                     predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectRoot.get(Project_.totalProjectAmount), params.getFinancialAmountMin()));
@@ -193,6 +196,7 @@ public class FilterHelper {
                 }
             }
         }
+        return expression;
     }
 
     public static void filterLocationQuery(Parameters params, CriteriaBuilder criteriaBuilder, Root<Location> locationRoot, List<Predicate> predicates, Join<ProjectLocationId, Project> projectJoin) {
@@ -260,6 +264,16 @@ public class FilterHelper {
                     Join<ProjectAgency, ProjectAgencyId> pk = impAgencyJoin.join(ProjectAgency_.pk);
                     predicates.add(pk.get(ProjectAgencyId_.agency).in(params.getImpAgencies()));
                 }
+                if (params.getClimateChanges() != null) {
+                    Join<Project, ProjectClimateChange> climateChangeJoin = projectJoin.join(Project_.climateChange, JoinType.LEFT);
+                    Join<ProjectClimateChange, ProjectClimateChangeId> pk = climateChangeJoin.join(ProjectClimateChange_.pk);
+                    predicates.add(pk.get(ProjectClimateChangeId_.climateChange).in(params.getClimateChanges()));
+                }
+                if (params.getGenderResponsiveness() != null) {
+                    Join<Project, ProjectGenderResponsiveness> genderResponsivenessJoin = projectJoin.join(Project_.genderResponsiveness, JoinType.LEFT);
+                    Join<ProjectGenderResponsiveness, ProjectGenderResponsivenessId> pk = genderResponsivenessJoin.join(ProjectGenderResponsiveness_.pk);
+                    predicates.add(pk.get(ProjectGenderResponsivenessId_.gender_responsiveness).in(params.getGenderResponsiveness()));
+                }
                 if (params.getFlowTypes() != null || params.getGrantSubTypes() != null) {
                     Predicate ft = null;
                     boolean isFlowType = false;
@@ -280,14 +294,6 @@ public class FilterHelper {
                     } else if (isGrantType){
                         predicates.add(criteriaBuilder.or(gst));
                     }
-                }
-                if (params.getClimateChanges() != null) {
-                    Join<Project, ClimateChange> climateChangeJoin = projectJoin.join(Project_.climateChange);
-                    predicates.add(climateChangeJoin.get(ClimateChange_.id).in(params.getClimateChanges()));
-                }
-                if (params.getGenderResponsiveness() != null) {
-                    Join<Project, GenderResponsiveness> genderResponsivenessJoin = projectJoin.join(Project_.genderResponsiveness);
-                    predicates.add(genderResponsivenessJoin.get(GenderResponsiveness_.id).in(params.getGenderResponsiveness()));
                 }
                 if(params.getFinancialAmountMin() != null) {
                     predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectJoin.get(Project_.totalProjectAmount), params.getFinancialAmountMin()));

@@ -60,12 +60,9 @@ public class DefaultImplementingAgencyRepository implements ImplementingAgencyRe
         Join<ProjectAgency, ProjectAgencyId> projectAgencyIdJoin = agencyJoin.join(ProjectAgency_.pk);
         Join<Project, Transaction> transactionJoin = projectRoot.join(Project_.transactions);
         multiSelect.add(projectAgencyIdJoin.get(ProjectAgencyId_.agency));
-        if(params.getLocations()==null) {
-            multiSelect.add(criteriaBuilder.sum(criteriaBuilder.prod(transactionJoin.get(Transaction_.amount), agencyJoin.get(ProjectAgency_.utilization))));
-            FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);
-        } else {
-            FilterHelper.filterProjectQueryForIAs(params, criteriaBuilder, projectRoot, predicates, multiSelect, agencyJoin, transactionJoin);
-        }
+
+        Expression<Double> expression = FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, transactionJoin.get(Transaction_.amount));
+        multiSelect.add(criteriaBuilder.sum(expression));
 
         multiSelect.add(criteriaBuilder.count(projectRoot.get(Project_.id)));
         groupByList.add(projectAgencyIdJoin.get(ProjectAgencyId_.agency));
