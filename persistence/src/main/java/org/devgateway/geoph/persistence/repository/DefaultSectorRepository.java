@@ -55,7 +55,7 @@ public class DefaultSectorRepository implements SectorRepository {
 
     @Override
     @Cacheable("findSectorByParams")
-    public List<SectorResultsDao> findFundingBySector(Parameters params, int trxType, int trxStatus) {
+    public List<SectorResultsDao> findFundingBySector(Parameters params) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<SectorResultsDao> criteriaQuery = criteriaBuilder.createQuery(SectorResultsDao.class);
 
@@ -69,15 +69,16 @@ public class DefaultSectorRepository implements SectorRepository {
         Join<ProjectSector, ProjectSectorId> projectSectorIdJoin = sectorJoin.join(ProjectSector_.pk);
         Join<Project, Transaction> transactionJoin = projectRoot.join(Project_.transactions);
         multiSelect.add(projectSectorIdJoin.get(ProjectSectorId_.sector));
+        groupByList.add(projectSectorIdJoin.get(ProjectSectorId_.sector));
 
         Expression<Double> expression = FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, transactionJoin.get(Transaction_.amount));
         multiSelect.add(criteriaBuilder.sum(expression));
 
-        multiSelect.add(criteriaBuilder.count(projectRoot.get(Project_.id)));
-        groupByList.add(projectSectorIdJoin.get(ProjectSectorId_.sector));
+        multiSelect.add(transactionJoin.get(Transaction_.transactionTypeId));
+        groupByList.add(transactionJoin.get(Transaction_.transactionTypeId));
+        multiSelect.add(transactionJoin.get(Transaction_.transactionStatusId));
+        groupByList.add(transactionJoin.get(Transaction_.transactionStatusId));
 
-        predicates.add(transactionJoin.get(Transaction_.transactionTypeId).in(trxType));
-        predicates.add(transactionJoin.get(Transaction_.transactionStatusId).in(trxStatus));
         Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         criteriaQuery.where(other);
 

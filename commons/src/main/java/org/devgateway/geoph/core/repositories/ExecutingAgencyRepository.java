@@ -14,7 +14,7 @@ public interface ExecutingAgencyRepository {
 
     List<ExecutingAgency> findAll();
 
-    List<AgencyResultsDao> findFundingByExecutingAgency(Parameters params, int trxType, int trxStatus);
+    List<AgencyResultsDao> findFundingByExecutingAgency(Parameters params);
 
     Integer countAll();
 

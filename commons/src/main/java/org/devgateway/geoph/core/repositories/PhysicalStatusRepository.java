@@ -20,5 +20,5 @@ public interface PhysicalStatusRepository {
 
     PhysicalStatus findById(Long id);
 
-    List<PhysicalStatusDao> findFundingByPhysicalStatus(Parameters params, int trxType, int trxStatus);
+    List<PhysicalStatusDao> findFundingByPhysicalStatus(Parameters params);
 }

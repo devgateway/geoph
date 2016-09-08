@@ -210,7 +210,6 @@ public class DefaultLocationRepository implements LocationRepository {
         groupByList.add(transactionJoin.get(Transaction_.transactionTypeId));
 
         multiSelect.add(criteriaBuilder.sum(criteriaBuilder.prod(transactionJoin.get(Transaction_.amount), projectLocationJoin.get(ProjectLocation_.utilization))).alias("amount")); //amount * % of utilization
-        multiSelect.add(criteriaBuilder.countDistinct(projectJoin).alias("count"));
 
         //add params filters
         FilterHelper.filterLocationQuery(params, criteriaBuilder, locationRoot, predicates, projectJoin);
