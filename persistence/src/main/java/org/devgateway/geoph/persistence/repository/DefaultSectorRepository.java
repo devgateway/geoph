@@ -1,5 +1,6 @@
 package org.devgateway.geoph.persistence.repository;
 
+import org.devgateway.geoph.ChartProjectCountDao;
 import org.devgateway.geoph.core.repositories.SectorRepository;
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.dao.SectorResultsDao;
@@ -55,7 +56,7 @@ public class DefaultSectorRepository implements SectorRepository {
 
     @Override
     @Cacheable("findSectorByParams")
-    public List<SectorResultsDao> findFundingBySector(Parameters params) {
+    public List<SectorResultsDao> findFundingBySectorWithTransactionStats(Parameters params) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<SectorResultsDao> criteriaQuery = criteriaBuilder.createQuery(SectorResultsDao.class);
 
@@ -84,6 +85,37 @@ public class DefaultSectorRepository implements SectorRepository {
 
         criteriaQuery.groupBy(groupByList);
         TypedQuery<SectorResultsDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
+
+        return query.getResultList();
+    }
+
+    @Override
+    @Cacheable("findSectorByParamsWithProjectStats")
+    public List<ChartProjectCountDao> findFundingBySectorWithProjectStats(Parameters params) {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<ChartProjectCountDao> criteriaQuery = criteriaBuilder.createQuery(ChartProjectCountDao.class);
+
+        Root<Project> projectRoot = criteriaQuery.from(Project.class);
+
+        List<Selection<?>> multiSelect = new ArrayList<>();
+        List<Predicate> predicates = new ArrayList();
+        List<Expression<?>> groupByList = new ArrayList<>();
+
+        Join<Project, ProjectSector> projectSectorJoin = projectRoot.join(Project_.sectors);
+        Join<ProjectSector, ProjectSectorId> projectSectorIdJoin = projectSectorJoin.join(ProjectSector_.pk);
+        Join<ProjectSectorId, Sector> sectorJoin = projectSectorIdJoin.join(ProjectSectorId_.sector);
+        multiSelect.add(sectorJoin.get(Sector_.id));
+        groupByList.add(sectorJoin.get(Sector_.id));
+
+        multiSelect.add(criteriaBuilder.countDistinct(projectRoot));
+
+        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, null);
+
+        Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+        criteriaQuery.where(other);
+
+        criteriaQuery.groupBy(groupByList);
+        TypedQuery<ChartProjectCountDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
 
         return query.getResultList();
     }

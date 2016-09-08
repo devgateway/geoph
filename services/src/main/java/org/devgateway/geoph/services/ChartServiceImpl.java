@@ -1,5 +1,7 @@
 package org.devgateway.geoph.services;
 
+import javafx.scene.chart.Chart;
+import org.devgateway.geoph.ChartProjectCountDao;
 import org.devgateway.geoph.core.repositories.*;
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.core.response.ChartResponse;
@@ -43,7 +45,7 @@ public class ChartServiceImpl implements ChartService {
     @Override
     public Collection<ChartResponse> getFundingByFundingAgency(Parameters params) {
         Map<Long, ChartResponse> respMap = new HashMap<>();
-        List<AgencyResultsDao> agenciesResults = fundingAgencyRepository.findFundingByFundingAgency(params);
+        List<AgencyResultsDao> agenciesResults = fundingAgencyRepository.findFundingByFundingAgencyWithTransactionStats(params);
         for (AgencyResultsDao helper : agenciesResults) {
             ChartResponse chartResponse;
             if (respMap.get(helper.getAgency().getId()) != null) {
@@ -55,9 +57,12 @@ public class ChartServiceImpl implements ChartService {
             chartResponse.addTrxAmount(helper.getTrxAmount(), TransactionTypeEnum.getEnumById(helper.getTransactionTypeId()).getName(), TransactionStatusEnum.getEnumById(helper.getTransactionStatusId()).getName());
         }
 
-        List<LocationProjectStatsDao> projectStats = locationRepository.getLocationWithProjectStats(params);
+        List<ChartProjectCountDao> projectStats = fundingAgencyRepository.findFundingByFundingAgencyWithProjectStats(params);
         projectStats.stream().forEach(stats -> {
-            respMap.get(stats.getId()).addProjects(stats.getProjectCount());
+            ChartResponse response = respMap.get(stats.getId());
+            if(response!=null){
+                response.addProjects(stats.getProjectCount());
+            }
         });
 
         List ret = new ArrayList(respMap.values());
@@ -68,7 +73,7 @@ public class ChartServiceImpl implements ChartService {
     @Override
     public Collection<ChartResponse> getFundingByExecutingAgency(Parameters params) {
         Map<Long, ChartResponse> respMap = new HashMap<>();
-        List<AgencyResultsDao> agenciesResults = executingAgencyRepository.findFundingByExecutingAgency(params);
+        List<AgencyResultsDao> agenciesResults = executingAgencyRepository.findFundingByExecutingAgencyWithTransactionStats(params);
         for (AgencyResultsDao helper : agenciesResults) {
             ChartResponse chartResponse;
             if (respMap.get(helper.getAgency().getId()) != null) {
@@ -80,7 +85,7 @@ public class ChartServiceImpl implements ChartService {
             chartResponse.addTrxAmount(helper.getTrxAmount(), TransactionTypeEnum.getEnumById(helper.getTransactionTypeId()).getName(), TransactionStatusEnum.getEnumById(helper.getTransactionStatusId()).getName());
         }
 
-        List<LocationProjectStatsDao> projectStats = locationRepository.getLocationWithProjectStats(params);
+        List<ChartProjectCountDao> projectStats = executingAgencyRepository.findFundingByExecutingAgencyWithProjectStats(params);
         projectStats.stream().forEach(stats -> {
             respMap.get(stats.getId()).addProjects(stats.getProjectCount());
         });
@@ -103,7 +108,7 @@ public class ChartServiceImpl implements ChartService {
         }
 
         Map<Long, ChartResponse> respMap = new HashMap<>();
-        List<AgencyResultsDao> agenciesResults = implementingAgencyRepository.findFundingByImplementingAgency(params);
+        List<AgencyResultsDao> agenciesResults = implementingAgencyRepository.findFundingByImplementingAgencyWithTransactionStats(params);
         for (AgencyResultsDao helper : agenciesResults) {
             Agency ia = helper.getAgency();
             if (showAll || iaParamsSet.contains(ia.getId())) {
@@ -117,6 +122,11 @@ public class ChartServiceImpl implements ChartService {
                 chartResponse.addTrxAmount(helper.getTrxAmount(), TransactionTypeEnum.getEnumById(helper.getTransactionTypeId()).getName(), TransactionStatusEnum.getEnumById(helper.getTransactionStatusId()).getName());                    }
         }
 
+        List<ChartProjectCountDao> projectStats = implementingAgencyRepository.findFundingByImplementingAgencyWithProjectStats(params);
+        projectStats.stream().forEach(stats -> {
+            respMap.get(stats.getId()).addProjects(stats.getProjectCount());
+        });
+
         List ret = new ArrayList(respMap.values());
         Collections.sort(ret);
         return ret;
@@ -125,7 +135,7 @@ public class ChartServiceImpl implements ChartService {
     @Override
     public Collection<ChartResponse> getFundingBySector(Parameters params) {
         Map<Long, ChartResponse> respMap = new HashMap<>();
-        List<SectorResultsDao> results = sectorRepository.findFundingBySector(params);
+        List<SectorResultsDao> results = sectorRepository.findFundingBySectorWithTransactionStats(params);
         for (SectorResultsDao helper : results) {
             ChartResponse chartResponse;
             if (respMap.get(helper.getSector().getId()) != null) {
@@ -137,7 +147,7 @@ public class ChartServiceImpl implements ChartService {
             chartResponse.addTrxAmount(helper.getTrxAmount(), TransactionTypeEnum.getEnumById(helper.getTransactionTypeId()).getName(), TransactionStatusEnum.getEnumById(helper.getTransactionStatusId()).getName());
         }
 
-        List<LocationProjectStatsDao> projectStats = locationRepository.getLocationWithProjectStats(params);
+        List<ChartProjectCountDao> projectStats = sectorRepository.findFundingBySectorWithProjectStats(params);
         projectStats.stream().forEach(stats -> {
             respMap.get(stats.getId()).addProjects(stats.getProjectCount());
         });
@@ -150,7 +160,7 @@ public class ChartServiceImpl implements ChartService {
     @Override
     public Collection<ChartResponse> getFundingByPhysicalStatus(Parameters params) {
         Map<Long, ChartResponse> respMap = new HashMap<>();
-        List<PhysicalStatusDao> results = physicalStatusRepository.findFundingByPhysicalStatus(params);
+        List<PhysicalStatusDao> results = physicalStatusRepository.findFundingByPhysicalStatusWithTransactionStats(params);
         for (PhysicalStatusDao helper : results) {
             ChartResponse chartResponse;
             if (respMap.get(helper.getPhysicalStatus().getId()) != null) {
@@ -162,7 +172,7 @@ public class ChartServiceImpl implements ChartService {
             chartResponse.addTrxAmount(helper.getTrxAmount(), TransactionTypeEnum.getEnumById(helper.getTransactionTypeId()).getName(), TransactionStatusEnum.getEnumById(helper.getTransactionStatusId()).getName());
         }
 
-        List<LocationProjectStatsDao> projectStats = locationRepository.getLocationWithProjectStats(params);
+        List<ChartProjectCountDao> projectStats = physicalStatusRepository.findFundingByPhysicalStatusWithProjectStats(params);
         projectStats.stream().forEach(stats -> {
             respMap.get(stats.getId()).addProjects(stats.getProjectCount());
         });
@@ -190,7 +200,10 @@ public class ChartServiceImpl implements ChartService {
 
         List<LocationProjectStatsDao> projectStats = locationRepository.getLocationWithProjectStats(params);
         projectStats.stream().forEach(stats -> {
-            respMap.get(stats.getId()).addProjects(stats.getProjectCount());
+            ChartResponse response = respMap.get(stats.getId());
+            if(response!=null){
+                response.addProjects(stats.getProjectCount());
+            }
         });
 
         List ret = new ArrayList(respMap.values());

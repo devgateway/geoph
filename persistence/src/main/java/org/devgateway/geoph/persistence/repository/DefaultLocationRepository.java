@@ -142,9 +142,8 @@ public class DefaultLocationRepository implements LocationRepository {
     }
 
 
-    @Cacheable(value = "locationStats")
+    @Cacheable(value = "locationWithProjectStats")
     public List<LocationProjectStatsDao> getLocationWithProjectStats(Parameters params) {
-
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery  criteriaQuery = criteriaBuilder.createQuery(LocationProjectStatsDao.class);
         Root<Location> locationRoot = criteriaQuery.from(Location.class);
@@ -155,10 +154,8 @@ public class DefaultLocationRepository implements LocationRepository {
 
         multiSelect.add(locationRoot.get(Location_.id));
         groupByList.add(locationRoot.get(Location_.id));
-
         multiSelect.add(locationRoot.get(Location_.name));
         groupByList.add(locationRoot.get(Location_.name));
-
         multiSelect.add(locationRoot.get(Location_.centroid));
         groupByList.add(locationRoot.get(Location_.centroid));
 
@@ -180,6 +177,7 @@ public class DefaultLocationRepository implements LocationRepository {
         return query.getResultList();
     }
 
+    @Cacheable(value = "locationWithTransactionStats")
     public List<LocationResultsDao> getLocationWithTransactionStats(Parameters params) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery  criteriaQuery = criteriaBuilder.createQuery(LocationResultsDao.class);
@@ -220,7 +218,6 @@ public class DefaultLocationRepository implements LocationRepository {
 
         criteriaQuery.groupBy(groupByList);
         TypedQuery<LocationResultsDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
-        //query.setParameter("level",GeometryDetail.MEDIUM.getValue());
 
         return query.getResultList();
     }

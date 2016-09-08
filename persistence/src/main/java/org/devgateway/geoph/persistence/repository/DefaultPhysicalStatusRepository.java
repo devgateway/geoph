@@ -1,5 +1,6 @@
 package org.devgateway.geoph.persistence.repository;
 
+import org.devgateway.geoph.ChartProjectCountDao;
 import org.devgateway.geoph.core.repositories.PhysicalStatusRepository;
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.dao.PhysicalStatusDao;
@@ -55,7 +56,7 @@ public class DefaultPhysicalStatusRepository implements PhysicalStatusRepository
 
     @Override
     @Cacheable("findPhysicalStatusByParams")
-    public List<PhysicalStatusDao> findFundingByPhysicalStatus(Parameters params) {
+    public List<PhysicalStatusDao> findFundingByPhysicalStatusWithTransactionStats(Parameters params) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<PhysicalStatusDao> criteriaQuery = criteriaBuilder.createQuery(PhysicalStatusDao.class);
 
@@ -84,6 +85,36 @@ public class DefaultPhysicalStatusRepository implements PhysicalStatusRepository
 
         criteriaQuery.groupBy(groupByList);
         TypedQuery<PhysicalStatusDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
+
+        return query.getResultList();
+    }
+
+    @Override
+    @Cacheable("findPhysicalStatusByParamsWithProjectStats")
+    public List<ChartProjectCountDao> findFundingByPhysicalStatusWithProjectStats(Parameters params) {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<ChartProjectCountDao> criteriaQuery = criteriaBuilder.createQuery(ChartProjectCountDao.class);
+
+        Root<Project> projectRoot = criteriaQuery.from(Project.class);
+
+        List<Selection<?>> multiSelect = new ArrayList<>();
+        List<Predicate> predicates = new ArrayList<>();
+        List<Expression<?>> groupByList = new ArrayList<>();
+
+        Join<Project, PhysicalStatus> physicalStatusJoin = projectRoot.join(Project_.physicalStatus);
+
+        multiSelect.add(physicalStatusJoin.get(PhysicalStatus_.id));
+        groupByList.add(physicalStatusJoin.get(PhysicalStatus_.id));
+
+        multiSelect.add(criteriaBuilder.countDistinct(projectRoot));
+
+        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, null);
+
+        Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+        criteriaQuery.where(other);
+
+        criteriaQuery.groupBy(groupByList);
+        TypedQuery<ChartProjectCountDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
 
         return query.getResultList();
     }

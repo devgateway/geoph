@@ -45,19 +45,24 @@ public class CacheConfiguration {
         caches.add(new ConcurrentMapCache("findLocationsByParamsTypeStatus"));
         caches.add(new ConcurrentMapCache("countLocationProjectsByParams"));
         caches.add(new ConcurrentMapCache("shapesWithDetail"));
-        caches.add(new ConcurrentMapCache("locationStats"));
+        caches.add(new ConcurrentMapCache("locationWithTransactionStats"));
+        caches.add(new ConcurrentMapCache("locationWithProjectStats"));
         caches.add(new ConcurrentMapCache("getProjectStats"));
         caches.add(new ConcurrentMapCache("findProjectsByParams"));
         caches.add(new ConcurrentMapCache("findProjectMiniByParams"));
         caches.add(new ConcurrentMapCache("findProjectsById"));
         caches.add(new ConcurrentMapCache("findFundingAgencyById"));
         caches.add(new ConcurrentMapCache("findFundingAgencyByParams"));
+        caches.add(new ConcurrentMapCache("findFundingAgencyByParamsWithProjectStats"));
         caches.add(new ConcurrentMapCache("findImplementingAgencyById"));
         caches.add(new ConcurrentMapCache("findImplementingAgencyByParams"));
+        caches.add(new ConcurrentMapCache("findImplementingAgencyByParamsWithProjectStats"));
         caches.add(new ConcurrentMapCache("findSectorById"));
         caches.add(new ConcurrentMapCache("findSectorByParams"));
+        caches.add(new ConcurrentMapCache("findSectorByParamsWithProjectStats"));
         caches.add(new ConcurrentMapCache("findPhysicalStatusById"));
         caches.add(new ConcurrentMapCache("findPhysicalStatusByParams"));
+        caches.add(new ConcurrentMapCache("findPhysicalStatusByParamsWithProjectStats"));
         cacheManager.setCaches(caches);
         return cacheManager;
     }
