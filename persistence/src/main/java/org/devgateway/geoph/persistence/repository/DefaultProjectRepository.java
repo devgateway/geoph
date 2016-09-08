@@ -103,24 +103,53 @@ public class DefaultProjectRepository implements ProjectRepository {
 
     @Override
     @Cacheable("findProjectsByParams")
-    public Page<Project> findProjectsByParams(Parameters params) {
-        TypedQuery<Project> query = getProjectTypedQuery(params);
-        int count = query.getResultList().size();
+    public List<ProjectMiniDao> findProjectsByParams(Parameters params) {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<ProjectMiniDao> criteriaQuery = criteriaBuilder.createQuery(ProjectMiniDao.class);
+        Root<Project> projectRoot = criteriaQuery.from(Project.class);
 
-        List<Project> projectList;
-        if(params.getPageable()!=null) {
-            projectList = query
-                    .setFirstResult(params.getPageable().getOffset())
-                    .setMaxResults(params.getPageable().getPageSize())
-                    .setHint(QUERY_HINT, em.getEntityGraph(GRAPH_PROJECT_ALL))
-                    .getResultList();
-        } else {
-            projectList = query
-                    .setHint(QUERY_HINT, em.getEntityGraph(GRAPH_PROJECT_ALL))
-                    .getResultList();
+        List<Selection<?>> multiSelect = new ArrayList<>();
+        List<Predicate> predicates = new ArrayList<>();
+        List<Expression<?>> groupByList = new ArrayList<>();
+
+        Join<Project, Agency> agencyJoin = projectRoot.join(Project_.fundingAgency, JoinType.LEFT);
+        Join<Project, Transaction> transactionJoin = projectRoot.join(Project_.transactions, JoinType.LEFT);
+
+        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, null);
+
+        multiSelect.add(projectRoot.get(Project_.id));
+        groupByList.add(projectRoot.get(Project_.id));
+
+        multiSelect.add(projectRoot.get(Project_.title));
+        groupByList.add(projectRoot.get(Project_.title));
+
+        multiSelect.add(agencyJoin.get(Agency_.name));
+        groupByList.add(agencyJoin.get(Agency_.name));
+
+        multiSelect.add(criteriaBuilder.sum(transactionJoin.get(Transaction_.amount)));
+
+        multiSelect.add(transactionJoin.get(Transaction_.transactionStatusId));
+        groupByList.add(transactionJoin.get(Transaction_.transactionStatusId));
+
+        multiSelect.add(transactionJoin.get(Transaction_.transactionTypeId));
+        groupByList.add(transactionJoin.get(Transaction_.transactionTypeId));
+
+        if(predicates.size()>0) {
+            Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+            criteriaQuery.where(other);
         }
 
-        return new PageImpl<>(projectList, params.getPageable(), count);
+        if(params!=null && params.getProjectOrder()!=null){
+            if(params.getProjectOrder().getAscending()){
+                criteriaQuery.orderBy(criteriaBuilder.asc(projectRoot.get(params.getProjectOrder().getAttribute())));
+            } else {
+                criteriaQuery.orderBy(criteriaBuilder.desc(projectRoot.get(params.getProjectOrder().getAttribute())));
+            }
+        }
+        criteriaQuery.groupBy(groupByList);
+        TypedQuery<ProjectMiniDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
+
+        return  query.getResultList();
     }
 
     @Override

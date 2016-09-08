@@ -1,6 +1,5 @@
 package org.devgateway.geoph.services;
 
-import org.devgateway.geoph.ChartProjectCountDao;
 import org.devgateway.geoph.core.repositories.*;
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.core.response.ChartResponse;

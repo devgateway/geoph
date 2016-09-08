@@ -1,9 +1,9 @@
 package org.devgateway.geoph.persistence.repository;
 
-import org.devgateway.geoph.ChartProjectCountDao;
 import org.devgateway.geoph.core.repositories.ImplementingAgencyRepository;
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.dao.AgencyResultsDao;
+import org.devgateway.geoph.dao.ChartProjectCountDao;
 import org.devgateway.geoph.model.*;
 import org.devgateway.geoph.persistence.util.FilterHelper;
 import org.springframework.beans.factory.annotation.Autowired;
