@@ -235,10 +235,18 @@ public class LoanImporter extends GeophProjectsImporter {
             );
 
             String[] climates = getStringArrayValueFromCell(row.getCell(loanColumns.getClimateChangeClassification()), "climate change", rowNumber, onProblem.NOTHING);
-            Set<ClimateChange> climatesSet = new HashSet<>();
+            Set<ProjectClimateChange> climatesSet = new HashSet<>();
+            boolean isFirstCC = true;
             for (String cc : climates) {
                 if (importBaseData.getClimateChanges().get(cc.toLowerCase().trim()) != null) {
-                    climatesSet.add(importBaseData.getClimateChanges().get(cc.toLowerCase().trim()));
+                    ProjectClimateChange pa;
+                    if(isFirstCC) {
+                        pa = new ProjectClimateChange(p, importBaseData.getClimateChanges().get(cc.toLowerCase().trim()), UTILIZATION);
+                        isFirstCC = false;
+                    } else {
+                        pa = new ProjectClimateChange(p, importBaseData.getClimateChanges().get(cc.toLowerCase().trim()), 0D);
+                    }
+                    climatesSet.add(pa);
                 }
             }
             if(climatesSet.size()>0){
@@ -246,10 +254,18 @@ public class LoanImporter extends GeophProjectsImporter {
             }
 
             String[] genders = getStringArrayValueFromCell(row.getCell(loanColumns.getGenderClassification()), "gender classification", rowNumber, onProblem.NOTHING);
-            Set<GenderResponsiveness> genderSet = new HashSet<>();
+            Set<ProjectGenderResponsiveness> genderSet = new HashSet<>();
+            boolean isFirstGR = true;
             for (String gender : genders) {
                 if (importBaseData.getGenderResponsiveness().get(gender.toLowerCase().trim()) != null) {
-                    genderSet.add(importBaseData.getGenderResponsiveness().get(gender.toLowerCase().trim()));
+                    ProjectGenderResponsiveness pa;
+                    if(isFirstGR) {
+                        pa = new ProjectGenderResponsiveness(p, importBaseData.getGenderResponsiveness().get(gender.toLowerCase().trim()), UTILIZATION);
+                        isFirstGR = false;
+                    } else {
+                        pa = new ProjectGenderResponsiveness(p, importBaseData.getGenderResponsiveness().get(gender.toLowerCase().trim()), 0D);
+                    }
+                    genderSet.add(pa);
                 }
             }
             if(genderSet.size()>0){

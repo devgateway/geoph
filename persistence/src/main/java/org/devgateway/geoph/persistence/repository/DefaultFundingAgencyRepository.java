@@ -60,12 +60,9 @@ public class DefaultFundingAgencyRepository implements FundingAgencyRepository {
         Join<Project, Transaction> transactionJoin = projectRoot.join(Project_.transactions);
 
         multiSelect.add(agencyJoin);
-        if(params.getLocations()==null) {
-            multiSelect.add(criteriaBuilder.sum(transactionJoin.get(Transaction_.amount)));
-            FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);
-        } else {
-            FilterHelper.filterProjectQueryWithUtilization(params, criteriaBuilder, projectRoot, predicates, multiSelect, transactionJoin);
-        }
+        Expression<Double> expression = FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, transactionJoin.get(Transaction_.amount));
+        multiSelect.add(criteriaBuilder.sum(expression));
+
         multiSelect.add(criteriaBuilder.count(projectRoot.get(Project_.id)));
         groupByList.add(agencyJoin);
 
