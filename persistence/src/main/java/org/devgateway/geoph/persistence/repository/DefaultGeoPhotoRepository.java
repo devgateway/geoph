@@ -50,7 +50,7 @@ public class DefaultGeoPhotoRepository implements GeoPhotoRepositoryCustom {
 
 
         //TODO: Dani What happens if transaction filters are applied??
-        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);
+        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, null);
 
         if (predicates.size() > 0) {
             Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));

@@ -1,5 +1,6 @@
 package org.devgateway.geoph.core.repositories;
 
+import org.devgateway.geoph.ChartProjectCountDao;
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.dao.AgencyResultsDao;
 import org.devgateway.geoph.model.ImplementingAgency;
@@ -18,5 +19,7 @@ public interface ImplementingAgencyRepository {
 
     Integer countAll();
 
-    List<AgencyResultsDao> findFundingByImplementingAgency(Parameters params, int trxType, int trxStatus);
+    List<AgencyResultsDao> findFundingByImplementingAgencyWithTransactionStats(Parameters params);
+
+    List<ChartProjectCountDao> findFundingByImplementingAgencyWithProjectStats(Parameters params);
 }

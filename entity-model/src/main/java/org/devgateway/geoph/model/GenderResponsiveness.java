@@ -4,7 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.Set;
 
@@ -21,12 +24,8 @@ public class GenderResponsiveness extends GenericPersistable implements Serializ
     private String code;
 
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    @JoinTable(name = "project_gender_responsiveness", joinColumns = {
-            @JoinColumn(name = "gender_responsiveness_id", nullable = false, updatable = false) },
-            inverseJoinColumns = { @JoinColumn(name = "project_id",
-                    nullable = false, updatable = false) })
-    private Set<Project> projects;
+    @OneToMany(cascade=CascadeType.MERGE, fetch = FetchType.LAZY, mappedBy = "pk.gender_responsiveness")
+    private Set<ProjectGenderResponsiveness> projects;
 
     public String getName() {
         return name;
@@ -44,11 +43,11 @@ public class GenderResponsiveness extends GenericPersistable implements Serializ
         this.code = code;
     }
 
-    public Set<Project> getProjects() {
+    public Set<ProjectGenderResponsiveness> getProjects() {
         return projects;
     }
 
-    public void setProjects(Set<Project> projects) {
+    public void setProjects(Set<ProjectGenderResponsiveness> projects) {
         this.projects = projects;
     }
 

@@ -112,13 +112,13 @@ public class GeoJsonServiceImpl implements GeoJsonService {
                     current = createSummary(result, geometries, level);
                 }
                 if (result.getTransactionTypeId() == TransactionTypeEnum.COMMITMENTS.getId()) {
-                    current.getCommitments().put(TransactionStatusEnum.getEnumById(result.getTransactionStatusId()).getName(), result.getAmount());
+                    current.getCommitments().put(TransactionStatusEnum.getEnumById(result.getTransactionStatusId()).getName(), result.getTrxAmount());
                 }
                 if (result.getTransactionTypeId() == TransactionTypeEnum.EXPENDITURES.getId()) {
-                    current.getExpenditure().put(TransactionStatusEnum.getEnumById(result.getTransactionStatusId()).getName(), result.getAmount());
+                    current.getExpenditure().put(TransactionStatusEnum.getEnumById(result.getTransactionStatusId()).getName(), result.getTrxAmount());
                 }
                 if (result.getTransactionTypeId() == TransactionTypeEnum.DISBURSEMENTS.getId()) {
-                    current.getDisbursements().put(TransactionStatusEnum.getEnumById(result.getTransactionStatusId()).getName(), result.getAmount());
+                    current.getDisbursements().put(TransactionStatusEnum.getEnumById(result.getTransactionStatusId()).getName(), result.getTrxAmount());
                 }
             }
             builder.addFeature(ConverterFactory.locationShapeConverter().convert(current));
