@@ -78,9 +78,12 @@ public class DefaultProjectRepository implements ProjectRepository {
         CriteriaQuery<ProjectMiniDao> criteriaQuery = criteriaBuilder.createQuery(ProjectMiniDao.class);
         Root<Project> projectRoot = criteriaQuery.from(Project.class);
         List<Selection<?>> multiSelect = new ArrayList<>();
+        List<Expression<?>> groupByList = new ArrayList<>();
 
-        multiSelect.add(projectRoot.get(Project_.id).alias("id"));
-        multiSelect.add(projectRoot.get(Project_.title).alias("title"));
+        multiSelect.add(projectRoot.get(Project_.id));
+        groupByList.add(projectRoot.get(Project_.id));
+        multiSelect.add(projectRoot.get(Project_.title));
+        groupByList.add(projectRoot.get(Project_.title));
 
         List<Predicate> predicates = new ArrayList<>();
         FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, null);
@@ -89,7 +92,7 @@ public class DefaultProjectRepository implements ProjectRepository {
             Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
             criteriaQuery.where(other);
         }
-
+        criteriaQuery.groupBy(groupByList);
         criteriaQuery.orderBy(criteriaBuilder.asc(projectRoot.get(Project_.title)));
         TypedQuery<ProjectMiniDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
 
