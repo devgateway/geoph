@@ -72,7 +72,13 @@ public class DefaultSectorRepository implements SectorRepository {
         multiSelect.add(projectSectorIdJoin.get(ProjectSectorId_.sector));
         groupByList.add(projectSectorIdJoin.get(ProjectSectorId_.sector));
 
-        Expression<Double> expression = FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, transactionJoin.get(Transaction_.amount));
+        Expression<Double> utilization;
+        if(params.getSectors()!=null){
+            utilization = transactionJoin.get(Transaction_.amount);
+        } else {
+            utilization = criteriaBuilder.prod(transactionJoin.get(Transaction_.amount), sectorJoin.get(ProjectSector_.utilization));
+        }
+        Expression<Double> expression = FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, utilization);
         multiSelect.add(criteriaBuilder.sum(expression));
 
         multiSelect.add(transactionJoin.get(Transaction_.transactionTypeId));

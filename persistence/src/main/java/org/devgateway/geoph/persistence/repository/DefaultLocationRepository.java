@@ -98,7 +98,7 @@ public class DefaultLocationRepository implements LocationRepository {
         Join<ProjectLocationId, Project> projectJoin = idJoin.join(ProjectLocationId_.project, JoinType.LEFT);
         multiSelect.add(criteriaBuilder.countDistinct(projectJoin).alias("projectCount"));
 
-        FilterHelper.filterLocationQuery(params, criteriaBuilder, locationRoot, predicates, projectJoin);
+        FilterHelper.filterLocationQuery(params, criteriaBuilder, locationRoot, predicates, projectJoin, null, projectLocationJoin, null);
 
         Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         criteriaQuery.where(other);
@@ -130,7 +130,7 @@ public class DefaultLocationRepository implements LocationRepository {
         groupByList.add(projectJoin);
 
         List<Predicate> predicates = new ArrayList<>();
-        FilterHelper.filterLocationQuery(params, criteriaBuilder, locationRoot, predicates, projectJoin);
+        FilterHelper.filterLocationQuery(params, criteriaBuilder, locationRoot, predicates, projectJoin, null, projectLocationJoin, null);
 
         Predicate predicate = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         criteriaQuery.where(predicate);
@@ -166,7 +166,7 @@ public class DefaultLocationRepository implements LocationRepository {
         multiSelect.add(criteriaBuilder.countDistinct(projectJoin).alias("count"));
         multiSelect.add(criteriaBuilder.avg(projectJoin.get(Project_.physicalProgress)).alias("avg"));
 
-        FilterHelper.filterLocationQuery(params, criteriaBuilder, locationRoot, predicates, projectJoin);
+        FilterHelper.filterLocationQuery(params, criteriaBuilder, locationRoot, predicates, projectJoin, null, projectLocationJoin, null);
         Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         criteriaQuery.where(other);
         criteriaQuery.orderBy(criteriaBuilder.asc(locationRoot.get(Location_.id)));
@@ -207,10 +207,17 @@ public class DefaultLocationRepository implements LocationRepository {
         multiSelect.add(transactionJoin.get(Transaction_.transactionTypeId));
         groupByList.add(transactionJoin.get(Transaction_.transactionTypeId));
 
-        multiSelect.add(criteriaBuilder.sum(criteriaBuilder.prod(transactionJoin.get(Transaction_.amount), projectLocationJoin.get(ProjectLocation_.utilization))).alias("amount")); //amount * % of utilization
 
         //add params filters
-        FilterHelper.filterLocationQuery(params, criteriaBuilder, locationRoot, predicates, projectJoin);
+        Expression<Double> utilization;
+        if(params.getLocations()!=null){
+            utilization = transactionJoin.get(Transaction_.amount);
+        } else {
+            utilization = criteriaBuilder.prod(transactionJoin.get(Transaction_.amount), projectLocationJoin.get(ProjectLocation_.utilization));
+        }
+        Expression<Double> expression = FilterHelper.filterLocationQuery(params, criteriaBuilder, locationRoot, predicates, projectJoin, utilization, projectLocationJoin, transactionJoin);
+
+        multiSelect.add(criteriaBuilder.sum(expression));
 
         Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         criteriaQuery.where(other);

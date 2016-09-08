@@ -1,6 +1,5 @@
 package org.devgateway.geoph.services;
 
-import javafx.scene.chart.Chart;
 import org.devgateway.geoph.ChartProjectCountDao;
 import org.devgateway.geoph.core.repositories.*;
 import org.devgateway.geoph.core.request.Parameters;
@@ -87,7 +86,10 @@ public class ChartServiceImpl implements ChartService {
 
         List<ChartProjectCountDao> projectStats = executingAgencyRepository.findFundingByExecutingAgencyWithProjectStats(params);
         projectStats.stream().forEach(stats -> {
-            respMap.get(stats.getId()).addProjects(stats.getProjectCount());
+            ChartResponse response = respMap.get(stats.getId());
+            if(response!=null){
+                response.addProjects(stats.getProjectCount());
+            }
         });
 
         List ret = new ArrayList(respMap.values());
@@ -124,7 +126,10 @@ public class ChartServiceImpl implements ChartService {
 
         List<ChartProjectCountDao> projectStats = implementingAgencyRepository.findFundingByImplementingAgencyWithProjectStats(params);
         projectStats.stream().forEach(stats -> {
-            respMap.get(stats.getId()).addProjects(stats.getProjectCount());
+            ChartResponse response = respMap.get(stats.getId());
+            if(response!=null){
+                response.addProjects(stats.getProjectCount());
+            }
         });
 
         List ret = new ArrayList(respMap.values());
@@ -149,7 +154,10 @@ public class ChartServiceImpl implements ChartService {
 
         List<ChartProjectCountDao> projectStats = sectorRepository.findFundingBySectorWithProjectStats(params);
         projectStats.stream().forEach(stats -> {
-            respMap.get(stats.getId()).addProjects(stats.getProjectCount());
+            ChartResponse response = respMap.get(stats.getId());
+            if(response!=null){
+                response.addProjects(stats.getProjectCount());
+            }
         });
 
         List ret = new ArrayList(respMap.values());
@@ -174,7 +182,10 @@ public class ChartServiceImpl implements ChartService {
 
         List<ChartProjectCountDao> projectStats = physicalStatusRepository.findFundingByPhysicalStatusWithProjectStats(params);
         projectStats.stream().forEach(stats -> {
-            respMap.get(stats.getId()).addProjects(stats.getProjectCount());
+            ChartResponse response = respMap.get(stats.getId());
+            if(response!=null){
+                response.addProjects(stats.getProjectCount());
+            }
         });
 
         List ret = new ArrayList(respMap.values());

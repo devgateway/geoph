@@ -63,7 +63,13 @@ public class DefaultImplementingAgencyRepository implements ImplementingAgencyRe
         multiSelect.add(projectAgencyIdJoin.get(ProjectAgencyId_.agency));
         groupByList.add(projectAgencyIdJoin.get(ProjectAgencyId_.agency));
 
-        Expression<Double> expression = FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, transactionJoin.get(Transaction_.amount));
+        Expression<Double> utilization;
+        if(params.getImpAgencies()!=null){
+            utilization = transactionJoin.get(Transaction_.amount);
+        } else {
+            utilization = criteriaBuilder.prod(transactionJoin.get(Transaction_.amount), agencyJoin.get(ProjectAgency_.utilization));
+        }
+        Expression<Double> expression = FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, utilization);
         multiSelect.add(criteriaBuilder.sum(expression));
 
         multiSelect.add(transactionJoin.get(Transaction_.transactionTypeId));

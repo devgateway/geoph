@@ -199,15 +199,24 @@ public class FilterHelper {
         return expression;
     }
 
-    public static void filterLocationQuery(Parameters params, CriteriaBuilder criteriaBuilder, Root<Location> locationRoot, List<Predicate> predicates, Join<ProjectLocationId, Project> projectJoin) {
+    public static Expression<Double>  filterLocationQuery(Parameters params, CriteriaBuilder criteriaBuilder, Root<Location> locationRoot,
+                                                          List<Predicate> predicates, Join<ProjectLocationId, Project> projectJoin,
+                                                          Expression<Double> expression,
+                                                          Join<Location, ProjectLocation> projectLocationJoin,
+                                                          Join<Project, Transaction> transactionJoin) {
         synchronized (LOCK_LOCATION) {
             if (params != null) {
-                Join<Project, Transaction> transactionJoin = projectJoin.join(Project_.transactions);
+                if(transactionJoin==null) {
+                    transactionJoin = projectJoin.join(Project_.transactions);
+                }
                 if(params.getLocationLevels()!=null) {
                     predicates.add(locationRoot.get(Location_.level).in(params.getLocationLevels()));
                 }
                 if (params.getLocations() != null) {
                     predicates.add(locationRoot.get(Location_.id).in(params.getLocations()));
+                    if(expression!=null) {
+                        expression = criteriaBuilder.prod(projectLocationJoin.get(ProjectLocation_.utilization), expression);
+                    }
                 }
                 if (params.getProjects() != null) {
                     predicates.add(projectJoin.in(params.getProjects()));
@@ -221,7 +230,9 @@ public class FilterHelper {
                 if (params.getSectors() != null) {
                     Join<Project, ProjectSector> sectorJoin = projectJoin.join(Project_.sectors, JoinType.LEFT);
                     Join<ProjectSector, ProjectSectorId> pk = sectorJoin.join(ProjectSector_.pk);
-                    predicates.add(pk.get(ProjectSectorId_.sector).in(params.getSectors()));
+                    predicates.add(pk.get(ProjectSectorId_.sector).in(params.getSectors()));if(expression!=null) {
+                        expression = criteriaBuilder.prod(sectorJoin.get(ProjectSector_.utilization), expression);
+                    }
                 }
                 if (params.getStatuses() != null) {
                     Join<Project, Status> statusJoin = projectJoin.join(Project_.status);
@@ -263,16 +274,25 @@ public class FilterHelper {
                     Join<Project, ProjectAgency> impAgencyJoin = projectJoin.join(Project_.implementingAgencies, JoinType.LEFT);
                     Join<ProjectAgency, ProjectAgencyId> pk = impAgencyJoin.join(ProjectAgency_.pk);
                     predicates.add(pk.get(ProjectAgencyId_.agency).in(params.getImpAgencies()));
+                    if(expression!=null) {
+                        expression = criteriaBuilder.prod(impAgencyJoin.get(ProjectAgency_.utilization), expression);
+                    }
                 }
                 if (params.getClimateChanges() != null) {
                     Join<Project, ProjectClimateChange> climateChangeJoin = projectJoin.join(Project_.climateChange, JoinType.LEFT);
                     Join<ProjectClimateChange, ProjectClimateChangeId> pk = climateChangeJoin.join(ProjectClimateChange_.pk);
                     predicates.add(pk.get(ProjectClimateChangeId_.climateChange).in(params.getClimateChanges()));
+                    if(expression!=null) {
+                        expression = criteriaBuilder.prod(climateChangeJoin.get(ProjectClimateChange_.utilization), expression);
+                    }
                 }
                 if (params.getGenderResponsiveness() != null) {
                     Join<Project, ProjectGenderResponsiveness> genderResponsivenessJoin = projectJoin.join(Project_.genderResponsiveness, JoinType.LEFT);
                     Join<ProjectGenderResponsiveness, ProjectGenderResponsivenessId> pk = genderResponsivenessJoin.join(ProjectGenderResponsiveness_.pk);
                     predicates.add(pk.get(ProjectGenderResponsivenessId_.gender_responsiveness).in(params.getGenderResponsiveness()));
+                    if(expression!=null) {
+                        expression = criteriaBuilder.prod(genderResponsivenessJoin.get(ProjectGenderResponsiveness_.utilization), expression);
+                    }
                 }
                 if (params.getFlowTypes() != null || params.getGrantSubTypes() != null) {
                     Predicate ft = null;
@@ -326,6 +346,7 @@ public class FilterHelper {
                     predicates.add(transactionJoin.get(Transaction_.transactionStatusId).in(params.getTrxStatus()));
                 }
             }
+            return expression;
         }
     }
 
