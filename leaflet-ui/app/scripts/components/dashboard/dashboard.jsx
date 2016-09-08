@@ -5,78 +5,117 @@ import Messages from '../messages/messages.jsx'
 import {getMapList,edit,remove} from '../../actions/dashboard.js';
 require("./dashboard.scss");
 
+var pageSize = 5;
+
 class Item extends React.Component {
+  /*
+  <Link to={`/map/${mapKey}`}>
+            <img src={`data:image/png;base64,${base64preview}`}/>
+          </Link>
+   */
   render(){
-  const {description,name,mapKey,base64preview}=this.props;
-   return (
-    <div className="item">
-      <h1>{name}</h1>
-      <div className="preview" >
-      <Link to={`/map/${mapKey}`}>
-        <img src={`data:image/png;base64,${base64preview}`}/>
-      </Link>
-    </div>
-      <p>{description}</p>
-      {this.props.children}
-    </div>)
- }
+    const {description, name, mapKey, base64preview, created} = this.props;
+    return (
+      <div className="item">
+        <div className="preview" >
+          <img src={`data:image/png;base64,${base64preview}`}/>
+        </div>
+        <div className="title" >
+          {name}
+        </div>
+        <div className="description" >
+          {description}
+        </div>
+        <div className="created" >
+          {created || "No creation date"}
+        </div>
+        <div className="actions" >
+          {this.props.children}
+        </div>
+      </div>
+    )
+  }
 }
 
 class AdminActions extends React.Component {
   render(){
-   const {id,mapKey,onDelete,onEdit}=this.props;
-    return (<div>
-    		
-    		<button className="btn btn-sm btn-warning pull-right" onClick={_=>onDelete(mapKey)}>Delete</button>
-			<a target="new" href={`#/map/${mapKey}`}  className="btn btn-sm btn-info">Edit</a>
-
-    </div>)
+    const {id,mapKey,onDelete,onEdit}=this.props;
+    return (
+      <div>
+        <a target="new" href={`#/map/${mapKey}`}  className="btn btn-sm btn-info">Edit</a>
+        <button className="btn btn-sm btn-danger" onClick={_=>onDelete(mapKey)}>Delete</button>
+      </div>
+    )
   }
 }
-
-
-
 
 class Dashboard extends React.Component {
   constructor() {
     super();
+    this.state = {'activePage': 0};
   }
 
   componentWillMount() {
-     this.props.onLoad()
+     this.getListData(0);
+  }
+
+  getListData(activePage){
+    let params ={
+      'page': activePage,
+      'size': pageSize
+    };    
+    this.props.onGetList(params);
+    this.setState({activePage: activePage});
   }
 
   render() {
-    const {content=[],first,last,number,numberOfElements,size,sort,totalElements,totalPages,loggedIn}=this.props;
-    return (  <div className="dashboard-main">
-
-      <h1>List of executive dashboards</h1>
-		<Messages {...this.props}/>
-      {content.map(d=>{
-        return <Item {...d} mapKey={d.key}>
-          {loggedIn?<AdminActions {...this.props} mapKey={d.key}/>:null}
-
-        </Item>
-      })}
-      </div>
-      )
+    const {content=[], first, last, number, numberOfElements, size, sort, totalElements, totalPages, loggedIn} = this.props;
+    const {activePage} = this.state;
+    return (  
+      <div className="dashboard-main">
+        <Messages {...this.props}/>
+        <div className="list-header">
+          <div className="preview" />
+          <div className="title" >
+            Map Title
+          </div>
+          <div className="description" >
+            Description
+          </div>
+          <div className="created" >
+            Created
+          </div>
+          <div className="actions" >
+            Actions
+          </div>
+        </div>
+        {content.map(d=>{
+          return ( 
+            <Item {...d} mapKey={d.key}>
+              {loggedIn?<AdminActions {...this.props} mapKey={d.key}/>:null}
+            </Item>
+          )
+        })}
+        <div className="pager">
+          <button className="btn btn-sm btn-default" disabled={first? "disabled":""} onClick={this.getListData.bind(this, activePage-1)}>{"<"}</button>
+          <div className={"pager-state"}>{"page "+(activePage+1) + " of "+totalPages}</div>
+          <button className="btn btn-sm btn-default" disabled={last? "disabled":""} onClick={this.getListData.bind(this, activePage+1)}>{">"}</button>
+        </div>
+      </div> 
+    )
   }
 }
 
-
-
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-
-    onLoad:()=>{dispatch(getMapList())},
+    onGetList:(params)=>{dispatch(getMapList(params))},
     onEdit:(key)=>{dispatch(edit(key))},
     onDelete:(key)=>{dispatch(remove(key))}
   }
 }
 
 const mapStateToProps = (state, props) => {
-   const {results}=state.dashboard.toJS();
-
+  const {results}=state.dashboard.toJS();
   return {...results}
 }
 
