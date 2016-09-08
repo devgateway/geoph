@@ -1,5 +1,6 @@
 package org.devgateway.geoph.core.repositories;
 
+import org.devgateway.geoph.ChartProjectCountDao;
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.dao.PhysicalStatusDao;
 import org.devgateway.geoph.model.PhysicalStatus;
@@ -20,5 +21,7 @@ public interface PhysicalStatusRepository {
 
     PhysicalStatus findById(Long id);
 
-    List<PhysicalStatusDao> findFundingByPhysicalStatus(Parameters params, int trxType, int trxStatus);
+    List<PhysicalStatusDao> findFundingByPhysicalStatusWithTransactionStats(Parameters params);
+
+    List<ChartProjectCountDao> findFundingByPhysicalStatusWithProjectStats(Parameters params);
 }

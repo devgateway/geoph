@@ -98,7 +98,7 @@ public class DefaultLocationRepository implements LocationRepository {
         Join<ProjectLocationId, Project> projectJoin = idJoin.join(ProjectLocationId_.project, JoinType.LEFT);
         multiSelect.add(criteriaBuilder.countDistinct(projectJoin).alias("projectCount"));
 
-        FilterHelper.filterLocationQuery(params, criteriaBuilder, locationRoot, predicates, projectJoin);
+        FilterHelper.filterLocationQuery(params, criteriaBuilder, locationRoot, predicates, projectJoin, null, projectLocationJoin, null);
 
         Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         criteriaQuery.where(other);
@@ -130,7 +130,7 @@ public class DefaultLocationRepository implements LocationRepository {
         groupByList.add(projectJoin);
 
         List<Predicate> predicates = new ArrayList<>();
-        FilterHelper.filterLocationQuery(params, criteriaBuilder, locationRoot, predicates, projectJoin);
+        FilterHelper.filterLocationQuery(params, criteriaBuilder, locationRoot, predicates, projectJoin, null, projectLocationJoin, null);
 
         Predicate predicate = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         criteriaQuery.where(predicate);
@@ -142,9 +142,8 @@ public class DefaultLocationRepository implements LocationRepository {
     }
 
 
-    @Cacheable(value = "locationStats")
+    @Cacheable(value = "locationWithProjectStats")
     public List<LocationProjectStatsDao> getLocationWithProjectStats(Parameters params) {
-
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery  criteriaQuery = criteriaBuilder.createQuery(LocationProjectStatsDao.class);
         Root<Location> locationRoot = criteriaQuery.from(Location.class);
@@ -155,10 +154,8 @@ public class DefaultLocationRepository implements LocationRepository {
 
         multiSelect.add(locationRoot.get(Location_.id));
         groupByList.add(locationRoot.get(Location_.id));
-
         multiSelect.add(locationRoot.get(Location_.name));
         groupByList.add(locationRoot.get(Location_.name));
-
         multiSelect.add(locationRoot.get(Location_.centroid));
         groupByList.add(locationRoot.get(Location_.centroid));
 
@@ -169,7 +166,7 @@ public class DefaultLocationRepository implements LocationRepository {
         multiSelect.add(criteriaBuilder.countDistinct(projectJoin).alias("count"));
         multiSelect.add(criteriaBuilder.avg(projectJoin.get(Project_.physicalProgress)).alias("avg"));
 
-        FilterHelper.filterLocationQuery(params, criteriaBuilder, locationRoot, predicates, projectJoin);
+        FilterHelper.filterLocationQuery(params, criteriaBuilder, locationRoot, predicates, projectJoin, null, projectLocationJoin, null);
         Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         criteriaQuery.where(other);
         criteriaQuery.orderBy(criteriaBuilder.asc(locationRoot.get(Location_.id)));
@@ -180,6 +177,7 @@ public class DefaultLocationRepository implements LocationRepository {
         return query.getResultList();
     }
 
+    @Cacheable(value = "locationWithTransactionStats")
     public List<LocationResultsDao> getLocationWithTransactionStats(Parameters params) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery  criteriaQuery = criteriaBuilder.createQuery(LocationResultsDao.class);
@@ -209,11 +207,17 @@ public class DefaultLocationRepository implements LocationRepository {
         multiSelect.add(transactionJoin.get(Transaction_.transactionTypeId));
         groupByList.add(transactionJoin.get(Transaction_.transactionTypeId));
 
-        multiSelect.add(criteriaBuilder.sum(criteriaBuilder.prod(transactionJoin.get(Transaction_.amount), projectLocationJoin.get(ProjectLocation_.utilization))).alias("amount")); //amount * % of utilization
-        multiSelect.add(criteriaBuilder.countDistinct(projectJoin).alias("count"));
 
         //add params filters
-        FilterHelper.filterLocationQuery(params, criteriaBuilder, locationRoot, predicates, projectJoin);
+        Expression<Double> utilization;
+        if(params.getLocations()!=null){
+            utilization = transactionJoin.get(Transaction_.amount);
+        } else {
+            utilization = criteriaBuilder.prod(transactionJoin.get(Transaction_.amount), projectLocationJoin.get(ProjectLocation_.utilization));
+        }
+        Expression<Double> expression = FilterHelper.filterLocationQuery(params, criteriaBuilder, locationRoot, predicates, projectJoin, utilization, projectLocationJoin, transactionJoin);
+
+        multiSelect.add(criteriaBuilder.sum(expression));
 
         Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         criteriaQuery.where(other);
@@ -221,7 +225,6 @@ public class DefaultLocationRepository implements LocationRepository {
 
         criteriaQuery.groupBy(groupByList);
         TypedQuery<LocationResultsDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
-        //query.setParameter("level",GeometryDetail.MEDIUM.getValue());
 
         return query.getResultList();
     }

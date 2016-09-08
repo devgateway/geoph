@@ -1,5 +1,6 @@
 package org.devgateway.geoph.persistence.repository;
 
+import org.devgateway.geoph.ChartProjectCountDao;
 import org.devgateway.geoph.core.repositories.ImplementingAgencyRepository;
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.dao.AgencyResultsDao;
@@ -46,7 +47,7 @@ public class DefaultImplementingAgencyRepository implements ImplementingAgencyRe
 
     @Override
     @Cacheable("findImplementingAgencyByParams")
-    public List<AgencyResultsDao> findFundingByImplementingAgency(Parameters params, int trxType, int trxStatus) {
+    public List<AgencyResultsDao> findFundingByImplementingAgencyWithTransactionStats(Parameters params) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<AgencyResultsDao> criteriaQuery = criteriaBuilder.createQuery(AgencyResultsDao.class);
 
@@ -60,15 +61,22 @@ public class DefaultImplementingAgencyRepository implements ImplementingAgencyRe
         Join<ProjectAgency, ProjectAgencyId> projectAgencyIdJoin = agencyJoin.join(ProjectAgency_.pk);
         Join<Project, Transaction> transactionJoin = projectRoot.join(Project_.transactions);
         multiSelect.add(projectAgencyIdJoin.get(ProjectAgencyId_.agency));
-
-        Expression<Double> expression = FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, transactionJoin.get(Transaction_.amount));
-        multiSelect.add(criteriaBuilder.sum(expression));
-
-        multiSelect.add(criteriaBuilder.count(projectRoot.get(Project_.id)));
         groupByList.add(projectAgencyIdJoin.get(ProjectAgencyId_.agency));
 
-        predicates.add(transactionJoin.get(Transaction_.transactionTypeId).in(trxType));
-        predicates.add(transactionJoin.get(Transaction_.transactionStatusId).in(trxStatus));
+        Expression<Double> utilization;
+        if(params.getImpAgencies()!=null){
+            utilization = transactionJoin.get(Transaction_.amount);
+        } else {
+            utilization = criteriaBuilder.prod(transactionJoin.get(Transaction_.amount), agencyJoin.get(ProjectAgency_.utilization));
+        }
+        Expression<Double> expression = FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, utilization);
+        multiSelect.add(criteriaBuilder.sum(expression));
+
+        multiSelect.add(transactionJoin.get(Transaction_.transactionTypeId));
+        groupByList.add(transactionJoin.get(Transaction_.transactionTypeId));
+        multiSelect.add(transactionJoin.get(Transaction_.transactionStatusId));
+        groupByList.add(transactionJoin.get(Transaction_.transactionStatusId));
+
         Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         criteriaQuery.where(other);
 
@@ -78,5 +86,34 @@ public class DefaultImplementingAgencyRepository implements ImplementingAgencyRe
         return query.getResultList();
     }
 
+    @Override
+    @Cacheable("findImplementingAgencyByParamsWithProjectStats")
+    public List<ChartProjectCountDao> findFundingByImplementingAgencyWithProjectStats(Parameters params) {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<ChartProjectCountDao> criteriaQuery = criteriaBuilder.createQuery(ChartProjectCountDao.class);
 
+        Root<Project> projectRoot = criteriaQuery.from(Project.class);
+
+        List<Selection<?>> multiSelect = new ArrayList<>();
+        List<Predicate> predicates = new ArrayList<>();
+        List<Expression<?>> groupByList = new ArrayList<>();
+
+        Join<Project, ProjectAgency> projectAgencyJoin = projectRoot.join(Project_.implementingAgencies);
+        Join<ProjectAgency, ProjectAgencyId> projectAgencyIdJoin = projectAgencyJoin.join(ProjectAgency_.pk);
+        Join<ProjectAgencyId, Agency> agencyJoin = projectAgencyIdJoin.join(ProjectAgencyId_.agency);
+        multiSelect.add(agencyJoin.get(Agency_.id));
+        groupByList.add(agencyJoin.get(Agency_.id));
+
+        multiSelect.add(criteriaBuilder.countDistinct(projectRoot));
+
+        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, null);
+
+        Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+        criteriaQuery.where(other);
+
+        criteriaQuery.groupBy(groupByList);
+        TypedQuery<ChartProjectCountDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
+
+        return query.getResultList();
+    }
 }

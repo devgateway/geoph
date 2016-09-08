@@ -12,15 +12,18 @@ public class SectorResultsDao {
 
     private Double trxAmount;
 
-    private long projectCount;
+    private Long transactionStatusId;
+
+    private Long transactionTypeId;
 
     public SectorResultsDao() {
     }
 
-    public SectorResultsDao(Sector sector, Double trxAmount, long projectCount) {
+    public SectorResultsDao(Sector sector, Double trxAmount, Long transactionStatusId, Long transactionTypeId) {
         this.sector = sector;
         this.trxAmount = trxAmount;
-        this.projectCount = projectCount;
+        this.transactionStatusId = transactionStatusId;
+        this.transactionTypeId = transactionTypeId;
     }
 
     public Sector getSector() {
@@ -39,11 +42,19 @@ public class SectorResultsDao {
         this.trxAmount = trxAmount;
     }
 
-    public long getProjectCount() {
-        return projectCount;
+    public Long getTransactionStatusId() {
+        return transactionStatusId;
     }
 
-    public void setProjectCount(long projectCount) {
-        this.projectCount = projectCount;
+    public void setTransactionStatusId(Long transactionStatusId) {
+        this.transactionStatusId = transactionStatusId;
+    }
+
+    public Long getTransactionTypeId() {
+        return transactionTypeId;
+    }
+
+    public void setTransactionTypeId(Long transactionTypeId) {
+        this.transactionTypeId = transactionTypeId;
     }
 }

@@ -13,29 +13,25 @@ public class LocationResultsDao {
 
     private Geometry geometry;
 
-    private Long count;
-
-    private Double amount;
+    private Double trxAmount;
 
     private Long transactionStatusId;
 
     private Long transactionTypeId;
 
-    public LocationResultsDao(Long  locationId, String name, Geometry centroid, Long transactionStatusId, Long transactionTypeId, Double amount, Long count) {
+    public LocationResultsDao(Long locationId, String name, Geometry centroid, Long transactionStatusId, Long transactionTypeId, Double amount) {
         this.locationId = locationId;
         this.name=name;
-        this.count = count;
-        this.amount = amount;
+        this.trxAmount = amount;
         this.transactionStatusId = transactionStatusId;
         this.transactionTypeId = transactionTypeId;
         this.centroid= (Point) centroid;
     }
 
-    public LocationResultsDao(Long  locationId, String name,Geometry centroid, Geometry geometry, Long transactionStatusId, Long transactionTypeId, Double amount, Long count) {
+    public LocationResultsDao(Long locationId, String name, Geometry centroid, Geometry geometry, Long transactionStatusId, Long transactionTypeId, Double amount) {
         this.locationId = locationId;
         this.name=name;
-        this.count = count;
-        this.amount = amount;
+        this.trxAmount = amount;
         this.transactionStatusId = transactionStatusId;
         this.transactionTypeId = transactionTypeId;
         this.centroid= (Point) centroid;
@@ -58,20 +54,12 @@ public class LocationResultsDao {
         this.name = name;
     }
 
-    public Long getCount() {
-        return count;
+    public Double getTrxAmount() {
+        return trxAmount;
     }
 
-    public void setCount(Long count) {
-        this.count = count;
-    }
-
-    public Double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Double amount) {
-        this.amount = amount;
+    public void setTrxAmount(Double amount) {
+        this.trxAmount = amount;
     }
 
     public Point getCentroid() {

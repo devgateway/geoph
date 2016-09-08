@@ -12,15 +12,18 @@ public class AgencyResultsDao  {
 
     private Double trxAmount;
 
-    private long projectCount;
+    private Long transactionStatusId;
+
+    private Long transactionTypeId;
 
     public AgencyResultsDao() {
     }
 
-    public AgencyResultsDao(Agency agency, Double trxAmount, long projectCount) {
+    public AgencyResultsDao(Agency agency, Double trxAmount, Long transactionStatusId, Long transactionTypeId) {
         this.agency = agency;
         this.trxAmount = trxAmount;
-        this.projectCount = projectCount;
+        this.transactionStatusId = transactionStatusId;
+        this.transactionTypeId = transactionTypeId;
     }
 
     public Agency getAgency() {
@@ -39,11 +42,19 @@ public class AgencyResultsDao  {
         this.trxAmount = trxAmount;
     }
 
-    public long getProjectCount() {
-        return projectCount;
+    public Long getTransactionStatusId() {
+        return transactionStatusId;
     }
 
-    public void setProjectCount(long projectCount) {
-        this.projectCount = projectCount;
+    public void setTransactionStatusId(Long transactionStatusId) {
+        this.transactionStatusId = transactionStatusId;
+    }
+
+    public Long getTransactionTypeId() {
+        return transactionTypeId;
+    }
+
+    public void setTransactionTypeId(Long transactionTypeId) {
+        this.transactionTypeId = transactionTypeId;
     }
 }
