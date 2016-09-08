@@ -65,7 +65,7 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
     }
     const {level, name} = feature.properties;
     const {type, measure} = fundingType;
-    const statsData = stats.get('location').get('data')[0];
+    const statsData = stats.get('location').get('data')[0] || {};
     const statsLoading = stats.get('location').get('isFetching');
     const {projectCount, trxAmounts={}} = statsData;
     debugger;
