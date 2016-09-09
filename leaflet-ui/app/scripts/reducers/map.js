@@ -128,8 +128,9 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
           ep: 'PHYSICAL_GEOJSON',
           settings: {
              'level': 'region',
-                'detail':'medium',
-            'css': 'red','valueProperty':'physicalProgress'
+            'detail':'medium',
+             'showLabels':false,
+             'css': 'red','valueProperty':'physicalProgress'
           },
           cssPrefix: 'funding', //markers css prefix 
           default: false,
@@ -140,7 +141,8 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
           thresholds: 5,
           keyName: 'physical',
           popupId: "defaultPopup",
-          supportFilters: true
+          supportFilters: true,
+            labelFunc:(f,v)=>{return ((v)?formatValue(v):0)+'%'}
         }]
       }
 
