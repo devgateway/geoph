@@ -12,16 +12,18 @@ class AdminMenu extends React.Component {
 	render(){
 		return (
 				<ul className="options">
-					<li className={(this.props.currentView=='admin/list/indicator')?"active":""}> <Link to="admin/list/indicator"> Indicators</Link></li>
-					<li className={(this.props.currentView=='admin/add/indicator')?"active":""}> <Link to="admin/add/indicator">New Indicator</Link></li>
-					<li className={(this.props.currentView=='dashboard')?"active":""}> <Link to="dashboard">Dashboards</Link></li>
-					<li className={(this.props.currentView=='dashboard')?"active":""}> <Link to="map">New Dashboard</Link></li>
+					<li className={(this.props.currentView=='admin/list/indicator')?"active":""}>
+						<span className="admin-menu-item"><Link to="admin/list/indicator"> Indicators</Link></span></li>
+					<li className={(this.props.currentView=='admin/add/indicator')?"active":""}> 
+						<span className="admin-menu-item"><Link to="admin/add/indicator">New Indicator</Link></span></li>
+					<li className={(this.props.currentView=='dashboard')?"active":""}> 
+						<span className="admin-menu-item"><Link to="dashboard">Dashboards</Link></span></li>
+					<li className={(this.props.currentView=='dashboard')?"active":""}> 
+						<span className="admin-menu-item"><Link to="map">New Dashboard</Link></span></li>
 				</ul>
 			)
 	}
 }
-
-
 
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
@@ -32,9 +34,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 }
 
 const mapStateToProps = (state, props) => {
-
 	const {security} = state;
-	
 	return {...security.toObject(),...props}
 }
 

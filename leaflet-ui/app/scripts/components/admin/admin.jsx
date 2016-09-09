@@ -24,7 +24,6 @@ class AdminView extends React.Component {
 		}else{
 			view =<Login {...this.props}></Login>
 		}
-
 		return (<div className="admin-view">{view}</div>)
 	}
 }
@@ -37,10 +36,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	}
 }
 
-const mapStateToProps = (state, props) => {
-	
-	const {security} = state;
-	
+const mapStateToProps = (state, props) => {	
+	const {security} = state;	
 	return {...security.toObject()}
 }
 
