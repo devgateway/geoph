@@ -49,7 +49,10 @@ const view=React.createClass({
 
 	getLayer(l){
 		
-		const {data, type, popupId, id, zIndex}=l;
+		const {data, type, popupId, id, zIndex,settings}=l;
+		debugger;
+		const {showLabels} =settings || {};
+		
 		if (type=='clustered'){
 			return (
 				<ClusteredLayer key={id} data={data}>
@@ -58,7 +61,7 @@ const view=React.createClass({
 			);
 		} else {
 			return (
-				<SvgLayer key={id} id={id} zIndex={zIndex} features={data.features}>
+				<SvgLayer showLabels={showLabels} key={id} id={id} zIndex={zIndex} features={data.features}>
 					{this.getPopUp(popupId)}
 				</SvgLayer>
 			)
@@ -66,7 +69,7 @@ const view=React.createClass({
 	},
 
 	render(){
-		debugger;
+		
 		const {map} = this.props;
 		const {southWest, northEast} = map.get('bounds').toJS();		
 		const bounds = L.latLngBounds(L.latLng(southWest.lat, southWest.lng),L.latLng(northEast.lat,northEast.lng));

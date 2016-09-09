@@ -58,7 +58,7 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
       return null;
     }
     const {level, name} = feature.properties;
-    debugger;
+    
     return (
       <div className="popup-container">
         <div className="popup-title">

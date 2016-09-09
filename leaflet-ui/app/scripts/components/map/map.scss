@@ -12,6 +12,18 @@ path{
 	    pointer-events: all;
 }
 
+text.label{
+		 pointer-events: none;
+		fill:#000 !important;
+		stroke: #FFF;
+		font-family: verdana;
+		font-stretch: condensed;
+		font-weight: 300;
+		font-size: 80%;
+		
+	}
+
+
 @mixin breakStyle($color){
 	fill:$color; 
 	background-color:$color; 
