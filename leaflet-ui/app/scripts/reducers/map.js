@@ -1,5 +1,6 @@
 import {REFRESH_LAYER,TOGGLE_LEGENDS_VIEW, SET_FUNDING_TYPE, SET_BASEMAP, LAYER_LOAD_SUCCESS, LAYER_LOAD_FAILURE, TOGGLE_LAYER, SET_LAYER_SETTING, INDICATOR_LIST_LOADED, GEOPHOTOS_LIST_LOADED, STATE_RESTORE, CHANGE_MAP_BOUNDS} from '../constants/constants';
 import JenksCssProvider from '../util/jenksUtil.js'
+import {formatValue} from '../util/format.js'
 import Immutable from 'immutable';
 import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson, 
   createLegendsByDomain , getVisibles,getValues} from '../util/layersUtil.js';
@@ -45,7 +46,8 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
           ep: 'PROJECT_GEOJSON', //api end point 
           settings: {
             'level': 'region',
-            'css': 'yellow'
+            'css': 'yellow',
+            'showLabels':true
           }, //settings
           keyName: 'projects', //i18n key
           cssPrefix: 'points', //markers css prefix 
@@ -56,7 +58,9 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
           cssProvider: JenksCssProvider, //color provider 
           thresholds: 5, //number of breaks 
           popupId: "projectPopup",
-          supportFilters: true
+          supportFilters: true,
+          labelFunc:(f,v)=>v
+
         }
         ]
       }, 
@@ -94,7 +98,8 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
           settings: {
             'level': 'region',
             'css': 'red',
-            'detail':'medium'
+            'detail':'medium',
+            'showLabels':true
           },
           cssPrefix: 'funding', //markers css prefix 
           default: false,
@@ -105,7 +110,8 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
           valueProperty: "funding",
           keyName: 'funding',
           popupId: "projectPopup",
-          supportFilters: true
+          supportFilters: true,
+          labelFunc:(f,v)=>{return f.properties.name +' - '+((v)?formatValue(v):0);}
         }]
       }, 
       {
@@ -202,8 +208,7 @@ const getLegends=(settings,classProviderInstance)=>{
 
 /*Extract layer properties and set feature styles*/
 const makeStyledGeoJson=(settings,data, fundingType, classProviderInstance)=>{
-  const {valueProperty, size, border, popupId, name,css,cssPrefix}=settings;
-  return  getStyledGeoJson(data,{valueProperty, size, border, popupId, name,fundingType,css,cssPrefix},classProviderInstance);
+  return  getStyledGeoJson(data,{fundingType,...settings},classProviderInstance);
 
 }
 
@@ -217,7 +222,8 @@ const getLayerSettings=(layer)=>{
   const popupId=layer.get('popupId');
   const border=layer.get('border');
   const size=layer.get('size');
-  return {thresholds,cssProvider,valueProperty,cssPrefix,css,name,popupId,border,size}
+  const labelFunc=layer.get('labelFunc');
+  return {thresholds,cssProvider,valueProperty,cssPrefix,css,name,popupId,border,size,labelFunc}
 }
 
 /*Extract layer properties and create class provider */

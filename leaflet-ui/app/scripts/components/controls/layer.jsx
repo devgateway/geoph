@@ -40,7 +40,22 @@ class Settings extends React.Component {
 						<div className="separator"/>				
 					</li>
 				:null}
+
 				
+					{(settings['showLabels']!=undefined)?
+					<li>
+						<ul className="level">
+							<li className="setting-name"><b>Label:</b></li>
+								<li onClick={()=>{this.set('showLabels',!settings['showLabels'])}}>
+									{settings['showLabels']==true?<div className="active" >On</div>:<div>Off</div>}
+
+									
+								</li>
+						</ul>
+						<div className="separator"/>				
+					</li>
+				:null}
+
 				{(settings['detail'])?
 						<li>
 						<ul className="level">
