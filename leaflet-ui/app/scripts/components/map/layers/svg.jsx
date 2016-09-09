@@ -10,10 +10,10 @@ import { render, unmountComponentAtNode } from 'react-dom';
  */
 //Leaflet deals with event listeners by reference, so if you want to add a listener and then remove it, define it as a function:
 function clickListener(evt){
-      this.mapClick(evt)
-    }
+  this.mapClick(evt)
+}
 
- export default class D3Layer extends MapLayer {
+export default class D3Layer extends MapLayer {
 
   constructor() {
     super();
@@ -28,8 +28,10 @@ function clickListener(evt){
   componentWillUnmount() {
     super.componentWillUnmount();
     const {map}=this.props;
+    
     map.removeEventListener("click",clickListener,this);
     map.off("moveend", this.mapUpdate.bind(this));
+
     this.svg.remove();
   }
 
@@ -42,7 +44,7 @@ function clickListener(evt){
   
   componentWillMount() {
     //generate unique id 
-       super.componentWillMount();
+    super.componentWillMount();
     const {map}=this.props;
     this.leafletElement = geoJson();
     
@@ -55,10 +57,23 @@ function clickListener(evt){
     this.mapUpdate();//trigger first update
   }
 
-  filter(data, map){
-    var bounds = map.getBounds();
-    const filtered = data.filter((f)=>f.geometry?bounds.contains(L.geoJson(f).getBounds()):false);
+  filter(features){
+    var bounds = this.props.map.getBounds();
+    const filtered = features.filter((f)=>{
+       let retval=false;
+      try{
+         if(f.geometry && !f.geometry.coordinates.length ==0){
+            retval=bounds.intersects(L.geoJson(f).getBounds());
+          }else{
+            console.log('feature without geometry or coordinates '+f.properties.name);
+          }
+      }catch(e){
+         console.log("Error on svg layer please check filter method ")
+      }
+      return retval
+    });
     return filtered;
+
   }
 
   setSvgSize(path, data, size, border){
@@ -87,6 +102,7 @@ function clickListener(evt){
   }
 
   onClick(properties){
+    
     d3.event.features=properties; 
     d3.event.layer_id=this.props.id;  
   }
@@ -96,7 +112,7 @@ function clickListener(evt){
   }
 
   renderLayersPaths(features){
-    const {map}=this.props;
+    const {map,showLabels}=this.props;
     const size=20, border=10;
 
     // Use Leaflet to implement a D3 geometric transformation.
@@ -106,6 +122,9 @@ function clickListener(evt){
     }
     const transform = d3.geo.transform({ point: projectPoint});
     const path = d3.geo.path().projection(transform);
+    
+    features=this.filter(features);
+
     if (features.length!=0){
       this.setSvgSize(path, {type: "FeatureCollection", features}, size, border); //set svg area 
     }
@@ -119,30 +138,32 @@ function clickListener(evt){
     shapes.attr("class", function(f) {return f.properties.className;}.bind(this));
     shapes.attr("stroke-width", function(f) {return f.properties.border || 0;}.bind(this));
     shapes.attr("d", (feature)=>{ return path(feature)});
+
+    shapes.attr("id", (feature)=>{ return "path_"+feature.properties.id});
     shapes.on("click",this.onClick.bind(this)); 
 
-/*
-
-    this.g.append("g")
-  .attr("class", "states-names")
-  .selectAll("text")
-  .data(features)
-  .enter()
-  .append("svg:text")
-  .text(function(d){
-    return "1";
-  })
-  .attr("x", function(d){
-      return path.centroid(d)[0];
-  })
-  .attr("y", function(d){
-      return  path.centroid(d)[1];
-  })
-  .attr("text-anchor","middle")
-  .attr('fill', 'white');
-
-*/
-  }
+      const element=this.g;
+      element.selectAll(".label").remove();  
+ 
+    if(this.props.showLabels==true){
+           features.forEach((f)=>{
+        const {id}=f.properties;
+        element.insert("text","#path_"+id+" +*") //add label text before path in order to get the rigth order 
+        .text(function(d){
+          return f.properties.label;
+        })
+        .attr("x", function(d){
+         return path.centroid(f)[0];
+       })
+        .attr("y", function(d){
+          return  path.centroid(f)[1];
+        })
+        .attr("dy","3px")
+        .attr("class", "label "+f.properties.className+"")
+        .attr("text-anchor","middle");
+      });
+    }
+ }
 
 
   renderPopupContent(feature) {
