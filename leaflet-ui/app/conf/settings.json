@@ -143,7 +143,9 @@
 
 		"EXPORT_DATA": "/export/data/${type}",
 
-		"EXPORT_TEMPLATE": "/export/template/${level}"
+		"EXPORT_TEMPLATE": "/export/template/${level}",
+
+		"LOCATION_STATS": "/charts/locations/stats"
 		
 	},
 

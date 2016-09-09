@@ -99,7 +99,7 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
             'level': 'region',
             'css': 'red',
             'detail':'medium',
-            'showLabels':true
+            'showLabels':false
           },
           cssPrefix: 'funding', //markers css prefix 
           default: false,

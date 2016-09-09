@@ -83,7 +83,7 @@ public class DefaultProjectRepository implements ProjectRepository {
         multiSelect.add(projectRoot.get(Project_.title).alias("title"));
 
         List<Predicate> predicates = new ArrayList<>();
-        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);
+        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, null);
 
         if(predicates.size()>0) {
             Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
@@ -147,19 +147,21 @@ public class DefaultProjectRepository implements ProjectRepository {
         Join<Project, Transaction> transactionJoin = projectRoot.join(Project_.transactions, JoinType.LEFT);
         Join<Project, ProjectLocation> locationJoin = projectRoot.join(Project_.locations, JoinType.LEFT);
         Join<ProjectLocation, ProjectLocationId> pk = locationJoin.join(ProjectLocation_.pk, JoinType.LEFT);
-
+        Expression<Double> expression = null;
         if(isNationalLevel) {
-            multiSelect.add(criteriaBuilder.sum(transactionJoin.get(Transaction_.amount)).alias("trxAmount"));
+            expression = transactionJoin.get(Transaction_.amount);
         } else {
-            multiSelect.add(criteriaBuilder.sum(criteriaBuilder.prod(transactionJoin.get(Transaction_.amount), locationJoin.get(ProjectLocation_.utilization))).alias("trxAmount"));
+            expression = criteriaBuilder.prod(transactionJoin.get(Transaction_.amount), locationJoin.get(ProjectLocation_.utilization));
         }
+        List<Predicate> predicates = new ArrayList<>();
+        expression = FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, expression);
+
+        multiSelect.add(criteriaBuilder.sum(expression));
         multiSelect.add(criteriaBuilder.countDistinct(projectRoot.get(Project_.id)).alias("projectCount"));
         multiSelect.add(transactionJoin.get(Transaction_.transactionStatusId).alias("statusId"));
         multiSelect.add(transactionJoin.get(Transaction_.transactionTypeId).alias("typeId"));
 
-        List<Predicate> predicates = new ArrayList<>();
 
-        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);
         if(isNationalLevel) {
             predicates.add(pk.get(ProjectLocationId_.location).isNull());
         } else {
@@ -296,7 +298,7 @@ public class DefaultProjectRepository implements ProjectRepository {
         Root<Project> projectRoot = criteriaQuery.from(Project.class);
         List<Predicate> predicates = new ArrayList<>();
 
-        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);
+        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, null);
 
         if(predicates.size()>0) {
             Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));

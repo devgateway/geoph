@@ -1,7 +1,10 @@
 package org.devgateway.geoph.core.repositories;
 
 import org.devgateway.geoph.core.request.Parameters;
-import org.devgateway.geoph.dao.*;
+import org.devgateway.geoph.dao.GeometryDao;
+import org.devgateway.geoph.dao.LocationProjectStatsDao;
+import org.devgateway.geoph.dao.LocationResultsDao;
+import org.devgateway.geoph.dao.ProjectLocationDao;
 import org.devgateway.geoph.model.Location;
 
 import java.util.List;

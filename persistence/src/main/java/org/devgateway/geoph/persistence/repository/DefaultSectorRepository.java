@@ -1,5 +1,6 @@
 package org.devgateway.geoph.persistence.repository;
 
+import org.devgateway.geoph.ChartProjectCountDao;
 import org.devgateway.geoph.core.repositories.SectorRepository;
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.dao.SectorResultsDao;
@@ -55,7 +56,7 @@ public class DefaultSectorRepository implements SectorRepository {
 
     @Override
     @Cacheable("findSectorByParams")
-    public List<SectorResultsDao> findFundingBySector(Parameters params, int trxType, int trxStatus) {
+    public List<SectorResultsDao> findFundingBySectorWithTransactionStats(Parameters params) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<SectorResultsDao> criteriaQuery = criteriaBuilder.createQuery(SectorResultsDao.class);
 
@@ -69,23 +70,58 @@ public class DefaultSectorRepository implements SectorRepository {
         Join<ProjectSector, ProjectSectorId> projectSectorIdJoin = sectorJoin.join(ProjectSector_.pk);
         Join<Project, Transaction> transactionJoin = projectRoot.join(Project_.transactions);
         multiSelect.add(projectSectorIdJoin.get(ProjectSectorId_.sector));
-        if(params.getLocations()==null) {
-            multiSelect.add(criteriaBuilder.sum(criteriaBuilder.prod(transactionJoin.get(Transaction_.amount), sectorJoin.get(ProjectSector_.utilization))));
-            FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);
-        } else {
-            FilterHelper.filterProjectQueryForSectors(params, criteriaBuilder, projectRoot, predicates, multiSelect, sectorJoin, transactionJoin);
-        }
-
-        multiSelect.add(criteriaBuilder.count(projectRoot.get(Project_.id)));
         groupByList.add(projectSectorIdJoin.get(ProjectSectorId_.sector));
 
-        predicates.add(transactionJoin.get(Transaction_.transactionTypeId).in(trxType));
-        predicates.add(transactionJoin.get(Transaction_.transactionStatusId).in(trxStatus));
+        Expression<Double> utilization;
+        if(params.getSectors()!=null){
+            utilization = transactionJoin.get(Transaction_.amount);
+        } else {
+            utilization = criteriaBuilder.prod(transactionJoin.get(Transaction_.amount), sectorJoin.get(ProjectSector_.utilization));
+        }
+        Expression<Double> expression = FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, utilization);
+        multiSelect.add(criteriaBuilder.sum(expression));
+
+        multiSelect.add(transactionJoin.get(Transaction_.transactionTypeId));
+        groupByList.add(transactionJoin.get(Transaction_.transactionTypeId));
+        multiSelect.add(transactionJoin.get(Transaction_.transactionStatusId));
+        groupByList.add(transactionJoin.get(Transaction_.transactionStatusId));
+
         Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         criteriaQuery.where(other);
 
         criteriaQuery.groupBy(groupByList);
         TypedQuery<SectorResultsDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
+
+        return query.getResultList();
+    }
+
+    @Override
+    @Cacheable("findSectorByParamsWithProjectStats")
+    public List<ChartProjectCountDao> findFundingBySectorWithProjectStats(Parameters params) {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<ChartProjectCountDao> criteriaQuery = criteriaBuilder.createQuery(ChartProjectCountDao.class);
+
+        Root<Project> projectRoot = criteriaQuery.from(Project.class);
+
+        List<Selection<?>> multiSelect = new ArrayList<>();
+        List<Predicate> predicates = new ArrayList();
+        List<Expression<?>> groupByList = new ArrayList<>();
+
+        Join<Project, ProjectSector> projectSectorJoin = projectRoot.join(Project_.sectors);
+        Join<ProjectSector, ProjectSectorId> projectSectorIdJoin = projectSectorJoin.join(ProjectSector_.pk);
+        Join<ProjectSectorId, Sector> sectorJoin = projectSectorIdJoin.join(ProjectSectorId_.sector);
+        multiSelect.add(sectorJoin.get(Sector_.id));
+        groupByList.add(sectorJoin.get(Sector_.id));
+
+        multiSelect.add(criteriaBuilder.countDistinct(projectRoot));
+
+        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, null);
+
+        Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+        criteriaQuery.where(other);
+
+        criteriaQuery.groupBy(groupByList);
+        TypedQuery<ChartProjectCountDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
 
         return query.getResultList();
     }

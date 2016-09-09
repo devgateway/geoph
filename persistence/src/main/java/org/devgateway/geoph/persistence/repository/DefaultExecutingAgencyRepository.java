@@ -1,5 +1,6 @@
 package org.devgateway.geoph.persistence.repository;
 
+import org.devgateway.geoph.ChartProjectCountDao;
 import org.devgateway.geoph.core.repositories.ExecutingAgencyRepository;
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.dao.AgencyResultsDao;
@@ -43,7 +44,36 @@ public class DefaultExecutingAgencyRepository implements ExecutingAgencyReposito
     }
 
     @Override
-    public List<AgencyResultsDao> findFundingByExecutingAgency(Parameters params, int trxType, int trxStatus) {
+    public List<ChartProjectCountDao> findFundingByExecutingAgencyWithProjectStats(Parameters params) {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<ChartProjectCountDao> criteriaQuery = criteriaBuilder.createQuery(ChartProjectCountDao.class);
+
+        Root<Project> projectRoot = criteriaQuery.from(Project.class);
+
+        List<Selection<?>> multiSelect = new ArrayList<>();
+        List<Predicate> predicates = new ArrayList<>();
+        List<Expression<?>> groupByList = new ArrayList<>();
+
+        Join<Project, Agency> agencyJoin = projectRoot.join(Project_.executingAgency);
+
+        multiSelect.add(agencyJoin.get(Agency_.id));
+        groupByList.add(agencyJoin.get(Agency_.id));
+
+        multiSelect.add(criteriaBuilder.countDistinct(projectRoot));
+
+        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, null);
+
+        Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+        criteriaQuery.where(other);
+
+        criteriaQuery.groupBy(groupByList);
+        TypedQuery<ChartProjectCountDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
+
+        return query.getResultList();
+    }
+
+    @Override
+    public List<AgencyResultsDao> findFundingByExecutingAgencyWithTransactionStats(Parameters params) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<AgencyResultsDao> criteriaQuery = criteriaBuilder.createQuery(AgencyResultsDao.class);
 
@@ -57,17 +87,16 @@ public class DefaultExecutingAgencyRepository implements ExecutingAgencyReposito
         Join<Project, Transaction> transactionJoin = projectRoot.join(Project_.transactions);
 
         multiSelect.add(agencyJoin);
-        if(params.getLocations()==null) {
-            multiSelect.add(criteriaBuilder.sum(transactionJoin.get(Transaction_.amount)));
-            FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates);
-        } else {
-            FilterHelper.filterProjectQueryWithUtilization(params, criteriaBuilder, projectRoot, predicates, multiSelect, transactionJoin);
-        }
-        multiSelect.add(criteriaBuilder.count(projectRoot.get(Project_.id)));
         groupByList.add(agencyJoin);
 
-        predicates.add(transactionJoin.get(Transaction_.transactionTypeId).in(trxType));
-        predicates.add(transactionJoin.get(Transaction_.transactionStatusId).in(trxStatus));
+        Expression<Double> expression = FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, transactionJoin.get(Transaction_.amount));
+        multiSelect.add(criteriaBuilder.sum(expression));
+
+        multiSelect.add(transactionJoin.get(Transaction_.transactionTypeId));
+        groupByList.add(transactionJoin.get(Transaction_.transactionTypeId));
+        multiSelect.add(transactionJoin.get(Transaction_.transactionStatusId));
+        groupByList.add(transactionJoin.get(Transaction_.transactionStatusId));
+
         Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         criteriaQuery.where(other);
 
@@ -76,5 +105,4 @@ public class DefaultExecutingAgencyRepository implements ExecutingAgencyReposito
 
         return query.getResultList();
     }
-
 }

@@ -54,6 +54,12 @@ public class ChartController {
         return allCharts;
     }
 
+    @RequestMapping(value = "/locations/stats", method = GET)
+    public Collection<ChartResponse> getLocationStats(AppRequestParams filters) {
+        LOGGER.debug("getLocationStats info");
+        return chartService.getFundingByLocation(filters.getParameters());
+    }
+
     @RequestMapping(value = "/fundingAgency", method = GET)
     public Collection<ChartResponse> getByFundingAgency(AppRequestParams filters) {
         LOGGER.debug("getByFundingAgency info");

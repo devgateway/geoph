@@ -12,15 +12,18 @@ public class PhysicalStatusDao {
 
     private Double trxAmount;
 
-    private long projectCount;
+    private Long transactionStatusId;
+
+    private Long transactionTypeId;
 
     public PhysicalStatusDao() {
     }
 
-    public PhysicalStatusDao(PhysicalStatus physicalStatus, Double trxAmount, long projectCount) {
+    public PhysicalStatusDao(PhysicalStatus physicalStatus, Double trxAmount, Long transactionStatusId, Long transactionTypeId) {
         this.physicalStatus = physicalStatus;
         this.trxAmount = trxAmount;
-        this.projectCount = projectCount;
+        this.transactionStatusId = transactionStatusId;
+        this.transactionTypeId = transactionTypeId;
     }
 
     public PhysicalStatus getPhysicalStatus() {
@@ -39,11 +42,19 @@ public class PhysicalStatusDao {
         this.trxAmount = trxAmount;
     }
 
-    public long getProjectCount() {
-        return projectCount;
+    public Long getTransactionStatusId() {
+        return transactionStatusId;
     }
 
-    public void setProjectCount(long projectCount) {
-        this.projectCount = projectCount;
+    public void setTransactionStatusId(Long transactionStatusId) {
+        this.transactionStatusId = transactionStatusId;
+    }
+
+    public Long getTransactionTypeId() {
+        return transactionTypeId;
+    }
+
+    public void setTransactionTypeId(Long transactionTypeId) {
+        this.transactionTypeId = transactionTypeId;
     }
 }

@@ -74,13 +74,11 @@ export default class ChartComponent extends React.Component {
 		const {measure, chartData, chartType, helpKey} = this.props;
 		const {chartType: chType, itemsToShow, measureType} = chartData;
 		let chartInfo;
-		console.time("TIME "+this.props.title);
 		if (chartType){
 			chartInfo = this.getChartInfo(chartType);
 		} else {
 			chartInfo = this.getChartInfo(chartData.chartType);
 		}
-		console.timeEnd("TIME "+this.props.title);
 		return (
 	    	<div className="chart" ref="chartContainer">
 	    		{this.props.title?
@@ -144,11 +142,8 @@ export default class ChartComponent extends React.Component {
 					</div>
 	    		: null}	
 	    		{this.props.showTotalHeader?
-	    			measureType ==='projectCount'?
-	    				<div className="total-funding-chart">{translate('infowindow.tab.totalamount')+" "+translate('chartview.projects')}: <div>{formatValue(chartInfo.totalAmount)}</div></div>
-	    			:
-	    				<div className="total-funding-chart">{translate('infowindow.tab.totalamount')+" "+translate('header.settings.'+measure.type)+" "+translate('header.settings.'+measure.measure)}: <div>{" ₱ "+formatValue(chartInfo.totalAmount)}</div></div>
-                : null}	
+	    			<div className="total-funding-chart">{translate('infowindow.tab.totalamount')}: <div>{(measureType =='funding'?"₱":"")+formatValue(chartInfo.totalAmount)}</div></div>
+	    		: null}	
 	    		{!this.hasValuesToShow(chartInfo)?
 	    			<div className="no-data">
 			    		{translate('chartview.nodata')}

@@ -4,8 +4,8 @@ import com.vividsolutions.jts.geom.Geometry;
 import org.devgateway.geoph.core.repositories.LocationRepository;
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.dao.GeometryDao;
-import org.devgateway.geoph.dao.LocationResultsDao;
 import org.devgateway.geoph.dao.LocationProjectStatsDao;
+import org.devgateway.geoph.dao.LocationResultsDao;
 import org.devgateway.geoph.dao.ProjectLocationDao;
 import org.devgateway.geoph.model.*;
 import org.devgateway.geoph.persistence.util.FilterHelper;
@@ -98,7 +98,7 @@ public class DefaultLocationRepository implements LocationRepository {
         Join<ProjectLocationId, Project> projectJoin = idJoin.join(ProjectLocationId_.project, JoinType.LEFT);
         multiSelect.add(criteriaBuilder.countDistinct(projectJoin).alias("projectCount"));
 
-        FilterHelper.filterLocationQuery(params, criteriaBuilder, locationRoot, predicates, projectJoin);
+        FilterHelper.filterLocationQuery(params, criteriaBuilder, locationRoot, predicates, projectJoin, null, projectLocationJoin, null);
 
         Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         criteriaQuery.where(other);
@@ -130,7 +130,7 @@ public class DefaultLocationRepository implements LocationRepository {
         groupByList.add(projectJoin);
 
         List<Predicate> predicates = new ArrayList<>();
-        FilterHelper.filterLocationQuery(params, criteriaBuilder, locationRoot, predicates, projectJoin);
+        FilterHelper.filterLocationQuery(params, criteriaBuilder, locationRoot, predicates, projectJoin, null, projectLocationJoin, null);
 
         Predicate predicate = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         criteriaQuery.where(predicate);
@@ -142,9 +142,8 @@ public class DefaultLocationRepository implements LocationRepository {
     }
 
 
-    @Cacheable(value = "locationStats")
+    @Cacheable(value = "locationWithProjectStats")
     public List<LocationProjectStatsDao> getLocationWithProjectStats(Parameters params) {
-
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery  criteriaQuery = criteriaBuilder.createQuery(LocationProjectStatsDao.class);
         Root<Location> locationRoot = criteriaQuery.from(Location.class);
@@ -153,30 +152,21 @@ public class DefaultLocationRepository implements LocationRepository {
         List<Predicate> predicates = new ArrayList<>();
         List<Expression<?>> groupByList = new ArrayList<>();
 
-
         multiSelect.add(locationRoot.get(Location_.id));
         groupByList.add(locationRoot.get(Location_.id));
-
-
         multiSelect.add(locationRoot.get(Location_.name));
         groupByList.add(locationRoot.get(Location_.name));
-
         multiSelect.add(locationRoot.get(Location_.centroid));
         groupByList.add(locationRoot.get(Location_.centroid));
 
         Join<Location, ProjectLocation> projectLocationJoin = locationRoot.join(Location_.projects, JoinType.INNER); //location -> project_location
-
-         Join<ProjectLocation, ProjectLocationId> idJoin = projectLocationJoin.join(ProjectLocation_.pk, JoinType.INNER); //
-
+        Join<ProjectLocation, ProjectLocationId> idJoin = projectLocationJoin.join(ProjectLocation_.pk, JoinType.INNER); //
         Join<ProjectLocationId, Project> projectJoin = idJoin.join(ProjectLocationId_.project, JoinType.INNER); //project_location to project
-
-        Join<Project, Transaction> transactionJoin = projectJoin.join(Project_.transactions, JoinType.LEFT); //project to transaction (left in order to be able to count projects without transactions)
 
         multiSelect.add(criteriaBuilder.countDistinct(projectJoin).alias("count"));
         multiSelect.add(criteriaBuilder.avg(projectJoin.get(Project_.physicalProgress)).alias("avg"));
 
-        FilterHelper.filterLocationQuery(params, criteriaBuilder, locationRoot, predicates, projectJoin);
-
+        FilterHelper.filterLocationQuery(params, criteriaBuilder, locationRoot, predicates, projectJoin, null, projectLocationJoin, null);
         Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         criteriaQuery.where(other);
         criteriaQuery.orderBy(criteriaBuilder.asc(locationRoot.get(Location_.id)));
@@ -187,6 +177,7 @@ public class DefaultLocationRepository implements LocationRepository {
         return query.getResultList();
     }
 
+    @Cacheable(value = "locationWithTransactionStats")
     public List<LocationResultsDao> getLocationWithTransactionStats(Parameters params) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery  criteriaQuery = criteriaBuilder.createQuery(LocationResultsDao.class);
@@ -196,25 +187,18 @@ public class DefaultLocationRepository implements LocationRepository {
         List<Predicate> predicates = new ArrayList<>();
         List<Expression<?>> groupByList = new ArrayList<>();
 
-
         multiSelect.add(locationRoot.get(Location_.id));
         groupByList.add(locationRoot.get(Location_.id));
         multiSelect.add(locationRoot.get(Location_.name));
         groupByList.add(locationRoot.get(Location_.id));
-
-          multiSelect.add(locationRoot.get(Location_.centroid));
+        multiSelect.add(locationRoot.get(Location_.centroid));
         groupByList.add(locationRoot.get(Location_.centroid));
-
 
         groupByList.add(locationRoot);
 
         Join<Location, ProjectLocation> projectLocationJoin = locationRoot.join(Location_.projects, JoinType.INNER); //location -> project_location
-
-
         Join<ProjectLocation, ProjectLocationId> idJoin = projectLocationJoin.join(ProjectLocation_.pk, JoinType.INNER); //
-
         Join<ProjectLocationId, Project> projectJoin = idJoin.join(ProjectLocationId_.project, JoinType.INNER); //project_location to project
-
         Join<Project, Transaction> transactionJoin = projectJoin.join(Project_.transactions, JoinType.LEFT); //project to transaction (left in order to be able to count projects without transactions)
 
         multiSelect.add(transactionJoin.get(Transaction_.transactionStatusId));
@@ -223,13 +207,17 @@ public class DefaultLocationRepository implements LocationRepository {
         multiSelect.add(transactionJoin.get(Transaction_.transactionTypeId));
         groupByList.add(transactionJoin.get(Transaction_.transactionTypeId));
 
-        multiSelect.add(criteriaBuilder.sum(criteriaBuilder.prod(transactionJoin.get(Transaction_.amount), projectLocationJoin.get(ProjectLocation_.utilization))).alias("amount")); //amount * % of utilization
-        multiSelect.add(criteriaBuilder.countDistinct(projectJoin).alias("count"));
-
 
         //add params filters
+        Expression<Double> utilization;
+        if(params.getLocations()!=null){
+            utilization = transactionJoin.get(Transaction_.amount);
+        } else {
+            utilization = criteriaBuilder.prod(transactionJoin.get(Transaction_.amount), projectLocationJoin.get(ProjectLocation_.utilization));
+        }
+        Expression<Double> expression = FilterHelper.filterLocationQuery(params, criteriaBuilder, locationRoot, predicates, projectJoin, utilization, projectLocationJoin, transactionJoin);
 
-        FilterHelper.filterLocationQuery(params, criteriaBuilder, locationRoot, predicates, projectJoin);
+        multiSelect.add(criteriaBuilder.sum(expression));
 
         Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         criteriaQuery.where(other);
@@ -237,14 +225,13 @@ public class DefaultLocationRepository implements LocationRepository {
 
         criteriaQuery.groupBy(groupByList);
         TypedQuery<LocationResultsDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
-        //query.setParameter("level",GeometryDetail.MEDIUM.getValue());
 
         return query.getResultList();
     }
 
 
     @Cacheable(value = "shapesWithDetail")
-    public List<GeometryDao> getShapesByLevelAndDetail(int level,double detail) {
+    public List<GeometryDao> getShapesByLevelAndDetail(int level, double detail) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery  criteriaQuery = criteriaBuilder.createQuery(GeometryDao.class);
         Root<Location> locationRoot = criteriaQuery.from(Location.class);

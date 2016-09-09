@@ -1,5 +1,6 @@
 package org.devgateway.geoph.core.repositories;
 
+import org.devgateway.geoph.ChartProjectCountDao;
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.dao.SectorResultsDao;
 import org.devgateway.geoph.model.Sector;
@@ -18,7 +19,9 @@ public interface SectorRepository {
 
     List<Sector> findByLevel(int level);
 
-    List<SectorResultsDao> findFundingBySector(Parameters params, int trxType, int trxStatus);
+    List<SectorResultsDao> findFundingBySectorWithTransactionStats(Parameters params);
+
+    List<ChartProjectCountDao> findFundingBySectorWithProjectStats(Parameters params);
 
     Sector findById(Long id);
 }
