@@ -13,6 +13,11 @@ function clickListener(evt){
   this.mapClick(evt)
 }
 
+function mapUpdateListener(evt){
+  this.mapUpdate(evt)
+}
+
+
 export default class D3Layer extends MapLayer {
 
   constructor() {
@@ -30,7 +35,7 @@ export default class D3Layer extends MapLayer {
     const {map}=this.props;
     
     map.removeEventListener("click",clickListener,this);
-    map.off("moveend", this.mapUpdate.bind(this));
+    map.off("moveend", mapUpdateListener,this);
 
     this.svg.remove();
   }
@@ -52,7 +57,7 @@ export default class D3Layer extends MapLayer {
     this.svg.style("z-index",this.props.zIndex);
     this.g = this.svg.append("g").attr("class", "leaflet-zoom-hide");
     map.addEventListener('click',clickListener,this)
-    map.on('moveend', this.mapUpdate.bind(this));
+    map.on('moveend', mapUpdateListener,this);
     //map.on('click', this.mapClick.bind(this));
     this.mapUpdate();//trigger first update
   }
