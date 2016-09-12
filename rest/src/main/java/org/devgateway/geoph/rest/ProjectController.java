@@ -6,6 +6,7 @@ import org.devgateway.geoph.core.request.ProjectOrder;
 import org.devgateway.geoph.core.response.StatsResponse;
 import org.devgateway.geoph.core.services.ProjectService;
 import org.devgateway.geoph.dao.ProjectMiniDao;
+import org.devgateway.geoph.dao.ProjectMiniSummaryDao;
 import org.devgateway.geoph.dao.ProjectStatsResultsDao;
 import org.devgateway.geoph.enums.TransactionStatusEnum;
 import org.devgateway.geoph.enums.TransactionTypeEnum;
@@ -45,7 +46,7 @@ public class ProjectController extends BaseController {
     }
 
     @RequestMapping(method = GET)
-    public Page<Project> findProjectsByParams(AppRequestParams filters,
+    public Page<ProjectMiniSummaryDao> findProjectsByParams(AppRequestParams filters,
                                               @PageableDefault(page = 0, size = 20, sort = "id") final Pageable pageable) {
         LOGGER.debug("findProjectsByParams");
         Parameters params = filters.getParameters();

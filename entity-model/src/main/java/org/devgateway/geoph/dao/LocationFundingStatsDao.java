@@ -1,10 +1,7 @@
 package org.devgateway.geoph.dao;
 
 import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.geom.Point;
-import org.devgateway.geoph.model.Location;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -25,7 +22,7 @@ public class LocationFundingStatsDao extends LocationDao{
 
     Integer level;
 
-   HashMap<String,Double> commitments;
+    HashMap<String,Double> commitments;
     HashMap<String,Double> expenditures;
     HashMap<String,Double> disbursements;
 
