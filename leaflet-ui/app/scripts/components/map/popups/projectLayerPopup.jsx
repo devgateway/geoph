@@ -30,8 +30,9 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
   },
 
   handleClickOutside (evt) {
+
     if (this.props.onClosePopup){
-      this.props.onClosePopup();
+    //  this.props.onClosePopup();
     }
   },
 
