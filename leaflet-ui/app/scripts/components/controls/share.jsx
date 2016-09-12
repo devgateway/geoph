@@ -18,7 +18,7 @@ const Share = React.createClass({
   },
 
   render() {
-    const {isShareNeeded, shareUrl,errors={},httpError,status,visible}=this.props;
+    const {isShareNeeded, shareUrl, errors={},httpError,status,visible}=this.props;
     
     if(isShareNeeded){
       this.shareMap();
@@ -73,9 +73,9 @@ const Share = React.createClass({
               </ul>
             </div>
             <div className="share-link">
-              <input className="form-control" type="text" value={shareUrl} />
+              <input className="form-control" type="text" value={isShareNeeded?'':shareUrl} />
               <CopyToClipboard text={shareUrl} >
-                <button className="btn btn-sm btn-success">Copy URL</button>
+                <button className="btn btn-sm btn-success" disabled={isShareNeeded?true:false}>Copy URL</button>
               </CopyToClipboard>
             </div>
           </div>
