@@ -209,10 +209,10 @@ class Connector {
 		return this.call(DELETE,url,{},{ headers: this.getSecurityHeader()});
 	}
 
-	removeDashboard(id){
-		let url=Settings.get('API','MAP');
-		url=url.replace('${id}',id);
-		return this.call(DELETE,url,{});
+	removeDashboard(key){
+		let url=Settings.get('API','REMOVE_MAP');
+		url=url.replace('${key}',key);
+		return this.call(DELETE,url,{},{ headers: this.getSecurityHeader()});
 	}
 
 

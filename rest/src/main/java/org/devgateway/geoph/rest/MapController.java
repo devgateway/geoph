@@ -134,8 +134,15 @@ public class MapController {
     @RequestMapping(value = "/id/{id}", method = DELETE)
     @Secured("ROLE_ADMIN")
     public void deleteById(@PathVariable final long id) {
-        LOGGER.debug("deleteById");
+        LOGGER.debug("deleteById: " + id);
         appMapService.delete(id);
+    }
+
+    @RequestMapping(value = "/key/{key}", method = DELETE)
+    @Secured("ROLE_ADMIN")
+    public void deleteByKey(@PathVariable final String key) {
+        LOGGER.debug("deleteByKey: " + key);
+        appMapService.deleteByKey(key);
     }
 
     @RequestMapping(value = "/key/{key}", method = GET)
