@@ -12,13 +12,11 @@ import { connect } from 'react-redux'
 
 require("./root.scss");
 
- class DefaultLayout extends React.Component {
+class DefaultLayout extends React.Component {
 
   constructor() {
     super();
   }
-
-
 
   render() {
     
@@ -38,8 +36,6 @@ require("./root.scss");
     )
   }
 }
-
-
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {

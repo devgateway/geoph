@@ -4,7 +4,6 @@ import FilterPopup from '../filter/filters.jsx'
 import Settings from '../controls/settings'
 import Share from '../controls/share'
 import Print from '../controls/print'
-
 import Basemap from '../controls/baseMap.jsx'
 import SaveMap from '../save-restore/save'
 import {Message} from '../lan/'
@@ -14,26 +13,23 @@ import {connect} from 'react-redux';
 import * as Constants from '../../constants/constants';
 import MenuItem from './item.jsx';
 
-
-
-
-
 class MenuBar extends React.Component{
 	render(){
 		const {loggedin,items=[],title} = this.props;
-		return (<div className="title">
-			<h2><b>{title}</b></h2>
-			<ul className="options">
-			{items.map(item=>{
-				const Component=item.children;
-				const visible=(!item.secure || (item.secure&&loggedin));
-				return (visible)?<MenuItem {...this.props}  {...item}><Component/></MenuItem>:null;
-			})}
+		return (
+			<div className="title">
+				<h2><b>{title}</b></h2>
+				<ul className="options">
+					{items.map(item=>{
+						const Component=item.children;
+						const visible=(!item.secure || (item.secure&&loggedin));
+						return (visible)?<MenuItem {...this.props}  {...item}><Component/></MenuItem>:null;
+					})}
 					<li className="last"></li>
-			</ul>
-
+				</ul>
 				{this.props.children}
-			</div>)
+			</div>
+		)
 	}
 }
 
@@ -46,8 +42,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 const mapStateToProps = (state, props) => {
 	const {accountNonExpired,accountNonLocked,enabled,credentialsNonExpired}=state.security.toJS()
-	const loggedin=(accountNonExpired && accountNonLocked&& enabled && credentialsNonExpired);
-	
+	const loggedin=(accountNonExpired && accountNonLocked&& enabled && credentialsNonExpired);	
 	return {...state.header.toJS(),loggedin}
 }
 

@@ -52,19 +52,22 @@
 
 
 	.icon.tools{
-		@include icons(-81,-29)
-
+		background: url('../../../assets/svg/tool-disabled.svg');
+		background-repeat: no-repeat;
 	}
 	.panel-tab.active .icon.tools{
-		@include icons(-1,-29)
+		background: url('../../../assets/svg/tool.svg');
+		background-repeat: no-repeat;
 	}
 
 
 	.icon.chart{
-		@include icons(-55,-29)
+		background: url('../../../assets/svg/chart-disabled.svg');
+		background-repeat: no-repeat;
 	}
 	.panel-tab.active .icon.chart{
-		@include icons(-28,-29)
+		background: url('../../../assets/svg/chart.svg');
+		background-repeat: no-repeat;
 	}
 
 	.panel-tab span{

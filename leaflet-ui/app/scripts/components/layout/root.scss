@@ -4,7 +4,8 @@
  	.dashboard{
  		 @include absolute(115px,initial,40px,0px);
 			overflow: auto;
-			 width: 100%;
- 	
+			width: 100%;
+ 			background-color: #f3f5f3;
+	
 		 }
 }

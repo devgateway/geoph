@@ -23,21 +23,20 @@ class DefaultLayout extends React.Component {
 	render() {
 
 		const {loggedIn}=this.props;
-
 		var newChildren = React.Children.map(this.props.children, child=>React.cloneElement(child, {loggedIn}));
-
 		return (
 			<div className="root">
-			<Header>
-			<Menu title="Executive Dashboards">
-			{loggedIn?<AdminMenu/>:null}
-			</Menu>
-			</Header>
-			<div className="dashboard">
-			{newChildren}
+				<Header>
+					<Menu title="Executive Dashboards">
+						{loggedIn?<AdminMenu/>:null}
+					</Menu>
+				</Header>
+				<div className="dashboard">
+					{newChildren}
+				</div>
+				<Footer/>
 			</div>
-			</div>
-			)
+		)
 	}
 }
 
