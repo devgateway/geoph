@@ -8,21 +8,18 @@ require("./dashboard.scss");
 var pageSize = 5;
 
 class Item extends React.Component {
-  /*
-  <Link to={`/map/${mapKey}`}>
-            <img src={`data:image/png;base64,${base64preview}`}/>
-          </Link>
-   */
   render(){
     const {description, name, mapKey, base64preview, created} = this.props;
     return (
       <div className="item">
-        <div className="preview" >
-          <img src={`data:image/png;base64,${base64preview}`}/>
-        </div>
-        <div className="title" >
-          {name}
-        </div>
+        <Link to={`/map/${mapKey}`}>
+          <div className="preview" >
+            <img src={`data:image/png;base64,${base64preview}`}/>
+          </div>
+          <div className="title" >
+            {name}
+          </div>
+        </Link>
         <div className="description" >
           {description}
         </div>
