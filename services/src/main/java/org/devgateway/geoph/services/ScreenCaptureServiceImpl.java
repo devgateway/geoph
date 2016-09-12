@@ -120,7 +120,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
 
         try {
             WebDriver driver = new PhantomJSDriver(DesireCaps);
-            driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+            driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
             driver.manage().window().setSize(new Dimension(width, height));
             driver.get(target.toString());
 
@@ -135,26 +135,16 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
     }
 
     public BufferedImage JbrowserCapture(Integer width, Integer height, URI target) {
-        LOGGER.debug("Starting JBrowserDriver ");
         BufferedImage image = null;
         try {
-            Dimension screen = new Dimension(width, height);
-            WebDriver driver = new JBrowserDriver(Settings
-                    .builder()
-                    .logWarnings(false)
-                    .logger(null)
-                    .screen(screen)
-                    .userAgent(UserAgent.CHROME)
-                    .timezone(Timezone.AMERICA_NEWYORK)
-                    .build());
-            //TODO:externalize time out
-            driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+
+           WebDriver driver =DriverManager.getDriver(width, height);
             driver.get(target.toString());
 
             byte[] imageByte=((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
             ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
             image = ImageIO.read(bis);
-            driver.quit();
+            //driver.quit();
         } catch (Exception e) {
             LOGGER.error("Image error: " + e.getMessage());
         }
