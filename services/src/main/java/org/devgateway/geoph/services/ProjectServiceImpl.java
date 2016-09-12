@@ -61,7 +61,9 @@ public class ProjectServiceImpl implements ProjectService {
 
         Page<ProjectMiniSummaryDao> ret;
         if(params.getPageable()!=null) {
-            ret = new PageImpl<ProjectMiniSummaryDao>(summaryMap.subList(params.getPageable().getOffset() * params.getPageable().getPageSize(), params.getPageable().getOffset() * params.getPageable().getPageSize() + params.getPageable().getPageSize()), params.getPageable(), summaryMap.size());
+            int fromIndex = params.getPageable().getOffset();
+            int toIndex = fromIndex + params.getPageable().getPageSize() > summaryMap.size() ? summaryMap.size():fromIndex + params.getPageable().getPageSize();
+            ret = new PageImpl<ProjectMiniSummaryDao>(summaryMap.subList(fromIndex, toIndex), params.getPageable(), summaryMap.size());
         } else {
             ret = new PageImpl<ProjectMiniSummaryDao>(summaryMap);
         }
