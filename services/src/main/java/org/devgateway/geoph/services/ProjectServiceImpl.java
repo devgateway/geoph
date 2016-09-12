@@ -6,6 +6,7 @@ import org.devgateway.geoph.core.response.StatsResponse;
 import org.devgateway.geoph.core.services.ProjectService;
 import org.devgateway.geoph.dao.ProjectMiniDao;
 import org.devgateway.geoph.dao.ProjectMiniSummaryDao;
+import org.devgateway.geoph.dao.ProjectPageDao;
 import org.devgateway.geoph.dao.ProjectStatsResultsDao;
 import org.devgateway.geoph.model.Project;
 import org.slf4j.Logger;
@@ -37,8 +38,8 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Project findById(long id) {
-        return projectRepository.findById(id);
+    public ProjectPageDao findById(long id) {
+        return new ProjectPageDao(projectRepository.findById(id));
     }
 
     @Override
@@ -60,7 +61,7 @@ public class ProjectServiceImpl implements ProjectService {
 
         Page<ProjectMiniSummaryDao> ret;
         if(params.getPageable()!=null) {
-            ret = new PageImpl<ProjectMiniSummaryDao>(summaryMap, params.getPageable(), summaryMap.size());
+            ret = new PageImpl<ProjectMiniSummaryDao>(summaryMap.subList(params.getPageable().getOffset() * params.getPageable().getPageSize(), params.getPageable().getOffset() * params.getPageable().getPageSize() + params.getPageable().getPageSize()), params.getPageable(), summaryMap.size());
         } else {
             ret = new PageImpl<ProjectMiniSummaryDao>(summaryMap);
         }

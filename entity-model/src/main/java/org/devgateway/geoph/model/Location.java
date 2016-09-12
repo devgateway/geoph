@@ -62,8 +62,6 @@ public class Location extends GenericPersistable implements Serializable {
     LocationGeometry locationGeometry;
 
 
-
-
     @OneToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "location_items", joinColumns = {
             @JoinColumn(name = "location_id", nullable = false, updatable = false) },
@@ -75,11 +73,15 @@ public class Location extends GenericPersistable implements Serializable {
     @OneToMany(cascade=CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "pk.location")
     private Set<ProjectLocation> projects;
 
-    @Column(name = "region_id")
-    private Long regionId;
+    @JsonIgnore
+    @JoinColumn(name = "region_id")
+    @ManyToOne
+    private Location region;
 
-    @Column(name = "province_id")
-    private Long provinceId;
+    @JsonIgnore
+    @JoinColumn(name = "province_id")
+    @ManyToOne
+    private Location province;
 
     public Location() {
     }
@@ -159,20 +161,20 @@ public class Location extends GenericPersistable implements Serializable {
         }
     }
 
-    public Long getRegionId() {
-        return regionId;
+    public Location getRegion() {
+        return region;
     }
 
-    public void setRegionId(Long regionId) {
-        this.regionId = regionId;
+    public void setRegion(Location region) {
+        this.region = region;
     }
 
-    public Long getProvinceId() {
-        return provinceId;
+    public Location getProvince() {
+        return province;
     }
 
-    public void setProvinceId(Long provinceId) {
-        this.provinceId = provinceId;
+    public void setProvince(Location province) {
+        this.province = province;
     }
 
     public Long retrieveMunicipalityId() {
