@@ -163,14 +163,54 @@ public class DefaultProjectRepository implements ProjectRepository {
         List<ProjectStatsResultsDao> regional = getStatsByAdmLevel(params, false);
         //Fix for UI, it needs at least one result per ADM level
         if(national.size()==0){
-            national.add(new ProjectStatsResultsDao(0D, 0L, 1L, 1L));
+            national.add(new ProjectStatsResultsDao(0D, 1L, 1L));
         }
         if(regional.size()==0){
-            regional.add(new ProjectStatsResultsDao(0D, 0L, 1L, 1L));
+            regional.add(new ProjectStatsResultsDao(0D, 1L, 1L));
         }
-        ret.put("national", national);
-        ret.put("regional", regional);
+
+        final Long nationalCount = getStatsCountByAdmLevel(params, true);
+        final Long regionalCount = getStatsCountByAdmLevel(params, false);
+
+        national.stream().forEach(loc -> loc.setProjectCount(nationalCount));
+        regional.stream().forEach(loc -> loc.setProjectCount(regionalCount));
+
+        ret.put(NATIONAL, national);
+        ret.put(REGIONAL, regional);
         return ret;
+    }
+
+    private Long getStatsCountByAdmLevel(Parameters params, boolean isNationalLevel) {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);
+        Root<Project> projectRoot = criteriaQuery.from(Project.class);
+        List<Selection<?>> multiSelect = new ArrayList<>();
+
+        Join<Project, ProjectLocation> locationJoin = projectRoot.join(Project_.locations, JoinType.LEFT);
+        Join<ProjectLocation, ProjectLocationId> pk = locationJoin.join(ProjectLocation_.pk, JoinType.LEFT);
+
+        List<Predicate> predicates = new ArrayList<>();
+        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, null);
+
+        multiSelect.add(criteriaBuilder.countDistinct(projectRoot.get(Project_.id)).alias("projectCount"));
+
+        if(isNationalLevel) {
+            predicates.add(pk.get(ProjectLocationId_.location).isNull());
+        } else {
+            predicates.add(pk.get(ProjectLocationId_.location).isNotNull());
+        }
+
+        if(predicates.size()>0) {
+            Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+            criteriaQuery.where(other);
+        }
+
+        List<Expression<?>> groupByList = new ArrayList<>();
+        criteriaQuery.groupBy(groupByList);
+
+        TypedQuery<Long> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
+
+        return query.getSingleResult();
     }
 
     private List<ProjectStatsResultsDao> getStatsByAdmLevel(Parameters params, boolean isNationalLevel) {
@@ -192,10 +232,8 @@ public class DefaultProjectRepository implements ProjectRepository {
         expression = FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, expression);
 
         multiSelect.add(criteriaBuilder.sum(expression));
-        multiSelect.add(criteriaBuilder.countDistinct(projectRoot.get(Project_.id)).alias("projectCount"));
         multiSelect.add(transactionJoin.get(Transaction_.transactionStatusId).alias("statusId"));
         multiSelect.add(transactionJoin.get(Transaction_.transactionTypeId).alias("typeId"));
-
 
         if(isNationalLevel) {
             predicates.add(pk.get(ProjectLocationId_.location).isNull());

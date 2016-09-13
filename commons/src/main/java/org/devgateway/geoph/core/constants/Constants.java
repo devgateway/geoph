@@ -73,4 +73,6 @@ public class Constants {
     public static final String PROJECT_CLASSNAME = Project.class.getSimpleName().toLowerCase();
     public static final String ABSTRACT_PERSISTABLE_CLASSNAME = AbstractPersistable.class.getSimpleName().toLowerCase();
     public static final String INDICATOR_DETAIL_CLASSNAME = IndicatorDetail.class.getSimpleName().toLowerCase();
+    public static final String NATIONAL = "national";
+    public static final String REGIONAL = "regional";
 }
