@@ -43,7 +43,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 const mapStateToProps = (state, props) => {
 	const {accountNonExpired,accountNonLocked,enabled,credentialsNonExpired}=state.security.toJS()
 	const loggedin=(accountNonExpired && accountNonLocked&& enabled && credentialsNonExpired);	
-	return {...state.header.toJS(), loggedin, title: state.saveMap.get("name")}
+	return {...state.header.toJS(), loggedin}
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(MenuBar);

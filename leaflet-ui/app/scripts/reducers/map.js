@@ -1,4 +1,4 @@
-import {REFRESH_LAYER,TOGGLE_LEGENDS_VIEW, SET_FUNDING_TYPE, SET_BASEMAP, LAYER_LOAD_SUCCESS, LAYER_LOAD_FAILURE, TOGGLE_LAYER, SET_LAYER_SETTING, INDICATOR_LIST_LOADED, GEOPHOTOS_LIST_LOADED, STATE_RESTORE, CHANGE_MAP_BOUNDS} from '../constants/constants';
+import {REFRESH_LAYER,TOGGLE_LEGENDS_VIEW, SET_FUNDING_TYPE, SET_BASEMAP, LAYER_LOAD_SUCCESS, LAYER_LOAD_FAILURE, TOGGLE_LAYER, SET_LAYER_SETTING, INDICATOR_LIST_LOADED, GEOPHOTOS_LIST_LOADED, STATE_RESTORE, CHANGE_MAP_BOUNDS, LOAD_DEFAULT_MAP_STATE} from '../constants/constants';
 import JenksCssProvider from '../util/jenksUtil.js'
 import {formatValue} from '../util/format.js'
 import Immutable from 'immutable';
@@ -303,6 +303,8 @@ const onChangeFundingType=(state,action)=>{
 const map = (state = defaultState, action) => {
   let newState;
   switch (action.type) {
+    case LOAD_DEFAULT_MAP_STATE:
+    return defaultState;
 
     case TOGGLE_LAYER:
     return onToggleLayer(state,action);
