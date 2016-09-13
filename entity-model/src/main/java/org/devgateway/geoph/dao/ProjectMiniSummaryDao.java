@@ -16,6 +16,8 @@ public class ProjectMiniSummaryDao {
 
     private String title;
 
+    private Long fundingAgencyId;
+
     private String fundingAgency;
 
     private Map<String, Map<String, Double>> trxAmounts = new HashMap<>();
@@ -23,6 +25,7 @@ public class ProjectMiniSummaryDao {
     public ProjectMiniSummaryDao(ProjectMiniDao projectMiniDao){
         this.id = projectMiniDao.getId();
         this.title = projectMiniDao.getTitle();
+        this.fundingAgencyId = projectMiniDao.getFundingAgencyId();
         this.fundingAgency = projectMiniDao.getFundingAgency();
 
         for(TransactionTypeEnum typeEnum:TransactionTypeEnum.values()){

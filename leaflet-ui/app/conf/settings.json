@@ -29,6 +29,7 @@
 		"PHYSICAL_GEOJSON":"/geodata/${level}/physicalProgress/detail/${detail}",
 		"GEOPHOTOS_GEOJSON":"/geodata/geophotos",	
 		"MAP":"/maps",
+		"REMOVE_MAP":"/maps/key/${key}",
 		"MAP_LIST":"/maps",
 
 

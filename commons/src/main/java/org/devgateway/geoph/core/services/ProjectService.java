@@ -4,6 +4,7 @@ import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.core.response.StatsResponse;
 import org.devgateway.geoph.dao.ProjectMiniDao;
 import org.devgateway.geoph.dao.ProjectMiniSummaryDao;
+import org.devgateway.geoph.dao.ProjectPageDao;
 import org.devgateway.geoph.dao.ProjectStatsResultsDao;
 import org.devgateway.geoph.model.Project;
 import org.springframework.data.domain.Page;
@@ -19,7 +20,7 @@ public interface ProjectService {
 
     List<Project> findAllProjects();
 
-    Project findById(long id);
+    ProjectPageDao findById(long id);
 
     Page<ProjectMiniSummaryDao> findProjectsByParams(Parameters params);
 

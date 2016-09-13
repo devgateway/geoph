@@ -24,6 +24,8 @@ public interface AppMapService {
 
     void delete(long id);
 
+    void deleteByKey(String key);
+
     Page<AppMap> findAll(Pageable pageable);
 
     Page<AppMap> findByType(String type,Pageable pageable);

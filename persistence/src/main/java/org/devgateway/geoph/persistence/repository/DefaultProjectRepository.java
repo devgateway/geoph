@@ -123,6 +123,9 @@ public class DefaultProjectRepository implements ProjectRepository {
         multiSelect.add(projectRoot.get(Project_.title));
         groupByList.add(projectRoot.get(Project_.title));
 
+        multiSelect.add(agencyJoin.get(Agency_.id));
+        groupByList.add(agencyJoin.get(Agency_.id));
+
         multiSelect.add(agencyJoin.get(Agency_.name));
         groupByList.add(agencyJoin.get(Agency_.name));
 

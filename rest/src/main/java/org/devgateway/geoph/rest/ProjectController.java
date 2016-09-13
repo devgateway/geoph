@@ -7,10 +7,10 @@ import org.devgateway.geoph.core.response.StatsResponse;
 import org.devgateway.geoph.core.services.ProjectService;
 import org.devgateway.geoph.dao.ProjectMiniDao;
 import org.devgateway.geoph.dao.ProjectMiniSummaryDao;
+import org.devgateway.geoph.dao.ProjectPageDao;
 import org.devgateway.geoph.dao.ProjectStatsResultsDao;
 import org.devgateway.geoph.enums.TransactionStatusEnum;
 import org.devgateway.geoph.enums.TransactionTypeEnum;
-import org.devgateway.geoph.model.Project;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +55,7 @@ public class ProjectController extends BaseController {
     }
 
     @RequestMapping(value = "/{id}", method = GET)
-    public Project findProjectById(@PathVariable final long id) {
+    public ProjectPageDao findProjectById(@PathVariable final long id) {
         LOGGER.debug("findProjectById");
         return service.findById(id);
     }
