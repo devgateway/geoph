@@ -2,6 +2,7 @@ import * as Constants from '../constants/constants';
 import {Map,List} from 'immutable'
 
 var count=0;
+
 const share =(state = new Map({captures:new List()}), action) => {
 
   
@@ -12,7 +13,13 @@ const share =(state = new Map({captures:new List()}), action) => {
     return state.setIn(['loading'],true);
     
     case Constants.CAPTURE_OK:
-    return state.setIn(['loading'],false).setIn(['captures',count++],action.data.file);
+ 
+    if (count > 7){ //0 1 2 
+       state=state.set("captures",state.get('captures').shift());
+    }
+
+    count++
+    return state.setIn(['loading'],false).setIn(['captures',state.get("captures").size],{name:action.data.file,count:count});
     
     case Constants.CAPTURE_RESET:
     count=0;
