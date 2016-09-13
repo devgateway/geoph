@@ -1,10 +1,13 @@
 package org.devgateway.geoph.dao;
 
 import org.devgateway.geoph.enums.LocationAdmLevelEnum;
+import org.devgateway.geoph.model.Location;
 import org.devgateway.geoph.model.Project;
 import org.devgateway.geoph.model.ProjectLocation;
 
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author dbianco
@@ -20,11 +23,11 @@ public class ProjectPageDao {
 
     private String fundingAgency;
 
-    private List<String> implementingAgencies;
+    private Map<Long, Map<String, Object>> implementingAgencies;
 
-    private List<String> sectors;
+    private Map<Long, Map<String, Object>> sectors;
 
-    private Map<String, Map<String, Set<String>>> locations;
+    private Map<Long, LocationTree> locations;
 
     private Date periodPerformanceStart;
 
@@ -40,27 +43,38 @@ public class ProjectPageDao {
         this.title = project.getTitle();
         this.fundingAgency = project.getFundingAgency().getName();
 
-        this.implementingAgencies = new ArrayList<>();
-        project.getImplementingAgencies().stream().forEach(ia -> this.implementingAgencies.add(ia.getAgency().getName()));
+        this.implementingAgencies = new HashMap<>();
+        project.getImplementingAgencies().stream().forEach(ia -> {
+            Map<String, Object> iaMap = new HashMap<>();
+            iaMap.put("name", ia.getAgency().getName());
+            iaMap.put("id", ia.getAgency().getId());
+            this.implementingAgencies.put(ia.getAgency().getId(), iaMap);
+        });
 
-        this.sectors = new ArrayList<>();
-        project.getSectors().stream().forEach(ps -> this.sectors.add(ps.getSector().getName()));
+        this.sectors = new HashMap<>();
+        project.getSectors().stream().forEach(ps -> {
+            Map<String, Object> sectorMap = new HashMap<>();
+            sectorMap.put("name", ps.getSector().getName());
+            sectorMap.put("id", ps.getSector().getId());
+            this.sectors.put(ps.getSector().getId(), sectorMap);
+        });
 
         this.locations = new HashMap<>();
         for(ProjectLocation pl : project.getLocations()) {
+            Location region = null;
+            Location province = null;
+            Location municipality = null;
             if (pl.getLocation().getLevel() == LocationAdmLevelEnum.MUNICIPALITY.getLevel()) {
-                String regionName = pl.getLocation().getRegion().getName();
-                String provinceName = pl.getLocation().getProvince().getName();
-                String municipalityName = pl.getLocation().getName();
-                createLocationTree(regionName, provinceName, municipalityName);
+                region = pl.getLocation().getRegion();
+                province = pl.getLocation().getProvince();
+                municipality = pl.getLocation();
             } else if(pl.getLocation().getLevel() == LocationAdmLevelEnum.PROVINCE.getLevel()){
-                String regionName = pl.getLocation().getRegion().getName();
-                String provinceName = pl.getLocation().getName();
-                createLocationTree(regionName, provinceName, null);
+                region = pl.getLocation().getRegion();
+                province = pl.getLocation();
             } else if(pl.getLocation().getLevel() == LocationAdmLevelEnum.REGION.getLevel()){
-                String regionName =  pl.getLocation().getName();
-                createLocationTree(regionName, null, null);
+                region = pl.getLocation();
             }
+            createLocationTree(region, province, municipality);
         }
 
         this.periodPerformanceStart = project.getPeriodPerformanceStart();
@@ -74,29 +88,25 @@ public class ProjectPageDao {
 
     }
 
-    private void createLocationTree(String regionName, String provinceName, String municipalityName) {
-        if (!locations.containsKey(regionName)) {
-            Map<String, Set<String>> provinceMap = new HashMap<>();
-            if(provinceName!=null){
-                createProvinceMap(provinceName, municipalityName, provinceMap);
+    private void createLocationTree(Location region, Location province, Location municipality) {
+        if (!locations.containsKey(region.getId())) {
+            LocationTree regionTree = new LocationTree(region);
+            if(province!=null){
+                createProvince(province, municipality, regionTree.getChilds());
             }
-            locations.put(regionName, provinceMap);
+            locations.put(region.getId(), regionTree);
         } else {
-            if (provinceName != null) {
-                Map<String, Set<String>> provinceMap = locations.get(regionName);
-                if (provinceMap == null) {
-                    provinceMap = new HashMap<>();
-                }
-                if (!provinceMap.containsKey(provinceName)) {
-                    createProvinceMap(provinceName, municipalityName, provinceMap);
-                    locations.put(regionName, provinceMap);
+            if (province != null) {
+                Map<Long, LocationTree> provinceMap = locations.get(region.getId()).getChilds();
+                if (!provinceMap.containsKey(province.getId())) {
+                    createProvince(province, municipality, locations.get(region.getId()).getChilds());
                 } else {
-                    Set<String> muniSet = provinceMap.get(provinceName);
-                    if (muniSet == null) {
-                        createMunicipalitySet(municipalityName);
+                    Map<Long, LocationTree> municipalityMap = provinceMap.get(province.getId()).getChilds();
+                    if (municipalityMap == null) {
+                        createMunicipality(municipality, provinceMap.get(province.getId()).getChilds());
                     } else {
-                        if(municipalityName!=null) {
-                            muniSet.add(municipalityName);
+                        if(municipality!=null) {
+                            municipalityMap.put(municipality.getId(), new LocationTree(municipality));
                         }
                     }
                 }
@@ -104,18 +114,17 @@ public class ProjectPageDao {
         }
     }
 
-    private void createProvinceMap(String provinceName, String municipalityName, Map<String, Set<String>> provinceMap) {
-        Set<String> muniSet = new HashSet<>();
-        if(municipalityName!=null) {
-            muniSet = createMunicipalitySet(municipalityName);
+    private void createProvince(Location province, Location municipality, Map<Long, LocationTree> regionChild) {
+        LocationTree provinceTree = new LocationTree(province);
+        if(municipality!=null) {
+            createMunicipality(municipality, provinceTree.getChilds());
         }
-        provinceMap.put(provinceName, muniSet);
+        regionChild.put(province.getId(), provinceTree);
     }
 
-    private Set<String> createMunicipalitySet(String municipalityName) {
-        Set<String> muniSet = new HashSet<>();
-        muniSet.add(municipalityName);
-        return muniSet;
+    private void createMunicipality(Location municipality, Map<Long, LocationTree> provinceChild) {
+        LocationTree municipalityTree = new LocationTree(municipality);
+        provinceChild.put(municipality.getId(), municipalityTree);
     }
 
     public Long getId() {
@@ -150,27 +159,27 @@ public class ProjectPageDao {
         this.fundingAgency = fundingAgency;
     }
 
-    public List<String> getImplementingAgencies() {
+    public Map<Long, Map<String, Object>> getImplementingAgencies() {
         return implementingAgencies;
     }
 
-    public void setImplementingAgencies(List<String> implementingAgencies) {
+    public void setImplementingAgencies(Map<Long, Map<String, Object>> implementingAgencies) {
         this.implementingAgencies = implementingAgencies;
     }
 
-    public List<String> getSectors() {
+    public Map<Long, Map<String, Object>> getSectors() {
         return sectors;
     }
 
-    public void setSectors(List<String> sectors) {
+    public void setSectors(Map<Long, Map<String, Object>> sectors) {
         this.sectors = sectors;
     }
 
-    public Map<String, Map<String, Set<String>>> getLocations() {
+    public Map<Long, LocationTree> getLocations() {
         return locations;
     }
 
-    public void setLocations(Map<String, Map<String, Set<String>>> locations) {
+    public void setLocations(Map<Long, LocationTree> locations) {
         this.locations = locations;
     }
 
@@ -204,5 +213,44 @@ public class ProjectPageDao {
 
     public void setPhysicalStatus(String physicalStatus) {
         this.physicalStatus = physicalStatus;
+    }
+
+    class LocationTree{
+
+        private Long id;
+
+        private String name;
+
+        private Map<Long, LocationTree> childs;
+
+        public LocationTree (Location location){
+            this.id = location.getId();
+            this.name = location.getName();
+            this.childs = new HashMap<>();
+        }
+
+        public Long getId() {
+            return id;
+        }
+
+        public void setId(Long id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public Map<Long, LocationTree> getChilds() {
+            return childs;
+        }
+
+        public void setChilds(Map<Long, LocationTree> childs) {
+            this.childs = childs;
+        }
     }
 }
