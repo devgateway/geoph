@@ -114,7 +114,6 @@ export const requestRestoreMap = (mapKey) => {
       dispatch(makeAction(Constants.INDICATOR_LIST_LOADED,{data}));
       dispatch(loadAllFilterLists());
       loadMap(mapKey).then((storedMap)=>{
-          dispatch(makeAction(Constants.SAVED_MAP_LOADED,{storedMap}));        
           if(storedMap) {            
             dispatch(applyFilter(storedMap.data.filters));
             dispatch(makeAction(Constants.STATE_RESTORE,{storedMap}));

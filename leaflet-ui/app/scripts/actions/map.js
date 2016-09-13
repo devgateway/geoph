@@ -38,7 +38,6 @@ export const applyFiltersToLayers=(filters)=>{
 }
 
 export const setSetting=(id, name, value)=>{
-	debugger;
 	return (dispatch, getState) => {
 		dispatch( {
 			type: SET_LAYER_SETTING,

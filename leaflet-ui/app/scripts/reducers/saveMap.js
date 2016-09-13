@@ -1,16 +1,20 @@
 import * as Constants from '../constants/constants';
-import {Map} from 'immutable'
+import Immutable from 'immutable';
 
+const defaultState = Immutable.fromJS(
+  {id:'', name:'', description:'', saving: false}
+);
 
-const saveMap =(state = new Map({id:'', name:'', description:'', saving: false}), action) => {
+const saveMap =(state = defaultState, action) => {
 
   //console.log("--- saveMap reducer ---" + action);
   switch (action.type) {
     
-    case Constants.SAVED_MAP_LOADED:
-      const {id, name, description} = action.storedMap;
-      state = new Map({id, name, description});
-      return state; 
+    case Constants.LOAD_DEFAULT_MAP_STATE:
+      return defaultState;
+
+    case Constants.STATE_RESTORE:
+      return defaultState; 
 
     case Constants.CHANGE_SAVE_PROPERTY:
       return state.set(action.property,action.value);

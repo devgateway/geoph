@@ -8,6 +8,28 @@ import {formatValue} from '../../util/format.js';
 import Moment from 'moment'
 require("./project.scss");
 
+class Locations extends React.Component {	
+	
+	render() {
+		const {items} = this.props;
+		return (
+			<ul>
+				{items.map(location=>{
+					const {id, name, childrens} = location;
+					return (
+						<li key={id}>
+							<div>{name}</div>
+							{childrens && childrens.length>0?
+								<Locations items={childrens} />
+							:null}
+						</li>
+					)
+				})}
+			</ul>
+		);
+	}
+}
+
 class ProjectPage extends React.Component {
 
 	constructor() {
@@ -21,7 +43,7 @@ class ProjectPage extends React.Component {
 	render() {
 		const {project} = this.props;
 		const {projectData, isPopupOpen, loadingData} = project;
-		const {title, totalProjectAmount, fundingAgency, implementingAgencies, sectors, locations, periodPerformanceStart, periodPerformanceEnd, status, physicalStatus} = projectData;
+		const {title, totalProjectAmount, fundingAgency, implementingAgencies, sectors, locationTree, periodPerformanceStart, periodPerformanceEnd, status, physicalStatus} = projectData;
 		const notAvailable = translate('project.notavailable');
 		return (
     		<Modal animation={false} aria-labelledby='contained-modal-title-lg'  
@@ -49,14 +71,14 @@ class ProjectPage extends React.Component {
 							     
 							    <div className="project-field">
 							      <p>{translate('project.fundingagency')}</p>
-							      <div>{fundingAgency? fundingAgency.name : notAvailable}</div>
+							      <div>{fundingAgency? fundingAgency : notAvailable}</div>
 							    </div>
 
 							    <div className="project-field">
 							      <p>{translate('project.implementingagencies')}</p>
 							      <div>
 							      	<ul>
-							      	{implementingAgencies? implementingAgencies.map(ia=>{return <li>{ia.pk.agency.name}</li>}) : notAvailable}
+							      	{implementingAgencies? implementingAgencies.map(ia=>{return <li key={ia.id}>{ia.name}</li>}) : notAvailable}
 							      	</ul>
 							      </div>
 							    </div>
@@ -65,7 +87,7 @@ class ProjectPage extends React.Component {
 							      <p>{translate('project.sectors')}</p>
 							      <div>
 							      	<ul>
-							      	{sectors? sectors.map(sc=>{return <li>{sc.pk.sector.name}</li>}) : notAvailable}
+							      	{sectors? sectors.map(sc=>{return <li key={sc.id}>{sc.name}</li>}) : notAvailable}
 							      	</ul>
 							      </div>
 							    </div>
@@ -73,9 +95,7 @@ class ProjectPage extends React.Component {
 							    <div className="project-field">
 							      <p>{translate('project.locations')}</p>
 							      <div>
-							      	<ul>
-							      	{locations? locations.map(loc=>{return <li>{loc.pk.location.name}</li>}) : notAvailable}
-							      	</ul>
+							      	{locationTree && locationTree.length? <Locations items={locationTree}/> : notAvailable}
 							      </div>
 							    </div>
 
@@ -94,12 +114,12 @@ class ProjectPage extends React.Component {
 							    <div className="project-field-pair">
 									<div className="project-field">
 								      <p>{translate('project.status')}</p>
-								      <div>{status? status.name : notAvailable}</div>
+								      <div>{status? status : notAvailable}</div>
 								    </div>
 
 								    <div className="project-field">
 								      <p>{translate('project.physicalstatus')}</p>
-								      <div>{physicalStatus? physicalStatus.name : notAvailable}</div>
+								      <div>{physicalStatus? physicalStatus : notAvailable}</div>
 								    </div>
 							    </div>
 							</div>
