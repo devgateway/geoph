@@ -17,36 +17,8 @@ public class FilterHelper {
     private static final Object LOCK_LOCATION = new Object() {};
     private static final Object LOCK_TRANSACTION = new Object() {};
 
-    public static Expression<Double> filterProjectQuery(Parameters params, CriteriaBuilder criteriaBuilder, Root<Project> projectRoot, List<Predicate> predicates, Expression<Double> expression) {
-        return filterProjectQueryAdvanced(params, criteriaBuilder, projectRoot, predicates, expression, null, null, null, null, false);
-    }
-
-    public static void filterProjectQueryForIAs(Parameters params, CriteriaBuilder criteriaBuilder, Root<Project> projectRoot,
-                                                List<Predicate> predicates, List<Selection<?>> multiSelect,
-                                                Join<Project, ProjectAgency> agencyJoin,
-                                                Join<Project, Transaction> transactionJoin) {
-        filterProjectQueryAdvanced(params, criteriaBuilder, projectRoot, predicates, null, multiSelect, agencyJoin, null, transactionJoin, false);
-    }
-
-    public static void filterProjectQueryForSectors(Parameters params, CriteriaBuilder criteriaBuilder, Root<Project> projectRoot,
-                                                List<Predicate> predicates, List<Selection<?>> multiSelect,
-                                                Join<Project, ProjectSector> sectorJoin,
-                                                Join<Project, Transaction> transactionJoin) {
-        filterProjectQueryAdvanced(params, criteriaBuilder, projectRoot, predicates, null, multiSelect, null, sectorJoin, transactionJoin, false);
-    }
-
-    public static void filterProjectQueryWithUtilization(Parameters params, CriteriaBuilder criteriaBuilder, Root<Project> projectRoot, List<Predicate> predicates, List<Selection<?>> multiSelect, Join<Project, Transaction> transactionJoin) {
-        filterProjectQueryAdvanced(params, criteriaBuilder, projectRoot, predicates, null, multiSelect, null, null, transactionJoin, true);
-    }
-
-    public static Expression<Double> filterProjectQueryAdvanced(Parameters params, CriteriaBuilder criteriaBuilder,
-                                                  Root<Project> projectRoot, List<Predicate> predicates,
-                                                  Expression<Double> expression,
-                                                  List<Selection<?>> multiSelect,
-                                                  Join<Project, ProjectAgency> projectAgencyJoin,
-                                                  Join<Project, ProjectSector> sectorJoin,
-                                                  Join<Project, Transaction> transactionJoin,
-                                                  boolean isUtilizationSelectNeeded) {
+    public static Expression<Double> filterProjectQuery(Parameters params, CriteriaBuilder criteriaBuilder, Root<Project> projectRoot,
+                                                        List<Predicate> predicates, Expression<Double> expression) {
         synchronized (LOCK_PROJECT) {
             if (params != null) {
                 if (params.getLocations() != null) {
@@ -66,9 +38,8 @@ public class FilterHelper {
                     predicates.add(criteriaBuilder.like(criteriaBuilder.upper(projectRoot.get(Project_.title)), "%" + params.getProjectTitle().toUpperCase() + "%"));
                 }
                 if (params.getSectors() != null) {
-                    if(sectorJoin==null){
-                        sectorJoin=projectRoot.join(Project_.sectors);
-                    }
+                    Join<Project, ProjectSector> sectorJoin = projectRoot.join(Project_.sectors);
+
                     Join<ProjectSector, ProjectSectorId> pk = sectorJoin.join(ProjectSector_.pk);
                     predicates.add(pk.get(ProjectSectorId_.sector).in(params.getSectors()));
                     if(expression!=null) {
@@ -121,9 +92,7 @@ public class FilterHelper {
                     predicates.add(projectRoot.get(Project_.grantClassification).in(params.getClassifications()));
                 }
                 if (params.getImpAgencies() != null) {
-                    if(projectAgencyJoin==null) {
-                        projectAgencyJoin = projectRoot.join(Project_.implementingAgencies);
-                    }
+                    Join<Project, ProjectAgency> projectAgencyJoin = projectRoot.join(Project_.implementingAgencies);
                     Join<ProjectAgency, ProjectAgencyId> pk = projectAgencyJoin.join(ProjectAgency_.pk);
                     predicates.add(pk.get(ProjectAgencyId_.agency).in(params.getImpAgencies()));
                     if(expression!=null) {
@@ -133,9 +102,8 @@ public class FilterHelper {
                 if (params.getFlowTypes() != null || params.getGrantSubTypes() != null) {
                     Predicate ft = null;
                     boolean isFlowType = false;
-                    if(transactionJoin==null){
-                        transactionJoin = projectRoot.join(Project_.transactions);
-                    }
+                    Join<Project, Transaction> transactionJoin = projectRoot.join(Project_.transactions);
+
                     if(params.getFlowTypes()!=null){
                         ft = transactionJoin.get(Transaction_.flowType).in(params.getFlowTypes());
                         isFlowType = true;
