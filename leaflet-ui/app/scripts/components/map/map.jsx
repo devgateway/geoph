@@ -50,7 +50,6 @@ const view=React.createClass({
 	getLayer(l){
 		
 		const {data, type, popupId, id, zIndex,settings}=l;
-		debugger;
 		const {showLabels} =settings || {};
 		
 		if (type=='clustered'){

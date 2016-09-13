@@ -68,7 +68,6 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
     const statsData = stats.get('location').get('data')[0] || {};
     const statsLoading = stats.get('location').get('isFetching');
     const {projectCount, trxAmounts={}} = statsData;
-    debugger;
     let fundingLabel = translate('header.settings.'+type) + " " +  translate('header.settings.'+measure);
     let fundingValue = trxAmounts[measure]? trxAmounts[measure][type] || 0 : 0;
     return (

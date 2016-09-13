@@ -39,7 +39,7 @@ class AdminActions extends React.Component {
     const {id,mapKey,onDelete,onEdit}=this.props;
     return (
       <div>
-        <a target="new" href={`#/map/${mapKey}`}  className="btn btn-sm btn-info">Edit</a>
+        <a href={`#/map/${mapKey}`}  className="btn btn-sm btn-info">Edit</a>
         <button className="btn btn-sm btn-danger" onClick={_=>onDelete(mapKey)}>Delete</button>
       </div>
     )
