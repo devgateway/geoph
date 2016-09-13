@@ -1,13 +1,12 @@
 package org.devgateway.geoph.dao;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.devgateway.geoph.enums.LocationAdmLevelEnum;
 import org.devgateway.geoph.model.Location;
 import org.devgateway.geoph.model.Project;
 import org.devgateway.geoph.model.ProjectLocation;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author dbianco
@@ -23,10 +22,11 @@ public class ProjectPageDao {
 
     private String fundingAgency;
 
-    private Map<Long, Map<String, Object>> implementingAgencies;
+    private List<Map<String, Object>> implementingAgencies;
 
-    private Map<Long, Map<String, Object>> sectors;
+    private List<Map<String, Object>> sectors;
 
+    @JsonIgnore
     private Map<Long, LocationTree> locations;
 
     private Date periodPerformanceStart;
@@ -43,20 +43,20 @@ public class ProjectPageDao {
         this.title = project.getTitle();
         this.fundingAgency = project.getFundingAgency().getName();
 
-        this.implementingAgencies = new HashMap<>();
+        this.implementingAgencies = new ArrayList<>();
         project.getImplementingAgencies().stream().forEach(ia -> {
             Map<String, Object> iaMap = new HashMap<>();
             iaMap.put("name", ia.getAgency().getName());
             iaMap.put("id", ia.getAgency().getId());
-            this.implementingAgencies.put(ia.getAgency().getId(), iaMap);
+            this.implementingAgencies.add(iaMap);
         });
 
-        this.sectors = new HashMap<>();
+        this.sectors = new ArrayList<>();
         project.getSectors().stream().forEach(ps -> {
             Map<String, Object> sectorMap = new HashMap<>();
             sectorMap.put("name", ps.getSector().getName());
             sectorMap.put("id", ps.getSector().getId());
-            this.sectors.put(ps.getSector().getId(), sectorMap);
+            this.sectors.add(sectorMap);
         });
 
         this.locations = new HashMap<>();
@@ -159,19 +159,19 @@ public class ProjectPageDao {
         this.fundingAgency = fundingAgency;
     }
 
-    public Map<Long, Map<String, Object>> getImplementingAgencies() {
+    public List<Map<String, Object>> getImplementingAgencies() {
         return implementingAgencies;
     }
 
-    public void setImplementingAgencies(Map<Long, Map<String, Object>> implementingAgencies) {
+    public void setImplementingAgencies(List<Map<String, Object>> implementingAgencies) {
         this.implementingAgencies = implementingAgencies;
     }
 
-    public Map<Long, Map<String, Object>> getSectors() {
+    public List<Map<String, Object>> getSectors() {
         return sectors;
     }
 
-    public void setSectors(Map<Long, Map<String, Object>> sectors) {
+    public void setSectors(List<Map<String, Object>> sectors) {
         this.sectors = sectors;
     }
 
@@ -215,12 +215,17 @@ public class ProjectPageDao {
         this.physicalStatus = physicalStatus;
     }
 
+    public Collection<LocationTree> getLocationTree() {
+        return locations.values();
+    }
+
     class LocationTree{
 
         private Long id;
 
         private String name;
 
+        @JsonIgnore
         private Map<Long, LocationTree> childs;
 
         public LocationTree (Location location){
@@ -251,6 +256,10 @@ public class ProjectPageDao {
 
         public void setChilds(Map<Long, LocationTree> childs) {
             this.childs = childs;
+        }
+
+        public Collection<LocationTree> getChildrens() {
+            return childs.values();
         }
     }
 }
