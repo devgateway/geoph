@@ -261,7 +261,7 @@ const onToggleLayer=(state,action)=>{
 
 const onSetSetting=(state,action)=>{
   var {id, name, value} = action;
-  
+  debugger;
   return state.setIn(getPath(id, ["settings", name]), value);
 }
 
