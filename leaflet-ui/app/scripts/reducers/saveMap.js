@@ -30,7 +30,7 @@ const saveMap =(state = defaultState, action) => {
       return state.set('httpError', action.httpError);
 
     case Constants.REQUEST_SAVE_MAP_OK:
-      state = new Map({name:'',description:'', saving:false});
+      state = defaultState;
       return state;
     
     default:

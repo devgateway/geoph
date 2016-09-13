@@ -149,7 +149,7 @@ export default class D3Layer extends MapLayer {
 
       const element=this.g;
       element.selectAll(".label").remove();  
- 
+    
     if(this.props.showLabels==true){
            features.forEach((f)=>{
         const {id}=f.properties;
