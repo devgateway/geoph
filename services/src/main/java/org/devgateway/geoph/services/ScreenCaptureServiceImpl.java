@@ -22,6 +22,7 @@ import org.devgateway.geoph.core.services.ScreenCaptureService;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -120,7 +121,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
 
         try {
             WebDriver driver = new PhantomJSDriver(DesireCaps);
-            driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+            driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
             driver.manage().window().setSize(new Dimension(width, height));
             driver.get(target.toString());
 
@@ -135,26 +136,16 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
     }
 
     public BufferedImage JbrowserCapture(Integer width, Integer height, URI target) {
-        LOGGER.debug("Starting JBrowserDriver ");
         BufferedImage image = null;
         try {
-            Dimension screen = new Dimension(width, height);
-            WebDriver driver = new JBrowserDriver(Settings
-                    .builder()
-                    .logWarnings(false)
-                    .logger(null)
-                    .screen(screen)
-                    .userAgent(UserAgent.CHROME)
-                    .timezone(Timezone.AMERICA_NEWYORK)
-                    .build());
-            //TODO:externalize time out
-            driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+
+           WebDriver driver =DriverManager.getDriver(width, height);
             driver.get(target.toString());
 
             byte[] imageByte=((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
             ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
             image = ImageIO.read(bis);
-            driver.quit();
+            //driver.quit();
         } catch (Exception e) {
             LOGGER.error("Image error: " + e.getMessage());
         }
@@ -237,19 +228,33 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
 
     private void removeTranslate3dFromDocument(Document doc) {
         Element pane = doc.getElementsByClass("leaflet-map-pane").get(0);
-        String style = pane.attr("style");
+        Elements elements=doc.getElementsByAttributeValueContaining("style", "translate3d");
+
         String pattern = "[-|\\d]*.px";
         Pattern r = Pattern.compile(pattern);
-        Matcher m = r.matcher(style);
-        String left = null;
-        if (m.find()) {
-            left = m.group(0);
-        }
-        String top = null;
-        if (m.find()) {
-            top = m.group(0);
-        }
-        pane.attr("style", "left:" + left + ";top:" + top);
+
+        elements.forEach(element -> {
+            String style = element.attr("style").substring(element.attr("style").indexOf("translate3d"));
+            Matcher m = r.matcher(style);
+
+            String left = null;
+            if (m.find()) {
+                left = m.group(0);
+            }
+            String top = null;
+            if (m.find()) {
+                top = m.group(0);
+            }
+            String newStyle=    element.attr("style").concat("left:" + left + ";top:" + top);
+                    //element.attr("style").concat("transform:translate(" + left +","+top+")");
+
+            element.attr("style",newStyle);
+        });
+
+
+
+
+
     }
 
     private File createPdf(BufferedImage image,
