@@ -8,6 +8,28 @@ import {formatValue} from '../../util/format.js';
 import Moment from 'moment'
 require("./project.scss");
 
+class Locations extends React.Component {	
+	
+	render() {
+		const {items} = this.props;
+		return (
+			<ul>
+				{items.map(location=>{
+					const {id, name, childrens} = location;
+					return (
+						<li key={id}>
+							<div>{name}</div>
+							{childrens && childrens.length>0?
+								<Locations items={childrens} />
+							:null}
+						</li>
+					)
+				})}
+			</ul>
+		);
+	}
+}
+
 class ProjectPage extends React.Component {
 
 	constructor() {
@@ -21,13 +43,13 @@ class ProjectPage extends React.Component {
 	render() {
 		const {project} = this.props;
 		const {projectData, isPopupOpen, loadingData} = project;
-		const {title, totalProjectAmount, fundingAgency, implementingAgencies, sectors, locations, periodPerformanceStart, periodPerformanceEnd, status, physicalStatus} = projectData;
-	
+		const {title, totalProjectAmount, fundingAgency, implementingAgencies, sectors, locationTree, periodPerformanceStart, periodPerformanceEnd, status, physicalStatus} = projectData;
+		const notAvailable = translate('project.notavailable');
 		return (
     		<Modal animation={false} aria-labelledby='contained-modal-title-lg'  
     		show={isPopupOpen} 
-			onHide={this.close.bind(this)} >
-			
+			onHide={this.close.bind(this)} 
+			dialogClassName="project-page-dialog">
 				<Modal.Header closeButton >
 					<Modal.Title>
 						{translate('project.projectdetails')}
@@ -39,68 +61,67 @@ class ProjectPage extends React.Component {
 					: 
 						<Modal.Body>
 							<div className="project-grid"> 
-							<Grid>
-							    <Row className="project-page-title">
-							      <Col md={12}>{title}</Col>
-							    </Row>
-							    <Row className="project-field">
-							      <Col md={5}><h2>{translate('project.projectcost')}</h2></Col>
-							      <Col md={7}>{totalProjectAmount || "Not Available"}</Col>
-							    </Row>
+								<div className="project-page-title">
+							      {title}
+							    </div>
+							    <div className="project-field">
+							      <p>{translate('project.projectcost')}</p>
+							      <div>{totalProjectAmount? "₱ "+formatValue(totalProjectAmount) : notAvailable}</div>
+							    </div>
 							     
-							    <Row className="project-field">
-							      <Col md={5}><h2>{translate('project.fundingagency')}</h2></Col>
-							      <Col md={7}>{fundingAgency? fundingAgency.name : "Not Available"}</Col>
-							    </Row>
+							    <div className="project-field">
+							      <p>{translate('project.fundingagency')}</p>
+							      <div>{fundingAgency? fundingAgency : notAvailable}</div>
+							    </div>
 
-							    <Row className="project-field">
-							      <Col md={5}><h2>{translate('project.implementingagencies')}</h2></Col>
-							      <Col md={7}>
+							    <div className="project-field">
+							      <p>{translate('project.implementingagencies')}</p>
+							      <div>
 							      	<ul>
-							      	{implementingAgencies? implementingAgencies.map(ia=>{return <li>{ia.pk.agency.name}</li>}) : "Not Available"}
+							      	{implementingAgencies? implementingAgencies.map(ia=>{return <li key={ia.id}>{ia.name}</li>}) : notAvailable}
 							      	</ul>
-							      </Col>
-							    </Row>
+							      </div>
+							    </div>
 
-							    <Row className="project-field">
-							      <Col md={5}><h2>{translate('project.sectors')}</h2></Col>
-							      <Col md={7}>
+							    <div className="project-field">
+							      <p>{translate('project.sectors')}</p>
+							      <div>
 							      	<ul>
-							      	{sectors? sectors.map(sc=>{return <li>{sc.pk.sector.name}</li>}) : "Not Available"}
+							      	{sectors? sectors.map(sc=>{return <li key={sc.id}>{sc.name}</li>}) : notAvailable}
 							      	</ul>
-							      </Col>
-							    </Row>
+							      </div>
+							    </div>
 
-							    <Row className="project-field">
-							      <Col md={5}><h2>{translate('project.locations')}</h2></Col>
-							      <Col md={7}>
-							      	<ul>
-							      	{locations? locations.map(loc=>{return <li>{loc.pk.location.name}</li>}) : "Not Available"}
-							      	</ul>
-							      </Col>
-							    </Row>
+							    <div className="project-field">
+							      <p>{translate('project.locations')}</p>
+							      <div>
+							      	{locationTree && locationTree.length? <Locations items={locationTree}/> : notAvailable}
+							      </div>
+							    </div>
 
-							    <Row className="project-field">
-							      <Col md={5}><h2>{translate('project.physicalStartingDate')}</h2></Col>
-							      <Col md={7}>{periodPerformanceStart? Moment(periodPerformanceStart).format("YYYY-MM-DD") : "Not Available"}</Col>
-							    </Row>
+							    <div className="project-field-pair">
+								    <div className="project-field">
+								      <p>{translate('project.physicalStartingDate')}</p>
+								      <div>{periodPerformanceStart? Moment(periodPerformanceStart).format("YYYY-MM-DD") : notAvailable}</div>
+								    </div>
 
-							    <Row className="project-field">
-							      <Col md={5}><h2>{translate('project.physicalClosingDate')}</h2></Col>
-							      <Col md={7}>{periodPerformanceEnd? Moment(periodPerformanceEnd).format("YYYY-MM-DD") : "Not Available"}</Col>
-							    </Row>
+								    <div className="project-field">
+								      <p>{translate('project.physicalClosingDate')}</p>
+								      <div>{periodPerformanceEnd? Moment(periodPerformanceEnd).format("YYYY-MM-DD") : notAvailable}</div>
+								    </div>
+								</div>
 
-							    <Row className="project-field">
-							      <Col md={5}><h2>{translate('project.status')}</h2></Col>
-							      <Col md={7}>{status? status.name : "Not Available"}</Col>
-							    </Row>
+							    <div className="project-field-pair">
+									<div className="project-field">
+								      <p>{translate('project.status')}</p>
+								      <div>{status? status : notAvailable}</div>
+								    </div>
 
-							    <Row className="project-field">
-							      <Col md={5}><h2>{translate('project.physicalstatus')}</h2></Col>
-							      <Col md={7}>{physicalStatus? physicalStatus.name : "Not Available"}</Col>
-							    </Row>
-							    
-							</Grid>
+								    <div className="project-field">
+								      <p>{translate('project.physicalstatus')}</p>
+								      <div>{physicalStatus? physicalStatus : notAvailable}</div>
+								    </div>
+							    </div>
 							</div>
 						</Modal.Body>
 				: null}

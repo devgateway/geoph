@@ -19,29 +19,13 @@ class LangSwitcher extends React.Component {
 	}
 
 	render() {
-		let content;
-
-		let children=null;
-
-		if (this.props.visible){
-			children=<ul>
-						<li className={(this.props.lan=='en')?"selected":""} href="" onClick={this.changeLanguage.bind(this,'en')}>{translate('header.language.english')}</li>
-						<li className={(this.props.lan=='ph')?"selected":""} href="" onClick={this.changeLanguage.bind(this,'ph')}>{translate('header.language.philippine')}</li>
-				 	 </ul>
-		}else{
-			//children=<span>	{this.props.lan.toUpperCase()} </span>
-		}
-
-		return <ul className="lan-selector">
-					<li onClick={this.props.onClick}>
-					<div className="icon"></div> 
-					<div className="arrow"></div>
-						<span>	{this.props.lan.toUpperCase()} </span>
-				
-						{children}
-
-					</li>
-		</ul>;
+		const {lan} = this.props;
+		return (
+			<div className="lan-selector">
+				<div className={lan=='en'? "usa-icon" : "usa-icon-disabled"} onClick={this.changeLanguage.bind(this,'en')}></div> 
+				<div className={lan=='ph'? "ph-icon" : "ph-icon-disabled"} onClick={this.changeLanguage.bind(this,'ph')}></div>		
+			</div>
+		);
 	}
 }
 
@@ -53,7 +37,6 @@ const mapStateToProps = (state, props) => {
 	}
 }
 
-
 const mapDispatchToProps = (dispatch, ownProps) => {
  	return {
 	  	onClick:()=>{
@@ -64,7 +47,5 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	  	}
 	}
 }
-
-
 
 export default connect(mapStateToProps,mapDispatchToProps)(LangSwitcher);;

@@ -24,7 +24,6 @@ const stats =(state = defaultState, action) => {
    
     case Constants.RECEIVE_LOCATION_STATS:
         state = state.setIn(['location','isFetching'], false);
-        debugger;
         return state.setIn(['location','data'], action.data);
         
     default:

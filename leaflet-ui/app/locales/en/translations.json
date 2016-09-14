@@ -250,7 +250,8 @@
 		"physicalStartingDate": "Physical Starting Date",
 		"physicalClosingDate": "Physical Closing Date",
 		"status": "Status",
-		"physicalstatus": "Physical Status"
+		"physicalstatus": "Physical Status",
+		"notavailable": "Not Available"
 	}
 
 }

@@ -24,7 +24,7 @@ class DefaultLayout extends React.Component {
     return (
       <div className="root">
       <Header>
-        <Menu title="Executive Dashboards">
+        <Menu title="Admin Section">
         {loggedIn?<AdminMenu/>:null}
         </Menu>
       </Header>

@@ -26,7 +26,7 @@ class Panel extends React.Component {
         <ul>
           <Link to="/map/tools" >
             <OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id="help.toolview.toolviewtab">{translate('help.toolview.toolviewtab')}</Tooltip>)}>
-              <li id='tools-tab' className={(this.props.currentView=='/map' || this.props.currentView=='/map/tools')?"panel-tab active":"panel-tab"}>
+              <li id='tools-tab' className={(this.props.currentView!='/map/charts')?"panel-tab active":"panel-tab"}>
                 <div onClick={this.togglePanel.bind(this)}>
                   <div className="icon tools"/>
                   <span>{translate('toolview.title')}</span>                

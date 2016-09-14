@@ -100,11 +100,12 @@ export default class DefaultLayout extends React.Component {
   }
 
   render() {
+    const {title} = this.props;
     return (
       <div className="root">
         <ProjectPage/>
         <Header>
-          <Menu items={items}/>
+          <Menu title={title} items={items}/>
         </Header>
         <Landing/>
         <Panel showHelp={this.showHelp}>

@@ -1,4 +1,4 @@
-import {REFRESH_LAYER,TOGGLE_LEGENDS_VIEW, SET_FUNDING_TYPE, SET_BASEMAP, LAYER_LOAD_SUCCESS, LAYER_LOAD_FAILURE, TOGGLE_LAYER, SET_LAYER_SETTING, INDICATOR_LIST_LOADED, GEOPHOTOS_LIST_LOADED, STATE_RESTORE, CHANGE_MAP_BOUNDS} from '../constants/constants';
+import {REFRESH_LAYER,TOGGLE_LEGENDS_VIEW, SET_FUNDING_TYPE, SET_BASEMAP, LAYER_LOAD_SUCCESS, LAYER_LOAD_FAILURE, TOGGLE_LAYER, SET_LAYER_SETTING, INDICATOR_LIST_LOADED, GEOPHOTOS_LIST_LOADED, STATE_RESTORE, CHANGE_MAP_BOUNDS, LOAD_DEFAULT_MAP_STATE} from '../constants/constants';
 import JenksCssProvider from '../util/jenksUtil.js'
 import {formatValue} from '../util/format.js'
 import Immutable from 'immutable';
@@ -55,7 +55,7 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
           size: size, //size of markers
           border: 4, //size of stroke borders 
           valueProperty: "projectCount", //value property 
-          cssProvider: JenksCssProvider, //color provider 
+          cssProvider: true, //color provider 
           thresholds: 5, //number of breaks 
           popupId: "projectPopup",
           supportFilters: true,
@@ -105,7 +105,7 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
           default: false,
           border: 2,
           zIndex: 99,
-          cssProvider: JenksCssProvider,
+          cssProvider: true,
           thresholds: 5,
           valueProperty: "funding",
           keyName: 'funding',
@@ -137,7 +137,7 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
           border: 2,
           name:'Physical Progress',
           zIndex: 99,
-          cssProvider: JenksCssProvider,
+          cssProvider: true,
           thresholds: 5,
           keyName: 'physical',
           popupId: "defaultPopup",
@@ -166,7 +166,7 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
         type: 'shapes',
         zIndex: 98,
         cssPrefix:'indicators',
-        cssProvider: JenksCssProvider,
+        cssProvider: true,
         thresholds: 5,
         valueProperty: "value",
         name,
@@ -225,14 +225,14 @@ const getLayerSettings=(layer)=>{
   const border=layer.get('border');
   const size=layer.get('size');
   const labelFunc=layer.get('labelFunc');
-  return {thresholds,cssProvider,valueProperty,cssPrefix,css,name,popupId,border,size,labelFunc}
+  return {thresholds, cssProvider, valueProperty, cssPrefix, css, name, popupId, border, size, labelFunc}
 }
 
 /*Extract layer properties and create class provider */
 const getClassProvider=(settings,features,fundingType)=>{
-  const {thresholds,cssProvider,valueProperty}=settings;
+  const {thresholds, cssProvider, valueProperty}=settings;
   const values = getValues(features, valueProperty, fundingType); //extract values from features 
-  return createCSSProviderInstance(thresholds, values, cssProvider);
+  return createCSSProviderInstance(thresholds, values, (cssProvider? JenksCssProvider : null));
 }
 
 
@@ -257,16 +257,12 @@ const onToggleLayer=(state,action)=>{
   return state.setIn(getPath(id, ['visible']), !visible)
 }
 
-
-
 const onSetSetting=(state,action)=>{
   var {id, name, value} = action;
-  
   return state.setIn(getPath(id, ["settings", name]), value);
 }
 
 const updateLayer=(state,action,id)=>{
-
   var {fundingType,data} = action;
   id= id || action.id; 
   if (state.getIn(getPath(id, ["computeOnload"])) == false) {
@@ -275,8 +271,6 @@ const updateLayer=(state,action,id)=>{
  
   const layer=state.getIn(getPath(id));
   data= data || layer.get('data').toJS();
-
-
   const {features}=data;
 
   const classProviderInstance = getClassProvider(getLayerSettings(layer),features,fundingType);
@@ -303,6 +297,8 @@ const onChangeFundingType=(state,action)=>{
 const map = (state = defaultState, action) => {
   let newState;
   switch (action.type) {
+    case LOAD_DEFAULT_MAP_STATE:
+    return defaultState;
 
     case TOGGLE_LAYER:
     return onToggleLayer(state,action);

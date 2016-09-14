@@ -16,7 +16,7 @@ class SaveForm extends BaseForm {
 
 	constructor(props) {
 		super(props);
-		this.state = {data: Map()};
+		this.state = {data: Map(), saving: false};
 	}
 
 	submit() {
@@ -29,6 +29,7 @@ class SaveForm extends BaseForm {
 		} else {
 			if (this.props.onSaveMap) {
 				this.props.onSaveMap();
+				this.setState({saving: true});
 			}
 		}
 	}
@@ -39,55 +40,48 @@ class SaveForm extends BaseForm {
 		errors = this.validateField(errors, 'name', name);
 		errors = this.validateField(errors, 'description', description);
 		return errors;
-
 	}
 
 
 	render() {
-		const {errors={},httpError,name,description,status}=this.props;
-		
+		const {errors={}, httpError, name, description, status, id, saving}=this.props;
 		return (
 			<div className="save-container">
-				<h2>Save Map</h2>
+				<h2>Save Map</h2>				
+				{saving?
+					<div className="loading-css"><div></div></div>
+				:
+					<div>
+						<div>
+							<Messages {...this.props}/>
+						</div>
+						<div className={errors.name?"form-group has-error":"form-group"}>
+							<input className="form-control" placeholder="Enter a name"  type="text" value={name}  onChange={(e)=>{this.handleChangeValue('name',e.target.value)}}/>
+						</div> 
+						<div  className={errors.description?"form-group has-error":"form-group"}>
+							<textarea placeholder="Enter a description" className="form-control" value={description} onChange={(e)=>{this.handleChangeValue('description',e.target.value)}}/>
+						</div> 
+						<div className="form-group">
+							<button className="btn btn-sm btn-success" onClick={this.submit.bind(this)}>Save</button>       					
+						</div>
+					</div>
+				}
 				
-				<div>
-					<Messages {...this.props}/>
-				</div>
-
-				<div className={errors.name?"form-group has-error":"form-group"}>
-				<input className="form-control" placeholder="Enter a name"  type="text" value={name}  onChange={(e)=>{this.handleChangeValue('name',e.target.value)}}/>
-				</div> 
-				<div  className={errors.description?"form-group has-error":"form-group"}>
-				<textarea placeholder="Enter a description" className="form-control"  onChange={(e)=>{this.handleChangeValue('description',e.target.value)}}/>
-				</div> 
-				<div className="form-group">
-						<button className="btn btn-sm btn-success" onClick={this.submit.bind(this)}>Save</button>       
-					
-				</div>
-				</div>
-			);
+			</div>
+		);
 	}
 };
 
 const Container=React.createClass({
-	
-
 	render() {
 		const {visible}=this.props;
 		return (
 			<div>
-							
-			{visible?<SaveForm {...this.props}/>:null}
-
+				{visible?<SaveForm {...this.props}/>:null}
 			</div>
-			);
+		);
 	}
 })
-
-
-
-//const Save = onClickOutside(FloatingDialog);
-
 
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
@@ -100,15 +94,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 		onValidate: (errors)=> {
 			dispatch(updateErrors(errors));
 		},
-
-
-
 	}
 }
 
 const mapStateToProps = (state, props) => {
-	const {name,description,errors,httpError,status} = state.saveMap.toJS();
-	return {name,description,errors,httpError,status}
+	const {name, description, errors, httpError, status, id, saving} = state.saveMap.toJS();
+	return {name, description, errors, httpError, status, id, saving}
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Container);

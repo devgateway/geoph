@@ -1,19 +1,41 @@
+.project-page-dialog{
+	width: 55vw !important;
+}
 
 .project-grid{
-	.container{
-		width: 565px;
-	}
+	height: 75vh;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .project-page-title{
-	font-size: 17px !important;
-    font-weight: bold;
+	font-size: 3.4vh !important;
     color: #4d5458 !important;
+    padding: 0 0 11px 10px;
+    border-bottom: 1px solid #e7e9ed;
 }
 
 .project-field{
 	color: #4d5458 !important;
-	h2{
-		color: #727679;
+	padding: 5px 0 7px 10px;
+    border-bottom: 1px solid #e7e9ed;
+	p{
+		color: #7f8fa4;
+		font-size: 2vh;
+		margin: 0px;
+	}
+	div{
+		color: #333c48;
+		font-size: 2.3vh;
+		font-weight: bold;
+	}
+}
+
+.project-field-pair{
+	display: inline-block;
+	width: 100%;
+	>div{
+		width: 50%;
+		display: inline-block;
 	}
 }
