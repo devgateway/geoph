@@ -15,6 +15,12 @@ export const updateErrors=(errors)=>{
   return {type:Constants.UPDATE_SAVE_ERRORS,errors}
 }
 
+export const saveMapRequested = () => {
+  return {
+    type: Constants.REQUEST_SAVE_MAP
+  }
+}
+
 export const saveOK = (data) => {
    return (dispatch, getState) =>{
     dispatch({type: Constants.REQUEST_SAVE_MAP_OK , data:data});
@@ -67,16 +73,16 @@ const requestShareMap = (dataToShare) => {
 export const saveMap=()=>{
    return (dispatch, getState) =>{
       const scaleWidth=800;
-       const {outerHTML:html,clientWidth:width,clientHeight:height} = HtmlUtil.getMapElementProperties();
-       const  data = collectValuesToSave(getState());
-	 	   const {name,description}=getState().saveMap.toJS();
-      dispatch(requestSaveMap({name,description,data,html,width,height,scaleWidth}));
-	 }
-	
+      const {outerHTML:html,clientWidth:width,clientHeight:height} = HtmlUtil.getMapElementProperties();
+      const  data = collectValuesToSave(getState());
+	 	  const {name, description, id}=getState().saveMap.toJS();
+      dispatch(requestSaveMap({id, name, description, data, html, width, height, scaleWidth}));
+	 }	
 }
 
  const requestSaveMap = (dataToSave) => {
   return (dispatch, getState) =>{
+    dispatch(saveMapRequested());
     Connector.saveMap(dataToSave).then((data)=>{
         dispatch(saveOK(data));
     }).catch((results)=>{

@@ -152,7 +152,7 @@ class ProjectFilter extends React.Component {
 
   getRow(item){
     return( 
-      <div className="row">
+      <div className="row" key={item.id}>
         <div className="col1">
           <div className={this.validateSelection(item.id)} onClick={this.handleSelection.bind(this, item)} />
         </div>

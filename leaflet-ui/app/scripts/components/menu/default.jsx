@@ -15,7 +15,7 @@ import MenuItem from './item.jsx';
 
 class MenuBar extends React.Component{
 	render(){
-		const {loggedin,items=[],title} = this.props;
+		const {loggedin, items=[], title} = this.props;
 		return (
 			<div className="title">
 				<h2><b>{title}</b></h2>
@@ -43,7 +43,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 const mapStateToProps = (state, props) => {
 	const {accountNonExpired,accountNonLocked,enabled,credentialsNonExpired}=state.security.toJS()
 	const loggedin=(accountNonExpired && accountNonLocked&& enabled && credentialsNonExpired);	
-	return {...state.header.toJS(),loggedin}
+	return {...state.header.toJS(), loggedin}
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(MenuBar);

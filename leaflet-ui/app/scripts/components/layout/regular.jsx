@@ -2,7 +2,7 @@ import React from 'react';
 import DefaultLayout from './defaultLayout.jsx';
 import { connect } from 'react-redux'
 import {getList} from '../../actions/indicators.js'
-import {loadDefaultLayer} from '../../actions/map.js'
+import {loadDefaultLayer, loadDefaultMapState} from '../../actions/map.js'
 import {loadAllFilterLists} from '../../actions/filters.js'
 import {fetchStats} from '../../actions/stats.js'
 import {fetchChartData} from '../../actions/charts.js'
@@ -17,11 +17,12 @@ class Root extends DefaultLayout {
   }
 
   componentWillMount() {
+    this.props.onLoadDefaultMapState();
     this.props.onLoadAllFilters();
     this.props.onLoadIndicatorList(); 
-    this.props.onLoadDefaultCharts(); 
+    this.props.onLoadDefaultCharts();
+    this.props.onFetchStats(); 
     this.props.onLoadDefaultLayer();
-    this.props.onFetchStats();  
   }
 
 }
@@ -33,14 +34,13 @@ const mapDispatchToProps=(dispatch,ownProps)=>{
     onLoadGeophotosList:()=>{dispatch(getGeophotosList())},
     onLoadDefaultLayer:()=>{dispatch(loadDefaultLayer())},
     onLoadDefaultCharts:()=>{dispatch(fetchChartData())},
+    onLoadDefaultMapState:()=>{dispatch(loadDefaultMapState())},
     onFetchStats :()=>{dispatch(fetchStats())}
   }
 }
 
 const stateToProps = (state,props) => { 
-  return {
-    
-  };
+  return {}
 }
 
 export default connect(stateToProps,mapDispatchToProps)(Root);

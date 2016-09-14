@@ -28,7 +28,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 const mapStateToProps = (state, props) => {
   return {
-    language: state.language
+    language: state.language,
+    title: state.saveMap.get("name")
   }
 }
 

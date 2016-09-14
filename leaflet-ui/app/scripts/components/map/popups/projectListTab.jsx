@@ -2,7 +2,7 @@
 import React from 'react';
 import { Pagination, Grid, Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux'
-import { aggregateAmountsByType } from '../../../util/transactionUtil'
+import { formatValue } from '../../../util/format'
 import {collectValues} from '../../../util/filterUtil';
 import {getActivePage} from '../../../util/paginatorUtil';
 import translate from '../../../util/translate.js';
@@ -48,14 +48,14 @@ export default class ProjectListTab extends React.Component {
               <Col md={2}>{translate('infowindow.projectlist.actualdisbursements')}</Col>
             </Row>  
             {projectsToShow.map((project) => {
-              let transactions = aggregateAmountsByType(project.transactions);
+              const {commitments, disbursements} = project.trxAmounts;
               return <Row className="project-list-item" key={project.id}>
                   <Col className="project-title" title={project.title} md={5}>
                     <ProjectLink {...project} store={this.props.store}/>
                   </Col>
                   <Col md={3}>{project.fundingAgency.code}</Col>
-                  <Col md={2}>₱ {transactions.actualCommitments}</Col>
-                  <Col md={2}>₱ {transactions.actualDisbursements}</Col>
+                  <Col md={2}>₱ {formatValue(commitments.actual)}</Col>
+                  <Col md={2}>₱ {formatValue(disbursements.actual)}</Col>
                 </Row>             
             })}            
           </Grid>

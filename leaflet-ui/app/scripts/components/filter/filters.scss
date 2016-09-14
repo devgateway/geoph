@@ -121,19 +121,20 @@
 .modal-header {
     background-color: #003a6c;
     color: #EFF6F9;
-    padding: 15px;
+    padding: 10px 15px 10px 15px !important;
     border-bottom: none;
 }
 
 .modal-title{
     font-weight: bold;
+    font-size: 14px !important;
 }
 
 .modal-header .close {
     margin-top: -2px;
     color: #e1ebf1;
-    font-size: 23px;
-    font-weight: bolder;
+    font-size: 22px;
+    font-weight: bold;
     text-shadow: 0 0 0;
     opacity: 1;
 }

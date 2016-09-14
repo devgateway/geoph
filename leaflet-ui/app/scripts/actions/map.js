@@ -1,4 +1,4 @@
-import {REFRESH_LAYER, TOGGLE_LEGENDS_VIEW, SET_BASEMAP, TOGGLE_LAYER, LAYER_LOAD_SUCCESS, LAYER_LOAD_FAILURE, SET_LAYER_SETTING, CHANGE_MAP_BOUNDS, LOAD_LAYER_BY_ID}  from '../constants/constants.js';
+import {REFRESH_LAYER, TOGGLE_LEGENDS_VIEW, SET_BASEMAP, TOGGLE_LAYER, LAYER_LOAD_SUCCESS, LAYER_LOAD_FAILURE, SET_LAYER_SETTING, CHANGE_MAP_BOUNDS, LOAD_LAYER_BY_ID, LOAD_DEFAULT_MAP_STATE}  from '../constants/constants.js';
 import Connector from '../connector/connector.js';
 import {getPath, getDefaults, getVisibles} from '../util/layersUtil.js';
 import {collectValues} from '../util/filterUtil';
@@ -9,6 +9,9 @@ const getFilters=(getState)=>{
 	return collectValues(filters,projectSearch);
 }
 
+export const loadDefaultMapState=(type,error)=>{
+	return {type:LOAD_DEFAULT_MAP_STATE}
+}
 
 const loadLayerCompleted=(results, getState)=>{
 	return {type:LAYER_LOAD_SUCCESS,...results, fundingType: getState().settings.fundingType}
@@ -35,7 +38,6 @@ export const applyFiltersToLayers=(filters)=>{
 }
 
 export const setSetting=(id, name, value)=>{
-	
 	return (dispatch, getState) => {
 		dispatch( {
 			type: SET_LAYER_SETTING,
