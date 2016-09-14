@@ -78,9 +78,12 @@ public class DefaultProjectRepository implements ProjectRepository {
         CriteriaQuery<ProjectMiniDao> criteriaQuery = criteriaBuilder.createQuery(ProjectMiniDao.class);
         Root<Project> projectRoot = criteriaQuery.from(Project.class);
         List<Selection<?>> multiSelect = new ArrayList<>();
+        List<Expression<?>> groupByList = new ArrayList<>();
 
-        multiSelect.add(projectRoot.get(Project_.id).alias("id"));
-        multiSelect.add(projectRoot.get(Project_.title).alias("title"));
+        multiSelect.add(projectRoot.get(Project_.id));
+        groupByList.add(projectRoot.get(Project_.id));
+        multiSelect.add(projectRoot.get(Project_.title));
+        groupByList.add(projectRoot.get(Project_.title));
 
         List<Predicate> predicates = new ArrayList<>();
         FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, null);
@@ -89,7 +92,7 @@ public class DefaultProjectRepository implements ProjectRepository {
             Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
             criteriaQuery.where(other);
         }
-
+        criteriaQuery.groupBy(groupByList);
         criteriaQuery.orderBy(criteriaBuilder.asc(projectRoot.get(Project_.title)));
         TypedQuery<ProjectMiniDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
 
@@ -100,24 +103,56 @@ public class DefaultProjectRepository implements ProjectRepository {
 
     @Override
     @Cacheable("findProjectsByParams")
-    public Page<Project> findProjectsByParams(Parameters params) {
-        TypedQuery<Project> query = getProjectTypedQuery(params);
-        int count = query.getResultList().size();
+    public List<ProjectMiniDao> findProjectsByParams(Parameters params) {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<ProjectMiniDao> criteriaQuery = criteriaBuilder.createQuery(ProjectMiniDao.class);
+        Root<Project> projectRoot = criteriaQuery.from(Project.class);
 
-        List<Project> projectList;
-        if(params.getPageable()!=null) {
-            projectList = query
-                    .setFirstResult(params.getPageable().getOffset())
-                    .setMaxResults(params.getPageable().getPageSize())
-                    .setHint(QUERY_HINT, em.getEntityGraph(GRAPH_PROJECT_ALL))
-                    .getResultList();
-        } else {
-            projectList = query
-                    .setHint(QUERY_HINT, em.getEntityGraph(GRAPH_PROJECT_ALL))
-                    .getResultList();
+        List<Selection<?>> multiSelect = new ArrayList<>();
+        List<Predicate> predicates = new ArrayList<>();
+        List<Expression<?>> groupByList = new ArrayList<>();
+
+        Join<Project, Agency> agencyJoin = projectRoot.join(Project_.fundingAgency, JoinType.LEFT);
+        Join<Project, Transaction> transactionJoin = projectRoot.join(Project_.transactions, JoinType.LEFT);
+
+        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, null);
+
+        multiSelect.add(projectRoot.get(Project_.id));
+        groupByList.add(projectRoot.get(Project_.id));
+
+        multiSelect.add(projectRoot.get(Project_.title));
+        groupByList.add(projectRoot.get(Project_.title));
+
+        multiSelect.add(agencyJoin.get(Agency_.id));
+        groupByList.add(agencyJoin.get(Agency_.id));
+
+        multiSelect.add(agencyJoin.get(Agency_.name));
+        groupByList.add(agencyJoin.get(Agency_.name));
+
+        multiSelect.add(criteriaBuilder.sum(transactionJoin.get(Transaction_.amount)));
+
+        multiSelect.add(transactionJoin.get(Transaction_.transactionStatusId));
+        groupByList.add(transactionJoin.get(Transaction_.transactionStatusId));
+
+        multiSelect.add(transactionJoin.get(Transaction_.transactionTypeId));
+        groupByList.add(transactionJoin.get(Transaction_.transactionTypeId));
+
+        if(predicates.size()>0) {
+            Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+            criteriaQuery.where(other);
         }
 
-        return new PageImpl<>(projectList, params.getPageable(), count);
+        if(params!=null && params.getProjectOrder()!=null){
+            if(params.getProjectOrder().getAscending()){
+                criteriaQuery.orderBy(criteriaBuilder.asc(projectRoot.get(params.getProjectOrder().getAttribute())));
+            } else {
+                criteriaQuery.orderBy(criteriaBuilder.desc(projectRoot.get(params.getProjectOrder().getAttribute())));
+            }
+        }
+        criteriaQuery.groupBy(groupByList);
+        TypedQuery<ProjectMiniDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
+
+        return  query.getResultList();
     }
 
     @Override
@@ -128,14 +163,54 @@ public class DefaultProjectRepository implements ProjectRepository {
         List<ProjectStatsResultsDao> regional = getStatsByAdmLevel(params, false);
         //Fix for UI, it needs at least one result per ADM level
         if(national.size()==0){
-            national.add(new ProjectStatsResultsDao(0D, 0L, 1L, 1L));
+            national.add(new ProjectStatsResultsDao(0D, 1L, 1L));
         }
         if(regional.size()==0){
-            regional.add(new ProjectStatsResultsDao(0D, 0L, 1L, 1L));
+            regional.add(new ProjectStatsResultsDao(0D, 1L, 1L));
         }
-        ret.put("national", national);
-        ret.put("regional", regional);
+
+        final Long nationalCount = getStatsCountByAdmLevel(params, true);
+        final Long regionalCount = getStatsCountByAdmLevel(params, false);
+
+        national.stream().forEach(loc -> loc.setProjectCount(nationalCount));
+        regional.stream().forEach(loc -> loc.setProjectCount(regionalCount));
+
+        ret.put(NATIONAL, national);
+        ret.put(REGIONAL, regional);
         return ret;
+    }
+
+    private Long getStatsCountByAdmLevel(Parameters params, boolean isNationalLevel) {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);
+        Root<Project> projectRoot = criteriaQuery.from(Project.class);
+        List<Selection<?>> multiSelect = new ArrayList<>();
+
+        Join<Project, ProjectLocation> locationJoin = projectRoot.join(Project_.locations, JoinType.LEFT);
+        Join<ProjectLocation, ProjectLocationId> pk = locationJoin.join(ProjectLocation_.pk, JoinType.LEFT);
+
+        List<Predicate> predicates = new ArrayList<>();
+        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, null);
+
+        multiSelect.add(criteriaBuilder.countDistinct(projectRoot.get(Project_.id)).alias("projectCount"));
+
+        if(isNationalLevel) {
+            predicates.add(pk.get(ProjectLocationId_.location).isNull());
+        } else {
+            predicates.add(pk.get(ProjectLocationId_.location).isNotNull());
+        }
+
+        if(predicates.size()>0) {
+            Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+            criteriaQuery.where(other);
+        }
+
+        List<Expression<?>> groupByList = new ArrayList<>();
+        criteriaQuery.groupBy(groupByList);
+
+        TypedQuery<Long> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
+
+        return query.getSingleResult();
     }
 
     private List<ProjectStatsResultsDao> getStatsByAdmLevel(Parameters params, boolean isNationalLevel) {
@@ -157,10 +232,8 @@ public class DefaultProjectRepository implements ProjectRepository {
         expression = FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, expression);
 
         multiSelect.add(criteriaBuilder.sum(expression));
-        multiSelect.add(criteriaBuilder.countDistinct(projectRoot.get(Project_.id)).alias("projectCount"));
         multiSelect.add(transactionJoin.get(Transaction_.transactionStatusId).alias("statusId"));
         multiSelect.add(transactionJoin.get(Transaction_.transactionTypeId).alias("typeId"));
-
 
         if(isNationalLevel) {
             predicates.add(pk.get(ProjectLocationId_.location).isNull());

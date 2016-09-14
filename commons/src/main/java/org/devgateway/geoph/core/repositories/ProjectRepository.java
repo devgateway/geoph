@@ -22,7 +22,7 @@ public interface ProjectRepository {
 
     Project findByPhId(String phid);
 
-    Page<Project> findProjectsByParams(Parameters params);
+    List<ProjectMiniDao> findProjectsByParams(Parameters params);
 
     Page<ProjectMiniDao> findProjectMiniByParams(Parameters params);
 

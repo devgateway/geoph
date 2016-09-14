@@ -1,8 +1,8 @@
 package org.devgateway.geoph.persistence.repository;
 
-import org.devgateway.geoph.ChartProjectCountDao;
 import org.devgateway.geoph.core.repositories.PhysicalStatusRepository;
 import org.devgateway.geoph.core.request.Parameters;
+import org.devgateway.geoph.dao.ChartProjectCountDao;
 import org.devgateway.geoph.dao.PhysicalStatusDao;
 import org.devgateway.geoph.model.*;
 import org.devgateway.geoph.persistence.util.FilterHelper;

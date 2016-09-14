@@ -155,11 +155,11 @@ public class GrantImporter extends GeophProjectsImporter {
                             locationRegion.add(l);
                         } else if(l.getLevel()==LocationAdmLevelEnum.PROVINCE.getLevel()){
                             locationProvince.add(l);
-                            locationRegion.add(importBaseData.getLocationsById().get(l.getRegionId()));
+                            locationRegion.add(importBaseData.getLocationsById().get(l.getRegion()));
                         } else if(l.getLevel()==LocationAdmLevelEnum.MUNICIPALITY.getLevel()){
                             locationMunicipality.add(l);
-                            locationProvince.add(importBaseData.getLocationsById().get(l.getProvinceId()));
-                            locationRegion.add(importBaseData.getLocationsById().get(l.getRegionId()));
+                            locationProvince.add(importBaseData.getLocationsById().get(l.getProvince()));
+                            locationRegion.add(importBaseData.getLocationsById().get(l.getRegion()));
                         }
                     }
                 }

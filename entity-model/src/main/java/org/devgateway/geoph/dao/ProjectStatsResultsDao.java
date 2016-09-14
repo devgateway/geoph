@@ -8,15 +8,14 @@ public class ProjectStatsResultsDao {
 
     private Double trxAmount;
 
-    private Long projectCount;
-
     private Long statusId;
 
     private Long typeId;
 
-    public ProjectStatsResultsDao(Double trxAmount, Long projectCount, Long statusId, Long typeId) {
+    private Long projectCount;
+
+    public ProjectStatsResultsDao(Double trxAmount, Long statusId, Long typeId) {
         this.trxAmount = trxAmount!=null?trxAmount:0D;
-        this.projectCount = projectCount!=null?projectCount:0;
         this.statusId = statusId;
         this.typeId = typeId;
     }
@@ -27,14 +26,6 @@ public class ProjectStatsResultsDao {
 
     public void setTrxAmount(Double trxAmount) {
         this.trxAmount = trxAmount;
-    }
-
-    public Long getProjectCount() {
-        return projectCount;
-    }
-
-    public void setProjectCount(Long projectCount) {
-        this.projectCount = projectCount;
     }
 
     public Long getStatusId() {
@@ -51,5 +42,13 @@ public class ProjectStatsResultsDao {
 
     public void setTypeId(Long typeId) {
         this.typeId = typeId;
+    }
+
+    public Long getProjectCount() {
+        return projectCount;
+    }
+
+    public void setProjectCount(Long projectCount) {
+        this.projectCount = projectCount;
     }
 }

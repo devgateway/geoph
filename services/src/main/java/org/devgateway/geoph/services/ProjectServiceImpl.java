@@ -5,14 +5,18 @@ import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.core.response.StatsResponse;
 import org.devgateway.geoph.core.services.ProjectService;
 import org.devgateway.geoph.dao.ProjectMiniDao;
+import org.devgateway.geoph.dao.ProjectMiniSummaryDao;
+import org.devgateway.geoph.dao.ProjectPageDao;
 import org.devgateway.geoph.dao.ProjectStatsResultsDao;
 import org.devgateway.geoph.model.Project;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -34,13 +38,36 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Project findById(long id) {
-        return projectRepository.findById(id);
+    public ProjectPageDao findById(long id) {
+        return new ProjectPageDao(projectRepository.findById(id));
     }
 
     @Override
-    public Page<Project> findProjectsByParams(Parameters params) {
-        return projectRepository.findProjectsByParams(params);
+    public Page<ProjectMiniSummaryDao> findProjectsByParams(Parameters params) {
+        List<ProjectMiniDao> projectList = projectRepository.findProjectsByParams(params);
+        List<ProjectMiniSummaryDao> summaryMap = new ArrayList<>();
+        if(projectList!=null && projectList.size()>0){
+            ProjectMiniDao first = projectList.iterator().next();
+            ProjectMiniSummaryDao current = new ProjectMiniSummaryDao(first);
+            for(ProjectMiniDao project :  projectList){
+                if(!current.getId().equals(project.getId())){
+                    summaryMap.add(current);
+                    current = new ProjectMiniSummaryDao(project);
+                }
+                current.addTrxAmount(project);
+            }
+            summaryMap.add(current);
+        }
+
+        Page<ProjectMiniSummaryDao> ret;
+        if(params.getPageable()!=null) {
+            int fromIndex = params.getPageable().getOffset();
+            int toIndex = fromIndex + params.getPageable().getPageSize() > summaryMap.size() ? summaryMap.size():fromIndex + params.getPageable().getPageSize();
+            ret = new PageImpl<ProjectMiniSummaryDao>(summaryMap.subList(fromIndex, toIndex), params.getPageable(), summaryMap.size());
+        } else {
+            ret = new PageImpl<ProjectMiniSummaryDao>(summaryMap);
+        }
+        return ret;
     }
 
     @Override

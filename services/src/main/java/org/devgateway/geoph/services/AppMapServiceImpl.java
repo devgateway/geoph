@@ -55,6 +55,14 @@ public class AppMapServiceImpl implements AppMapService {
     }
 
     @Override
+    public void deleteByKey(String key) {
+        AppMap map = repository.findByKey(key);
+        if(map!=null){
+            repository.delete(map.getId());
+        }
+    }
+
+    @Override
     public Page<AppMap> findAll(Pageable pageable) {
         return repository.findAll(pageable);
     }
