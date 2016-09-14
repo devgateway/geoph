@@ -61,7 +61,7 @@ export const getValues=(features, valueProperty, fundingType)=>{
 }
 
 export const createCSSProviderInstance=(thresholds, values, cssProvider)=>{
-	const breaks = (thresholds > values.length)? values.length-1 : thresholds;
+	const breaks = (thresholds >= values.length)? values.length-1 : thresholds;
 	return (cssProvider)? new cssProvider(values,breaks):null;
 }
 
