@@ -73,8 +73,12 @@ export const createSimpleLegend=(cssPrefix,css)=>{
 export const createLegendsByDomain=(domain,cssPrefix,css)=>{
 	const classNames=`legend-${cssPrefix} `
 	let legends;
-	if (domain && domain.length > 0){
-		//domain=Array.from(new Set(domain));//removes duplicated ranges generated when provider has less values than breaks
+	debugger;
+	if (domain && domain.length == 1){
+		const cls = `${classNames}${css}0-9`;
+		const label = `0 - ${formatValue(parseInt(domain[0]))}`;
+		legends=[{cls,label}];
+	} else if (domain && domain.length > 1){
 		legends=domain.map((val,i,arr)=>{			
 			const cls = `${classNames}${css}${i}-9`;
 			const start=formatValue(parseInt(val));
