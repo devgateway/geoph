@@ -16,17 +16,17 @@ public class ProjectMiniSummaryDao {
 
     private String title;
 
-    private Long fundingAgencyId;
-
-    private String fundingAgency;
+    private Map<String, Object> fundingAgency;
 
     private Map<String, Map<String, Double>> trxAmounts = new HashMap<>();
 
     public ProjectMiniSummaryDao(ProjectMiniDao projectMiniDao){
         this.id = projectMiniDao.getId();
         this.title = projectMiniDao.getTitle();
-        this.fundingAgencyId = projectMiniDao.getFundingAgencyId();
-        this.fundingAgency = projectMiniDao.getFundingAgency();
+        this.fundingAgency = new HashMap<>();
+        fundingAgency.put("id", projectMiniDao.getFundingAgencyId());
+        fundingAgency.put("code", projectMiniDao.getFundingAgencyCode());
+        fundingAgency.put("name", projectMiniDao.getFundingAgencyName());
 
         for(TransactionTypeEnum typeEnum:TransactionTypeEnum.values()){
             Map<String, Double> statusMap = new HashMap<>();
@@ -54,11 +54,11 @@ public class ProjectMiniSummaryDao {
         this.title = title;
     }
 
-    public String getFundingAgency() {
+    public Map<String, Object> getFundingAgency() {
         return fundingAgency;
     }
 
-    public void setFundingAgency(String fundingAgency) {
+    public void setFundingAgency(Map<String, Object> fundingAgency) {
         this.fundingAgency = fundingAgency;
     }
 
