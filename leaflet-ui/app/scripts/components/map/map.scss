@@ -12,6 +12,10 @@ path{
 	    pointer-events: all;
 }
 
+.leaflet-bottom.leaflet-right{
+	z-index: 100;
+}
+
 text.label{
 		 pointer-events: none;
 		fill:#000 !important;
