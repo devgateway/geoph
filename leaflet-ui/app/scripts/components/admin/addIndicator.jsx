@@ -86,7 +86,7 @@ class AddIndicator extends BaseForm {
                            onChange={(e)=>{this.handleChangeValue('name',e.target.value)}} type="name"
                            className="form-control" id="name" placeholder="Type Name"/>
                 </div>
-                <div className={errors.color?"form-group has-error":"form-group"}>
+                {/*<div className={errors.color?"form-group has-error":"form-group"}>
                     <label >Default Color</label>
                     <ul className="colors pull-right">
                         <li className={this.props.css=="red"?"scheme red active":"scheme red "}
@@ -100,7 +100,7 @@ class AddIndicator extends BaseForm {
                         <li className={this.props.css=="blue"?"scheme blue active":"scheme blue "}
                             onClick={()=>{this.handleChangeValue('css','blue')}}></li>
                     </ul>
-                </div>
+                </div>*/}
                 <div className={errors.file?"form-group has-error":"form-group"}>
                     <label>File</label>
 

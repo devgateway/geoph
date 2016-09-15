@@ -46,7 +46,7 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
           ep: 'PROJECT_GEOJSON', //api end point 
           settings: {
             'level': 'region',
-            'css': 'yellow',
+            'css': 'red',
             'showLabels':true
           }, //settings
           keyName: 'projects', //i18n key
@@ -97,7 +97,7 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
           ep: 'FUNDING_GEOJSON',
           settings: {
             'level': 'region',
-            'css': 'red',
+            'css': 'yellow',
             'detail':'medium',
             'showLabels':false
           },
@@ -127,10 +127,10 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
           type: 'shapes',
           ep: 'PHYSICAL_GEOJSON',
           settings: {
-             'level': 'region',
+            'level': 'region',
             'detail':'medium',
-             'showLabels':false,
-             'css': 'red','valueProperty':'physicalProgress'
+            'showLabels':false,
+            'css': 'yellow','valueProperty':'physicalProgress'
           },
           cssPrefix: 'funding', //markers css prefix 
           default: false,
@@ -172,7 +172,7 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
         name,
         popupId: "defaultPopup",
         settings: {
-          'css': css || 'red'
+          'css': css || 'yellow'
         }
       }
     });
