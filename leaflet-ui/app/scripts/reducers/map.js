@@ -13,7 +13,7 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
   const defaultState = Immutable.fromJS(
   {
 
-    bounds: {
+    defaultBounds: {
       southWest: {
         lat: 4.3245014930192,
         lng: 115.224609375

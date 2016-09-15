@@ -23,7 +23,7 @@ require('./map.scss');
 const view=React.createClass({
 
 	getInitialState() {
-		return {};
+		return { bounds: {} };
 	},
 
 	handleChangeBounds(e) {		
@@ -70,13 +70,12 @@ const view=React.createClass({
 	render(){
 		
 		const {map} = this.props;
-		const {southWest, northEast} = map.get('bounds').toJS();		
+		const {southWest, northEast} = map.get('defaultBounds').toJS();		
 		const bounds = L.latLngBounds(L.latLng(southWest.lat, southWest.lng),L.latLng(northEast.lat,northEast.lng));
 		let layers = getVisibles(this.props.map.get('layers')).toJS();
-		
 		return (
 			<div>
-				<Map ref="map"  className="map" bounds={bounds}>
+				<Map ref="map"  className="map" bounds={bounds} onMoveEnd={this.handleChangeBounds}>
 					<TileLayer url={this.props.map.get('basemap').get('url')}/>
 					{layers.map((l)=>{
 						const {data,type}=l;

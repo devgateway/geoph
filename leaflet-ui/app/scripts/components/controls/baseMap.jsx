@@ -18,19 +18,20 @@ var basemaps = [
 ]
 
 const BaseMapItem = React.createClass({
+  
   select(){
-    
-    const {id,selected,url} =this.props;
-    this.props.onSetBaseMap({name:id,url:url});
+    const {id, selected, url} =this.props;
+    this.props.onSetBaseMap({id:id,url:url});
   },
 
   render(){
-    const {id,selected,url} =this.props;
+    const {id, selected, url} =this.props;
     return ( 
       <div className="item" onClick={this.select}>
-      <div className={selected? "image "+id+" selected" : "image "+id}> </div>
-      <span className="label">{translate(`header.basemap.${id}`)}</span> 
-      </div>)
+        <div className={selected? "image "+id+" selected" : "image "+id}> </div>
+        <span className="label">{translate(`header.basemap.${id}`)}</span> 
+      </div>
+    )
   }
 });
 
@@ -38,7 +39,6 @@ const Basemap = React.createClass({
   render() {
     const {visible,map}=this.props;
     const  baseSelected = map.get('basemap').get('id')
-
     return (
         <div>{visible?
           <div className="basemaps-container">

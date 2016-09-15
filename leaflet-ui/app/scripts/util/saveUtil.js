@@ -62,6 +62,7 @@ export const collectValuesToSave = (state)=>{
         })
         Object.assign(params, {'visibleLayers': visibleLayers});
     }
+    map = map.set('defaultBounds', map.get('bounds'));//move bounds value to defaultBounds to be used as default on restore
     Object.assign(params, {'map': map});
     return params;
 }
