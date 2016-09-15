@@ -86,7 +86,7 @@ public class DefaultProjectRepository implements ProjectRepository {
         groupByList.add(projectRoot.get(Project_.title));
 
         List<Predicate> predicates = new ArrayList<>();
-        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, null);
+        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, null, null);
 
         if(predicates.size()>0) {
             Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
@@ -115,7 +115,7 @@ public class DefaultProjectRepository implements ProjectRepository {
         Join<Project, Agency> agencyJoin = projectRoot.join(Project_.fundingAgency, JoinType.LEFT);
         Join<Project, Transaction> transactionJoin = projectRoot.join(Project_.transactions, JoinType.LEFT);
 
-        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, null);
+        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, null, null);
 
         multiSelect.add(projectRoot.get(Project_.id));
         groupByList.add(projectRoot.get(Project_.id));
@@ -193,7 +193,7 @@ public class DefaultProjectRepository implements ProjectRepository {
         Join<ProjectLocation, ProjectLocationId> pk = locationJoin.join(ProjectLocation_.pk, JoinType.LEFT);
 
         List<Predicate> predicates = new ArrayList<>();
-        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, null);
+        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, null, null);
 
         multiSelect.add(criteriaBuilder.countDistinct(projectRoot.get(Project_.id)).alias("projectCount"));
 
@@ -232,7 +232,7 @@ public class DefaultProjectRepository implements ProjectRepository {
             expression = criteriaBuilder.prod(transactionJoin.get(Transaction_.amount), locationJoin.get(ProjectLocation_.utilization));
         }
         List<Predicate> predicates = new ArrayList<>();
-        expression = FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, expression);
+        expression = FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, expression, transactionJoin);
 
         multiSelect.add(criteriaBuilder.sum(expression));
         multiSelect.add(transactionJoin.get(Transaction_.transactionStatusId).alias("statusId"));
@@ -374,7 +374,7 @@ public class DefaultProjectRepository implements ProjectRepository {
         Root<Project> projectRoot = criteriaQuery.from(Project.class);
         List<Predicate> predicates = new ArrayList<>();
 
-        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, null);
+        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, null, null);
 
         if(predicates.size()>0) {
             Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
