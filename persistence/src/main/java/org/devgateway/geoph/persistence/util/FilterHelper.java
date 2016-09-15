@@ -16,7 +16,7 @@ public class FilterHelper {
     private static final Object LOCK = new Object() {};
 
     public static Expression<Double> filterProjectQuery(Parameters params, CriteriaBuilder criteriaBuilder, Root<Project> projectRoot,
-                                                        List<Predicate> predicates, Expression<Double> expression) {
+                                                        List<Predicate> predicates, Expression<Double> expression, Join<Project, Transaction> transactionJoin) {
         synchronized (LOCK) {
             if (params != null) {
                 if (params.getLocations() != null) {
@@ -79,7 +79,9 @@ public class FilterHelper {
                 if (params.getFlowTypes() != null || params.getGrantSubTypes() != null) {
                     Predicate ft = null;
                     boolean isFlowType = false;
-                    Join<Project, Transaction> transactionJoin = projectRoot.join(Project_.transactions);
+                    if(transactionJoin==null) {
+                        transactionJoin = projectRoot.join(Project_.transactions);
+                    }
 
                     if(params.getFlowTypes()!=null){
                         ft = transactionJoin.get(Transaction_.flowType).in(params.getFlowTypes());
