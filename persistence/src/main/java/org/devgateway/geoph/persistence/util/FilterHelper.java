@@ -211,11 +211,16 @@ public class FilterHelper {
         if(params.getTargetOwpaMax() != null) {
             predicates.add(criteriaBuilder.lessThanOrEqualTo(projectFrom.get(Project_.targetOwpa), params.getTargetOwpaMax()));
         }
-        if(params.getPhysicalProgressMin() != null) {
-            predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectFrom.get(Project_.physicalProgress), params.getPhysicalProgressMin()));
-        }
-        if(params.getPhysicalProgressMax() != null) {
-            predicates.add(criteriaBuilder.lessThanOrEqualTo(projectFrom.get(Project_.physicalProgress), params.getPhysicalProgressMax()));
+        if(params.getPhysicalProgressMin() != null && params.getPhysicalProgressMax() != null
+                && params.getPhysicalProgressMin().equals(0D) && params.getPhysicalProgressMax().equals(0D)){
+            predicates.add(criteriaBuilder.or(criteriaBuilder.equal(projectFrom.get(Project_.physicalProgress), 0), criteriaBuilder.isNull(projectFrom.get(Project_.physicalProgress))));
+        } else {
+            if (params.getPhysicalProgressMin() != null) {
+                predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectFrom.get(Project_.physicalProgress), params.getPhysicalProgressMin()));
+            }
+            if (params.getPhysicalProgressMax() != null) {
+                predicates.add(criteriaBuilder.lessThanOrEqualTo(projectFrom.get(Project_.physicalProgress), params.getPhysicalProgressMax()));
+            }
         }
         if(params.getActualOwpaMin() != null) {
             predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectFrom.get(Project_.actualOwpa), params.getActualOwpaMin()));
