@@ -15,14 +15,21 @@ class Panel extends React.Component {
   }
   
   togglePanel(){
-    if (this.props.panel.expanded){
+    if (this.props.expanded){
       this.props.onTogglePanel();
     }
   }
 
   render() {
+    const {expanded,visible}=this.props;
+
+    const expandedClass=expanded?'panel-expanded':'';
+    const visibleClass=visible==true?'visible':'unseen';
+ 
+
     return (
-      <div className={this.props.panel.expanded? "panel panel-expanded" : "panel"}>       
+      <div className={`panel ${expandedClass} ${visibleClass}`}>       
+      
         <ul>
           <Link to="/map/tools" >
             <OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id="help.toolview.toolviewtab">{translate('help.toolview.toolviewtab')}</Tooltip>)}>
@@ -55,7 +62,8 @@ const mapStateToProps = (state, props) => {
   
   return {
     currentView: state.routing.locationBeforeTransitions.pathname,
-    panel: state.panel,
+    expanded: state.panel.get('expanded'),
+    visible: state.panel.get('visible'),
     language: state.language
   }
 }

@@ -14,7 +14,9 @@ public class ProjectMiniDao {
 
     private Long fundingAgencyId;
 
-    private String fundingAgency;
+    private String fundingAgencyName;
+
+    private String fundingAgencyCode;
 
     private Double trxAmount;
 
@@ -34,11 +36,12 @@ public class ProjectMiniDao {
         this.title = project.getTitle();
     }
 
-    public ProjectMiniDao(Long id, String title, Long fundingAgencyId, String fundingAgency, Double trxAmount, Long transactionStatusId, Long transactionTypeId) {
+    public ProjectMiniDao(Long id, String title, Long fundingAgencyId, String fundingAgencyName, String fundingAgencyCode, Double trxAmount, Long transactionStatusId, Long transactionTypeId) {
         this.id = id;
         this.title = title;
         this.fundingAgencyId = fundingAgencyId;
-        this.fundingAgency = fundingAgency;
+        this.fundingAgencyName = fundingAgencyName;
+        this.fundingAgencyCode = fundingAgencyCode;
         this.trxAmount = trxAmount;
         this.transactionStatusId = transactionStatusId;
         this.transactionTypeId = transactionTypeId;
@@ -68,12 +71,20 @@ public class ProjectMiniDao {
         this.fundingAgencyId = fundingAgencyId;
     }
 
-    public String getFundingAgency() {
-        return fundingAgency;
+    public String getFundingAgencyName() {
+        return fundingAgencyName;
     }
 
-    public void setFundingAgency(String fundingAgency) {
-        this.fundingAgency = fundingAgency;
+    public void setFundingAgencyName(String fundingAgencyName) {
+        this.fundingAgencyName = fundingAgencyName;
+    }
+
+    public String getFundingAgencyCode() {
+        return fundingAgencyCode;
+    }
+
+    public void setFundingAgencyCode(String fundingAgencyCode) {
+        this.fundingAgencyCode = fundingAgencyCode;
     }
 
     public Long getTransactionStatusId() {

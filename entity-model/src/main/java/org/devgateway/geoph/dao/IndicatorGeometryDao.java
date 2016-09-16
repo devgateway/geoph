@@ -7,13 +7,36 @@ import com.vividsolutions.jts.geom.Geometry;
  */
 public class IndicatorGeometryDao extends LocationDao {
 
-    String indicatorName;
-    Long indicatorId;
-    String colorScheme;
-    String description;
-    String value;
-    Integer level;
-    String unit;
+    private String indicatorName;
+
+    private Long indicatorId;
+
+    private String colorScheme;
+
+    private String description;
+
+    private String value;
+
+    private Integer level;
+
+    private String unit;
+
+    public IndicatorGeometryDao(){}
+
+
+    public IndicatorGeometryDao(Long id, String name, Geometry geometry, Long indicatorId, String indicatorName, String colorScheme, String description,
+                                String value, Integer level, String unit) {
+        this.indicatorName = indicatorName;
+        this.indicatorId = indicatorId;
+        this.colorScheme = colorScheme;
+        this.description = description;
+        this.value = value;
+        this.level = level;
+        this.id = id;
+        this.name = name;
+        this.geometry = geometry;
+        this.unit=unit;
+    }
 
     public String getValue() {
         return value;
@@ -63,17 +86,11 @@ public class IndicatorGeometryDao extends LocationDao {
         this.level = level;
     }
 
-    public IndicatorGeometryDao(Long id, String name, Geometry geometry,  Long indicatorId,String indicatorName, String colorScheme, String description,
-                                String value, Integer level,String unit) {
-        this.indicatorName = indicatorName;
-        this.indicatorId = indicatorId;
-        this.colorScheme = colorScheme;
-        this.description = description;
-        this.value = value;
-        this.level = level;
-        this.id = id;
-        this.name = name;
-        this.geometry = geometry;
-        this.unit=unit;
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 }

@@ -72,8 +72,23 @@ ul.options{
 	>li.last{
 		width: 40px;
 		float: 	left;
-		border: 0px;
+	
+	
 	}
+@media (max-width: 1024px) {
+  .last::after{
+	content: "";
+	width: 18px;
+	height:18px;
+	margin: 7px;
+	float:right;
+	background:url('../../../assets/svg/hamburger.svg');
+	background-size:16px 16px;
+	background-repeat: no-repeat;
+
+  }
+}
+
 
 	>li.mini>span{
 		display:none;

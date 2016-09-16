@@ -1,13 +1,15 @@
 import * as Constants from '../constants/constants';
-import {cloneDeep} from '../util/filterUtil';
+import {Map} from 'immutable'
 
-const panel = (state = {'expanded': false}, action) => {
-  let stateCloned;
+const panel = (state =new Map({'expanded': false,'visible':false}), action) => {
   switch (action.type) {
+	case Constants.TOGGLE_PANEL:
+	debugger;
+      return state.set('visible',!state.get('visible'));
     case Constants.TOGGLE_PANEL_EXPANDED:
-      stateCloned = cloneDeep(state);
-      Object.assign(stateCloned, {'expanded': !state.expanded});
-      return stateCloned;
+
+      return state.set('expanded',!state.get('expanded'));
+
     default:
       return state
   }
