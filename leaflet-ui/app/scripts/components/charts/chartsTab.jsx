@@ -39,15 +39,15 @@ class Charts extends React.Component {
   render() {
     let charts = this.props.charts? this.props.charts : {}
     const {fundingAgency, implementingAgency, physicalStatus, sector} = charts;
-    const {fundingType, panel} = this.props;
-    let helpKeyExpand = panel.expanded? "help.chartview.collapse" : "help.chartview.expand";
+    const {fundingType, expanded} = this.props;
+    let helpKeyExpand = expanded? "help.chartview.collapse" : "help.chartview.expand";
     return (
       <div className="chart-view">
         <OverlayTrigger delayShow={1000} placement="left" overlay={(<Tooltip id={helpKeyExpand}>{translate(helpKeyExpand)}</Tooltip>)}>
           <div className="expand-button" onClick={this.togglePanel.bind(this)}>
-            <div className={panel.expanded? "chart-collapse-icon" : "chart-expand-icon"}/>
+            <div className={expanded? "chart-collapse-icon" : "chart-expand-icon"}/>
             <div className="expand-button-legend">
-              {panel.expanded? translate('chartview.collapsepanel') : translate('chartview.expandpanel')}
+              {expanded? translate('chartview.collapsepanel') : translate('chartview.expandpanel')}
             </div>
           </div> 
         </OverlayTrigger>
@@ -121,7 +121,7 @@ const mapStateToProps = (state, props) => {
     fundingType: state.settings.fundingType,
     filters: state.filters.filterMain,
     projectsSelected: state.projectSearch,
-    panel: state.panel
+    expanded: state.panel.get('expanded')
   }
 }
 
