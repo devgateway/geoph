@@ -181,7 +181,7 @@ export default class D3Layer extends MapLayer {
     } else {
       latLong = L.latLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0])
     }
-    let popup = L.popup({maxWidth:"400", maxHeight:"330"})
+    let popup = L.popup({maxWidth:"600", maxHeight:"430"})
     .setLatLng(latLong)
     .openOn(this.props.map);
     if (this.props.children) {

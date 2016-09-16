@@ -15,7 +15,7 @@ import MenuItem from './item.jsx';
 
 class MenuBar extends React.Component{
 	render(){
-		const {loggedin, items=[], title} = this.props;
+		const {loggedin, items=[], title,onTogglePanel} = this.props;
 		return (
 			<div className="title">
 				<h2><b>{title}</b></h2>
@@ -25,7 +25,10 @@ class MenuBar extends React.Component{
 						const visible=(!item.secure || (item.secure&&loggedin));
 						return (visible)?<MenuItem {...this.props}  {...item}><Component/></MenuItem>:null;
 					})}
-					<li className="last"></li>
+					<li className="last" onClick={()=>{
+						debugger
+						onTogglePanel()
+					}}></li>
 				</ul>
 				{this.props.children}
 			</div>
@@ -35,6 +38,10 @@ class MenuBar extends React.Component{
 
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
+		onTogglePanel:()=>{
+			debugger;
+			dispatch({type:Constants.TOGGLE_PANEL})
+		},
 		onActivate:(key)=>{dispatch({type:Constants.ACTIVATE_COMPONENT,key})},
 		onDeactivate:(key)=>{dispatch({type:Constants.DEACTIVATE_COMPONENT,key})}
 	}

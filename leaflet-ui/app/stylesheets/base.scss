@@ -63,6 +63,9 @@ $regular: rgb( 4, 64, 114 );
 
 @mixin col1size(){
 	width: 67%;
+  @media (max-width: 1024px) {
+	width: 100%;
+	    }
 }
 
 @mixin col2size(){
