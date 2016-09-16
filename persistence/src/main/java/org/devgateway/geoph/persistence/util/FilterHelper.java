@@ -19,6 +19,9 @@ public class FilterHelper {
                                                         List<Predicate> predicates, Expression<Double> expression, Join<Project, Transaction> transactionJoin) {
         synchronized (LOCK) {
             if (params != null) {
+                if(transactionJoin==null) {
+                    transactionJoin = projectRoot.join(Project_.transactions, JoinType.LEFT);
+                }
                 if (params.getLocations() != null) {
                     Join<Project, ProjectLocation> projectLocationJoin = projectRoot.join(Project_.locations, JoinType.LEFT);
                     Join<ProjectLocation, ProjectLocationId> idJoin = projectLocationJoin.join(ProjectLocation_.pk, JoinType.LEFT);
@@ -32,26 +35,7 @@ public class FilterHelper {
                 if (params.getProjects() != null) {
                     predicates.add(projectRoot.get(Project_.id).in(params.getProjects()));
                 }
-                if (StringUtils.isNotBlank(params.getProjectTitle())){
-                    predicates.add(criteriaBuilder.like(criteriaBuilder.upper(projectRoot.get(Project_.title)), "%" + params.getProjectTitle().toUpperCase() + "%"));
-                }
-                if (params.getSectors() != null) {
-                    Join<Project, ProjectSector> sectorJoin = projectRoot.join(Project_.sectors);
 
-                    Join<ProjectSector, ProjectSectorId> pk = sectorJoin.join(ProjectSector_.pk);
-                    predicates.add(pk.get(ProjectSectorId_.sector).in(params.getSectors()));
-                    if(expression!=null) {
-                        expression = criteriaBuilder.prod(sectorJoin.get(ProjectSector_.utilization), expression);
-                    }
-                }
-                if (params.getStatuses() != null) {
-                    Join<Project, Status> statusJoin = projectRoot.join(Project_.status);
-                    predicates.add(statusJoin.get(Status_.id).in(params.getStatuses()));
-                }
-                if (params.getPhysicalStatuses() != null){
-                    Join<Project, PhysicalStatus> physicalStatusJoin = projectRoot.join(Project_.physicalStatus);
-                    predicates.add(physicalStatusJoin.get(PhysicalStatus_.id).in(params.getPhysicalStatuses()));
-                }
                 if(params.getLocationLevels()!=null) {
                     Join<Project, ProjectLocation> projectLocationJoin = projectRoot.join(Project_.locations, JoinType.LEFT);
                     Join<ProjectLocation, ProjectLocationId> idJoin = projectLocationJoin.join(ProjectLocation_.pk, JoinType.LEFT);
@@ -59,88 +43,12 @@ public class FilterHelper {
                     predicates.add(locationJoin.get(Location_.level).in(params.getLocationLevels()));
                 }
 
-                addDateFilters(params, criteriaBuilder, predicates, projectRoot.get(Project_.startDate), projectRoot.get(Project_.endDate));
+                if(params.getTrxType() != null || params.getTrxStatus() != null) {
+                    addTrxTypeStatusFilter(params, predicates, transactionJoin);
+                }
 
-                addPeriodPerformanceFilters(params, criteriaBuilder, predicates, projectRoot.get(Project_.periodPerformanceStart), projectRoot.get(Project_.periodPerformanceEnd));
+                expression = addCommonFilters(params, criteriaBuilder, predicates, projectRoot, expression);
 
-                addFundingAgencyFilter(params, predicates, projectRoot);
-
-                if(params.getClassifications() != null){
-                    predicates.add(projectRoot.get(Project_.grantClassification).in(params.getClassifications()));
-                }
-                if (params.getImpAgencies() != null) {
-                    Join<Project, ProjectAgency> projectAgencyJoin = projectRoot.join(Project_.implementingAgencies);
-                    Join<ProjectAgency, ProjectAgencyId> pk = projectAgencyJoin.join(ProjectAgency_.pk);
-                    predicates.add(pk.get(ProjectAgencyId_.agency).in(params.getImpAgencies()));
-                    if(expression!=null) {
-                        expression = criteriaBuilder.prod(projectAgencyJoin.get(ProjectAgency_.utilization), expression);
-                    }
-                }
-                if (params.getFlowTypes() != null || params.getGrantSubTypes() != null) {
-                    Predicate ft = null;
-                    boolean isFlowType = false;
-                    if(transactionJoin==null) {
-                        transactionJoin = projectRoot.join(Project_.transactions);
-                    }
-
-                    if(params.getFlowTypes()!=null){
-                        ft = transactionJoin.get(Transaction_.flowType).in(params.getFlowTypes());
-                        isFlowType = true;
-                    }
-                    Predicate gst = null;
-                    boolean isGrantType = false;
-                    if(params.getGrantSubTypes()!=null) {
-                        gst = transactionJoin.get(Transaction_.grantSubTypeId).in(params.getGrantSubTypes());
-                        isGrantType = true;
-                    }
-                    if(isFlowType && isGrantType) {
-                        predicates.add(criteriaBuilder.or(ft, gst));
-                    } else if (isFlowType){
-                        predicates.add(criteriaBuilder.or(ft));
-                    } else if (isGrantType){
-                        predicates.add(criteriaBuilder.or(gst));
-                    }
-                }
-                if (params.getClimateChanges() != null) {
-                    Join<Project, ProjectClimateChange> climateChangeJoin = projectRoot.join(Project_.climateChange);
-                    Join<ProjectClimateChange, ProjectClimateChangeId> pk = climateChangeJoin.join(ProjectClimateChange_.pk);
-                    predicates.add(pk.get(ProjectClimateChangeId_.climateChange).in(params.getClimateChanges()));
-                    if(expression!=null) {
-                        expression = criteriaBuilder.prod(climateChangeJoin.get(ProjectClimateChange_.utilization), expression);
-                    }
-                }
-                if (params.getGenderResponsiveness() != null) {
-                    Join<Project, ProjectGenderResponsiveness> genderResponsivenessJoin = projectRoot.join(Project_.genderResponsiveness);
-                    Join<ProjectGenderResponsiveness, ProjectGenderResponsivenessId> pk = genderResponsivenessJoin.join(ProjectGenderResponsiveness_.pk);
-                    predicates.add(pk.get(ProjectGenderResponsivenessId_.gender_responsiveness).in(params.getGenderResponsiveness()));
-                    if(expression!=null) {
-                        expression = criteriaBuilder.prod(genderResponsivenessJoin.get(ProjectGenderResponsiveness_.utilization), expression);
-                    }
-                }
-                if(params.getFinancialAmountMin() != null) {
-                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectRoot.get(Project_.totalProjectAmount), params.getFinancialAmountMin()));
-                }
-                if(params.getFinancialAmountMax() != null) {
-                    predicates.add(criteriaBuilder.lessThanOrEqualTo(projectRoot.get(Project_.totalProjectAmount), params.getFinancialAmountMax()));
-                }
-                if(params.getTargetOwpaMax() != null) {
-                    predicates.add(criteriaBuilder.lessThanOrEqualTo(projectRoot.get(Project_.targetOwpa), params.getTargetOwpaMax()));
-                }
-                if(params.getTargetOwpaMin() != null) {
-                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectRoot.get(Project_.targetOwpa), params.getTargetOwpaMin()));
-                }
-                if(params.getActualOwpaMax() != null) {
-                    predicates.add(criteriaBuilder.lessThanOrEqualTo(projectRoot.get(Project_.actualOwpa), params.getActualOwpaMax()));
-                }
-                if(params.getActualOwpaMin() != null) {
-                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectRoot.get(Project_.actualOwpa), params.getActualOwpaMin()));
-                }
-                if(params.getPhysicalProgressMin() != null) {
-                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectRoot.get(Project_.physicalProgress), params.getPhysicalProgressMin()));
-                }
-                if(params.getPhysicalProgressMax() != null) {
-                    predicates.add(criteriaBuilder.lessThanOrEqualTo(projectRoot.get(Project_.physicalProgress), params.getPhysicalProgressMax()));
-                }
             }
         }
         return expression;
@@ -154,7 +62,7 @@ public class FilterHelper {
         synchronized (LOCK) {
             if (params != null) {
                 if(transactionJoin==null) {
-                    transactionJoin = projectJoin.join(Project_.transactions);
+                    transactionJoin = projectJoin.join(Project_.transactions, JoinType.LEFT);
                 }
                 if(params.getLocationLevels()!=null) {
                     predicates.add(locationRoot.get(Location_.level).in(params.getLocationLevels()));
@@ -168,114 +76,110 @@ public class FilterHelper {
                 if (params.getProjects() != null) {
                     predicates.add(projectJoin.in(params.getProjects()));
                 }
-                if(params.getClassifications() != null){
-                    predicates.add(projectJoin.get(Project_.grantClassification).in(params.getClassifications()));
-                }
-                if (StringUtils.isNotBlank(params.getProjectTitle())) {
-                    predicates.add(criteriaBuilder.like(criteriaBuilder.upper(projectJoin.get(Project_.title)), "%" + params.getProjectTitle().toUpperCase() + "%"));
-                }
-                if (params.getSectors() != null) {
-                    Join<Project, ProjectSector> sectorJoin = projectJoin.join(Project_.sectors, JoinType.LEFT);
-                    Join<ProjectSector, ProjectSectorId> pk = sectorJoin.join(ProjectSector_.pk);
-                    predicates.add(pk.get(ProjectSectorId_.sector).in(params.getSectors()));
-                    if(expression!=null) {
-                        expression = criteriaBuilder.prod(sectorJoin.get(ProjectSector_.utilization), expression);
-                    }
-                }
-                if (params.getStatuses() != null) {
-                    Join<Project, Status> statusJoin = projectJoin.join(Project_.status);
-                    predicates.add(statusJoin.get(Status_.id).in(params.getStatuses()));
-                }
-                if (params.getPhysicalStatuses() != null) {
-                    Join<Project, PhysicalStatus> physicalStatusJoin = projectJoin.join(Project_.physicalStatus);
-                    predicates.add(physicalStatusJoin.get(PhysicalStatus_.id).in(params.getPhysicalStatuses()));
-                }
+                addTrxTypeStatusFilter(params, predicates, transactionJoin);
 
-                addDateFilters(params, criteriaBuilder, predicates, projectJoin.get(Project_.startDate), projectJoin.get(Project_.endDate));
+                expression = addCommonFilters(params, criteriaBuilder, predicates, projectJoin, expression);
 
-                addPeriodPerformanceFilters(params, criteriaBuilder, predicates, projectJoin.get(Project_.periodPerformanceStart), projectJoin.get(Project_.periodPerformanceEnd));
-
-                addFundingAgencyFilter(params, predicates, projectJoin);
-
-                if (params.getImpAgencies() != null) {
-                    Join<Project, ProjectAgency> impAgencyJoin = projectJoin.join(Project_.implementingAgencies, JoinType.LEFT);
-                    Join<ProjectAgency, ProjectAgencyId> pk = impAgencyJoin.join(ProjectAgency_.pk);
-                    predicates.add(pk.get(ProjectAgencyId_.agency).in(params.getImpAgencies()));
-                    if(expression!=null) {
-                        expression = criteriaBuilder.prod(impAgencyJoin.get(ProjectAgency_.utilization), expression);
-                    }
-                }
-                if (params.getClimateChanges() != null) {
-                    Join<Project, ProjectClimateChange> climateChangeJoin = projectJoin.join(Project_.climateChange, JoinType.LEFT);
-                    Join<ProjectClimateChange, ProjectClimateChangeId> pk = climateChangeJoin.join(ProjectClimateChange_.pk);
-                    predicates.add(pk.get(ProjectClimateChangeId_.climateChange).in(params.getClimateChanges()));
-                    if(expression!=null) {
-                        expression = criteriaBuilder.prod(climateChangeJoin.get(ProjectClimateChange_.utilization), expression);
-                    }
-                }
-                if (params.getGenderResponsiveness() != null) {
-                    Join<Project, ProjectGenderResponsiveness> genderResponsivenessJoin = projectJoin.join(Project_.genderResponsiveness, JoinType.LEFT);
-                    Join<ProjectGenderResponsiveness, ProjectGenderResponsivenessId> pk = genderResponsivenessJoin.join(ProjectGenderResponsiveness_.pk);
-                    predicates.add(pk.get(ProjectGenderResponsivenessId_.gender_responsiveness).in(params.getGenderResponsiveness()));
-                    if(expression!=null) {
-                        expression = criteriaBuilder.prod(genderResponsivenessJoin.get(ProjectGenderResponsiveness_.utilization), expression);
-                    }
-                }
-                if (params.getFlowTypes() != null || params.getGrantSubTypes() != null) {
-                    Predicate ft = null;
-                    boolean isFlowType = false;
-                    if(params.getFlowTypes()!=null){
-                        ft = transactionJoin.get(Transaction_.flowType).in(params.getFlowTypes());
-                        isFlowType = true;
-                    }
-                    Predicate gst = null;
-                    boolean isGrantType = false;
-                    if(params.getGrantSubTypes()!=null) {
-                        gst = transactionJoin.get(Transaction_.grantSubTypeId).in(params.getGrantSubTypes());
-                        isGrantType = true;
-                    }
-                    if(isFlowType && isGrantType) {
-                        predicates.add(criteriaBuilder.or(ft, gst));
-                    } else if (isFlowType){
-                        predicates.add(criteriaBuilder.or(ft));
-                    } else if (isGrantType){
-                        predicates.add(criteriaBuilder.or(gst));
-                    }
-                }
-                if(params.getFinancialAmountMin() != null) {
-                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectJoin.get(Project_.totalProjectAmount), params.getFinancialAmountMin()));
-                }
-                if(params.getFinancialAmountMax() != null) {
-                    predicates.add(criteriaBuilder.lessThanOrEqualTo(projectJoin.get(Project_.totalProjectAmount), params.getFinancialAmountMax()));
-                }
-                if(params.getTargetOwpaMin() != null) {
-                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectJoin.get(Project_.targetOwpa), params.getTargetOwpaMin()));
-                }
-                if(params.getTargetOwpaMax() != null) {
-                    predicates.add(criteriaBuilder.lessThanOrEqualTo(projectJoin.get(Project_.targetOwpa), params.getTargetOwpaMax()));
-                }
-                if(params.getPhysicalProgressMin() != null) {
-                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectJoin.get(Project_.physicalProgress), params.getPhysicalProgressMin()));
-                }
-                if(params.getPhysicalProgressMax() != null) {
-                    predicates.add(criteriaBuilder.lessThanOrEqualTo(projectJoin.get(Project_.physicalProgress), params.getPhysicalProgressMax()));
-                }
-                if(params.getActualOwpaMin() != null) {
-                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectJoin.get(Project_.actualOwpa), params.getActualOwpaMin()));
-                }
-                if(params.getActualOwpaMax() != null) {
-                    predicates.add(criteriaBuilder.lessThanOrEqualTo(projectJoin.get(Project_.actualOwpa), params.getActualOwpaMax()));
-                }
-                if(params.getTrxType() != null) {
-                    predicates.add(transactionJoin.get(Transaction_.transactionTypeId).in(params.getTrxType()));
-                }
-                if(params.getTrxStatus() != null) {
-                    predicates.add(transactionJoin.get(Transaction_.transactionStatusId).in(params.getTrxStatus()));
-                }
             }
             return expression;
         }
     }
+
+    private static Expression<Double> addCommonFilters(Parameters params, CriteriaBuilder criteriaBuilder, List<Predicate> predicates, From projectFrom, Expression<Double> expression) {
+        addProjectTitleFilter(params, criteriaBuilder, predicates, projectFrom);
+        addDateFilters(params, criteriaBuilder, predicates, projectFrom);
+        addClassificationFilter(params, criteriaBuilder, predicates, projectFrom);
+        addPeriodPerformanceFilters(params, criteriaBuilder, predicates, projectFrom);
+        addFinancialAmountFilters(params, criteriaBuilder, predicates, projectFrom);
+        addPhysicalProgressFilters(params, criteriaBuilder, predicates, projectFrom);
+        addFlowTypeFilters(params, criteriaBuilder, predicates, projectFrom);
+
+        addFundingAgencyFilter(params, predicates, projectFrom);
+        addPhysicalStatusFilter(params, predicates, projectFrom);
+        addStatusFilter(params, predicates, projectFrom);
+
+        expression = addSectorsFilter(params, criteriaBuilder, predicates, projectFrom, expression);
+        expression = addImpAgenciesFilter(params, criteriaBuilder, predicates, projectFrom, expression);
+        expression = addClimateChangesFilter(params, criteriaBuilder, predicates, projectFrom, expression);
+        expression = addGenderResponsivenessFilter(params, criteriaBuilder, predicates, projectFrom, expression);
+        return expression;
+    }
+
+    private static void addProjectTitleFilter(Parameters params, CriteriaBuilder criteriaBuilder, List<Predicate> predicates, From projectFrom) {
+        if (StringUtils.isNotBlank(params.getProjectTitle())) {
+            predicates.add(criteriaBuilder.like(criteriaBuilder.upper(projectFrom.get(Project_.title)), "%" + params.getProjectTitle().toUpperCase() + "%"));
+        }
+    }
+
+
+    private static void addClassificationFilter(Parameters params, CriteriaBuilder criteriaBuilder, List<Predicate> predicates, From projectFrom) {
+        if(params.getClassifications() != null){
+            predicates.add(projectFrom.get(Project_.grantClassification).in(params.getClassifications()));
+        }
+    }
+
+    private static Expression<Double> addSectorsFilter(Parameters params, CriteriaBuilder criteriaBuilder, List<Predicate> predicates, From projectFrom, Expression<Double> expression) {
+        if (params.getSectors() != null) {
+            Join<Project, ProjectSector> sectorJoin = projectFrom.join(Project_.sectors, JoinType.LEFT);
+            Join<ProjectSector, ProjectSectorId> pk = sectorJoin.join(ProjectSector_.pk);
+            predicates.add(pk.get(ProjectSectorId_.sector).in(params.getSectors()));
+            if(expression!=null) {
+                expression = criteriaBuilder.prod(sectorJoin.get(ProjectSector_.utilization), expression);
+            }
+        }
+        return expression;
+    }
+
+    private static Expression<Double> addGenderResponsivenessFilter(Parameters params, CriteriaBuilder criteriaBuilder, List<Predicate> predicates, From projectFrom, Expression<Double> expression) {
+        if (params.getGenderResponsiveness() != null) {
+            Join<Project, ProjectGenderResponsiveness> genderResponsivenessJoin = projectFrom.join(Project_.genderResponsiveness, JoinType.LEFT);
+            Join<ProjectGenderResponsiveness, ProjectGenderResponsivenessId> pk = genderResponsivenessJoin.join(ProjectGenderResponsiveness_.pk);
+            predicates.add(pk.get(ProjectGenderResponsivenessId_.gender_responsiveness).in(params.getGenderResponsiveness()));
+            if(expression!=null) {
+                expression = criteriaBuilder.prod(genderResponsivenessJoin.get(ProjectGenderResponsiveness_.utilization), expression);
+            }
+        }
+        return expression;
+    }
+
+    private static Expression<Double> addClimateChangesFilter(Parameters params, CriteriaBuilder criteriaBuilder, List<Predicate> predicates, From projectFrom, Expression<Double> expression) {
+        if (params.getClimateChanges() != null) {
+            Join<Project, ProjectClimateChange> climateChangeJoin = projectFrom.join(Project_.climateChange, JoinType.LEFT);
+            Join<ProjectClimateChange, ProjectClimateChangeId> pk = climateChangeJoin.join(ProjectClimateChange_.pk);
+            predicates.add(pk.get(ProjectClimateChangeId_.climateChange).in(params.getClimateChanges()));
+            if(expression!=null) {
+                expression = criteriaBuilder.prod(climateChangeJoin.get(ProjectClimateChange_.utilization), expression);
+            }
+        }
+        return expression;
+    }
+
+    private static Expression<Double> addImpAgenciesFilter(Parameters params, CriteriaBuilder criteriaBuilder, List<Predicate> predicates, From projectFrom, Expression<Double> expression) {
+        if (params.getImpAgencies() != null) {
+            Join<Project, ProjectAgency> impAgencyJoin = projectFrom.join(Project_.implementingAgencies, JoinType.LEFT);
+            Join<ProjectAgency, ProjectAgencyId> pk = impAgencyJoin.join(ProjectAgency_.pk);
+            predicates.add(pk.get(ProjectAgencyId_.agency).in(params.getImpAgencies()));
+            if(expression!=null) {
+                expression = criteriaBuilder.prod(impAgencyJoin.get(ProjectAgency_.utilization), expression);
+            }
+        }
+        return expression;
+    }
+
+    private static void addPhysicalStatusFilter(Parameters params, List<Predicate> predicates, From projectFrom) {
+        if (params.getPhysicalStatuses() != null) {
+            Join<Project, PhysicalStatus> physicalStatusJoin = projectFrom.join(Project_.physicalStatus);
+            predicates.add(physicalStatusJoin.get(PhysicalStatus_.id).in(params.getPhysicalStatuses()));
+        }
+    }
+
+    private static void addStatusFilter(Parameters params, List<Predicate> predicates, From projectFrom) {
+        if (params.getStatuses() != null) {
+            Join<Project, Status> statusJoin = projectFrom.join(Project_.status);
+            predicates.add(statusJoin.get(Status_.id).in(params.getStatuses()));
+        }
+    }
+
 
     private static void addFundingAgencyFilter(Parameters params, List<Predicate> predicates, From projectFrom) {
         if (params.getFundingAgencies() != null) {
@@ -284,33 +188,100 @@ public class FilterHelper {
         }
     }
 
-    private static void addPeriodPerformanceFilters(Parameters params, CriteriaBuilder criteriaBuilder, List<Predicate> predicates, Expression periodPerformanceStart, Expression periodPerformanceEnd) {
+    private static void addPeriodPerformanceFilters(Parameters params, CriteriaBuilder criteriaBuilder, List<Predicate> predicates, From projectFrom) {
         if (params.getPeriodPerformanceStartMin() != null) {
-            predicates.add(criteriaBuilder.greaterThanOrEqualTo(periodPerformanceStart, params.getPeriodPerformanceStartMin()));
+            predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectFrom.get(Project_.periodPerformanceStart), params.getPeriodPerformanceStartMin()));
         }
         if (params.getPeriodPerformanceStartMax() != null) {
-            predicates.add(criteriaBuilder.lessThanOrEqualTo(periodPerformanceStart, params.getPeriodPerformanceStartMax()));
+            predicates.add(criteriaBuilder.lessThanOrEqualTo(projectFrom.get(Project_.periodPerformanceStart), params.getPeriodPerformanceStartMax()));
         }
         if (params.getPeriodPerformanceEndMin() != null) {
-            predicates.add(criteriaBuilder.greaterThanOrEqualTo(periodPerformanceEnd, params.getPeriodPerformanceEndMin()));
+            predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectFrom.get(Project_.periodPerformanceEnd), params.getPeriodPerformanceEndMin()));
         }
         if (params.getPeriodPerformanceEndMax() != null) {
-            predicates.add(criteriaBuilder.lessThanOrEqualTo(periodPerformanceEnd, params.getPeriodPerformanceEndMax()));
+            predicates.add(criteriaBuilder.lessThanOrEqualTo(projectFrom.get(Project_.periodPerformanceEnd), params.getPeriodPerformanceEndMax()));
         }
     }
 
-    private static void addDateFilters(Parameters params, CriteriaBuilder criteriaBuilder, List<Predicate> predicates, Expression startDate, Expression endDate) {
+
+    private static void addPhysicalProgressFilters(Parameters params, CriteriaBuilder criteriaBuilder, List<Predicate> predicates, From projectFrom) {
+        if(params.getTargetOwpaMin() != null) {
+            predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectFrom.get(Project_.targetOwpa), params.getTargetOwpaMin()));
+        }
+        if(params.getTargetOwpaMax() != null) {
+            predicates.add(criteriaBuilder.lessThanOrEqualTo(projectFrom.get(Project_.targetOwpa), params.getTargetOwpaMax()));
+        }
+        if(params.getPhysicalProgressMin() != null) {
+            predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectFrom.get(Project_.physicalProgress), params.getPhysicalProgressMin()));
+        }
+        if(params.getPhysicalProgressMax() != null) {
+            predicates.add(criteriaBuilder.lessThanOrEqualTo(projectFrom.get(Project_.physicalProgress), params.getPhysicalProgressMax()));
+        }
+        if(params.getActualOwpaMin() != null) {
+            predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectFrom.get(Project_.actualOwpa), params.getActualOwpaMin()));
+        }
+        if(params.getActualOwpaMax() != null) {
+            predicates.add(criteriaBuilder.lessThanOrEqualTo(projectFrom.get(Project_.actualOwpa), params.getActualOwpaMax()));
+        }
+    }
+
+    private static void addDateFilters(Parameters params, CriteriaBuilder criteriaBuilder, List<Predicate> predicates, From projectFrom) {
         if (params.getStartDateMin() != null) {
-            predicates.add(criteriaBuilder.greaterThanOrEqualTo(startDate, params.getStartDateMin()));
+            predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectFrom.get(Project_.startDate), params.getStartDateMin()));
         }
         if (params.getStartDateMax() != null) {
-            predicates.add(criteriaBuilder.lessThanOrEqualTo(startDate, params.getStartDateMax()));
+            predicates.add(criteriaBuilder.lessThanOrEqualTo(projectFrom.get(Project_.startDate), params.getStartDateMax()));
         }
         if (params.getEndDateMin() != null) {
-            predicates.add(criteriaBuilder.greaterThanOrEqualTo(endDate, params.getEndDateMin()));
+            predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectFrom.get(Project_.endDate), params.getEndDateMin()));
         }
         if (params.getEndDateMax() != null) {
-            predicates.add(criteriaBuilder.lessThanOrEqualTo(endDate, params.getEndDateMax()));
+            predicates.add(criteriaBuilder.lessThanOrEqualTo(projectFrom.get(Project_.endDate), params.getEndDateMax()));
+        }
+    }
+
+    private static void addFinancialAmountFilters(Parameters params, CriteriaBuilder criteriaBuilder, List<Predicate> predicates, From projectFrom) {
+        if(params.getFinancialAmountMin() != null) {
+            predicates.add(criteriaBuilder.greaterThanOrEqualTo(projectFrom.get(Project_.totalProjectAmount), params.getFinancialAmountMin()));
+        }
+        if(params.getFinancialAmountMax() != null) {
+            predicates.add(criteriaBuilder.lessThanOrEqualTo(projectFrom.get(Project_.totalProjectAmount), params.getFinancialAmountMax()));
+        }
+    }
+
+    private static void addFlowTypeFilters(Parameters params, CriteriaBuilder criteriaBuilder, List<Predicate> predicates, From projectFrom) {
+        if (params.getFlowTypes() != null || params.getGrantSubTypes() != null) {
+            Predicate ft = null;
+            boolean isFlowType = false;
+            Join<Project, Transaction> transactionJoin = projectFrom.join(Project_.transactions);
+
+            if(params.getFlowTypes()!=null){
+                ft = transactionJoin.get(Transaction_.flowType).in(params.getFlowTypes());
+                isFlowType = true;
+            }
+            Predicate gst = null;
+            boolean isGrantType = false;
+            if(params.getGrantSubTypes()!=null) {
+                gst = transactionJoin.get(Transaction_.grantSubTypeId).in(params.getGrantSubTypes());
+                isGrantType = true;
+            }
+            if(isFlowType && isGrantType) {
+                predicates.add(criteriaBuilder.or(ft, gst));
+            } else if (isFlowType){
+                predicates.add(criteriaBuilder.or(ft));
+            } else if (isGrantType){
+                predicates.add(criteriaBuilder.or(gst));
+            }
+        }
+    }
+
+
+    private static void addTrxTypeStatusFilter(Parameters params, List<Predicate> predicates, Join<Project, Transaction> transactionJoin) {
+        if (params.getTrxType() != null) {
+            predicates.add(transactionJoin.get(Transaction_.transactionTypeId).in(params.getTrxType()));
+        }
+        if (params.getTrxStatus() != null) {
+            predicates.add(transactionJoin.get(Transaction_.transactionStatusId).in(params.getTrxStatus()));
         }
     }
 }
