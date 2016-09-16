@@ -142,17 +142,16 @@ public class GeoJsonServiceImpl implements GeoJsonService {
         LocationAdmLevelEnum level = LocationAdmLevelEnum.getEnumByName(indicator.getAdmLevel());
         GeoJsonBuilder builder = new GeoJsonBuilder();
 
-
         List<GeometryDao> geometriesList = locationRepository.getShapesByLevelAndDetail(level.getLevel(), detail.getValue());
 
         builder.setFeatures(
                 geometriesList.stream().map(geometryDao -> {
                     IndicatorDetail indicatorDetail = detailsMap.get(geometryDao.getLocationId());//get indicator detail for this location
+                    String value = indicatorDetail!=null?indicatorDetail.getValue():null;
                     IndicatorGeometryDao dao = new IndicatorGeometryDao(geometryDao.getLocationId(),
                             geometryDao.getName(), geometryDao.getGeometry(), indicator.getId(), indicator.getName(), indicator.getDescription(),
-                            indicator.getColorScheme(), indicatorDetail.getValue(), level.getLevel(),indicator.getUnit());
+                            indicator.getColorScheme(), value, level.getLevel(),indicator.getUnit());
                     return ConverterFactory.indicatorGeometryConverter().convert(dao);
-
                 }).collect(Collectors.toList()));
 
         return builder.getFeatures();
@@ -212,7 +211,6 @@ public class GeoJsonServiceImpl implements GeoJsonService {
                     locationProjectStatsDao.setName(geometryDao.getName());
                     return ConverterFactory.locationPointConverter().convert(locationProjectStatsDao);
                 }).collect(Collectors.toList()));
-
 
         LOGGER.info("---returning features " + (System.currentTimeMillis() - start_time) + "---");
 
