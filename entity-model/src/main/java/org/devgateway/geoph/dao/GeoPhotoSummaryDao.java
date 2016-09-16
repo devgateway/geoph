@@ -2,8 +2,8 @@ package org.devgateway.geoph.dao;
 
 import com.vividsolutions.jts.geom.Geometry;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class GeoPhotoSummaryDao {
 
@@ -13,7 +13,7 @@ public class GeoPhotoSummaryDao {
 
     private String projectTitle;
 
-    private List<String> urls = new ArrayList<>();;
+    private Set<String> urls = new HashSet<>();;
 
     private Long projectId;
 
@@ -26,15 +26,6 @@ public class GeoPhotoSummaryDao {
         this.projectId = geoPhotoDao.getProjectId();
         this.geometry = geoPhotoDao.getGeometry();
         this.urls.add(geoPhotoDao.getUrl());
-    }
-
-    public GeoPhotoSummaryDao(long id, String name, List<String> urls, long projectId, String projectTitle, Geometry geometry) {
-        this.id = id;
-        this.name = name;
-        this.projectTitle = projectTitle;
-        this.projectId = projectId;
-        this.geometry = geometry;
-        this.urls = urls;
     }
 
     public Long getId() {
@@ -61,11 +52,11 @@ public class GeoPhotoSummaryDao {
         this.projectTitle = projectTitle;
     }
 
-    public List<String> getUrls() {
+    public Set<String> getUrls() {
         return urls;
     }
 
-    public void setUrls(List<String> urls) {
+    public void setUrls(Set<String> urls) {
         this.urls = urls;
     }
 
