@@ -181,11 +181,14 @@ export default class D3Layer extends MapLayer {
     } else {
       latLong = L.latLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0])
     }
-    let popup = L.popup({maxWidth:"400", maxHeight:"330"})
+    const popupMaxWidth = Math.max(this.props.map._container.offsetWidth * 0.45, 410);
+    const popupMaxHeight = Math.max(this.props.map._container.offsetHeight * 0.7, 340);
+    //let popup = L.popup({maxWidth:"400", maxHeight:"330"})
+    let popup = L.popup({maxWidth: popupMaxWidth, maxHeight: popupMaxHeight})    
     .setLatLng(latLong)
     .openOn(this.props.map);
     if (this.props.children) {
-      render(React.cloneElement(React.Children.only(this.props.children), {feature, store:this.context.store}), popup._contentNode);
+      render(React.cloneElement(React.Children.only(this.props.children), {feature, store:this.context.store, popupMaxHeight, popupMaxWidth}), popup._contentNode);
       popup._updateLayout();
       popup._updatePosition()
       popup._adjustPan();
