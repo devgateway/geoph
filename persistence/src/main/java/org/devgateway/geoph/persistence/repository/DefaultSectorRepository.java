@@ -78,7 +78,7 @@ public class DefaultSectorRepository implements SectorRepository {
         } else {
             utilization = criteriaBuilder.prod(transactionJoin.get(Transaction_.amount), sectorJoin.get(ProjectSector_.utilization));
         }
-        Expression<Double> expression = FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, utilization);
+        Expression<Double> expression = FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, utilization, transactionJoin);
         multiSelect.add(criteriaBuilder.sum(expression));
 
         multiSelect.add(transactionJoin.get(Transaction_.transactionTypeId));
@@ -115,7 +115,7 @@ public class DefaultSectorRepository implements SectorRepository {
 
         multiSelect.add(criteriaBuilder.countDistinct(projectRoot));
 
-        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, null);
+        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, null, null);
 
         Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         criteriaQuery.where(other);
