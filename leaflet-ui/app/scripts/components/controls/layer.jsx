@@ -40,17 +40,14 @@ class Settings extends React.Component {
 						<div className="separator"/>				
 					</li>
 				:null}
-
 				
-					{(settings['showLabels']!=undefined)?
+				{(settings['showLabels']!=undefined)?
 					<li>
 						<ul className="level">
 							<li className="setting-name"><b>Label:</b></li>
-								<li onClick={()=>{this.set('showLabels',!settings['showLabels'])}}>
-									{settings['showLabels']==true?<div className="active" >On</div>:<div>Off</div>}
-
-									
-								</li>
+							<li onClick={()=>{this.set('showLabels',!settings['showLabels'])}}>
+								{settings['showLabels']==true?<div className="active" >On</div>:<div>Off</div>}								
+							</li>
 						</ul>
 						<div className="separator"/>				
 					</li>
@@ -70,9 +67,8 @@ class Settings extends React.Component {
 						<div className="separator"/>				
 					</li>
 				:null}
-
 			
-				{(settings['css'])?
+				{/*(settings['css'])?
 					<li>
 						<ul  className="css colors">
 							<li className="setting-name"><b>{translate('toolview.layers.colors')}:</b></li>
@@ -83,10 +79,7 @@ class Settings extends React.Component {
 							<li className={settings['css']=="blue"?"scheme blue active":"scheme blue "} onClick={()=>{this.set('css','blue')}}></li>
 						</ul>
 					</li>
-				:null}
-
-					
-
+				:null*/}
 				
 			</ul>
 		);

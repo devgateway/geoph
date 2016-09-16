@@ -61,8 +61,9 @@ export const getValues=(features, valueProperty, fundingType)=>{
 }
 
 export const createCSSProviderInstance=(thresholds, values, cssProvider)=>{
-	const breaks = (thresholds > values.length)? values.length-1 : thresholds;
-	return (cssProvider)? new cssProvider(values,breaks):null;
+	const valuesUnique = [...new Set(values)];
+	const breaks = (thresholds >= valuesUnique.length)? valuesUnique.length-1 : thresholds;
+	return (cssProvider)? new cssProvider(valuesUnique, breaks):null;
 }
 
 
@@ -73,12 +74,15 @@ export const createSimpleLegend=(cssPrefix,css)=>{
 export const createLegendsByDomain=(domain,cssPrefix,css)=>{
 	const classNames=`legend-${cssPrefix} `
 	let legends;
-	if (domain && domain.length > 0){
-		//domain=Array.from(new Set(domain));//removes duplicated ranges generated when provider has less values than breaks
+	if (domain && domain.length == 1){
+		const cls = `${classNames}${css}0-9`;
+		const label = `0 - ${formatValue(parseInt(domain[0]))}`;
+		legends=[{cls,label}];
+	} else if (domain && domain.length > 1){
 		legends=domain.map((val,i,arr)=>{			
 			const cls = `${classNames}${css}${i}-9`;
 			const start=formatValue(parseInt(val));
-			const end =formatValue(parseInt(arr[i+1]-1));
+			const end =formatValue(parseInt(arr[i+1]));
 			let label =`${start} - ${end}`;
 			return {cls,label};
 		});

@@ -31,8 +31,6 @@ public class GeoJsonController extends BaseController {
     @Autowired
     public GeoJsonController(GeoJsonService geoJsonService) {
         this.geoJsonService = geoJsonService;
-
-
     }
 
     @RequestMapping(value = "/{level}/projects", method = GET)

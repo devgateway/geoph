@@ -67,6 +67,12 @@ public class FilterController extends BaseController {
     public GenericResponse findPhysicalProgressPeriod() {
         LOGGER.debug("findPhysicalProgressPeriod");
         List<Double> physicalProgressPeriod = service.getPhysicalProgressPeriod();
+        //Round max to the ceil number
+        if(physicalProgressPeriod!=null){
+            Double maxValue = Math.ceil(physicalProgressPeriod.get(0));
+            physicalProgressPeriod.remove(0);
+            physicalProgressPeriod.add(0, maxValue);
+        }
         GenericResponse resp = new GenericResponse(
                 physicalProgressPeriod,
                 physicalProgressPeriod != null ? physicalProgressPeriod.size() : 0

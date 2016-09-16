@@ -1,10 +1,6 @@
 package org.devgateway.geoph.services;
 
 
-import com.machinepublishers.jbrowserdriver.JBrowserDriver;
-import com.machinepublishers.jbrowserdriver.Settings;
-import com.machinepublishers.jbrowserdriver.Timezone;
-import com.machinepublishers.jbrowserdriver.UserAgent;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.pdfbox.cos.COSDictionary;
@@ -139,7 +135,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
         BufferedImage image = null;
         try {
 
-           WebDriver driver =DriverManager.getDriver(width, height);
+            WebDriver driver =DriverManager.getDriver(width, height);
             driver.get(target.toString());
 
             byte[] imageByte=((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);

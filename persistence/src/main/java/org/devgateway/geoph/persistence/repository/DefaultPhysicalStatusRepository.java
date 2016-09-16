@@ -72,7 +72,7 @@ public class DefaultPhysicalStatusRepository implements PhysicalStatusRepository
         multiSelect.add(physicalStatusJoin);
         groupByList.add(physicalStatusJoin);
 
-        Expression<Double> expression = FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, transactionJoin.get(Transaction_.amount));
+        Expression<Double> expression = FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, transactionJoin.get(Transaction_.amount), transactionJoin);
         multiSelect.add(criteriaBuilder.sum(expression));
 
         multiSelect.add(transactionJoin.get(Transaction_.transactionTypeId));
@@ -108,7 +108,7 @@ public class DefaultPhysicalStatusRepository implements PhysicalStatusRepository
 
         multiSelect.add(criteriaBuilder.countDistinct(projectRoot));
 
-        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, null);
+        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, null, null);
 
         Predicate other = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         criteriaQuery.where(other);
