@@ -5,20 +5,11 @@ import org.devgateway.geoph.core.repositories.IndicatorRepository;
 import org.devgateway.geoph.core.repositories.LocationRepository;
 import org.devgateway.geoph.core.response.IndicatorResponse;
 import org.devgateway.geoph.core.services.LayerService;
-import org.devgateway.geoph.dao.GeoPhotoGeometryDao;
-import org.devgateway.geoph.dao.PostGisDao;
-import org.devgateway.geoph.enums.LocationAdmLevelEnum;
 import org.devgateway.geoph.model.Indicator;
-import org.devgateway.geoph.model.IndicatorDetail;
-import org.devgateway.geoph.services.util.FeatureHelper;
-import org.geojson.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author dbianco
