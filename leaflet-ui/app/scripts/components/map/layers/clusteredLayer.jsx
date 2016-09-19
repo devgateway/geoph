@@ -57,8 +57,8 @@ require('./cluster.scss');
  			},
  			chunkedLoading:true,
  			maxClusterRadius:200,
- 			spiderfyOnMaxZoom:10,
- 			disableClusteringAtZoom: 17,
+ 			spiderfyOnMaxZoom:true,
+ 			disableClusteringAtZoom: 19,
  			showCoverageOnHover:false,});
  		this.leafletElement.addLayer(geojson);
  		map.addLayer(this.leafletElement);

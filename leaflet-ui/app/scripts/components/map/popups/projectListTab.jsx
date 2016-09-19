@@ -40,25 +40,27 @@ export default class ProjectListTab extends React.Component {
     return(
       <div className="">
         <div className="project-list-div">
-          <Grid className='project-list'>
-            <Row className="project-list-header">
-              <Col md={5}>{translate('infowindow.projectlist.title')}</Col>
-              <Col md={3}>{translate('infowindow.projectlist.financinginstitution')}</Col>
-              <Col md={2}>{translate('infowindow.projectlist.actualcommitments')}</Col>
-              <Col md={2}>{translate('infowindow.projectlist.actualdisbursements')}</Col>
-            </Row>  
+          <div className='project-list'>
+            <div className="project-list-header">
+              <div className="project-list-item-col5">{translate('infowindow.projectlist.title')}</div>
+              <div className="project-list-item-col3">{translate('infowindow.projectlist.financinginstitution')}</div>
+              <div className="project-list-item-col2">{translate('infowindow.projectlist.actualcommitments')}</div>
+              <div className="project-list-item-col2">{translate('infowindow.projectlist.actualdisbursements')}</div>
+            </div>  
             {projectsToShow.map((project) => {
               const {commitments, disbursements} = project.trxAmounts;
-              return <Row className="project-list-item" key={project.id}>
-                  <Col className="project-title" title={project.title} md={5}>
+              return (
+                <div className="project-list-item" key={project.id}>
+                  <div className="project-title" title={project.title} className="project-list-item-col5">
                     <ProjectLink {...project} store={this.props.store}/>
-                  </Col>
-                  <Col md={3}>{project.fundingAgency.code}</Col>
-                  <Col md={2}>₱ {formatValue(commitments.actual)}</Col>
-                  <Col md={2}>₱ {formatValue(disbursements.actual)}</Col>
-                </Row>             
+                  </div>
+                  <div className="project-list-item-col3">{project.fundingAgency.code}</div>
+                  <div className="project-list-item-col2">₱ {formatValue(commitments.actual)}</div>
+                  <div className="project-list-item-col2">₱ {formatValue(disbursements.actual)}</div>
+                </div>
+              )             
             })}            
-          </Grid>
+          </div>
         </div>
         <div className="projects-paginator">
           <Pagination 
