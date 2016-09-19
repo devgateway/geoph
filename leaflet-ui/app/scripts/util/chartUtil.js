@@ -84,7 +84,7 @@ export const parseDataChart=(chartType, props, chartContainerRef)=>{
         ],
         'layout': {         
           'height': height || 250, 
-          'width': width || (chartContainerRef? chartContainerRef.offsetWidth : 550),
+          'width': chartContainerRef? chartContainerRef.offsetWidthwidth : (width || 550),
           'margin':{
             't':5,
             'b':20,

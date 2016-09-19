@@ -133,8 +133,8 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
                   <Chart chartData={Object.assign(charts.fundingAgency, {'measureType': this.state.measureType})}
                   measure={fundingType} 
                   chartType='pie'
-                  width='400'
-                  height='200'
+                  width={popupMaxWidth}
+                  height={popupMaxHeight/1.6}
                   showTotalHeader={true}
                   onChangeMeasure={level==1? this.changeMeasure:null}
                   dimension="name"/>
@@ -151,8 +151,8 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
                   <Chart chartData={Object.assign(charts.implementingAgency, {'measureType': this.state.measureType})}
                   measure={fundingType} 
                   chartType='pie'
-                  width='400'
-                  height='200'
+                  width={popupMaxWidth}
+                  height={popupMaxHeight/1.6}
                   showTotalHeader={true}
                   onChangeMeasure={level==1? this.changeMeasure:null}
                   dimension="name"/>
@@ -169,8 +169,8 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
                   <Chart chartData={Object.assign(charts.physicalStatus, {'measureType': this.state.measureType})}
                   measure={fundingType} 
                   chartType='pie'
-                  width='400'
-                  height='200'
+                  width={popupMaxWidth}
+                  height={popupMaxHeight/1.6}
                   showTotalHeader={true}
                   onChangeMeasure={level==1? this.changeMeasure:null}
                   dimension="name"/>
@@ -187,8 +187,8 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
                   <Chart chartData={Object.assign(charts.sector, {'measureType': this.state.measureType})}
                   measure={fundingType} 
                   chartType='pie'
-                  width='400'
-                  height='200'
+                  width={popupMaxWidth}
+                  height={popupMaxHeight/1.6}
                   showTotalHeader={true}
                   onChangeMeasure={level==1? this.changeMeasure:null}
                   dimension="name"/>

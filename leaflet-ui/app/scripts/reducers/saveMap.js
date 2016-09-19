@@ -14,7 +14,9 @@ const saveMap =(state = defaultState, action) => {
       return defaultState;
 
     case Constants.STATE_RESTORE:
-      return defaultState; 
+      state = state.set('name', action.storedMap.name);
+      state = state.set('description', action.storedMap.description);
+      return state.set('id', action.storedMap.id);
 
     case Constants.CHANGE_SAVE_PROPERTY:
       return state.set(action.property,action.value);
