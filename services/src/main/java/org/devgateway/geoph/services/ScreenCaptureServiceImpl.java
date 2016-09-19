@@ -135,7 +135,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
         BufferedImage image = null;
         try {
 
-            WebDriver driver =DriverManager.getDriver(width, height);
+            WebDriver driver = DriverManager.getDriver(width, height);
             driver.get(target.toString());
 
             byte[] imageByte=((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
@@ -148,8 +148,8 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
         return image;
     }
 
-        public BufferedImage captureImage(Integer width, Integer height, URI target) {
-            return JbrowserCapture(width,height,target);
+    public BufferedImage captureImage(Integer width, Integer height, URI target) {
+        return JbrowserCapture(width, height, target);
     }
 
     @Override
@@ -157,10 +157,10 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
      * Scale image keeping aspect ration
      */
     public BufferedImage scaleWidth(BufferedImage original, Integer newWidth) {
-        Integer w=original.getWidth();
-        Float ratio=((float)w)/newWidth;
-        Float   newHeight =original.getHeight()/ratio;
-        return  resize(original, newWidth, newHeight.intValue());
+        Integer w = original.getWidth();
+        Float ratio = ((float)w)/newWidth;
+        Float newHeight = original.getHeight()/ratio;
+        return resize(original, newWidth, newHeight.intValue());
     }
 
     @Override
@@ -168,10 +168,10 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
      * Scale image keeping aspect ration
      */
     public BufferedImage scaleHeight(BufferedImage original, Integer newHeight) {
-        Integer h=original.getHeight();
-        Integer ratio=h/newHeight;
-        Integer  newWidth=original.getWidth()/ratio;
-        return  resize(original, newWidth, newHeight);
+        Integer h = original.getHeight();
+        Integer ratio = h/newHeight;
+        Integer newWidth = original.getWidth()/ratio;
+        return resize(original, newWidth, newHeight);
     }
 
 
@@ -185,13 +185,11 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
 
     @Override
     public String toBase64(BufferedImage image) throws IOException {
-        BASE64Encoder base64Encoder=new BASE64Encoder();
-        String imageString = null;
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ImageIO.write(image, "png", bos);
         byte[] imageBytes = bos.toByteArray();
         BASE64Encoder encoder = new BASE64Encoder();
-        imageString = encoder.encode(imageBytes);
+        String imageString = encoder.encode(imageBytes);
         bos.close();
         return imageString;
     }
@@ -246,11 +244,6 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
 
             element.attr("style",newStyle);
         });
-
-
-
-
-
     }
 
     private File createPdf(BufferedImage image,
