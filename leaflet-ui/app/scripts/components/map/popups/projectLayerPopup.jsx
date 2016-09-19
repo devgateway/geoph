@@ -60,7 +60,7 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
   },
 
   render() {
-    const {stats, charts, fundingType, feature} = this.props;
+    const {stats, charts, fundingType, feature, popupMaxHeight, popupMaxWidth} = this.props;
     if (!feature){
       return null;
     }
@@ -72,7 +72,7 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
     let fundingLabel = translate('header.settings.'+type) + " " +  translate('header.settings.'+measure);
     let fundingValue = trxAmounts[measure]? trxAmounts[measure][type] || 0 : 0;
     return (
-      <div className="popup-container">
+      <div className="popup-container" style={{width: (popupMaxWidth-10), height: (popupMaxHeight-10)}}>
         <div className="popup-title">
           <h2>{name || ""} </h2>
         </div>
@@ -133,8 +133,8 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
                   <Chart chartData={Object.assign(charts.fundingAgency, {'measureType': this.state.measureType})}
                   measure={fundingType} 
                   chartType='pie'
-                  width='400'
-                  height='200'
+                  width={popupMaxWidth}
+                  height={popupMaxHeight/1.6}
                   showTotalHeader={true}
                   onChangeMeasure={level==1? this.changeMeasure:null}
                   dimension="name"/>
@@ -151,8 +151,8 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
                   <Chart chartData={Object.assign(charts.implementingAgency, {'measureType': this.state.measureType})}
                   measure={fundingType} 
                   chartType='pie'
-                  width='400'
-                  height='200'
+                  width={popupMaxWidth}
+                  height={popupMaxHeight/1.6}
                   showTotalHeader={true}
                   onChangeMeasure={level==1? this.changeMeasure:null}
                   dimension="name"/>
@@ -169,8 +169,8 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
                   <Chart chartData={Object.assign(charts.physicalStatus, {'measureType': this.state.measureType})}
                   measure={fundingType} 
                   chartType='pie'
-                  width='400'
-                  height='200'
+                  width={popupMaxWidth}
+                  height={popupMaxHeight/1.6}
                   showTotalHeader={true}
                   onChangeMeasure={level==1? this.changeMeasure:null}
                   dimension="name"/>
@@ -187,8 +187,8 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
                   <Chart chartData={Object.assign(charts.sector, {'measureType': this.state.measureType})}
                   measure={fundingType} 
                   chartType='pie'
-                  width='400'
-                  height='200'
+                  width={popupMaxWidth}
+                  height={popupMaxHeight/1.6}
                   showTotalHeader={true}
                   onChangeMeasure={level==1? this.changeMeasure:null}
                   dimension="name"/>
