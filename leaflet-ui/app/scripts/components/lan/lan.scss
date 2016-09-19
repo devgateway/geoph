@@ -19,22 +19,22 @@
 
 .ph-icon{
     @include flag-icon;
-    background: url('../../../assets/svg/Philippines.svg');    
+    background: url('../../../assets/svg/ph-flag.svg');    
 }
  
 .ph-icon-disabled{
     @include flag-icon;
-    background: url('../../../assets/svg/Philippines-disabled.svg');    
+    background: url('../../../assets/svg/ph-flag-disabled.svg');    
 }
 
 .usa-icon{
     @include flag-icon;
-    background: url('../../../assets/svg/USA.svg');    
+    background: url('../../../assets/svg/us-flag.svg');    
 }
 
 .usa-icon-disabled{
     @include flag-icon;
-    background: url('../../../assets/svg/USA-disabled.svg');    
+    background: url('../../../assets/svg/us-flag-disabled.svg');    
 }
 
 
