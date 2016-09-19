@@ -15,9 +15,9 @@ public class GeoPhotoGeometryConverter extends AbstractConverter<GeoPhotoSummary
         Feature feature=new Feature();
         feature.setGeometry(ConverterUtil.convert(dao.getGeometry()));
         feature.setProperty(PROPERTY_GEO_PHOTO_NAME, dao.getName());
-        feature.setProperty(PROPERTY_GEO_PHOTO_URLS, dao.getUrls());
         feature.setProperty(PROPERTY_GEO_PHOTO_PROJECT_TITLE, dao.getProjectTitle());
         feature.setProperty(PROPERTY_GEO_PHOTO_PROJECT_ID, dao.getProjectId());
+        feature.setProperty(PROPERTY_GEO_PHOTO_URLS, dao.getUrls());
         return feature;
     }
 }
