@@ -443,23 +443,29 @@ public class Parameters {
     }
 
     public void setFlowTypes(List<String> flowTypes) {
-        this.flowTypes = flowTypes;
+        for(String filter:flowTypes){
+            fillTypes(filter);
+        }
+    }
+
+    private void fillTypes(String filter) {
+        if (filter.indexOf(FLOW_TYPE_ID_SEPARATOR) > 0) {
+            if (grantSubTypes == null) {
+                grantSubTypes = new ArrayList<>();
+            }
+            grantSubTypes.add(Integer.parseInt(filter.substring(filter.indexOf(FLOW_TYPE_ID_SEPARATOR) + 1)));
+        } else {
+            if (flowTypes == null) {
+                flowTypes = new ArrayList<>();
+            }
+            flowTypes.add(FlowTypeEnum.getEnumById(Integer.parseInt(filter)).name().toLowerCase());
+        }
     }
 
     public void setFlowTypes(String filters) {
         if (StringUtils.isNotBlank(filters)) {
             for (String filter : filters.split(PARAM_SEPARATOR)) {
-                if (filter.indexOf(FLOW_TYPE_ID_SEPARATOR) > 0) {
-                    if (grantSubTypes == null) {
-                        grantSubTypes = new ArrayList<>();
-                    }
-                    grantSubTypes.add(Integer.parseInt(filter.substring(filter.indexOf(FLOW_TYPE_ID_SEPARATOR) + 1)));
-                } else {
-                    if (flowTypes == null) {
-                        flowTypes = new ArrayList<>();
-                    }
-                    flowTypes.add(FlowTypeEnum.getEnumById(Integer.parseInt(filter)).name().toLowerCase());
-                }
+                fillTypes(filter);
             }
         }
     }
