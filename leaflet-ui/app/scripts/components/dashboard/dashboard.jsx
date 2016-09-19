@@ -3,13 +3,14 @@ import { Link  } from 'react-router';
 import {connect} from 'react-redux';
 import Messages from '../messages/messages.jsx'	
 import {getMapList,edit,remove} from '../../actions/dashboard.js';
+import Moment from 'moment';
 require("./dashboard.scss");
 
 var pageSize = 5;
 
 class Item extends React.Component {
   render(){
-    const {description, name, mapKey, base64preview, created} = this.props;
+    const {description, name, mapKey, base64preview, creationDate} = this.props;
     return (
       <div className="item">
         <Link to={`/map/${mapKey}`}>
@@ -24,7 +25,7 @@ class Item extends React.Component {
           {description}
         </div>
         <div className="created" >
-          {created || "No creation date"}
+          {Moment(creationDate).format("YYYY-MM-DD") || "No creation date"}
         </div>
         <div className="actions" >
           {this.props.children}
