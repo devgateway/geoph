@@ -2,6 +2,8 @@ package org.devgateway.geoph.dao;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.devgateway.geoph.enums.LocationAdmLevelEnum;
+import org.devgateway.geoph.enums.TransactionStatusEnum;
+import org.devgateway.geoph.enums.TransactionTypeEnum;
 import org.devgateway.geoph.model.Location;
 import org.devgateway.geoph.model.Project;
 import org.devgateway.geoph.model.ProjectLocation;
@@ -36,6 +38,8 @@ public class ProjectPageDao {
     private String status;
 
     private String physicalStatus;
+
+    private Map<String, Map<String, Double>> trxAmounts = new HashMap<>();
 
     public ProjectPageDao(Project project) {
         this.id = project.getId();
@@ -86,6 +90,18 @@ public class ProjectPageDao {
             this.physicalStatus = project.getPhysicalStatus().getName();
         }
 
+        for(TransactionTypeEnum typeEnum:TransactionTypeEnum.values()){
+            Map<String, Double> statusMap = new HashMap<>();
+            for(TransactionStatusEnum statusEnum:TransactionStatusEnum.values()){
+                statusMap.put(statusEnum.getName(), 0D);
+            }
+            trxAmounts.put(typeEnum.getName(), statusMap);
+        }
+
+        project.getTransactions().stream().forEach(trx->{
+            Double oldAmount = trxAmounts.get(trx.getTransactionType().getName().toLowerCase()).get(trx.getTransactionStatus().getName().toLowerCase());
+            trxAmounts.get(trx.getTransactionType().getName().toLowerCase()).put(trx.getTransactionStatus().getName(), oldAmount + trx.getAmount());
+        });
     }
 
     private void createLocationTree(Location region, Location province, Location municipality) {
@@ -217,6 +233,14 @@ public class ProjectPageDao {
 
     public Collection<LocationTree> getLocationTree() {
         return locations.values();
+    }
+
+    public Map<String, Map<String, Double>> getTrxAmounts() {
+        return trxAmounts;
+    }
+
+    public void setTrxAmounts(Map<String, Map<String, Double>> trxAmounts) {
+        this.trxAmounts = trxAmounts;
     }
 
     class LocationTree{
