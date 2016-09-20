@@ -1,6 +1,10 @@
 package org.devgateway.geoph.services;
 
 
+import com.machinepublishers.jbrowserdriver.JBrowserDriver;
+import com.machinepublishers.jbrowserdriver.Settings;
+import com.machinepublishers.jbrowserdriver.Timezone;
+import com.machinepublishers.jbrowserdriver.UserAgent;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.pdfbox.cos.COSDictionary;
@@ -99,6 +103,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
 
 
     public String createPdfFromHtmlString(PrintParams params, String key) throws Exception {
+        LOGGER.debug("createPdfFromHtmlString");
         File target = buildPage(params.getWidth(), params.getHeight(), params.getHtml()); //merge template and the passed html and return URL to resulted file
         BufferedImage image = captureImage(params.getWidth(),params.getHeight(), target.toURI()); //create screen shoot from html file
         if(image==null){
@@ -132,16 +137,26 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
     }
 
     public BufferedImage JbrowserCapture(Integer width, Integer height, URI target) {
+        LOGGER.debug("Starting JBrowserDriver ");
         BufferedImage image = null;
         try {
-
-            WebDriver driver = DriverManager.getDriver(width, height);
+            Dimension screen = new Dimension(width, height);
+            WebDriver driver = new JBrowserDriver(Settings
+                    .builder()
+                    .logWarnings(false)
+                    .logger(null)
+                    .screen(screen)
+                    .userAgent(UserAgent.CHROME)
+                    .timezone(Timezone.AMERICA_NEWYORK)
+                    .build());
+            //TODO:externalize time out
+            driver.manage().timeouts().pageLoadTimeout(25, TimeUnit.SECONDS);
             driver.get(target.toString());
 
             byte[] imageByte=((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
             ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
             image = ImageIO.read(bis);
-            //driver.quit();
+            driver.quit();
         } catch (Exception e) {
             LOGGER.error("Image error: " + e.getMessage());
         }
