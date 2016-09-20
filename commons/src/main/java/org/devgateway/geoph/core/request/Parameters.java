@@ -443,8 +443,10 @@ public class Parameters {
     }
 
     public void setFlowTypes(List<String> flowTypes) {
-        for(String filter:flowTypes){
-            fillTypes(filter);
+        if(flowTypes!=null) {
+            for (String filter : flowTypes) {
+                fillTypes(filter);
+            }
         }
     }
 
