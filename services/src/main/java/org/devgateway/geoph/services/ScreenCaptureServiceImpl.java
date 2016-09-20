@@ -150,10 +150,13 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
                     .timezone(Timezone.AMERICA_NEWYORK)
                     .build());
             //TODO:externalize time out
+            LOGGER.debug("driver.manage()");
             driver.manage().timeouts().pageLoadTimeout(25, TimeUnit.SECONDS);
+            LOGGER.debug("target.toString()");
             driver.get(target.toString());
-
+            LOGGER.debug("TakesScreenshot");
             byte[] imageByte=((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+            LOGGER.debug("done!");
             ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
             image = ImageIO.read(bis);
             driver.quit();
