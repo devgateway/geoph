@@ -1,7 +1,7 @@
 import * as Constants from '../constants/constants';
 import {Map} from 'immutable'
 
-const indicatorWizard = (state = new Map({step:'template',template:'region',name:'',css:'red',status:"CREATE_NEW"}), action) => {
+const indicatorWizard = (state = new Map({step:'template',template:'region',name:'',css:'yellow',status:"CREATE_NEW"}), action) => {
 
   state=state.delete('httpError').delete('errors');
 
