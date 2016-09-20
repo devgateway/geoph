@@ -172,7 +172,7 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
         name,
         popupId: "defaultPopup",
         settings: {
-          'css': css || 'yellow'
+          'css': 'yellow'
         }
       }
     });
