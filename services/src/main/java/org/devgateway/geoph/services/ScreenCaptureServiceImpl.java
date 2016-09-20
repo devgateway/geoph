@@ -157,6 +157,8 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             image = ImageIO.read(bis);
             driver.quit();
         } catch (Exception e) {
+            LOGGER.error("Stacktrace: ");
+            e.printStackTrace();
             LOGGER.error("Image error: " + e.getMessage());
         }
         return image;
