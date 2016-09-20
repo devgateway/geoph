@@ -19,12 +19,14 @@ class MenuBar extends React.Component{
 		return (
 			<div className="title">
 				<h2><b>{title}</b></h2>
+				
 				<ul className="options">
 					{items.map(item=>{
 						const Component=item.children;
 						const visible=(!item.secure || (item.secure&&loggedin));
 						return (visible)?<MenuItem {...this.props}  {...item}><Component/></MenuItem>:null;
 					})}
+					<li className="lang-sm"><LangSwitcher/></li> 
 					<li className="last" onClick={()=>{
 						debugger
 						onTogglePanel()
