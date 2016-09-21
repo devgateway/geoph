@@ -143,24 +143,17 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             Dimension screen = new Dimension(width, height);
             WebDriver driver = new JBrowserDriver(Settings
                     .builder()
-                    .logWarnings(true)
-                    .logger(LOGGER.getName())
+                    .logWarnings(false)
+                    .logger(null)
                     .screen(screen)
                     .userAgent(UserAgent.CHROME)
                     .timezone(Timezone.AMERICA_NEWYORK)
                     .build());
             //TODO:externalize time out
-            LOGGER.debug("driver.manage() 1");
-            WebDriver.Options manage = driver.manage();
-            LOGGER.debug("manage.timeouts()");
-            WebDriver.Timeouts timeouts = manage.timeouts();
-            LOGGER.debug("timeouts.pageLoadTimeout");
-            timeouts.pageLoadTimeout(25, TimeUnit.SECONDS);
-            LOGGER.debug("target.toString(): " + target.toString());
+            driver.manage().timeouts().pageLoadTimeout(25, TimeUnit.SECONDS);
             driver.get(target.toString());
-            LOGGER.debug("TakesScreenshot");
+
             byte[] imageByte=((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-            LOGGER.debug("done!");
             ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
             image = ImageIO.read(bis);
             driver.quit();
