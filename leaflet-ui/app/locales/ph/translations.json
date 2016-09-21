@@ -274,6 +274,7 @@
 	"project": {
 		"projectdetails": "Project Details",
 		"projectcost": "Project Cost",
+		"fundingtotals": "Funding Totals",
 		"fundingagency": "Funding Agency",
 		"implementingagencies": "Implementing Agencies",
 		"sectors": "Sectors",
