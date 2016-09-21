@@ -47,7 +47,7 @@ public class FilterHelper {
                     addTrxTypeStatusFilter(params, predicates, transactionJoin);
                 }
 
-                expression = addCommonFilters(params, criteriaBuilder, predicates, projectRoot, expression);
+                expression = addCommonFilters(params, criteriaBuilder, predicates, projectRoot, transactionJoin, expression);
 
             }
         }
@@ -78,21 +78,21 @@ public class FilterHelper {
                 }
                 addTrxTypeStatusFilter(params, predicates, transactionJoin);
 
-                expression = addCommonFilters(params, criteriaBuilder, predicates, projectJoin, expression);
+                expression = addCommonFilters(params, criteriaBuilder, predicates, projectJoin, transactionJoin, expression);
 
             }
             return expression;
         }
     }
 
-    private static Expression<Double> addCommonFilters(Parameters params, CriteriaBuilder criteriaBuilder, List<Predicate> predicates, From projectFrom, Expression<Double> expression) {
+    private static Expression<Double> addCommonFilters(Parameters params, CriteriaBuilder criteriaBuilder, List<Predicate> predicates, From projectFrom, From transactionFrom, Expression<Double> expression) {
         addProjectTitleFilter(params, criteriaBuilder, predicates, projectFrom);
         addDateFilters(params, criteriaBuilder, predicates, projectFrom);
         addClassificationFilter(params, criteriaBuilder, predicates, projectFrom);
         addPeriodPerformanceFilters(params, criteriaBuilder, predicates, projectFrom);
         addFinancialAmountFilters(params, criteriaBuilder, predicates, projectFrom);
         addPhysicalProgressFilters(params, criteriaBuilder, predicates, projectFrom);
-        addFlowTypeFilters(params, criteriaBuilder, predicates, projectFrom);
+        addFlowTypeFilters(params, criteriaBuilder, predicates, projectFrom, transactionFrom);
 
         addFundingAgencyFilter(params, predicates, projectFrom);
         addPhysicalStatusFilter(params, predicates, projectFrom);
@@ -254,20 +254,19 @@ public class FilterHelper {
         }
     }
 
-    private static void addFlowTypeFilters(Parameters params, CriteriaBuilder criteriaBuilder, List<Predicate> predicates, From projectFrom) {
+    private static void addFlowTypeFilters(Parameters params, CriteriaBuilder criteriaBuilder, List<Predicate> predicates, From projectFrom, From transactionFrom) {
         if (params.getFlowTypes() != null || params.getGrantSubTypes() != null) {
             Predicate ft = null;
             boolean isFlowType = false;
-            Join<Project, Transaction> transactionJoin = projectFrom.join(Project_.transactions);
 
             if(params.getFlowTypes()!=null){
-                ft = transactionJoin.get(Transaction_.flowType).in(params.getFlowTypes());
+                ft = transactionFrom.get(Transaction_.flowType).in(params.getFlowTypes());
                 isFlowType = true;
             }
             Predicate gst = null;
             boolean isGrantType = false;
             if(params.getGrantSubTypes()!=null) {
-                gst = transactionJoin.get(Transaction_.grantSubTypeId).in(params.getGrantSubTypes());
+                gst = transactionFrom.get(Transaction_.grantSubTypeId).in(params.getGrantSubTypes());
                 isGrantType = true;
             }
             if(isFlowType && isGrantType) {
