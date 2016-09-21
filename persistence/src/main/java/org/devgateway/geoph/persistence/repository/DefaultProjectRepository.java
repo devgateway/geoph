@@ -115,7 +115,8 @@ public class DefaultProjectRepository implements ProjectRepository {
         Join<Project, Agency> agencyJoin = projectRoot.join(Project_.fundingAgency, JoinType.LEFT);
         Join<Project, Transaction> transactionJoin = projectRoot.join(Project_.transactions, JoinType.LEFT);
 
-        FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, null, null);
+        Expression<Double> expression = transactionJoin.get(Transaction_.amount);
+        expression = FilterHelper.filterProjectQuery(params, criteriaBuilder, projectRoot, predicates, expression, transactionJoin);
 
         multiSelect.add(projectRoot.get(Project_.id));
         groupByList.add(projectRoot.get(Project_.id));
@@ -132,7 +133,7 @@ public class DefaultProjectRepository implements ProjectRepository {
         multiSelect.add(agencyJoin.get(Agency_.code));
         groupByList.add(agencyJoin.get(Agency_.code));
 
-        multiSelect.add(criteriaBuilder.sum(transactionJoin.get(Transaction_.amount)));
+        multiSelect.add(criteriaBuilder.sum(expression));
 
         multiSelect.add(transactionJoin.get(Transaction_.transactionStatusId));
         groupByList.add(transactionJoin.get(Transaction_.transactionStatusId));
