@@ -24,7 +24,7 @@ class SearchText extends React.Component {
 
   	render() {
   		return (
-	        <div>
+	        <div className="inner-filter-search">
 	        	<div className="input-group">
 			      	<OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id="help.filters.search">{translate('help.filters.search')}</Tooltip>)}>
 						<input ref="keyword" type="text" className="form-control" placeholder={translate('filters.buttons.search')+"..."} onKeyUp={this.onKeyUp.bind(this)}/>

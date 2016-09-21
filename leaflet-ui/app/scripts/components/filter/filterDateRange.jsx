@@ -4,6 +4,7 @@ import DatePicker from 'react-date-picker'
 import Moment from 'moment'
 import { setFilterRange, fetchFilterDataIfNeeded } from '../../actions/filters.js'
 import translate from '../../util/translate.js';
+import HelpIcon from './filterHelpIcon'
 require('react-date-picker/base.css');
 require('react-date-picker/theme/hackerone.css');
 
@@ -54,42 +55,40 @@ class FilterDate extends React.Component {
 	}
 
   	render() {
-  		let startMinDate = this.props.dateMin;
-  		let startMaxDate = this.props.maxSelected;
-  		let endMinDate = this.props.minSelected;
-  		let endMaxDate = this.props.dateMax;
-  		let lang = this.props.lang=='ph'? 'tl-ph' : this.props.lang; //workaraound for momentjs locale issue
+  		const {startMinDate, startMaxDate, endMinDate, endMaxDate, lang, helpTextKey, startDateLabel, endDateLabel, maxSelected, minSelected} = this.props;
+  		let lng = lang=='ph'? 'tl-ph' : lang; //workaraound for momentjs locale issue
   		return (
 	        <div className="date-picker-container">
 	        	<div className="date-picker-div">
-	        		<span>{this.props.startDateLabel || translate('filters.dates.from')}: <b>{this.props.minSelected || translate('filters.dates.notset')}</b></span>
-	        		{this.props.minSelected?
+	        		<span>{startDateLabel || translate('filters.dates.from')}: <b>{minSelected || translate('filters.dates.notset')}</b></span>
+	        		{minSelected?
 	        			<span className="clear-date" onClick={this.handleStartDate.bind(this, null)}>X</span>
 	        		: null}
 	        		<DatePicker 
 	        			hideFooter={true}
 	        			ref="startDate" 
-	        			locale={lang} 
+	        			locale={lng} 
 	        			minDate={startMinDate} 
 	        			maxDate={startMaxDate} 
-	        			date={this.props.minSelected} 
+	        			date={minSelected} 
 	        			onChange={this.handleStartDate.bind(this)} />
 		        </div>
 		        <div className="date-picker-divisor"/>	
 		        <div className="date-picker-div">
-	        		<span>{this.props.endDateLabel || translate('filters.dates.to')}: <b>{this.props.maxSelected || translate('filters.dates.notset')}</b></span>
-	        		{this.props.maxSelected?
+	        		<span>{endDateLabel || translate('filters.dates.to')}: <b>{maxSelected || translate('filters.dates.notset')}</b></span>
+	        		{maxSelected?
 	        			<span className="clear-date" onClick={this.handleEndDate.bind(this, null)}>X</span>
 	        		: null}
 	        		<DatePicker 
 	        			hideFooter={true}
 	        			ref="endDate" 
-	        			locale={lang} 
+	        			locale={lng} 
 	        			minDate={endMinDate} 
 	        			maxDate={endMaxDate} 
-	        			date={this.props.maxSelected} 
+	        			date={maxSelected} 
 	        			onChange={this.handleEndDate.bind(this)} />	 
 		        </div>
+		        <HelpIcon helpTextKey={helpTextKey}/>
 		        {this.state.errorMessage.length>0?
 					<div className="error-message">
 		        		<b>Error: </b>

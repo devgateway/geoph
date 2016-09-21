@@ -12,12 +12,12 @@
 			"spanish": "Espanyol"
 		},
 		"settings": {
-			"title": "Tagpuan",
+			"title": "Settings",
 			"fundingtype": "Uri ng Pondo",
-			"commitments": "Pangako",
-			"disbursements": "Pagbabayad",
-			"expenditures": "Paggasta",
-			"actual": "Tunay",
+			"commitments": "Commitments",
+			"disbursements": "Disbursements",
+			"expenditures": "Expenditures",
+			"actual": "Aktwal",
 			"target": "Target",
 			"cancelled": "Kinansela",
 			"share": "Share a link to your map"
@@ -25,11 +25,11 @@
 		"basemap": {
 			"title": "Basemap",
 			"select": "Piliin Basemap",
-			"imagery": "Guniguni",
+			"imagery": "Imagery",
 			"street": "Kalye",
-			"ligthgray": "Liwanag Abo",
-			"darkgray": "Madilim Abo",
-			"terrain": "Lupain",
+			"gray": "Ligth Gray",
+			"darkgray": "Dark Gray",
+			"terrain": "Kalupaan",
 			"topographic": "Topographic",
 			"oceans": "Oceans",
 			"openstreetmap": "Open Street Map"
@@ -38,7 +38,7 @@
 			"title": "Philippines NEDA Map"
 		},
 		"filters": {
-			"title": "Piltro"
+			"title": "Filters"
 		}
 	},
 
@@ -90,9 +90,9 @@
 		"physical": {
 			"physicalandfinancial": "Pisikal at Pinansyal",
 			"physicalProgress": "Pisikal Pagsulong",
-			"minimum": "Minimo",
+			"minimum": "Minimum",
 			"maximum": "Maksimum",
-			"physicalstatus": "Pisikal Kalagayan",
+			"physicalstatus": "Physical Status",
 			"alertlevel": "Alerto Antas"
 		},
 		"buttons": {
@@ -105,12 +105,12 @@
 	},
 
 	"toolview": {
-		"title": "Kasangkapan",
+		"title": "Tool View",
 		"projectsearch": {
 			"title": "Humanap ng Proyekto",
 			"placeholder": "Humanap ng Proyekto",
-			"clearall": "Clear All",
-			"selectall": "Select All",
+			"clearall": "Alisin lahat",
+			"selectall": "Piliin lahat",
 			"apply": "Gamitin",
 			"searchresults": "Resulta ng Paghahanap",
 			"selectedresults": "Piniling Resulta"
@@ -123,16 +123,18 @@
 			"province": "Probinsya",
 			"municipality": "Munisipyo",
 			"quality": "Kalidad",
-			
+			"low": "Mababa",
+			"medium": "Medyum",
+			"high": "Mataas", 
 			"projects": "Proyekto",
 			"project": "Projects points",
 			"stats": "Estadistika",
 			"poverty": "Kahirapan",
 			"population": "Populasyon",
-			"funding": "Pagpopondo Total",
+			"funding": "Kabuuang Pondo",
 			"physical":"Physical progress",
-			"indicators": "Tagapagpahiwatig Estatistiko",
-			"geophotos": "Geo Litrato",
+			"indicators": "Statistical Indicators",
+			"geophotos": "Geotagged Photos",
 			"values":"Values",
 			"target":"Target",
 			"actual":"Actual",
@@ -142,27 +144,27 @@
 	},
 
 	"chartview": {
-		"title": "Tsart",
+		"title": "Chart View",
 		"fundingagency": "Institusyon ng Gastusan",
 		"barchart": "Tsart Bar",
 		"piechart": "Tsart Pie",
 		"funding": "Pagpopondo",
 		"projectcount": "Bilang ng Proyekto",
 		"implementingagency": "Nagpapatupad na Ahensya",
-		"physicalstatus": "Pisikal Kalagayan",
+		"physicalstatus": "Pisikal na Kalagayan",
 		"sector": "Sektor",
 		"nodata": "Walang makuhang datos",
-		"more": "Pa",
-		"less": "Kulang",
-		"expandpanel": "Lumawak Panel",
-		"collapsepanel": "Pagbagsak Panel",
+		"more": "More",
+		"less": "Less",
+		"expandpanel": "Expand Panel",
+		"collapsepanel": "Collapse Panel",
 		"projects": "Proyekto",
-		"others": "Mga iba"
+		"others": "Others"
 	},
 
 	"infowindow": {
 		"tab": {
-			"financinginstitution": "Institusyon Gastusan",
+			"financinginstitution": "Nagpopondong Institusyon",
 			"implementingagency": "Nagpapatupad Ahensya",
 			"physicalstatus": "Pisikal Kalagayan",
 			"sector": "Sektor",
@@ -170,10 +172,10 @@
 			"totalamount": "Total"
 		},
 		"projectlist": {
-			"title": "Proyekto Pamagat",
-			"financinginstitution": "Pagpopondo Ahensya",
-			"actualcommitments": "Pangako",
-			"actualdisbursements": "Pagbabayad"
+			"title": "Title",
+			"financinginstitution": "Nagpopondong Institusyon",
+			"actualcommitments": "Commitments",
+			"actualdisbursements": "Disbursements"
 		}
 	},
 
@@ -196,6 +198,35 @@
 		},
 		"stats": "Ito ay nagpapakita ng kabuuang bilang at pondo ng proyekto na may lokasyon, at ng national-level na proyekto.",
 		"filters": {
+			"fundingtab": {
+				"fundingtype": "Select one or more funding type from the list (OR conditional between them)",
+				"financinginstitution": "Select one or more financing institution from the list (OR conditional between them)",
+				"fundingclassification": "Select one or more funding classification from the list (OR conditional between them)"
+			},
+			"agencytab": {
+				"fundingagency": "Select one or more funding agency from the list (OR conditional between them)"
+			},
+			"sectortab": {
+				"sector": "Select one or more sectors from the list (OR conditional between them)",
+				"relevanceclimate": "Select one or more relevance to climate from the list (OR conditional between them)",
+				"gender": "Select one or more gender from the list (OR conditional between them)"
+			},
+			"datetab": {
+				"implementperiodstart": "Select a range of dates (from - to) for the implementation start date",
+				"implementperiodend": "Select a range of dates (from - to) for the implementation end date",
+				"validityperiodstart": "Select a range of dates (from - to) for the loan/grant validity start date",
+				"implementperiodend": "Select a range of dates (from - to) for the loan/grant validity end date"
+			},
+			"statustab": {
+				"financingstatus": "Select one or more financing status from the list (OR conditional between them)"
+			},
+			"financialtab": {
+				"financialamount": "Select a range of values for financial amount"
+			},
+			"physicaltab": {
+				"physicalprogress": "Select a range of values for physical progress",
+				"physicalstatus": "Select one or more physical status from the list (OR conditional between them)"
+			},			
 			"reset": "I-klik ang reset para mabago o' maghanap ng bagong impormasyon",
 			"cancel": "I-klik ang cancel kung ninanais na huwag magpatuloy sa paghahanap ng impormasyon",
 			"apply": "I-klik ang apply button kung ipinapakita na ang ninanais na impormasyon ",

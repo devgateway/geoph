@@ -6,6 +6,7 @@ import { formatValue, formatAndRoundValue, roundValue } from '../../util/format.
 import { getLogSliderValue, getLogSliderPosition } from '../../util/filterUtil';
 import translate from '../../util/translate.js';
 import Slider from 'rc-slider';
+import HelpIcon from './filterHelpIcon'
 require('rc-slider/assets/index.css');
 
 class FilterSliderWithMarks extends React.Component {
@@ -85,9 +86,10 @@ class FilterSliderWithMarks extends React.Component {
   		let minSelected = this.props.minSelected!=undefined? this.props.minSelected : this.props.valueMin;
   		let maxSelected = this.props.maxSelected!=undefined? this.props.maxSelected : this.props.valueMax;
   		let values = {'min': minSelected, 'max': maxSelected};
-  		const {valueMin, valueMax} = this.props;
+  		const {valueMin, valueMax, helpTextKey} = this.props;
   		return (
 	        <div className="range-filter-container">
+	        	<HelpIcon helpTextKey={helpTextKey}/>
         		<div className="range-filter">
         			{this.props.logMarks?
 	        		<Slider 

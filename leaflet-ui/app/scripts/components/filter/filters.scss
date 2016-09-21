@@ -385,3 +385,30 @@
 .rc-slider-mark-text {
     margin-top: 8px;
 }
+
+.inner-filter-search{
+  width: 95%;
+  display: inline-block;
+}
+
+.range-filter-container{
+  .filter-help-icon{
+    float: right;
+  }
+}
+
+.date-picker-container{
+  .filter-help-icon{
+    margin-left: -20px !important;
+  }
+}
+
+.filter-help-icon{
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  margin-left: 8px;
+  margin-bottom: 7px;
+  cursor: pointer;
+  background: url('../../../assets/svg/help.svg'); 
+}
