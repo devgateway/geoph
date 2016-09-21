@@ -22,6 +22,8 @@ public class ProjectPageDao {
 
     private String title;
 
+    private Double totalProjectAmount;
+
     private String fundingAgency;
 
     private List<Map<String, Object>> implementingAgencies;
@@ -45,6 +47,7 @@ public class ProjectPageDao {
         this.id = project.getId();
         this.phId = project.getPhId();
         this.title = project.getTitle();
+        this.totalProjectAmount = project.getTotalProjectAmount();
         this.fundingAgency = project.getFundingAgency().getName();
 
         this.implementingAgencies = new ArrayList<>();
@@ -165,6 +168,14 @@ public class ProjectPageDao {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public Double getTotalProjectAmount() {
+        return totalProjectAmount;
+    }
+
+    public void setTotalProjectAmount(Double totalProjectAmount) {
+        this.totalProjectAmount = totalProjectAmount;
     }
 
     public String getFundingAgency() {
