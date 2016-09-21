@@ -151,8 +151,12 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
                     .build());
             //TODO:externalize time out
             LOGGER.debug("driver.manage()");
-            driver.manage().timeouts().pageLoadTimeout(25, TimeUnit.SECONDS);
-            LOGGER.debug("target.toString()");
+            WebDriver.Options manage = driver.manage();
+            LOGGER.debug("manage.timeouts()");
+            WebDriver.Timeouts timeouts = manage.timeouts();
+            LOGGER.debug("timeouts.pageLoadTimeout");
+            timeouts.pageLoadTimeout(25, TimeUnit.SECONDS);
+            LOGGER.debug("target.toString(): " + target.toString());
             driver.get(target.toString());
             LOGGER.debug("TakesScreenshot");
             byte[] imageByte=((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
