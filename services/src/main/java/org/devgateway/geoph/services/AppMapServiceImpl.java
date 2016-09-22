@@ -41,7 +41,12 @@ public class AppMapServiceImpl implements AppMapService {
 
     @Override
     public AppMap update(long id, AppMap appMap) {
-        return null;
+        AppMap storedMap = repository.getOne(id);
+        storedMap.setName(appMap.getName());
+        storedMap.setDescription(appMap.getDescription());
+        storedMap.setJsonAppMap(appMap.getJsonAppMap());
+        storedMap.setBase64preview(appMap.getBase64preview());
+        return repository.save(storedMap);
     }
 
     @Override
