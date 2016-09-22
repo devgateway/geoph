@@ -14,6 +14,7 @@ export const loadDefaultMapState=(type,error)=>{
 }
 
 const loadLayerCompleted=(results, getState)=>{
+	debugger;
 	return {type:LAYER_LOAD_SUCCESS,...results, fundingType: getState().settings.fundingType}
 }
 
