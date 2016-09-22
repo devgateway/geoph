@@ -31,7 +31,7 @@ const filters = (state = {filterMain: {}}, action) => {
       })
     case Constants.STATE_RESTORE:
       let copyState = cloneDeep(state.filterMain);
-
+      copyState = resetAllFilters(copyState);
       if(action.storedMap.data.filters){
         let storedFilters =  action.storedMap.data.filters;
         Object.keys(storedFilters).map(k=>{ 
@@ -49,20 +49,8 @@ const filters = (state = {filterMain: {}}, action) => {
       }
       return Object.assign({}, state, { filterMain: copyState})
     case Constants.RESET_FILTER:
-      let actionDummy = {type: Constants.SELECT_ALL_FILTER_LIST, item: {selected: false}};
-      filterMain = cloneDeep(state.filterMain);      
-      for (var filterKey in state.filterMain) {
-        let filterClean;
-        if (!state.filterMain[filterKey].isRange){
-          filterClean = filter(state.filterMain[filterKey], actionDummy);
-          updateFilterCounters(filterClean);
-        } else {
-          filterClean = cloneDeep(state.filterMain[filterKey]);
-          delete filterClean['minSelected'];
-          delete filterClean['maxSelected'];
-        }        
-        Object.assign(filterMain, {[filterKey]: filterClean});
-      }
+      filterMain = cloneDeep(state.filterMain);   
+      filterMain = resetAllFilters(filterMain);
       return Object.assign({}, state, {
         filterMain: filterMain
       })
@@ -214,6 +202,23 @@ const makeVisibleIntoChildren = (item) => {
       makeVisibleIntoChildren(it);
     });
   }
+}
+
+const resetAllFilters = (filterMain) => { 
+  let actionDummy = {type: Constants.SELECT_ALL_FILTER_LIST, item: {selected: false}};
+  for (var filterKey in filterMain) {
+    let filterClean;
+    if (!filterMain[filterKey].isRange){
+      filterClean = filter(filterMain[filterKey], actionDummy);
+      updateFilterCounters(filterClean);
+    } else {
+      filterClean = cloneDeep(state.filterMain[filterKey]);
+      delete filterClean['minSelected'];
+      delete filterClean['maxSelected'];
+    }        
+    Object.assign(filterMain, {[filterKey]: filterClean});
+  }
+  return filterMain; 
 }
 
 export default filters;

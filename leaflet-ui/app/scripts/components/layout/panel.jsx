@@ -20,20 +20,37 @@ class Panel extends React.Component {
     }
   }
 
+  buildPath(url){
+    let pathArray = this.props.currentView.split('/');
+    let key = pathArray[pathArray.indexOf("map")+1];
+    if (!key || key=="tools" || key=="charts"){
+      return `/map${url}`;
+    } else {
+      return `/map/${key}${url}`;
+    }
+  }
+
+  getTabClass(tab, def){
+    const {currentView} = this.props;
+    let currentTab = currentView.split('/').pop();
+    if (currentTab==tab || (currentTab!="charts" && currentTab!="tools" && def)){
+      return "panel-tab active"
+    } else {
+      return "panel-tab"
+    }
+  }
+
   render() {
     const {expanded,visible}=this.props;
-
     const expandedClass=expanded?'panel-expanded':'';
     const visibleClass=visible==true?'visible':'unseen';
- 
-
     return (
       <div className={`panel ${expandedClass} ${visibleClass}`}>       
       
         <ul>
-          <Link to="/map/tools" >
+          <Link to={this.buildPath("/tools")} >
             <OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id="help.toolview.toolviewtab">{translate('help.toolview.toolviewtab')}</Tooltip>)}>
-              <li id='tools-tab' className={(this.props.currentView!='/map/charts')?"panel-tab active":"panel-tab"}>
+              <li id='tools-tab' className={this.getTabClass("tools", true)}>
                 <div onClick={this.togglePanel.bind(this)}>
                   <div className="icon tools"/>
                   <span>{translate('toolview.title')}</span>                
@@ -41,9 +58,9 @@ class Panel extends React.Component {
               </li>
             </OverlayTrigger>
           </Link>
-          <Link to="/map/charts">
+          <Link to={this.buildPath("/charts")}>
             <OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id="help.chartview.chartviewtab">{translate('help.chartview.chartviewtab')}</Tooltip>)}>
-              <li id='charts-tab' className={(this.props.currentView=='/map/charts')?"panel-tab active":"panel-tab"}>
+              <li id='charts-tab' className={this.getTabClass("charts", false)}>
                 <div className="icon chart"/>
                 <span>{translate('chartview.title')}</span>
               </li>

@@ -43,7 +43,8 @@ class ProjectPage extends React.Component {
 	render() {
 		const {project} = this.props;
 		const {projectData, isPopupOpen, loadingData} = project;
-		const {title, totalProjectAmount, fundingAgency, implementingAgencies, sectors, locationTree, periodPerformanceStart, periodPerformanceEnd, status, physicalStatus} = projectData;
+		const {title, totalProjectAmount, fundingAgency, implementingAgencies, sectors, locationTree, periodPerformanceStart, periodPerformanceEnd, status, physicalStatus, trxAmounts={}} = projectData;
+		const {commitments, disbursements, expenditures} = trxAmounts;
 		const notAvailable = translate('project.notavailable');
 		return (
     		<Modal animation={false} aria-labelledby='contained-modal-title-lg'  
@@ -69,6 +70,23 @@ class ProjectPage extends React.Component {
 							      <div>{totalProjectAmount? "₱ "+formatValue(totalProjectAmount) : notAvailable}</div>
 							    </div>
 							     
+							    <div className="project-field">
+							      <p>{translate('project.fundingtotals')}</p>
+							      <div>
+							      	<ul>
+							      		{(commitments.actual && commitments.actual>0)? <li>{"Actual Commitments: ₱ "+formatValue(commitments.actual)}</li> : null}
+							      		{(commitments.target && commitments.target>0)? <li>{"Target Commitments: ₱ "+formatValue(commitments.target)}</li> : null}
+							      		{(commitments.cancelled && commitments.cancelled>0)? <li>{"Cancelled Commitments: ₱ "+formatValue(commitments.cancelled)}</li> : null}
+							      		{(disbursements.actual && disbursements.actual>0)? <li>{"Actual Disbursements: ₱ "+formatValue(disbursements.actual)}</li> : null}
+							      		{(disbursements.target && disbursements.target>0)? <li>{"Target Disbursements: ₱ "+formatValue(disbursements.target)}</li> : null}
+							      		{(disbursements.cancelled && disbursements.cancelled>0)? <li>{"Cancelled Disbursements: ₱ "+formatValue(disbursements.cancelled)}</li> : null}
+							      		{(expenditures.actual && expenditures.actual>0)? <li>{"Actual Expenditures: ₱ "+formatValue(expenditures.actual)}</li> : null}
+							      		{(expenditures.target && expenditures.target>0)? <li>{"Target Expenditures: ₱ "+formatValue(expenditures.target)}</li> : null}
+							      		{(expenditures.cancelled && expenditures.cancelled>0)? <li>{"Cancelled Expenditures: ₱ "+formatValue(expenditures.cancelled)}</li> : null}							      		
+							      	</ul>
+							      </div>
+							    </div>
+
 							    <div className="project-field">
 							      <p>{translate('project.fundingagency')}</p>
 							      <div>{fundingAgency? fundingAgency : notAvailable}</div>

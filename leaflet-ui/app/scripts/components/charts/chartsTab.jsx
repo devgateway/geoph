@@ -14,11 +14,6 @@ class Charts extends React.Component {
     super();
   }
 
-  componentDidMount() {
-    let filters = collectValues(this.props.filters, this.props.projectSearch);
-    //this.props.onLoadChartData(filters);    
-  }
-
   togglePanel(){
     this.props.onTogglePanel();
     this.forceUpdate();

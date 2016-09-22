@@ -58,11 +58,11 @@ class Settings extends React.Component {
 						<ul className="level">
 							<li className="setting-name"><b>Details:</b></li>
 							<li onClick={()=>{this.set('detail','low')}}>
-								<div className={settings['detail']=="low"?"active":""} >Low</div></li>
+								<div className={settings['detail']=="low"?"active":""} >{translate('toolview.layers.low')}</div></li>
 							<li onClick={()=>{this.set('detail','medium')}}>
-								<div className={settings['detail']=="medium"?"active":""}>medium</div></li>
+								<div className={settings['detail']=="medium"?"active":""}>{translate('toolview.layers.medium')}</div></li>
 							<li onClick={()=>{this.set('detail','high')}}>
-								<div className={settings['detail']=="high"?"active":""}>high</div></li>
+								<div className={settings['detail']=="high"?"active":""}>{translate('toolview.layers.high')}</div></li>
 						</ul>
 						<div className="separator"/>				
 					</li>

@@ -112,29 +112,36 @@ export const requestRestoreMap = (mapKey) => {
   return (dispatch, getState) =>{
     loadIndicatorList().then((data) => {
       dispatch(makeAction(Constants.INDICATOR_LIST_LOADED,{data}));
-      dispatch(loadAllFilterLists());
-      loadMap(mapKey).then((storedMap)=>{
-          if(storedMap) {            
-            dispatch(applyFilter(storedMap.data.filters));
-            dispatch(makeAction(Constants.STATE_RESTORE,{storedMap}));
-            storedMap.data.map.visibleLayers.forEach(l=>{
-              dispatch(toggleVisibility(l, false));
-            });
-
-          } else {
-            dispatch(makeAction(Constants.STATE_RESTORE_ERROR,'No map!'));
-          }
-          
-      }).catch((err)=>{
-          dispatch(makeAction(Constants.STATE_RESTORE_ERROR,{err}));
-      });
-      
+      dispatch(makeAction(Constants.REQUEST_STATE_RESTORE,{mapKey}));
+      dispatch(loadAllFilterLists(true));
     }).catch((err)=>{
       dispatch(makeAction(Constants.INDICATOR_FAILED,{err}));
     });
   }
 
 }
+
+export const finishRestoreMap = (mapKey) => {//resume map restore after all filters are loaded
+  return (dispatch, getState) =>{
+    loadMap(getState().saveMap.get('mapKey')).then((storedMap)=>{
+        if(storedMap) {            
+          dispatch(makeAction(Constants.STATE_RESTORE,{storedMap}));
+          dispatch(applyFilter(storedMap.data.filters));
+          storedMap.data.map.visibleLayers.forEach(l=>{
+            dispatch(toggleVisibility(l, false));
+          });
+
+        } else {
+          dispatch(makeAction(Constants.STATE_RESTORE_ERROR,'No map!'));
+        }
+          
+      }).catch((err)=>{
+          dispatch(makeAction(Constants.STATE_RESTORE_ERROR,{err}));
+      });
+  }
+
+}
+
 
 const makeAction=(name, data)=>{
  return {type:name,...data} 
