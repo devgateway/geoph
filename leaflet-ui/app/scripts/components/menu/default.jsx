@@ -28,7 +28,6 @@ class MenuBar extends React.Component{
 					})}
 					<li className="lang-sm"><LangSwitcher/></li> 
 					<li className="last" onClick={()=>{
-						debugger
 						onTogglePanel()
 					}}></li>
 				</ul>
@@ -41,7 +40,6 @@ class MenuBar extends React.Component{
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		onTogglePanel:()=>{
-			debugger;
 			dispatch({type:Constants.TOGGLE_PANEL})
 		},
 		onActivate:(key)=>{dispatch({type:Constants.ACTIVATE_COMPONENT,key})},

@@ -4,8 +4,11 @@ import {applyFiltersToLayers} from './map';
 import {fetchChartData} from './charts';
 import {collectValues} from '../util/filterUtil';
 import {fetchStats} from './stats';
+import {finishRestoreMap} from './saveAndRestoreMap';
 
 const filterTypes = ['ft', 'fa', 'ia', 'st', 'cc', 'gr', 'dt_start', 'dt_end', 'pp_start', 'pp_end', 'sa', 'fin_amount', 'ao', 'ph', 'cl'];
+var filtersToLoad = [];
+var loadingAllLists = false;
 
 export const applyFilter = (filtersToApply) => {
   return (dispatch, getState) => {
@@ -53,11 +56,24 @@ export const receiveFilterData = (filterType, data) => {
   }
 }
 
+const checkLoadingPending = (dispatch, filterType) => {
+  if (loadingAllLists){
+    filtersToLoad = filtersToLoad.filter(function(i) {return i != filterType});//removes from the list of pendings
+    if (filtersToLoad.length==0){
+      loadingAllLists = false;
+      dispatch(finishRestoreMap());
+    }
+  }
+}
+
 export const fetchFilterData = (filterType) => {
   return dispatch => {
     dispatch(requestFilterData(filterType))
     return Connector.getFilterData(filterType)
-    .then(req => dispatch(receiveFilterData(filterType, req)))
+    .then(req => {
+      checkLoadingPending(dispatch, filterType);
+      dispatch(receiveFilterData(filterType, req));
+    })
   }
 }
 
@@ -76,11 +92,17 @@ export const fetchFilterDataIfNeeded = (filterType) => {
   return (dispatch, getState) => {
     if (shouldFetchFilterData(getState(), filterType)) {
       return dispatch(fetchFilterData(filterType))
+    } else {
+      checkLoadingPending(dispatch, filterType);
     }
   }
 }
 
-export const loadAllFilterLists = () => {
+export const loadAllFilterLists = (fromRestore) => {
+  if (fromRestore){
+    loadingAllLists = true;
+    filtersToLoad = filterTypes;
+  }
   return (dispatch, getState) => {
     filterTypes.forEach(filterType => dispatch(fetchFilterDataIfNeeded(filterType)));
   }

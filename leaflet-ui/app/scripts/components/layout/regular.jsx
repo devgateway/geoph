@@ -40,7 +40,9 @@ const mapDispatchToProps=(dispatch,ownProps)=>{
 }
 
 const stateToProps = (state,props) => { 
-  return {}
+  return {
+    mapId: state.saveMap.get('id')
+  }
 }
 
 export default connect(stateToProps,mapDispatchToProps)(Root);

@@ -16,7 +16,7 @@ class FilterDate extends React.Component {
 	}
 
 	componentDidMount() {
-		this.props.onLoadFilterData(this.props.filterType);		
+		//this.props.onLoadFilterData(this.props.filterType);		
 	}
 
 	handleStartDate(date) {

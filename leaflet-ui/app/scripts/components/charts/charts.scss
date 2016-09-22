@@ -108,11 +108,6 @@
     bottom: 10px;
 }
 
-@media (max-width: 1024px) {
-    .expand-button{
-        display: none !important;
-    }
-}
 .expand-button{
     padding: 0 5px;
     height: 40px;
@@ -121,6 +116,9 @@
     display: flex;
     align-items: center;
     cursor: pointer;
+    @media (max-width: 1024px) {
+        display: none !important;
+    }
 }
 
 .expand-button-legend{

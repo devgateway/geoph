@@ -17,7 +17,7 @@ class FilterSliderWithMarks extends React.Component {
 	}
 
 	componentDidMount() {
-		this.props.onLoadFilterData(this.props.filterType);		
+		//this.props.onLoadFilterData(this.props.filterType);		
 	}
 
 	handleMarksChange(values) {

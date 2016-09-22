@@ -3,7 +3,7 @@ import JenksCssProvider from '../util/jenksUtil.js'
 import {formatValue} from '../util/format.js'
 import Immutable from 'immutable';
 import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson, 
-  createLegendsByDomain , getVisibles,getValues} from '../util/layersUtil.js';
+  createLegendsByDomain , getVisibles, getValues, plainList} from '../util/layersUtil.js';
 
   const geophotosIndex = 1;
   const statsIndex = 2;
@@ -142,7 +142,7 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
           keyName: 'physical',
           popupId: "defaultPopup",
           supportFilters: true,
-            labelFunc:(f,v)=>{return ((v)?formatValue(v):0)+'%'}
+          labelFunc:(f,v)=>{return ((v)?formatValue(v):0)+'%'}
         }]
       }
 
@@ -293,6 +293,13 @@ const onChangeFundingType=(state,action)=>{
   return state;
 }
 
+const reloadLabelFuncToLayers=(state)=>{
+  let layersPlain = plainList(defaultState.get('layers'));
+  layersPlain.forEach(function(l){
+    state = state.setIn(getPath(l.get('id'), ['labelFunc']), l.get('labelFunc'));
+  })
+  return state;
+}
 
 const map = (state = defaultState, action) => {
   let newState;
@@ -323,7 +330,8 @@ const map = (state = defaultState, action) => {
     return state.set('basemap', Immutable.fromJS(action.basemap));
 
     case STATE_RESTORE:
-    return  Immutable.fromJS( action.storedMap.data.map);
+    state = Immutable.fromJS( action.storedMap.data.map);
+    return reloadLabelFuncToLayers(state);
 
     case CHANGE_MAP_BOUNDS:
     return state.set('bounds', Immutable.fromJS({southWest:action.bounds._southWest, northEast:action.bounds._northEast}));
