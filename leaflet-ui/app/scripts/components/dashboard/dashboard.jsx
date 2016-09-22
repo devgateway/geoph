@@ -96,7 +96,7 @@ class Dashboard extends React.Component {
         })}
         <div className="pager">
           <button className="btn btn-sm btn-default" disabled={first? "disabled":""} onClick={this.getListData.bind(this, activePage-1)}>{"<"}</button>
-          <div className={"pager-state"}>{"page "+(activePage+1) + " of "+totalPages}</div>
+          <div className={"pager-state"}>{"page "+(activePage+1) + " of "+(totalPages || "1")}</div>
           <button className="btn btn-sm btn-default" disabled={last? "disabled":""} onClick={this.getListData.bind(this, activePage+1)}>{">"}</button>
         </div>
       </div> 

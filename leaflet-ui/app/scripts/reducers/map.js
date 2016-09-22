@@ -267,6 +267,7 @@ const updateLayer=(state,action,id)=>{
   var {fundingType,data} = action;
   id= id || action.id; 
   if (state.getIn(getPath(id, ["computeOnload"])) == false) {
+    debugger;
     return state.setIn(getPath(id, ["data"]),action.data);
   }
  

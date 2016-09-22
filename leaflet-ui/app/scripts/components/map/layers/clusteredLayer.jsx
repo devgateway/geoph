@@ -18,8 +18,19 @@ require('./cluster.scss');
  export default class ClusteredLayer extends MapLayer {
 
 
- 	componentWillMount() {
- 		const {data,map}=this.props 
+ 	componentDidUpdate(nextProps, nextState) {
+ 		const {data,map}=this.props;
+ 		map.removeLayer(this.leafletElement);
+    	this.createLayer();
+	}
+
+	componentWillMount() {
+		this.createLayer();
+	}
+
+  	createLayer() {
+  		debugger;
+ 		const {data,map}=this.props;
  		var geojson = geoJson(data, 
  		{
  			
@@ -60,6 +71,7 @@ require('./cluster.scss');
  			spiderfyOnMaxZoom:true,
  			disableClusteringAtZoom: 19,
  			showCoverageOnHover:false,});
+ 		map._layersMaxZoom = 18; //workaround for avoid error en restore (ask @sebas)
  		this.leafletElement.addLayer(geojson);
  		map.addLayer(this.leafletElement);
  	}
