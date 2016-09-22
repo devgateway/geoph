@@ -7,6 +7,7 @@ import org.devgateway.geoph.core.exceptions.BadRequestException;
 import org.devgateway.geoph.core.services.AppMapService;
 import org.devgateway.geoph.core.services.ScreenCaptureService;
 import org.devgateway.geoph.core.util.MD5Generator;
+import org.devgateway.geoph.dao.AppMapDao;
 import org.devgateway.geoph.enums.AppMapTypeEnum;
 import org.devgateway.geoph.model.AppMap;
 import org.slf4j.Logger;
@@ -55,7 +56,7 @@ public class MapController {
     }
 
     @RequestMapping(method = GET)
-    public Page<AppMap> findMaps(@PageableDefault(page = 0, size = 20, sort = "id") final Pageable pageable, @RequestParam(required = false)  String type) {
+    public Page<AppMapDao> findMaps(@PageableDefault(page = 0, size = 20, sort = "id") final Pageable pageable, @RequestParam(required = false)  String type) {
         LOGGER.debug("findMaps");
         return appMapService.findByType(type, pageable);
     }
@@ -121,7 +122,8 @@ public class MapController {
     private boolean checkIfMapNameIsValid(String mapName){
         boolean ret = false;
         if(StringUtils.isNotBlank(mapName)) {
-            if(appMapService.findByName(mapName)==null){
+            List<AppMap> maps = appMapService.findByName(mapName);
+            if(maps==null || maps.size()==0){
                 ret = true;
             }
         }
