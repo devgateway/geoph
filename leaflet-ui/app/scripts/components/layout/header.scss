@@ -72,22 +72,34 @@ ul.options{
 	>li.last{
 		width: 40px;
 		float: 	left;
-	
-	
 	}
-@media (max-width: 1024px) {
-  .last::after{
-	content: "";
-	width: 18px;
-	height:18px;
-	margin: 7px;
-	float:right;
-	background:url('../../../assets/svg/hamburger.svg');
-	background-size:16px 16px;
-	background-repeat: no-repeat;
-
-  }
-}
+	>li.lang-sm{
+		width: 62px;
+		display: none;
+		float: 	left;
+	}
+	@media (max-width: 1024px) {
+	  .last::after{
+		content: "";
+		width: 18px;
+		height:18px;
+		margin: 7px;
+		float:right;
+		background:url('../../../assets/svg/hamburger.svg');
+		background-size:16px 16px;
+		background-repeat: no-repeat;
+	  }
+	  .lang-sm{
+		display: block !important;
+		padding-top: 7px;
+		.lan-selector{
+			>div{
+				height: 16px !important;
+				width: 16px !important;
+			}
+		}
+	  }
+	}
 
 
 	>li.mini>span{

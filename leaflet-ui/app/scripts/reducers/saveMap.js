@@ -13,6 +13,9 @@ const saveMap =(state = defaultState, action) => {
     case Constants.LOAD_DEFAULT_MAP_STATE:
       return defaultState;
 
+    case Constants.REQUEST_STATE_RESTORE:
+      return state.set('mapKey', action.mapKey);
+
     case Constants.STATE_RESTORE:
       state = state.set('name', action.storedMap.name);
       state = state.set('description', action.storedMap.description);

@@ -19,7 +19,7 @@ class LangSwitcher extends React.Component {
 	}
 
 	render() {
-		const {lan} = this.props;
+		const {lan, small} = this.props;
 		return (
 			<div className="lan-selector">
 				<div className={lan=='en'? "usa-icon" : "usa-icon-disabled"} onClick={this.changeLanguage.bind(this,'en')}></div> 

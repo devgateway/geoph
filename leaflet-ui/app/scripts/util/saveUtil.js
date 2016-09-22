@@ -25,6 +25,7 @@ export const collectValuesToSave = (state)=>{
     let filters=state.filters.filterMain;
     let projectSearch=state.projectSearch;
     let map=state.map;
+    let settings=state.settings;
     let params={};
     let filterParams={};
     let selection;
@@ -64,5 +65,6 @@ export const collectValuesToSave = (state)=>{
     }
     map = map.set('defaultBounds', map.get('bounds'));//move bounds value to defaultBounds to be used as default on restore
     Object.assign(params, {'map': map});
+    Object.assign(params, {'settings': settings});
     return params;
 }

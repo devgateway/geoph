@@ -1,15 +1,17 @@
 import React from 'react';
 import { Link  } from 'react-router';
 import ItemComponent from './filterItemList'
+import HelpIcon from './filterHelpIcon'
 import SearchComponent from './filterSearch'
 
 export default class Header extends React.Component {
 
   render() {
-    let filterType = this.props.filterType;
+    const {filterType, helpTextKey} = this.props;
     return (
       <div className="">
         <SearchComponent filterType={filterType} />
+        <HelpIcon helpTextKey={helpTextKey}/>
         <div className="filter-item-list">
           <ItemComponent loadList={true} {...this.props} />
         </div>

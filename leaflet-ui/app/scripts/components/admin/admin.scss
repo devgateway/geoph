@@ -36,16 +36,19 @@
 
   .indicator-list{
     ul{
-        list-style:none;
-        padding: 3px;
-       li.item{
-          padding:5px;
-          width:100%;
-          border-bottom: 2px solid #337ab7;
-           margin:5px;
-           display: block;
-           height:100px;
-       }
+      list-style:none;
+      padding: 3px;
+      li.item{
+        >div{
+          float: left;
+        }    
+        padding:5px;
+        width:100%;
+        border-bottom: 2px solid #337ab7;
+        margin:5px;
+        display: block;
+        height:65px;
+      }
     }
   }
 

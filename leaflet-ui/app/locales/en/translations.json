@@ -123,7 +123,9 @@
 			"province": "Province",
 			"municipality": "Municipality",
 			"quality": "Quality",
-			
+			"low": "Low",
+			"medium": "Medium",
+			"high": "High", 
 			"projects": "Projects",
 			"project": "Projects points",
 			"stats": "Statistical",
@@ -143,14 +145,14 @@
 
 	"chartview": {
 		"title": "Chart View",
-		"fundingagency": "Financing Institution Chart",
+		"fundingagency": "Financing Institution",
 		"barchart": "Bar Chart",
 		"piechart": "Pie Chart",
 		"funding": "Funding",
 		"projectcount": "Project Count",
-		"implementingagency": "Implementing Agency Chart",
-		"physicalstatus": "Physical Status Chart",
-		"sector": "Sector Chart",
+		"implementingagency": "Implementing Agency",
+		"physicalstatus": "Physical Status",
+		"sector": "Sector",
 		"nodata": "NO DATA AVAILABLE",
 		"more": "More",
 		"less": "Less",
@@ -196,6 +198,35 @@
 		},
 		"stats": "This displays the total number and funding of projects with locations, and of national-level projects",
 		"filters": {
+			"fundingtab": {
+				"fundingtype": "Select one or more funding type from the list (OR conditional between them)",
+				"financinginstitution": "Select one or more financing institution from the list (OR conditional between them)",
+				"fundingclassification": "Select one or more funding classification from the list (OR conditional between them)"
+			},
+			"agencytab": {
+				"fundingagency": "Select one or more funding agency from the list (OR conditional between them)"
+			},
+			"sectortab": {
+				"sector": "Select one or more sectors from the list (OR conditional between them)",
+				"relevanceclimate": "Select one or more relevance to climate from the list (OR conditional between them)",
+				"gender": "Select one or more gender from the list (OR conditional between them)"
+			},
+			"datetab": {
+				"implementperiodstart": "Select a range of dates (from - to) for the implementation start date",
+				"implementperiodend": "Select a range of dates (from - to) for the implementation end date",
+				"validityperiodstart": "Select a range of dates (from - to) for the loan/grant validity start date",
+				"implementperiodend": "Select a range of dates (from - to) for the loan/grant validity end date"
+			},
+			"statustab": {
+				"financingstatus": "Select one or more financing status from the list (OR conditional between them)"
+			},
+			"financialtab": {
+				"financialamount": "Move from left to right or right to left to select the desired Financial Amount range"
+			},
+			"physicaltab": {
+				"physicalprogress": "Move from left to right or right to left to select the Percentage of Target Reached range",
+				"physicalstatus": "Select one or more physical status from the list (OR conditional between them)"
+			},			
 			"reset": "Click reset to change or search for new information.",
 			"cancel": "Click cancel if you wish not to continue searching for an information",
 			"apply": "Hit the apply button if all desired information are displayed",
@@ -243,6 +274,7 @@
 	"project": {
 		"projectdetails": "Project Details",
 		"projectcost": "Project Cost",
+		"fundingtotals": "Funding Totals",
 		"fundingagency": "Funding Agency",
 		"implementingagencies": "Implementing Agencies",
 		"sectors": "Sectors",

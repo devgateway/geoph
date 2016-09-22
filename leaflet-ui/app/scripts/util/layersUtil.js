@@ -15,7 +15,7 @@ export const getPath=(id,paths)=>{
 }
 
 
-const plainList=(layers, accumulator)=>{
+export const plainList=(layers, accumulator)=>{
 	accumulator=accumulator || [];
 	layers.forEach(l=>{
 		if (l.get('layers')){

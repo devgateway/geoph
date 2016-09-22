@@ -1,12 +1,18 @@
 @import '../../../stylesheets/base.scss';
 
+@media (max-width: 1024px) {
+  .language-selector{
+    display: none !important;
+  }
+}
 
-.lan-selector{
+.language-selector{
   padding: 0px;
   margin: 16px 50px 0px 0px;
   float: right;
   color: #FFF;
 }
+
 
 @mixin flag-icon{
     width: 20px;
