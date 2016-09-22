@@ -1,5 +1,32 @@
 @import '../../../../stylesheets/base.scss';
 
+@mixin zoom-control(){
+  border-top-left-radius: 2px !important;
+  border-top-right-radius: 2px !important;
+  border-bottom-left-radius: 2px !important;
+  border-bottom-right-radius: 2px !important;
+  margin-bottom: 2px;
+  background-color: #678997 !important;
+  color: white !important;
+  width: 25px !important;
+  height: 25px !important;
+  font-size: 18px !important;
+  text-indent: 0px !important;
+  border-bottom: none !important;
+}
+
+.leaflet-control-zoom{
+  box-shadow: none !important;
+}
+
+.leaflet-control-zoom-in{
+  @include zoom-control();
+}
+
+.leaflet-control-zoom-out{
+  @include zoom-control();
+}
+
 @mixin legend-icon($radius){
 	cursor: default !important;
     border: 2px solid #ddd;
@@ -15,23 +42,18 @@
 
 .show-legends-button {
   cursor: pointer;
-  height: 29px;
-  width: 29px;	
-  border: 1px solid #ccc;
-  background-color: #ffffff;
-  border-radius: 4px;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  box-shadow: 3px 3px 5px -3px rgba(0, 0, 0, 0.59);
+  height: 25px;
+  width: 25px;	
+  background-color: #678997;
+  border-radius: 2px;
 }
 
 .show-legends-button-icon {
-  	@include box-sizing (16px,16px);
+  	@include box-sizing (13px,13px);
 	bottom: 0;
 	background:url('../../../../assets/svg/legend.svg');
 	background-repeat: no-repeat;
 	background-position: 0 0;
-	background-color: #ffffff;
 	float: left;
     margin: 6px;
 	}
@@ -42,7 +64,7 @@
 .legends-container {
 	position: absolute;
 	top: 75px;
-	left: 9px;
+	left: 11px;
 	padding: 0; 
   display: inline-flex;
 }
