@@ -136,8 +136,32 @@ public class ImportServiceImpl implements ImportService {
                         }
                         strValue = strValue.replace(COMMA_VALUE, DOT_VALUE);
                     }
+                } else if (value != null && value.getCellType() == Cell.CELL_TYPE_FORMULA) {
+                    try {
+                        strValue = String.format(FORMAT, Double.valueOf(value.getNumericCellValue()));
+                        if(strValue!=null){
+                            if(strValue.endsWith(NUMBER_SUFFIX)) {
+                                strValue = strValue.substring(0, strValue.length() - NUMBER_SUFFIX.length());
+                            }
+                            strValue = strValue.replace(COMMA_VALUE, DOT_VALUE);
+                        }
+                    } catch (NumberFormatException e){
+                        indicator.addError(getError(rowNumber));
+                    }
                 } else if (value != null && value.getCellType() == Cell.CELL_TYPE_STRING) {
-                    strValue = value.getStringCellValue();
+                    try {
+                        strValue = String.format(FORMAT, Double.parseDouble(value.getStringCellValue()));
+                        if(strValue!=null){
+                            if(strValue.endsWith(NUMBER_SUFFIX)) {
+                                strValue = strValue.substring(0, strValue.length() - NUMBER_SUFFIX.length());
+                            }
+                            strValue = strValue.replace(COMMA_VALUE, DOT_VALUE);
+                        }
+                    } catch (NumberFormatException e){
+                        indicator.addError(getError(rowNumber));
+                    }
+                } else {
+                    indicator.addError(getError(rowNumber));
                 }
                 Location location = null;
                 if (locId != null) {
@@ -159,5 +183,10 @@ public class ImportServiceImpl implements ImportService {
         } else {
             indicator.addError("File is empty");
         }
+    }
+
+    private String getError(int rowNumber) {
+        int fixed = rowNumber + STARTING_ROW + 1;
+        return "Error at row #" + fixed + " - Missing/Wrong Indicator Value";
     }
 }
