@@ -13,6 +13,7 @@ import org.devgateway.geoph.model.Location;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -34,10 +35,14 @@ public class ImportServiceImpl implements ImportService {
     private static final int LOCATION_ID_POS = 0;
     private static final int UACS_ID_POS = 2;
     private static final int INDICATOR_VALUE_POS = 3;
-    private static final String NUMBER_SUFFIX = ",000";
-    private static final String FORMAT = "%.3f";
     private static final String COMMA_VALUE = ",";
     private static final String DOT_VALUE = ".";
+
+    @Value("${indicator.string.format}")
+    private String format;
+
+    @Value("${indicator.number.suffix}")
+    private String numberSuffix;
 
     @Autowired
     IndicatorRepository indicatorRepository;
@@ -129,19 +134,19 @@ public class ImportServiceImpl implements ImportService {
                 }
                 String strValue = null;
                 if (value != null && value.getCellType() == Cell.CELL_TYPE_NUMERIC) {
-                    strValue = String.format(FORMAT, Double.valueOf(value.getNumericCellValue()));
+                    strValue = String.format(format, Double.valueOf(value.getNumericCellValue()));
                     if(strValue!=null){
-                        if(strValue.endsWith(NUMBER_SUFFIX)) {
-                            strValue = strValue.substring(0, strValue.length() - NUMBER_SUFFIX.length());
+                        if(strValue.endsWith(numberSuffix)) {
+                            strValue = strValue.substring(0, strValue.length() - numberSuffix.length());
                         }
                         strValue = strValue.replace(COMMA_VALUE, DOT_VALUE);
                     }
                 } else if (value != null && value.getCellType() == Cell.CELL_TYPE_FORMULA) {
                     try {
-                        strValue = String.format(FORMAT, Double.valueOf(value.getNumericCellValue()));
+                        strValue = String.format(format, Double.valueOf(value.getNumericCellValue()));
                         if(strValue!=null){
-                            if(strValue.endsWith(NUMBER_SUFFIX)) {
-                                strValue = strValue.substring(0, strValue.length() - NUMBER_SUFFIX.length());
+                            if(strValue.endsWith(numberSuffix)) {
+                                strValue = strValue.substring(0, strValue.length() - numberSuffix.length());
                             }
                             strValue = strValue.replace(COMMA_VALUE, DOT_VALUE);
                         }
@@ -150,10 +155,10 @@ public class ImportServiceImpl implements ImportService {
                     }
                 } else if (value != null && value.getCellType() == Cell.CELL_TYPE_STRING) {
                     try {
-                        strValue = String.format(FORMAT, Double.parseDouble(value.getStringCellValue()));
+                        strValue = String.format(format, Double.parseDouble(value.getStringCellValue()));
                         if(strValue!=null){
-                            if(strValue.endsWith(NUMBER_SUFFIX)) {
-                                strValue = strValue.substring(0, strValue.length() - NUMBER_SUFFIX.length());
+                            if(strValue.endsWith(numberSuffix)) {
+                                strValue = strValue.substring(0, strValue.length() - numberSuffix.length());
                             }
                             strValue = strValue.replace(COMMA_VALUE, DOT_VALUE);
                         }
