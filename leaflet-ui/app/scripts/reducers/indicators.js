@@ -1,17 +1,22 @@
 import * as Constants from '../constants/constants';
-import {Map} from 'immutable'
+import Immutable from 'immutable';
 
-const indicatorWizard = (state = new Map({step:'template',template:'region',name:'',css:'yellow',status:"CREATE_NEW"}), action) => {
+const defaultState = Immutable.fromJS(
+  {step:'template', template:'region', name:'', css:'yellow', status:"CREATE_NEW"}
+);
+
+const indicatorWizard = (state = defaultState, action) => {
 
   state=state.delete('httpError').delete('errors');
 
   switch (action.type) {
 
     case Constants.INDICATOR_LIST_LOADED:
-    return state.set('indicators',action.data)
+    state = defaultState; //clean creation data
+    return state.set('indicators',action.data);
     
     case Constants.CHANGE_STEP:
-    return state.set('step',action.step)
+    return state.set('step',action.step);
     
     case Constants.CHANGE_PROPERTY:
     return state.set(action.property,action.value);

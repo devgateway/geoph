@@ -30,8 +30,7 @@ class SelectTemplate extends BaseForm {
                 </div>
                 <div className="form-group ">
                     <a target="_blank" href={this.getDownloadTemplateURL(this.props.template)}>
-                        <input type="button" className="btn btn-xs btn-info" 
-                             value="Download Template"></input>
+                        <input type="button" className="btn btn-xs btn-info" value="Download Template"></input>
                     </a>
                     <input type="button" className="btn btn-xs btn-success pull-right"
                         onClick={()=>{onStepChange('indicator')}} value="Next"></input>
@@ -122,9 +121,10 @@ class AddIndicator extends BaseForm {
 
 class Indicator extends React.Component {
    
-    getView() {
-        
+    getView() {        
         switch (this.props.step) {
+            case 'loading':
+                return <div className="loading-css"><div></div></div>
             case 'template':
                 return <SelectTemplate {...this.props}/>
             case 'indicator':
@@ -133,13 +133,12 @@ class Indicator extends React.Component {
     }
 
     render() {
-        return (<div className="admin-page">
-                
-                <Messages {...this.props}/>
-                
-                    {this.getView()}
-                
-                </div>)
+        return (
+            <div className="admin-page">                
+                <Messages {...this.props}/>                
+                {this.getView()}
+            </div>
+        )
     }
 };
 

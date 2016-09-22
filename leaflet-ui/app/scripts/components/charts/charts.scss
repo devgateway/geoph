@@ -1,7 +1,10 @@
 @import '../../../stylesheets/base.scss';
 
 .chart-view{
-    height: calc(93% - 120px);
+    height: calc(93% - 102px);
+    @media (max-width: 1024px) {
+        height: calc(93% - 62px) !important;
+    }
 }
 
 .chart{
