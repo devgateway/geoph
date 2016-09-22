@@ -1,5 +1,6 @@
 package org.devgateway.geoph.core.services;
 
+import org.devgateway.geoph.dao.AppMapDao;
 import org.devgateway.geoph.model.AppMap;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,9 +29,9 @@ public interface AppMapService {
 
     Page<AppMap> findAll(Pageable pageable);
 
-    Page<AppMap> findByType(String type,Pageable pageable);
+    Page<AppMapDao> findByType(String type,Pageable pageable);
 
-    AppMap findByName(String mapName);
+    List<AppMap> findByName(String mapName);
 
     AppMap findByMD5(String md5);
 }

@@ -3,12 +3,15 @@ package org.devgateway.geoph.services;
 import org.apache.commons.lang3.StringUtils;
 import org.devgateway.geoph.core.repositories.AppMapRepository;
 import org.devgateway.geoph.core.services.AppMapService;
+import org.devgateway.geoph.dao.AppMapDao;
 import org.devgateway.geoph.model.AppMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -73,12 +76,15 @@ public class AppMapServiceImpl implements AppMapService {
     }
 
     @Override
-    public Page<AppMap> findByType(String type,Pageable pageable) {
-        return repository.findByType(type,pageable);
+    public Page<AppMapDao> findByType(String type, Pageable pageable) {
+        Page<AppMap> maps = repository.findByType(type, pageable);
+        List<AppMapDao> daoList = new ArrayList<>();
+        maps.forEach(map->daoList.add(new AppMapDao(map)));
+        return new PageImpl<AppMapDao>(daoList, pageable, maps.getTotalElements());
     }
 
     @Override
-    public AppMap findByName(String mapName){
+    public List<AppMap> findByName(String mapName){
         return repository.findByName(mapName);
     }
 
