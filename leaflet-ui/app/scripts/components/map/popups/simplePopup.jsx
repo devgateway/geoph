@@ -26,14 +26,14 @@ const SimplePopup = onClickOutside(React.createClass({
     if (!feature){
       return null;
     }
-    const {name, value, physicalProgress, layerName, valueProperty} = feature.properties;
+    const {name, value, physicalProgress, layerName, valueProperty,indicatorName} = feature.properties;
     return (
       <div className="simple-popup-container">
         <div className="popup-title">
           <h2>{name}</h2>
            <div className="simple-popup-value">
-              {valueProperty=='physicalProgress'?<div>{layerName}<div> Value: {Number(physicalProgress).toFixed(2)}%</div></div>:null}
-              {valueProperty=='value'?<div>{layerName} : {value}</div>:null}
+              {valueProperty=='physicalProgress'?<div>{layerName} : {Number(physicalProgress).toFixed(2)}%</div>:null}
+              {valueProperty=='value'?<div>{indicatorName} : {value}</div>:null}
             </div>
         </div>
       </div>

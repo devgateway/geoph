@@ -46,7 +46,7 @@ public class Constants {
     public static final String PROPERTY_GEO_PHOTO_URLS = "urls";
     public static final String PROPERTY_GEO_PHOTO_PROJECT_TITLE = "project_title";
     public static final String PROPERTY_GEO_PHOTO_PROJECT_ID = "project_id";
-    public static final String PROPERTY_INDICATOR_NAME = "name";
+    public static final String PROPERTY_INDICATOR_NAME = "indicatorName";
 
     public static final String PROPERTY_PRJ_ID = "id";
     public static final String PROPERTY_PRJ_PH_ID = "phId";
