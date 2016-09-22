@@ -53,7 +53,7 @@ class listIndicator extends React.Component {
             <h1>List of indicators</h1>
             <Messages {...this.props}/>
               {(indicators && indicators.length > 0)?this.list(indicators):this.noRecords()}
-             <i> TODO: Add pagination </i>
+            
             </div>);
   }
 }

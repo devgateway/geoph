@@ -100,8 +100,9 @@ const getFeatureValue=(feature,valueProperty,measure, type)=>{
 }
 
 export const getStyledGeoJson=(geojson,layerSettings,classProviderInstance)=>{
+	debugger;
 	const {features}=geojson;
-	const {valueProperty, size, border, popupId='defaultPopup', name,fundingType,cssPrefix,css,labelFunc}= layerSettings;
+	const {valueProperty, size, border, popupId='defaultPopup', layerName,fundingType,cssPrefix,css,labelFunc}= layerSettings;
 	const {measure, type} = fundingType;
 	const classes = `${cssPrefix} ${css}`;
 
@@ -119,7 +120,7 @@ export const getStyledGeoJson=(geojson,layerSettings,classProviderInstance)=>{
 
 
 		const newFeature=Object.assign({},feature);
-		Object.assign(newFeature.properties,{className:`${classes}${className}`,size, border, popupId,valueProperty, layerName: name,value,label});//Assign extra data to feature properties
+		Object.assign(newFeature.properties,{className:`${classes}${className}`,size, border, layerName,popupId,valueProperty,value,label});//Assign extra data to feature properties
 		return newFeature;
 	});	
 

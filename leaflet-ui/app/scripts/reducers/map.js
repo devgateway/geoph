@@ -130,7 +130,8 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
             'level': 'region',
             'detail':'medium',
             'showLabels':false,
-            'css': 'yellow','valueProperty':'physicalProgress'
+            'css': 'yellow',
+            'valueProperty':'physicalProgress'
           },
           cssPrefix: 'funding', //markers css prefix 
           default: false,
@@ -220,12 +221,12 @@ const getLayerSettings=(layer)=>{
   const valueProperty =layer.get('valueProperty') || layer.getIn(['settings','valueProperty']);
   const cssPrefix=layer.get('cssPrefix');
   const css=layer.getIn(['settings','css']);
-  const name=layer.get('name');
+  const layerName=layer.get('name');
   const popupId=layer.get('popupId');
   const border=layer.get('border');
   const size=layer.get('size');
   const labelFunc=layer.get('labelFunc');
-  return {thresholds, cssProvider, valueProperty, cssPrefix, css, name, popupId, border, size, labelFunc}
+  return {thresholds, cssProvider, valueProperty, cssPrefix, css, layerName, popupId, border, size, labelFunc}
 }
 
 /*Extract layer properties and create class provider */
