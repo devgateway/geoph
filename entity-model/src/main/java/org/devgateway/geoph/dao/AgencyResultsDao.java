@@ -19,7 +19,7 @@ public class AgencyResultsDao  {
     public AgencyResultsDao() {
     }
 
-    public AgencyResultsDao(Agency agency, Double trxAmount, Long transactionStatusId, Long transactionTypeId) {
+    public AgencyResultsDao(Agency agency, Double trxAmount, Long transactionTypeId, Long transactionStatusId) {
         this.agency = agency;
         this.trxAmount = trxAmount;
         this.transactionStatusId = transactionStatusId;
