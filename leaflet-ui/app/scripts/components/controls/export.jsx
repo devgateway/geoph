@@ -9,8 +9,8 @@ require('./export.scss');
 const Export = React.createClass({
 
   getDownloadURL(type){
-    const {filters} = this.props;
-    let fc = collectValues(filters.filterMain);
+    const {filters, projectSearch} = this.props;
+    let fc = collectValues(filters, projectSearch);
     return Connector.getExportURL(type, fc);
   },
 
@@ -40,7 +40,8 @@ const Export = React.createClass({
 const mapStateToProps = (state, props) => {
   return {
     lang: state.language.lan,
-    filters: state.filters
+    filters: state.filters.filterMain,
+    projectSearch: state.projectSearch
   };
 }
 

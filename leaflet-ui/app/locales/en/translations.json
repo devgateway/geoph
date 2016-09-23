@@ -204,7 +204,7 @@
 				"fundingclassification": "Select one or more funding classification from the list (OR conditional between them)"
 			},
 			"agencytab": {
-				"fundingagency": "Select one or more funding agency from the list (OR conditional between them)"
+				"fundingagency": "Select one or more implementing agency from the list (OR conditional between them)"
 			},
 			"sectortab": {
 				"sector": "Select one or more sectors from the list (OR conditional between them)",
@@ -215,7 +215,7 @@
 				"implementperiodstart": "Select a range of dates (from - to) for the implementation start date",
 				"implementperiodend": "Select a range of dates (from - to) for the implementation end date",
 				"validityperiodstart": "Select a range of dates (from - to) for the loan/grant validity start date",
-				"implementperiodend": "Select a range of dates (from - to) for the loan/grant validity end date"
+				"validityperiodend": "Select a range of dates (from - to) for the loan/grant validity end date"
 			},
 			"statustab": {
 				"financingstatus": "Select one or more financing status from the list (OR conditional between them)"
