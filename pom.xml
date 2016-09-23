@@ -258,6 +258,13 @@
         </plugins>
     </build>
 
+    <scm>
+        <url>ssh://git@github.com:dbianco/devgateway/geoph.git</url>
+        <developerConnection>scm:git:ssh://git@github.com:dbianco/devgateway/geoph</developerConnection>
+        <connection>scm:git:ssh://git@github.com:dbianco/devgateway/geoph</connection>
+        <tag>HEAD</tag>
+    </scm>
+
     <repositories>
         <repository>
             <id>mvnrepository</id>

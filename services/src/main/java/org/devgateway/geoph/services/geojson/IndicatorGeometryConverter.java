@@ -4,7 +4,6 @@ import org.devgateway.geoph.dao.IndicatorGeometryDao;
 import org.geojson.Feature;
 
 import static org.devgateway.geoph.core.constants.Constants.*;
-import static org.devgateway.geoph.core.constants.Constants.PROPERTY_INDICATOR_NAME;
 
 /**
  * Created by sebas on 9/6/2016.
@@ -25,7 +24,7 @@ public class IndicatorGeometryConverter extends AbstractConverter<IndicatorGeome
         feature.setProperty(PROPERTY_INDICATOR_COLOR_SCHEME, dao.getColorScheme());
         feature.setProperty(PROPERTY_LOC_ID, dao.getId()); //location id
         feature.setProperty(PROPERTY_LOC_NAME, dao.getName()); //location name;
-        feature.setProperty(PROPERTY_INDICATOR_NAME, dao.getIndicatorName());
+        feature.setProperty(PROPERTY_INDICATOR_NAME1, dao.getIndicatorName());
         return feature;
     }
 }

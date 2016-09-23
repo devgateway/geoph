@@ -3,6 +3,8 @@ package org.devgateway.geoph.importer.processing.plugins;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Row;
 import org.devgateway.geoph.enums.LocationAdmLevelEnum;
+import org.devgateway.geoph.enums.TransactionStatusEnum;
+import org.devgateway.geoph.enums.TransactionTypeEnum;
 import org.devgateway.geoph.importer.processing.GeophProjectsImporter;
 import org.devgateway.geoph.model.*;
 import org.slf4j.Logger;
@@ -93,6 +95,19 @@ public class GrantImporter extends GeophProjectsImporter {
                     getDoubleValueFromCell(row.getCell(grantColumns.getGrantAmount()), "project amount", rowNumber, onProblem.NOTHING, 0D)
             );
 
+            Grant commitment = new Grant();
+            commitment.setAmount(getDoubleValueFromCell(row.getCell(grantColumns.getGrantAmount()), "project amount", rowNumber, onProblem.NOTHING, 0D));
+            commitment.setTransactionTypeId(TransactionTypeEnum.COMMITMENTS.getId());
+            commitment.setTransactionStatusId(TransactionStatusEnum.ACTUAL.getId());
+            commitment.setDate(getImportDate());
+            GrantSubType grantSubType = importBaseData.getGrantSubTypes().get(
+                    getStringValueFromCell(row.getCell(grantColumns.getSubType()), "grant subType", rowNumber, onProblem.NOTHING, true)
+            );
+            if(grantSubType!=null){
+                commitment.setGrantSubTypeId(grantSubType.getId());
+            }
+            commitment.setProject(p);
+
             Grant grant = new Grant();
             grant.setAmount(
                     getDoubleValueFromCell(row.getCell(grantColumns.getGrantUtilization()), "grant utilization", rowNumber, onProblem.NOTHING, 0D)
@@ -100,14 +115,12 @@ public class GrantImporter extends GeophProjectsImporter {
             grant.setTransactionTypeId(typeId);
             grant.setTransactionStatusId(statusId);
             grant.setDate(getImportDate());
-            GrantSubType grantSubType = importBaseData.getGrantSubTypes().get(
-                    getStringValueFromCell(row.getCell(grantColumns.getSubType()), "grant subType", rowNumber, onProblem.NOTHING, true)
-            );
+
             if(grantSubType!=null){
                 grant.setGrantSubTypeId(grantSubType.getId());
             }
             grant.setProject(p);
-            p.setTransactions(new HashSet<>(Arrays.asList(grant)));
+            p.setTransactions(new HashSet<>(Arrays.asList(commitment, grant)));
 
             p.setStartDate(
                     getDateValueFromCell(row.getCell(grantColumns.getStartDate()), "start date", rowNumber, onProblem.NOTHING)
@@ -155,11 +168,17 @@ public class GrantImporter extends GeophProjectsImporter {
                             locationRegion.add(l);
                         } else if(l.getLevel()==LocationAdmLevelEnum.PROVINCE.getLevel()){
                             locationProvince.add(l);
-                            locationRegion.add(importBaseData.getLocationsById().get(l.getRegion()));
+                            if(l.getRegion()!=null) {
+                                locationRegion.add(l.getRegion());
+                            }
                         } else if(l.getLevel()==LocationAdmLevelEnum.MUNICIPALITY.getLevel()){
                             locationMunicipality.add(l);
-                            locationProvince.add(importBaseData.getLocationsById().get(l.getProvince()));
-                            locationRegion.add(importBaseData.getLocationsById().get(l.getRegion()));
+                            if(l.getProvince()!=null) {
+                                locationProvince.add(l.getProvince());
+                            }
+                            if(l.getRegion()!=null) {
+                                locationRegion.add(l.getRegion());
+                            }
                         }
                     }
                 }
