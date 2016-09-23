@@ -6,7 +6,7 @@ import {collectValues} from '../util/filterUtil';
 import {fetchStats} from './stats';
 import {finishRestoreMap} from './saveAndRestoreMap';
 
-const filterTypes = ['ft', 'fa', 'ia', 'st', 'cc', 'gr', 'dt_start', 'dt_end', 'pp_start', 'pp_end', 'sa', 'fin_amount', 'ao', 'ph', 'cl'];
+const filterTypes = ['ft', 'fa', 'ia', 'st', 'cc', 'gr', 'dt_start', 'dt_end', 'pp_start', 'pp_end', 'sa', 'fin_amount', 'ao', 'ph', 'cl', 'php'];
 var filtersToLoad = [];
 var loadingAllLists = false;
 

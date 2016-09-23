@@ -212,7 +212,7 @@ const resetAllFilters = (filterMain) => {
       filterClean = filter(filterMain[filterKey], actionDummy);
       updateFilterCounters(filterClean);
     } else {
-      filterClean = cloneDeep(state.filterMain[filterKey]);
+      filterClean = cloneDeep(filterMain[filterKey]);
       delete filterClean['minSelected'];
       delete filterClean['maxSelected'];
     }        
