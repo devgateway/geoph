@@ -3,6 +3,8 @@ package org.devgateway.geoph.importer.processing.plugins;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Row;
 import org.devgateway.geoph.enums.LocationAdmLevelEnum;
+import org.devgateway.geoph.enums.TransactionStatusEnum;
+import org.devgateway.geoph.enums.TransactionTypeEnum;
 import org.devgateway.geoph.importer.processing.GeophProjectsImporter;
 import org.devgateway.geoph.model.*;
 import org.slf4j.Logger;
@@ -94,6 +96,13 @@ public class PmcImporter extends GeophProjectsImporter {
                     getDoubleValueFromCell(row.getCell(pmcColumns.getPmcAmount()), "pmc amount", rowNumber, onProblem.NOTHING, 0D)
             );
 
+            PublicInvestment commitment = new PublicInvestment();
+            commitment.setAmount(getDoubleValueFromCell(row.getCell(pmcColumns.getPmcAmount()), "project amount", rowNumber, onProblem.NOTHING, 0D));
+            commitment.setTransactionTypeId(TransactionTypeEnum.COMMITMENTS.getId());
+            commitment.setTransactionStatusId(TransactionStatusEnum.ACTUAL.getId());
+            commitment.setDate(getImportDate());
+            commitment.setProject(p);
+
             PublicInvestment pmc = new PublicInvestment();
             pmc.setAmount(
                     getDoubleValueFromCell(row.getCell(pmcColumns.getPmcUtilization()), "pmc utilization", rowNumber, onProblem.NOTHING, 0D)
@@ -103,7 +112,7 @@ public class PmcImporter extends GeophProjectsImporter {
             pmc.setDate(getImportDate());
             
             pmc.setProject(p);
-            p.setTransactions(new HashSet<>(Arrays.asList(pmc)));
+            p.setTransactions(new HashSet<>(Arrays.asList(commitment, pmc)));
 
             p.setStartDate(
                     getDateValueFromCell(row.getCell(pmcColumns.getStartDate()), "start date", rowNumber, onProblem.NOTHING)
@@ -152,11 +161,17 @@ public class PmcImporter extends GeophProjectsImporter {
                             locationRegion.add(l);
                         } else if(l.getLevel()==LocationAdmLevelEnum.PROVINCE.getLevel()){
                             locationProvince.add(l);
-                            locationRegion.add(importBaseData.getLocationsById().get(l.getRegion()));
+                            if(l.getRegion()!=null) {
+                                locationRegion.add(l.getRegion());
+                            }
                         } else if(l.getLevel()==LocationAdmLevelEnum.MUNICIPALITY.getLevel()){
                             locationMunicipality.add(l);
-                            locationProvince.add(importBaseData.getLocationsById().get(l.getProvince()));
-                            locationRegion.add(importBaseData.getLocationsById().get(l.getRegion()));
+                            if(l.getProvince()!=null) {
+                                locationProvince.add(l.getProvince());
+                            }
+                            if(l.getRegion()!=null) {
+                                locationRegion.add(l.getRegion());
+                            }
                         }
                     }
                 }
