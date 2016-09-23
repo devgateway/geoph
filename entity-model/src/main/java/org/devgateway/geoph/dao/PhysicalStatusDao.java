@@ -19,7 +19,7 @@ public class PhysicalStatusDao {
     public PhysicalStatusDao() {
     }
 
-    public PhysicalStatusDao(PhysicalStatus physicalStatus, Double trxAmount, Long transactionStatusId, Long transactionTypeId) {
+    public PhysicalStatusDao(PhysicalStatus physicalStatus, Double trxAmount, Long transactionTypeId, Long transactionStatusId) {
         this.physicalStatus = physicalStatus;
         this.trxAmount = trxAmount;
         this.transactionStatusId = transactionStatusId;

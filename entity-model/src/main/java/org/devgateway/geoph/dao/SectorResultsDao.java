@@ -19,7 +19,7 @@ public class SectorResultsDao {
     public SectorResultsDao() {
     }
 
-    public SectorResultsDao(Sector sector, Double trxAmount, Long transactionStatusId, Long transactionTypeId) {
+    public SectorResultsDao(Sector sector, Double trxAmount, Long transactionTypeId, Long transactionStatusId) {
         this.sector = sector;
         this.trxAmount = trxAmount;
         this.transactionStatusId = transactionStatusId;
