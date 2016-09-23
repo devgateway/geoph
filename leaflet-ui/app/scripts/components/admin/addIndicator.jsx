@@ -78,7 +78,7 @@ class AddIndicator extends BaseForm {
     const {errors={}}=this.props;
       return (
             <form id="add-indicator-form">
-            <h1>Indicato Info </h1>
+            <h1>Indicator Info </h1>
                  <div className={errors.name?"form-group has-error":"form-group"}>
                     <label >Name</label>
                     <input value={this.props.name}

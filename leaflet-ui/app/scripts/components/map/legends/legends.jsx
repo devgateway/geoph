@@ -11,29 +11,48 @@ require('./legends.scss');
 
 class LegendList extends React.Component {
 
+  toggleView(){
+    const {onToggleView, id} = this.props;
+    onToggleView(id);
+  }
+
   render() {
-    const {legends = [], name, keyName}=this.props;
+    const {legends = [], name, keyName, expanded, onToggleView, id}=this.props;
     return (
       <div className=''>
-        <div className='legend-layer-name'>
+        <div className='legend-layer-name' onClick={this.toggleView.bind(this)}>
           {keyName?<Message prefix={prefix} k={keyName}/>:<span>{name}</span>}
         </div>
-        <div className='legend-list'>
-          {legends.map((legend)=>{
-            return(
-              <div className='legend-item' key={legend.cls}>
-                <div className={legend.cls}/>
-                <div className='legend-label'>{legend.label}</div>
-              </div>
-            )
-          })}
+        <div className='legend-collapse' onClick={this.toggleView.bind(this)}>
+          {expanded? "" : "+"}
         </div>
+        <div className='legend-list'>
+          {expanded?
+            legends.map((legend)=>{
+              return(
+                <div className='legend-item' key={legend.cls}>
+                  <div className={legend.cls}/>
+                  <div className='legend-label'>{legend.label}</div>
+                </div>
+              )
+            })
+          : null}
+        </div>        
       </div>
     )
   }
 }
 
 class Legends extends React.Component {
+
+  constructor() {
+      super();
+      this.state = {};
+  }
+
+  toggleView(id){
+    this.setState({onView: id});
+  }
 
   render() {
     const {map, layers}=this.props;
@@ -48,10 +67,12 @@ class Legends extends React.Component {
         </OverlayTrigger>
         {visible?
           <div className='legends-content'>
-            {layersVisible.map((layer)=>{
-              const {legends, name, keyName} = layer;
+            {layersVisible.map((layer, idx)=>{
+              const {legends, name, keyName, id} = layer;
+              const {onView} = this.state;
+              const expanded = (!onView&&idx==0)||(onView==id)? true : false
               return(
-                <LegendList {...layer} key={layer.id}/>
+                <LegendList {...layer} key={id} onToggleView={this.toggleView.bind(this)} expanded={(!onView&&idx==0)||(onView==id)}/>
               )
             })}
           </div>

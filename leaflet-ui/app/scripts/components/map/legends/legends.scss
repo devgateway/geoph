@@ -69,11 +69,24 @@
   display: inline-flex;
 }
 
+.legend-collapse{
+  float: right;
+  display: inline-block;
+  padding-top: 9px;
+  padding-right: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
 .legend-layer-name{
 	font-weight: bold;
-    font-size: 15px;
-    padding: 10px;
-    color: #044072;
+  display: inline-block;
+  font-size: 15px;
+  padding: 10px;
+  color: #044072;
+  cursor: pointer;
+  width: 90%
 }
 
 .legends-content {
