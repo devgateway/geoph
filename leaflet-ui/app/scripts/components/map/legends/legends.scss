@@ -64,46 +64,56 @@
 .legends-container {
 	position: absolute;
 	top: 75px;
-	left: 11px;
+	left: 10px;
 	padding: 0; 
   display: inline-flex;
 }
 
-.legend-collapse{
-  float: right;
-  display: inline-block;
-  padding-top: 9px;
-  padding-right: 5px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-}
+
 
 .legend-layer-name{
+  margin-bottom:1px;
 	font-weight: bold;
   display: inline-block;
-  font-size: 15px;
-  padding: 10px;
+  font-size: 12px;
+  padding: 8px;
   color: #044072;
   cursor: pointer;
-  width: 90%
-}
+  width: 100%;
+  background-color:#cfe1f0;
+  border-radius:4px;
 
-.legends-content {
-	background-color: rgba(255,255,255,0.85);
-	width: 200px; 
-	border-radius: 4px;
-  padding-bottom: 10px;
-  box-shadow: 3px 3px 5px -3px rgba(0, 0, 0, 0.59);
-  >div{
-    padding-left: 10px;
-    padding-right: 10px;
+  .legend-collapse{
+    float: right;
+    display: inline-block;
+    font-size: 12px;
+
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .name-container{
+    float:left;
+     width:170px;
   }
 }
 
+.legends-content {
+  background-color:  transparent;
+  margin-left: 3px;
+	width: 200px; 
+	
+  >div{
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+}
+
 .legend-item {
+  margin:2px;
   	display: inline-flex; 
-  	width: 200px;
+  	width: 100%;
   	.legend-label {
   		padding-top: 7px;
       color: #000;
@@ -113,8 +123,10 @@
 }
 
 .legend-list {
-	padding-bottom: 10px;
-    border-bottom: 1px solid #949494;
+	padding: 5px;
+  border-radius:0px;
+  border: 2px solid #cfe1f0;
+  background-color: #FFF;
 }
 
 .legend-points {

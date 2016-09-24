@@ -2,6 +2,12 @@
 $blue:rgb( 4, 70, 111 );
 $regular: rgb( 4, 64, 114 );
 
+.leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar {
+    border: 0px !important;
+    background-clip: padding-box;
+}
+
+
 @mixin controlBox(){
 	position: fixed;
 	top: 115px;

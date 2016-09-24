@@ -21,12 +21,15 @@ class LegendList extends React.Component {
     return (
       <div className=''>
         <div className='legend-layer-name' onClick={this.toggleView.bind(this)}>
+         <div className="name-container">
           {keyName?<Message prefix={prefix} k={keyName}/>:<span>{name}</span>}
-        </div>
-        <div className='legend-collapse' onClick={this.toggleView.bind(this)}>
+          </div>
+          <div className='legend-collapse' onClick={this.toggleView.bind(this)}>
           {expanded? "" : "+"}
         </div>
-        <div className='legend-list'>
+        </div>
+        
+      {expanded?  <div className='legend-list'>
           {expanded?
             legends.map((legend)=>{
               return(
@@ -37,7 +40,7 @@ class LegendList extends React.Component {
               )
             })
           : null}
-        </div>        
+        </div>:null}        
       </div>
     )
   }
