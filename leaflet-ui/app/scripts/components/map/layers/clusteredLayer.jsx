@@ -21,56 +21,56 @@ require('./cluster.scss');
  	componentDidUpdate(nextProps, nextState) {
  		const {data,map}=this.props;
  		map.removeLayer(this.leafletElement);
-    	this.createLayer();
-	}
+     this.createLayer();
+   }
 
-	componentWillMount() {
-		this.createLayer();
-	}
+   componentWillMount() {
+    this.createLayer();
+  }
 
-  	createLayer() {
-  		debugger;
- 		const {data,map}=this.props;
- 		var geojson = geoJson(data, 
- 		{
- 			
- 			onEachFeature: function (feature, layer) {
- 				layer.on('click', function (e) {
- 					this.renderPopupContent(feature);
- 				}.bind(this));
- 			}.bind(this),
+  createLayer() {
+    debugger;
+    const {data,map}=this.props;
+    var geojson = geoJson(data, 
+    {
 
- 			style: function (feature) {
+      onEachFeature: function (feature, layer) {
+       layer.on('click', function (e) {
+        this.renderPopupContent(feature);
+      }.bind(this));
+     }.bind(this),
 
- 			},
- 			
- 			pointToLayer: function (feature, latlng) {
- 				return L.marker(latlng, {icon: myIcon});
- 			}
+     style: function (feature) {
 
- 		});
+     },
 
- 		this.leafletElement = L.markerClusterGroup(
- 		{
- 			iconCreateFunction: function(cluster) {
- 				var childCount = cluster.getChildCount();
+     pointToLayer: function (feature, latlng) {
+       return L.marker(latlng, {icon: myIcon});
+     }
 
- 				var c = ' marker-cluster-';
- 				if (childCount < 10) {
- 					c += 'small';
- 				} else if (childCount < 100) {
- 					c += 'medium';
- 				} else {
- 					c += 'large';
- 				}
+   });
 
- 				return new L.DivIcon({ html: '<div><span>' + childCount + '</span></div>', className: 'marker-cluster' + c, iconSize: new L.Point(50, 50) });
- 			},
- 			chunkedLoading:true,
- 			maxClusterRadius:200,
- 			spiderfyOnMaxZoom:true,
- 			disableClusteringAtZoom: 19,
- 			showCoverageOnHover:false,});
+    this.leafletElement = L.markerClusterGroup(
+    {
+      iconCreateFunction: function(cluster) {
+       var childCount = cluster.getChildCount();
+
+       var c = ' marker-cluster-';
+       if (childCount < 10) {
+        c += 'small';
+      } else if (childCount < 100) {
+        c += 'medium';
+      } else {
+        c += 'large';
+      }
+
+      return new L.DivIcon({ html: '<div><span>' + childCount + '</span></div>', className: 'marker-cluster' + c, iconSize: new L.Point(50, 50) });
+    },
+    chunkedLoading:true,
+    maxClusterRadius:20,
+    spiderfyOnMaxZoom:true,
+    disableClusteringAtZoom: 19,
+    showCoverageOnHover:false,});
  		map._layersMaxZoom = 18; //workaround for avoid error en restore (ask @sebas)
  		this.leafletElement.addLayer(geojson);
  		map.addLayer(this.leafletElement);
@@ -104,13 +104,13 @@ require('./cluster.scss');
  }
 
 
-const  storeShape=PropTypes.shape({
+ const  storeShape=PropTypes.shape({
   subscribe: PropTypes.func.isRequired,
   dispatch: PropTypes.func.isRequired,
   getState: PropTypes.func.isRequired
 })
 
-ClusteredLayer.contextTypes = {
+ ClusteredLayer.contextTypes = {
   store: storeShape
 }
 
