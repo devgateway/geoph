@@ -2,20 +2,20 @@ DELETE FROM project_climate_change;
 
 
 INSERT INTO "public"."project_climate_change" (utilization,project_id,climate_change_id) VALUES (0.0,1432,2);
-INSERT INTO "public"."project_climate_change" (utilization,project_id,climate_change_id) VALUES (0.0,557,2);
+INSERT INTO "public"."project_climate_change" (utilization,project_id,climate_change_id) VALUES (0.0,850,2);
 INSERT INTO "public"."project_climate_change" (utilization,project_id,climate_change_id) VALUES (0.0,1206,3);
 INSERT INTO "public"."project_climate_change" (utilization,project_id,climate_change_id) VALUES (0.0,889,3);
+INSERT INTO "public"."project_climate_change" (utilization,project_id,climate_change_id) VALUES (0.0,557,2);
 INSERT INTO "public"."project_climate_change" (utilization,project_id,climate_change_id) VALUES (0.0,1297,2);
 INSERT INTO "public"."project_climate_change" (utilization,project_id,climate_change_id) VALUES (0.0,1384,2);
-INSERT INTO "public"."project_climate_change" (utilization,project_id,climate_change_id) VALUES (0.0,1297,3);
 INSERT INTO "public"."project_climate_change" (utilization,project_id,climate_change_id) VALUES (0.0,1393,2);
-INSERT INTO "public"."project_climate_change" (utilization,project_id,climate_change_id) VALUES (0.0,853,2);
+INSERT INTO "public"."project_climate_change" (utilization,project_id,climate_change_id) VALUES (0.0,1297,3);
 INSERT INTO "public"."project_climate_change" (utilization,project_id,climate_change_id) VALUES (0.0,1483,3);
+INSERT INTO "public"."project_climate_change" (utilization,project_id,climate_change_id) VALUES (0.0,853,2);
 INSERT INTO "public"."project_climate_change" (utilization,project_id,climate_change_id) VALUES (0.0,1483,2);
-INSERT INTO "public"."project_climate_change" (utilization,project_id,climate_change_id) VALUES (0.0,557,3);
 INSERT INTO "public"."project_climate_change" (utilization,project_id,climate_change_id) VALUES (0.0,883,3);
+INSERT INTO "public"."project_climate_change" (utilization,project_id,climate_change_id) VALUES (0.0,557,3);
 INSERT INTO "public"."project_climate_change" (utilization,project_id,climate_change_id) VALUES (0.0,886,3);
-INSERT INTO "public"."project_climate_change" (utilization,project_id,climate_change_id) VALUES (0.0,850,2);
 INSERT INTO "public"."project_climate_change" (utilization,project_id,climate_change_id) VALUES (1.0,880,3);
 INSERT INTO "public"."project_climate_change" (utilization,project_id,climate_change_id) VALUES (1.0,883,2);
 INSERT INTO "public"."project_climate_change" (utilization,project_id,climate_change_id) VALUES (1.0,886,2);
