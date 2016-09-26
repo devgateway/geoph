@@ -37,9 +37,6 @@ public class PmcColumns {
     @Value("${pmc.pmcAmount}")
     private int pmcAmount;
 
-    @Value("${pmc.pmcUtilization}")
-    private int pmcUtilization;
-
     @Value("${pmc.startDate}")
     private int startDate;
 
@@ -88,6 +85,9 @@ public class PmcColumns {
     @Value("${pmc.cumulativeObligations}")
     private int cumulativeObligations;
 
+    @Value("${pmc.totalDisbursements}")
+    private int totalDisbursements;
+
     @Value("${pmc.climateChangeClassification}")
     private int climateChangeClassification;
 
@@ -128,10 +128,6 @@ public class PmcColumns {
 
     public int getPmcAmount() {
         return pmcAmount;
-    }
-
-    public int getPmcUtilization() {
-        return pmcUtilization;
     }
 
     public int getStartDate() {
@@ -204,5 +200,9 @@ public class PmcColumns {
 
     public int getGenderClassification() {
         return genderClassification;
+    }
+
+    public int getTotalDisbursements() {
+        return totalDisbursements;
     }
 }
