@@ -1,4 +1,5 @@
-import {REFRESH_LAYER, TOGGLE_LEGENDS_VIEW, SET_BASEMAP, TOGGLE_LAYER, LAYER_LOAD_SUCCESS, LAYER_LOAD_FAILURE, SET_LAYER_SETTING, CHANGE_MAP_BOUNDS, LOAD_LAYER_BY_ID, LOAD_DEFAULT_MAP_STATE}  from '../constants/constants.js';
+import {REFRESH_LAYER, TOGGLE_LEGENDS_VIEW, SET_BASEMAP, TOGGLE_LAYER, LAYER_LOAD_SUCCESS, LAYER_LOAD_FAILURE, 
+	SET_LAYER_SETTING, CHANGE_MAP_BOUNDS, LOAD_LAYER_BY_ID, LOAD_DEFAULT_MAP_STATE, LAYER_LOAD_REQUEST}  from '../constants/constants.js';
 import Connector from '../connector/connector.js';
 import {getPath, getDefaults, getVisibles} from '../util/layersUtil.js';
 import {collectValues} from '../util/filterUtil';
@@ -14,8 +15,11 @@ export const loadDefaultMapState=(type,error)=>{
 }
 
 const loadLayerCompleted=(results, getState)=>{
-	debugger;
 	return {type:LAYER_LOAD_SUCCESS,...results, fundingType: getState().settings.fundingType}
+}
+
+const loadLayerRequest=()=>{
+	return {type:LAYER_LOAD_REQUEST}
 }
 
 const loadLayerFailed=(type,error)=>{
@@ -95,6 +99,7 @@ const loadLayerById=(dispatch, getState, id)=>{
 const loadLayer=(options, getState)=>{
 	
 	return (dispatch, getState) =>{
+		dispatch(loadLayerRequest());
 		Connector.loadLayerByOptions(options).then(
 			(results)=>{
 				dispatch(loadLayerCompleted(results, getState))

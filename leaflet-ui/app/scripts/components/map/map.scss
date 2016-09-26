@@ -38,6 +38,17 @@ text.label{
 	stroke:#EEE
 }
 
+.half-opacity{
+	opacity: 0.5;
+}
+
+.loading-map{
+	position: absolute;
+    top: 30%;
+    width: 100%;
+    height: 100%;
+}
+
 .green-none {@include breakStyle(#aeaeae)}
 .green0-9 {	@include breakStyle(#73e767)}
 .green1-9 { @include breakStyle(#73e767)}
