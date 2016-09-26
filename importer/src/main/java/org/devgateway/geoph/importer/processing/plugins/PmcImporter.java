@@ -114,7 +114,7 @@ public class PmcImporter extends GeophProjectsImporter {
             disbursement.setProject(p);
 
             PublicInvestment expenditure = new PublicInvestment();
-            expenditure.setAmount(getDoubleValueFromCell(row.getCell(pmcColumns.getCumulativeAllotment()), "Total disbursement", rowNumber, onProblem.NOTHING, 0D));
+            expenditure.setAmount(getDoubleValueFromCell(row.getCell(pmcColumns.getTotalDisbursements()), "Total disbursement", rowNumber, onProblem.NOTHING, 0D));
             expenditure.setTransactionTypeId(TransactionTypeEnum.EXPENDITURES.getId());
             expenditure.setTransactionStatusId(TransactionStatusEnum.ACTUAL.getId());
             expenditure.setDate(getImportDate());
