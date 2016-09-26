@@ -1,4 +1,6 @@
-import {REFRESH_LAYER,TOGGLE_LEGENDS_VIEW, SET_FUNDING_TYPE, SET_BASEMAP, LAYER_LOAD_SUCCESS, LAYER_LOAD_FAILURE, TOGGLE_LAYER, SET_LAYER_SETTING, INDICATOR_LIST_LOADED, GEOPHOTOS_LIST_LOADED, STATE_RESTORE, CHANGE_MAP_BOUNDS, LOAD_DEFAULT_MAP_STATE} from '../constants/constants';
+import {REFRESH_LAYER,TOGGLE_LEGENDS_VIEW, SET_FUNDING_TYPE, SET_BASEMAP, LAYER_LOAD_SUCCESS, LAYER_LOAD_FAILURE, 
+  TOGGLE_LAYER, SET_LAYER_SETTING, INDICATOR_LIST_LOADED, GEOPHOTOS_LIST_LOADED, STATE_RESTORE, CHANGE_MAP_BOUNDS, 
+  LOAD_DEFAULT_MAP_STATE, LAYER_LOAD_REQUEST} from '../constants/constants';
 import JenksCssProvider from '../util/jenksUtil.js'
 import {formatValue} from '../util/format.js'
 import Immutable from 'immutable';
@@ -29,6 +31,7 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
       url: '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
     },
 
+    loading: false,
 
     legends: {
       visible: false
@@ -318,13 +321,18 @@ const map = (state = defaultState, action) => {
     case REFRESH_LAYER:
     return updateLayer(state,action);
 
+    case LAYER_LOAD_REQUEST:
+    return state.set('loading', true);
+
     case LAYER_LOAD_SUCCESS:
+    state = state.set('loading', false);
     try{
       newState= onLoadLayer(state,action);
       return newState;
     }catch(e){
       console.log(e)
     }
+
     case SET_FUNDING_TYPE:
     return onChangeFundingType(state,action);
 
@@ -349,7 +357,9 @@ const map = (state = defaultState, action) => {
     return state.setIn(['legends', 'visible'], !state.getIn(['legends', 'visible']));
 
     case LAYER_LOAD_FAILURE:
-    console.log('Error loading layer',action)
+    console.log('Error loading layer',action);
+    return state.set('loading', false);
+
     default:
     return state
   }

@@ -73,18 +73,26 @@ const view=React.createClass({
 		const {southWest, northEast} = map.get('defaultBounds').toJS();		
 		const bounds = L.latLngBounds(L.latLng(southWest.lat, southWest.lng),L.latLng(northEast.lat,northEast.lng));
 		let layers = getVisibles(this.props.map.get('layers')).toJS();
+		let loading = map.get('loading');
 		return (
-			<div>
-				<Map ref="map"  className="map" bounds={bounds} onMoveEnd={this.handleChangeBounds}>
-					<TileLayer url={this.props.map.get('basemap').get('url')}/>
-					{layers.map((l)=>{
-						const {data,type}=l;
-						return (data && data.features)?this.getLayer(l):null;
-					})}
-				</Map>
-				<Legends layers={this.props.map.get('layers')} />
+			<div className={loading? "half-opacity" : ""}>
+				<div>
+					<Map ref="map"  className="map" bounds={bounds} onMoveEnd={this.handleChangeBounds}>
+						<TileLayer url={this.props.map.get('basemap').get('url')}/>
+						{layers.map((l)=>{
+							const {data,type}=l;
+							return (data && data.features)?this.getLayer(l):null;
+						})}
+					</Map>					
+					<Legends layers={this.props.map.get('layers')} />
+				</div>
+				{loading?
+					<div className="loading-map">
+						<div className="loading-css"><div></div></div>
+					</div>
+				: null}
 			</div>
-			);
+		);
 	}
 })
 
