@@ -118,6 +118,8 @@ class Connector {
 			const {id, filters, indicator_id, geophotos_id}=options;
 			if (level){
 				url=url.replace('${level}',level);
+			} else {
+				url=url.replace('${level}', 'region');//if not level, load region by defult
 			}
 			if (detail){
 				url=url.replace('${detail}',detail);

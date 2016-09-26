@@ -99,7 +99,6 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
           type: 'shapes',
           ep: 'FUNDING_GEOJSON',
           settings: {
-            'level': 'region',
             'css': 'yellow',
             'detail':'medium',
             'showLabels':false
