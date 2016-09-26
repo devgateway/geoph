@@ -17,6 +17,7 @@ import SaveMap from '../save-restore/save'
 import {Message} from '../lan/'
 import {showSaveMap} from '../../actions/saveAndRestoreMap';
 import translate from '../../util/translate';
+import Disclaimer from './Disclaimer.jsx';
 
 require("./root.scss");
 
@@ -103,6 +104,7 @@ export default class DefaultLayout extends React.Component {
     const {title} = this.props;
     return (
       <div className="root">
+        <Disclaimer/>
         <ProjectPage/>
         <Header>
           <Menu title={title} items={items}/>

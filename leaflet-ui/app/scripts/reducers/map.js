@@ -322,6 +322,7 @@ const map = (state = defaultState, action) => {
     return updateLayer(state,action);
 
     case LAYER_LOAD_REQUEST:
+    debugger;
     return state.set('loading', true);
 
     case LAYER_LOAD_SUCCESS:
