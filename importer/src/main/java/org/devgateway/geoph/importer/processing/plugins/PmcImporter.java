@@ -97,22 +97,30 @@ public class PmcImporter extends GeophProjectsImporter {
             );
 
             PublicInvestment commitment = new PublicInvestment();
-            commitment.setAmount(getDoubleValueFromCell(row.getCell(pmcColumns.getPmcAmount()), "project amount", rowNumber, onProblem.NOTHING, 0D));
+            commitment.setAmount(getDoubleValueFromCell(row.getCell(pmcColumns.getCumulativeAllotment()), "Cumulative allotment", rowNumber, onProblem.NOTHING, 0D));
             commitment.setTransactionTypeId(TransactionTypeEnum.COMMITMENTS.getId());
             commitment.setTransactionStatusId(TransactionStatusEnum.ACTUAL.getId());
             commitment.setDate(getImportDate());
             commitment.setProject(p);
 
-            PublicInvestment pmc = new PublicInvestment();
-            pmc.setAmount(
-                    getDoubleValueFromCell(row.getCell(pmcColumns.getPmcUtilization()), "pmc utilization", rowNumber, onProblem.NOTHING, 0D)
+            PublicInvestment disbursement = new PublicInvestment();
+            disbursement.setAmount(
+                    getDoubleValueFromCell(row.getCell(pmcColumns.getCumulativeObligations()), "Cumulative Obligations", rowNumber, onProblem.NOTHING, 0D)
             );
-            pmc.setTransactionTypeId(typeId);
-            pmc.setTransactionStatusId(statusId);
-            pmc.setDate(getImportDate());
+            disbursement.setTransactionTypeId(typeId);
+            disbursement.setTransactionStatusId(statusId);
+            disbursement.setDate(getImportDate());
             
-            pmc.setProject(p);
-            p.setTransactions(new HashSet<>(Arrays.asList(commitment, pmc)));
+            disbursement.setProject(p);
+
+            PublicInvestment expenditure = new PublicInvestment();
+            expenditure.setAmount(getDoubleValueFromCell(row.getCell(pmcColumns.getCumulativeAllotment()), "Total disbursement", rowNumber, onProblem.NOTHING, 0D));
+            expenditure.setTransactionTypeId(TransactionTypeEnum.EXPENDITURES.getId());
+            expenditure.setTransactionStatusId(TransactionStatusEnum.ACTUAL.getId());
+            expenditure.setDate(getImportDate());
+            expenditure.setProject(p);
+
+            p.setTransactions(new HashSet<>(Arrays.asList(commitment, disbursement, expenditure)));
 
             p.setStartDate(
                     getDateValueFromCell(row.getCell(pmcColumns.getStartDate()), "start date", rowNumber, onProblem.NOTHING)
