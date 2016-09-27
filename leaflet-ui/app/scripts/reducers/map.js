@@ -99,7 +99,6 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
           type: 'shapes',
           ep: 'FUNDING_GEOJSON',
           settings: {
-            'level': 'region',
             'css': 'yellow',
             'detail':'medium',
             'showLabels':false
@@ -270,7 +269,6 @@ const updateLayer=(state,action,id)=>{
   var {fundingType,data} = action;
   id= id || action.id; 
   if (state.getIn(getPath(id, ["computeOnload"])) == false) {
-    debugger;
     return state.setIn(getPath(id, ["data"]),action.data);
   }
  
@@ -322,7 +320,6 @@ const map = (state = defaultState, action) => {
     return updateLayer(state,action);
 
     case LAYER_LOAD_REQUEST:
-    debugger;
     return state.set('loading', true);
 
     case LAYER_LOAD_SUCCESS:

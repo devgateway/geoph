@@ -29,7 +29,6 @@ require('./cluster.scss');
   }
 
   createLayer() {
-    debugger;
     const {data,map}=this.props;
     var geojson = geoJson(data, 
     {

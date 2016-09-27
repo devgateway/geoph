@@ -42,42 +42,48 @@ const Share = React.createClass({
       <div>
         {visible?
           <div className="share-container">
-            <h2>{translate('header.settings.share')}</h2>
-            <div>
-              <ul className="share">
-                <li>
-                <FacebookShareButton url={shareUrl} title={translate('header.share.title')}>
-                  <FacebookIcon size={32} round />
-                </FacebookShareButton>
-                </li>
-                <li>
-                <TwitterShareButton url={shareUrl} title={translate('header.share.title')}>
-                  <TwitterIcon size={32} round />
-                </TwitterShareButton>
-                </li>
-                <li>
-                <GooglePlusShareButton url={shareUrl} title={translate('header.share.title')}>
-                  <GooglePlusIcon size={32} round />
-                </GooglePlusShareButton>
-                </li>
-                <li>
-                <LinkedinShareButton url={shareUrl} title={translate('header.share.title')}>
-                  <LinkedinIcon size={32} round />
-                </LinkedinShareButton>
-                </li>
-                <li>
-                <VKShareButton url={shareUrl} title={translate('header.share.title')}>
-                  <VKIcon size={32} round />
-                </VKShareButton>
-                </li>
-              </ul>
-            </div>
-            <div className="share-link">
-              <input className="form-control" type="text" value={isShareNeeded?'':shareUrl} />
-              <CopyToClipboard text={shareUrl} >
-                <button className="btn btn-sm btn-success" disabled={isShareNeeded?true:false}>Copy URL</button>
-              </CopyToClipboard>
-            </div>
+            {isShareNeeded?
+              <div className="loading-css"><div></div></div>
+            :
+              <div>
+                <h2>{translate('header.settings.share')}</h2>
+                <div>
+                  <ul className="share">
+                    <li>
+                    <FacebookShareButton url={shareUrl} title={translate('header.share.title')}>
+                      <FacebookIcon size={32} round />
+                    </FacebookShareButton>
+                    </li>
+                    <li>
+                    <TwitterShareButton url={shareUrl} title={translate('header.share.title')}>
+                      <TwitterIcon size={32} round />
+                    </TwitterShareButton>
+                    </li>
+                    <li>
+                    <GooglePlusShareButton url={shareUrl} title={translate('header.share.title')}>
+                      <GooglePlusIcon size={32} round />
+                    </GooglePlusShareButton>
+                    </li>
+                    <li>
+                    <LinkedinShareButton url={shareUrl} title={translate('header.share.title')}>
+                      <LinkedinIcon size={32} round />
+                    </LinkedinShareButton>
+                    </li>
+                    <li>
+                    <VKShareButton url={shareUrl} title={translate('header.share.title')}>
+                      <VKIcon size={32} round />
+                    </VKShareButton>
+                    </li>
+                  </ul>
+                </div>
+                <div className="share-link">
+                  <input className="form-control" type="text" value={isShareNeeded?'':shareUrl} />
+                  <CopyToClipboard text={shareUrl} >
+                    <button className="btn btn-sm btn-success" disabled={isShareNeeded?true:false}>Copy URL</button>
+                  </CopyToClipboard>
+                </div>
+              </div>
+            }
           </div>
 
         : null}

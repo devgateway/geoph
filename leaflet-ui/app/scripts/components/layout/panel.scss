@@ -88,10 +88,12 @@
 	.icon.chart{
 		background: url('../../../assets/svg/chart-disabled.svg');
 		background-repeat: no-repeat;
+		background-position-y: 1px;
 	}
 	.panel-tab.active .icon.chart{
 		background: url('../../../assets/svg/chart.svg');
 		background-repeat: no-repeat;
+		background-position-y: 1px;
 	}
 
 	.panel-tab span{

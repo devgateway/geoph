@@ -14,7 +14,7 @@ $border-gray:#ebebeb;
 	background-color:#00396c;
 	.heading{
 		margin: 13px;
-		background:url(../../../assets/logo.png);
+		background:url(../../../assets/logo-2.png);
 		background-repeat: no-repeat;
 		@include box-sizing (auto,54px);
 
@@ -140,7 +140,7 @@ ul.options{
 	}
 
 	.options-icons.save{
-		@include icons('../../../assets/svg/save.svg',0,0);
+		@include icons('../../../assets/svg/save2.svg',0,0);
 	}
 	.options-icons.share{
 		@include icons('../../../assets/svg/share.svg',0,0);
@@ -149,7 +149,7 @@ ul.options{
 		@include icons('../../../assets/svg/print.svg',0,0);
 	}
 	.options-icons.export{
-		@include icons('../../../assets/svg/export.svg',0,0);
+		@include icons('../../../assets/svg/export2.svg',0,0);
 	}
 
 

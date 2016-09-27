@@ -100,7 +100,6 @@ const getFeatureValue=(feature,valueProperty,measure, type)=>{
 }
 
 export const getStyledGeoJson=(geojson,layerSettings,classProviderInstance)=>{
-	debugger;
 	const {features}=geojson;
 	const {valueProperty, size, border, popupId='defaultPopup', layerName,fundingType,cssPrefix,css,labelFunc}= layerSettings;
 	const {measure, type} = fundingType;

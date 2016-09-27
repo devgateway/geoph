@@ -31,7 +31,10 @@ const view=React.createClass({
 	},
 
 	closePopup(){
-		this.refs.map.leafletElement.closePopup();
+		let map = this.refs.map;
+		if(map){ 
+			map.leafletElement.closePopup();
+		}
 	},
 
 	getPopUp(id){
