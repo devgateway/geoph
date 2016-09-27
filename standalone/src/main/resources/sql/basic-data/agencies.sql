@@ -204,5 +204,7 @@ INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('fu
 INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',211,'UNDEFINED','UNDEFINED',null,null);
 INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('executing_agency',212,'UNDEFINED','UNDEFINED',null,null);
 INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('funding_agency',220,'Locally-funded','Locally-funded','Locally-funded',null);
-
-
+INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('funding_agency',221,'IDC','Italian Development Cooperation','IDC',null);
+INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('funding_agency',222,'UNW','UN Women','UNW',null);
+INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('funding_agency',223,'IFPRI','IFPRI','IFPRI',null);
+INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('funding_agency',224,'China','China','China',null);
