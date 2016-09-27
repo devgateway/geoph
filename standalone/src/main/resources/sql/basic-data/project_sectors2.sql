@@ -652,3 +652,14 @@ INSERT INTO "public"."project_sector" (utilization,sector_id,project_id) VALUES 
 INSERT INTO "public"."project_sector" (utilization,sector_id,project_id) VALUES (1.0,3,8362);
 INSERT INTO "public"."project_sector" (utilization,sector_id,project_id) VALUES (1.0,3,8382);
 INSERT INTO "public"."project_sector" (utilization,sector_id,project_id) VALUES (1.0,3,8386);
+INSERT INTO "public"."project_sector" (utilization,sector_id,project_id) VALUES (1.0,1,8202);
+INSERT INTO "public"."project_sector" (utilization,sector_id,project_id) VALUES (1.0,1,8210);
+INSERT INTO "public"."project_sector" (utilization,sector_id,project_id) VALUES (1.0,1,8214);
+INSERT INTO "public"."project_sector" (utilization,sector_id,project_id) VALUES (1.0,1,8218);
+INSERT INTO "public"."project_sector" (utilization,sector_id,project_id) VALUES (1.0,1,8226);
+INSERT INTO "public"."project_sector" (utilization,sector_id,project_id) VALUES (1.0,1,8230);
+INSERT INTO "public"."project_sector" (utilization,sector_id,project_id) VALUES (1.0,1,8234);
+INSERT INTO "public"."project_sector" (utilization,sector_id,project_id) VALUES (1.0,1,8366);
+INSERT INTO "public"."project_sector" (utilization,sector_id,project_id) VALUES (1.0,1,8370);
+INSERT INTO "public"."project_sector" (utilization,sector_id,project_id) VALUES (1.0,1,8374);
+INSERT INTO "public"."project_sector" (utilization,sector_id,project_id) VALUES (1.0,1,8378);
