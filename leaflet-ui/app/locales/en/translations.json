@@ -46,9 +46,9 @@
 		"funding": {
 			"funding": "Funding",
 			"fundingsource": "Funding Source",
-			"fundingtypeoda": "Funding Type (ODA)",
+			"fundingtypeoda": "Funding Type",
 			"fundingtype": "Funding Type",
-			"financinginstitutionoda": "Financing Institution (ODA)",
+			"financinginstitutionoda": "Financing Institution",
 			"financinginstitution": "Financing Institution",
 			"fundingclassification": "Funding Classification"
 		},
@@ -88,7 +88,7 @@
 			"financialamount": "Financial Amount"
 		},
 		"physical": {
-			"physicalandfinancial": "Physical and Financial",
+			"physicalandfinancial": "Physical Progress",
 			"physicalProgress": "Physical Progress",
 			"minimum": "Minimum",
 			"maximum": "Maximum",
