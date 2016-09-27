@@ -18,8 +18,6 @@ const SimplePopup = onClickOutside(React.createClass({
     }
   },
 
-
-
   render() {
     
     const {feature} = this.props;

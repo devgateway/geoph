@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Modal, Button, Grid, Row, Col} from 'react-bootstrap';
+import {connect} from 'react-redux';
 
-export default class Disclaimer extends React.Component {	
+class Disclaimer extends React.Component {	
 	constructor() {
 	    super();
 	    this.state = {show: true};
@@ -13,9 +14,12 @@ export default class Disclaimer extends React.Component {
 	}
 
 	render() {
+		const {loggedin} = this.props;
+		const {show} = this.state;
+		let shouldShowDisclaimer = !loggedin? show : false;
 		return (
     		<Modal animation={false} aria-labelledby='contained-modal-title-lg'  
-    		show={this.state.show} onHide={this.close.bind(this)}>
+    		show={shouldShowDisclaimer} onHide={this.close.bind(this)}>
 				<Modal.Header closeButton >
 					<Modal.Title>
 						Disclaimer Message
@@ -30,3 +34,11 @@ export default class Disclaimer extends React.Component {
 		)
 	}	
 }
+
+const mapStateToProps = (state, props) => {
+	const {accountNonExpired,accountNonLocked,enabled,credentialsNonExpired}=state.security.toJS()
+	const loggedin=(accountNonExpired && accountNonLocked && enabled && credentialsNonExpired);	
+	return {loggedin}
+}
+
+export default connect(mapStateToProps)(Disclaimer);
