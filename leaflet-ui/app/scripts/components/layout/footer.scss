@@ -21,7 +21,14 @@
 	  display: inline-block;
 	  height: 40px;
 	}
-
+	a{
+		font-size: 12px;
+	    color: #00396c !important;
+	    font-weight: bold;
+	    font-style: italic;
+	    text-decoration: none;
+	    text-transform: capitalize;
+	}
   .logo{
 	  background-image: url("../../../assets/png/logo_footer.png");
 	  background-position:0% 0;
