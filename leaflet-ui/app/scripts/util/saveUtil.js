@@ -1,4 +1,4 @@
-import {getVisibles} from './layersUtil';
+import {getVisibles, getPath, plainList} from './layersUtil';
 import translate from './translate';
 
 const collect=(options)=>{
@@ -46,25 +46,20 @@ export const collectValuesToSave = (state)=>{
             }
         }
     }
-    ////console.log(params)
     if (projectSearch){
         let idsSelected = [];
         projectSearch.selected.map(it => idsSelected.push(it.id));
         Object.assign(filterParams, {'pr': idsSelected});     
     }
     Object.assign(params, {'filters': filterParams});
-    if(map){ 
-        let layers = getVisibles(map.get('layers')).toJS();
-        let visibleLayers = [];
-        layers.map((layer)=>{
-            const {legends, name, keyName, id} = layer;
-            let nameLabel =  keyName? translate("toolview.layers."+keyName) : name;
-            visibleLayers.push({id, name: nameLabel, legends});
-        })
-        Object.assign(params, {'visibleLayers': visibleLayers});
-    }
+    
+    let layersPlain = plainList(map.get('layers'));
+    layersPlain.forEach(function(l){
+        map = map.setIn(getPath(l.get('id'), ['data']), {});
+    })
     map = map.set('defaultBounds', map.get('bounds'));//move bounds value to defaultBounds to be used as default on restore
     Object.assign(params, {'map': map});
     Object.assign(params, {'settings': settings});
+    debugger;
     return params;
 }
