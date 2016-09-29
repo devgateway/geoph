@@ -24,10 +24,22 @@ class DefaultLayout extends React.Component {
 
 		const {loggedIn}=this.props;
 		var newChildren = React.Children.map(this.props.children, child=>React.cloneElement(child, {loggedIn}));
+		let title = "";
+		switch(newChildren[0].props.route.path) {
+			case "/admin":
+				title="Admin Section";
+				break;
+			case "/about":
+				title="About";
+				break;
+			default:
+				title="Executive Dashboards";
+				break;
+		}
 		return (
 			<div className="root">
 				<Header>
-					<Menu title="Executive Dashboards">
+					<Menu title={title}>
 						{loggedIn?<AdminMenu/>:null}
 					</Menu>
 				</Header>
