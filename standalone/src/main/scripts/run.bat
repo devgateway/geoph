@@ -1,1 +1,1 @@
-java -DCONF_PATH=./  -DLOG_PATH=/var/log/geoph  -Xms1G -Xmx2G -XX:+UseConcMarkSweepGC -jar geoph-api-standalone-1.0-SNAPSHOT.jar
+java -DCONF_PATH=./  -DLOG_PATH=/var/log/geoph  -Xms1G -Xmx2G -XX:+UseConcMarkSweepGC -jar geoph-api-standalone-1.1-SNAPSHOT.jar
