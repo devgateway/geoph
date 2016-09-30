@@ -37,13 +37,13 @@ export const formatAndRoundValue=(value)=>{
   let val;
   if (value==0){
     return "0";
-  } else if (value>1000000000){
+  } else if (value>=1000000000){
     val = (value/1000000000);
     return ""+roundValue(val)+"B";
-  } else if (value>1000000){
+  } else if (value>=1000000){
     val = (value/1000000);
     return ""+roundValue(val)+"M";
-  } else if (value>1000){
+  } else if (value>=1000){
     val = (value/1000);
     return ""+roundValue(val)+"K";
   } else {
