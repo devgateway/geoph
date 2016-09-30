@@ -67,6 +67,13 @@
 
 .filterItemInfo div{
   display: inline-block;
+  .toggle-nav{
+    width: 90%;
+  }
+}
+
+.filterItemInfo .toggle-nav{
+  width: 90%;
 }
 
 .nav-tabs{
