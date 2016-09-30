@@ -143,3 +143,33 @@ export const getLogSliderPosition=(minval, maxval, value)=>{
    	let scale = (maxlval - minlval) / (maxpos - minpos);
    	return minpos + (Math.log(value) - minlval) / scale;
 }
+
+export const markApplied = (filters, type) => {
+	let ret = false;
+	if (!type || Array.isArray(type)){
+		for (var fltr in filters) {
+		    if (type){
+		    	if (type.indexOf(fltr)!=-1){
+		    		if (filterApplied(filters[fltr])){
+		    			ret = true;
+		    		}
+		    	} 
+		    } else {
+		    	if (filterApplied(filters[fltr])){
+	    			ret = true;
+	    		}
+		    }
+		}
+	} else {
+		ret = filterApplied(filters[type]);
+	}
+	return ret? " (•)" : "";
+}
+
+const filterApplied = (filter) => {
+	if (filter.isRange){
+		return (filter.minSelected || filter.maxSelected)? true : false;
+	} else {
+		return (filter.selectedCounter>0)? true : false;
+	}
+}
