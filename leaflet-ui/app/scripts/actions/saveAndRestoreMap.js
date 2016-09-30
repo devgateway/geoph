@@ -5,7 +5,7 @@ import {toggleVisibility} from './map';
 import {getList} from './indicators';
 import {collectValuesToSave}  from '../util/saveUtil';
 import * as HtmlUtil from '../util/htmlUtil';
-
+import {getVisibles, getPath, plainList} from '../util/layersUtil';
 
 export const changeProperty=(property,value)=>{
   return {type:Constants.CHANGE_SAVE_PROPERTY,property,value}
@@ -127,7 +127,8 @@ export const finishRestoreMap = (mapKey) => {//resume map restore after all filt
         if(storedMap) {            
           dispatch(makeAction(Constants.STATE_RESTORE,{storedMap}));
           dispatch(applyFilter(storedMap.data.filters));
-          storedMap.data.map.visibleLayers.forEach(l=>{
+          let visibleLayers = getVisibles(storedMap.data.map.get('layers'));
+          visibleLayers.forEach(l=>{
             dispatch(toggleVisibility(l, false));
           });
 

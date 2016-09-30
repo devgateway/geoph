@@ -5,17 +5,19 @@
 
 .bs-callout-error {
   border-left-color: #ff0000 !important;
+}
 
+.bs-callout-info{
+  border-left-color: #1b809e !important;
 }
 
 .bs-callout {
-  padding: 7px 0px 5px 0px;
+  padding: 7px 10px 5px 10px;
   margin: 5px 3px;
   border: 1px solid #eee;
   border-left-width: 5px;
   border-radius: 3px;
   min-height: 35px;
-  max-height: 80px;
   overflow: auto;
 
   ul {

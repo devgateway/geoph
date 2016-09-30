@@ -11,7 +11,7 @@ import Admin from './components/admin/admin';
 import AddIndicator from './components/admin/addIndicator.jsx';
 import ListIndicator from './components/admin/listIndicator.jsx';
 import Printable from './components/print/printable.jsx';
-
+import About from './components/layout/aboutPage';
 import DashboardLayout from './components/layout/dashboardLayout.jsx';
 import Dashboard from './components/dashboard/dashboard.jsx';
 
@@ -40,6 +40,7 @@ export default (
 
         <Route path="/" component={DashboardLayout}>
             <Route path="/dashboard" component={Dashboard}/>
+            <Route path="/about" component={About}/>
             <Route path="/admin" component={Admin}>
                 <Route path="/admin/add/indicator" component={AddIndicator}/>
                 <Route path="/admin/list/indicator" component={ListIndicator}/>
