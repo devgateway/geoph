@@ -135,7 +135,7 @@
 
 .projects-paginator ul{
     margin-top: 0px !important;
-    padding-top: 8px;
+    padding-top: 5px;
 }
 
 .project-list {
@@ -207,6 +207,10 @@
   min-height: 1px;
   width: 16.66666667%;
   float: left;
+}
+
+.project-list-item-col2.funding-title{
+  padding-top: 1px !important;
 }
 
 .project-list-header{
