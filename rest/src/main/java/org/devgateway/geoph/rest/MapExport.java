@@ -3,6 +3,7 @@ package org.devgateway.geoph.rest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableMap;
+import org.apache.commons.lang3.StringUtils;
 import org.devgateway.geoph.core.request.JsonRequestParams;
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.core.request.PrintParams;
@@ -10,6 +11,8 @@ import org.devgateway.geoph.core.response.ChartResponse;
 import org.devgateway.geoph.core.services.*;
 import org.devgateway.geoph.core.util.MD5Generator;
 import org.devgateway.geoph.enums.AppMapTypeEnum;
+import org.devgateway.geoph.enums.TransactionStatusEnum;
+import org.devgateway.geoph.enums.TransactionTypeEnum;
 import org.devgateway.geoph.model.AppMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -106,19 +109,34 @@ public class MapExport {
     }
 
     private void fillParams(PrintParams params) throws java.io.IOException {
-        Map filterMap = (Map) ((Map) params.getData()).get("filters");
+        Map data = (Map) params.getData();
+        Map filterMap = (Map) data.get("filters");
         if (filterMap != null) {
             params.setFilters(printService.getFilterNamesFromJson(filterMap));
         }
-        List jsonLayers = (List)((Map) params.getData()).get("visibleLayers");
+        List jsonLayers = (List) data.get("visibleLayers");
         if (jsonLayers != null && jsonLayers.size()>0) {
             params.setLayers(printService.getLayerNamesFromJson(jsonLayers));
         }
+        Map settings = (Map) data.get("settings");
+        if(settings!=null && settings.size()>0){
+            Map fundingVars = (Map) settings.get("fundingType");
+            if(fundingVars!=null){
+                params.setTrxType(fundingVars.get("measure").toString());
+                params.setTrxStatus(fundingVars.get("type").toString());
+            }
+        }
         JsonRequestParams jsonFilters = new ObjectMapper().readValue(new ObjectMapper().writeValueAsString(filterMap), JsonRequestParams.class);
         Parameters chartParams = Parameters.getParameters(jsonFilters);
+        if(StringUtils.isNotBlank(params.getTrxType())){
+            chartParams.setTrxType(TransactionTypeEnum.valueOf(params.getTrxType().toUpperCase()).getId());
+        }
+        if(StringUtils.isNotBlank(params.getTrxStatus())){
+            chartParams.setTrxStatus(TransactionStatusEnum.valueOf(params.getTrxStatus().toUpperCase()).getId());
+        }
 
         Map<String, Collection<ChartResponse>> chartData = new HashMap<>();
-        chartData.put("Funding Agency", chartService.getFundingByFundingAgency(chartParams));
+        chartData.put("Financing Institution", chartService.getFundingByFundingAgency(chartParams));
         chartData.put("Implementing Agency", chartService.getFundingByImplementingAgency(chartParams));
         chartData.put("Sector", chartService.getFundingBySector(chartParams));
         chartData.put("Physical Status", chartService.getFundingByPhysicalStatus(chartParams));

@@ -25,6 +25,10 @@ public class PrintParams {
 
     private String url;
 
+    private String trxType;
+
+    private String trxStatus;
+
     private Object data;
 
     private Map<String, Set<String>> filters;
@@ -111,5 +115,21 @@ public class PrintParams {
 
     public void setAllChartsData( Map<String, Collection<ChartResponse>> allChartsData) {
         this.allChartsData = allChartsData;
+    }
+
+    public String getTrxType() {
+        return trxType;
+    }
+
+    public void setTrxType(String trxType) {
+        this.trxType = trxType;
+    }
+
+    public String getTrxStatus() {
+        return trxStatus;
+    }
+
+    public void setTrxStatus(String trxStatus) {
+        this.trxStatus = trxStatus;
     }
 }
