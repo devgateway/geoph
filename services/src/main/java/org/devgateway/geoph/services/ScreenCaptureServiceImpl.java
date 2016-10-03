@@ -109,7 +109,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
         if(image==null){
            throw  new Exception("Wasn't able to generate image please check logs");
         }
-        return createPdf(image, params.getName(), params.getFilters(), params.getLayers(), params.getAllChartsData(), key).getName();
+        return createPdf(image, params.getName(), params.getFilters(), params.getLayers(), params.getAllChartsData(), params.getTrxType(), params.getTrxStatus(), key).getName();
     }
 
 
@@ -266,6 +266,8 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
                            Map<String, Set<String>> filterMap,
                            Map<String, List<Map <String, String>>> layerList,
                            Map<String, Collection<ChartResponse>> chartData,
+                           String trxType,
+                           String trxStatus,
                            String key) {
         LOGGER.debug("CreatePdf");
         File pdfFile = new File(repository, key + PDF_EXTENSION);
@@ -299,9 +301,9 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             checkEndOfPage(pdf, Y_LARGE_SPACE);
 
             //Top 5 funding
-            addPdfText(pdf, PDType1Font.HELVETICA, 10, BLUE, "Top Funding");
+            addPdfText(pdf, PDType1Font.HELVETICA, 10, BLUE, "Top Funding for " + StringUtils.capitalize(trxStatus) + " " +  StringUtils.capitalize(trxType));
             checkEndOfPage(pdf, Y_NORMAL_SPACE);
-            addCharts(chartData, pdf);
+            addCharts(chartData, trxType, trxStatus, pdf);
 
             //Applied Layers
             if(layerList.size()>0) {
@@ -359,7 +361,8 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
         pc.close();
     }
 
-    private void addCharts(Map<String, Collection<ChartResponse>> chartData, PDFDocument pdf) throws IOException {
+    private void addCharts(Map<String, Collection<ChartResponse>> chartData, String trxType,
+                           String trxStatus, PDFDocument pdf) throws IOException {
         boolean flag = false;
         int maxRows = 0;
         for(String fundingType : chartData.keySet()){
@@ -378,7 +381,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             int rows = 0;
             List<List<String>> data = new ArrayList<>();
             for(int i=0; i<(size< TOP_COUNT ? size:TOP_COUNT); i++){
-                data.add(Arrays.asList(fundingData.get(i).getName(), getFundingString(fundingData.get(i).getDisbursementFunding())));
+                data.add(Arrays.asList(fundingData.get(i).getName(), getFundingString(fundingData.get(i).getFunding(trxType, trxStatus))));
                 rows ++;
             }
             PDPageContentStream pc = new PDPageContentStream(pdf.document, pdf.page, PDPageContentStream.AppendMode.APPEND, false);

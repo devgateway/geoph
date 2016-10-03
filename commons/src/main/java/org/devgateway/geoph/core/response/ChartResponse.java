@@ -165,6 +165,18 @@ public class ChartResponse implements Comparable {
         return typeMap!=null?typeMap.get(TransactionStatusEnum.ACTUAL.getName()):0D;
     }
 
+    @JsonIgnore
+    public Double getFunding(int type, int status){
+        Map<String, Double> typeMap = trxAmounts.get(TransactionTypeEnum.getEnumById(type).getName());
+        return typeMap!=null?typeMap.get(TransactionStatusEnum.getEnumById(status).getName()):0D;
+    }
+
+    @JsonIgnore
+    public Double getFunding(String type, String status){
+        Map<String, Double> typeMap = trxAmounts.get(TransactionTypeEnum.valueOf(type.toUpperCase()).getName());
+        return typeMap!=null?typeMap.get(TransactionStatusEnum.valueOf(status.toUpperCase()).getName()):0D;
+    }
+
     public void addTrxAmount(Double amount, String trxTypeName, String trxStatusName) {
         this.trxAmounts.get(trxTypeName).put(trxStatusName, amount);
     }
