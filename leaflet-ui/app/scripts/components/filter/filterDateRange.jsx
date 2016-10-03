@@ -69,7 +69,7 @@ class FilterDate extends React.Component {
 	        			ref="startDate" 
 	        			locale={lng} 
 	        			minDate={startMinDate} 
-	        			maxDate={startMaxDate} 
+	        			maxDate={maxSelected||startMaxDate} 
 	        			date={minSelected} 
 	        			onChange={this.handleStartDate.bind(this)} />
 		        </div>
@@ -83,7 +83,7 @@ class FilterDate extends React.Component {
 	        			hideFooter={true}
 	        			ref="endDate" 
 	        			locale={lng} 
-	        			minDate={endMinDate} 
+	        			minDate={minSelected||endMinDate} 
 	        			maxDate={endMaxDate} 
 	        			date={maxSelected} 
 	        			onChange={this.handleEndDate.bind(this)} />	 

@@ -44,8 +44,8 @@ export default class ProjectListTab extends React.Component {
             <div className="project-list-header">
               <div className="project-list-item-col5">{translate('infowindow.projectlist.title')}</div>
               <div className="project-list-item-col3">{translate('infowindow.projectlist.financinginstitution')}</div>
-              <div className="project-list-item-col2">{translate('infowindow.projectlist.actualcommitments')}</div>
-              <div className="project-list-item-col2">{translate('infowindow.projectlist.actualdisbursements')}</div>
+              <div className="project-list-item-col2 funding-title">{translate('infowindow.projectlist.actualcommitments')}</div>
+              <div className="project-list-item-col2 funding-title">{translate('infowindow.projectlist.actualdisbursements')}</div>
             </div>  
             {projectsToShow.map((project) => {
               const {commitments, disbursements} = project.trxAmounts;

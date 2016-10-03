@@ -1,6 +1,5 @@
 import React from 'react';
 import {LangSwitcher} from '../lan/'
-import FilterPopup from '../filter/filters.jsx'
 import onClickOutside from 'react-onclickoutside';
 import {Tooltip, OverlayTrigger} from 'react-bootstrap';
 

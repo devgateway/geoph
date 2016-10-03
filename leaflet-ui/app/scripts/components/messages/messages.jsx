@@ -48,12 +48,13 @@ class HttpError extends React.Component {
 
 	render(){
 		const {data,status,statusText,message} = this.props.httpError;
+		debugger;
 		return (
 			<div className="bs-callout bs-callout-error">
 		
 			<ul>
 				<li>
-					{status==401?<span>Invalid user name or password provided </span>:<span>Got an error please try again {message?`(${message})`:null}</span>}
+					{status==401?<span>Invalid user name or password provided </span>:<span>Got an error please try again {message?`(${message})`: data.message? `(${data.message})`: null}</span>}
 				</li>
 			</ul>
 			</div>

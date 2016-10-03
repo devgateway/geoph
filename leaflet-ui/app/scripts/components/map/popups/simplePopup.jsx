@@ -31,7 +31,7 @@ const SimplePopup = onClickOutside(React.createClass({
           <h2>{name}</h2>
            <div className="simple-popup-value">
               {valueProperty=='physicalProgress'?<div>{layerName} : {Number(physicalProgress).toFixed(2)}%</div>:null}
-              {valueProperty=='value'?<div>{indicatorName} : {value}</div>:null}
+              {valueProperty=='value'?<div>{indicatorName} : {value||"No Data"}</div>:null}
             </div>
         </div>
       </div>
