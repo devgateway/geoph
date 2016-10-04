@@ -130,9 +130,11 @@ public class MapExport {
         Parameters chartParams = Parameters.getParameters(jsonFilters);
         if(StringUtils.isNotBlank(params.getTrxType())){
             chartParams.setTrxType(TransactionTypeEnum.valueOf(params.getTrxType().toUpperCase()).getId());
+            chartParams.setTrxTypeSort(TransactionTypeEnum.valueOf(params.getTrxType().toUpperCase()).getId());
         }
         if(StringUtils.isNotBlank(params.getTrxStatus())){
             chartParams.setTrxStatus(TransactionStatusEnum.valueOf(params.getTrxStatus().toUpperCase()).getId());
+            chartParams.setTrxStatusSort(TransactionStatusEnum.valueOf(params.getTrxStatus().toUpperCase()).getId());
         }
 
         Map<String, Collection<ChartResponse>> chartData = new HashMap<>();
