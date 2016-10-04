@@ -74,16 +74,18 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
       <div className="popup-container" style={{width: (popupMaxWidth-10), height: (popupMaxHeight-10)}}>
         <div className="popup-title">
           <h2>{name || ""} </h2>
-        </div>
+        </div>      
         <div className="popup-stats">
-          <div className="projects">
+          <div className={level==1? "projects" : "projects-single"}>
               <p>{translate('stats.projects')}</p>
               <div>{statsLoading?"0":projectCount}</div>
           </div>
-          <div className="funding">
+          {level==1?
+            <div className="funding">
               <p>{fundingLabel}</p>
               <div>₱{statsLoading?"0":formatValue(fundingValue)}</div>
-          </div>  
+            </div> 
+          : null} 
         </div>
         <div className="">
           <ul className='popup-tabs' role='tablist' >
