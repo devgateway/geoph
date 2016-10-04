@@ -80,12 +80,15 @@
       float: left;
     }
   }
-  >div:first-child{
+  .projects{
     width: 40%;
     border-right: 1px solid #cfe1f0;
   }
-  >div:last-child{
+  .funding{
     width: 60%;
+  }
+  .projects-single{
+    width: 100%;
   }
 }
 
@@ -188,10 +191,24 @@
     }
 }
 
+.project-list-item-col8{
+  position: relative;
+  min-height: 1px;
+  width: 66.66666667%;
+  float: left;
+}
+
 .project-list-item-col5{
   position: relative;
   min-height: 1px;
   width: 41.66666667%;
+  float: left;
+}
+
+.project-list-item-col4{
+  position: relative;
+  min-height: 1px;
+  width: 33.33333333%;
   float: left;
 }
 

@@ -66,8 +66,7 @@ class FilterItem extends React.Component {
 		        			:
 		        			(this.props.name || this.props.title)
 		        		}
-		        	</div>
-		        	{this.props.items && this.props.items.length>0? 
+		        		{this.props.items && this.props.items.length>0? 
 		        		<div>
 			        		<div className="counter">
 				        		({this.props.selectedCounter}/{this.props.totalCounter})
@@ -76,7 +75,8 @@ class FilterItem extends React.Component {
 				        		{this.state.expanded? "-" : "+"}
 				        	</div>
 				        </div>
-		        	: null}	 
+		        	: null}
+		        	</div>		        		
 		        </div>	
 		        <div>
 	        		{this.props.items && this.props.items.length>0? 

@@ -36,27 +36,29 @@ export default class ProjectListTab extends React.Component {
   }
 
   render() {
-    const {content: projectsToShow=[], totalPages, number} = this.props.charts.projectList.data;
+    const {feature, charts} = this.props;
+    const {content: projectsToShow=[], totalPages, number} = charts.projectList.data;
+    const {level} = feature.properties;
     return(
       <div className="">
         <div className="project-list-div">
           <div className='project-list'>
             <div className="project-list-header">
-              <div className="project-list-item-col5">{translate('infowindow.projectlist.title')}</div>
-              <div className="project-list-item-col3">{translate('infowindow.projectlist.financinginstitution')}</div>
-              <div className="project-list-item-col2 funding-title">{translate('infowindow.projectlist.actualcommitments')}</div>
-              <div className="project-list-item-col2 funding-title">{translate('infowindow.projectlist.actualdisbursements')}</div>
+              <div className={level==1? "project-list-item-col5" : "project-list-item-col8"}>{translate('infowindow.projectlist.title')}</div>
+              <div className={level==1? "project-list-item-col3" : "project-list-item-col4"}>{translate('infowindow.projectlist.financinginstitution')}</div>
+              {level==1? <div className="project-list-item-col2 funding-title">{translate('infowindow.projectlist.actualcommitments')}</div> :null}
+              {level==1? <div className="project-list-item-col2 funding-title">{translate('infowindow.projectlist.actualdisbursements')}</div> :null}
             </div>  
             {projectsToShow.map((project) => {
               const {commitments, disbursements} = project.trxAmounts;
               return (
                 <div className="project-list-item" key={project.id}>
-                  <div className="project-title" title={project.title} className="project-list-item-col5">
+                  <div className="project-title" title={project.title} className={level==1? "project-list-item-col5" : "project-list-item-col8"}>
                     <ProjectLink {...project} store={this.props.store}/>
                   </div>
-                  <div className="project-list-item-col3">{project.fundingAgency.code}</div>
-                  <div className="project-list-item-col2">₱ {formatValue(commitments.actual)}</div>
-                  <div className="project-list-item-col2">₱ {formatValue(disbursements.actual)}</div>
+                  <div className={level==1? "project-list-item-col3" : "project-list-item-col4"}>{project.fundingAgency.code}</div>
+                  {level==1? <div className="project-list-item-col2">₱ {formatValue(commitments.actual)}</div> :null}
+                  {level==1? <div className="project-list-item-col2">₱ {formatValue(disbursements.actual)}</div> :null}
                 </div>
               )             
             })}            
