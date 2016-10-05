@@ -169,6 +169,14 @@ public class Location extends GenericPersistable implements Serializable {
         }
         return ret;
     }
+    @JsonIgnore
+    public String getRegionName(){
+        String ret = null;
+        if(region != null){
+            ret = region.getName();
+        }
+        return ret;
+    }
 
     public Location getRegion() {
         return region;
@@ -187,6 +195,15 @@ public class Location extends GenericPersistable implements Serializable {
         return ret;
     }
 
+    @JsonIgnore
+    public String getProvinceName(){
+        String ret = null;
+        if(province != null){
+            ret = province.getName();
+        }
+        return ret;
+    }
+
     public Location getProvince() {
         return province;
     }
@@ -200,6 +217,15 @@ public class Location extends GenericPersistable implements Serializable {
         String ret = null;
         if(level== MUNICIPALITY_LEVEL){
             ret = this.getCode();
+        }
+        return ret;
+    }
+
+    @JsonIgnore
+    public String getMunicipalityName(){
+        String ret = null;
+        if(level== MUNICIPALITY_LEVEL){
+            ret = this.getName();
         }
         return ret;
     }
