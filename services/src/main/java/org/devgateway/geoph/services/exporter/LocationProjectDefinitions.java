@@ -52,14 +52,14 @@ public class LocationProjectDefinitions implements DefinitionsProvider {
 
         columnsDef.add(new ColumnDefinitionImp<Long>("Location ID", numberStyleStylist, Formatters.longFormatter(), Extractors.longExtractor("location.getId")));
         columnsDef.add(new ColumnDefinitionImp<String>("UACS Code", regularStylist, Formatters.stringFormatter(), Extractors.stringExtractor("location.getCode")));
-        columnsDef.add(new ColumnDefinitionImp<Integer>("ADM Level", numberStyleStylist, Formatters.intFormatter(), Extractors.intExtractor("location.getLevel")));
+        columnsDef.add(new ColumnDefinitionImp<String>("ADM Level", regularStylist, Formatters.stringFormatter(), Extractors.stringExtractor("location.getLevel")));
         columnsDef.add(new ColumnDefinitionImp<String>("Name", regularStylist, Formatters.stringFormatter(), Extractors.stringExtractor("location.getName")));
         columnsDef.add(new ColumnDefinitionImp<Double>("Latitude", decimalStylist, Formatters.doubleFormatter(), Extractors.doubleExtractor("location.getLatitude")));
         columnsDef.add(new ColumnDefinitionImp<Double>("Longitude", decimalStylist, Formatters.doubleFormatter(), Extractors.doubleExtractor("location.getLongitude")));
 
-        columnsDef.add(new ColumnDefinitionImp<Long>("Region", numberStyleStylist, Formatters.longFormatter(), Extractors.longExtractor("location.getRegionId")));
-        columnsDef.add(new ColumnDefinitionImp<Long>("Province", numberStyleStylist, Formatters.longFormatter(), Extractors.longExtractor("location.getProvinceId")));
-        columnsDef.add(new ColumnDefinitionImp<Long>("Municipality", numberStyleStylist, Formatters.longFormatter(), Extractors.longExtractor("location.retrieveMunicipalityId")));
+        columnsDef.add(new ColumnDefinitionImp<String>("Region", regularStylist, Formatters.stringFormatter(), Extractors.stringExtractor("location.getRegionCode")));
+        columnsDef.add(new ColumnDefinitionImp<String>("Province", regularStylist, Formatters.stringFormatter(), Extractors.stringExtractor("location.getProvinceCode")));
+        columnsDef.add(new ColumnDefinitionImp<String>("Municipality", regularStylist, Formatters.stringFormatter(), Extractors.stringExtractor("location.getMunicipalityCode")));
 
         columnsDef.add(new ColumnDefinitionImp<String>("Project ID", numberStyleStylist, Formatters.stringFormatter(), Extractors.stringExtractor("project.getPhId")));
         columnsDef.add(new ColumnDefinitionImp<String>("Project Title", boldStyle, Formatters.stringFormatter(), Extractors.stringExtractor("project.getTitle")));
@@ -68,7 +68,7 @@ public class LocationProjectDefinitions implements DefinitionsProvider {
         columnsDef.add(new ColumnDefinitionImp<List<String>>("Implementing Agency", regularStylist, Formatters.stringArrayFormatter(), Extractors.implementingAgencyExtractor("project.getImplementingAgencies")));
         columnsDef.add(new ColumnDefinitionImp<String>("Executing Agency", regularStylist, Formatters.stringFormatter(), Extractors.agencyExtractor("project.getExecutingAgency")));
         columnsDef.add(new ColumnDefinitionImp<String>("Funding Institution", regularStylist, Formatters.stringFormatter(), Extractors.agencyExtractor("project.getFundingAgency")));
-        columnsDef.add(new ColumnDefinitionImp<String>("Original Currency (OC)", regularStylist, Formatters.stringFormatter(), Extractors.currencyExtractor("project.getOriginalCurrency")));
+        columnsDef.add(new ColumnDefinitionImp<String>("Original Currency (OC)", regularStylist, Formatters.stringFormatter(), Extractors.originalCurrencyExtractor()));
         columnsDef.add(new ColumnDefinitionImp<Double>("Amount in OC", decimalStylist, Formatters.amountFormatter(), Extractors.doubleExtractor("project.getTotalProjectAmount")));
 
 
@@ -78,13 +78,9 @@ public class LocationProjectDefinitions implements DefinitionsProvider {
 
         columnsDef.add(new ColumnDefinitionImp<List<String>>("Sectors", regularStylist, Formatters.stringArrayFormatter(), Extractors.sectorExtractor("project.getSectors")));
 
-        columnsDef.add(new ColumnDefinitionImp<String>("Period of Performance Start", dateStylist, Formatters.stringFormatter(), Extractors.stringExtractor("project.getPeriodPerformanceStart")));
-        columnsDef.add(new ColumnDefinitionImp<String>("Period of Performance End", dateStylist, Formatters.stringFormatter(), Extractors.stringExtractor("project.getPeriodPerformanceEnd")));
-
         columnsDef.add(new ColumnDefinitionImp<String>("Status", regularStylist, Formatters.stringFormatter(), Extractors.statusExtractor("project.getStatus")));
         columnsDef.add(new ColumnDefinitionImp<String>("Physical Status", regularStylist, Formatters.stringFormatter(), Extractors.physicalStatusExtractor("project.getPhysicalStatus")));
-        columnsDef.add(new ColumnDefinitionImp<Double>("Physical Progress(Actual)", decimalStylist, Formatters.doubleFormatter(), Extractors.doubleExtractor("project.getActualOwpa")));
-        columnsDef.add(new ColumnDefinitionImp<Double>("Physical Progress(Target)", decimalStylist, Formatters.doubleFormatter(), Extractors.doubleExtractor("project.getReachedOwpa")));
+        columnsDef.add(new ColumnDefinitionImp<Double>("Physical Progress", decimalStylist, Formatters.doubleFormatter(), Extractors.doubleExtractor("project.getPhysicalProgress")));
 
         columnsDef.add(new ColumnDefinitionImp<String>("Grant Classification", regularStylist, Formatters.stringFormatter(), Extractors.classificationExtractor("project.getGrantClassification")));
         columnsDef.add(new ColumnDefinitionImp<Double>("Total Disbursements", decimalStylist, Formatters.amountFormatter(), Extractors.disbursementExtractor("project.getTransactions")));
@@ -102,9 +98,9 @@ public class LocationProjectDefinitions implements DefinitionsProvider {
         locationList.add("getName");
         locationList.add("getLatitude");
         locationList.add("getLongitude");
-        locationList.add("getRegionId");
-        locationList.add("getProvinceId");
-        locationList.add("retrieveMunicipalityId");
+        locationList.add("getRegionCode");
+        locationList.add("getProvinceCode");
+        locationList.add("getMunicipalityCode");
         classMap.put(LOCATION_CLASSNAME, locationList);
 
         List<String> abstractPersistableList = new ArrayList<>();
@@ -123,12 +119,9 @@ public class LocationProjectDefinitions implements DefinitionsProvider {
         projectList.add("getEndDate");
         projectList.add("getRevisedClosingDate");
         projectList.add("getSectors");
-        projectList.add("getPeriodPerformanceStart");
-        projectList.add("getPeriodPerformanceEnd");
         projectList.add("getStatus");
         projectList.add("getPhysicalStatus");
-        projectList.add("getActualOwpa");
-        projectList.add("getReachedOwpa");
+        projectList.add("getPhysicalProgress");
         projectList.add("getGrantClassification");
         projectList.add("getTransactions");
         classMap.put(PROJECT_CLASSNAME, projectList);
