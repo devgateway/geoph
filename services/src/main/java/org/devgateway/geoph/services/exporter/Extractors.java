@@ -229,4 +229,14 @@ public class Extractors {
             }
         };
     }
+
+    public static Extractor<String> originalCurrencyExtractor() {
+        return new Extractor<String>() {
+            @Override
+            public String extract(Map<String, Object> properties) {
+                return "PHP";
+
+            }
+        };
+    }
 }
