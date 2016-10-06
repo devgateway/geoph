@@ -20,6 +20,25 @@ const collectRange=(options)=>{
     return {'minSelected': options.minSelected, 'maxSelected': options.maxSelected};
 }
 
+
+const getBgColorFromCssName=(cls)=>{
+   var div = document.createElement("div");
+            div.style.display = "none";
+            document.body.appendChild(div);
+            div.className = cls;
+            
+    var color=getComputedStyle(div).getPropertyValue("background-color");
+      div.parentNode.removeChild(div)
+    var matchColors = /rgb\((\d{1,3}), (\d{1,3}), (\d{1,3})\)/;
+    var match = matchColors.exec(color);
+    if (match !== null) {
+        return {r: match[1],g:match[2] ,b:match[3]};
+    }
+           
+    return null;
+}
+
+
 export const collectValuesToSave = (state)=>{
     console.log('collectValuesToSave');
     let filters=state.filters.filterMain;
@@ -58,7 +77,14 @@ export const collectValuesToSave = (state)=>{
         layers.map((layer)=>{
             const {legends, name, keyName, id} = layer;
             let nameLabel =  keyName? translate("toolview.layers."+keyName) : name;
-            visibleLayers.push({id, name: nameLabel, legends});
+          
+            var coloredLegend=legends.map((l)=>{
+                const {cls}=l;
+                const color=getBgColorFromCssName(cls)
+                return {...l,color}
+            })
+            debugger;
+            visibleLayers.push({id, name: nameLabel, legends:coloredLegend});
         })
         Object.assign(params, {'visibleLayers': visibleLayers});
     }
@@ -69,6 +95,6 @@ export const collectValuesToSave = (state)=>{
     map = map.set('defaultBounds', map.get('bounds'));//move bounds value to defaultBounds to be used as default on restore
     Object.assign(params, {'map': map});
     Object.assign(params, {'settings': settings});
-    debugger;
+
     return params;
 }

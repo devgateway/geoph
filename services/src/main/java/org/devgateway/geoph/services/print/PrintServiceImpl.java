@@ -195,16 +195,16 @@ public class PrintServiceImpl implements PrintService {
 
     @Override
     public Map<String, List<Map <String, String>>> getLayerNamesFromJson(List jsonLayers) {
-        Map<String, List<Map <String, String>>> ret = new HashMap<>();
+        Map ret = new HashMap<>();
         for(Object layerObj: jsonLayers){
             Map layerMap = (Map) layerObj;
             String name = (String)layerMap.get(NAME);
-            List<Map <String, String>> legendsList = new ArrayList<>();
+            List<Map <String, Map>> legendsList = new ArrayList<>();
             for(Object legendObj:(List)layerMap.get(LEGENDS)){
                 Map legendMap = (Map) legendObj;
-                Map <String, String> legend = new HashMap<>();
-                legend.put(LABEL, (String)legendMap.get(LABEL));
-                legend.put(COLOR, (String)legendMap.get(COLOR));
+                Map legend = new HashMap<>();
+                legend.put(LABEL, legendMap.get(LABEL));
+                legend.put(COLOR, legendMap.get(COLOR));
                 legendsList.add(legend);
             }
             ret.put(name, legendsList);
