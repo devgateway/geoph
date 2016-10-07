@@ -114,7 +114,7 @@ INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('im
 INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',119,'DOF','Department of Finance',null,null);
 INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',120,'DOF NCC','Department of Finance National Credit Council',null,null);
 INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',121,'DOH','Department of Health',null,null);
-INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',122,'DOH CHD ','Department of Health - Center for Health Development',null,null);
+INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',122,'DOH CHD','Department of Health - Center for Health Development',null,null);
 INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',123,'DOJ','Department of Justice',null,null);
 INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',124,'DOLE','Department of Labor and Employment',null,null);
 INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',125,'DOST','Department of Science and Technology',null,null);
@@ -134,7 +134,7 @@ INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('im
 INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',139,'ILO','International Labor Organization',null,null);
 INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',140,'IPOPHL','Intellectual Property Office of the Philippines',null,null);
 INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',141,'IOM','International Organization for Migration',null,null);
-INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',142,'JSCC ','Justice Sector Coordinating Council - the Department of Justice',null,null);
+INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',142,'JSCC','Justice Sector Coordinating Council - the Department of Justice',null,null);
 INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',143,'JJWC','Juvenile Justtice Welfare Council',null,null);
 INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',144,'LBP','Land Bank of the Philippines',null,null);
 INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',145,'LGA','Local Government Academy',null,null);
@@ -174,10 +174,10 @@ INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('im
 INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',179,'PCIC','Philippine Crop Insurance Corp.',null,null);
 INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',180,'PDRF','Philippine Disaster Recover Foundation',null,null);
 INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',181,'PIA','Philippine Information Agency ',null,null);
-INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',182,'PHO ','Provincial Health Office',null,null);
+INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',182,'PHO','Provincial Health Office',null,null);
 INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',183,'PLGU','Provincial Local Government Unit',null,null);
 INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',184,'POPCOM','Commission on Population',null,null);
-INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',185,'PPP ','Public-Private Partnership',null,null);
+INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',185,'PPP','Public-Private Partnership',null,null);
 INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',186,'PSA','Philippine Statistics Authority',null,null);
 INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',187,'RITM','Research Institute for Tropical Medicine',null,null);
 INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',188,'RPDO Maguindanao Prov','Regional Planning and Development Office - Maguindanao Province',null,null);
