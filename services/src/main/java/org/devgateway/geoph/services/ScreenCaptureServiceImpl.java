@@ -34,7 +34,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import scala.Int;
 import sun.misc.BASE64Encoder;
 
 import javax.imageio.ImageIO;
@@ -77,6 +76,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
     private static final int FIRST_COLUMN_WIDTH = 160;
     private static final int Y_NORMAL_SPACE = 15;
     private static final int Y_LARGE_SPACE = 20;
+    private static final int Y_LEGEND_SPACE = 50;
     private static final int Y_SMALL_SPACE = 5;
     private static final int IMAGE_MAX_WIDTH = 540;
     private static final int IMAGE_MAX_HEIGHT = 410;
@@ -308,7 +308,11 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             if (layerList.size() > 0) {
                 addPdfText(pdf, PDType1Font.HELVETICA, 10, BLUE, "Applied Layers");
                 for (String layerName : layerList.keySet()) {
-                    checkEndOfPage(pdf, Y_NORMAL_SPACE);
+                    if(pdf.yPos>Y_LEGEND_SPACE) {
+                        checkEndOfPage(pdf, Y_NORMAL_SPACE);
+                    } else {
+                        checkEndOfPage(pdf, Y_LEGEND_SPACE);
+                    }
                     addPdfText(pdf, PDType1Font.HELVETICA, 9, BLACK, NEW_ITEM + layerName);
                     checkEndOfPage(pdf, Y_NORMAL_SPACE);
                     addLegend(layerList.get(layerName), pdf);
@@ -355,7 +359,6 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             pc.setNonStrokingColor(color);
             pc.fill();
             nextX += 12;
-            pc.setNonStrokingColor(color);
             pc.beginText();
             pc.newLineAtOffset(nextX, nextY);
             pc.setFont(PDType1Font.HELVETICA, 8);
