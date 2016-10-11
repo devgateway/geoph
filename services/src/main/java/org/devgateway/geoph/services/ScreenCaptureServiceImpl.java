@@ -19,6 +19,7 @@ import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.devgateway.geoph.core.request.PrintParams;
 import org.devgateway.geoph.core.response.ChartResponse;
 import org.devgateway.geoph.core.services.ScreenCaptureService;
+import org.devgateway.geoph.dao.ProjectStatsResultsDao;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -72,8 +73,8 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
     private static final int TOP_COUNT = 5;
     private static final int SECOND_COLUMN_MARGIN = 290;
     private static final String BLANK_STRING = " ";
-    private static final int FUNDING_TEXT_LIMIT = 30;
-    private static final int FIRST_COLUMN_WIDTH = 160;
+    private static final int FUNDING_TEXT_LIMIT = 100;
+    private static final int FIRST_COLUMN_WIDTH = 450;
     private static final int Y_NORMAL_SPACE = 15;
     private static final int Y_LARGE_SPACE = 20;
     private static final int Y_LEGEND_SPACE = 50;
@@ -110,7 +111,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
         if (image == null) {
             throw new Exception("Wasn't able to generate image please check logs");
         }
-        return createPdf(image, params.getName(), params.getFilters(), params.getLayers(), params.getAllChartsData(), params.getTrxType(), params.getTrxStatus(), key).getName();
+        return createPdf(image, params.getName(), params.getFilters(), params.getLayers(), params.getAllChartsData(), params.getStats(), params.getTrxType(), params.getTrxStatus(), key).getName();
     }
 
 
@@ -265,6 +266,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
                            Map<String, Set<String>> filterMap,
                            Map<String, List<Map<String, String>>> layerList,
                            Map<String, Collection<ChartResponse>> chartData,
+                           Map<String, List<ProjectStatsResultsDao>> stats,
                            String trxType,
                            String trxStatus,
                            String key) {
@@ -297,6 +299,19 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             pdf.yPos -= scaledDim.height;
             pc.drawImage(imageObj, pdf.xPos, pdf.yPos, scaledDim.width, scaledDim.height);
             pc.close();
+            checkEndOfPage(pdf, Y_LARGE_SPACE);
+
+            //Stats
+            addPdfText(pdf, PDType1Font.HELVETICA, 10, BLUE, "Total National");
+            checkEndOfPage(pdf, Y_NORMAL_SPACE);
+            addPdfText(pdf, PDType1Font.HELVETICA, 9, BLACK, "Total Projects: " + stats.get("national").get(0).getProjectCount());
+            addPdfText(pdf.xPos + 160, pdf.yPos, pdf, PDType1Font.HELVETICA, 9, BLACK,  "Total Amount: " + currency + BLANK_STRING + getFormatedValue(stats.get("national").get(0).getTrxAmount()));
+            checkEndOfPage(pdf, Y_LARGE_SPACE);
+
+            addPdfText(pdf, PDType1Font.HELVETICA, 10, BLUE, "Total Sub-National");
+            checkEndOfPage(pdf, Y_NORMAL_SPACE);
+            addPdfText(pdf, PDType1Font.HELVETICA, 9, BLACK, "Total Projects: " + stats.get("regional").get(0).getProjectCount());
+            addPdfText(pdf.xPos + 160, pdf.yPos, pdf, PDType1Font.HELVETICA, 9, BLACK,  "Total Amount: " + currency + BLANK_STRING + getFormatedValue(stats.get("regional").get(0).getTrxAmount()));
             checkEndOfPage(pdf, Y_LARGE_SPACE);
 
             //Top 5 funding
@@ -371,21 +386,20 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
 
     private void addCharts(Map<String, Collection<ChartResponse>> chartData, String trxType,
                            String trxStatus, PDFDocument pdf) throws IOException {
-        boolean flag = false;
-        int maxRows = 0;
+
         for (String fundingType : chartData.keySet()) {
             int xPos = pdf.xPos;
             int yPos = pdf.yPos;
-            if (flag) {
-                yPos += Y_SMALL_SPACE;
-                xPos += SECOND_COLUMN_MARGIN;
-            } else {
-                maxRows = 0;
-            }
-            addPdfText(xPos, yPos, pdf, PDType1Font.HELVETICA_BOLD, 9, BLACK, fundingType);
-            checkEndOfPage(pdf, Y_SMALL_SPACE);
             List<ChartResponse> fundingData = new ArrayList<>(chartData.get(fundingType));
             int size = fundingData.size();
+            if(yPos - 30 < (size < TOP_COUNT ? size : TOP_COUNT) * Y_NORMAL_SPACE) {
+                checkEndOfPage(pdf, (size < TOP_COUNT ? size : TOP_COUNT) * Y_NORMAL_SPACE);
+                yPos = pdf.yPos;
+            }
+
+            addPdfText(xPos, yPos, pdf, PDType1Font.HELVETICA_BOLD, 9, BLACK, fundingType);
+            checkEndOfPage(pdf, Y_SMALL_SPACE);
+
             int rows = 0;
             List<List<String>> data = new ArrayList<>();
             for (int i = 0; i < (size < TOP_COUNT ? size : TOP_COUNT); i++) {
@@ -399,30 +413,34 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
                 addPdfText(xPos + Y_SMALL_SPACE, yPos - Y_NORMAL_SPACE, pdf, PDType1Font.HELVETICA, 9, BLACK, "No data");
                 rows = 1;
             }
-            if (rows > maxRows) {
-                maxRows = rows;
-            }
 
             pc.close();
-            if (flag) {
-                checkEndOfPage(pdf, Y_NORMAL_SPACE * maxRows);
-                checkEndOfPage(pdf, Y_LARGE_SPACE);
-            }
-            flag = !flag;
+            checkEndOfPage(pdf, Y_NORMAL_SPACE * rows);
+            checkEndOfPage(pdf, Y_LARGE_SPACE);
         }
     }
 
     private String getFundingString(Double fundingValue) {
         StringBuilder sb = new StringBuilder(currency);
         sb.append(BLANK_STRING);
-        if (fundingValue / ONE_BILLION > 1) {
-            sb.append(String.format("%.3f", fundingValue / ONE_BILLION) + "B");
-        } else if (fundingValue / ONE_MILLION > 1) {
-            sb.append(String.format("%.3f", fundingValue / ONE_MILLION) + "M");
-        } else {
-            sb.append(String.format("%.3f", fundingValue));
+        StringBuilder value = getFormatedValue(fundingValue);
+        for(int i=value.length(); i<9; i++){
+            sb.append(BLANK_STRING+BLANK_STRING);
         }
+        sb.append(value);
         return sb.toString();
+    }
+
+    private StringBuilder getFormatedValue(Double fundingValue) {
+        StringBuilder value = new StringBuilder();
+        if (fundingValue / ONE_BILLION > 1) {
+            value.append(String.format("%.3f", fundingValue / ONE_BILLION) + "B");
+        } else if (fundingValue / ONE_MILLION > 1) {
+            value.append(String.format("%.3f", fundingValue / ONE_MILLION) + "M");
+        } else {
+            value.append(String.format("%.3f", fundingValue));
+        }
+        return value;
     }
 
     private PDFDocument checkEndOfPage(PDFDocument pdf, Integer y) throws IOException {

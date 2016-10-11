@@ -58,6 +58,9 @@ public class MapExport {
     @Autowired
     ChartService chartService;
 
+    @Autowired
+    ProjectService projectService;
+
 
     @RequestMapping(value = "/pdf", produces = "application/json")
     public Map<String, String> toPdf(@RequestBody PrintParams params, HttpServletResponse response) throws Exception {
@@ -143,6 +146,8 @@ public class MapExport {
         chartData.put("Sector", chartService.getFundingBySector(chartParams));
         chartData.put("Physical Status", chartService.getFundingByPhysicalStatus(chartParams));
         params.setAllChartsData(chartData);
+
+        params.setStats(projectService.getStats(chartParams));
     }
 
 }
