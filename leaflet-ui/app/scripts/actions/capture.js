@@ -8,6 +8,9 @@ import * as HtmlUtil from '../util/htmlUtil';
 
 
 export const capture=()=>{
+
+  debugger;
+
   const mapName = 'Map generated from print';
   const element = document.getElementsByClassName("map")[0];  
   const {outerHTML,clientWidth,clientHeight} = HtmlUtil.getMapElementProperties();
