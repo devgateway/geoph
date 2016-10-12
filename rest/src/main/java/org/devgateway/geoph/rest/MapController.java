@@ -68,7 +68,11 @@ public class MapController {
         LOGGER.debug("saveMap");
         String mapName = (String) mapVariables.get(NAME_STR);
         String base64 = null;
-        if (checkIfMapNameIsValid(mapName)) {
+        Long id = null;
+        if (StringUtils.isNotBlank(mapVariables.get("id").toString())){
+            id = new Long((Integer) mapVariables.get("id"));
+        }
+        if (checkIfMapNameIsValid(mapName) || id!=null) {
             String html = (String) mapVariables.get("html");
             Integer width = (Integer) mapVariables.get("width");
             Integer height = (Integer) mapVariables.get("height");
@@ -78,6 +82,7 @@ public class MapController {
             if (mapVariables.get("id")!=null && !mapVariables.get("id").equals("")){
                 id = (long) mapVariables.get("id");
             }
+
 
             if (html != null) {
                 //get preview image

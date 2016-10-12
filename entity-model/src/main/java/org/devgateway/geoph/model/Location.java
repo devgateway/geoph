@@ -161,6 +161,23 @@ public class Location extends GenericPersistable implements Serializable {
         }
     }
 
+    @JsonIgnore
+    public String getRegionCode(){
+        String ret = null;
+        if(region != null){
+            ret = region.getCode();
+        }
+        return ret;
+    }
+    @JsonIgnore
+    public String getRegionName(){
+        String ret = null;
+        if(region != null){
+            ret = region.getName();
+        }
+        return ret;
+    }
+
     public Location getRegion() {
         return region;
     }
@@ -169,12 +186,48 @@ public class Location extends GenericPersistable implements Serializable {
         this.region = region;
     }
 
+    @JsonIgnore
+    public String getProvinceCode(){
+        String ret = null;
+        if(province != null){
+            ret = province.getCode();
+        }
+        return ret;
+    }
+
+    @JsonIgnore
+    public String getProvinceName(){
+        String ret = null;
+        if(province != null){
+            ret = province.getName();
+        }
+        return ret;
+    }
+
     public Location getProvince() {
         return province;
     }
 
     public void setProvince(Location province) {
         this.province = province;
+    }
+
+    @JsonIgnore
+    public String getMunicipalityCode(){
+        String ret = null;
+        if(level== MUNICIPALITY_LEVEL){
+            ret = this.getCode();
+        }
+        return ret;
+    }
+
+    @JsonIgnore
+    public String getMunicipalityName(){
+        String ret = null;
+        if(level== MUNICIPALITY_LEVEL){
+            ret = this.getName();
+        }
+        return ret;
     }
 
     public Long retrieveMunicipalityId() {

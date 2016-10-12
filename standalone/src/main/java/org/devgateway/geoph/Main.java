@@ -27,7 +27,6 @@ import java.util.Arrays;
         @PropertySource("classpath:/org/devgateway/geoph/application.properties"),
         @PropertySource(value = "file:${CONF_FILE}", ignoreResourceNotFound = true)
 })
-
 public class Main {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
