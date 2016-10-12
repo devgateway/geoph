@@ -80,11 +80,9 @@ public class ProjectAgency implements Serializable {
 
         ProjectAgency that = (ProjectAgency) o;
 
-        if (getPk() != null ? !getPk().equals(that.getPk())
-                : that.getPk() != null)
-            return false;
+        return !(getPk() != null ? !getPk().equals(that.getPk())
+                : that.getPk() != null);
 
-        return true;
     }
 
     public int hashCode() {

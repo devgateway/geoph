@@ -54,11 +54,8 @@ public class ProjectLocationId implements Serializable {
         if (project != null ? !project.equals(that.project) : that.project != null){
             return false;
         }
-        if (location != null ? !location.equals(that.location) : that.location != null) {
-            return false;
-        }
+        return !(location != null ? !location.equals(that.location) : that.location != null);
 
-        return true;
     }
 
     public int hashCode() {

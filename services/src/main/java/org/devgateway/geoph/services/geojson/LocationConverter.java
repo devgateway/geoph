@@ -2,7 +2,6 @@ package org.devgateway.geoph.services.geojson;
 
 import org.devgateway.geoph.model.Location;
 import org.geojson.Feature;
-import static org.devgateway.geoph.core.constants.Constants.*;
 import static org.devgateway.geoph.core.constants.Constants.PROPERTY_LOC_CODE;
 import static org.devgateway.geoph.core.constants.Constants.PROPERTY_LOC_ID;
 import static org.devgateway.geoph.core.constants.Constants.PROPERTY_LOC_NAME;

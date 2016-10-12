@@ -55,11 +55,8 @@ public class ProjectGenderResponsivenessId implements Serializable {
         if (project != null ? !project.equals(that.project) : that.project != null) {
             return false;
         }
-        if (gender_responsiveness != null ? !gender_responsiveness.equals(that.gender_responsiveness) : that.gender_responsiveness != null){
-            return false;
-        }
+        return !(gender_responsiveness != null ? !gender_responsiveness.equals(that.gender_responsiveness) : that.gender_responsiveness != null);
 
-        return true;
     }
 
     public int hashCode() {

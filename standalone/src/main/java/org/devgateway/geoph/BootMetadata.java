@@ -100,7 +100,7 @@ public class BootMetadata {
         geophUser.setAccountNonLocked(true);
         geophUser.setCredentialsNonExpired(true);
         geophUser.setAuthorities(commonAuthorities);
-        geophUser = securityService.savePerson(geophUser);
+        securityService.savePerson(geophUser);
     }
 
     private void runScript(String... scriptList) {

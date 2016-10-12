@@ -78,6 +78,10 @@ public class MapController {
             Integer height = (Integer) mapVariables.get("height");
             Integer scaleWidth = (Integer) mapVariables.get("scaleWidth");
             Integer scaleHeight = (Integer) mapVariables.get("scaleHeight");
+            Long id = null;
+            if (mapVariables.get("id")!=null && !mapVariables.get("id").equals("")){
+                id = (long) mapVariables.get("id");
+            }
 
 
             if (html != null) {
@@ -87,7 +91,7 @@ public class MapController {
                 if (scaleWidth != null) {
                     image = screenCaptureService.scaleWidth(image, scaleWidth);
                 } else if (scaleHeight != null) {
-                    image = screenCaptureService.scaleWidth(image, scaleHeight);
+                    image = screenCaptureService.scaleHeight(image, scaleHeight);
                 }
                 base64 = screenCaptureService.toBase64(image);
 

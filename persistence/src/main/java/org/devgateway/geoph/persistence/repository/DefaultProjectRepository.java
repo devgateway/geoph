@@ -226,7 +226,7 @@ public class DefaultProjectRepository implements ProjectRepository {
         Join<Project, Transaction> transactionJoin = projectRoot.join(Project_.transactions, JoinType.LEFT);
         Join<Project, ProjectLocation> locationJoin = projectRoot.join(Project_.locations, JoinType.LEFT);
         Join<ProjectLocation, ProjectLocationId> pk = locationJoin.join(ProjectLocation_.pk, JoinType.LEFT);
-        Expression<Double> expression = null;
+        Expression<Double> expression;
         if(isNationalLevel) {
             expression = transactionJoin.get(Transaction_.amount);
         } else {

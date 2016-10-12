@@ -100,9 +100,7 @@ public class XLSGenerator implements Generator {
         }
         //TODO:we can just send it as string
         if (value instanceof List) {
-            List<String> values = (List<String>) value;
             cell.setCellValue((String) ((List) value).stream().collect(Collectors.joining(",")));
-
         }
         cell.setCellStyle(style);
         return cell;

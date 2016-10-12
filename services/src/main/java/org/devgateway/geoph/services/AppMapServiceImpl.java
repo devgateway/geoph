@@ -80,7 +80,7 @@ public class AppMapServiceImpl implements AppMapService {
         Page<AppMap> maps = repository.findByType(type, pageable);
         List<AppMapDao> daoList = new ArrayList<>();
         maps.forEach(map->daoList.add(new AppMapDao(map)));
-        return new PageImpl<AppMapDao>(daoList, pageable, maps.getTotalElements());
+        return new PageImpl<>(daoList, pageable, maps.getTotalElements());
     }
 
     @Override

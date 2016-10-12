@@ -51,7 +51,7 @@ public class ColumnDefinitionImp<T> implements ColumnDefinition {
 
     @Override
     public RawCell getCell(Object value) {
-        return new RawCellImpl<T>(this, (T) value);
+        return new RawCellImpl<>(this, (T) value);
     }
 
     @Override

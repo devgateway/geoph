@@ -127,11 +127,9 @@ public class DefaultSectorRepository implements SectorRepository {
     }
 
     private List<Sector> sectorInitializer(List<Sector> sectors) {
-        for (Sector sector : sectors) {
-            if (sector.getItems() != null) {
-                sectorInitializer(sector.getItems());
-            }
-        }
+        sectors.stream().filter(sector -> sector.getItems() != null).forEach(sector -> {
+            sectorInitializer(sector.getItems());
+        });
         return sectors;
     }
 }

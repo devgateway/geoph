@@ -173,11 +173,7 @@ public class FilterController extends BaseController {
         Map<String, Map<String, String>> fundingMap = service.findAllTrxFunding();
         List response = new ArrayList<>();
         response.add(fundingMap);
-        GenericResponse resp = new GenericResponse(
-                response,
-                response != null ? response.size() : 0
-        );
-
+        GenericResponse resp = new GenericResponse(response, response.size());
         return resp;
     }
 

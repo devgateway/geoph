@@ -24,6 +24,7 @@ import java.util.Map;
  * @author dbianco
  *         created on mar 08 2016.
  */
+@SuppressWarnings("Convert2Diamond")
 @Service
 public class ProjectServiceImpl implements ProjectService {
 

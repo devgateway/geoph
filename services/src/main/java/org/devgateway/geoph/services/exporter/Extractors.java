@@ -156,12 +156,9 @@ public class Extractors {
                     trxValues = ((Set<Transaction>) value)
                             .stream()
                             .filter(transaction -> {
-                                if(transaction.getTransactionType().equals(trxTypeEnum)){
-                                    return true;
-                                }
-                                return false;
+                                return transaction.getTransactionType().equals(trxTypeEnum);
                             })
-                            .map(transaction -> transaction.getAmount())
+                            .map(Transaction::getAmount)
                             .collect(Collectors.toList());
                 }
                 return trxValues.stream().reduce((p1, p2) -> p1 + p2).orElse(0D);

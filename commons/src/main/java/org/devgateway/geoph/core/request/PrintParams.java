@@ -1,6 +1,7 @@
 package org.devgateway.geoph.core.request;
 
 import org.devgateway.geoph.core.response.ChartResponse;
+import org.devgateway.geoph.dao.ProjectStatsResultsDao;
 
 import java.util.Collection;
 import java.util.List;
@@ -36,6 +37,8 @@ public class PrintParams {
     private Map<String, List<Map <String, String>>> layers;
 
     Map<String, Collection<ChartResponse>> allChartsData;
+
+    Map<String, List<ProjectStatsResultsDao>> stats;
 
     public Integer getWidth() {
         return width;
@@ -131,5 +134,13 @@ public class PrintParams {
 
     public void setTrxStatus(String trxStatus) {
         this.trxStatus = trxStatus;
+    }
+
+    public Map<String, List<ProjectStatsResultsDao>> getStats() {
+        return stats;
+    }
+
+    public void setStats(Map<String, List<ProjectStatsResultsDao>> stats) {
+        this.stats = stats;
     }
 }

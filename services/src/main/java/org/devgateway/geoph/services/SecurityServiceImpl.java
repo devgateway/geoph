@@ -54,7 +54,7 @@ public class SecurityServiceImpl implements SecurityService {
         return user;
     }
 
-    private String getUsername() throws Exception {
+    private String getUsername() {
         final Object principal;
         notNull(SecurityContextHolder.getContext(), "The Security Context could not be null");
         notNull(SecurityContextHolder.getContext().getAuthentication(), "The Security Context Authentication could not be null");

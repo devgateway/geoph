@@ -217,11 +217,7 @@ public class GeoJsonServiceImpl implements GeoJsonService {
         return builder.getFeatures();
     }
 
-    /**
-     *
-     * @param parameters
-     * @return
-     */
+
     public FeatureCollection getPhotoPoints(Parameters parameters) {
         GeoJsonBuilder geoJsonBuilder = new GeoJsonBuilder();
         List<GeoPhotoDao> daos = geoPhotoRepository.findGeoPhotosByParams(parameters);
