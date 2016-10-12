@@ -109,7 +109,6 @@ public class FilterServiceImpl implements FilterService {
             keyValue.put(trxTypeId.name().toLowerCase(), String.valueOf(trxTypeId.getId()));
         }
         fundingMap.put(TYPE, keyValue);
-        Map<String, Map<String, String>> statusMap = new HashMap<>();
         keyValue = new HashMap<>();
         for (TransactionStatusEnum trxStatusId : TransactionStatusEnum.values()) {
             keyValue.put(trxStatusId.name().toLowerCase(), String.valueOf(trxStatusId.getId()));

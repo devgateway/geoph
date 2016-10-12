@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -103,9 +104,7 @@ public class ChartServiceImpl implements ChartService {
         if (params == null || params.getImpAgencies() == null || params.getImpAgencies().size() == 0) {
             showAll = true;
         } else {
-            for (Long iaId : params.getImpAgencies()) {
-                iaParamsSet.add(iaId);
-            }
+            iaParamsSet.addAll(params.getImpAgencies().stream().collect(Collectors.toList()));
         }
 
         Map<Long, ChartResponse> respMap = new HashMap<>();

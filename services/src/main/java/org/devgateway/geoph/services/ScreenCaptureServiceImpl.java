@@ -22,7 +22,6 @@ import org.devgateway.geoph.core.services.ScreenCaptureService;
 import org.devgateway.geoph.dao.ProjectStatsResultsDao;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.OutputType;
@@ -118,7 +117,6 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
     private BufferedImage captureWithPhantom(Integer width, Integer height, URI target) {
         LOGGER.debug("Starting PhantomDriver ");
         BufferedImage image = null;
-        Dimension screen = new Dimension(width, height);
         DesiredCapabilities DesireCaps = new DesiredCapabilities();
         DesireCaps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, "C:/JS_PROJECTS/phantomjs-2.1.1-windows/bin/phantomjs.exe");
 
@@ -237,7 +235,6 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
 
 
     private void removeTranslate3dFromDocument(Document doc) {
-        Element pane = doc.getElementsByClass("leaflet-map-pane").get(0);
         Elements elements = doc.getElementsByAttributeValueContaining("style", "translate3d");
 
         String pattern = "[-|\\d]*.px";
@@ -408,7 +405,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             }
             PDPageContentStream pc = new PDPageContentStream(pdf.document, pdf.page, PDPageContentStream.AppendMode.APPEND, false);
             if (data.size() > 0) {
-                drawTable(pdf.page, pc, yPos, xPos, rows, data);
+                drawTable(pc, yPos, xPos, data);
             } else {
                 addPdfText(xPos + Y_SMALL_SPACE, yPos - Y_NORMAL_SPACE, pdf, PDType1Font.HELVETICA, 9, BLACK, "No data");
                 rows = 1;
@@ -434,23 +431,22 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
     private StringBuilder getFormatedValue(Double fundingValue) {
         StringBuilder value = new StringBuilder();
         if (fundingValue / ONE_BILLION > 1) {
-            value.append(String.format("%.3f", fundingValue / ONE_BILLION) + "B");
+            value.append(String.format("%.3f", fundingValue / ONE_BILLION)).append("B");
         } else if (fundingValue / ONE_MILLION > 1) {
-            value.append(String.format("%.3f", fundingValue / ONE_MILLION) + "M");
+            value.append(String.format("%.3f", fundingValue / ONE_MILLION)).append("M");
         } else {
             value.append(String.format("%.3f", fundingValue));
         }
         return value;
     }
 
-    private PDFDocument checkEndOfPage(PDFDocument pdf, Integer y) throws IOException {
+    private void checkEndOfPage(PDFDocument pdf, Integer y) {
         pdf.yPos -= y;
         if (pdf.yPos <= MIN_Y_POS) {
             pdf.page = pdf.getNewPage();
             pdf.document.addPage(pdf.page);
             pdf.yPos = Y_POS;
         }
-        return pdf;
     }
 
     private List<String> splitValues(int maxChars, String title, Set<String> values) {
@@ -519,8 +515,8 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
         return new Dimension(newWidth, newHeight);
     }
 
-    private void drawTable(PDPage page, PDPageContentStream pc,
-                           float y, float margin, int rows,
+    private void drawTable(PDPageContentStream pc,
+                           float y, float margin,
                            List<List<String>> content) throws IOException {
         final float rowHeight = Y_NORMAL_SPACE;
         final float cellMargin = 5f;
@@ -530,9 +526,9 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
 
         float textx = margin + cellMargin;
         float texty = y - rowHeight;
-        for (int i = 0; i < content.size(); i++) {
-            for (int j = 0; j < content.get(i).size(); j++) {
-                String text = content.get(i).get(j);
+        for (List<String> aContent : content) {
+            for (int j = 0; j < aContent.size(); j++) {
+                String text = aContent.get(j);
                 pc.beginText();
                 pc.newLineAtOffset(textx, texty);
                 pc.showText(text != null && text.length() > FUNDING_TEXT_LIMIT ? text.substring(0, FUNDING_TEXT_LIMIT) + "..." : text);

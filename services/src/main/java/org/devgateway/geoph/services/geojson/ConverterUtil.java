@@ -9,13 +9,10 @@ import com.vividsolutions.jts.geom.MultiPoint;
 import com.vividsolutions.jts.geom.MultiPolygon;
 import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.Polygon;
-import org.apache.commons.lang.ArrayUtils;
-import org.devgateway.geoph.model.Location;
 import org.geojson.*;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 
@@ -27,7 +24,7 @@ public class ConverterUtil {
     //add f2 properties to f1
     public static Feature merge(Feature f1, Feature f2,Boolean preserve){
         f1.getProperties().putAll(f2.getProperties());
-        if(preserve==false){
+        if(!preserve){
          f1.setGeometry(f2.getGeometry());
         }
         return f1;
@@ -110,9 +107,7 @@ public class ConverterUtil {
 
 
     static List<LngLatAlt> convert(Coordinate[] coordinates) {
-        return Arrays.asList(coordinates).stream().map(c ->{
-            return  new LngLatAlt(c.x, c.y ,c.z);
-        } ).collect(Collectors.toList());
+        return Arrays.asList(coordinates).stream().map(c -> new LngLatAlt(c.x, c.y ,c.z)).collect(Collectors.toList());
     }
 
 

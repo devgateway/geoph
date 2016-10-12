@@ -1,6 +1,5 @@
 package org.devgateway.geoph.services.geojson;
 
-import org.geojson.Feature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

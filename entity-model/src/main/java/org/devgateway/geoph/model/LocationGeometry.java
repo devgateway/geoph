@@ -1,6 +1,5 @@
 package org.devgateway.geoph.model;
 
-import com.vividsolutions.jts.geom.Geometry;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.Entity;

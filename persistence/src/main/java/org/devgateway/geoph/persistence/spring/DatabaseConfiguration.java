@@ -72,10 +72,7 @@ public class DatabaseConfiguration {
         builder.bind("toolkitDS", dataSource());
         try {
             builder.activate();
-        } catch (IllegalStateException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (NamingException e) {
+        } catch (IllegalStateException | NamingException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }

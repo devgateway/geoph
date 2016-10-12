@@ -106,7 +106,7 @@ public class ImportServiceImpl implements ImportService {
                 IndicatorDetail detail = new IndicatorDetail();
                 detail.setLocationId(location.getId());
                 detail.setValue(values[INDICATOR_VALUE_POS]);
-                detail.setIndicatorId(indicator.getId().longValue());
+                detail.setIndicatorId(indicator.getId());
                 indicatorDetailRepository.save(detail);
             } else {
                 indicator.addError("Error at row #" + rowNumber + " - Missing/Wrong UACS code");
@@ -134,7 +134,7 @@ public class ImportServiceImpl implements ImportService {
                 }
                 String strValue = null;
                 if (value != null && value.getCellType() == Cell.CELL_TYPE_NUMERIC) {
-                    strValue = String.format(format, Double.valueOf(value.getNumericCellValue()));
+                    strValue = String.format(format, value.getNumericCellValue());
                     if(strValue!=null){
                         if(strValue.endsWith(numberSuffix)) {
                             strValue = strValue.substring(0, strValue.length() - numberSuffix.length());
@@ -143,7 +143,7 @@ public class ImportServiceImpl implements ImportService {
                     }
                 } else if (value != null && value.getCellType() == Cell.CELL_TYPE_FORMULA) {
                     try {
-                        strValue = String.format(format, Double.valueOf(value.getNumericCellValue()));
+                        strValue = String.format(format, value.getNumericCellValue());
                         if(strValue!=null){
                             if(strValue.endsWith(numberSuffix)) {
                                 strValue = strValue.substring(0, strValue.length() - numberSuffix.length());
@@ -179,7 +179,7 @@ public class ImportServiceImpl implements ImportService {
                 if (location != null) {
                     detail.setLocationId(location.getId());
                     detail.setValue(strValue);
-                    detail.setIndicatorId(indicator.getId().longValue());
+                    detail.setIndicatorId(indicator.getId());
                     indicatorDetailRepository.save(detail);
                 } else {
                     indicator.addError("Error at row #" + rowNumber + " - Missing/Wrong Location Id");

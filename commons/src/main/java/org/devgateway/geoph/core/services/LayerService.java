@@ -2,7 +2,6 @@ package org.devgateway.geoph.core.services;
 
 import org.devgateway.geoph.core.response.IndicatorResponse;
 import org.devgateway.geoph.model.Indicator;
-import org.geojson.FeatureCollection;
 
 import java.util.List;
 

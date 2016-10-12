@@ -13,7 +13,7 @@ public class GeoPhotoSummaryDao {
 
     private String projectTitle;
 
-    private Set<String> urls = new HashSet<>();;
+    private Set<String> urls = new HashSet<>();
 
     private Long projectId;
 

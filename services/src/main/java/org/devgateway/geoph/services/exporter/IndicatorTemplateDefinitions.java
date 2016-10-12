@@ -48,9 +48,9 @@ public class IndicatorTemplateDefinitions implements DefinitionsProvider {
         Stylist numberStyleStylist = stylists.getNumberStylist(wbName);
         Stylist regularStylist = stylists.getRegularStylist(wbName);
 
-        columnsDef.add(new ColumnDefinitionImp<Long>("Location ID", numberStyleStylist, Formatters.longFormatter(), Extractors.longExtractor("location.getId")));
-        columnsDef.add(new ColumnDefinitionImp<String>("Location Name", regularStylist, Formatters.stringFormatter(), Extractors.stringExtractor("location.getName")));
-        columnsDef.add(new ColumnDefinitionImp<String>("UACS Code", regularStylist, Formatters.stringFormatter(), Extractors.stringExtractor("location.getCode")));
+        columnsDef.add(new ColumnDefinitionImp<>("Location ID", numberStyleStylist, Formatters.longFormatter(), Extractors.longExtractor("location.getId")));
+        columnsDef.add(new ColumnDefinitionImp<>("Location Name", regularStylist, Formatters.stringFormatter(), Extractors.stringExtractor("location.getName")));
+        columnsDef.add(new ColumnDefinitionImp<>("UACS Code", regularStylist, Formatters.stringFormatter(), Extractors.stringExtractor("location.getCode")));
         columnsDef.add(new ColumnDefinitionImp<String>("Indicator Value", regularStylist, Formatters.stringFormatter(), null));
 
         return columnsDef;

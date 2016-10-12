@@ -55,11 +55,8 @@ public class ProjectSectorId implements Serializable {
         if (project != null ? !project.equals(that.project) : that.project != null) {
             return false;
         }
-        if (sector != null ? !sector.equals(that.sector) : that.sector != null){
-            return false;
-        }
+        return !(sector != null ? !sector.equals(that.sector) : that.sector != null);
 
-        return true;
     }
 
     public int hashCode() {

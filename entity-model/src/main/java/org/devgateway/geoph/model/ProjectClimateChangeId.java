@@ -10,6 +10,7 @@ import java.io.Serializable;
  * @author dbianco
  *         created on ago 22 2016.
  */
+@SuppressWarnings("RedundantIfStatement")
 @Embeddable
 public class ProjectClimateChangeId implements Serializable {
 

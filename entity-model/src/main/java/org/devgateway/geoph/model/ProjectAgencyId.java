@@ -56,11 +56,8 @@ public class ProjectAgencyId implements Serializable {
         if (project != null ? !project.equals(that.project) : that.project != null) {
             return false;
         }
-        if (agency != null ? !agency.equals(that.agency) : that.agency != null) {
-            return false;
-        }
+        return !(agency != null ? !agency.equals(that.agency) : that.agency != null);
 
-        return true;
     }
 
     public int hashCode() {

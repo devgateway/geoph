@@ -189,10 +189,7 @@ public class Location extends GenericPersistable implements Serializable {
         if (!(obj instanceof Location)){
             return false;
         }
-        if (obj == this){
-            return true;
-        }
-        return this.getId().equals(((Location) obj).getId());
+        return obj == this || this.getId().equals(((Location) obj).getId());
     }
 
 

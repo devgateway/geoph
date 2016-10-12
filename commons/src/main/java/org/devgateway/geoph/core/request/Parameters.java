@@ -1,6 +1,5 @@
 package org.devgateway.geoph.core.request;
 
-import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.devgateway.geoph.enums.FlowTypeEnum;
@@ -197,7 +196,7 @@ public class Parameters {
         return physicalProgressMin;
     }
 
-    public void setPhysicalProgressMin(Double reachedOwpaMin) {
+    public void setPhysicalProgressMin(Double physicalProgressMin) {
         this.physicalProgressMin = physicalProgressMin;
     }
 
@@ -444,9 +443,7 @@ public class Parameters {
 
     public void setFlowTypes(List<String> flowTypes) {
         if(flowTypes!=null) {
-            for (String filter : flowTypes) {
-                fillTypes(filter);
-            }
+            flowTypes.forEach(this::fillTypes);
         }
     }
 
@@ -555,12 +552,7 @@ public class Parameters {
     private static List<Integer> convertAdmStringToIntegerList(final String values) {
         List<Integer> ret = null;
         if (StringUtils.isNotBlank(values)) {
-            ret = Lists.transform(Arrays.asList(values.split(PARAM_SEPARATOR)), new Function<String, Integer>() {
-                @Override
-                public Integer apply(String level) {
-                    return LocationAdmLevelEnum.valueOf(level.toUpperCase()).getLevel();
-                }
-            });
+            ret = Lists.transform(Arrays.asList(values.split(PARAM_SEPARATOR)), level -> LocationAdmLevelEnum.valueOf(level.toUpperCase()).getLevel());
         }
         return ret;
     }
@@ -568,12 +560,7 @@ public class Parameters {
     private static List<Long> convertStringToLongList(final String values) {
         List<Long> ret = null;
         if (StringUtils.isNotBlank(values)) {
-            ret = Lists.transform(Arrays.asList(values.split(PARAM_SEPARATOR)), new Function<String, Long>() {
-                @Override
-                public Long apply(String o) {
-                    return Long.parseLong(o);
-                }
-            });
+            ret = Lists.transform(Arrays.asList(values.split(PARAM_SEPARATOR)), Long::parseLong);
         }
         return ret;
     }

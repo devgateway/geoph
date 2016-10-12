@@ -55,9 +55,7 @@ public class ExportServiceImpl implements ExportService {
         if(methodsToInvoke!=null) {
             ret.putAll(Arrays.stream(aClass.getDeclaredMethods())
                     .filter(method -> methodsToInvoke.contains(method.getName()))
-                    .collect(Collectors.toMap(method -> {
-                        return className + '.' + method.getName();
-                    }, m -> {
+                    .collect(Collectors.toMap(method -> className + '.' + method.getName(), m -> {
                         try {
                             Object result = m.invoke(instance);
                             return result != null ? result : "";
