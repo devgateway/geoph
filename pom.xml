@@ -218,6 +218,7 @@
                     <include>**/*.sql</include>
                     <include>**/*.xml</include>
                     <include>**/*.html</include>
+                    <include>**/*.png</include>
                     <include>**/*.pdf</include>
                 </includes>
 
