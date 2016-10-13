@@ -62,9 +62,18 @@ export const setSetting=(id, name, value)=>{
 
 export const toggleVisibility=(id,visibility)=>{
 	return (dispatch, getState) => {
-
 		dispatch({type: TOGGLE_LAYER,visible:visibility,id});
 		if (!visibility){
+			loadLayerById(dispatch, getState, id);
+		}
+	}
+}
+
+export const setVisibilityOnByIdAndName=(id, name)=>{
+	return (dispatch, getState) => {
+		const layer=getState().map.getIn(getPath(id));
+		if(layer.get('name')===name) {
+			dispatch({type: TOGGLE_LAYER,visible:false,id});
 			loadLayerById(dispatch, getState, id);
 		}
 	}

@@ -136,24 +136,25 @@ public class GeoJsonServiceImpl implements GeoJsonService {
     @Override
     public FeatureCollection getIndicatorShapes(Long indicatorId, GeometryDetail detail) {
         Indicator indicator = indicatorRepository.findOne(indicatorId);
-        List<IndicatorDetail> details = indicatorDetailRepository.findByIndicatorId(indicatorId);
-
-        Map<Long, IndicatorDetail> detailsMap = details.stream().collect(Collectors.toMap(IndicatorDetail::getLocationId, IndicatorDetail -> IndicatorDetail));
-        LocationAdmLevelEnum level = LocationAdmLevelEnum.getEnumByName(indicator.getAdmLevel());
         GeoJsonBuilder builder = new GeoJsonBuilder();
+        if(indicator!=null) {
+            List<IndicatorDetail> details = indicatorDetailRepository.findByIndicatorId(indicatorId);
 
-        List<GeometryDao> geometriesList = locationRepository.getShapesByLevelAndDetail(level.getLevel(), detail.getValue());
+            Map<Long, IndicatorDetail> detailsMap = details.stream().collect(Collectors.toMap(IndicatorDetail::getLocationId, IndicatorDetail -> IndicatorDetail));
+            LocationAdmLevelEnum level = LocationAdmLevelEnum.getEnumByName(indicator.getAdmLevel());
 
-        builder.setFeatures(
-                geometriesList.stream().map(geometryDao -> {
-                    IndicatorDetail indicatorDetail = detailsMap.get(geometryDao.getLocationId());//get indicator detail for this location
-                    String value = indicatorDetail!=null?indicatorDetail.getValue():null;
-                    IndicatorGeometryDao dao = new IndicatorGeometryDao(geometryDao.getLocationId(),
-                            geometryDao.getName(), geometryDao.getGeometry(), indicator.getId(), indicator.getName(), indicator.getDescription(),
-                            indicator.getColorScheme(), value, level.getLevel(),indicator.getUnit());
-                    return ConverterFactory.indicatorGeometryConverter().convert(dao);
-                }).collect(Collectors.toList()));
+            List<GeometryDao> geometriesList = locationRepository.getShapesByLevelAndDetail(level.getLevel(), detail.getValue());
 
+            builder.setFeatures(
+                    geometriesList.stream().map(geometryDao -> {
+                        IndicatorDetail indicatorDetail = detailsMap.get(geometryDao.getLocationId());//get indicator detail for this location
+                        String value = indicatorDetail != null ? indicatorDetail.getValue() : null;
+                        IndicatorGeometryDao dao = new IndicatorGeometryDao(geometryDao.getLocationId(),
+                                geometryDao.getName(), geometryDao.getGeometry(), indicator.getId(), indicator.getName(), indicator.getDescription(),
+                                indicator.getColorScheme(), value, level.getLevel(), indicator.getUnit());
+                        return ConverterFactory.indicatorGeometryConverter().convert(dao);
+                    }).collect(Collectors.toList()));
+        }
         return builder.getFeatures();
     }
 

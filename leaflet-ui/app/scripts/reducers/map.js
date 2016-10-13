@@ -53,6 +53,7 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
             'showLabels':true
           }, //settings
           keyName: 'projects', //i18n key
+          name: 'projects',
           cssPrefix: 'points', //markers css prefix 
           zIndex: 100,
           size: size, //size of markers
