@@ -112,7 +112,6 @@ class Connector {
 	loadLayerByOptions(options,params={}) {
 
 		return new Promise( (resolve, reject) => {
-			
 			let url=Settings.get('API',options.ep);
 			const {level,detail} = options.settings;
 			const {id, filters, indicator_id, geophotos_id}=options;

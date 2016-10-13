@@ -1,11 +1,11 @@
 import * as Constants from '../constants/constants';
 import Connector from '../connector/connector';
 import {applyFilter, loadAllFilterLists} from './filters';
-import {toggleVisibility} from './map';
+import {setVisibilityOnByIdAndName} from './map';
 import {getList} from './indicators';
 import {collectValuesToSave}  from '../util/saveUtil';
 import * as HtmlUtil from '../util/htmlUtil';
-import {getVisibles, getPath, plainList} from '../util/layersUtil';
+import {getVisiblesFromObjects, getPath, plainList} from '../util/layersUtil';
 
 export const changeProperty=(property,value)=>{
   return {type:Constants.CHANGE_SAVE_PROPERTY,property,value}
@@ -124,14 +124,19 @@ export const requestRestoreMap = (mapKey) => {
 export const finishRestoreMap = (mapKey) => {//resume map restore after all filters are loaded
   return (dispatch, getState) =>{
     loadMap(getState().saveMap.get('mapKey')).then((storedMap)=>{
-        if(storedMap) {            
+        if(storedMap) {
           dispatch(makeAction(Constants.STATE_RESTORE,{storedMap}));
           dispatch(applyFilter(storedMap.data.filters));
-          let visibleLayers = getVisibles(storedMap.data.map.get('layers'));
-          visibleLayers.forEach(l=>{
-            dispatch(toggleVisibility(l, false));
-          });
-
+          let visibleLayers = getVisiblesFromObjects(storedMap.data.map.layers);
+          Connector.getIndicatorList().then((data)=>{
+            dispatch(makeAction(Constants.INDICATOR_LIST_LOADED,{data}));
+            visibleLayers.forEach(l=>{
+              dispatch(setVisibilityOnByIdAndName(l.id, l.name));
+            }); 
+          }).catch((error)=>{
+            dispatch(makeAction(Constants.INDICATOR_FAILED,{error}));
+          });  
+          
         } else {
           dispatch(makeAction(Constants.STATE_RESTORE_ERROR,'No map!'));
         }

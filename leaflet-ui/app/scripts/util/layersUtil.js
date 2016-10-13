@@ -42,6 +42,23 @@ export const getVisibles=(layers)=>{
 	return list.filter(function(l){return l.get('visible')})
 }
 
+export const plainListFromObjects=(layers, accumulator)=>{
+	accumulator=accumulator || [];
+	layers.forEach(l=>{
+		if (l.layers){
+			return plainListFromObjects(l.layers, accumulator);	
+		}else{
+			accumulator.push(l);
+		}
+	})
+	return new Immutable.List(accumulator);
+}
+
+export const getVisiblesFromObjects=(layers)=>{
+	const list=plainListFromObjects(layers);
+	return list.filter(function(l){return l.visible})
+}
+
 
 
 export const getValues=(features, valueProperty, fundingType)=>{
