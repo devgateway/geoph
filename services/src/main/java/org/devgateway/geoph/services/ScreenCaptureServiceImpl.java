@@ -301,13 +301,13 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             //Stats
             addPdfText(pdf, PDType1Font.HELVETICA, 10, BLUE, "Total National");
             checkEndOfPage(pdf, Y_NORMAL_SPACE);
-            addPdfText(pdf, PDType1Font.HELVETICA, 9, BLACK, "Total Projects: " + stats.get("national").get(0).getProjectCount());
+            addPdfText(pdf.xPos + Y_SMALL_SPACE, pdf.yPos, pdf, PDType1Font.HELVETICA, 9, BLACK, "Total Projects: " + stats.get("national").get(0).getProjectCount());
             addPdfText(pdf.xPos + 160, pdf.yPos, pdf, PDType1Font.HELVETICA, 9, BLACK,  "Total Amount: " + currency + BLANK_STRING + getFormatedValue(stats.get("national").get(0).getTrxAmount()));
             checkEndOfPage(pdf, Y_LARGE_SPACE);
 
             addPdfText(pdf, PDType1Font.HELVETICA, 10, BLUE, "Total Sub-National");
             checkEndOfPage(pdf, Y_NORMAL_SPACE);
-            addPdfText(pdf, PDType1Font.HELVETICA, 9, BLACK, "Total Projects: " + stats.get("regional").get(0).getProjectCount());
+            addPdfText(pdf.xPos + Y_SMALL_SPACE, pdf.yPos, pdf, PDType1Font.HELVETICA, 9, BLACK, "Total Projects: " + stats.get("regional").get(0).getProjectCount());
             addPdfText(pdf.xPos + 160, pdf.yPos, pdf, PDType1Font.HELVETICA, 9, BLACK,  "Total Amount: " + currency + BLANK_STRING + getFormatedValue(stats.get("regional").get(0).getTrxAmount()));
             checkEndOfPage(pdf, Y_LARGE_SPACE);
 
@@ -361,15 +361,20 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
         float nextY = pdf.yPos;
         float nextX = pdf.xPos;
         for (Map legendMap : legendList) {
-            pc.addRect(nextX, nextY, 10, 10);
 
             LinkedHashMap<String, String> colorMap = (LinkedHashMap) legendMap.get("color");
             Color color = Color.white;
             if (colorMap != null) {
                 color = new Color(Integer.parseInt(colorMap.get("r")), Integer.parseInt(colorMap.get("g")), Integer.parseInt(colorMap.get("b")));
+                pc.addRect(nextX, nextY, 10, 10);
+                pc.setNonStrokingColor(color);
+                pc.fill();
+            } else if (((String) legendMap.get("label")).equals("single photo")){
+                BufferedImage image = ImageIO.read(new File(this.getClass().getResource("/templates/singlePhoto.png").getFile()));
+                PDImageXObject imageObj = LosslessFactory.createFromImage(pdf.document, image);
+                pc.drawImage(imageObj, nextX, nextY, 10, 10);
             }
-            pc.setNonStrokingColor(color);
-            pc.fill();
+
             nextX += 12;
             pc.beginText();
             pc.newLineAtOffset(nextX, nextY);
