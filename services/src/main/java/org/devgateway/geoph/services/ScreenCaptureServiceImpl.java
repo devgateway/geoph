@@ -90,6 +90,9 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
     @Value("${screen.capture.templates.pdf}")
     private String pdfTemplate;
 
+    @Value("${screen.capture.templates.singlePhoto}")
+    private String singlePhotoTemplate;
+
     @Value("${screen.capture.waiting.time}")
     private Long timeToWait;
 
@@ -370,7 +373,9 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
                 pc.setNonStrokingColor(color);
                 pc.fill();
             } else if (((String) legendMap.get("label")).equals("single photo")){
-                BufferedImage image = ImageIO.read(new File(this.getClass().getResource("/templates/singlePhoto.png").getFile()));
+                LOGGER.debug("Reading single photo");
+                BufferedImage image = ImageIO.read(new URL(singlePhotoTemplate).openConnection().getInputStream());
+                LOGGER.debug("Finish reading single photo");
                 PDImageXObject imageObj = LosslessFactory.createFromImage(pdf.document, image);
                 pc.drawImage(imageObj, nextX, nextY, 10, 10);
             }
