@@ -79,7 +79,7 @@ public class MapController {
             Integer scaleWidth = (Integer) mapVariables.get("scaleWidth");
             Integer scaleHeight = (Integer) mapVariables.get("scaleHeight");
             if (mapVariables.get("id")!=null && !mapVariables.get("id").equals("")){
-                id = (long) mapVariables.get("id");
+                id = new Long((Integer) mapVariables.get("id"));
             }
 
             if (html != null) {
