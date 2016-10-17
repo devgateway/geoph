@@ -10,6 +10,7 @@ import org.devgateway.geoph.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -22,9 +23,14 @@ import java.util.Set;
  */
 @Service("loanImporter")
 public class LoanImporter extends GeophProjectsImporter {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(LoanImporter.class);
+    private static final Logger LOG_REPORT = LoggerFactory.getLogger("report");
     private static final String UNDEFINED = "undefined";
     private static final double UTILIZATION = 1D;
+
+    @Value("${import.without.implementingAgencies}")
+    private boolean importWithoutIas;
 
     @Autowired
     private LoanColumns loanColumns;
@@ -33,8 +39,14 @@ public class LoanImporter extends GeophProjectsImporter {
     protected void addProject(Row row, final int rowNumber) {
         Project p = new Project();
         try {
-            p.setPhId(getCorrectPhId(getStringValueFromCell(row.getCell(loanColumns.getProjectId()), "project id", rowNumber, GeophProjectsImporter.onProblem.NOTHING, false)));
-
+            String phId = getCorrectPhId(getStringValueFromCell(row.getCell(loanColumns.getProjectId()), "project id", rowNumber, onProblem.NOTHING, false));
+            if(StringUtils.isBlank(phId)) {
+                LOG_REPORT.info("A project won't be imported at line " + rowNumber);
+                importStats.addError(" * Project Id not found at row " + rowNumber);
+                importStats.addFailedProject(" * Id is empty");
+                return;
+            }
+            p.setPhId(phId);
             String title = getStringValueFromCell(row.getCell(loanColumns.getProjectTitle()), "project title", rowNumber, GeophProjectsImporter.onProblem.NOTHING, false);
             p.setTitle(getMaxString(title));
 
@@ -62,8 +74,18 @@ public class LoanImporter extends GeophProjectsImporter {
             if(iaSet.size()>0){
                 p.setImplementingAgencies(iaSet);
             } else {
-                ProjectAgency pa = new ProjectAgency(p, importBaseData.getImplementingAgencies().get(UNDEFINED), UTILIZATION);
-                p.setImplementingAgencies(new HashSet<>(Arrays.asList(pa)));
+                String iaLogMessage = "At row " + rowNumber + " (Project Id " + p.getPhId() + ") there were no Implementing Agencies that could be matched with our records. ";
+                if(importWithoutIas){
+                    ProjectAgency pa = new ProjectAgency(p, importBaseData.getImplementingAgencies().get(UNDEFINED), UTILIZATION);
+                    p.setImplementingAgencies(new HashSet(Arrays.asList(pa)));
+                    LOG_REPORT.info(iaLogMessage + "Project will be imported and IA will be Undefined");
+                    importStats.addWarning(" * IA added as undefined at row " + rowNumber);
+                } else {
+                    LOG_REPORT.info(iaLogMessage + "The project won't be imported");
+                    importStats.addError(" * IAs not found at row " + rowNumber);
+                    importStats.addFailedProject(" * " + p.getPhId());
+                    return;
+                }
             }
 
             String ea = getStringValueFromCell(row.getCell(loanColumns.getExecutingAgency()), "executing agency", rowNumber, GeophProjectsImporter.onProblem.NOTHING, true);

@@ -27,6 +27,8 @@ public abstract class GeophProjectsImporter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GeophProjectsImporter.class);
 
+    private static final Logger LOG_REPORT = LoggerFactory.getLogger("report");
+
     private static final String EMPTY_STRING = "";
 
     private static final int MAX_LENGTH = 255;
@@ -69,6 +71,7 @@ public abstract class GeophProjectsImporter {
 
     public void importProjects() throws IOException, InvalidFormatException {
         LOGGER.debug("importProjects started");
+        LOG_REPORT.info("Importer application started");
         Sheet sheet = getSheetToImport();
         if (sheet.getLastRowNum() > startRowData) {
             Iterator<Row> rowIterator = sheet.iterator();
@@ -81,7 +84,7 @@ public abstract class GeophProjectsImporter {
                 addProject(rowIterator.next(), rowNumber);
             }
         }
-        LOGGER.info(importStats.toString());
+        importStats.toStringList().stream().forEach(str->LOG_REPORT.info(str));
     }
 
     protected abstract void addProject(Row next, int rowNumber);

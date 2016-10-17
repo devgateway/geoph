@@ -92,4 +92,20 @@ public class ImportStats {
                 "*************************************************\n";
     }
 
+    public List<String> toStringList(){
+        List<String> ret = new ArrayList<>();
+        ret.add("*************************************************");
+        ret.add("Successful Projects Count: " + successfulProjectsCount);
+        ret.add("Failed Projects Count:     " + failedProjects.size());
+        failedProjects.stream().forEach(s -> ret.add(s));
+        ret.add("Transactions Count:        " + transactionsCount);
+        ret.add("Errors:                    " + errorsCount);
+        errors.stream().forEach(s -> ret.add(s));
+        ret.add("Warnings:                  " + warningsCount);
+        warnings.stream().forEach(s -> ret.add(s));
+        ret.add("Time (in seconds):         " + ((System.currentTimeMillis() - start) / 1000));
+        ret.add("*************************************************");
+        return ret;
+    }
+
 }
