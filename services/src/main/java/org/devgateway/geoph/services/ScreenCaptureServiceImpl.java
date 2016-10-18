@@ -366,13 +366,13 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
         for (Map legendMap : legendList) {
 
             LinkedHashMap<String, String> colorMap = (LinkedHashMap) legendMap.get("color");
-            Color color = Color.white;
+            Color color;
             if (colorMap != null) {
                 color = new Color(Integer.parseInt(colorMap.get("r")), Integer.parseInt(colorMap.get("g")), Integer.parseInt(colorMap.get("b")));
                 pc.addRect(nextX, nextY, 10, 10);
                 pc.setNonStrokingColor(color);
                 pc.fill();
-            } else if (((String) legendMap.get("label")).equals("single photo")){
+            } else if (legendMap.get("label").equals("single photo")){
                 LOGGER.debug("Reading single photo");
                 BufferedImage image = ImageIO.read(new URL(singlePhotoTemplate).openConnection().getInputStream());
                 LOGGER.debug("Finish reading single photo");

@@ -97,12 +97,12 @@ public class ImportStats {
         ret.add("*************************************************");
         ret.add("Successful Projects Count: " + successfulProjectsCount);
         ret.add("Failed Projects Count:     " + failedProjects.size());
-        failedProjects.stream().forEach(s -> ret.add(s));
+        failedProjects.stream().forEach(ret::add);
         ret.add("Transactions Count:        " + transactionsCount);
         ret.add("Errors:                    " + errorsCount);
-        errors.stream().forEach(s -> ret.add(s));
+        errors.stream().forEach(ret::add);
         ret.add("Warnings:                  " + warningsCount);
-        warnings.stream().forEach(s -> ret.add(s));
+        warnings.stream().forEach(ret::add);
         ret.add("Time (in seconds):         " + ((System.currentTimeMillis() - start) / 1000));
         ret.add("*************************************************");
         return ret;

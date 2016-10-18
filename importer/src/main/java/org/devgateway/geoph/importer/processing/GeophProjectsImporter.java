@@ -84,7 +84,7 @@ public abstract class GeophProjectsImporter {
                 addProject(rowIterator.next(), rowNumber);
             }
         }
-        importStats.toStringList().stream().forEach(str->LOG_REPORT.info(str));
+        importStats.toStringList().stream().forEach(LOG_REPORT::info);
     }
 
     protected abstract void addProject(Row next, int rowNumber);
