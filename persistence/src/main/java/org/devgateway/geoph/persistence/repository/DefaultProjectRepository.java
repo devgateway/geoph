@@ -268,7 +268,7 @@ public class DefaultProjectRepository implements ProjectRepository {
                     .setParameter(PROPERTY_PRJ_PH_ID, project.getPhId())
                     .getSingleResult();
         } catch (Exception e) {
-            LOGGER.debug("Project not found!");
+            LOGGER.debug("Project not found, will be added as new with phId " + project.getPhId());
         }
         if(p!=null){
             p.updateFields(project);

@@ -48,7 +48,7 @@ public class AppMap extends GenericPersistable implements Serializable {
         this.base64preview = base64preview;
     }
 
-    public AppMap(String name, String description, String jsonAppMap, String key, String md5, String type,String base64preview) {
+    public AppMap(String name, String description, String jsonAppMap, String key, String md5, String type, String base64preview) {
         this.name = name;
         this.description = description;
         this.jsonAppMap = jsonAppMap;
