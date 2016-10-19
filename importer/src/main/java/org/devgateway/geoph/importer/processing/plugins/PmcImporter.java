@@ -78,6 +78,17 @@ public class PmcImporter extends GeophProjectsImporter {
                         pa = new ProjectAgency(p, importBaseData.getImplementingAgencies().get(ia.toLowerCase().trim()), 0D);
                     }
                     iaSet.add(pa);
+                } else {
+                    if(isFirstPA && !importWithoutIas){
+                        String iaLogMessage = "At row " + currentRow + " (Project Id " + p.getPhId() + ") the first Implementing Agency could not be matched with our records. ";
+                        LOG_REPORT.info(iaLogMessage + "The project won't be imported");
+                        importStats.addError(" * IAs not found at row " + currentRow);
+                        importStats.addFailedProject(" * " + p.getPhId());
+                        return;
+                    } else {
+                        importStats.addWarning(" * IA undefined at row " + currentRow);
+                        iaSet.add(new ProjectAgency(p, importBaseData.getImplementingAgencies().get(UNDEFINED), 0D));
+                    }
                 }
             }
             if(iaSet.size()>0){

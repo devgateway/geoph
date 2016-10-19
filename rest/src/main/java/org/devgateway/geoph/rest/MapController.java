@@ -58,6 +58,10 @@ public class MapController {
     @RequestMapping(method = GET)
     public Page<AppMapDao> findMaps(@PageableDefault(page = 0, size = 20, sort = "id") final Pageable pageable, @RequestParam(required = false)  String type) {
         LOGGER.debug("findMaps");
+        String mapType = AppMapTypeEnum.DASHBOARD.getName();
+        if(StringUtils.isBlank(type)){
+            mapType = type.toLowerCase();
+        }
         return appMapService.findByType(type, pageable);
     }
 
@@ -82,6 +86,11 @@ public class MapController {
                 id = new Long((Integer) mapVariables.get("id"));
             }
 
+            boolean isDashboard = false;
+            if(mapVariables.get("dashboard")!=null){
+                isDashboard = (Boolean) mapVariables.get("dashboard");
+            }
+
             if (html != null) {
                 //get preview image
                 BufferedImage image = screenCaptureService.captureImage(width, height, screenCaptureService.buildPage(width, height, html).toURI());
@@ -96,7 +105,11 @@ public class MapController {
             }
             String mapDesc = (String) mapVariables.get(DESCRIPTION_STR);
             String mapJson = new ObjectMapper().writeValueAsString(mapVariables.get(DATA_TO_SAVE_STR));
-            AppMap appMap = new AppMap(mapName, mapDesc, mapJson, UUID.randomUUID().toString(), MD5Generator.getMD5(mapJson), AppMapTypeEnum.SAVE.getName(),base64);
+            String mapType = AppMapTypeEnum.SAVE.getName();
+            if(isDashboard){
+                mapType = AppMapTypeEnum.DASHBOARD.getName();
+            }
+            AppMap appMap = new AppMap(mapName, mapDesc, mapJson, UUID.randomUUID().toString(), MD5Generator.getMD5(mapJson), mapType, base64);
             if(id==null){
                 return appMapService.save(appMap);
             } else {
