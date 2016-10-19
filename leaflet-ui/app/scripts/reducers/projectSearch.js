@@ -1,7 +1,7 @@
 import * as Constants from '../constants/constants';
 import {cloneDeep} from '../util/filterUtil';
 
-const projectSearch = (state = {'selected': [], 'applied': [], 'results': {}}, action) => {
+const projectSearch = (state = {'selected': [], 'applied': [], 'results': {}, 'keyword': ''}, action) => {
   let projectSearchResults;
   let stateCloned;
   switch (action.type) {
@@ -49,12 +49,15 @@ const projectSearch = (state = {'selected': [], 'applied': [], 'results': {}}, a
 
     case Constants.CLEAR_ALL_RESULTS:
       stateCloned = cloneDeep(state);
+      Object.assign(stateCloned, {'keyword':''});
       Object.assign(stateCloned, {'results': {}});
       return stateCloned;
 
     case Constants.REQUEST_PROJECT_BY_TEXT:
       projectSearchResults = {isFetching: true};
       return Object.assign({}, state, {'results': projectSearchResults});
+    case Constants.SET_KEYWORD:
+      return Object.assign({}, state, {'keyword': action.keyword});
     case Constants.RECEIVE_PROJECT_BY_TEXT:
       console.log('projectSearch reducer')
       projectSearchResults = {lastUpdate: action.receivedAt, isFetching: false};
