@@ -77,6 +77,8 @@ public class GrantImporter extends GeophProjectsImporter {
                         pa = new ProjectAgency(p, importBaseData.getImplementingAgencies().get(ia.toLowerCase().trim()), 0D);
                     }
                     iaSet.add(pa);
+                } else {
+                    importStats.addWarning(" * IA undefined at row " + currentRow);
                 }
             }
             if(iaSet.size()>0){
