@@ -40,12 +40,13 @@ public class GrantImporter extends GeophProjectsImporter {
 
     @Override
     protected void addProject(Row row, final int rowNumber) {
+        int currentRow = rowNumber - 1;
         Project p = new Project();
         try {
             String phId = getCorrectPhId(getStringValueFromCell(row.getCell(grantColumns.getProjectId()), "project id", rowNumber, onProblem.NOTHING, false));
             if(StringUtils.isBlank(phId)) {
-                LOG_REPORT.info("A project won't be imported at line " + rowNumber);
-                importStats.addError(" * Project Id not found at row " + rowNumber);
+                LOG_REPORT.info("A project won't be imported at line " + currentRow);
+                importStats.addError(" * Project Id not found at row " + currentRow);
                 importStats.addFailedProject(" * Id is empty");
                 return;
             }
@@ -81,15 +82,15 @@ public class GrantImporter extends GeophProjectsImporter {
             if(iaSet.size()>0){
                 p.setImplementingAgencies(iaSet);
             } else {
-                String iaLogMessage = "At row " + rowNumber + " (Project Id " + p.getPhId() + ") there were no Implementing Agencies that could be matched with our records. ";
+                String iaLogMessage = "At row " + currentRow + " (Project Id " + p.getPhId() + ") there were no Implementing Agencies that could be matched with our records. ";
                 if(importWithoutIas){
                     ProjectAgency pa = new ProjectAgency(p, importBaseData.getImplementingAgencies().get(UNDEFINED), UTILIZATION);
                     p.setImplementingAgencies(new HashSet(Arrays.asList(pa)));
                     LOG_REPORT.info(iaLogMessage + "Project will be imported and IA will be Undefined");
-                    importStats.addWarning(" * IA added as undefined at row " + rowNumber);
+                    importStats.addWarning(" * IA added as undefined at row " + currentRow);
                 } else {
                     LOG_REPORT.info(iaLogMessage + "The project won't be imported");
-                    importStats.addError(" * IAs not found at row " + rowNumber);
+                    importStats.addError(" * IAs not found at row " + currentRow);
                     importStats.addFailedProject(" * " + p.getPhId());
                     return;
                 }
