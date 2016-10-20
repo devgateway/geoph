@@ -39,6 +39,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 public class MapController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MapController.class);
+    private static final String ALL_STR = "all";
     private static final String NAME_STR = "name";
     private static final String DESCRIPTION_STR = "description";
     private static final String DATA_TO_SAVE_STR = "data";
@@ -58,11 +59,15 @@ public class MapController {
     @RequestMapping(method = GET)
     public Page<AppMapDao> findMaps(@PageableDefault(page = 0, size = 20, sort = "id") final Pageable pageable, @RequestParam(required = false)  String type) {
         LOGGER.debug("findMaps");
-        String mapType = AppMapTypeEnum.DASHBOARD.getName();
+        String mapType = ALL_STR;
         if(StringUtils.isBlank(type)){
             mapType = type.toLowerCase();
         }
-        return appMapService.findByType(type, pageable);
+        if(mapType.equalsIgnoreCase(ALL_STR)) {
+            return appMapService.findAll(pageable);
+        } else {
+            return appMapService.findByType(type, pageable);
+        }
     }
 
 
