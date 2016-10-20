@@ -47,6 +47,7 @@ public class AppMapServiceImpl implements AppMapService {
         AppMap storedMap = repository.getOne(id);
         storedMap.setName(appMap.getName());
         storedMap.setDescription(appMap.getDescription());
+        storedMap.setType(appMap.getType());
         storedMap.setJsonAppMap(appMap.getJsonAppMap());
         storedMap.setBase64preview(appMap.getBase64preview());
         return repository.save(storedMap);
@@ -71,8 +72,11 @@ public class AppMapServiceImpl implements AppMapService {
     }
 
     @Override
-    public Page<AppMap> findAll(Pageable pageable) {
-        return repository.findAll(pageable);
+    public Page<AppMapDao> findAll(Pageable pageable) {
+        Page<AppMap> maps = repository.findAll(pageable);
+        List<AppMapDao> daoList = new ArrayList<>();
+        maps.forEach(map->daoList.add(new AppMapDao(map)));
+        return new PageImpl<>(daoList, pageable, maps.getTotalElements());
     }
 
     @Override

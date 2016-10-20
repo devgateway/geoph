@@ -10,7 +10,7 @@ var pageSize = 5;
 
 class Item extends React.Component {
   render(){
-    const {description, name, mapKey, base64preview, creationDate} = this.props;
+    const {description, name, mapKey, type, base64preview, creationDate, loggedIn} = this.props;
     return (
       <div className="item">
         <Link to={`/map/${mapKey}`}>
@@ -27,6 +27,11 @@ class Item extends React.Component {
         <div className="created" >
           {Moment(creationDate).format("YYYY-MM-DD") || "No creation date"}
         </div>
+        {loggedIn?
+          <div className="visible" >
+            {type=="dashboard"? "YES":"NO"}
+          </div>
+        :null}
         <div className="actions" >
           {this.props.children}
         </div>
@@ -59,6 +64,7 @@ class Dashboard extends React.Component {
 
   getListData(activePage){
     let params ={
+      'type': this.props.loggedIn? 'all' : 'dashboard',
       'page': activePage,
       'size': pageSize
     };    
@@ -83,13 +89,20 @@ class Dashboard extends React.Component {
           <div className="created" >
             Created
           </div>
-          <div className="actions" >
-            Actions
-          </div>
+          {loggedIn?
+            <div className="visible" >
+              Visible to all
+            </div>
+          :null}
+          {loggedIn?
+            <div className="actions" >
+              Actions
+            </div>
+          :null}
         </div>
         {content.map(d=>{
           return ( 
-            <Item {...d} mapKey={d.key}>
+            <Item {...d} loggedIn={loggedIn} mapKey={d.key}>
               {loggedIn?<AdminActions {...this.props} mapKey={d.key}/>:null}
             </Item>
           )
