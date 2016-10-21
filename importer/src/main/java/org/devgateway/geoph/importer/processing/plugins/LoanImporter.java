@@ -70,10 +70,10 @@ public class LoanImporter extends GeophProjectsImporter {
                     iaSet.add(pa);
                 } else {
                     if(isFirstPA && !importWithoutIas){
-                        addError(p.getPhId(), currentRow, "IA not found at first value, the project won't be imported", true);
+                        addError(p.getPhId(), currentRow, "IA not found at first value, the project won't be imported. IA: " + ia, true);
                         return;
                     } else {
-                        addWarning(p.getPhId(), currentRow, "IA not found at first value, added as undefined");
+                        addWarning(p.getPhId(), currentRow, "IA not found, added as undefined. IA: " + ia);
                         iaSet.add(new ProjectAgency(p, importBaseData.getImplementingAgencies().get(UNDEFINED), 0D));
                     }
                 }
