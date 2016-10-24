@@ -10,7 +10,6 @@ import org.devgateway.geoph.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -25,12 +24,8 @@ import java.util.Set;
 public class LoanImporter extends GeophProjectsImporter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LoanImporter.class);
-    private static final Logger LOG_REPORT = LoggerFactory.getLogger("report");
     private static final String UNDEFINED = "undefined";
     private static final double UTILIZATION = 1D;
-
-    @Value("${import.without.implementingAgencies}")
-    private boolean importWithoutIas;
 
     @Autowired
     private LoanColumns loanColumns;
@@ -42,9 +37,7 @@ public class LoanImporter extends GeophProjectsImporter {
         try {
             String phId = getCorrectPhId(getStringValueFromCell(row.getCell(loanColumns.getProjectId()), "project id", rowNumber, onProblem.NOTHING, false));
             if(StringUtils.isBlank(phId)) {
-                LOG_REPORT.info("A project won't be imported at line " + currentRow);
-                importStats.addError(" * Project Id not found at row " + currentRow);
-                importStats.addFailedProject(" * Id is empty");
+                addError(p.getPhId(), currentRow, "Project Id not found, the project won't be imported", true);
                 return;
             }
             p.setPhId(phId);
@@ -54,6 +47,7 @@ public class LoanImporter extends GeophProjectsImporter {
             String fa = getStringValueFromCell(row.getCell(loanColumns.getFundingInstitution()), "funding institution", rowNumber, GeophProjectsImporter.onProblem.NOTHING, true);
             if(StringUtils.isBlank(fa) || importBaseData.getFundingAgencies().get(fa.trim()) == null){
                 fa = UNDEFINED;
+                addWarning(p.getPhId(), currentRow, "Funding Agency not found, added as " + fa);
             }
             p.setFundingAgency(importBaseData.getFundingAgencies().get(fa.trim()));
 
@@ -71,33 +65,21 @@ public class LoanImporter extends GeophProjectsImporter {
                     }
                     iaSet.add(pa);
                 } else {
-                    if(isFirstPA && !importWithoutIas){
-                        String iaLogMessage = "At row " + currentRow + " (Project Id " + p.getPhId() + ") the first Implementing Agency could not be matched with our records. ";
-                        LOG_REPORT.info(iaLogMessage + "The project won't be imported");
-                        importStats.addError(" * IAs not found at row " + currentRow);
-                        importStats.addFailedProject(" * " + p.getPhId());
+                    if(isFirstPA){
+                        addError(p.getPhId(), currentRow, "IA not found at first value, the project won't be imported. IA: " + ia, true);
                         return;
                     } else {
-                        importStats.addWarning(" * IA undefined at row " + currentRow);
+                        addWarning(p.getPhId(), currentRow, "IA not found, added as undefined. IA: " + ia);
                         iaSet.add(new ProjectAgency(p, importBaseData.getImplementingAgencies().get(UNDEFINED), 0D));
                     }
                 }
             }
             if(iaSet.size()>0){
                 p.setImplementingAgencies(iaSet);
-            } else {
-                String iaLogMessage = "At row " + currentRow + " (Project Id " + p.getPhId() + ") there were no Implementing Agencies that could be matched with our records. ";
-                if(importWithoutIas){
-                    ProjectAgency pa = new ProjectAgency(p, importBaseData.getImplementingAgencies().get(UNDEFINED), UTILIZATION);
-                    p.setImplementingAgencies(new HashSet(Arrays.asList(pa)));
-                    LOG_REPORT.info(iaLogMessage + "Project will be imported and IA will be Undefined");
-                    importStats.addWarning(" * IA added as undefined at row " + currentRow);
-                } else {
-                    LOG_REPORT.info(iaLogMessage + "The project won't be imported");
-                    importStats.addError(" * IAs not found at row " + currentRow);
-                    importStats.addFailedProject(" * " + p.getPhId());
-                    return;
-                }
+            } else if(ias.length==0) {
+                ProjectAgency pa = new ProjectAgency(p, importBaseData.getImplementingAgencies().get(UNDEFINED), UTILIZATION);
+                p.setImplementingAgencies(new HashSet(Arrays.asList(pa)));
+                addWarning(p.getPhId(), currentRow, "IA not found, added as undefined");
             }
 
             String ea = getStringValueFromCell(row.getCell(loanColumns.getExecutingAgency()), "executing agency", rowNumber, GeophProjectsImporter.onProblem.NOTHING, true);
@@ -161,6 +143,8 @@ public class LoanImporter extends GeophProjectsImporter {
 
             if(sectorSet.size()>0){
                 p.setSectors(sectorSet);
+            } else {
+                addWarning(p.getPhId(), currentRow, "Sector not found, Project was imported anyway");
             }
 
             String[] locations = getStringArrayValueFromCell(row.getCell(loanColumns.getMunicipality()), "municipality", rowNumber, GeophProjectsImporter.onProblem.NOTHING);
@@ -201,6 +185,8 @@ public class LoanImporter extends GeophProjectsImporter {
                 locationProvince.stream().forEach(l->locationSet.add(new ProjectLocation(p, l, 0D)));
                 locationRegion.stream().forEach(l->locationSet.add(new ProjectLocation(p, l, UTILIZATION /locationRegion.size())));
                 p.setLocations(locationSet);
+            } else {
+                addWarning(p.getPhId(), currentRow, "Location not found, Project was imported anyway");
             }
 
             p.setStatus(importBaseData.getStatuses().get(

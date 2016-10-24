@@ -280,4 +280,21 @@ public abstract class GeophProjectsImporter {
         }
         return str;
     }
+
+    protected void addError(String phId, int currentRow, String message, boolean isProjectImportFail){
+        String iaLogMessage = "At row " + currentRow + " (Project Id " + phId + ") there were an error, ";
+        LOG_REPORT.error(iaLogMessage + message);
+        importStats.addError(" * Row: " + currentRow + " - " + message);
+        if(isProjectImportFail){
+            importStats.addFailedProject(" * phId: " + phId);
+        }
+    }
+
+    protected void addWarning(String phId, int currentRow, String message){
+        String iaLogMessage = "At row " + currentRow + " (Project Id " + phId + ") there were a warning, ";
+        LOG_REPORT.warn(iaLogMessage + message);
+        importStats.addWarning(" * Row: " + currentRow + " - " + message);
+    }
+
+
 }

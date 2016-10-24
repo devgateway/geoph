@@ -90,3 +90,13 @@ INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('im
 INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',327,'PRRC','Pasig River Rehabilitation Commission',null,null);
 INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',328,'USAID','United States Agency for International Development',null,null);
 INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',329,'LWUA','Local Water Utilities Administration',null,null);
+INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',330,'PPP Cen','PPP Center',null,null);
+INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',331,'DND','Department of National Defense',null,null);
+INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',332,'Guian','Guian',null,null);
+INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',333,'Communities','Communities',null,null);
+INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',334,'DSWD VIII','Department of Social Welfare and Development Region VIII',null,null);
+INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',335,'BDCs','Barangay Development Council',null,null);
+INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',336,'BCDA','Bases Conversion and Development Authority',null,null);
+INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',337,'PCOO','Presidential Commissions Operation Office',null,null);
+INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',338,'PHLPOST','Philippine Postal Corporation',null,null);
+INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',339,'DBP','Development Bank of the Philippines',null,null);
