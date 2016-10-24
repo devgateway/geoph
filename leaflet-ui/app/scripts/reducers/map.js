@@ -84,10 +84,10 @@ import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
           name:'Geotagged Photos',
           computeOnload:false, //disable css addition for this later
           legends:[
-            {cls: 'legend-photos more-100', 'label': 'more than 100'},
-            {cls: 'legend-photos less-100', 'label': 'less than 100'},
-            {cls: 'legend-photos less-10', 'label': 'less than 10'},
-            {cls: 'legend-photos single-photo', 'label': 'single photo'},
+            {cls: 'legend-photos more-100', 'label': 'more than 100', 'labelKey': 'legends.morethan100'},
+            {cls: 'legend-photos less-100', 'label': 'less than 100', 'labelKey': 'legends.lessthan100'},
+            {cls: 'legend-photos less-10', 'label': 'less than 10', 'labelKey': 'legends.lessthan10'},
+            {cls: 'legend-photos single-photo', 'label': 'single photo', 'labelKey': 'legends.singlephoto'},
           ]
 
         }]

@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import Messages from '../messages/messages.jsx'	
 import {getMapList,edit,remove} from '../../actions/dashboard.js';
 import Moment from 'moment';
+import translate from '../../util/translate.js';
 require("./dashboard.scss");
 
 var pageSize = 5;
@@ -45,8 +46,8 @@ class AdminActions extends React.Component {
     const {id,mapKey,onDelete,onEdit}=this.props;
     return (
       <div>
-        <a href={`#/map/${mapKey}`}  className="btn btn-sm btn-info">Edit</a>
-        <button className="btn btn-sm btn-danger" onClick={_=>onDelete(mapKey)}>Delete</button>
+        <a href={`#/map/${mapKey}`}  className="btn btn-sm btn-info">{translate('admin.dashboards.edit')}</a>
+        <button className="btn btn-sm btn-danger" onClick={_=>onDelete(mapKey)}>{translate('admin.dashboards.delete')}</button>
       </div>
     )
   }
@@ -127,7 +128,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 const mapStateToProps = (state, props) => {
   const {results}=state.dashboard.toJS();
-  return {...results}
+  return {
+    language: state.language,
+    ...results}
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Dashboard);

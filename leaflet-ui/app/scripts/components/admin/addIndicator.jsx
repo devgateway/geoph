@@ -6,6 +6,7 @@ import { Link } from 'react-router'
 import BaseForm from './baseForm.jsx'
 import Messages from '../messages/messages.jsx'
 import Connector from '../../connector/connector';
+import translate from '../../util/translate.js';
 
 var Dropzone = require('react-dropzone');
 
@@ -23,9 +24,9 @@ class SelectTemplate extends BaseForm {
                     <h1>Template</h1>
                     <select value={template} className="form-control" name="template"
                             onChange={(e)=>{this.handleChangeValue('template',e.target.value)}}>
-                        <option value="Region">Regional</option>
-                        <option value="Province">Province</option>
-                        <option value="Municipality">Municipal</option>
+                        <option value="Region">{translate('admin.indicators.region')}</option>
+                        <option value="Province">{translate('admin.indicators.province')}</option>
+                        <option value="Municipality">{translate('admin.indicators.municipality')}</option>
                     </select>
                 </div>
                 <div className="form-group ">
@@ -80,7 +81,7 @@ class AddIndicator extends BaseForm {
             <form id="add-indicator-form">
             <h1>Indicator Info </h1>
                  <div className={errors.name?"form-group has-error":"form-group"}>
-                    <label >Name</label>
+                    <label>{translate('admin.indicators.name')}</label>
                     <input value={this.props.name}
                            onChange={(e)=>{this.handleChangeValue('name',e.target.value)}} type="name"
                            className="form-control" id="name" placeholder="Type Name"/>
@@ -109,7 +110,7 @@ class AddIndicator extends BaseForm {
                 </div>
                 <div className="form-group ">
                     <input type="button" className="btn btn-xs btn-success"
-                           onClick={()=>{this.props.onStepChange('template')}} value="Back"></input>
+                           onClick={()=>{this.props.onStepChange('template')}} value={translate('admin.indicators.back')}></input>
                     <input type="button" className="btn btn-xs btn-info pull-right" value="Save"
                            onClick={this.submit.bind(this)}></input>
 
