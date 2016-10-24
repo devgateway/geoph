@@ -10,7 +10,6 @@ import org.devgateway.geoph.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -30,9 +29,6 @@ public class PmcImporter extends GeophProjectsImporter {
     private static final String UNDEFINED = "undefined";
     private static final String LOCALLY_FUNDED = "locally-funded";
     private static final double UTILIZATION = 1D;
-
-    @Value("${import.without.implementingAgencies}")
-    private boolean importWithoutIas;
 
     @Autowired
     private PmcColumns pmcColumns;
@@ -77,7 +73,7 @@ public class PmcImporter extends GeophProjectsImporter {
                     }
                     iaSet.add(pa);
                 } else {
-                    if(isFirstPA && !importWithoutIas){
+                    if(isFirstPA){
                         addError(p.getPhId(), currentRow, "IA not found at first value, the project won't be imported. IA: " + ia, true);
                         return;
                     } else {
@@ -88,16 +84,10 @@ public class PmcImporter extends GeophProjectsImporter {
             }
             if(iaSet.size()>0){
                 p.setImplementingAgencies(iaSet);
-            } else {
-                String iaLogMessage = "At row " + currentRow + " (Project Id " + p.getPhId() + ") there were no Implementing Agencies that could be matched with our records. ";
-                if(importWithoutIas){
-                    ProjectAgency pa = new ProjectAgency(p, importBaseData.getImplementingAgencies().get(UNDEFINED), UTILIZATION);
-                    p.setImplementingAgencies(new HashSet(Arrays.asList(pa)));
-                    addWarning(p.getPhId(), currentRow, "IA not found, added as undefined");
-                } else {
-                    addError(p.getPhId(), currentRow, "IAs not found, the project won't be imported", true);
-                    return;
-                }
+            } else if(ias.length==0) {
+                ProjectAgency pa = new ProjectAgency(p, importBaseData.getImplementingAgencies().get(UNDEFINED), UTILIZATION);
+                p.setImplementingAgencies(new HashSet(Arrays.asList(pa)));
+                addWarning(p.getPhId(), currentRow, "IA not found, added as undefined");
             }
 
             p.setGrantClassification(importBaseData.getClassifications().get(
