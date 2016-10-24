@@ -44,7 +44,7 @@ class SaveForm extends BaseForm {
 
 
 	render() {
-		const {errors={}, httpError, name, description, status, id, saving}=this.props;
+		const {errors={}, httpError, name, description, status, id, saving, type}=this.props;
 		return (
 			<div className="save-container">
 				<h2>Save Map</h2>				
@@ -61,6 +61,12 @@ class SaveForm extends BaseForm {
 						<div  className={errors.description?"form-group has-error":"form-group"}>
 							<textarea placeholder="Enter a description" className="form-control" value={description} onChange={(e)=>{this.handleChangeValue('description',e.target.value)}}/>
 						</div> 
+						<div className="dashboard-checkbox" onClick={this.handleChangeValue.bind(this, 'type', type=="dashboard"? "save" : "dashboard")} >
+					        <div className={type=="dashboard"? "selectable selected" : "selectable"} />
+					        <div className="toggle-nav">
+					        	Show in executive dashboard for all users
+					        </div>
+					    </div> 
 						<div className="form-group">
 							<button className="btn btn-sm btn-success" onClick={this.submit.bind(this)}>Save</button>       					
 						</div>
@@ -98,8 +104,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 }
 
 const mapStateToProps = (state, props) => {
-	const {name, description, errors, httpError, status, id, saving} = state.saveMap.toJS();
-	return {name, description, errors, httpError, status, id, saving}
+	const {name, description, errors, httpError, status, id, saving, type} = state.saveMap.toJS();
+	return {name, description, errors, httpError, status, id, saving, type}
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Container);

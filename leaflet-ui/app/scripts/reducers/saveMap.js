@@ -2,7 +2,7 @@ import * as Constants from '../constants/constants';
 import Immutable from 'immutable';
 
 const defaultState = Immutable.fromJS(
-  {id:'', name:'', description:'', saving: false}
+  {id:'', name:'', description:'', type: 'dashboard', saving: false}
 );
 
 const saveMap =(state = defaultState, action) => {

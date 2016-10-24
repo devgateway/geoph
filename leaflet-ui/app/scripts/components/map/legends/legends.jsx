@@ -35,7 +35,7 @@ class LegendList extends React.Component {
               return(
                 <div className='legend-item' key={legend.cls}>
                   <div className={legend.cls}/>
-                  <div className='legend-label'>{legend.label}</div>
+                  <div className='legend-label'>{legend.labelKey? translate(legend.labelKey) : legend.label}</div>
                 </div>
               )
             })
@@ -97,6 +97,7 @@ const mapDispatchToProps=(dispatch,ownProps)=>{
 const stateToProps = (state,props) => { 
   return {
     map: state.map,
+    language: state.language
   };
 }
 

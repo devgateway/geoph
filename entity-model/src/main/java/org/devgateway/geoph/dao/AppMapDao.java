@@ -18,6 +18,8 @@ public class AppMapDao {
 
     private String key;
 
+    private String type;
+
     private Date creationDate;
 
     private String base64preview;
@@ -27,6 +29,7 @@ public class AppMapDao {
         this.name = appMap.getName();
         this.description = appMap.getDescription();
         this.key = appMap.getKey();
+        this.type = appMap.getType();
         this.creationDate = appMap.getCreationDate();
         this.base64preview = appMap.getBase64preview();
     }
@@ -61,6 +64,14 @@ public class AppMapDao {
 
     public void setKey(String key) {
         this.key = key;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public Date getCreationDate() {

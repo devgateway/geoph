@@ -74,6 +74,7 @@ export default class ChartComponent extends React.Component {
 		const {measure, chartData, chartType, helpKey} = this.props;
 		const {chartType: chType, itemsToShow, measureType} = chartData;
 		let chartInfo;
+		let key = new Date().getTime();
 		if (chartType){
 			chartInfo = this.getChartInfo(chartType);
 		} else {
@@ -150,7 +151,7 @@ export default class ChartComponent extends React.Component {
 			    	</div>
 	    		:
 	    			<div>
-			      		<Plotly onClick={this.onChartClick.bind(this)} className="" data={chartInfo.data} layout={chartInfo.layout} config={chartInfo.config}/>
+			      		<Plotly key={key} onClick={this.onChartClick.bind(this)} className="" data={chartInfo.data} layout={chartInfo.layout} config={chartInfo.config}/>
 			      	</div>	
 	    		}
 	    		    			  			   	    			      

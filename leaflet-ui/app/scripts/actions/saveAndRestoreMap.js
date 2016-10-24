@@ -75,8 +75,8 @@ export const saveMap=()=>{
       const scaleWidth=800;
       const {outerHTML:html,clientWidth:width,clientHeight:height} = HtmlUtil.getMapElementProperties();
       const  data = collectValuesToSave(getState());
-	 	  const {name, description, id}=getState().saveMap.toJS();
-      dispatch(requestSaveMap({id, name, description, data, html, width, height, scaleWidth}));
+	 	  const {name, description, id, type}=getState().saveMap.toJS();
+      dispatch(requestSaveMap({id, name, description, type, data, html, width, height, scaleWidth}));
 	 }	
 }
 

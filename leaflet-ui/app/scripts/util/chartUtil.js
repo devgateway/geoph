@@ -17,7 +17,7 @@ export const parseDataChart=(chartType, props, chartContainerRef)=>{
         if (index < itemsToShow){
           if (measureType=='projectCount'){
             if (item.projectCount && parseInt(item.projectCount)>0){
-              let label = ellipseString(capitalizeString(item[dimension]), 35);
+              let label = ellipseString(capitalizeString(item[dimension]), (chartContainerRef? chartContainerRef.offsetWidth/15 : 35)) + (chartType=='pie'?"    ":"")/*workaround for dropped text on print*/;
               labels.push(label);
               values.push(item.projectCount);
               if(hiddenlabels.indexOf(label)==-1){
@@ -27,7 +27,7 @@ export const parseDataChart=(chartType, props, chartContainerRef)=>{
             }
           } else {
             if (item.trxAmounts[measure.measure][measure.type] && parseFloat(item.trxAmounts[measure.measure][measure.type])>0){
-              let label = ellipseString(capitalizeString(item[dimension]), 35);
+              let label = ellipseString(capitalizeString(item[dimension]), (chartContainerRef? chartContainerRef.offsetWidth/15 : 35)) + (chartType=='pie'?"    ":"")/*workaround for dropped text on print*/;
               labels.push(label);
               values.push(item.trxAmounts[measure.measure][measure.type]);
               if(hiddenlabels.indexOf(label)==-1){
@@ -120,16 +120,17 @@ export const parseDataChart=(chartType, props, chartContainerRef)=>{
             "marker":{  
               "color": '#2b9ff6'
             },
-            hoverinfo: 'text+x'
+            hoverinfo: 'x+text'
           }
         ],
         'layout': { 
           xaxis:{
-            showticklabels:false,
+            showticklabels: false
           },                
           'height': height || 250,
           'width': width || (chartContainerRef? chartContainerRef.offsetWidth : 550),
           'autosize': false,
+          'hovermode': 'x',
           'margin':{
             't':5,
             'b':35,

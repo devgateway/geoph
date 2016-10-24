@@ -27,9 +27,9 @@ public interface AppMapService {
 
     void deleteByKey(String key);
 
-    Page<AppMap> findAll(Pageable pageable);
+    Page<AppMapDao> findAll(Pageable pageable);
 
-    Page<AppMapDao> findByType(String type,Pageable pageable);
+    Page<AppMapDao> findByType(String type, Pageable pageable);
 
     List<AppMap> findByName(String mapName);
 

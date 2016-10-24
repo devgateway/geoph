@@ -26,33 +26,36 @@
 
 	.thing-leave.thing-leave-active {
 		opacity: 0.01;
-		}.alert{
-			clear:both;
-			margin:20px 20px
-		}
-
-		.form-group{
-			margin: 20px 20px;
-		}
-
-		.form-control{
-			border: 1px solid #6699cc;
-		}
-
-		input.form-control{
-			height: 45px;
-		} 
-		textarea.form-control {
-			height: 83px !important;
-		} 
-
-		.btn-success,.btn-success:hover{
-			background-color: #66cc66;
-			border:0px;
-			float: right;
-			clear: both;
-			margin-bottom: 15px;
-		}
 	}
+	.alert{
+		clear:both;
+		margin:20px 20px
+	}
+	.form-group{
+		margin: 20px 20px;
+	}
+	.form-control{
+		border: 1px solid #6699cc;
+	}
+	input.form-control{
+		height: 45px;
+	} 
+	textarea.form-control {
+		height: 83px !important;
+	} 
+
+	.btn-success,.btn-success:hover{
+		background-color: #66cc66;
+		border:0px;
+		float: right;
+		clear: both;
+		margin-bottom: 15px;
+	}
+
+	.dashboard-checkbox{
+		float: left;
+		margin-left: 20px;
+	}
+}
 
 
