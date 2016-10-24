@@ -37,7 +37,7 @@
 		}	
 		.description{
 			text-align: left;
-			width: 35%;
+			width: 33%;
 			display: inline-block;
 			color: #5c5c5c;
 		    font-size: 13px;
@@ -48,14 +48,21 @@
 		}	
 		.created{
 			text-align: left;
-			width: 15%;
+			width: 9%;
+			display: inline-block;
+			color: #5c5c5c;
+		    font-size: 13px;
+		}
+		.visible{
+			text-align: left;
+			width: 9%;
 			display: inline-block;
 			color: #5c5c5c;
 		    font-size: 13px;
 		}
 		.actions{
 			text-align: left;
-			width: 15%;
+			width: 14%;
 			display: inline-block;
 			color: #5c5c5c;
 		    font-size: 13px;
@@ -87,19 +94,25 @@
 		}	
 		.description{
 			text-align: left;
-			width: 35%;
+			width: 33%;
 			display: inline-block;
 			font: inherit;			
 		}	
 		.created{
 			text-align: left;
-			width: 15%;
+			width: 9%;
+			display: inline-block;
+			font: inherit;
+		}
+		.visible{
+			text-align: left;
+			width: 9%;
 			display: inline-block;
 			font: inherit;
 		}
 		.actions{
 			text-align: left;
-			width: 15%;
+			width: 14%;
 			display: inline-block;
 			font: inherit;
 		}

@@ -39,9 +39,9 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 public class MapController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MapController.class);
-    private static final String ALL_STR = "all";
     private static final String NAME_STR = "name";
     private static final String DESCRIPTION_STR = "description";
+    private static final String TYPE_STR = "type";
     private static final String DATA_TO_SAVE_STR = "data";
     private static final String BAD_REQUEST_NAME_INVALID = "The name used to save the map is not valid or it is already in use";
     private static final String SHARED_MAP_DESC = "Shared map";
@@ -59,11 +59,8 @@ public class MapController {
     @RequestMapping(method = GET)
     public Page<AppMapDao> findMaps(@PageableDefault(page = 0, size = 20, sort = "id") final Pageable pageable, @RequestParam(required = false)  String type) {
         LOGGER.debug("findMaps");
-        String mapType = ALL_STR;
-        if(StringUtils.isBlank(type)){
-            mapType = type.toLowerCase();
-        }
-        if(mapType.equalsIgnoreCase(ALL_STR)) {
+        String mapType = AppMapTypeEnum.DASHBOARD.getName();
+        if(StringUtils.isBlank(type) || type.equals("all")){
             return appMapService.findAll(pageable);
         } else {
             return appMapService.findByType(type, pageable);
@@ -91,11 +88,6 @@ public class MapController {
                 id = new Long((Integer) mapVariables.get("id"));
             }
 
-            boolean isDashboard = false;
-            if(mapVariables.get("dashboard")!=null){
-                isDashboard = (Boolean) mapVariables.get("dashboard");
-            }
-
             if (html != null) {
                 //get preview image
                 BufferedImage image = screenCaptureService.captureImage(width, height, screenCaptureService.buildPage(width, height, html).toURI());
@@ -110,10 +102,7 @@ public class MapController {
             }
             String mapDesc = (String) mapVariables.get(DESCRIPTION_STR);
             String mapJson = new ObjectMapper().writeValueAsString(mapVariables.get(DATA_TO_SAVE_STR));
-            String mapType = AppMapTypeEnum.SAVE.getName();
-            if(isDashboard){
-                mapType = AppMapTypeEnum.DASHBOARD.getName();
-            }
+            String mapType = (String) mapVariables.get(TYPE_STR);
             AppMap appMap = new AppMap(mapName, mapDesc, mapJson, UUID.randomUUID().toString(), MD5Generator.getMD5(mapJson), mapType, base64);
             if(id==null){
                 return appMapService.save(appMap);

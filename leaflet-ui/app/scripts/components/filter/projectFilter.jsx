@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import InputRange from 'react-input-range';
-import { clearAllResults, searchProjectsByText, toggleProjectSelection, selectAllMatchedProject, clearAllProjectSelected, applyProjectSelected } from '../../actions/projectSearch';
+import { clearAllResults, searchProjectsByText, toggleProjectSelection, selectAllMatchedProject, clearAllProjectSelected, applyProjectSelected, setKeyword } from '../../actions/projectSearch';
 import { applyFilter } from '../../actions/filters';
 import { fetchStats } from '../../actions/stats';
 import { Input } from 'react-bootstrap';
@@ -29,7 +29,7 @@ class ProjectFilter extends React.Component {
   }
 
   validateState() {
-    const length = this.state.keyword.length;
+    const length = this.props.projectSearch.keyword.length;
     const tiping = this.state.tiping;
     if (length>0){
       if (tiping){
@@ -56,7 +56,8 @@ class ProjectFilter extends React.Component {
 
   handleChange(e) {
     let keyword = e.target.value;
-    this.setState({keyword: keyword, tiping: true});
+    this.setState({tiping: true});
+    this.props.onSetKeyword(keyword);
     clearTimeout(typingTimer);
     typingTimer = setTimeout(this.doneTyping.bind(this), doneTypingInterval);	    
   }
@@ -64,7 +65,7 @@ class ProjectFilter extends React.Component {
   doneTyping () {
     this.setState({tiping: false});
     let filters = collectValues(this.props.filters);
-    Object.assign(filters, {'pt': this.state.keyword});
+    Object.assign(filters, {'pt': this.props.projectSearch.keyword});
     this.props.onTriggerSearch(filters);
   }
 
@@ -100,7 +101,7 @@ class ProjectFilter extends React.Component {
   }
 
   getInput(){
-    const {keyword}=this.state;
+    const {keyword} = this.props.projectSearch;
     return  (<Input className={keyword.length==0? 'keyword-input-empty' : 'keyword-input-filled'} 
      type="text" 
      value={keyword}  
@@ -228,6 +229,11 @@ class ProjectFilter extends React.Component {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
+
+    onSetKeyword: (keyword) => {
+      dispatch(setKeyword(keyword));
+    },
+
     onTriggerSearch: (filters) => {
       dispatch(searchProjectsByText(filters));
     },

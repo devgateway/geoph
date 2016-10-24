@@ -8,6 +8,13 @@ export const requestProjectsByText = (filters) => {
   }
 }
 
+export const setKeyword = (keyword) => {
+  return {
+    type: Constants.SET_KEYWORD,
+    keyword
+  }
+}
+
 export const toggleProjectSelection = (project) => {
   return {
     type: Constants.TOGGLE_PROJECT_SELECTION,

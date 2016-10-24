@@ -4,13 +4,14 @@ import {connect} from 'react-redux';
 import Messages from '../messages/messages.jsx'	
 import {getMapList,edit,remove} from '../../actions/dashboard.js';
 import Moment from 'moment';
+import translate from '../../util/translate.js';
 require("./dashboard.scss");
 
 var pageSize = 5;
 
 class Item extends React.Component {
   render(){
-    const {description, name, mapKey, base64preview, creationDate} = this.props;
+    const {description, name, mapKey, type, base64preview, creationDate, loggedIn} = this.props;
     return (
       <div className="item">
         <Link to={`/map/${mapKey}`}>
@@ -27,6 +28,11 @@ class Item extends React.Component {
         <div className="created" >
           {Moment(creationDate).format("YYYY-MM-DD") || "No creation date"}
         </div>
+        {loggedIn?
+          <div className="visible" >
+            {type=="dashboard"? "YES":"NO"}
+          </div>
+        :null}
         <div className="actions" >
           {this.props.children}
         </div>
@@ -40,8 +46,8 @@ class AdminActions extends React.Component {
     const {id,mapKey,onDelete,onEdit}=this.props;
     return (
       <div>
-        <a href={`#/map/${mapKey}`}  className="btn btn-sm btn-info">Edit</a>
-        <button className="btn btn-sm btn-danger" onClick={_=>onDelete(mapKey)}>Delete</button>
+        <a href={`#/map/${mapKey}`}  className="btn btn-sm btn-info">{translate('admin.dashboards.edit')}</a>
+        <button className="btn btn-sm btn-danger" onClick={_=>onDelete(mapKey)}>{translate('admin.dashboards.delete')}</button>
       </div>
     )
   }
@@ -59,6 +65,7 @@ class Dashboard extends React.Component {
 
   getListData(activePage){
     let params ={
+      'type': this.props.loggedIn? 'all' : 'dashboard',
       'page': activePage,
       'size': pageSize
     };    
@@ -83,13 +90,20 @@ class Dashboard extends React.Component {
           <div className="created" >
             Created
           </div>
-          <div className="actions" >
-            Actions
-          </div>
+          {loggedIn?
+            <div className="visible" >
+              Visible to all
+            </div>
+          :null}
+          {loggedIn?
+            <div className="actions" >
+              Actions
+            </div>
+          :null}
         </div>
         {content.map(d=>{
           return ( 
-            <Item {...d} mapKey={d.key}>
+            <Item {...d} loggedIn={loggedIn} mapKey={d.key}>
               {loggedIn?<AdminActions {...this.props} mapKey={d.key}/>:null}
             </Item>
           )
@@ -114,7 +128,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 const mapStateToProps = (state, props) => {
   const {results}=state.dashboard.toJS();
-  return {...results}
+  return {
+    language: state.language,
+    ...results}
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Dashboard);

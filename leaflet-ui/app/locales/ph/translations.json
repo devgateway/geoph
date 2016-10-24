@@ -281,9 +281,47 @@
 		"notavailable": "Not Available"
 	},
 
+	"legends": {
+		"morethan100": "mahigit sa isang daan",
+		"lessthan100": "mas mababa sa isang daan",
+		"lessthan10": "mas mababa sa sampu",
+		"singlephoto": "single photo"
+	},
+
 	"about": {
 		"phrase1": "Ang beta bersyon ng Project and Programs Information Exchange System (PPIES) Open Map website ay output mula sa USAID technical assistance para sa NEDA na tinawag na AidData Project kasama ang Development Gateway bilang implementing partner. Ang proyektong ito ay naglalayong bumuo ng online mapping tool na nagpapakita ng distribusyon at impact ng tulong ng mga donor sa mga proyekto at programa ng pamahalaan. Ang proyektong ito ay nai-mamapa at naipapakita ang mga kakulangan na kailangang tugunan sa programming, lalo na kung paano at saan ipopokus ang panghinaharap na development interventions ng bansa.",
 		"phrase2": "Ang proyektong ito ay nagsimula noong Abril 2016, at ang beta bersyon ng website ay nailunsad noong Setyembre 2016. Noong Enero 2016, ang NEDA ay kumasundo ng serbisyo ng isang consulting firm para mapahusay pa ang PPIES, na isang central online database system ng NEDA sa pag-momonitor ng proposed at ongoing na mga pangunahing proyekto at programa ng Philippine Government. Ang pinal na bersyon ng website na ito ay naglalayong mai-ugnay sa PPIES bilang isang mapping tool system nito.",
 		"phrase3": "Ang beta version ng website ay nagpapakita ng impormasyon ng mga proposed at ongoing na ODA at locally-funded programs and projects ng pamahalaan noong matapos ang taong 2015, kasama ang mga natapos na proyekto ng taong 2015. Ang batayan o’ pinagkunan ng impormasyon ay mula sa implementing agencies ng pamahalaan at multilateral development partners ng Philippine Government. Ang impormasyon ay natipon mula sa regular na monitoring activities ng NEDA Monitoring and Evaluation Staff (para sa ongoing projects at programs) at ng NEDA Public Investment Staff (para sa proposed projects at programs)."
+	},
+
+	"admin": {
+		"indicators": {
+			"indicators": "Indicators",
+			"indicatorslist": "List of indicators",
+			"remove": "Alisin",
+			"newindicator": "New Indicator",
+			"downloadtemplate": "Download Template",
+			"next": "Next",
+			"region": "Rehiyon",
+			"province": "Probinsya",
+			"municipality": "Munisipyo",
+			"indicatorinfo": "Indicator Info",
+			"name": "Pangalan",
+			"file": "File",
+			"dropfile": "Drop a file or click this area",
+			"back": "Bumalik",
+			"save": "Save"			
+		},
+		"dashboards": {
+			"dashboards": "Dashboards",
+			"dashboardslist": "List of executive dashboards",
+			"edit": "Mag-edit",
+			"delete": "Alisin",
+			"newdashboard": "New Dashboard",
+			"savemap": "Save Map",
+			"entername": "Enter a Name",
+			"enterdescription": "Enter a Description",
+			"save": "Save"
+		}
 	}
 }

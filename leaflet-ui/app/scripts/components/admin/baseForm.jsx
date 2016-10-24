@@ -11,6 +11,7 @@ export default class BaseForm extends React.Component {
     }
 
     handleChangeValue(property, value) {
+        debugger;
         this.props.onPropertyChange(property, value);
         let newErrors = Object.assign({}, this.props.errors);
         this.setErrors(this.validateField(newErrors, property, value));
