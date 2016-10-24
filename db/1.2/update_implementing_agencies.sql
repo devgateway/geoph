@@ -99,3 +99,4 @@ INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('im
 INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',336,'BCDA','Bases Conversion and Development Authority',null,null);
 INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',337,'PCOO','Presidential Commissions Operation Office',null,null);
 INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',338,'PHLPOST','Philippine Postal Corporation',null,null);
+INSERT INTO agency (discriminator,id,code,name,funding_code,type_id) VALUES ('implementing_agency',339,'DBP','Development Bank of the Philippines',null,null);
