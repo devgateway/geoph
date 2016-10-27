@@ -1,7 +1,6 @@
 package org.devgateway.geoph.core.repositories;
 
 import org.devgateway.geoph.model.AppMap;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -30,7 +29,7 @@ public interface AppMapRepository extends JpaRepository<AppMap, Long> {
     @Query("select a from AppMap a where a.md5 = ?1")
     AppMap findByMD5(String md5);
 
-    @Query("select a from AppMap a  where a.type= :type")
-    Page<AppMap> findByType(@Param("type") String type, Pageable pageable);
+    @Query("select a from AppMap a  where a.type in :typeList")
+    Page<AppMap> findByType(@Param("typeList") List<String> typeList, Pageable pageable);
 
 }

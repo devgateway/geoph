@@ -29,7 +29,7 @@ public interface AppMapService {
 
     Page<AppMapDao> findAll(Pageable pageable);
 
-    Page<AppMapDao> findByType(String type, Pageable pageable);
+    Page<AppMapDao> findByType(List<String> typeList, Pageable pageable);
 
     List<AppMap> findByName(String mapName);
 
