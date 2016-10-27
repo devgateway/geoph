@@ -118,6 +118,7 @@
 			"province": "Province",
 			"municipality": "Municipality",
 			"quality": "Quality",
+			"detail": "Details",
 			"low": "Low",
 			"medium": "Medium",
 			"high": "High", 

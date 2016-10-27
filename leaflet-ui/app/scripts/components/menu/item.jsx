@@ -2,6 +2,7 @@ import React from 'react';
 import {LangSwitcher} from '../lan/'
 import onClickOutside from 'react-onclickoutside';
 import {Tooltip, OverlayTrigger} from 'react-bootstrap';
+import translate from '../../util/translate';
 
 const MenuItem =onClickOutside(React.createClass({
 	
@@ -22,8 +23,11 @@ const MenuItem =onClickOutside(React.createClass({
 
  
 	render() {
-		const {id,label,className,onDeactivate, tooltip}=this.props;
+		const {id,label,className,onDeactivate, tooltipKey}=this.props;
 		const active=this.props[id];
+		const tooltip = (
+		  <Tooltip id={tooltipKey}>{translate(tooltipKey)}</Tooltip>
+		);
 		return (
 			<li className={active?`active ${className}`:className}>
 				<OverlayTrigger delayShow={1000} placement="bottom" overlay={tooltip}>

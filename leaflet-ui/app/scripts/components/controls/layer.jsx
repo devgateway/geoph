@@ -56,7 +56,7 @@ class Settings extends React.Component {
 				{(settings['detail'])?
 						<li>
 						<ul className="level">
-							<li className="setting-name"><b>Details:</b></li>
+							<li className="setting-name"><b>{translate('toolview.layers.detail')}:</b></li>
 							<li onClick={()=>{this.set('detail','low')}}>
 								<div className={settings['detail']=="low"?"active":""} >{translate('toolview.layers.low')}</div></li>
 							<li onClick={()=>{this.set('detail','medium')}}>

@@ -41,9 +41,9 @@
 		"funding": {
 			"funding": "Pagpopondo",
 			"fundingsource": "Pinagmulan ng Pondo",
-			"fundingtypeoda": "Uri ng Pondo (ODA)",
+			"fundingtypeoda": "Uri ng Pondo",
 			"fundingtype": "Uri ng Pondo ",
-			"financinginstitutionoda": "Nagpopondong Institusyon (ODA)",
+			"financinginstitutionoda": "Nagpopondong Institusyon",
 			"financinginstitution": "Nagpopondong Institusyon",
 			"fundingclassification": "Funding Classification"
 		},
@@ -118,12 +118,13 @@
 			"province": "Probinsya",
 			"municipality": "Munisipyo",
 			"quality": "Kalidad",
+			"detail": "Detalye",
 			"low": "Mababa",
 			"medium": "Medyum",
 			"high": "Mataas", 
 			"projects": "Proyekto",
 			"project": "Projects points",
-			"stats": "Estadistika",
+			"stats": "Statistical",
 			"poverty": "Kahirapan",
 			"population": "Populasyon",
 			"funding": "Kabuuang Pondo",
@@ -140,7 +141,7 @@
 
 	"chartview": {
 		"title": "Chart View",
-		"fundingagency": "Institusyon ng Gastusan",
+		"fundingagency": "Nagpopondong Institusyon",
 		"barchart": "Tsart Bar",
 		"piechart": "Tsart Pie",
 		"funding": "Pagpopondo",
@@ -168,7 +169,7 @@
 		},
 		"projectlist": {
 			"title": "Title",
-			"financinginstitution": "Nagpopondong Institusyon",
+			"financinginstitution": "Nagpopondong Ahensya",
 			"actualcommitments": "Actual Commitments",
 			"actualdisbursements": "Actual Disbursements"
 		}
@@ -194,33 +195,33 @@
 		"stats": "Ito ay nagpapakita ng kabuuang bilang at pondo ng proyekto na may lokasyon, at ng national-level na proyekto.",
 		"filters": {
 			"fundingtab": {
-				"fundingtype": "Select one or more funding type from the list (OR conditional between them)",
-				"financinginstitution": "Select one or more financing institution from the list (OR conditional between them)",
-				"fundingclassification": "Select one or more funding classification from the list (OR conditional between them)"
+				"fundingtype": "Pumili ng isa o'mahigit pang funding type mula sa listahan (OR conditional between them)",
+				"financinginstitution": "Pumili ng isa o' mahigit pang financing institution mula sa listahan (OR conditional between them)",
+				"fundingclassification": "Pumili ng isa o' mahigit pang funding classification mula sa listahan (OR conditional between them)"
 			},
 			"agencytab": {
-				"fundingagency": "Select one or more implementing agency from the list (OR conditional between them)"
+				"fundingagency": "Pumili ng isa o' mahigit pang funding agency mula sa listahan (OR conditional between them)"
 			},
 			"sectortab": {
-				"sector": "Select one or more sectors from the list (OR conditional between them)",
-				"relevanceclimate": "Select one or more relevance to climate from the list (OR conditional between them)",
-				"gender": "Select one or more gender from the list (OR conditional between them)"
+				"sector": "Pumili ng isa o' mahigit pang sektor mula sa listahan (OR conditional between them)",
+				"relevanceclimate": "Pumili ng isa o' mahigit pang Relevance to Climate mula sa listahan (OR conditional between them)",
+				"gender": "Pumili ng isa o' mahigit pang Gender mula sa listahan (OR conditional between them)"
 			},
 			"datetab": {
-				"implementperiodstart": "Select a range of dates (from - to) for the implementation start date",
-				"implementperiodend": "Select a range of dates (from - to) for the implementation end date",
-				"validityperiodstart": "Select a range of dates (from - to) for the loan/grant validity start date",
-				"validityperiodend": "Select a range of dates (from - to) for the loan/grant validity end date"
+				"implementperiodstart": "Pumili sa pagitan ng petsa (mula-hanggang) para sa implementation start date",
+				"implementperiodend": "Pumili sa pagitan ng petsa (mula-hanggang) para sa implementation end date",
+				"validityperiodstart": "Pumili sa pagitan ng petsa (mula-hanggang) para sa loan/grant validity start date",
+				"validityperiodend": "Pumili sa pagitan ng petsa (mula-hanggang) para sa loan/grant validity end date"
 			},
 			"statustab": {
-				"financingstatus": "Select one or more financing status from the list (OR conditional between them)"
+				"financingstatus": "Pumili ng isa o' mahigit pang financing status mula sa listahan (OR conditional between them)"
 			},
 			"financialtab": {
-				"financialamount": "Select a range of values for financial amount"
+				"financialamount": "Ilipat mula kaliwa hanggang kanan o' mula sa kanan hanggang kaliwa para makuha ang ninanais na Financial Amount range"
 			},
 			"physicaltab": {
-				"physicalprogress": "Select a range of values for physical progress",
-				"physicalstatus": "Select one or more physical status from the list (OR conditional between them)"
+				"physicalprogress": "Ilipat mula sa kaliwa hanggang kanan o' mula kanan hanggang kaliwa para makuha ang Percentage of Target Reached",
+				"physicalstatus": "Pumili ng isa o' higit pang physical status mula sa listahan (OR conditional between them)"
 			},			
 			"reset": "I-klik ang reset para mabago o' maghanap ng bagong impormasyon",
 			"cancel": "I-klik ang cancel kung ninanais na huwag magpatuloy sa paghahanap ng impormasyon",
