@@ -72,7 +72,7 @@ public class LocationProjectDefinitions implements DefinitionsProvider {
         columnsDef.add(new ColumnDefinitionImp<>("Implementing Agency", regularStylist, Formatters.stringArrayFormatter(), Extractors.implementingAgencyExtractor("project.getImplementingAgencies")));
         columnsDef.add(new ColumnDefinitionImp<>("Executing Agency", regularStylist, Formatters.stringFormatter(), Extractors.agencyExtractor("project.getExecutingAgency")));
         columnsDef.add(new ColumnDefinitionImp<>("Funding Institution", regularStylist, Formatters.stringFormatter(), Extractors.agencyExtractor("project.getFundingAgency")));
-        columnsDef.add(new ColumnDefinitionImp<>("Original Currency (OC)", regularStylist, Formatters.stringFormatter(), Extractors.currencyExtractor("project.getOriginalCurrency")));
+        //columnsDef.add(new ColumnDefinitionImp<>("Original Currency (OC)", regularStylist, Formatters.stringFormatter(), Extractors.currencyExtractor("project.getOriginalCurrency")));
         columnsDef.add(new ColumnDefinitionImp<>("Amount in OC", decimalStylist, Formatters.amountFormatter(), Extractors.doubleExtractor("project.getTotalProjectAmount")));
 
 
