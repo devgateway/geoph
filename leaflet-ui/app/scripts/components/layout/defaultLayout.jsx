@@ -101,7 +101,11 @@ export default class DefaultLayout extends React.Component {
   }
 
   render() {
-    const {title} = this.props;
+    const {type} = this.props;
+    let title = this.props.title;
+    if (type=="share"){
+      title = translate('header.sharedtitle');
+    }
     return (
       <div className="root">
         <Disclaimer/>
