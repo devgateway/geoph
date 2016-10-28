@@ -45,7 +45,7 @@ export default class ProjectListTab extends React.Component {
           <div className='project-list'>
             <div className="project-list-header">
               <div className={level==1? "project-list-item-col5" : "project-list-item-col8"}>{translate('infowindow.projectlist.title')}</div>
-              <div className={level==1? "project-list-item-col3" : "project-list-item-col4"}>{translate('infowindow.projectlist.financinginstitution')}</div>
+              <div className={level==1? "project-list-item-col3 agency-title" : "project-list-item-col4"}>{translate('infowindow.projectlist.financinginstitution')}</div>
               {level==1? <div className="project-list-item-col2 funding-title">{translate('infowindow.projectlist.actualcommitments')}</div> :null}
               {level==1? <div className="project-list-item-col2 funding-title">{translate('infowindow.projectlist.actualdisbursements')}</div> :null}
             </div>  
