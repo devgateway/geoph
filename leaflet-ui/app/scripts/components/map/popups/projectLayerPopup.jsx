@@ -134,7 +134,7 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
                   <Chart chartData={Object.assign(charts.fundingAgency, {'measureType': this.state.measureType})}
                   measure={fundingType} 
                   chartType='pie'
-                  width={popupMaxWidth}
+                  width={popupMaxWidth*1.02}
                   height={popupMaxHeight/1.6}
                   showTotalHeader={true}
                   onChangeMeasure={level==1? this.changeMeasure:null}
@@ -152,7 +152,7 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
                   <Chart chartData={Object.assign(charts.implementingAgency, {'measureType': this.state.measureType})}
                   measure={fundingType} 
                   chartType='pie'
-                  width={popupMaxWidth}
+                  width={popupMaxWidth*1.02}
                   height={popupMaxHeight/1.6}
                   showTotalHeader={true}
                   onChangeMeasure={level==1? this.changeMeasure:null}
@@ -170,7 +170,7 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
                   <Chart chartData={Object.assign(charts.physicalStatus, {'measureType': this.state.measureType})}
                   measure={fundingType} 
                   chartType='pie'
-                  width={popupMaxWidth}
+                  width={popupMaxWidth*1.02}
                   height={popupMaxHeight/1.6}
                   showTotalHeader={true}
                   onChangeMeasure={level==1? this.changeMeasure:null}
@@ -188,7 +188,7 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
                   <Chart chartData={Object.assign(charts.sector, {'measureType': this.state.measureType})}
                   measure={fundingType} 
                   chartType='pie'
-                  width={popupMaxWidth}
+                  width={popupMaxWidth*1.02}
                   height={popupMaxHeight/1.6}
                   showTotalHeader={true}
                   onChangeMeasure={level==1? this.changeMeasure:null}
