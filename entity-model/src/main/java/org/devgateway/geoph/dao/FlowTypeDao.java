@@ -1,7 +1,6 @@
 package org.devgateway.geoph.dao;
 
 import org.devgateway.geoph.enums.FlowTypeEnum;
-import org.devgateway.geoph.model.FlowType;
 
 /**
  * @author dbianco
@@ -9,7 +8,7 @@ import org.devgateway.geoph.model.FlowType;
  */
 public class FlowTypeDao {
 
-    private int flowTypeId;
+    private Long flowTypeId;
 
     private String flowType;
 
@@ -23,18 +22,18 @@ public class FlowTypeDao {
     }
 
     public FlowTypeDao(String flowType, Double trxAmount, Long transactionTypeId, Long transactionStatusId) {
-        this.flowTypeId = FlowTypeEnum.valueOf(flowType.toUpperCase()).getId();
+        this.flowTypeId = Long.valueOf(FlowTypeEnum.valueOf(flowType.toUpperCase()).getId());
         this.flowType = flowType;
         this.trxAmount = trxAmount;
         this.transactionStatusId = transactionStatusId;
         this.transactionTypeId = transactionTypeId;
     }
 
-    public int getFlowTypeId() {
+    public Long getFlowTypeId() {
         return flowTypeId;
     }
 
-    public void setFlowTypeId(int flowTypeId) {
+    public void setFlowTypeId(Long flowTypeId) {
         this.flowTypeId = flowTypeId;
     }
 

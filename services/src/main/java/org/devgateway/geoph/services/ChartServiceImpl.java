@@ -81,8 +81,8 @@ public class ChartServiceImpl implements ChartService {
             if (respMap.get(helper.getFlowTypeId()) != null) {
                 chartResponse = respMap.get(helper.getFlowTypeId());
             } else {
-                chartResponse = new ChartResponse(Long.valueOf(helper.getFlowTypeId()), helper.getFlowType(), params.getTrxTypeSort(), params.getTrxStatusSort());
-                respMap.put(Long.valueOf(helper.getFlowTypeId()), chartResponse);
+                chartResponse = new ChartResponse(helper.getFlowTypeId(), helper.getFlowType(), params.getTrxTypeSort(), params.getTrxStatusSort());
+                respMap.put(helper.getFlowTypeId(), chartResponse);
             }
             chartResponse.addTrxAmount(helper.getTrxAmount(), TransactionTypeEnum.getEnumById(helper.getTransactionTypeId()).getName(), TransactionStatusEnum.getEnumById(helper.getTransactionStatusId()).getName());
         }
