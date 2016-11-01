@@ -138,6 +138,8 @@ public class Parameters {
         this.targetOwpaMin = filters.getTo_min();
         this.actualOwpaMax = filters.getAo_max();
         this.actualOwpaMin = filters.getAo_min();
+        this.trxType = filters.getTrx_type();
+        this.trxStatus = filters.getTrx_status();
         this.trxTypeSort = filters.getTrx_type_sort();
         this.trxStatusSort = filters.getTrx_status_sort();
     }
@@ -174,6 +176,8 @@ public class Parameters {
         this.targetOwpaMin = filters.getTo_min();
         this.actualOwpaMax = filters.getAo_max();
         this.actualOwpaMin = filters.getAo_min();
+        this.trxType = filters.getTrx_type();
+        this.trxStatus = filters.getTrx_status();
     }
 
     public static Parameters getParameters(AppRequestParams filters) {

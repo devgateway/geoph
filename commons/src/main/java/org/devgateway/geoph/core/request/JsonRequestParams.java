@@ -64,6 +64,10 @@ public class JsonRequestParams {
 
     private String pp_end_min;
 
+    private Integer trx_type;
+
+    private Integer trx_status;
+
     public List<Long> getLo() {
         return lo;
     }
@@ -286,5 +290,21 @@ public class JsonRequestParams {
 
     public void setCl(List<Long> cl) {
         this.cl = cl;
+    }
+
+    public Integer getTrx_type() {
+        return trx_type;
+    }
+
+    public void setTrx_type(Integer trx_type) {
+        this.trx_type = trx_type;
+    }
+
+    public Integer getTrx_status() {
+        return trx_status;
+    }
+
+    public void setTrx_status(Integer trx_status) {
+        this.trx_status = trx_status;
     }
 }

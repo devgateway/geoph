@@ -36,6 +36,9 @@ public class ChartServiceImpl implements ChartService {
     SectorRepository sectorRepository;
 
     @Autowired
+    FlowTypeChartRepository flowTypeChartRepository;
+
+    @Autowired
     PhysicalStatusRepository physicalStatusRepository;
 
     @Autowired
@@ -67,6 +70,35 @@ public class ChartServiceImpl implements ChartService {
         List ret = new ArrayList(respMap.values());
         Collections.sort(ret);
         return ret;
+    }
+
+    @Override
+    public Collection<ChartResponse> getFundingByFundingType(Parameters params) {
+        Map<Long, ChartResponse> respMap = new HashMap<>();
+        List<FlowTypeDao> flowTypeResults = flowTypeChartRepository.findFundingByFundingTypeWithTransactionStats(params);
+        for (FlowTypeDao helper : flowTypeResults) {
+            ChartResponse chartResponse;
+            if (respMap.get(helper.getFlowTypeId()) != null) {
+                chartResponse = respMap.get(helper.getFlowTypeId());
+            } else {
+                chartResponse = new ChartResponse(Long.valueOf(helper.getFlowTypeId()), helper.getFlowType(), params.getTrxTypeSort(), params.getTrxStatusSort());
+                respMap.put(Long.valueOf(helper.getFlowTypeId()), chartResponse);
+            }
+            chartResponse.addTrxAmount(helper.getTrxAmount(), TransactionTypeEnum.getEnumById(helper.getTransactionTypeId()).getName(), TransactionStatusEnum.getEnumById(helper.getTransactionStatusId()).getName());
+        }
+
+        List<FlowTypeChartProjectCountDao> projectStats = flowTypeChartRepository.findFundingByFundingTypeWithProjectStats(params);
+        projectStats.stream().forEach(stats -> {
+            ChartResponse response = respMap.get(stats.getId());
+            if(response!=null){
+                response.addProjects(stats.getProjectCount());
+            }
+        });
+
+        List ret = new ArrayList(respMap.values());
+        Collections.sort(ret);
+        return ret;
+
     }
 
     @Override

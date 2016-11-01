@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.devgateway.geoph.enums.TransactionStatusEnum;
 import org.devgateway.geoph.enums.TransactionTypeEnum;
 import org.devgateway.geoph.model.Agency;
+import org.devgateway.geoph.model.FlowType;
 import org.devgateway.geoph.model.PhysicalStatus;
 import org.devgateway.geoph.model.Sector;
 

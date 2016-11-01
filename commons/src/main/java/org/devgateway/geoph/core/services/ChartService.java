@@ -18,6 +18,8 @@ public interface ChartService {
 
     Collection<ChartResponse> getFundingByImplementingAgency(Parameters params);
 
+    Collection<ChartResponse> getFundingByFundingType(Parameters params);
+
     Collection<ChartResponse> getFundingBySector(Parameters params);
 
     Collection<ChartResponse> getFundingByPhysicalStatus(Parameters params);
