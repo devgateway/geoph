@@ -1,6 +1,7 @@
 {
 	"header": {
 		"title": "National Economic Development Authority (NEDA)",
+		"sharedtitle": "Shared Map",
 		"language": {
 			"english": "English",
 			"philippine": "Philippine",
@@ -118,6 +119,7 @@
 			"province": "Province",
 			"municipality": "Municipality",
 			"quality": "Quality",
+			"detail": "Details",
 			"low": "Low",
 			"medium": "Medium",
 			"high": "High", 

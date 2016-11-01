@@ -30,7 +30,7 @@ const items=
   className:'filters',
   disableOnClickOutside:true,
   tooltip: <Tooltip id="help.header.filter">Click here to apply filters to the data in the map and charts</Tooltip>,
-  //tooltip: <Tooltip id="help.header.filter">{translate('help.header.filter')}</Tooltip>,
+  tooltipKey: 'help.header.filter',
   children:FilterPopup,
 
 },
@@ -40,7 +40,7 @@ const items=
   label:'Settings',
   children:Settings,
   tooltip: <Tooltip id="help.header.filter">Click here to select the funding type</Tooltip>,
-  //tooltip: <Tooltip id="help.header.settings">{translate('help.header.settings')}</Tooltip>,
+  tooltipKey: 'help.header.settings',
   className:'settings'
 },
 
@@ -50,7 +50,7 @@ const items=
   label:'Base Maps',
   children:Basemap,
   tooltip: <Tooltip id="help.header.basemap">Click here to select the basemap</Tooltip>,
-  //tooltip: <Tooltip id="help.header.basemap">{translate('help.header.basemap')}</Tooltip>,
+  tooltipKey: 'help.header.basemap',
   className:'basemaps'
 },
 
@@ -60,7 +60,7 @@ const items=
   label:'Save',
   children:SaveMap,
   tooltip: <Tooltip id="help.header.save">Click here to save this map</Tooltip>,
-  //tooltip: <Tooltip id="help.header.save">{translate('help.header.save')}</Tooltip>,
+  tooltipKey: 'help.header.save',
   className:'mini save',
   secure:true
 },
@@ -69,7 +69,7 @@ const items=
   key:'share',
   label:'Share',
   tooltip: <Tooltip id="help.header.share">Click here to share a link to this dashboard, including applied filters</Tooltip>,
-  //tooltip: <Tooltip id="help.header.share">{translate('help.header.share')}</Tooltip>,
+  tooltipKey: 'help.header.share',
   children:Share,
   className:'mini share'
 },
@@ -79,7 +79,7 @@ const items=
   label:'Print',
   children:Print,
   tooltip: <Tooltip id="help.header.print">Click here to create a PDF image of this map</Tooltip>,
-  //tooltip: <Tooltip id="help.header.print">{translate('help.header.print')}</Tooltip>,
+  tooltipKey: 'help.header.print',
   className:'mini print'
 },
 {
@@ -88,7 +88,7 @@ const items=
   label:'Export',
   children:Export,
   tooltip: <Tooltip id="help.header.export">Click here to export project locations</Tooltip>,
-  //tooltip: <Tooltip id="help.header.export">{translate('help.header.export')}</Tooltip>,
+  tooltipKey: 'help.header.export',
   className:'mini export'
 }
 
@@ -101,7 +101,11 @@ export default class DefaultLayout extends React.Component {
   }
 
   render() {
-    const {title} = this.props;
+    const {type} = this.props;
+    let title = this.props.title;
+    if (type=="share"){
+      title = translate('header.sharedtitle');
+    }
     return (
       <div className="root">
         <Disclaimer/>
