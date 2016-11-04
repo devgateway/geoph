@@ -16,7 +16,7 @@ public class GeometryDao {
     public GeometryDao(Long locationId, String name, Geometry geometry) {
         this.locationId = locationId;
         this.geometry = geometry;
-        this.name=name;
+        this.name = name;
     }
 
     public Long getLocationId() {

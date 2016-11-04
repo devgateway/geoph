@@ -53,7 +53,7 @@ public class LocationProjectDefinitions implements DefinitionsProvider {
         columnsDef.add(new ColumnDefinitionImp<>("Location ID", numberStyleStylist, Formatters.longFormatter(), Extractors.longExtractor("location.getId")));
         columnsDef.add(new ColumnDefinitionImp<>("UACS Code", regularStylist, Formatters.stringFormatter(), Extractors.stringExtractor("location.getCode")));
         columnsDef.add(new ColumnDefinitionImp<>("PSGC Code", regularStylist, Formatters.stringFormatter(), Extractors.stringExtractor("location.getPsgcCode")));
-        columnsDef.add(new ColumnDefinitionImp<>("ADM Level", numberStyleStylist, Formatters.intFormatter(), Extractors.intExtractor("location.getLevel")));
+        columnsDef.add(new ColumnDefinitionImp<>("ADM Level", regularStylist, Formatters.stringFormatter(), Extractors.stringExtractor("location.getLevel")));
         columnsDef.add(new ColumnDefinitionImp<>("Name", regularStylist, Formatters.stringFormatter(), Extractors.stringExtractor("location.getName")));
         columnsDef.add(new ColumnDefinitionImp<>("Latitude", decimalStylist, Formatters.doubleFormatter(), Extractors.doubleExtractor("location.getLatitude")));
         columnsDef.add(new ColumnDefinitionImp<>("Longitude", decimalStylist, Formatters.doubleFormatter(), Extractors.doubleExtractor("location.getLongitude")));
