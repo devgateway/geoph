@@ -3,7 +3,7 @@ import Immutable from 'immutable';
 
 const defaultState = Immutable.fromJS({
   'global': {
-    'isFetching': false, 'data': {}
+    'isFetching': false, 'data': {}, 'lastUpdated': 0
   }, 
   'location': {
     'isFetching': false, 'data': {}
@@ -17,6 +17,7 @@ const stats =(state = defaultState, action) => {
    
     case Constants.RECEIVE_STATS:
         state = state.setIn(['global','isFetching'], false);
+        state = state.setIn(['global','lastUpdated'], action.receivedAt);
         return state.setIn(['global','data'], action.data);
         
     case Constants.REQUEST_LOCATION_STATS:
