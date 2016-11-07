@@ -42,6 +42,7 @@ public class ChartController {
         allCharts.put("implementingAgency", chartService.getFundingByImplementingAgency(params));
         allCharts.put("sector", chartService.getFundingBySector(params));
         allCharts.put("physicalStatus", chartService.getFundingByPhysicalStatus(params));
+        allCharts.put("fundingType", chartService.getFundingByFundingType(params));
         return allCharts;
     }
 

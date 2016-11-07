@@ -33,7 +33,7 @@ class Charts extends React.Component {
 
   render() {
     let charts = this.props.charts? this.props.charts : {}
-    const {fundingAgency, implementingAgency, physicalStatus, sector} = charts;
+    const {fundingAgency, implementingAgency, physicalStatus, sector, fundingType: fundType} = charts;
     const {fundingType, expanded} = this.props;
     let helpKeyExpand = expanded? "help.chartview.collapse" : "help.chartview.expand";
     return (
@@ -78,6 +78,15 @@ class Charts extends React.Component {
             title={translate('chartview.sector')}
             helpKey="help.chartview.sector"
             chart='sector'
+            measure={fundingType} 
+            onChangeItemToShow={this.changeItemToShow.bind(this)}
+            onChangeMeasure={this.changeMeasure.bind(this)}
+            onChangeType={this.changeType.bind(this)}
+            dimension="name"/>
+          <Chart chartData={fundType || {}}
+            title={translate('chartview.fundingType')}
+            helpKey="help.chartview.fundingType"
+            chart='fundingType'
             measure={fundingType} 
             onChangeItemToShow={this.changeItemToShow.bind(this)}
             onChangeMeasure={this.changeMeasure.bind(this)}

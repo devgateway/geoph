@@ -150,6 +150,7 @@
 		"implementingagency": "Implementing Agency",
 		"physicalstatus": "Physical Status",
 		"sector": "Sector",
+		"fundingType": "Funding Type",
 		"nodata": "NO DATA AVAILABLE",
 		"more": "More",
 		"less": "Less",
@@ -250,7 +251,8 @@
 			"financinginstitution": "This chart shows the largest financing institutions (donors) for all locations",
 			"implementingagency": "This chart shows the largest implementing agencies for all locations",
 			"physicalstatus": "This chart shows a summary of projects by physical status (e.g. on schedule, ahead of schedule, delayed) for all locations",
-			"sector": "This chart shows the largest sectors for all locations"
+			"sector": "This chart shows the largest sectors for all locations",
+			"fundingType": "This chart shows the funding types for all locations"
 		},
 		"infowindow": {
 			"financinginstitution": "This chart shows the largest financing institutions (donors) for this location",

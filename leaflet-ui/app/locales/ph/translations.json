@@ -150,6 +150,7 @@
 		"implementingagency": "Nagpapatupad na Ahensya",
 		"physicalstatus": "Pisikal na Kalagayan",
 		"sector": "Sektor",
+		"fundingType": "Uri ng Pondo",
 		"nodata": "Walang makuhang datos",
 		"more": "More",
 		"less": "Less",
@@ -250,7 +251,8 @@
 			"financinginstitution": "Ang chart na eto ay nagpapakita ng pinakamalaking institusyong nagpopondo (donors) para sa lahat ng lokasyon",
 			"implementingagency": "Ang chart na eto ay nagpapakita ng pinakamalaking ahensyang nagpapatupad para sa lahat ng lokasyon",
 			"physicalstatus": "Ang chart na eto ay nagpapakita ng buod na pisikal na kalagayan ng proyekto (hal. on schedule, ahead of schedule, delayed) para sa lahat ng lokasyon",
-			"sector": "Ang chart na eto ay nagpapakita ng pinakamalaking sektor sa lahat ng lokasyon"
+			"sector": "Ang chart na eto ay nagpapakita ng pinakamalaking sektor sa lahat ng lokasyon",
+			"fundingType": "This chart shows the funding types for all locations"
 		},
 		"infowindow": {
 			"financinginstitution": "Ang chart na eto ay nagpapakita ng pinakamalaking nagpopondong institusyon (donors) para sa partikular na lokasyion",
