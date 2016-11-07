@@ -35,7 +35,8 @@
 		},
 		"filters": {
 			"title": "Filters"
-		}
+		},
+		"mapForPrint": "Map generated from print"
 	},
 
 	"filters":{
@@ -97,7 +98,9 @@
 			"apply": "Apply",
 			"search": "Search",
 			"go": "Go"
-		}
+		},
+		"noResults": "No Results",
+		"noResultsMessage": "There are not projects that match with filter criteria."
 	},
 
 	"toolview": {
@@ -136,7 +139,10 @@
 			"target":"Target",
 			"actual":"Actual",
 			"photos": "Photos",
-			"progress":"Progress"			
+			"progress":"Progress",
+			"label": "Label",
+			"on": "On",
+			"off": "Off"			
 		}
 	},
 
@@ -316,7 +322,8 @@
 			"file": "File",
 			"dropfile": "Drop a file or click this area",
 			"back": "Back",
-			"save": "Save"			
+			"save": "Save",
+			"typeName": "Type Name"		
 		},
 		"dashboards": {
 			"dashboards": "Dashboards",

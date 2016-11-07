@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Modal} from 'react-bootstrap';
 import {connect} from 'react-redux';
+import translate from '../../util/translate';
 
 class NoResultsPopup extends React.Component {	
 	constructor() {
@@ -28,12 +29,12 @@ class NoResultsPopup extends React.Component {
     		show={show} onHide={this.close.bind(this)}>
 				<Modal.Header closeButton >
 					<Modal.Title>
-						No Results
+						{translate('filters.noResults')}
 					</Modal.Title>
 				</Modal.Header>
 				<Modal.Body className="disclaimer-content">
 					<div className="bs-callout bs-callout-error">
-						There are not projects that match with filter criteria.
+						{translate('filters.noResultsMessage')}
 					</div>	
 				</Modal.Body>
 			</Modal>

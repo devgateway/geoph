@@ -29,13 +29,14 @@
 			"topographic": "Topographic",
 			"oceans": "Oceans",
 			"openstreetmap": "Open Street Map"
-		},
+		}, 
 		"share": {
 			"title": "Philippines NEDA Map"
 		},
 		"filters": {
 			"title": "Filters"
-		}
+		},
+		"mapForPrint": "Mapang nabuo mula sa pag-imprenta"
 	},
 
 	"filters":{
@@ -97,7 +98,9 @@
 			"apply": "Gamitin",
 			"search": "Hanapin",
 			"go": "Pumunta"
-		}
+		},
+		"noResults": "No Results",
+		"noResultsMessage": "There are not projects that match with filter criteria."
 	},
 
 	"toolview": {
@@ -136,7 +139,10 @@
 			"target":"Target",
 			"actual":"Actual",
 			"photos": "Photos",
-			"progress":"Progress"
+			"progress":"Progress",
+			"label": "Tatak",
+			"on": "Buksan",
+			"off": "Isara"	
 		}
 	},
 
@@ -273,9 +279,9 @@
 	},
 
 	"project": {
-		"projectdetails": "Project Details",
+		"projectdetails": "Detalye ng Proyekto",
 		"projectcost": "Project Cost",
-		"fundingtotals": "Funding Totals",
+		"fundingtotals": "Kabuuang Pondo",
 		"fundingagency": "Funding Agency",
 		"implementingagencies": "Implementing Agencies",
 		"sectors": "Sektors",
@@ -316,7 +322,8 @@
 			"file": "File",
 			"dropfile": "Drop a file or click this area",
 			"back": "Bumalik",
-			"save": "Save"			
+			"save": "Save",
+			"typeName": "I-type ang pangalan"				
 		},
 		"dashboards": {
 			"dashboards": "Dashboards",

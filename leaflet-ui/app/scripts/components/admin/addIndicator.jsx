@@ -84,7 +84,7 @@ class AddIndicator extends BaseForm {
                     <label>{translate('admin.indicators.name')}</label>
                     <input value={this.props.name}
                            onChange={(e)=>{this.handleChangeValue('name',e.target.value)}} type="name"
-                           className="form-control" id="name" placeholder="Type Name"/>
+                           className="form-control" id="name" placeholder={translate('admin.indicators.typeName')}/>
                 </div>
                 {/*<div className={errors.color?"form-group has-error":"form-group"}>
                     <label >Default Color</label>
