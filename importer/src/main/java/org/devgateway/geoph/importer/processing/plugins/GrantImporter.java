@@ -121,6 +121,8 @@ public class GrantImporter extends GeophProjectsImporter {
             );
             if(grantSubType!=null){
                 commitment.setGrantSubTypeId(grantSubType.getId());
+            } else {
+                commitment.setGrantSubTypeId(importBaseData.getGrantSubTypes().get(UNDEFINED).getId());
             }
             commitment.setProject(p);
 
@@ -156,15 +158,15 @@ public class GrantImporter extends GeophProjectsImporter {
 
             String sector = getStringValueFromCell(row.getCell(grantColumns.getSectors()), "sectors", rowNumber, GeophProjectsImporter.onProblem.NOTHING, false);
             Set<ProjectSector> sectorSet = new HashSet<>();
+            Sector sectorObj;
             if (sector!=null && importBaseData.getSectors().get(sector.toLowerCase().trim()) != null) {
-                ProjectSector ps = new ProjectSector(p, importBaseData.getSectors().get(sector.toLowerCase().trim()), UTILIZATION);
-                sectorSet.add(ps);
-            }
-            if(sectorSet.size()>0){
-                p.setSectors(sectorSet);
+                sectorObj = importBaseData.getSectors().get(sector.toLowerCase().trim());
             } else {
-                addWarning(p.getPhId(), currentRow, "Sector not found, Project was imported anyway");
+                sectorObj = importBaseData.getSectors().get(UNDEFINED);
             }
+            ProjectSector ps = new ProjectSector(p, sectorObj, UTILIZATION);
+            sectorSet.add(ps);
+            p.setSectors(sectorSet);
 
             String[] locations = getStringArrayValueFromCell(row.getCell(grantColumns.getMunicipality()), "municipality", rowNumber, onProblem.NOTHING);
             if(locations.length==0){
@@ -208,13 +210,17 @@ public class GrantImporter extends GeophProjectsImporter {
                 addWarning(p.getPhId(), currentRow, "Location not found, Project was imported anyway");
             }
 
-            p.setStatus(importBaseData.getStatuses().get(
-                    getStringValueFromCell(row.getCell(grantColumns.getStatus()), "status", rowNumber, onProblem.NOTHING, true)
-            ));
+            Status status = importBaseData.getStatuses().get(getStringValueFromCell(row.getCell(grantColumns.getStatus()), "status", rowNumber, onProblem.NOTHING, true));
+            if(status==null){
+                status = importBaseData.getStatuses().get(UNDEFINED);
+            }
+            p.setStatus(status);
 
-            p.setPhysicalStatus(importBaseData.getPhysicalStatuses().get(
-                    getStringValueFromCell(row.getCell(grantColumns.getPhysicalStatus()), "physical status", rowNumber, onProblem.NOTHING, true)
-            ));
+            PhysicalStatus physicalStatus = importBaseData.getPhysicalStatuses().get(getStringValueFromCell(row.getCell(grantColumns.getPhysicalStatus()), "physical status", rowNumber, onProblem.NOTHING, true));
+            if(physicalStatus==null){
+                physicalStatus = importBaseData.getPhysicalStatuses().get(UNDEFINED);
+            }
+            p.setPhysicalStatus(physicalStatus);
 
             p.setPeriodPerformanceStart(
                     getDateValueFromCell(row.getCell(grantColumns.getPeriodPerformanceStart()), "period performance start", rowNumber, onProblem.NOTHING)
@@ -241,9 +247,10 @@ public class GrantImporter extends GeophProjectsImporter {
                     climatesSet.add(pa);
                 }
             }
-            if(climatesSet.size()>0){
-                p.setClimateChange(climatesSet);
+            if(climatesSet.size()==0){
+                climatesSet.add(new ProjectClimateChange(p, importBaseData.getClimateChanges().get(UNDEFINED), UTILIZATION));
             }
+            p.setClimateChange(climatesSet);
 
             String[] genders = getStringArrayValueFromCell(row.getCell(grantColumns.getGenderClassification()), "gender classification", rowNumber, onProblem.NOTHING);
             Set<ProjectGenderResponsiveness> genderSet = new HashSet<>();
@@ -260,9 +267,10 @@ public class GrantImporter extends GeophProjectsImporter {
                     genderSet.add(pa);
                 }
             }
-            if(genderSet.size()>0){
-                p.setGenderResponsiveness(genderSet);
+            if(genderSet.size()==0){
+                genderSet.add(new ProjectGenderResponsiveness(p, importBaseData.getGenderResponsiveness().get(UNDEFINED), UTILIZATION));
             }
+            p.setGenderResponsiveness(genderSet);
 
             importBaseData.getProjectService().save(p);
             importStats.addSuccessProjectAndTransactions(p.getTransactions().size());
