@@ -165,6 +165,7 @@
 			"implementingagency": "Implementing Agency",
 			"physicalstatus": "Physical Status",
 			"sector": "Sector",
+			"fundingType": "Funding Type",
 			"projectlist": "Project List",
 			"totalamount": "Total"
 		},
@@ -256,6 +257,7 @@
 			"implementingagency": "This chart shows the largest implementing agencies for this location",
 			"physicalstatus": "This chart shows a summary of projects by physical status (e.g. on schedule, ahead of schedule, delayed) for this location",
 			"sector": "This chart shows the largest sectors for this location",
+			"fundingType": "This chart shows the funding type for this location",
 			"projectlist": "View a list of all projects matching the applied filters in this location"
 		},
 		"legends": "Click here to show map legends",

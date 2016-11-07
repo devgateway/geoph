@@ -117,6 +117,13 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
                 </div>
               </OverlayTrigger>
             </li>
+            <li className={this.state.tabSelected=='fundingType'? 'active' : ''} role='tab' >
+              <OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id="help.infowindow.fundingType">{translate('help.infowindow.fundingType')}</Tooltip>)}>
+                <div onClick={this.changeTab.bind(this, 'fundingType')}>
+                  <span>{translate('infowindow.tab.fundingType')}</span>
+                </div>
+              </OverlayTrigger>
+            </li>
             <li className={this.state.tabSelected=='projectList'? 'active' : ''} role='tab' >
               <OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id="help.infowindow.projectlist">{translate('help.infowindow.projectlist')}</Tooltip>)}>
                 <div onClick={this.changeTab.bind(this, 'projectList')}>
@@ -186,6 +193,24 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
               !charts.sector.isFetching?
                 <div className="">
                   <Chart chartData={Object.assign(charts.sector, {'measureType': this.state.measureType})}
+                  measure={fundingType} 
+                  chartType='pie'
+                  width={popupMaxWidth*1.02}
+                  height={popupMaxHeight/1.6}
+                  showTotalHeader={true}
+                  onChangeMeasure={level==1? this.changeMeasure:null}
+                  dimension="name"/>
+                </div>
+              : <div className="loading-css"><div></div></div>
+            :null}
+          </div>
+        :null} 
+        {this.state.tabSelected=='fundingType'?
+          <div className="popup-tab-content">
+            {charts.fundingType?
+              !charts.fundingType.isFetching?
+                <div className="">
+                  <Chart chartData={Object.assign(charts.fundingType, {'measureType': this.state.measureType})}
                   measure={fundingType} 
                   chartType='pie'
                   width={popupMaxWidth*1.02}

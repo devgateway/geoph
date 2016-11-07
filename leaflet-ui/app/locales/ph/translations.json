@@ -165,6 +165,7 @@
 			"implementingagency": "Nagpapatupad Ahensya",
 			"physicalstatus": "Pisikal Kalagayan",
 			"sector": "Sektor",
+			"fundingType": "Uri Pondo",
 			"projectlist": "Listahan Proyekto",
 			"totalamount": "Total"
 		},
@@ -256,6 +257,7 @@
 			"implementingagency": "Ang chart na eto ay nagpapakita ng pinakamalaking ahensyang nagpapatupad para sa partikular na lokasyon",
 			"physicalstatus": "Ang chart na eto ay nagpapakita ng buod sa physical status ng proyekto (hal. On schedule, ahead of schedule, delayed) sa lahat ng lokasyon",
 			"sector": "Ang chart na eto ay nagpapakita ng pinakamalaking sektor para sa partkular na lokasyon ",
+			"fundingType": "This chart shows the funding type for this location",
 			"projectlist": "Tingnan ang listahan ng lahat ng proyekto sa napiling filters para sa lokasyon na eto."
 		},
 		"legends": "Click here to show map legends",
