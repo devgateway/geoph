@@ -53,7 +53,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 const mapStateToProps = (state, props) => {
 	const {accountNonExpired,accountNonLocked,enabled,credentialsNonExpired}=state.security.toJS()
 	const loggedin=(accountNonExpired && accountNonLocked&& enabled && credentialsNonExpired);	
-	return {...state.header.toJS(), loggedin, filtersMain: state.filters.filterMain}
+	return {...state.header.toJS(), loggedin, filtersMain: state.filters.filterMain, language: state.language}
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(MenuBar);

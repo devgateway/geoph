@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import {Map} from 'immutable'
 import {getList,deleteIndicator,editIndicator} from '../../actions/indicators.js'
 import Messages from '../messages/messages.jsx'
+import translate from '../../util/translate.js';
 
 require('./admin.scss')
 
@@ -16,7 +17,7 @@ const Indicator = class extends React.Component {
           <h2> {this.props.name}</h2>
           <p>{this.props.description}</p>
         </div>
-        <button className="pull-right btn-sm btn-danger"  onClick={()=>{this.props.onDelete(this.props)}}>Remove</button>
+        <button className="pull-right btn-sm btn-danger"  onClick={()=>{this.props.onDelete(this.props)}}>{translate('admin.indicators.remove')}</button>
       </li>
     );
   }
@@ -74,7 +75,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 const mapStateToProps = (state, props) => {
  	const {indicators} = state;
-	return {...indicators.toObject()};
+	return {...indicators.toObject(), language: state.language};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(listIndicator);

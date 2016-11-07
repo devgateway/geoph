@@ -23,10 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
@@ -60,10 +57,14 @@ public class MapController {
     public Page<AppMapDao> findMaps(@PageableDefault(page = 0, size = 20, sort = "id") final Pageable pageable, @RequestParam(required = false)  String type) {
         LOGGER.debug("findMaps");
         String mapType = AppMapTypeEnum.DASHBOARD.getName();
+        List<String> typeList = new ArrayList<>();
         if(StringUtils.isBlank(type) || type.equals("all")){
-            return appMapService.findAll(pageable);
+            typeList.add(AppMapTypeEnum.DASHBOARD.getName());
+            typeList.add(AppMapTypeEnum.SAVE.getName());
+            return appMapService.findByType(typeList, pageable);
         } else {
-            return appMapService.findByType(type, pageable);
+            typeList.add(type);
+            return appMapService.findByType(typeList, pageable);
         }
     }
 

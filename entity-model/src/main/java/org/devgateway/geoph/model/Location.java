@@ -49,6 +49,9 @@ public class Location extends GenericPersistable implements Serializable {
 
     private String code;
 
+    @Column(name = "psgc_code")
+    private String psgcCode;
+
     private Double latitude;
 
     private Double longitude;
@@ -146,6 +149,14 @@ public class Location extends GenericPersistable implements Serializable {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getPsgcCode() {
+        return psgcCode;
+    }
+
+    public void setPsgcCode(String psgcCode) {
+        this.psgcCode = psgcCode;
     }
 
     public Set<ProjectLocation> getProjects() {
