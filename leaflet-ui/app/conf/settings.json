@@ -109,6 +109,7 @@
 				"implementingAgency": "/charts/impAgency",
 				"physicalStatus": "/charts/physicalStatus",
 				"sector": "/charts/sector",
+				"fundingType": "/charts/fundingType",
 				"projectList": "/projects"			
 			}		
 		},
