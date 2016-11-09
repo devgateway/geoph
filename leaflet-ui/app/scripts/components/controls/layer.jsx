@@ -44,9 +44,9 @@ class Settings extends React.Component {
 				{(settings['showLabels']!=undefined)?
 					<li>
 						<ul className="level">
-							<li className="setting-name"><b>Label:</b></li>
+							<li className="setting-name"><b>{translate('toolview.layers.label')}:</b></li>
 							<li onClick={()=>{this.set('showLabels',!settings['showLabels'])}}>
-								{settings['showLabels']==true?<div className="active" >On</div>:<div>Off</div>}								
+								{settings['showLabels']==true?<div className="active" >{translate('toolview.layers.on')}</div>:<div>{translate('toolview.layers.off')}</div>}								
 							</li>
 						</ul>
 						<div className="separator"/>				

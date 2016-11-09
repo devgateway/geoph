@@ -29,13 +29,14 @@
 			"topographic": "Topographic",
 			"oceans": "Oceans",
 			"openstreetmap": "Open Street Map"
-		},
+		}, 
 		"share": {
 			"title": "Philippines NEDA Map"
 		},
 		"filters": {
 			"title": "Filters"
-		}
+		},
+		"mapForPrint": "Mapang nabuo mula sa pag-imprenta"
 	},
 
 	"filters":{
@@ -97,7 +98,9 @@
 			"apply": "Gamitin",
 			"search": "Hanapin",
 			"go": "Pumunta"
-		}
+		},
+		"noResults": "No Results",
+		"noResultsMessage": "There are not projects that match with filter criteria."
 	},
 
 	"toolview": {
@@ -136,7 +139,10 @@
 			"target":"Target",
 			"actual":"Actual",
 			"photos": "Photos",
-			"progress":"Progress"
+			"progress":"Progress",
+			"label": "Tatak",
+			"on": "Buksan",
+			"off": "Isara"	
 		}
 	},
 
@@ -150,6 +156,7 @@
 		"implementingagency": "Nagpapatupad na Ahensya",
 		"physicalstatus": "Pisikal na Kalagayan",
 		"sector": "Sektor",
+		"fundingType": "Uri ng Pondo",
 		"nodata": "Walang makuhang datos",
 		"more": "More",
 		"less": "Less",
@@ -165,6 +172,7 @@
 			"implementingagency": "Nagpapatupad Ahensya",
 			"physicalstatus": "Pisikal Kalagayan",
 			"sector": "Sektor",
+			"fundingType": "Uri Pondo",
 			"projectlist": "Listahan Proyekto",
 			"totalamount": "Total"
 		},
@@ -249,13 +257,15 @@
 			"financinginstitution": "Ang chart na eto ay nagpapakita ng pinakamalaking institusyong nagpopondo (donors) para sa lahat ng lokasyon",
 			"implementingagency": "Ang chart na eto ay nagpapakita ng pinakamalaking ahensyang nagpapatupad para sa lahat ng lokasyon",
 			"physicalstatus": "Ang chart na eto ay nagpapakita ng buod na pisikal na kalagayan ng proyekto (hal. on schedule, ahead of schedule, delayed) para sa lahat ng lokasyon",
-			"sector": "Ang chart na eto ay nagpapakita ng pinakamalaking sektor sa lahat ng lokasyon"
+			"sector": "Ang chart na eto ay nagpapakita ng pinakamalaking sektor sa lahat ng lokasyon",
+			"fundingType": "This chart shows the funding types for all locations"
 		},
 		"infowindow": {
 			"financinginstitution": "Ang chart na eto ay nagpapakita ng pinakamalaking nagpopondong institusyon (donors) para sa partikular na lokasyion",
 			"implementingagency": "Ang chart na eto ay nagpapakita ng pinakamalaking ahensyang nagpapatupad para sa partikular na lokasyon",
 			"physicalstatus": "Ang chart na eto ay nagpapakita ng buod sa physical status ng proyekto (hal. On schedule, ahead of schedule, delayed) sa lahat ng lokasyon",
 			"sector": "Ang chart na eto ay nagpapakita ng pinakamalaking sektor para sa partkular na lokasyon ",
+			"fundingType": "This chart shows the funding type for this location",
 			"projectlist": "Tingnan ang listahan ng lahat ng proyekto sa napiling filters para sa lokasyon na eto."
 		},
 		"legends": "Click here to show map legends",
@@ -269,9 +279,9 @@
 	},
 
 	"project": {
-		"projectdetails": "Project Details",
+		"projectdetails": "Detalye ng Proyekto",
 		"projectcost": "Project Cost",
-		"fundingtotals": "Funding Totals",
+		"fundingtotals": "Kabuuang Pondo",
 		"fundingagency": "Funding Agency",
 		"implementingagencies": "Implementing Agencies",
 		"sectors": "Sektors",
@@ -312,7 +322,8 @@
 			"file": "File",
 			"dropfile": "Drop a file or click this area",
 			"back": "Bumalik",
-			"save": "Save"			
+			"save": "Save",
+			"typeName": "I-type ang pangalan"				
 		},
 		"dashboards": {
 			"dashboards": "Dashboards",

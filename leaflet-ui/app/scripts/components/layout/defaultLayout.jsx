@@ -18,6 +18,7 @@ import {Message} from '../lan/'
 import {showSaveMap} from '../../actions/saveAndRestoreMap';
 import translate from '../../util/translate';
 import Disclaimer from './disclaimer.jsx';
+import NoResultsPopup from '../filter/noResultsPopup.jsx'
 
 require("./root.scss");
 
@@ -109,6 +110,7 @@ export default class DefaultLayout extends React.Component {
     return (
       <div className="root">
         <Disclaimer/>
+        <NoResultsPopup/>
         <ProjectPage/>
         <Header>
           <Menu title={title} items={items}/>

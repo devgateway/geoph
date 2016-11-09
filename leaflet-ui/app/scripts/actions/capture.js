@@ -3,15 +3,11 @@ import Settings from '../util/settings';
 import Connector from '../connector/connector';
 import {collectValuesToSave}  from '../util/saveUtil';
 import * as HtmlUtil from '../util/htmlUtil';
-
-
-
+import translate from '../util/translate';
 
 export const capture=()=>{
 
-  debugger;
-
-  const mapName = 'Map generated from print';
+  const mapName = translate('header.mapForPrint');
   const element = document.getElementsByClassName("map")[0];  
   const {outerHTML,clientWidth,clientHeight} = HtmlUtil.getMapElementProperties();
  

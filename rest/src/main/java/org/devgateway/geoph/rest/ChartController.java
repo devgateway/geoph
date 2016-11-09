@@ -42,6 +42,7 @@ public class ChartController {
         allCharts.put("implementingAgency", chartService.getFundingByImplementingAgency(params));
         allCharts.put("sector", chartService.getFundingBySector(params));
         allCharts.put("physicalStatus", chartService.getFundingByPhysicalStatus(params));
+        allCharts.put("fundingType", chartService.getFundingByFundingType(params));
         return allCharts;
     }
 
@@ -70,6 +71,12 @@ public class ChartController {
     public Collection<ChartResponse> getByExecutingAgency(AppRequestParams filters) {
         LOGGER.debug("getByExecutingAgency info");
         return chartService.getFundingByExecutingAgency(filters.getParameters());
+    }
+
+    @RequestMapping(value = "/fundingType", method = GET)
+    public Collection<ChartResponse> getByFundingType(AppRequestParams filters) {
+        LOGGER.debug("getByFundingType info");
+        return chartService.getFundingByFundingType(filters.getParameters());
     }
 
     @RequestMapping(value = "/impAgency", method = GET)

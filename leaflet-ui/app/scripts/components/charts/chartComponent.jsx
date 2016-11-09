@@ -14,7 +14,7 @@ export default class ChartComponent extends React.Component {
 
 	constructor() {
 	    super();
-	    this.state = {'chartType': 'bar', 'measType': 'funding', 'hiddenlabels': []};
+	    this.state = {'chartType': 'bar', 'measType': 'funding', 'hiddenlabels': [], 'shouldRedrawChart': false};
 	}
 
 	setChartType(type){
@@ -41,6 +41,17 @@ export default class ChartComponent extends React.Component {
 
 	handleResize(e) {
 		this.forceUpdate();
+	}
+
+	componentWillReceiveProps(nextProps){
+		let data = this.props.chartData;
+		let newData = nextProps.chartData;
+		//force redraw chart only when amount of items to show has changed 
+		if (data.itemsToShow && (data.itemsToShow!=newData.itemsToShow)){
+			this.setState({shouldRedrawChart: true});
+		} else {
+			this.setState({shouldRedrawChart: false});
+		} 
 	}
 
 	componentDidMount() {
@@ -74,7 +85,7 @@ export default class ChartComponent extends React.Component {
 		const {measure, chartData, chartType, helpKey} = this.props;
 		const {chartType: chType, itemsToShow, measureType} = chartData;
 		let chartInfo;
-		let key = new Date().getTime();
+		let key = this.state.shouldRedrawChart? new Date().getTime() : null;
 		if (chartType){
 			chartInfo = this.getChartInfo(chartType);
 		} else {
