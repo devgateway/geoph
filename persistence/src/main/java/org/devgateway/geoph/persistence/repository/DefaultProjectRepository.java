@@ -363,8 +363,17 @@ public class DefaultProjectRepository implements ProjectRepository {
     public List<Double> getPhysicalProgressPeriod() {
         List<Double> ret = new ArrayList<>();
         Object[] o = (Object[]) em.createNativeQuery("select max(p.physical_progress) as max_php, min(p.physical_progress) as min_php from project p").getSingleResult();
-        ret.add((Double)o[0]);
-        ret.add((Double)o[1]);
+        if(o[0]!=null) {
+            ret.add((Double) o[0]);
+        } else {
+            ret.add(0D);
+        }
+
+        if(o[1]!=null) {
+            ret.add((Double) o[1]);
+        } else {
+            ret.add(0D);
+        }
         return ret;
     }
 

@@ -35,3 +35,4 @@ INSERT INTO sector (id,code,name,level) VALUES (32,'PGTZ','Power Generation and 
 INSERT INTO sector (id,code,name,level) VALUES (33,'GEDZ','Geothermal Exploration and Development',3);
 INSERT INTO sector (id,code,name,level) VALUES (34,'RELZ','Relending',3);
 INSERT INTO sector (id,code,name,level) VALUES (35,'SOIZ','Social Infrastructure',3);
+INSERT INTO sector (id,code,name,level) VALUES (36,'UNDEFINED','Undefined',1)

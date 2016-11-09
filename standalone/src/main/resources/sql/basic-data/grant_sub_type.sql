@@ -7,3 +7,4 @@ INSERT INTO grant_sub_type (id,name) VALUES (4,'Emergency/Relief');
 INSERT INTO grant_sub_type (id,name) VALUES (5,'Technical Cooperation');
 INSERT INTO grant_sub_type (id,name) VALUES (6,'Trust Fund');
 INSERT INTO grant_sub_type (id,name) VALUES (7,'Other');
+INSERT INTO grant_sub_type (id,name) VALUES (8,'Undefined');

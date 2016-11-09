@@ -135,17 +135,15 @@ public class LoanImporter extends GeophProjectsImporter {
 
             String sector = getStringValueFromCell(row.getCell(loanColumns.getSectors()), "sectors", rowNumber, GeophProjectsImporter.onProblem.NOTHING, false);
             Set<ProjectSector> sectorSet = new HashSet<>();
-
+            Sector sectorObj;
             if (sector!=null && importBaseData.getSectors().get(sector.toLowerCase().trim()) != null) {
-                ProjectSector ps = new ProjectSector(p, importBaseData.getSectors().get(sector.toLowerCase().trim()), UTILIZATION);
-                sectorSet.add(ps);
-            }
-
-            if(sectorSet.size()>0){
-                p.setSectors(sectorSet);
+                sectorObj = importBaseData.getSectors().get(sector.toLowerCase().trim());
             } else {
-                addWarning(p.getPhId(), currentRow, "Sector not found, Project was imported anyway");
+                sectorObj = importBaseData.getSectors().get(UNDEFINED);
             }
+            ProjectSector ps = new ProjectSector(p, sectorObj, UTILIZATION);
+            sectorSet.add(ps);
+            p.setSectors(sectorSet);
 
             String[] locations = getStringArrayValueFromCell(row.getCell(loanColumns.getMunicipality()), "municipality", rowNumber, GeophProjectsImporter.onProblem.NOTHING);
             if(locations.length==0){
@@ -189,13 +187,17 @@ public class LoanImporter extends GeophProjectsImporter {
                 addWarning(p.getPhId(), currentRow, "Location not found, Project was imported anyway");
             }
 
-            p.setStatus(importBaseData.getStatuses().get(
-                    getStringValueFromCell(row.getCell(loanColumns.getStatus()), "status", rowNumber, GeophProjectsImporter.onProblem.NOTHING, true)
-            ));
+            Status status = importBaseData.getStatuses().get(getStringValueFromCell(row.getCell(loanColumns.getStatus()), "status", rowNumber, onProblem.NOTHING, true));
+            if(status==null){
+                status = importBaseData.getStatuses().get(UNDEFINED);
+            }
+            p.setStatus(status);
 
-            p.setPhysicalStatus(importBaseData.getPhysicalStatuses().get(
-                    getStringValueFromCell(row.getCell(loanColumns.getPhysicalStatus()), "physical status", rowNumber, GeophProjectsImporter.onProblem.NOTHING, true)
-            ));
+            PhysicalStatus physicalStatus = importBaseData.getPhysicalStatuses().get(getStringValueFromCell(row.getCell(loanColumns.getPhysicalStatus()), "physical status", rowNumber, onProblem.NOTHING, true));
+            if(physicalStatus==null){
+                physicalStatus = importBaseData.getPhysicalStatuses().get(UNDEFINED);
+            }
+            p.setPhysicalStatus(physicalStatus);
 
             p.setPeriodPerformanceStart(
                     getDateValueFromCell(row.getCell(loanColumns.getPeriodPerformanceStart()), "period performance start", rowNumber, GeophProjectsImporter.onProblem.NOTHING)
@@ -284,9 +286,11 @@ public class LoanImporter extends GeophProjectsImporter {
                     climatesSet.add(pa);
                 }
             }
-            if(climatesSet.size()>0){
-                p.setClimateChange(climatesSet);
+            if(climatesSet.size()==0){
+                climatesSet.add(new ProjectClimateChange(p, importBaseData.getClimateChanges().get(UNDEFINED), UTILIZATION));
             }
+            p.setClimateChange(climatesSet);
+
 
             String[] genders = getStringArrayValueFromCell(row.getCell(loanColumns.getGenderClassification()), "gender classification", rowNumber, onProblem.NOTHING);
             Set<ProjectGenderResponsiveness> genderSet = new HashSet<>();
@@ -303,9 +307,10 @@ public class LoanImporter extends GeophProjectsImporter {
                     genderSet.add(pa);
                 }
             }
-            if(genderSet.size()>0){
-                p.setGenderResponsiveness(genderSet);
+            if(genderSet.size()==0){
+                genderSet.add(new ProjectGenderResponsiveness(p, importBaseData.getGenderResponsiveness().get(UNDEFINED), UTILIZATION));
             }
+            p.setGenderResponsiveness(genderSet);
 
 
             importBaseData.getProjectService().save(p);
