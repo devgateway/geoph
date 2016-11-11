@@ -91,7 +91,7 @@ public class GrantImporter extends GeophProjectsImporter {
 
             Classification cl = importBaseData.getClassifications().get(getStringValueFromCell(row.getCell(grantColumns.getClassification()), "classification", rowNumber, onProblem.NOTHING, true));
             if(cl == null){
-                cl = importBaseData.getClassifications().get("Other Programs/Projects");
+                cl = importBaseData.getClassifications().get("other programs/projects");
                 addWarning(p.getPhId(), currentRow, "Grant Classification not fount, added as Other Programs");
             }
             p.setGrantClassification(cl);
