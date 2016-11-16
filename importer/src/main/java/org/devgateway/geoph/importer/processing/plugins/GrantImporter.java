@@ -89,9 +89,12 @@ public class GrantImporter extends GeophProjectsImporter {
                 addWarning(p.getPhId(), currentRow, "IA not found, added as undefined");
             }
 
-            p.setGrantClassification(importBaseData.getClassifications().get(
-                    getStringValueFromCell(row.getCell(grantColumns.getClassification()), "classification", rowNumber, onProblem.NOTHING, true)
-            ));
+            Classification cl = importBaseData.getClassifications().get(getStringValueFromCell(row.getCell(grantColumns.getClassification()), "classification", rowNumber, onProblem.NOTHING, true));
+            if(cl == null){
+                cl = importBaseData.getClassifications().get("other programs/projects");
+                addWarning(p.getPhId(), currentRow, "Grant Classification not fount, added as Other Programs");
+            }
+            p.setGrantClassification(cl);
 
             String ea = getStringValueFromCell(row.getCell(grantColumns.getExecutingAgency()), "executing agency", rowNumber, onProblem.NOTHING, true);
             if(StringUtils.isBlank(ea) || importBaseData.getExecutingAgencies().get(ea.trim()) == null){
