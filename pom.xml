@@ -257,6 +257,14 @@
         <connection>scm:git:https://dbianco@github.com/devgateway/geoph.git</connection>
         <tag>HEAD</tag>
     </scm>
+	
+	<distributionManagement>
+        <repository>
+            <id>dgtoolkit-releases</id>
+            <name>dgtoolkit-releases</name>
+            <url>http://artifactory.ampdev.net/artifactory/dg-toolkit-releases</url>
+        </repository>
+    </distributionManagement>
 
     <repositories>
         <repository>
