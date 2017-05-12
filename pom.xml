@@ -5,7 +5,7 @@
     <groupId>org.devgateway.geoph</groupId>
     <artifactId>api</artifactId>
     <packaging>pom</packaging>
-    <version>1.4-SNAPSHOT</version>
+    <version>1.4</version>
 
 
     <properties>
@@ -255,7 +255,7 @@
         
         <developerConnection>scm:git:https://sdimunzio@github.com/devgateway/geoph.git</developerConnection>
         <connection>scm:git:https://sdimunzio@github.com/devgateway/geoph.git</connection>
-        <tag>HEAD</tag>
+        <tag>api-1.4</tag>
     </scm>
 	
 	<distributionManagement>
