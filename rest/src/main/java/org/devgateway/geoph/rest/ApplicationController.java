@@ -1,6 +1,9 @@
 package org.devgateway.geoph.rest;
 
 import org.devgateway.geoph.core.services.AppStatsService;
+import org.devgateway.geoph.core.services.ApplicationService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,18 +16,24 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 /**
  * @author dbianco
- *         created on mar 28 2016.
+ *         created on aug 8 2017.
  */
 @RestController
-@RequestMapping(value = "/appStats")
-public class AppStatsController {
+@RequestMapping(value = "/application")
+public class ApplicationController {
 
-
-    private final AppStatsService appStatsService;
+    private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationController.class);
 
     @Autowired
-    public AppStatsController(AppStatsService appStatsService) {
-        this.appStatsService = appStatsService;
+    private ApplicationService applicationService;
+
+    @Autowired
+    private AppStatsService appStatsService;
+
+    @RequestMapping(value = "/isAuthenticated", method = GET)
+    public boolean checkAuth() {
+        LOGGER.debug("check authenticated user");
+        return applicationService.isUserAuthenticated();
     }
 
     @RequestMapping(value = "/EhCache", method = GET)

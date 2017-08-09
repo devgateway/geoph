@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.devgateway.geoph.core.exceptions.BadRequestException;
 import org.devgateway.geoph.core.services.AppMapService;
+import org.devgateway.geoph.core.services.ApplicationService;
 import org.devgateway.geoph.core.services.ScreenCaptureService;
 import org.devgateway.geoph.core.util.MD5Generator;
 import org.devgateway.geoph.dao.AppMapDao;
@@ -43,29 +44,33 @@ public class MapController {
     private static final String BAD_REQUEST_NAME_INVALID = "The name used to save the map is not valid or it is already in use";
     private static final String SHARED_MAP_DESC = "Shared map";
 
-    private final AppMapService appMapService;
-
-    private final ScreenCaptureService screenCaptureService;
+    @Autowired
+    private AppMapService appMapService;
 
     @Autowired
-    public MapController(AppMapService appMapService, ScreenCaptureService screenCaptureService) {
-        this.screenCaptureService=screenCaptureService;
-        this.appMapService = appMapService;
-    }
+    private ScreenCaptureService screenCaptureService;
+
+    @Autowired
+    private ApplicationService applicationService;
 
     @RequestMapping(method = GET)
-    public Page<AppMapDao> findMaps(@PageableDefault(page = 0, size = 20, sort = "id") final Pageable pageable, @RequestParam(required = false)  String type) {
+    public Page<AppMapDao> findMaps(@PageableDefault(page = 0, size = 20, sort = "id") final Pageable pageable,
+                                    @RequestParam(required = false)  String type) {
         LOGGER.debug("findMaps");
-        String mapType = AppMapTypeEnum.DASHBOARD.getName();
         List<String> typeList = new ArrayList<>();
-        if(StringUtils.isBlank(type) || type.equals("all")){
+        if (StringUtils.isBlank(type) || type.equals("all") || type.equals(AppMapTypeEnum.DASHBOARD.getName())) {
             typeList.add(AppMapTypeEnum.DASHBOARD.getName());
-            typeList.add(AppMapTypeEnum.SAVE.getName());
-            return appMapService.findByType(typeList, pageable);
+            if (applicationService.isUserAuthenticated()) {
+                typeList.add(AppMapTypeEnum.SAVE.getName());
+            }
         } else {
+            if (type.equals(AppMapTypeEnum.SAVE.getName()) && !applicationService.isUserAuthenticated()) {
+                return null;
+            }
             typeList.add(type);
-            return appMapService.findByType(typeList, pageable);
         }
+
+        return appMapService.findByType(typeList, pageable);
     }
 
 
@@ -144,7 +149,12 @@ public class MapController {
     @RequestMapping(value = "/id/{id}", method = GET)
     public AppMap findMapById(@PathVariable final long id) {
         LOGGER.debug("findMapById");
-        return appMapService.findById(id);
+        AppMap map = appMapService.findById(id);
+        if (map != null && map.getType().equals(AppMapTypeEnum.SAVE.getName())
+                && !applicationService.isUserAuthenticated()) {
+            map = null;
+        }
+        return map;
     }
 
     @RequestMapping(value = "/id/{id}", method = DELETE)
