@@ -68,10 +68,18 @@ public class MapExport {
         fillParams(params);
 
         AppMap map = saveMap(params);
-
-        String name = screenCaptureService.createPdfFromHtmlString(params, map.getKey());
-        Map<String, String> values = ImmutableMap.of("file", name);
-        return values;
+        String name;
+        if (StringUtils.isBlank(params.getCompareMapKey())) {
+            name = screenCaptureService.createPdfFromHtmlString(null, params, map.getKey());
+        } else {
+            AppMap compareMap = appMapService.findByKey(params.getCompareMapKey());
+            ObjectMapper mapper = new ObjectMapper();
+            PrintParams compareMapParams = new PrintParams();
+            compareMapParams.setData(mapper.readValue(compareMap.getJsonAppMap(), Map.class));
+            fillParams(compareMapParams);
+            name = screenCaptureService.createPdfFromHtmlString(compareMapParams, params, map.getKey());
+        }
+        return ImmutableMap.of("file", name);
     }
 
     @RequestMapping(value = "/download/{name:.+}   ",method = GET)
@@ -105,6 +113,7 @@ public class MapExport {
                     params.getDescription(),
                     mapJson,
                     UUID.randomUUID().toString(),
+                    params.getCompareMapKey(),
                     md5,
                     AppMapTypeEnum.PRINT.getName(),null));
         }
@@ -119,7 +128,7 @@ public class MapExport {
         }
         List jsonLayers = (List) data.get("visibleLayers");
         if (jsonLayers != null && jsonLayers.size()>0) {
-            params.setLayers(printService.getLayerNamesFromJson(jsonLayers));
+            params.setVisibleLayers(printService.getLayerNamesFromJson(jsonLayers));
         }
         Map settings = (Map) data.get("settings");
         if(settings!=null && settings.size()>0){

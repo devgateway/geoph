@@ -30,11 +30,13 @@ public class PrintParams {
 
     private String trxStatus;
 
+    private String compareMapKey;
+
     private Object data;
 
     private Map<String, Set<String>> filters;
 
-    private Map<String, List<Map <String, String>>> layers;
+    private Map<String, List<Map <String, String>>> visibleLayers;
 
     Map<String, Collection<ChartResponse>> allChartsData;
 
@@ -104,12 +106,12 @@ public class PrintParams {
         this.filters = filters;
     }
 
-    public  Map<String, List<Map <String, String>>> getLayers() {
-        return layers;
+    public Map<String, List<Map<String, String>>> getVisibleLayers() {
+        return visibleLayers;
     }
 
-    public void setLayers(Map<String, List<Map <String, String>>> layers) {
-        this.layers = layers;
+    public void setVisibleLayers(final Map<String, List<Map<String, String>>> visibleLayers) {
+        this.visibleLayers = visibleLayers;
     }
 
     public Map<String, Collection<ChartResponse>> getAllChartsData() {
@@ -142,5 +144,13 @@ public class PrintParams {
 
     public void setStats(Map<String, List<ProjectStatsResultsDao>> stats) {
         this.stats = stats;
+    }
+
+    public String getCompareMapKey() {
+        return compareMapKey;
+    }
+
+    public void setCompareMapKey(final String compareMapKey) {
+        this.compareMapKey = compareMapKey;
     }
 }

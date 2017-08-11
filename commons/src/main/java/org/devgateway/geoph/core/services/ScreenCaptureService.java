@@ -14,7 +14,7 @@ import java.net.URI;
  */
 public interface ScreenCaptureService {
 
-    String createPdfFromHtmlString(PrintParams params, String key) throws Exception;
+    String createPdfFromHtmlString(PrintParams compareMapParams, PrintParams params, String key) throws Exception;
 
     BufferedImage captureImage(Integer width, Integer height, URI target);
 
@@ -25,5 +25,4 @@ public interface ScreenCaptureService {
     File buildPage(Integer width, Integer height, String html);
 
     String toBase64(BufferedImage image) throws IOException;
-
 }
