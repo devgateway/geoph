@@ -60,7 +60,7 @@
     "jshint": "2.9.1",
     "leaflet": "0.7.7",
     "moment": "2.12.0",
-    "node-sass": "3.4.2",
+    "node-sass": "4.5.3",
     "nodemon": "1.9.1",
     "qs": "6.1.0",
     "react": "0.14.7",
