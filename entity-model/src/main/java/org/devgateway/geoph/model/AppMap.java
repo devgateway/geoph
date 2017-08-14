@@ -23,6 +23,8 @@ public class AppMap extends GenericPersistable implements Serializable {
 
     private String key;
 
+    private String compareMapKey;
+
     private String md5;
 
     private String type;
@@ -31,7 +33,6 @@ public class AppMap extends GenericPersistable implements Serializable {
     private String jsonAppMap;
 
     private Date creationDate;
-
 
     @Type(type = "text")
     private String base64preview;
@@ -48,12 +49,14 @@ public class AppMap extends GenericPersistable implements Serializable {
         this.base64preview = base64preview;
     }
 
-    public AppMap(String name, String description, String jsonAppMap, String key, String md5, String type, String base64preview) {
+    public AppMap(String name, String description, String jsonAppMap, String key, String compareMapKey,
+                  String md5, String type, String base64preview) {
         this.name = name;
         this.description = description;
         this.jsonAppMap = jsonAppMap;
         this.creationDate = new Date();
         this.key = key;
+        this.compareMapKey = compareMapKey;
         this.md5 = md5;
         this.type = type;
         this.base64preview=base64preview;
@@ -81,6 +84,14 @@ public class AppMap extends GenericPersistable implements Serializable {
 
     public void setKey(String key) {
         this.key = key;
+    }
+
+    public String getCompareMapKey() {
+        return compareMapKey;
+    }
+
+    public void setCompareMapKey(final String compareMapKey) {
+        this.compareMapKey = compareMapKey;
     }
 
     public String getJsonAppMap() {
