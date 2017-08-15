@@ -1,15 +1,9 @@
 .idea/
 *.iml
 bower_components
-entity-model/target/
-esri-ui/bower_components/**/**
 dist
-esri-ui/node_modules/
-persistence/target/
-services/target/
-rest/target/
-standalone/target/classes/org/devgateway/geoph/BootMetadata.class
 target
 esri-ui/dist
 leaflet-ui/node_modules/
 *.releaseBackup
+/logs/
