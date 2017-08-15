@@ -1,9 +1,15 @@
 package org.devgateway.geoph.model;
 
 import org.devgateway.geoph.converter.StringJsonUserType;
-import org.hibernate.annotations.*;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.TypeDefs;
 
 import javax.persistence.Entity;
+import javax.persistence.Index;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -14,6 +20,7 @@ import java.util.Date;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @TypeDefs( {@TypeDef( name= "StringJsonObject", typeClass = StringJsonUserType.class)})
+@Table(indexes = { @Index(columnList = "key"), @Index(columnList = "type") })
 public class AppMap extends GenericPersistable implements Serializable {
 
     private String name;
