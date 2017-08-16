@@ -23,6 +23,8 @@ module.exports = {
     loaders: [{
       test: /\.(js|jsx|es6)$/,
       loaders: ['babel'],
+      exclude: /node_modules/,
+      cacheDirectory: true,
       include: path.join(__dirname, 'app')
     }, {
       test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
@@ -57,5 +59,5 @@ module.exports = {
     },
     extensions: ["", ".webpack.js", ".web.js", ".js", ".jsx",".es6"]
   }
-
+  
 };

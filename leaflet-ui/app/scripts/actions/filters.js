@@ -70,10 +70,10 @@ export const fetchFilterData = (filterType) => {
   return dispatch => {
     dispatch(requestFilterData(filterType))
     return Connector.getFilterData(filterType)
-    .then(req => {
-      checkLoadingPending(dispatch, filterType);
-      dispatch(receiveFilterData(filterType, req));
-    })
+      .then(req => {
+        checkLoadingPending(dispatch, filterType);
+        dispatch(receiveFilterData(filterType, req));
+      })
   }
 }
 

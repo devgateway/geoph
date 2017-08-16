@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link  } from 'react-router';
 import {connect} from 'react-redux';
-import Messages from '../messages/messages.jsx'	
+import Messages from '../messages/messages.jsx'
 import {getMapList,edit,remove} from '../../actions/dashboard.js';
 import Moment from 'moment';
 import translate from '../../util/translate.js';
 require("./dashboard.scss");
 
-var pageSize = 5;
+const pageSize = 5;
 
 class Item extends React.Component {
   render(){
@@ -32,7 +32,7 @@ class Item extends React.Component {
           <div className="visible" >
             {type=="dashboard"? "YES":"NO"}
           </div>
-        :null}
+          :null}
         <div className="actions" >
           {this.props.children}
         </div>
@@ -58,25 +58,25 @@ class Dashboard extends React.Component {
     super();
     this.state = {'activePage': 0};
   }
-
+  
   componentWillMount() {
-     this.getListData(0);
+    this.getListData(0);
   }
-
+  
   getListData(activePage){
     let params ={
       'type': this.props.loggedIn? 'all' : 'dashboard',
       'page': activePage,
       'size': pageSize
-    };    
+    };
     this.props.onGetList(params);
     this.setState({activePage: activePage});
   }
-
+  
   render() {
     const {content=[], first, last, number, numberOfElements, size, sort, totalElements, totalPages, loggedIn} = this.props;
     const {activePage} = this.state;
-    return (  
+    return (
       <div className="dashboard-main">
         <Messages {...this.props}/>
         <div className="list-header">
@@ -94,15 +94,15 @@ class Dashboard extends React.Component {
             <div className="visible" >
               Visible to all
             </div>
-          :null}
+            :null}
           {loggedIn?
             <div className="actions" >
               Actions
             </div>
-          :null}
+            :null}
         </div>
         {content.map(d=>{
-          return ( 
+          return (
             <Item {...d} loggedIn={loggedIn} mapKey={d.key}>
               {loggedIn?<AdminActions {...this.props} mapKey={d.key}/>:null}
             </Item>
@@ -113,7 +113,7 @@ class Dashboard extends React.Component {
           <div className={"pager-state"}>{"page "+(activePage+1) + " of "+(totalPages || "1")}</div>
           <button className="btn btn-sm btn-default" disabled={last? "disabled":""} onClick={this.getListData.bind(this, activePage+1)}>{">"}</button>
         </div>
-      </div> 
+      </div>
     )
   }
 }
@@ -124,13 +124,13 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     onEdit:(key)=>{dispatch(edit(key))},
     onDelete:(key)=>{dispatch(remove(key))}
   }
-}
+};
 
 const mapStateToProps = (state, props) => {
   const {results}=state.dashboard.toJS();
   return {
     language: state.language,
     ...results}
-}
+};
 
 export default connect(mapStateToProps,mapDispatchToProps)(Dashboard);

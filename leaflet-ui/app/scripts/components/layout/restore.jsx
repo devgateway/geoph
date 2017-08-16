@@ -5,16 +5,15 @@ require("./root.scss");
 import {requestRestoreMap}  from '../../actions/saveAndRestoreMap';
 
 class App extends DefaultLayout {
-
+  
   constructor() {
     super();
   }
-
+  
   componentWillMount() {
     let key = this.props.routeParams.key;
     this.props.onRequestRestoreMap(key);
   }
-
 }
 
 
@@ -24,7 +23,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(requestRestoreMap(mapToRestore));
     }
   }
-}
+};
 
 const mapStateToProps = (state, props) => {
   return {
@@ -32,7 +31,7 @@ const mapStateToProps = (state, props) => {
     title: state.saveMap.get("name"),
     type: state.saveMap.get("type")
   }
-}
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);;
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 

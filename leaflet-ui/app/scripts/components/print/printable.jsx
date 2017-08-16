@@ -7,12 +7,12 @@ import {requestRestoreMap}  from '../../actions/saveAndRestoreMap';
 require('./printable.scss');
 
 class Printable extends React.Component {
-
+  
   componentWillMount() {
     let key = this.props.routeParams.key;
     this.props.onRequestRestoreMap(key);
   }
-
+  
   render() {
     return (
       <div className="printable">
@@ -34,12 +34,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(requestRestoreMap(mapToRestore));
     }
   }
-}
+};
 
 const mapStateToProps = (state, props) => {
   return {
     language: state.language
   }
-}
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Printable);;
+export default connect(mapStateToProps, mapDispatchToProps)(Printable);

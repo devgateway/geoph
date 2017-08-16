@@ -42,6 +42,6 @@ const geophApp = combineReducers({
   dashboard,
   project,
   routing: routerReducer
-})
+});
 
-export default geophApp
+export default geophApp;

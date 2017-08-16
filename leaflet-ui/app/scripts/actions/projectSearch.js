@@ -53,7 +53,7 @@ export const searchProjectsByText = (filters) => {
   return dispatch => {
     dispatch(requestProjectsByText(filters))
     return Connector.getProjectsWithFilters(filters)
-    .then(req => dispatch(receiveProjectsByText(filters, req)))
+      .then(req => dispatch(receiveProjectsByText(filters, req)))
   }
 }
 

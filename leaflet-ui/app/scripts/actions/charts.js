@@ -1,5 +1,4 @@
 import * as Constants from '../constants/constants';
-import Settings from '../util/settings';
 import Connector from '../connector/connector';
 
 export const requestChartData = (fromPopup) => {
@@ -46,6 +45,6 @@ export const fetchChartData = (filters) => {
   return dispatch => {
     dispatch(requestChartData(false))
     return Connector.getChartData(filters)
-    .then(req => dispatch(receiveChartData(req, false)))
+      .then(req => dispatch(receiveChartData(req, false)))
   }
 }

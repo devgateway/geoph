@@ -12,20 +12,20 @@ const filters = (state = {filterMain: {}}, action) => {
     case Constants.SEARCH_FILTER_LIST_BY_TEXT:
       let fl = filter(state.filterMain[action.filterType], action);
       updateFilterCounters(fl);
-      filterMain = cloneDeep(state.filterMain);      
+      filterMain = cloneDeep(state.filterMain);
       Object.assign(filterMain, {[action.filterType]: fl});
       return Object.assign({}, state, {
         filterMain: filterMain
       })
     case Constants.OPEN_FILTER:
       filterMain = cloneDeep(state.filterMain);
-      makeAllOptionsVisible(filterMain); 
+      makeAllOptionsVisible(filterMain);
       return Object.assign({}, state, {
         filterBackup: filterMain,
         filterMain: filterMain
       })
     case Constants.CANCEL_FILTER:
-      let filterBackup = cloneDeep(state.filterBackup); 
+      let filterBackup = cloneDeep(state.filterBackup);
       return Object.assign({}, state, {
         filterMain: filterBackup
       })
@@ -34,22 +34,22 @@ const filters = (state = {filterMain: {}}, action) => {
       copyState = resetAllFilters(copyState);
       if(action.storedMap.data.filters){
         let storedFilters =  action.storedMap.data.filters;
-        Object.keys(storedFilters).map(k=>{ 
+        Object.keys(storedFilters).map(k=>{
           if (k.indexOf("_min")!=-1 || k.indexOf("_max")!=-1){
             let param = k.indexOf("_min")!=-1? k.substring(0, k.search("_min")) : k.substring(0, k.search("_max"));
             let value = k.indexOf("_min")!=-1? {'minSelected': storedFilters[k]} : {'maxSelected': storedFilters[k]};
             Object.assign(copyState[param], value, {'isRange': true});
           } else {
-            storedFilters[k].forEach(e=>{            
+            storedFilters[k].forEach(e=>{
               updateFilterSelection(copyState[k], e, true);
               updateFilterCounters(copyState[k]);
-            }); 
+            });
           }
-        });        
+        });
       }
       return Object.assign({}, state, { filterMain: copyState})
     case Constants.RESET_FILTER:
-      filterMain = cloneDeep(state.filterMain);   
+      filterMain = cloneDeep(state.filterMain);
       filterMain = resetAllFilters(filterMain);
       return Object.assign({}, state, {
         filterMain: filterMain
@@ -77,19 +77,19 @@ const filter = (state = {
       })
     case Constants.FILTER_SET_RANGE:
       return Object.assign({}, state, {
-          isRange: true,
-          minSelected: action.filter.minSelected,
-          maxSelected: action.filter.maxSelected
+        isRange: true,
+        minSelected: action.filter.minSelected,
+        maxSelected: action.filter.maxSelected
       })
     case Constants.SELECT_ALL_FILTER_LIST:
       return Object.assign({}, state, {
-          selected: action.item.selected,
-          items: state.items.map(i => filterItem(i, action))
+        selected: action.item.selected,
+        items: state.items.map(i => filterItem(i, action))
       })
     case Constants.SELECT_FILTER_ITEM:
     case Constants.SEARCH_FILTER_LIST_BY_TEXT:
       return Object.assign({}, state, {
-          items: state.items.map(i => filterItem(i, action))
+        items: state.items.map(i => filterItem(i, action))
       })
     default:
       return state
@@ -102,13 +102,13 @@ const filterItem = (state = {
   let copyState = cloneDeep(state);
   switch (action.type) {
     case Constants.SELECT_FILTER_ITEM:
-      updateFilterSelection(copyState, action.item.id, action.item.selected); 
+      updateFilterSelection(copyState, action.item.id, action.item.selected);
       return Object.assign({}, copyState);
     case Constants.SELECT_ALL_FILTER_LIST:
-      updateFilterSelection(copyState, 'all', action.item.selected); 
+      updateFilterSelection(copyState, 'all', action.item.selected);
       return copyState
     case Constants.SEARCH_FILTER_LIST_BY_TEXT:
-      searchByTextIntoChildren(copyState, action.text); 
+      searchByTextIntoChildren(copyState, action.text);
       return copyState
     default:
       return state
@@ -116,7 +116,7 @@ const filterItem = (state = {
 }
 
 //This function iterates over all children items and select the given one
-const updateFilterSelection = (item, id, selection) => { 
+const updateFilterSelection = (item, id, selection) => {
   if (item.id === id || 'all' === id){
     updateItemAndChildren(item, selection);
   } else if (item.items && item.items.length>0){
@@ -130,15 +130,15 @@ const updateFilterSelection = (item, id, selection) => {
   }
 }
 
-const updateItemAndChildren = (item, selection) => { 
+const updateItemAndChildren = (item, selection) => {
   Object.assign(item, {'selected': selection});
   if (item.items && item.items.length>0){
     item.items.forEach(it => updateItemAndChildren(it, selection));
-  }  
+  }
 }
 
 //This function add the total and selected counter fields to each object that has children
-const updateFilterCounters = (filterObject) => { 
+const updateFilterCounters = (filterObject) => {
   let count = 0;
   let countSel = 0;
   if (filterObject.items && filterObject.items.length>0){
@@ -155,7 +155,7 @@ const updateFilterCounters = (filterObject) => {
 }
 
 //This function search by text into the items and its children
-const searchByTextIntoChildren = (item, keyword) => { 
+const searchByTextIntoChildren = (item, keyword) => {
   let itemMatch = itemMatchs(item, keyword);
   let childrenMatch = false;
   if (item.items && item.items.length>0){
@@ -183,7 +183,7 @@ const itemMatchs = (item, keyword) => {
   }
 }
 
-const makeAllOptionsVisible = (filters) => { 
+const makeAllOptionsVisible = (filters) => {
   for (var fltr in filters) {
     if (!filters[fltr].isRange){
       if (filters[fltr].items && filters[fltr].items.length>0){
@@ -191,11 +191,11 @@ const makeAllOptionsVisible = (filters) => {
           makeVisibleIntoChildren(it);
         });
       }
-    } 
+    }
   }
 }
 
-const makeVisibleIntoChildren = (item) => { 
+const makeVisibleIntoChildren = (item) => {
   Object.assign(item, {'hide': false});
   if (item.items && item.items.length>0){
     item.items.forEach((it) => {
@@ -204,7 +204,7 @@ const makeVisibleIntoChildren = (item) => {
   }
 }
 
-const resetAllFilters = (filterMain) => { 
+const resetAllFilters = (filterMain) => {
   let actionDummy = {type: Constants.SELECT_ALL_FILTER_LIST, item: {selected: false}};
   for (var filterKey in filterMain) {
     let filterClean;
@@ -215,10 +215,10 @@ const resetAllFilters = (filterMain) => {
       filterClean = cloneDeep(filterMain[filterKey]);
       delete filterClean['minSelected'];
       delete filterClean['maxSelected'];
-    }        
+    }
     Object.assign(filterMain, {[filterKey]: filterClean});
   }
-  return filterMain; 
+  return filterMain;
 }
 
 export default filters;
