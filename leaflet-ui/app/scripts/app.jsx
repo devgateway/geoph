@@ -17,6 +17,15 @@ import routes from './routes';
 import AjaxUtil from './util/ajax';
 import Setting from './util/settings';
 
+// ========================================================
+// Developer Tools Setup
+// ========================================================
+console.log(process.env.NODE_ENV);
+if (process.env.NODE_ENV === undefined || process.env.NODE_ENV === 'development') {
+  if (window.devToolsExtension) {
+    window.devToolsExtension.open();
+  }
+}
 
 const redirectMiddleWare = store => next => action => {
   if (action.transition) {
