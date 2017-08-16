@@ -4,7 +4,7 @@
   @include controlBox();
 
   ul.share {
-    @include list-horizontal
+    @include list-horizontal;
     float: right;
     width: 520px;
     padding-bottom: 10px;

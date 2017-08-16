@@ -10,7 +10,7 @@ $border-gray: #ebebeb;
 }
 
 .header {
-  @include absolute(0px, 0px, initial, 0px)
+  @include absolute(0px, 0px, initial, 0px);
   @include box-sizing (100%, 115px);
   background-color: #00396c;
   .heading {
@@ -41,7 +41,7 @@ $border-gray: #ebebeb;
 }
 
 ul.options {
-  @include list-horizontal
+  @include list-horizontal;
   float: right;
   > li {
     float: left;
@@ -58,7 +58,7 @@ ul.options {
   li span {
     color: #000 !important;
     line-height: 30px;
-    @include font(11px, $regular)
+    @include font(11px, $regular);
     cursor: pointer;
 
   }

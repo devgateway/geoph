@@ -18,7 +18,7 @@
 }
 
 .panel {
-  @include absolute(115px, 0px, 40px, initial)
+  @include absolute(115px, 0px, 40px, initial);
 
   min-width: 360px;
   z-index: 250;
@@ -38,15 +38,15 @@
   margin-bottom: 0px !important;
   > ul {
 
-    @include list-horizontal()
+    @include list-horizontal();
     padding: 0px !important;
     height: 50px;
     .panel-tab {
 
-      @include box-sizing(12vmax, 39px)
+      @include box-sizing(12vmax, 39px);
       min-width: 140px;
-      @include border-radius(5px)
-      @include font(15px, $blue)
+      @include border-radius(5px);
+      @include font(15px, $blue);
       display: inline-block;
       white-space: nowrap;
       border: 1px solid #D5DBE0;
@@ -64,7 +64,7 @@
   }
 
   .icon {
-    @include box-sizing(26px, 28px)
+    @include box-sizing(26px, 28px);
     margin: -3px 5px 0px 5px;
     float: left;
   }
