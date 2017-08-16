@@ -1,93 +1,88 @@
-
-$blue:rgb( 4, 70, 111 );
-$regular: rgb( 4, 64, 114 );
+$blue: rgb(4, 70, 111);
+$regular: rgb(4, 64, 114);
 
 .leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar {
-    border: 0px !important;
-    background-clip: padding-box;
+  border: 0px !important;
+  background-clip: padding-box;
 }
 
+@mixin controlBox() {
+  position: fixed;
+  top: 115px;
+  right: 0px;
+  left: initial;
+  z-index: 1000;
 
-@mixin controlBox(){
-	position: fixed;
-	top: 115px;
-	right: 0px;
-	left: initial;
-	z-index: 1000;
-	
-	background-color: #ffffff;
-	border:1px solid #eee;
-	
-	padding-bottom:10px;
-	width:505px;
-	border-top:1px solid #cfe1f0;
-	-webkit-box-shadow: 0px 10px 26px -6px rgba(0,0,0,0.59);
-    -moz-box-shadow: 0px 10px 26px -6px rgba(0,0,0,0.59);
-	box-shadow: 0px 10px 26px -6px rgba(0,0,0,0.59);
+  background-color: #ffffff;
+  border: 1px solid #eee;
 
-	h2{
-		font-weight: bold !important;
-		color:#003366 !important;
-		 margin-top: 20px;
-	  	padding-bottom: 15px;
-	}
+  padding-bottom: 10px;
+  width: 505px;
+  border-top: 1px solid #cfe1f0;
+  -webkit-box-shadow: 0px 10px 26px -6px rgba(0, 0, 0, 0.59);
+  -moz-box-shadow: 0px 10px 26px -6px rgba(0, 0, 0, 0.59);
+  box-shadow: 0px 10px 26px -6px rgba(0, 0, 0, 0.59);
+
+  h2 {
+    font-weight: bold !important;
+    color: #003366 !important;
+    margin-top: 20px;
+    padding-bottom: 15px;
+  }
 
 }
 
-@mixin absolute($top,$right, $bottom, $left){
-	position: absolute;
-	top: $top;
-	right: $right;
-	bottom: $bottom;
-	left: $left;
-	overflow: hidden;
+@mixin absolute($top,$right, $bottom, $left) {
+  position: absolute;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+  overflow: hidden;
 }
-
 
 @mixin border-radius($radius) {
-	-webkit-border-radius: $radius;
-	-moz-border-radius: $radius;
-	-ms-border-radius: $radius;
-	border-radius: $radius;
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
 }
 
-
-
-@mixin font($size,$color){
-	font-size:$size;
-	color:$color;
-
-}
-
-@mixin margin($top,$right,$bottom,$left){
-	margin-top: $top;
-	margin-right: $right;
-	margin-bottom: $bottom;
-	margin-left: $left;
+@mixin font($size,$color) {
+  font-size: $size;
+  color: $color;
 
 }
 
-@mixin col1size(){
-	width: 67%;
+@mixin margin($top,$right,$bottom,$left) {
+  margin-top: $top;
+  margin-right: $right;
+  margin-bottom: $bottom;
+  margin-left: $left;
+
+}
+
+@mixin col1size() {
+  width: 67%;
   @media (max-width: 1024px) {
-	width: 100%;
-	    }
+    width: 100%;
+  }
 }
 
-@mixin col2size(){
-	width: 33%;
+@mixin col2size() {
+  width: 33%;
 }
 
-@mixin list-horizontal(){
-	list-style: none;
-	
-	li{
-		display: inline-block;
-	}
+@mixin list-horizontal() {
+  list-style: none;
+
+  li {
+    display: inline-block;
+  }
 }
 
-@mixin box-sizing($width,$height){
-	width: $width;
-	height:$height;
-	box-sizing: border-box;
+@mixin box-sizing($width,$height) {
+  width: $width;
+  height: $height;
+  box-sizing: border-box;
 }

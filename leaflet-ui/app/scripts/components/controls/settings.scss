@@ -1,21 +1,21 @@
 @import '../../../stylesheets/base.scss';
 
-.settings-container{
-	@include controlBox();
-	height: 125px;
-	.list{
-		clear: both;
-	}
-	.setting{
-		width: 190px;
-		margin-left: 40px;
-		float:left
-	}
-	
-	.form-control{
-		height: 33px;
-		border: 1px solid #e4e8ee;
-		background-color: #eceff4;
-	} 
+.settings-container {
+  @include controlBox();
+  height: 125px;
+  .list {
+    clear: both;
+  }
+  .setting {
+    width: 190px;
+    margin-left: 40px;
+    float: left
+  }
+
+  .form-control {
+    height: 33px;
+    border: 1px solid #e4e8ee;
+    background-color: #eceff4;
+  }
 
 }

@@ -1,121 +1,114 @@
 @import '../../../stylesheets/base.scss';
 
 @mixin icons($x,$y) {
-	background:url(../../../assets/sprites.png);
-	background-repeat: no-repeat;
-	background-position: $x $y;
+  background: url(../../../assets/sprites.png);
+  background-repeat: no-repeat;
+  background-position: $x $y;
 }
 
 @media (max-width: 1024px) {
-  .panel.unseen{
-	display:none !important;
+  .panel.unseen {
+    display: none !important;
 
   }
-  .visible{
-		opacity: 1;
+  .visible {
+    opacity: 1;
   }
 
 }
 
+.panel {
+  @include absolute(115px, 0px, 40px, initial);
 
-.panel{
-	@include absolute(115px,0px,40px,initial)
+  min-width: 360px;
+  z-index: 250;
 
+  padding-left: 1vw;
+  padding-right: 1vw;
+  padding-top: 1vw;
+  padding-bottom: 60px;
+  @include font(16px, $regular);
+  @include col2size();
 
-	min-width:360px;
-	z-index:250;
-	
-	padding-left: 1vw;
-  	padding-right: 1vw;
-  	padding-top: 1vw;
-	padding-bottom: 60px;
-	@include font(16px,$regular);
-	@include col2size();
+  @media (max-width: 1024px) {
+    width: 100%;
+    z-index: 1001;
+  }
 
-	@media (max-width: 1024px) {
-		width:100%;
-		z-index: 1001;
-	}
+  margin-bottom: 0px !important;
+  > ul {
 
+    @include list-horizontal();
+    padding: 0px !important;
+    height: 50px;
+    .panel-tab {
 
-	margin-bottom: 0px !important;
-	>ul{
+      @include box-sizing(12vmax, 39px);
+      min-width: 140px;
+      @include border-radius(5px);
+      @include font(15px, $blue);
+      display: inline-block;
+      white-space: nowrap;
+      border: 1px solid #D5DBE0;
+      margin-right: 7px;
+      overflow: hidden;
+      padding-top: 7px;
+      @media (max-width: 1024px) {
 
-		@include list-horizontal()
-		padding:0px !important;
-		height: 50px;
-		.panel-tab{
+      }
+    }
+    .panel-tab.active {
+      border: 1px solid #76ba55;
+      background-color: #76ba55;
+    }
+  }
 
-			@include box-sizing(12vmax,39px) 	
-			min-width: 140px;
-			@include border-radius(5px)
-			@include font(15px,$blue)
-			display: inline-block;
-			white-space: nowrap;
-			border:1px solid #D5DBE0;
-			margin-right: 7px;
-			overflow: hidden;
-			padding-top: 7px;
-			@media (max-width: 1024px) {
-				
-			}
-		}
-		.panel-tab.active{
-			border:1px solid #76ba55;
-			background-color: #76ba55;
-		}
-	}
+  .icon {
+    @include box-sizing(26px, 28px);
+    margin: -3px 5px 0px 5px;
+    float: left;
+  }
 
-	.icon{
-		@include box-sizing(26px,28px) 	
-		margin:-3px 5px 0px 5px; 
-		float: left;
-	}
-	
-	
+  .icon.tools {
+    background: url('../../../assets/svg/tool-disabled.svg');
+    background-repeat: no-repeat;
+  }
+  .panel-tab.active .icon.tools {
+    background: url('../../../assets/svg/tool.svg');
+    background-repeat: no-repeat;
+  }
 
+  .icon.chart {
+    background: url('../../../assets/svg/chart-disabled.svg');
+    background-repeat: no-repeat;
+    background-position-y: 1px;
+  }
+  .panel-tab.active .icon.chart {
+    background: url('../../../assets/svg/chart.svg');
+    background-repeat: no-repeat;
+    background-position-y: 1px;
+  }
 
-	.icon.tools{
-		background: url('../../../assets/svg/tool-disabled.svg');
-		background-repeat: no-repeat;
-	}
-	.panel-tab.active .icon.tools{
-		background: url('../../../assets/svg/tool.svg');
-		background-repeat: no-repeat;
-	}
+  .panel-tab span {
+    color: #D5DBE0;
+  }
 
+  .panel-tab.active span {
+    color: #FFFFFF;
+  }
 
-	.icon.chart{
-		background: url('../../../assets/svg/chart-disabled.svg');
-		background-repeat: no-repeat;
-		background-position-y: 1px;
-	}
-	.panel-tab.active .icon.chart{
-		background: url('../../../assets/svg/chart.svg');
-		background-repeat: no-repeat;
-		background-position-y: 1px;
-	}
+  .panel-tab a {
+    text-decoration: none;
+  }
 
-	.panel-tab span{
-		color: #D5DBE0;
-	}
-
-	.panel-tab.active span{
-		color: #FFFFFF;
-	}
-	
-	.panel-tab a{
-		text-decoration: none;
-	}
-
-	p{
-		height: 40px;
-		margin: 15px;
-	}
+  p {
+    height: 40px;
+    margin: 15px;
+  }
 }
 
-.panel-expanded{
-	width: 67% !important; 
-	z-index: 105;
+.panel-expanded {
+  width: 67% !important;
+  z-index: 105;
 }
 

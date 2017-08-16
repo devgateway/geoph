@@ -94,7 +94,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Panel);;
+export default connect(mapStateToProps,mapDispatchToProps)(Panel);
 
 
 

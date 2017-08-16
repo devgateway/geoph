@@ -1,15 +1,15 @@
 @import '../../../stylesheets/base.scss';
 
-.export-container{
-	@include controlBox();
-	padding: 20px;
-	min-height: 50px;
-	.export-csv{
-		float: left;
-		margin-left: 50px;
-	}
-	.export-xls{
-		float: right;
-		margin-right: 50px;
-	}
+.export-container {
+  @include controlBox();
+  padding: 20px;
+  min-height: 50px;
+  .export-csv {
+    float: left;
+    margin-left: 50px;
+  }
+  .export-xls {
+    float: right;
+    margin-right: 50px;
+  }
 }

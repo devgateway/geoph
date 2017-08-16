@@ -1,31 +1,30 @@
 @import '../../../stylesheets/base.scss';
 
-
 .admin-view {
-	width:80%;
-  margin: 60px auto auto auto  !important;
-  
-  .errors{
-    color:#a94442;
+  width: 80%;
+  margin: 60px auto auto auto !important;
+
+  .errors {
+    color: #a94442;
   }
-  p{
-    margin:3px;
-    padding:3px;
+  p {
+    margin: 3px;
+    padding: 3px;
     height: auto;
   }
   margin: 1vw 1vw;
   font-size: 90%;
 
-  div.admin-page{
+  div.admin-page {
     margin: 1vw 1vw;
-    h2{
-      font-size:100%;
+    h2 {
+      font-size: 100%;
       margin-bottom: 20px;
     }
   }
 
   form {
-    clear:both;
+    clear: both;
     width: 75%;
     margin: 10px 2vw;
   }
@@ -34,27 +33,27 @@
     margin: 5px 5px;
   }
 
-  .indicator-list{
-    ul{
-      list-style:none;
+  .indicator-list {
+    ul {
+      list-style: none;
       padding: 3px;
-      li.item{
-        >div{
+      li.item {
+        > div {
           float: left;
-        }    
-        padding:5px;
-        width:100%;
+        }
+        padding: 5px;
+        width: 100%;
         border-bottom: 2px solid #337ab7;
-        margin:5px;
+        margin: 5px;
         display: block;
-        height:65px;
+        height: 65px;
       }
     }
   }
 
   /*Login*/
   #login-form {
-  	margin:auto;
+    margin: auto;
     max-width: 500px;
     label {
       width: 80px;
@@ -92,8 +91,8 @@
     ul {
       float: right;
     }
-    li.scheme{
-      @include  box-sizing(22px,18px)
+    li.scheme {
+      @include box-sizing(22px, 18px);
       margin: 3px 15px;
       cursor: pointer;
     }
@@ -120,9 +119,9 @@
   }
 }
 
-.admin-menu-item{
+.admin-menu-item {
   padding-left: 10px;
-  >a {
+  > a {
     color: #000 !important;
   }
 }
