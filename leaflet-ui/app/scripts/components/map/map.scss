@@ -1,94 +1,208 @@
-@import  '../../../stylesheets/base.scss';
+@import '../../../stylesheets/base.scss';
 
-.map{
-	width: 100%;
-	height: 100%;
-	svg{
-		    pointer-events: none;
-	}
-	path{
-		    pointer-events: all;
-	}
+.map {
+  width: 100%;
+  height: 100%;
+  svg {
+    pointer-events: none;
+  }
+  path {
+    pointer-events: all;
+  }
 }
 
-.leaflet-bottom.leaflet-right{
-	z-index: 100;
+.leaflet-bottom.leaflet-right {
+  z-index: 100;
 }
 
-text.label{
-		 pointer-events: none;
-		fill:#000 !important;
-		stroke: #FFF;
-		font-family: verdana;
-		font-stretch: condensed;
-		font-weight: 300;
-		font-size: 80%;
-		
-	}
+text.label {
+  pointer-events: none;
+  fill: #000 !important;
+  stroke: #FFF;
+  font-family: verdana;
+  font-stretch: condensed;
+  font-weight: 300;
+  font-size: 80%;
 
-
-@mixin breakStyle($color){
-	fill:$color; 
-	background-color:$color; 
-	webkit-stroke-width:10px;
-	fill-opacity: .8;
-	box-sizing: border-box;
-	cursor:pointer;
-	stroke:#EEE
 }
 
-.half-opacity{
-	opacity: 0.5;
+@mixin breakStyle($color) {
+  fill: $color;
+  background-color: $color;
+  webkit-stroke-width: 10px;
+  fill-opacity: .8;
+  box-sizing: border-box;
+  cursor: pointer;
+  stroke: #EEE
 }
 
-.loading-map{
-	position: absolute;
-    top: 30%;
-    width: 100%;
-    height: 100%;
+.half-opacity {
+  opacity: 0.5;
 }
 
-.green-none {@include breakStyle(#aeaeae)}
-.green0-9 {	@include breakStyle(#73e767)}
-.green1-9 { @include breakStyle(#73e767)}
-.green2-9 { @include breakStyle(#61bc39)}
-.green3-9 { @include breakStyle(#2d9301)}
-.green4-9 { @include breakStyle(#1d6600)}
-.green5-9 { @include breakStyle(#113c00)}
-.green6-9 { @include breakStyle(#134300)}
+.loading-map {
+  position: absolute;
+  top: 30%;
+  width: 100%;
+  height: 100%;
+}
 
-.yellow-none {@include breakStyle(#aeaeae)}
-.yellow0-9 { @include breakStyle(#eff28f)}
-.yellow1-9 { @include breakStyle(#dadf5c)}
-.yellow2-9 { @include breakStyle(#c4bf34)}
-.yellow3-9 { @include breakStyle(#94920f)}
-.yellow4-9 { @include breakStyle(#7b7209)}
-.yellow5-9 { @include breakStyle(#716801)}
-.yellow6-9 { @include breakStyle(#5b5400)}
+.green-none {
+  @include breakStyle(#aeaeae)
+}
 
-.red-none {@include breakStyle(#aeaeae)}
-.red0-9 { @include breakStyle(#f28f8f)}
-.red1-9 { @include breakStyle(#df5c5c)} 
-.red2-9 { @include breakStyle(#c43434)}
-.red3-9 { @include breakStyle(#9b2020)}
-.red4-9 { @include breakStyle(#7b0909)}
-.red5-9 { @include breakStyle(#650000)}
-.red6-9 { @include breakStyle(#4b0000)}
+.green0-9 {
+  @include breakStyle(#73e767)
+}
 
-.blue-none {@include breakStyle(#aeaeae)}
-.blue0-9 { @include breakStyle(#96e0f5) }
-.blue1-9 { @include breakStyle(#1dc4fa) }
-.blue2-9 { @include breakStyle(#1dc4fa) }
-.blue3-9 { @include breakStyle(#1dc4fa) }
-.blue4-9 { @include breakStyle(#034180) }
-.blue5-9 { @include breakStyle(#0f2953)}
-.blue6-9 { @include breakStyle(#11004b) }
+.green1-9 {
+  @include breakStyle(#73e767)
+}
 
-.orange-none {@include breakStyle(#aeaeae)}
-.orange0-9 { @include breakStyle(#ffd24b)}
-.orange1-9 { @include breakStyle(#ffa904) }
-.orange2-9 { @include breakStyle(#ce7b05) }
-.orange3-9 { @include breakStyle(#b25903) }
-.orange4-9 { @include breakStyle(#793f07) }
-.orange5-9 { @include breakStyle(#643006) }
-.orange6-9 { @include breakStyle(#4d2607) }
+.green2-9 {
+  @include breakStyle(#61bc39)
+}
+
+.green3-9 {
+  @include breakStyle(#2d9301)
+}
+
+.green4-9 {
+  @include breakStyle(#1d6600)
+}
+
+.green5-9 {
+  @include breakStyle(#113c00)
+}
+
+.green6-9 {
+  @include breakStyle(#134300)
+}
+
+.yellow-none {
+  @include breakStyle(#aeaeae)
+}
+
+.yellow0-9 {
+  @include breakStyle(#eff28f)
+}
+
+.yellow1-9 {
+  @include breakStyle(#dadf5c)
+}
+
+.yellow2-9 {
+  @include breakStyle(#c4bf34)
+}
+
+.yellow3-9 {
+  @include breakStyle(#94920f)
+}
+
+.yellow4-9 {
+  @include breakStyle(#7b7209)
+}
+
+.yellow5-9 {
+  @include breakStyle(#716801)
+}
+
+.yellow6-9 {
+  @include breakStyle(#5b5400)
+}
+
+.red-none {
+  @include breakStyle(#aeaeae)
+}
+
+.red0-9 {
+  @include breakStyle(#f28f8f)
+}
+
+.red1-9 {
+  @include breakStyle(#df5c5c)
+}
+
+.red2-9 {
+  @include breakStyle(#c43434)
+}
+
+.red3-9 {
+  @include breakStyle(#9b2020)
+}
+
+.red4-9 {
+  @include breakStyle(#7b0909)
+}
+
+.red5-9 {
+  @include breakStyle(#650000)
+}
+
+.red6-9 {
+  @include breakStyle(#4b0000)
+}
+
+.blue-none {
+  @include breakStyle(#aeaeae)
+}
+
+.blue0-9 {
+  @include breakStyle(#96e0f5)
+}
+
+.blue1-9 {
+  @include breakStyle(#1dc4fa)
+}
+
+.blue2-9 {
+  @include breakStyle(#1dc4fa)
+}
+
+.blue3-9 {
+  @include breakStyle(#1dc4fa)
+}
+
+.blue4-9 {
+  @include breakStyle(#034180)
+}
+
+.blue5-9 {
+  @include breakStyle(#0f2953)
+}
+
+.blue6-9 {
+  @include breakStyle(#11004b)
+}
+
+.orange-none {
+  @include breakStyle(#aeaeae)
+}
+
+.orange0-9 {
+  @include breakStyle(#ffd24b)
+}
+
+.orange1-9 {
+  @include breakStyle(#ffa904)
+}
+
+.orange2-9 {
+  @include breakStyle(#ce7b05)
+}
+
+.orange3-9 {
+  @include breakStyle(#b25903)
+}
+
+.orange4-9 {
+  @include breakStyle(#793f07)
+}
+
+.orange5-9 {
+  @include breakStyle(#643006)
+}
+
+.orange6-9 {
+  @include breakStyle(#4d2607)
+}

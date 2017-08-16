@@ -1,29 +1,29 @@
 @import '../../../stylesheets/base.scss';
 
-.share-container{
-	@include controlBox();
+.share-container {
+  @include controlBox();
 
-  ul.share{
+  ul.share {
     @include list-horizontal
-    float:right;
+    float: right;
     width: 520px;
     padding-bottom: 10px;
-    li{
-      border:1px solid #fff;
-      background-color:#fff; 
-      min-width:50px;
-      @include box-sizing(34px,34px);
+    li {
+      border: 1px solid #fff;
+      background-color: #fff;
+      min-width: 50px;
+      @include box-sizing(34px, 34px);
     }
 
   }
-  .share-link{
+  .share-link {
     margin-bottom: 15px;
     padding-left: 20px;
   }
 
-  input.form-control{
+  input.form-control {
     width: 450px;
     margin-bottom: 10px;
-  } 
+  }
 
 }
