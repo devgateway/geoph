@@ -10,7 +10,7 @@
  * Development Gateway - initial API and implementation
  *******************************************************************************/
 /**
- * 
+ *
  */
 package org.devgateway.geoph.persistence.spring;
 
@@ -63,6 +63,13 @@ public class CacheConfiguration {
         caches.add(new ConcurrentMapCache("findPhysicalStatusById"));
         caches.add(new ConcurrentMapCache("findPhysicalStatusByParams"));
         caches.add(new ConcurrentMapCache("findPhysicalStatusByParamsWithProjectStats"));
+
+        // cache for controllers
+        caches.add(new ConcurrentMapCache("filterControllerCache"));
+        caches.add(new ConcurrentMapCache("chartControllerCache"));
+        caches.add(new ConcurrentMapCache("geoControllerCache"));
+        caches.add(new ConcurrentMapCache("indicatorControllerCache"));
+        caches.add(new ConcurrentMapCache("projectControllerCache"));
         cacheManager.setCaches(caches);
         return cacheManager;
     }

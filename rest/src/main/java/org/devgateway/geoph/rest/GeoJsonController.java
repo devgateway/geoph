@@ -9,6 +9,9 @@ import org.geojson.FeatureCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +24,9 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
  */
 @RestController
 @RequestMapping(value = "/geodata")
+@CrossOrigin
+@CacheConfig(keyGenerator = "genericFilterKeyGenerator", cacheNames = "geoControllerCache")
+@Cacheable
 public class GeoJsonController extends BaseController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GeoJsonController.class);
@@ -34,7 +40,7 @@ public class GeoJsonController extends BaseController {
     }
 
     @RequestMapping(value = "/{level}/projects", method = GET)
-    public FeatureCollection getProjects(@PathVariable final String level,AppRequestParams filters) {
+    public FeatureCollection getProjects(@PathVariable final String level, AppRequestParams filters) {
         LOGGER.debug("getGeoJsonByLocationType");
         Parameters params = filters.getParameters();
         params.setLocationLevel(level);

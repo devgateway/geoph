@@ -11,8 +11,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,6 +32,9 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
  */
 @RestController
 @RequestMapping(value = "/indicators")
+@CrossOrigin
+@CacheConfig(keyGenerator = "genericFilterKeyGenerator", cacheNames = "indicatorControllerCache")
+@Cacheable
 public class IndicatorController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(IndicatorController.class);
 
