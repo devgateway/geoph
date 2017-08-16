@@ -16,6 +16,7 @@ import org.apache.pdfbox.pdmodel.PDPageTree;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.LosslessFactory;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+import org.devgateway.geoph.core.request.PrintData;
 import org.devgateway.geoph.core.request.PrintParams;
 import org.devgateway.geoph.core.response.ChartResponse;
 import org.devgateway.geoph.core.services.ScreenCaptureService;
@@ -105,14 +106,14 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
     private String currency;
 
 
-    public String createPdfFromHtmlString(PrintParams compareMapParams, PrintParams params, String key) throws Exception {
+    public String createPdfFromHtmlString(PrintParams params, List<PrintData> printDataList, String key) throws Exception {
         LOGGER.debug("createPdfFromHtmlString");
         File target = buildPage(params.getWidth(), params.getHeight(), params.getHtml()); //merge template and the passed html and return URL to resulted file
         BufferedImage image = captureImage(params.getWidth(), params.getHeight(), target.toURI()); //create screen shoot from html file
         if (image == null) {
             throw new Exception("Wasn't able to generate image please check logs");
         }
-        return createPdf(image, compareMapParams, params, key).getName();
+        return createPdf(image, params, printDataList, key).getName();
     }
 
 
@@ -260,7 +261,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
         });
     }
 
-    private File createPdf(BufferedImage image, PrintParams compareMapParams, PrintParams params, String key) {
+    private File createPdf(BufferedImage image, PrintParams params, List<PrintData> printDataList, String key) {
                           /* Map<String, Set<String>> filterMap,
                            Map<String, List<Map<String, String>>> layerList,
                            Map<String, Collection<ChartResponse>> chartData,
@@ -299,12 +300,12 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             pc.close();
             checkEndOfPage(pdf, Y_LARGE_SPACE);
 
-            if (compareMapParams != null) {
-                addStatsAndFilterForParams(compareMapParams, pdf, "Left Map Information");
+            if (printDataList.size() > 1) {
+                addStatsAndFilterForParams(printDataList.get(0), pdf, "Left Map Information");
                 checkEndOfPage(pdf, Y_LARGE_SPACE);
-                addStatsAndFilterForParams(params, pdf, "Right Map Information");
+                addStatsAndFilterForParams(printDataList.get(1), pdf, "Right Map Information");
             } else {
-                addStatsAndFilterForParams(params, pdf, null);
+                addStatsAndFilterForParams(printDataList.get(0), pdf, null);
             }
 
 
@@ -318,7 +319,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
 
     }
 
-    private void addStatsAndFilterForParams(final PrintParams params, final PDFDocument pdf, final String statsName)
+    private void addStatsAndFilterForParams(final PrintData printData, final PDFDocument pdf, final String statsName)
             throws IOException {
         if (StringUtils.isNotBlank(statsName)) {
             addPdfText(pdf, PDType1Font.HELVETICA_BOLD, 11, BLUE, statsName);
@@ -327,25 +328,25 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
         //Stats
         addPdfText(pdf, PDType1Font.HELVETICA, 10, BLUE, "Total National");
         checkEndOfPage(pdf, Y_NORMAL_SPACE);
-        addPdfText(pdf.xPos + Y_SMALL_SPACE, pdf.yPos, pdf, PDType1Font.HELVETICA, 9, BLACK, "Total Projects: " + params.getStats().get("national").get(0).getProjectCount());
-        addPdfText(pdf.xPos + 160, pdf.yPos, pdf, PDType1Font.HELVETICA, 9, BLACK,  "Total Amount: " + currency + BLANK_STRING + getFormatedValue(params.getStats().get("national").get(0).getTrxAmount()));
+        addPdfText(pdf.xPos + Y_SMALL_SPACE, pdf.yPos, pdf, PDType1Font.HELVETICA, 9, BLACK, "Total Projects: " + printData.getStats().get("national").get(0).getProjectCount());
+        addPdfText(pdf.xPos + 160, pdf.yPos, pdf, PDType1Font.HELVETICA, 9, BLACK,  "Total Amount: " + currency + BLANK_STRING + getFormatedValue(printData.getStats().get("national").get(0).getTrxAmount()));
         checkEndOfPage(pdf, Y_LARGE_SPACE);
 
         addPdfText(pdf, PDType1Font.HELVETICA, 10, BLUE, "Total Sub-National");
         checkEndOfPage(pdf, Y_NORMAL_SPACE);
-        addPdfText(pdf.xPos + Y_SMALL_SPACE, pdf.yPos, pdf, PDType1Font.HELVETICA, 9, BLACK, "Total Projects: " + params.getStats().get("regional").get(0).getProjectCount());
-        addPdfText(pdf.xPos + 160, pdf.yPos, pdf, PDType1Font.HELVETICA, 9, BLACK,  "Total Amount: " + currency + BLANK_STRING + getFormatedValue(params.getStats().get("regional").get(0).getTrxAmount()));
+        addPdfText(pdf.xPos + Y_SMALL_SPACE, pdf.yPos, pdf, PDType1Font.HELVETICA, 9, BLACK, "Total Projects: " + printData.getStats().get("regional").get(0).getProjectCount());
+        addPdfText(pdf.xPos + 160, pdf.yPos, pdf, PDType1Font.HELVETICA, 9, BLACK,  "Total Amount: " + currency + BLANK_STRING + getFormatedValue(printData.getStats().get("regional").get(0).getTrxAmount()));
         checkEndOfPage(pdf, Y_LARGE_SPACE);
 
         //Top 5 funding
-        addPdfText(pdf, PDType1Font.HELVETICA, 10, BLUE, "Top Funding for " + StringUtils.capitalize(params.getTrxStatus()) + " " + StringUtils.capitalize(params.getTrxType()));
+        addPdfText(pdf, PDType1Font.HELVETICA, 10, BLUE, "Top Funding for " + StringUtils.capitalize(printData.getTrxStatus()) + " " + StringUtils.capitalize(printData.getTrxType()));
         checkEndOfPage(pdf, Y_NORMAL_SPACE);
-        addCharts(params.getAllChartsData(), params.getTrxType(), params.getTrxStatus(), pdf);
+        addCharts(printData.getAllChartsData(), printData.getTrxType(), printData.getTrxStatus(), pdf);
 
         //Applied Layers
-        if (params.getVisibleLayers().size() > 0) {
+        if (printData.getVisibleLayers().size() > 0) {
             addPdfText(pdf, PDType1Font.HELVETICA, 10, BLUE, "Applied Layers");
-            for (String layerName : params.getVisibleLayers().keySet()) {
+            for (String layerName : printData.getVisibleLayers().keySet()) {
                 if(pdf.yPos>Y_LEGEND_SPACE) {
                     checkEndOfPage(pdf, Y_NORMAL_SPACE);
                 } else {
@@ -353,18 +354,18 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
                 }
                 addPdfText(pdf, PDType1Font.HELVETICA, 9, BLACK, NEW_ITEM + layerName);
                 checkEndOfPage(pdf, Y_NORMAL_SPACE);
-                addLegend(params.getVisibleLayers().get(layerName), pdf);
+                addLegend(printData.getVisibleLayers().get(layerName), pdf);
             }
         }
 
         //Filter Options
-        if (params.getFilters() != null && params.getFilters().keySet().size() > 0) {
+        if (printData.getFilters() != null && printData.getFilters().keySet().size() > 0) {
             checkEndOfPage(pdf, Y_LARGE_SPACE);
             addPdfText(pdf, PDType1Font.HELVETICA, 10, BLUE, "Filter Options");
             checkEndOfPage(pdf, Y_NORMAL_SPACE);
 
-            for (String filter : params.getFilters().keySet()) {
-                List<String> strList = splitValues(MAX_CHARS, filter, params.getFilters().get(filter));
+            for (String filter : printData.getFilters().keySet()) {
+                List<String> strList = splitValues(MAX_CHARS, filter, printData.getFilters().get(filter));
                 for (String strToPrint : strList) {
                     addPdfText(pdf, PDType1Font.HELVETICA, 9, BLACK, strToPrint);
                     checkEndOfPage(pdf, Y_NORMAL_SPACE);

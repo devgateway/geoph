@@ -26,21 +26,7 @@ public class PrintParams {
 
     private String url;
 
-    private String trxType;
-
-    private String trxStatus;
-
-    private String compareMapKey;
-
-    private Object data;
-
-    private Map<String, Set<String>> filters;
-
-    private Map<String, List<Map <String, String>>> visibleLayers;
-
-    Map<String, Collection<ChartResponse>> allChartsData;
-
-    Map<String, List<ProjectStatsResultsDao>> stats;
+    private List<Object> data;
 
     public Integer getWidth() {
         return width;
@@ -90,67 +76,12 @@ public class PrintParams {
         this.url = url;
     }
 
-    public Object getData() {
+    public List<Object> getData() {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(List<Object> data) {
         this.data = data;
     }
 
-    public Map<String, Set<String>> getFilters() {
-        return filters;
-    }
-
-    public void setFilters(Map<String, Set<String>> filters) {
-        this.filters = filters;
-    }
-
-    public Map<String, List<Map<String, String>>> getVisibleLayers() {
-        return visibleLayers;
-    }
-
-    public void setVisibleLayers(final Map<String, List<Map<String, String>>> visibleLayers) {
-        this.visibleLayers = visibleLayers;
-    }
-
-    public Map<String, Collection<ChartResponse>> getAllChartsData() {
-        return allChartsData;
-    }
-
-    public void setAllChartsData( Map<String, Collection<ChartResponse>> allChartsData) {
-        this.allChartsData = allChartsData;
-    }
-
-    public String getTrxType() {
-        return trxType;
-    }
-
-    public void setTrxType(String trxType) {
-        this.trxType = trxType;
-    }
-
-    public String getTrxStatus() {
-        return trxStatus;
-    }
-
-    public void setTrxStatus(String trxStatus) {
-        this.trxStatus = trxStatus;
-    }
-
-    public Map<String, List<ProjectStatsResultsDao>> getStats() {
-        return stats;
-    }
-
-    public void setStats(Map<String, List<ProjectStatsResultsDao>> stats) {
-        this.stats = stats;
-    }
-
-    public String getCompareMapKey() {
-        return compareMapKey;
-    }
-
-    public void setCompareMapKey(final String compareMapKey) {
-        this.compareMapKey = compareMapKey;
-    }
 }

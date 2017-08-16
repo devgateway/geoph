@@ -109,7 +109,7 @@ public class MapController {
             String mapDesc = (String) mapVariables.get(DESCRIPTION_STR);
             String mapJson = new ObjectMapper().writeValueAsString(mapVariables.get(DATA_TO_SAVE_STR));
             String mapType = (String) mapVariables.get(TYPE_STR);
-            AppMap appMap = new AppMap(mapName, mapDesc, mapJson, UUID.randomUUID().toString(), null,
+            AppMap appMap = new AppMap(mapName, mapDesc, mapJson, UUID.randomUUID().toString(),
                     MD5Generator.getMD5(mapJson), mapType, base64);
             if(id==null){
                 return appMapService.save(appMap);
@@ -130,7 +130,7 @@ public class MapController {
         if(map==null){
             String mapName = UUID.randomUUID().toString();
             String mapDesc = SHARED_MAP_DESC;
-            map = appMapService.save(new AppMap(mapName, mapDesc, mapJson, mapName, null, md5,
+            map = appMapService.save(new AppMap(mapName, mapDesc, mapJson, mapName, md5,
                     AppMapTypeEnum.SHARE.getName(),null));
         }
 
