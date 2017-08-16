@@ -2,91 +2,90 @@ import React from 'react'
 import { connect } from 'react-redux'
 import {changeStep, changeProperty, updateErrors, upload, downloadTemplate} from '../../actions/indicators.js'
 import {Map} from 'immutable'
-import { Link } from 'react-router'
 import BaseForm from './baseForm.jsx'
 import Messages from '../messages/messages.jsx'
 import Connector from '../../connector/connector';
 import translate from '../../util/translate.js';
 
-var Dropzone = require('react-dropzone');
+const Dropzone = require('react-dropzone');
 
 class SelectTemplate extends BaseForm {
-    getDownloadTemplateURL(level){
-        return Connector.getDownloadTemplateURL(level);
-    }
-
-    render() {
-        const {template,onStepChange}=this.props;
-
-        return (
-            <form>
-                <div className="form-group">
-                    <h1>Template</h1>
-                    <select value={template} className="form-control" name="template"
-                            onChange={(e)=>{this.handleChangeValue('template',e.target.value)}}>
-                        <option value="Region">{translate('admin.indicators.region')}</option>
-                        <option value="Province">{translate('admin.indicators.province')}</option>
-                        <option value="Municipality">{translate('admin.indicators.municipality')}</option>
-                    </select>
-                </div>
-                <div className="form-group ">
-                    <a target="_blank" href={this.getDownloadTemplateURL(this.props.template)}>
-                        <input type="button" className="btn btn-xs btn-info" value="Download Template"></input>
-                    </a>
-                    <input type="button" className="btn btn-xs btn-success pull-right"
-                        onClick={()=>{onStepChange('indicator')}} value="Next"></input>
-                </div>
-            </form>
-        )
-    }
+  getDownloadTemplateURL(level){
+    return Connector.getDownloadTemplateURL(level);
+  }
+  
+  render() {
+    const {template,onStepChange}=this.props;
+    
+    return (
+      <form>
+          <div className="form-group">
+              <h1>Template</h1>
+              <select value={template} className="form-control" name="template"
+                      onChange={(e)=>{this.handleChangeValue('template',e.target.value)}}>
+                  <option value="Region">{translate('admin.indicators.region')}</option>
+                  <option value="Province">{translate('admin.indicators.province')}</option>
+                  <option value="Municipality">{translate('admin.indicators.municipality')}</option>
+              </select>
+          </div>
+          <div className="form-group ">
+              <a target="_blank" href={this.getDownloadTemplateURL(this.props.template)}>
+                  <input type="button" className="btn btn-xs btn-info" value="Download Template"></input>
+              </a>
+              <input type="button" className="btn btn-xs btn-success pull-right"
+                     onClick={()=>{onStepChange('indicator')}} value="Next"></input>
+          </div>
+      </form>
+    )
+  }
 };
 
 
 class AddIndicator extends BaseForm {
-
-    constructor(props) {
-        super(props);
-        this.state = {data: Map()};
+  
+  constructor(props) {
+    super(props);
+    this.state = {data: Map()};
+  }
+  
+  submit() {
+    var errors = this.validate();
+    let hasError = false;
+    Object.keys(errors).forEach(key => hasError = hasError || errors[key]);
+    if (hasError) {
+      this.setErrors(errors);
+    } else {
+      this.props.onUpload();
     }
-
-    submit() {
-        var errors = this.validate();
-        let hasError = false;
-        Object.keys(errors).forEach(key => hasError = hasError || errors[key]);
-        if (hasError) {
-            this.setErrors(errors);
-        } else {
-            this.props.onUpload();
-        }
-    }
-
-    validate() {
-        const {template,name='',file} = this.props;
-        let errors = {}
-        errors = this.validateField(errors, 'template', template);
-        errors = this.validateField(errors, 'name', name);
-        errors = this.validateField(errors, 'file', file);
-        return errors;
-
-    }
-
-    onDrop(files) {
-        this.handleChangeValue('file', files[0])
-    }
-
-    render() {
+  }
+  
+  validate() {
+    const {template,name='',file} = this.props;
+    let errors = {}
+    errors = this.validateField(errors, 'template', template);
+    errors = this.validateField(errors, 'name', name);
+    errors = this.validateField(errors, 'file', file);
+    return errors;
+    
+  }
+  
+  onDrop(files) {
+    this.handleChangeValue('file', files[0])
+  }
+  
+  render() {
     
     const {errors={}}=this.props;
-      return (
-            <form id="add-indicator-form">
-            <h1>Indicator Info </h1>
-                 <div className={errors.name?"form-group has-error":"form-group"}>
-                    <label>{translate('admin.indicators.name')}</label>
-                    <input value={this.props.name}
-                           onChange={(e)=>{this.handleChangeValue('name',e.target.value)}} type="name"
-                           className="form-control" id="name" placeholder={translate('admin.indicators.typeName')}/>
-                </div>
-                {/*<div className={errors.color?"form-group has-error":"form-group"}>
+    return (
+      <form id="add-indicator-form">
+          <h1>Indicator Info </h1>
+          <div className={errors.name?"form-group has-error":"form-group"}>
+              <label>{translate('admin.indicators.name')}</label>
+              <input value={this.props.name}
+                     onChange={(e)=>{this.handleChangeValue('name',e.target.value)}} type="name"
+                     className="form-control" id="name" placeholder={translate('admin.indicators.typeName')}/>
+          </div>
+        {/*<div className={errors.color?"form-group has-error":"form-group"}>
                     <label >Default Color</label>
                     <ul className="colors pull-right">
                         <li className={this.props.css=="red"?"scheme red active":"scheme red "}
@@ -101,69 +100,68 @@ class AddIndicator extends BaseForm {
                             onClick={()=>{this.handleChangeValue('css','blue')}}></li>
                     </ul>
                 </div>*/}
-                <div className={errors.file?"form-group has-error":"form-group"}>
-                    <label>File</label>
-
-                    <Dropzone className="drop-zone" multiple={false} onDrop={this.onDrop.bind(this)}>
-                        <div>{this.props.file ? this.props.file.name : <div>Drop a file or click this area</div>}</div>
-                    </Dropzone>
-                </div>
-                <div className="form-group ">
-                    <input type="button" className="btn btn-xs btn-success"
-                           onClick={()=>{this.props.onStepChange('template')}} value={translate('admin.indicators.back')}></input>
-                    <input type="button" className="btn btn-xs btn-info pull-right" value="Save"
-                           onClick={this.submit.bind(this)}></input>
-
-                </div>
-            </form>
-        )
-    }
+          <div className={errors.file?"form-group has-error":"form-group"}>
+              <label>File</label>
+              
+              <Dropzone className="drop-zone" multiple={false} onDrop={this.onDrop.bind(this)}>
+                  <div>{this.props.file ? this.props.file.name : <div>Drop a file or click this area</div>}</div>
+              </Dropzone>
+          </div>
+          <div className="form-group ">
+              <input type="button" className="btn btn-xs btn-success"
+                     onClick={()=>{this.props.onStepChange('template')}} value={translate('admin.indicators.back')}></input>
+              <input type="button" className="btn btn-xs btn-info pull-right" value="Save"
+                     onClick={this.submit.bind(this)}></input>
+          
+          </div>
+      </form>
+    )
+  }
 };
 
 class Indicator extends React.Component {
-   
-    getView() {        
-        switch (this.props.step) {
-            case 'loading':
-                return <div className="loading-css"><div></div></div>
-            case 'template':
-                return <SelectTemplate {...this.props}/>
-            case 'indicator':
-                return <AddIndicator {...this.props}/>
-        }
+  
+  getView() {
+    switch (this.props.step) {
+      case 'loading':
+        return <div className="loading-css"><div></div></div>
+      case 'template':
+        return <SelectTemplate {...this.props}/>
+      case 'indicator':
+        return <AddIndicator {...this.props}/>
     }
-
-    render() {
-        return (
-            <div className="admin-page">                
-                <Messages {...this.props}/>                
-                {this.getView()}
-            </div>
-        )
-    }
-};
-
+  }
+  
+  render() {
+    return (
+      <div className="admin-page">
+          <Messages {...this.props}/>
+        {this.getView()}
+      </div>
+    )
+  }
+}
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-    return {
-        onStepChange: (step)=> {
-            dispatch(changeStep(step));
-        },
-        onPropertyChange: (property, value)=> {
-            dispatch(changeProperty(property, value));
-        },
-        onValidate: (errors)=> {
-            dispatch(updateErrors(errors));
-        },
-        onUpload: ()=> {
-            dispatch(upload());
-        }
+  return {
+    onStepChange: (step)=> {
+      dispatch(changeStep(step));
+    },
+    onPropertyChange: (property, value)=> {
+      dispatch(changeProperty(property, value));
+    },
+    onValidate: (errors)=> {
+      dispatch(updateErrors(errors));
+    },
+    onUpload: ()=> {
+      dispatch(upload());
     }
+  }
 };
 
 const mapStateToProps = (state, props) => {
-        const {indicators} = state;
-        return {...indicators.toObject()};
+  const {indicators} = state;
+  return {...indicators.toObject()};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Indicator);

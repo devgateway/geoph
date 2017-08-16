@@ -12,5 +12,5 @@ export const getGeophotosList=()=>{
 }
 
 const makeAction=(name,data)=>{
- return {type:name,...data} 
+  return {type:name,...data}
 }

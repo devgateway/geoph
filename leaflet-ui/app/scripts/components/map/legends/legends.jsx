@@ -10,26 +10,26 @@ const prefix="toolview.layers";
 require('./legends.scss');
 
 class LegendList extends React.Component {
-
+  
   toggleView(){
     const {onToggleView, id} = this.props;
     onToggleView(id);
   }
-
+  
   render() {
     const {legends = [], name, keyName, expanded, onToggleView, id}=this.props;
     return (
       <div className=''>
         <div className='legend-layer-name' onClick={this.toggleView.bind(this)}>
-         <div className="name-container">
-          {keyName?<Message prefix={prefix} k={keyName}/>:<span>{name}</span>}
+          <div className="name-container">
+            {keyName?<Message prefix={prefix} k={keyName}/>:<span>{name}</span>}
           </div>
           <div className='legend-collapse' onClick={this.toggleView.bind(this)}>
-          {expanded? "" : "+"}
-        </div>
+            {expanded? "" : "+"}
+          </div>
         </div>
         
-      {expanded?  <div className='legend-list'>
+        {expanded?  <div className='legend-list'>
           {expanded?
             legends.map((legend)=>{
               return(
@@ -39,24 +39,24 @@ class LegendList extends React.Component {
                 </div>
               )
             })
-          : null}
-        </div>:null}        
+            : null}
+        </div>:null}
       </div>
     )
   }
 }
 
 class Legends extends React.Component {
-
+  
   constructor() {
-      super();
-      this.state = {};
+    super();
+    this.state = {};
   }
-
+  
   toggleView(id){
     this.setState({onView: id});
   }
-
+  
   render() {
     const {map, layers}=this.props;
     let layersVisible = getVisibles(layers).toJS();
@@ -79,7 +79,7 @@ class Legends extends React.Component {
               )
             })}
           </div>
-        : null}
+          : null}
       </div>
     )
   }
@@ -92,14 +92,14 @@ const mapDispatchToProps=(dispatch,ownProps)=>{
       dispatch(toggleLegendsView());
     }
   }
-}
+};
 
-const stateToProps = (state,props) => { 
+const stateToProps = (state,props) => {
   return {
     map: state.map,
     language: state.language
   };
-}
+};
 
 export default connect(stateToProps,mapDispatchToProps)(Legends);
 

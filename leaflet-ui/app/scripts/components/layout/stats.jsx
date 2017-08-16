@@ -6,20 +6,20 @@ import {Tooltip, OverlayTrigger} from 'react-bootstrap';
 require("./stats.scss");
 
 class Stats extends React.Component {
-	
-	constructor() {
-		super();
-	}
-
-	render() {	
-		const {stats, settings} = this.props;
-		const statsData = stats.get('global').get('data');
-		const {type, measure} = settings.fundingType;	
-		const {regional={}, national={}} = statsData;
-		let fundingLabel = translate('header.settings.'+type) + " " +  translate('header.settings.'+measure);
-		let regionalValue = regional[measure]? regional[measure][type] || 0 : 0;
-		let nationalValue = national[measure]? national[measure][type] || 0 : 0;
-		return (
+  
+  constructor() {
+    super();
+  }
+  
+  render() {
+    const {stats, settings} = this.props;
+    const statsData = stats.get('global').get('data');
+    const {type, measure} = settings.fundingType;
+    const {regional={}, national={}} = statsData;
+    let fundingLabel = translate('header.settings.'+type) + " " +  translate('header.settings.'+measure);
+    let regionalValue = regional[measure]? regional[measure][type] || 0 : 0;
+    let nationalValue = national[measure]? national[measure][type] || 0 : 0;
+    return (
 			<OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id="help.stats">{translate('help.stats')}</Tooltip>)}>
 				<div className="stats-container">
 					<div className="stats-pair">
@@ -27,31 +27,31 @@ class Stats extends React.Component {
 							<p>{translate('stats.totalSubNational')}</p>
 						</div>
 						<div className="stats-projects">
-		            		<p>{translate('stats.projects')}</p>
-		            		<h1>{regional.projectCount}</h1>
-		       			</div>
-		        		<div className="stats-funding">
-		          			<p>{fundingLabel}</p>
-		          			<h1>₱{formatValue(regionalValue, 1)}</h1>
-		        		</div>
-				    </div>
-				    <div className="stats-pair">
-				    	<div className="stats-title">
+							<p>{translate('stats.projects')}</p>
+							<h1>{regional.projectCount}</h1>
+						</div>
+						<div className="stats-funding">
+							<p>{fundingLabel}</p>
+							<h1>₱{formatValue(regionalValue, 1)}</h1>
+						</div>
+					</div>
+					<div className="stats-pair">
+						<div className="stats-title">
 							<p>{translate('stats.totalNational')}</p>
 						</div>
 						<div className="stats-projects">
-		            		<p>{translate('stats.projects')}</p>
-		            		<h1>{national.projectCount}</h1>
-		       			</div>
-		        		<div className="stats-funding">
-		          			<p>{fundingLabel}</p>
-		          			<h1>₱{formatValue(nationalValue, 1)}</h1>
-		        		</div>
-				    </div>
+							<p>{translate('stats.projects')}</p>
+							<h1>{national.projectCount}</h1>
+						</div>
+						<div className="stats-funding">
+							<p>{fundingLabel}</p>
+							<h1>₱{formatValue(nationalValue, 1)}</h1>
+						</div>
+					</div>
 				</div>
 			</OverlayTrigger>
-		)
-	}
+    )
+  }
 }
 
 const mapStateToProps = (state, props) => {
@@ -61,8 +61,8 @@ const mapStateToProps = (state, props) => {
     stats: state.stats,
     language: state.language
   }
-}
+};
 
-export default connect(mapStateToProps)(Stats);;
+export default connect(mapStateToProps)(Stats);
 
 

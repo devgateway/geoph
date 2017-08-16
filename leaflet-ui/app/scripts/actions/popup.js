@@ -1,5 +1,4 @@
 import * as Constants from '../constants/constants';
-import Settings from '../util/settings';
 import Connector from '../connector/connector';
 
 export const requestPopupData = (tab) => {
@@ -22,6 +21,6 @@ export const fetchPopupData = (filters, tab) => {
   return dispatch => {
     dispatch(requestPopupData(tab));
     return Connector.getProjectPopupData(filters, tab)
-    .then(req => dispatch(receivePopupData(req, tab)))
+      .then(req => dispatch(receivePopupData(req, tab)))
   }
 }

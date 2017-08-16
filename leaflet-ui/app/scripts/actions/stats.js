@@ -19,7 +19,7 @@ export const fetchStats = (filters) => {
   return dispatch => {
     dispatch(requestStats())
     return Connector.getStats(filters)
-    .then(req => dispatch(receiveStats(req)))
+      .then(req => dispatch(receiveStats(req)))
   }
 }
 
@@ -41,6 +41,6 @@ export const fetchLocationStats = (filters) => {
   return dispatch => {
     dispatch(requestLocationStats())
     return Connector.getLocationStats(filters)
-    .then(req => dispatch(receiveLocationStats(req)))
+      .then(req => dispatch(receiveLocationStats(req)))
   }
 }

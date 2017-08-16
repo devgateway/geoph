@@ -9,7 +9,7 @@ import {Tooltip, OverlayTrigger} from 'react-bootstrap';
 require("./panel.scss");
 
 class Panel extends React.Component {
-
+  
   constructor() {
     super();
   }
@@ -19,7 +19,7 @@ class Panel extends React.Component {
       this.props.onTogglePanel();
     }
   }
-
+  
   buildPath(url){
     let pathArray = this.props.currentView.split('/');
     let key = pathArray[pathArray.indexOf("map")+1];
@@ -29,7 +29,7 @@ class Panel extends React.Component {
       return `/map/${key}${url}`;
     }
   }
-
+  
   getTabClass(tab, def){
     const {currentView} = this.props;
     let currentTab = currentView.split('/').pop();
@@ -39,21 +39,21 @@ class Panel extends React.Component {
       return "panel-tab"
     }
   }
-
+  
   render() {
     const {expanded,visible}=this.props;
     const expandedClass=expanded?'panel-expanded':'';
     const visibleClass=visible==true?'visible':'unseen';
     return (
-      <div className={`panel ${expandedClass} ${visibleClass}`}>       
-      
+      <div className={`panel ${expandedClass} ${visibleClass}`}>
+        
         <ul>
           <Link to={this.buildPath("/tools")} >
             <OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id="help.toolview.toolviewtab">{translate('help.toolview.toolviewtab')}</Tooltip>)}>
               <li id='tools-tab' className={this.getTabClass("tools", true)}>
                 <div onClick={this.togglePanel.bind(this)}>
                   <div className="icon tools"/>
-                  <span>{translate('toolview.title')}</span>                
+                  <span>{translate('toolview.title')}</span>
                 </div>
               </li>
             </OverlayTrigger>
@@ -70,11 +70,11 @@ class Panel extends React.Component {
         <Stats/>
         {this.props.children}
       </div>
-      )
+    )
   }
 }
 
- 
+
 const mapStateToProps = (state, props) => {
   
   return {

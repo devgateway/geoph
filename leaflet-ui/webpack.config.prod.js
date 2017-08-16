@@ -1,9 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-
-var HtmlWebpackPlugin = require('html-webpack-plugin')
-
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
 
@@ -37,10 +35,11 @@ module.exports = {
         noParse: [
             /plotly\.js/
         ],
-
         loaders: [{
           test: /\.(js|jsx|es6)$/,
           loaders: ['babel'],
+          exclude: /node_modules/,
+          cacheDirectory: true,
           include: path.join(__dirname, 'app')
         }, {
           test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,

@@ -11,20 +11,18 @@ import {getGeophotosList} from '../../actions/geophotos.js'
 require("./root.scss");
 
 class Root extends DefaultLayout {
-
   constructor() {
     super();
   }
-
+  
   componentWillMount() {
     this.props.onLoadDefaultMapState();
     this.props.onLoadAllFilters();
-    this.props.onLoadIndicatorList(); 
+    this.props.onLoadIndicatorList();
     this.props.onLoadDefaultCharts();
-    this.props.onFetchStats(); 
+    this.props.onFetchStats();
     this.props.onLoadDefaultLayer();
   }
-
 }
 
 const mapDispatchToProps=(dispatch,ownProps)=>{
@@ -37,12 +35,12 @@ const mapDispatchToProps=(dispatch,ownProps)=>{
     onLoadDefaultMapState:()=>{dispatch(loadDefaultMapState())},
     onFetchStats :()=>{dispatch(fetchStats())}
   }
-}
+};
 
-const stateToProps = (state,props) => { 
+const stateToProps = (state,props) => {
   return {
     mapId: state.saveMap.get('id')
   }
-}
+};
 
 export default connect(stateToProps,mapDispatchToProps)(Root);
