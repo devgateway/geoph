@@ -7,3 +7,4 @@ esri-ui/dist
 leaflet-ui/node_modules/
 *.releaseBackup
 /logs/
+rebel.xml
