@@ -14,9 +14,12 @@ import org.devgateway.geoph.enums.TransactionTypeEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,6 +37,9 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
  */
 @RestController
 @RequestMapping(value = "/projects")
+@CrossOrigin
+@CacheConfig(keyGenerator = "genericFilterKeyGenerator", cacheNames = "projectControllerCache")
+@Cacheable
 public class ProjectController extends BaseController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FilterController.class);

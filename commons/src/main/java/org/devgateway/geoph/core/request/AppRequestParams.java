@@ -1,5 +1,7 @@
 package org.devgateway.geoph.core.request;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * @author dbianco
  *         created on jun 07 2016.
@@ -326,6 +328,7 @@ public class AppRequestParams {
         this.cl = cl;
     }
 
+    @JsonIgnore
     public Parameters getParameters() {
         return Parameters.getParameters(this);
     }
