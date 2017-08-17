@@ -3,28 +3,7 @@
          xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"
          updateCheck="false">
 
-    <defaultCache statistics="true"
-            maxElementsInMemory="20000"
-            eternal="false"
-            timeToIdleSeconds="1800"
-            timeToLiveSeconds="3600"
-            overflowToDisk="true"
-            maxElementsOnDisk="10000000"
-            diskPersistent="false"
-            diskExpiryThreadIntervalSeconds="1800"  />
-
-    <cache name="org.hibernate.cache.internal.StandardQueryCache"
-           maxEntriesLocalHeap="10000"
-           eternal="false"
-           timeToIdleSeconds="1800"
-           timeToLiveSeconds="3600">
-    </cache>
-
-    <cache name="org.hibernate.cache.spi.UpdateTimestampsCache"
-           maxEntriesLocalHeap="10000"
-           timeToIdleSeconds="1800"
-           timeToLiveSeconds="3600"
-           eternal="false">
-    </cache>
+    <defaultCache eternal="true" overflowToDisk="false"
+                  statistics="true" maxEntriesLocalHeap="100000"/>
 
 </ehcache>
