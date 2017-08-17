@@ -4,7 +4,7 @@ import Chart from '../charts/chartComponent';
 import { fetchChartData, changeItemsToShow, changeMeasureType, changeChartType } from '../../actions/charts';
 import { togglePanelExpand } from '../../actions/panel';
 import translate from '../../util/translate.js';
-import {Tooltip, OverlayTrigger} from 'react-bootstrap';
+import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 
 class Charts extends React.Component {
   

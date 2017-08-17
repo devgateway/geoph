@@ -1,24 +1,21 @@
 import React from 'react';
 import translate from '../../util/translate';
-import {formatValue} from '../../util/format';
+import { formatValue } from '../../util/format';
 import { connect } from 'react-redux';
-import {Tooltip, OverlayTrigger} from 'react-bootstrap';
+import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 require("./stats.scss");
 
 class Stats extends React.Component {
-  
-  constructor() {
-    super();
-  }
-  
   render() {
-    const {stats, settings} = this.props;
+    const { stats, settings } = this.props;
     const statsData = stats.get('global').get('data');
-    const {type, measure} = settings.fundingType;
-    const {regional={}, national={}} = statsData;
+    const { type, measure } = settings.fundingType;
+    const { regional={}, national={} } = statsData;
+    
     let fundingLabel = translate('header.settings.'+type) + " " +  translate('header.settings.'+measure);
     let regionalValue = regional[measure]? regional[measure][type] || 0 : 0;
     let nationalValue = national[measure]? national[measure][type] || 0 : 0;
+    
     return (
 			<OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip id="help.stats">{translate('help.stats')}</Tooltip>)}>
 				<div className="stats-container">

@@ -1,56 +1,54 @@
 import React from 'react';
-
-import { connect } from 'react-redux'
-import {loadProjects, updateBounds} from '../../actions/map.js'
-import SvgLayer from './layers/svg.jsx'
-import ClusteredLayer from './layers/clusteredLayer.jsx'
-import {Map, TileLayer} from 'react-leaflet'
 import L from 'leaflet';
-import ProjectPopup from './popups/projectLayerPopup'
-import SimplePopup from './popups/simplePopup'
-import PhotoPopup from './popups/photoPopup'
+import { connect } from 'react-redux';
+import { loadProjects, updateBounds } from '../../actions/map.js';
+import { Map, TileLayer } from 'react-leaflet';
+import SvgLayer from './layers/svg.jsx';
+import ClusteredLayer from './layers/clusteredLayer.jsx';
+import ProjectPopup from './popups/projectLayerPopup';
+import SimplePopup from './popups/simplePopup';
+import PhotoPopup from './popups/photoPopup';
 import {getVisibles} from '../../util/layersUtil.js';
-import Legends from './legends/legends'
+import Legends from './legends/legends';
 
 require('leaflet/dist/leaflet.css');
 require('./map.scss');
 
-const view=React.createClass({
+const MapView = React.createClass({
   
   getInitialState() {
-    return { bounds: {} };
+    return {bounds: {}};
   },
   
   handleChangeBounds(e) {
     this.props.onUpdateBounds(e.target.getBounds());
   },
   
-  closePopup(){
+  closePopup() {
     let map = this.refs.map;
-    if(map){
+    if (map) {
       map.leafletElement.closePopup();
     }
   },
   
-  getPopUp(id){
-    if (id=="projectPopup"){
-      return (<ProjectPopup  onClosePopup={this.closePopup}/>)
+  getPopUp(id) {
+    if (id === "projectPopup") {
+      return (<ProjectPopup onClosePopup={this.closePopup}/>)
     }
-    if (id="defaultPopup"){
-      return (<SimplePopup  onClosePopup={this.closePopup}/>)
+    if (id = "defaultPopup") {
+      return (<SimplePopup onClosePopup={this.closePopup}/>)
     }
     
-    if (id="photoPopup"){
-      return <PhotoPopup  onClosePopup={this.closePopup}/>
+    if (id = "photoPopup") {
+      return <PhotoPopup onClosePopup={this.closePopup}/>
     }
   },
   
-  getLayer(l){
+  getLayer(l) {
+    const {data, type, popupId, id, zIndex, settings} = l;
+    const {showLabels} = settings || {};
     
-    const {data, type, popupId, id, zIndex,settings}=l;
-    const {showLabels} =settings || {};
-    
-    if (type=='clustered'){
+    if (type === 'clustered') {
       return (
         <ClusteredLayer key={id} data={data}>
           <PhotoPopup onClosePopup={this.closePopup}/>
@@ -65,28 +63,28 @@ const view=React.createClass({
     }
   },
   
-  render(){
+  render() {
     const {map} = this.props;
     const {southWest, northEast} = map.get('defaultBounds').toJS();
-    const bounds = L.latLngBounds(L.latLng(southWest.lat, southWest.lng),L.latLng(northEast.lat,northEast.lng));
+    const bounds = L.latLngBounds(L.latLng(southWest.lat, southWest.lng), L.latLng(northEast.lat, northEast.lng));
     let layers = getVisibles(this.props.map.get('layers')).toJS();
     let loading = map.get('loading');
     
     return (
-      <div className={loading? "half-opacity" : ""}>
-        <div>
-          <Map ref="map"  className="map" bounds={bounds} onMoveEnd={this.handleChangeBounds}>
-            <TileLayer url={this.props.map.get('basemap').get('url')}/>
-            {layers.map((l)=>{
-              const {data,type}=l;
-              return (data && data.features)?this.getLayer(l):null;
-            })}
-          </Map>
-          <Legends layers={this.props.map.get('layers')} />
-        </div>
-        {loading?
-          <div className="loading-map">
-            <div className="loading-css"><div></div></div>
+      <div className={loading ? "half-opacity" : ""}>
+        <Map ref="map" className="map" bounds={bounds} onMoveEnd={this.handleChangeBounds}>
+          <TileLayer url={this.props.map.get('basemap').get('url')}/>
+          {layers.map((l) => {
+            const {data, type} = l;
+            return (data && data.features) ? this.getLayer(l) : null;
+          })}
+        </Map>
+        <Legends layers={this.props.map.get('layers')}/>
+        {loading
+          ? <div className="loading-map">
+            <div className="loading-css">
+              <div></div>
+            </div>
           </div>
           : null}
       </div>
@@ -94,8 +92,7 @@ const view=React.createClass({
   }
 });
 
-
-const mapDispatchToProps=(dispatch,ownProps)=>{
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onUpdateBounds: (newBounds) => {
       dispatch(updateBounds(newBounds));
@@ -103,13 +100,12 @@ const mapDispatchToProps=(dispatch,ownProps)=>{
   }
 };
 
-const stateToProps = (state,props) => {
+const stateToProps = (state, props) => {
   return {
-    map:state.map,
+    map: state.map,
     fundingType: state.settings.fundingType
   };
 };
 
-const MapView=connect(stateToProps,mapDispatchToProps)(view);
-export default MapView;
+export default connect(stateToProps, mapDispatchToProps)(MapView);
 

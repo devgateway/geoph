@@ -1,23 +1,18 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import Header from './header.jsx';
 import Footer from './footer.jsx';
 import Menu from '../menu/default.jsx';
 import AdminMenu from '../admin/menu.jsx';
 
-import {connect} from 'react-redux'
-
 require("./root.scss");
 
-class DefaultLayout extends React.Component {
-  
-  constructor() {
-    super();
-  }
-  
+class DashboardLayout extends React.Component {
   render() {
-    const {loggedIn} = this.props;
-    const newChildren = React.Children.map(this.props.children, child => React.cloneElement(child, {loggedIn}));
+    const { loggedIn } = this.props;
+    const newChildren = React.Children.map(this.props.children, child => React.cloneElement(child, { loggedIn }));
     let title = "";
+    
     switch (newChildren[0].props.route.path) {
       case "/admin":
         title = "Admin Section";
@@ -29,6 +24,7 @@ class DefaultLayout extends React.Component {
         title = "Executive Dashboards";
         break;
     }
+    
     return (
       <div className="root">
         <Header>
@@ -47,18 +43,16 @@ class DefaultLayout extends React.Component {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    onLogin: (loginData) => {
-      dispatch(login(loginData));
-    }
+    onLogin: (loginData) => dispatch(login(loginData))
   }
 };
 
 const mapStateToProps = (state, props) => {
-  const {security} = state;
-  const {accountNonExpired, accountNonLocked, enabled, credentialsNonExpired} = security.toObject();
+  const { security } = state;
+  const { accountNonExpired, accountNonLocked, enabled, credentialsNonExpired } = security.toObject();
   const loggedIn = accountNonExpired && accountNonLocked && enabled && credentialsNonExpired;
-  return {loggedIn}
+  return { loggedIn }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DefaultLayout);
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardLayout);
 
