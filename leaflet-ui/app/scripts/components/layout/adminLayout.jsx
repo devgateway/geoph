@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 
 require("./root.scss");
 
-class DefaultLayout extends React.Component {
+class DefaultMapLayoutDefaultLayout extends React.Component {
   
   constructor() {
     super();

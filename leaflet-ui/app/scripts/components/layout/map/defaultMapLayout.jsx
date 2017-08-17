@@ -1,24 +1,52 @@
 import React from 'react';
-import Header from './header.jsx';
-import Menu from '../menu/default.jsx';
-import Footer from './footer.jsx';
-import Panel from './panel.jsx';
-import Landing from './landing.jsx';
-import FilterPopup from '../filter/filters.jsx'
-import Settings from '../controls/settings'
-import Share from '../controls/share'
-import Export from '../controls/export'
-import Print from '../controls/print'
-import ProjectPage from '../project/projectPage'
-import {Tooltip} from 'react-bootstrap';
-import Basemap from '../controls/baseMap.jsx'
-import SaveMap from '../save-restore/save'
-import {showSaveMap} from '../../actions/saveAndRestoreMap';
-import translate from '../../util/translate';
-import Disclaimer from './disclaimer.jsx';
-import NoResultsPopup from '../filter/noResultsPopup.jsx'
 
-require("./root.scss");
+import Header from '../header.jsx';
+import Menu from '../../menu/default.jsx';
+import Footer from '../footer.jsx';
+import FilterPopup from '../../filter/filters.jsx'
+import Settings from '../../controls/settings'
+import Share from '../../controls/share'
+import Export from '../../controls/export'
+import Print from '../../controls/print'
+import ProjectPage from '../../project/projectPage'
+import { Tooltip } from 'react-bootstrap';
+import Basemap from '../../controls/baseMap.jsx'
+import SaveMap from '../../save-restore/save'
+import { showSaveMap } from '../../../actions/saveAndRestoreMap';
+import translate from '../../../util/translate';
+import Disclaimer from '../disclaimer.jsx';
+import NoResultsPopup from '../../filter/noResultsPopup.jsx';
+
+export default class DefaultMapLayout extends React.Component {
+  
+  static propTypes = {
+    children: React.PropTypes.element
+  };
+  
+  render () {
+    const { type } = this.props;
+    let title = this.props.title;
+    
+    if (type === "share") {
+      title = translate('header.sharedtitle');
+    }
+    
+    return (
+      <div className="root">
+        {/*<Disclaimer/> TODO */}
+        <NoResultsPopup/>
+        <ProjectPage/>
+        <Header>
+          <Menu title={title} items={items}/>
+        </Header>
+        
+        {this.props.children}
+        
+        <Footer/>
+      </div>
+    )
+  };
+}
 
 const items = [
   {
@@ -83,33 +111,3 @@ const items = [
     className: 'mini export'
   }
 ];
-
-export default class DefaultLayout extends React.Component {
-  
-  constructor() {
-    super();
-  }
-  
-  render() {
-    const {type} = this.props;
-    let title = this.props.title;
-    if (type == "share") {
-      title = translate('header.sharedtitle');
-    }
-    return (
-      <div className="root">
-        <Disclaimer/>
-        <NoResultsPopup/>
-        <ProjectPage/>
-        <Header>
-          <Menu title={title} items={items}/>
-        </Header>
-        <Landing/>
-        <Panel showHelp={this.showHelp}>
-          {this.props.children}
-        </Panel>
-        <Footer/>
-      </div>
-    )
-  }
-}
