@@ -193,6 +193,7 @@
 
 	"help": {
 		"header": {
+			"compare": "Click here to compare 2 maps",
 			"settings": "Click here to select the funding type",
 			"basemap": "Click here to select the basemap",
 			"share": "Click here to share a link to this dashboard, including applied filters",
