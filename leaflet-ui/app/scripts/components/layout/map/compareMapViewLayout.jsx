@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { hashHistory } from 'react-router';
 
 import DefaultMapLayout from './defaultMapLayout';
 import Map from '../../map/map';
@@ -13,16 +14,14 @@ class CompareMapViewLayout extends DefaultMapLayout {
     
     return (<div>
         <div className="compare-layout">
-          <div className="close-map top" onClick={e => hashHistory.push('/')}></div>
-          
-          <div className="close-map bottom" onClick={e => hashHistory.push('/')}></div>
-          
           <div className="main">
             <Map id="left"/>
+            <div className="close-map" onClick={e => hashHistory.push('/map')}></div>
           </div>
           
           <div className="main right-map">
             <Map id="main"/>
+            <div className="close-map" onClick={e => hashHistory.push('/map')}></div>
           </div>
         </div>
         

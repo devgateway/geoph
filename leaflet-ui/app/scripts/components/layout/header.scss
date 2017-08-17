@@ -125,6 +125,9 @@ ul.options {
 
   }
 
+  .options-icons.compare {
+    @include icons('../../../assets/svg/compare.svg', 0, 0);
+  }
   .options-icons.filters {
     @include icons('../../../assets/svg/filter.svg', 0, 0);
   }

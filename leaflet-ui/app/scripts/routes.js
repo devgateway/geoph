@@ -58,6 +58,8 @@ export default (
       </Route>
       
       <Route path="map/compare" component={CompareMapViewLayout}>
+        <Route path="tools" component={Tools}/>
+        <Route path="charts" component={Charts}/>
         <IndexRoute component={Tools}/>
       </Route>
       
