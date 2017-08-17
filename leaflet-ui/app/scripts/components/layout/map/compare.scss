@@ -1,0 +1,12 @@
+@import '../../../../stylesheets/base';
+
+.compare-layout {
+  .main {
+    width: 33.5%;
+    border: 5px solid #c6c6c6;
+  }
+
+  .main.right-map {
+    left: 33.5%;
+  }
+}

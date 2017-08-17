@@ -27,10 +27,8 @@ class SingleMapViewLayout extends DefaultMapLayout {
     console.log(">>>> SingleMapViewLayout");
     
     return (<div>
-        <div className="landing">
-          <div className="main">
-            <Map/>
-          </div>
+        <div className="main">
+          <Map/>
         </div>
         
         <Panel showHelp={this.showHelp}>
