@@ -24,11 +24,9 @@ class SingleMapViewLayout extends DefaultMapLayout {
   }
   
   render() {
-    console.log(">>>> SingleMapViewLayout");
-    
     return (<div>
         <div className="main">
-          <Map/>
+          <Map mapId="main"/>
         </div>
         
         <Panel showHelp={this.showHelp}>

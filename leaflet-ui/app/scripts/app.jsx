@@ -22,7 +22,7 @@ import Setting from './util/settings';
 // ========================================================
 if (process.env.NODE_ENV === undefined || process.env.NODE_ENV === 'development') {
   if (window.devToolsExtension) {
-    window.devToolsExtension.open();
+    // window.devToolsExtension.open();
   }
 }
 

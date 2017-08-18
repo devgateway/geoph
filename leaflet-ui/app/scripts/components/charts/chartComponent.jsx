@@ -8,7 +8,7 @@ import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 
 import createPlotlyComponent from 'react-plotlyjs';
 // only load the basic plotly bundle
-import Plotly from 'plotly.js/dist/plotly-basic';
+import Plotly from 'plotly.js/dist/plotly-basic.min';
 
 const PlotlyComponent = createPlotlyComponent(Plotly);
 
