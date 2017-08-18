@@ -101,8 +101,18 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 };
 
 const stateToProps = (state, props) => {
+  const { mapId } = props;
+  
+  let map;
+  if (mapId === 'main') {
+    map = state.map;
+  } else {
+    // here id should be 'left'
+    map = state.compare.get("map");
+  }
+  
   return {
-    map: state.map,
+    map: map,
     fundingType: state.settings.fundingType
   };
 };

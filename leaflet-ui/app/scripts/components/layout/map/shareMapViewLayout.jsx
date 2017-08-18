@@ -15,11 +15,9 @@ class ShareMapViewLayout extends DefaultMapLayout {
   }
   
   render() {
-    console.log(">>>> ShareMapViewLayout");
-    
     return (<div>
         <div className="main">
-          <Map/>
+          <Map mapId="main"/>
         </div>
         
         <Panel showHelp={this.showHelp}>

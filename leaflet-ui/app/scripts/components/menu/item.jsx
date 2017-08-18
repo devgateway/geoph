@@ -17,7 +17,9 @@ const MenuItem = onClickOutside(React.createClass({
     if (!active) {
       this.props.onActivate(this.props.id);
     } else {
-      this.props.onDeactivate(this.props.id);
+      if (this.props.id !== "compare") { // don't deactivate the compare
+        this.props.onDeactivate(this.props.id);
+      }
     }
   },
   

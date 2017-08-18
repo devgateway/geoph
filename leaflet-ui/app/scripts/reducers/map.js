@@ -1,14 +1,12 @@
 import {REFRESH_LAYER,TOGGLE_LEGENDS_VIEW, SET_FUNDING_TYPE, SET_BASEMAP, LAYER_LOAD_SUCCESS, LAYER_LOAD_FAILURE,
   TOGGLE_LAYER, SET_LAYER_SETTING, INDICATOR_LIST_LOADED, GEOPHOTOS_LIST_LOADED, STATE_RESTORE, CHANGE_MAP_BOUNDS,
-  LOAD_DEFAULT_MAP_STATE, LAYER_LOAD_REQUEST} from '../constants/constants';
+  LOAD_DEFAULT_MAP_STATE, LAYER_LOAD_REQUEST, COPY_COMPARE} from '../constants/constants';
 import JenksCssProvider from '../util/jenksUtil.js'
 import {formatValue} from '../util/format.js'
 import Immutable from 'immutable';
 import {getPath, getShapeLayers, createCSSProviderInstance, getStyledGeoJson,
   createLegendsByDomain , getVisibles, getValues, plainList} from '../util/layersUtil.js';
 
-const geophotosIndex = 1;
-const statsIndex = 2;
 const indicatorsIndex = 3;
 const size = 9;
 
@@ -301,6 +299,14 @@ const reloadLabelFuncToLayers=(state)=>{
   return state;
 }
 
+// copy the compare map over the main map
+export const copyCompare = () => {
+  return (dispatch, getState) => {
+    const map = getState().compare.get("map");
+    dispatch({type: COPY_COMPARE, map})
+  }
+};
+
 const map = (state = defaultState, action) => {
   let newState;
   switch (action.type) {
@@ -352,6 +358,9 @@ const map = (state = defaultState, action) => {
     case LAYER_LOAD_FAILURE:
       console.log('Error loading layer',action);
       return state.set('loading', false);
+    
+    case COPY_COMPARE:
+      return action.map;
     
     default:
       return state

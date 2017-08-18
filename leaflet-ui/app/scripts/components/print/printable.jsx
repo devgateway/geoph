@@ -20,7 +20,7 @@ class Printable extends React.Component {
           <h1>{translate("header.title")}</h1>
         </div>
         <div className="full-map">
-          <Map/>
+          <Map mapId="main"/>
         </div>
         <Filters/>
       </div>
