@@ -66,8 +66,8 @@ const MapView = React.createClass({
   },
   
   render() {
-    const {map} = this.props;
-    const {southWest, northEast} = map.get('defaultBounds').toJS();
+    const { map, mapId } = this.props;
+    const { southWest, northEast } = map.get('defaultBounds').toJS();
     const bounds = L.latLngBounds(L.latLng(southWest.lat, southWest.lng), L.latLng(northEast.lat, northEast.lng));
     let layers = getVisibles(this.props.map.get('layers')).toJS();
     let loading = map.get('loading');
@@ -81,7 +81,7 @@ const MapView = React.createClass({
             return (data && data.features) ? this.getLayer(l) : null;
           })}
         </Map>
-        <Legends layers={this.props.map.get('layers')}/>
+        <Legends mapId={mapId} layers={this.props.map.get('layers')}/>
         {loading
           ? <div className="loading-map">
             <div className="loading-css">
