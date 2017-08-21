@@ -29,7 +29,7 @@ export default class ProjectListTab extends React.Component {
       'page': activePage,
       'size': pageSize
     });
-    this.props.onGetPopupData(filtersApplied, 'projectList');
+    this.props.onGetPopupData(this.props.mapId, filtersApplied, 'projectList');
     this.setState({activePage: activePage});
   }
   
