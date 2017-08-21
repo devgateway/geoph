@@ -20,7 +20,7 @@ const Indicator = class extends React.Component {
       </li>
     );
   }
-}
+};
 
 
 class listIndicator extends React.Component {

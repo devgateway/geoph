@@ -32,15 +32,17 @@ const MapView = React.createClass({
   },
   
   getPopUp(id) {
+    const { mapId } = this.props;
+    
     if (id === "projectPopup") {
-      return (<ProjectPopup onClosePopup={this.closePopup}/>)
+      return (<ProjectPopup mapId={mapId} onClosePopup={this.closePopup}/>)
     }
     if (id = "defaultPopup") {
-      return (<SimplePopup onClosePopup={this.closePopup}/>)
+      return (<SimplePopup mapId={mapId} onClosePopup={this.closePopup}/>)
     }
     
     if (id = "photoPopup") {
-      return <PhotoPopup onClosePopup={this.closePopup}/>
+      return <PhotoPopup mapId={mapId} onClosePopup={this.closePopup}/>
     }
   },
   

@@ -5,7 +5,7 @@ export const requestStats = () => {
   return {
     type: Constants.REQUEST_STATS
   }
-}
+};
 
 export const receiveStats = (data) => {
   return {
@@ -13,34 +13,36 @@ export const receiveStats = (data) => {
     data: data,
     receivedAt: Date.now()
   }
-}
+};
 
 export const fetchStats = (filters) => {
   return dispatch => {
-    dispatch(requestStats())
+    dispatch(requestStats());
     return Connector.getStats(filters)
       .then(req => dispatch(receiveStats(req)))
   }
-}
+};
 
-export const requestLocationStats = () => {
+export const requestLocationStats = (mapId) => {
   return {
+    mapId,
     type: Constants.REQUEST_LOCATION_STATS
   }
-}
+};
 
-export const receiveLocationStats = (data) => {
+export const receiveLocationStats = (mapId, data) => {
   return {
+    mapId,
     type: Constants.RECEIVE_LOCATION_STATS,
     data: data,
     receivedAt: Date.now()
   }
-}
+};
 
-export const fetchLocationStats = (filters) => {
+export const fetchLocationStats = (mapId, filters) => {
   return dispatch => {
-    dispatch(requestLocationStats())
+    dispatch(requestLocationStats(mapId));
     return Connector.getLocationStats(filters)
-      .then(req => dispatch(receiveLocationStats(req)))
+      .then(req => dispatch(receiveLocationStats(mapId, req)))
   }
-}
+};

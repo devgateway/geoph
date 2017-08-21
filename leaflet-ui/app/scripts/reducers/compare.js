@@ -7,7 +7,8 @@ const CLONE_MAP_CLEAN = 'CLONE_MAP_CLEAN';
 export const clone = () => {
   return (dispatch, getState) => {
     const map = getState().map;
-    dispatch({type: CLONE_MAP_DONE, map})
+    const filters = getState().filters;
+    dispatch({type: CLONE_MAP_DONE, map, filters})
   }
 };
 
@@ -18,12 +19,17 @@ export const clean = () => {
 // ------------------------------------ Action Handlers ------------------------------------
 const ACTION_HANDLERS = {
   [ CLONE_MAP_CLEAN ]: (state, action) => {
-    return state.deleteIn(['map']);
+    return state
+      .deleteIn(['map'])
+      .deleteIn(['filters']);
   },
   
   [ CLONE_MAP_DONE ]: (state, action) => {
-    const {map} = action;
-    return state.setIn(['map'], map);
+    const { map, filters } = action;
+    
+    return state
+      .setIn(['map'], map)
+      .setIn(['filters'], filters);
   }
 };
 
