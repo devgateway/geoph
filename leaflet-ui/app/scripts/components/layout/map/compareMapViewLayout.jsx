@@ -23,13 +23,15 @@ class CompareMapViewLayout extends DefaultMapLayout {
   }
   
   closeCompareView(copyCompare) {
-    // copy the compare map on top of the main map
-    if (copyCompare === true) {
-      this.props.copyCompareMap();
-      this.props.copyCompareFilters();
+    if (confirm("Are you sure you want to close this map?") === true) {
+      // copy the compare map on top of the main map
+      if (copyCompare === true) {
+        this.props.copyCompareMap();
+        this.props.copyCompareFilters();
+      }
+      this.props.onDeactivate("compare");
+      hashHistory.push('/map');
     }
-    this.props.onDeactivate("compare");
-    hashHistory.push('/map');
   }
   
   render() {

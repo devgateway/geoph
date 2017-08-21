@@ -22,7 +22,7 @@ const defaultState = Immutable.fromJS(
         lng: 134.3408203125
       }
     },
-    
+    zoom: 5,
     basemap: {
       id: 'openstreetmap',
       url: '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
@@ -345,7 +345,10 @@ const map = (state = defaultState, action) => {
       return reloadLabelFuncToLayers(state);
     
     case CHANGE_MAP_BOUNDS:
-      return state.set('bounds', Immutable.fromJS({southWest:action.bounds._southWest, northEast:action.bounds._northEast}));
+      return state
+        .set('bounds', Immutable.fromJS({southWest:action.bounds._southWest, northEast:action.bounds._northEast}))
+        .set('center', action.center)
+        .set('zoom', action.zoom);
     
     case INDICATOR_LIST_LOADED:
       return setIndicators(state, action.data);
