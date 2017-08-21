@@ -32,7 +32,7 @@ export default class DefaultMapLayout extends React.Component {
     
     return (
       <div className="root">
-        {/*<Disclaimer/> TODO */}
+        <Disclaimer/>
         <NoResultsPopup/>
         <ProjectPage/>
         <Header>
@@ -51,7 +51,7 @@ const items = [
   {
     id: 'compare',
     key: 'compare',
-    label: 'Compare',
+    label: 'Compare Maps',
     tooltipKey: 'help.header.compare',
     className: 'compare'
   },

@@ -21,7 +21,10 @@ const MapView = React.createClass({
   },
   
   handleChangeBounds(e) {
-    this.props.onUpdateBounds(e.target.getBounds());
+    this.props.onUpdateBounds(
+      e.target.getBounds(),
+      [e.target.getCenter().lat, e.target.getCenter().lng],
+      e.target.getZoom());
   },
   
   closePopup() {
@@ -32,15 +35,17 @@ const MapView = React.createClass({
   },
   
   getPopUp(id) {
+    const { mapId } = this.props;
+    
     if (id === "projectPopup") {
-      return (<ProjectPopup onClosePopup={this.closePopup}/>)
+      return (<ProjectPopup mapId={mapId} onClosePopup={this.closePopup}/>)
     }
     if (id = "defaultPopup") {
-      return (<SimplePopup onClosePopup={this.closePopup}/>)
+      return (<SimplePopup mapId={mapId} onClosePopup={this.closePopup}/>)
     }
     
     if (id = "photoPopup") {
-      return <PhotoPopup onClosePopup={this.closePopup}/>
+      return <PhotoPopup mapId={mapId} onClosePopup={this.closePopup}/>
     }
   },
   
@@ -64,22 +69,27 @@ const MapView = React.createClass({
   },
   
   render() {
-    const {map} = this.props;
-    const {southWest, northEast} = map.get('defaultBounds').toJS();
-    const bounds = L.latLngBounds(L.latLng(southWest.lat, southWest.lng), L.latLng(northEast.lat, northEast.lng));
+    const { map, mapId } = this.props;
+    const { southWest, northEast } = map.get('defaultBounds').toJS();
+    const zoom = map.get('zoom');
+    const center = map.get('center');
+    
+    // don't use the bounds if we have a zoom level and a center
+    const bounds = center === undefined ? L.latLngBounds(L.latLng(southWest.lat, southWest.lng), L.latLng(northEast.lat, northEast.lng)) : undefined;
+    
     let layers = getVisibles(this.props.map.get('layers')).toJS();
     let loading = map.get('loading');
     
     return (
       <div className={loading ? "half-opacity" : ""}>
-        <Map ref="map" className="map" bounds={bounds} onMoveEnd={this.handleChangeBounds}>
+        <Map ref="map" className="map" center={center} zoom={zoom} bounds={bounds} onMoveEnd={this.handleChangeBounds}>
           <TileLayer url={this.props.map.get('basemap').get('url')}/>
           {layers.map((l) => {
             const {data, type} = l;
             return (data && data.features) ? this.getLayer(l) : null;
           })}
         </Map>
-        <Legends layers={this.props.map.get('layers')}/>
+        <Legends mapId={mapId} layers={this.props.map.get('layers')}/>
         {loading
           ? <div className="loading-map">
             <div className="loading-css">
@@ -94,8 +104,8 @@ const MapView = React.createClass({
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    onUpdateBounds: (newBounds) => {
-      dispatch(updateBounds(newBounds));
+    onUpdateBounds: (newBounds, newCenter, newZoom) => {
+      dispatch(updateBounds(newBounds, newCenter, newZoom));
     }
   }
 };

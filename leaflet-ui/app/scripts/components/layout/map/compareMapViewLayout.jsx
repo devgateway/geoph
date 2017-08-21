@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
 
 import { clone, clean }  from '../../../reducers/compare';
-import { copyCompare }  from '../../../reducers/map';
+import { copyCompareMap }  from '../../../reducers/map';
+import { copyCompareFilters } from '../../../reducers/filters';
 import * as Constants from '../../../constants/constants';
 
 import DefaultMapLayout from './defaultMapLayout';
@@ -21,10 +22,16 @@ class CompareMapViewLayout extends DefaultMapLayout {
     this.props.onUnMount();
   }
   
-  closeCompareView() {
-    this.props.onDeactivate("compare");
-    this.props.copyCompare();
-    hashHistory.push('/map');
+  closeCompareView(copyCompare) {
+    if (confirm("Are you sure you want to close this map?") === true) {
+      // copy the compare map on top of the main map
+      if (copyCompare === true) {
+        this.props.copyCompareMap();
+        this.props.copyCompareFilters();
+      }
+      this.props.onDeactivate("compare");
+      hashHistory.push('/map');
+    }
   }
   
   render() {
@@ -37,7 +44,7 @@ class CompareMapViewLayout extends DefaultMapLayout {
           
           <div className="main right-map">
             <Map mapId="main"/>
-            <div className="close-map" onClick={this.closeCompareView.bind(this)}></div>
+            <div className="close-map" onClick={this.closeCompareView.bind(this, true)}></div>
           </div>
         </div>
         
@@ -51,10 +58,11 @@ class CompareMapViewLayout extends DefaultMapLayout {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onMount:      () => dispatch(clone()),
-    onUnMount:    () => dispatch(clean()),
-    copyCompare:  () => dispatch(copyCompare()),
-    onDeactivate: (key) => dispatch({type: Constants.DEACTIVATE_COMPONENT, key})
+    onMount:            () => dispatch(clone()),
+    onUnMount:          () => dispatch(clean()),
+    copyCompareMap:     () => dispatch(copyCompareMap()),
+    copyCompareFilters: () => dispatch(copyCompareFilters()),
+    onDeactivate:    (key) => dispatch({type: Constants.DEACTIVATE_COMPONENT, key})
   }
 };
 

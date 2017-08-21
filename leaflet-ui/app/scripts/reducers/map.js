@@ -1,6 +1,6 @@
 import {REFRESH_LAYER,TOGGLE_LEGENDS_VIEW, SET_FUNDING_TYPE, SET_BASEMAP, LAYER_LOAD_SUCCESS, LAYER_LOAD_FAILURE,
   TOGGLE_LAYER, SET_LAYER_SETTING, INDICATOR_LIST_LOADED, GEOPHOTOS_LIST_LOADED, STATE_RESTORE, CHANGE_MAP_BOUNDS,
-  LOAD_DEFAULT_MAP_STATE, LAYER_LOAD_REQUEST, COPY_COMPARE} from '../constants/constants';
+  LOAD_DEFAULT_MAP_STATE, LAYER_LOAD_REQUEST, COPY_COMPARE_MAP} from '../constants/constants';
 import JenksCssProvider from '../util/jenksUtil.js'
 import {formatValue} from '../util/format.js'
 import Immutable from 'immutable';
@@ -22,7 +22,7 @@ const defaultState = Immutable.fromJS(
         lng: 134.3408203125
       }
     },
-    
+    zoom: 5,
     basemap: {
       id: 'openstreetmap',
       url: '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
@@ -300,10 +300,10 @@ const reloadLabelFuncToLayers=(state)=>{
 }
 
 // copy the compare map over the main map
-export const copyCompare = () => {
+export const copyCompareMap = () => {
   return (dispatch, getState) => {
     const map = getState().compare.get("map");
-    dispatch({type: COPY_COMPARE, map})
+    dispatch({type: COPY_COMPARE_MAP, map})
   }
 };
 
@@ -345,7 +345,10 @@ const map = (state = defaultState, action) => {
       return reloadLabelFuncToLayers(state);
     
     case CHANGE_MAP_BOUNDS:
-      return state.set('bounds', Immutable.fromJS({southWest:action.bounds._southWest, northEast:action.bounds._northEast}));
+      return state
+        .set('bounds', Immutable.fromJS({southWest:action.bounds._southWest, northEast:action.bounds._northEast}))
+        .set('center', action.center)
+        .set('zoom', action.zoom);
     
     case INDICATOR_LIST_LOADED:
       return setIndicators(state, action.data);
@@ -359,7 +362,7 @@ const map = (state = defaultState, action) => {
       console.log('Error loading layer',action);
       return state.set('loading', false);
     
-    case COPY_COMPARE:
+    case COPY_COMPARE_MAP:
       return action.map;
     
     default:
