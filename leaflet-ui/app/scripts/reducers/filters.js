@@ -1,5 +1,6 @@
 import * as Constants from '../constants/constants';
 import {cloneDeep} from '../util/filterUtil';
+import {COPY_COMPARE_FILTERS} from "../constants/constants";
 
 const filters = (state = {filterMain: {}}, action) => {
   let filterMain;
@@ -53,7 +54,9 @@ const filters = (state = {filterMain: {}}, action) => {
       filterMain = resetAllFilters(filterMain);
       return Object.assign({}, state, {
         filterMain: filterMain
-      })
+      });
+    case COPY_COMPARE_FILTERS:
+      return action.filters;
     default:
       return state
   }
@@ -220,5 +223,13 @@ const resetAllFilters = (filterMain) => {
   }
   return filterMain;
 }
+
+// copy the compare map over the main map
+export const copyCompareFilters = () => {
+  return (dispatch, getState) => {
+    const filters = getState().compare.get("filters");
+    dispatch({type: COPY_COMPARE_FILTERS, filters})
+  }
+};
 
 export default filters;
