@@ -1,7 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'react';
 
-import { geoJson, latlng,  } from 'leaflet';
+import { geoJson, latlng, marker, divIcon } from 'leaflet';
 import { MapLayer } from 'react-leaflet';
 import  MarkerClusterGroup from 'leaflet.markercluster'
 import { render } from 'react-dom';
