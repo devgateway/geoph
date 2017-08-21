@@ -1,5 +1,6 @@
 package org.devgateway.geoph.core.request;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.devgateway.geoph.model.Project;
 import org.devgateway.geoph.model.Project_;
 
@@ -31,6 +32,7 @@ public class ProjectOrder {
         this.column = column;
     }
 
+    @JsonIgnore
     public SingularAttribute<Project, String> getAttribute(){
         if(column!=null && column.trim().equalsIgnoreCase("title")){
             return Project_.title;

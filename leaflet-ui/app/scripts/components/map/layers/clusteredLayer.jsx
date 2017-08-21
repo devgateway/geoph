@@ -1,14 +1,17 @@
-import {PropTypes} from 'react';
-import {latlng} from 'leaflet';
-import {MapLayer} from 'react-leaflet';
 import React from 'react';
-import { render, unmountComponentAtNode } from 'react-dom';
+import { PropTypes } from 'react';
+
+import { geoJson, latlng,  } from 'leaflet';
+import { MapLayer } from 'react-leaflet';
+import  MarkerClusterGroup from 'leaflet.markercluster'
+import { render } from 'react-dom';
+
 require('./cluster.scss');
+
 /**
  * @author Sebas
  */
-
-var myIcon = L.divIcon({
+const myIcon = L.divIcon({
   iconSize: new L.Point(30, 30),
   className: 'cluster-marker-div-icon'
 });
@@ -17,7 +20,7 @@ export default class ClusteredLayer extends MapLayer {
   
   
   componentDidUpdate(nextProps, nextState) {
-    const {data,map}=this.props;
+    const {data, map} = this.props;
     map.removeLayer(this.leafletElement);
     this.createLayer();
   }
@@ -27,8 +30,8 @@ export default class ClusteredLayer extends MapLayer {
   }
   
   createLayer() {
-    const {data,map}=this.props;
-    var geojson = geoJson(data,
+    const {data, map} = this.props;
+    const geojson = geoJson(data,
       {
         onEachFeature: function (feature, layer) {
           layer.on('click', function (e) {
@@ -48,10 +51,10 @@ export default class ClusteredLayer extends MapLayer {
     
     this.leafletElement = L.markerClusterGroup(
       {
-        iconCreateFunction: function(cluster) {
-          var childCount = cluster.getChildCount();
+        iconCreateFunction: function (cluster) {
+          const childCount = cluster.getChildCount();
           
-          var c = ' marker-cluster-';
+          let c = ' marker-cluster-';
           if (childCount < 10) {
             c += 'small';
           } else if (childCount < 100) {
@@ -60,13 +63,18 @@ export default class ClusteredLayer extends MapLayer {
             c += 'large';
           }
           
-          return new L.DivIcon({ html: '<div><span>' + childCount + '</span></div>', className: 'marker-cluster' + c, iconSize: new L.Point(50, 50) });
+          return new L.DivIcon({
+            html: '<div><span>' + childCount + '</span></div>',
+            className: 'marker-cluster' + c,
+            iconSize: new L.Point(50, 50)
+          });
         },
-        chunkedLoading:true,
-        maxClusterRadius:20,
-        spiderfyOnMaxZoom:true,
+        chunkedLoading: true,
+        maxClusterRadius: 20,
+        spiderfyOnMaxZoom: true,
         disableClusteringAtZoom: 19,
-        showCoverageOnHover:false,});
+        showCoverageOnHover: false,
+      });
     map._layersMaxZoom = 18; //workaround for avoid error en restore (ask @sebas)
     this.leafletElement.addLayer(geojson);
     map.addLayer(this.leafletElement);
@@ -74,18 +82,21 @@ export default class ClusteredLayer extends MapLayer {
   
   
   renderPopupContent(feature) {
-    if (!feature || !feature.geometry){
+    if (!feature || !feature.geometry) {
       return null;
     }
-    const latLong = L.latLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0])
+    const latLong = L.latLng(feature.geometry.coordinates[1], feature.geometry.coordinates[0]);
     
-    let popup = L.popup({maxWidth:"500",maxHeight:"400"})
+    let popup = L.popup({maxWidth: "500", maxHeight: "400"})
       .setLatLng(latLong)
       .openOn(this.props.map);
     if (this.props.children) {
-      render(React.cloneElement(React.Children.only(this.props.children), {feature, store:this.context.store}), popup._contentNode);
+      render(React.cloneElement(React.Children.only(this.props.children), {
+        feature,
+        store: this.context.store
+      }), popup._contentNode);
       popup._updateLayout();
-      popup._updatePosition()
+      popup._updatePosition();
       popup._adjustPan();
     }
   }
@@ -97,11 +108,11 @@ export default class ClusteredLayer extends MapLayer {
   }
 }
 
-const  storeShape=PropTypes.shape({
+const storeShape = PropTypes.shape({
   subscribe: PropTypes.func.isRequired,
   dispatch: PropTypes.func.isRequired,
   getState: PropTypes.func.isRequired
-})
+});
 
 ClusteredLayer.contextTypes = {
   store: storeShape
