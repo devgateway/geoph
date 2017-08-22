@@ -1,182 +1,160 @@
 {
-	"SEARCH": {
-		"GEO_NAMES_SERVICE_USER_NAME": "aiddata",
-		"FUZZY_LEVEL": 0
-	},
-
-	"UI": {		
-		"SHARE_URL": {
-			"development": "http://localhost:3000/#/map/",
-			"production": "http://geoph.developmentgateway.org/#/map/"
-		}
-	},
-
-	"API": {
-
-		"API_BASE_URL": {
-			"development": "http://localhost:8090",
-			"production": "http://geoph.developmentgateway.org"
-		},
-
-		"LOGIN":"/login",
-		"PDF":"/export/pdf",
-		"PDF_DOWNLOAD": {
-			"development": "http://localhost:8090/export/download/",
-			"production": "http://geoph.developmentgateway.org/export/download/"
-		},
-		"PROJECT_GEOJSON":"/geodata/${level}/projects",
-		"FUNDING_GEOJSON":"/geodata/${level}/funding/detail/${detail}",
-		"PHYSICAL_GEOJSON":"/geodata/${level}/physicalProgress/detail/${detail}",
-		"GEOPHOTOS_GEOJSON":"/geodata/geophotos",	
-		"MAP":"/maps",
-		"REMOVE_MAP":"/maps/key/${key}",
-		"MAP_LIST":"/maps",
-
-
-	  	"INDICATOR_UPLOAD":"/indicators/upload",
-	  	
-	  	"INDICATOR_LIST":"/indicators",
-
-	  	"INDICATOR":"/geodata/indicators/${indicator_id}",
-	  	"REMOVE_INDICATOR":"/indicators/${indicator_id}",
-	  	"GEOPHOTOS_LIST":"/geophotos/list",
-	  	"GEOPHOTOS":"/geodata/geophotos/id/${geophotos_id}",
-
-	  	
-		"FILTER_LIST": {
-			"development": {
-				"st": "/filters/sector",
-				"fa": "/filters/fundingAgency",
-				"ia": "/filters/impAgency",
-				"dt_start": "/filters/impPeriod",
-				"dt_end": "/filters/impPeriod",
-				"pp_start": "/filters/grantPeriod",
-				"pp_end": "/filters/grantPeriod",
-				"sa": "/filters/status",	
-				"ft": "/filters/flowType",
-				"gr": "/filters/genderResponsiveness",
-				"cc": "/filters/climateChange",
-				"fs": "/filters/fsource",
-				"ph": "/filters/physicalStatus",
-				"fin_amount": "/filters/financialAmountPeriod",
-				"cl": "/filters/classification",
-				"dp": "/filters/devprio",
-				"cs": "/filters/cscope",
-				"co": "/filters/coverage",
-				"ao": "/filters/actualPhysicalProgressPeriod",
-				"php": "/filters/physicalProgressPeriod"					
-			},
-			"production": {
-				"st": "/filters/sector",
-				"fa": "/filters/fundingAgency",
-				"ia": "/filters/impAgency",
-				"dt_start": "/filters/impPeriod",
-				"dt_end": "/filters/impPeriod",
-				"pp_start": "/filters/grantPeriod",
-				"pp_end": "/filters/grantPeriod",
-				"sa": "/filters/status",
-				"ft": "/filters/flowType",
-				"gr": "/filters/genderResponsiveness",
-				"cc": "/filters/climateChange",
-				"fs": "/filters/fsource",
-				"ph": "/filters/physicalStatus",
-				"fin_amount": "/filters/financialAmountPeriod",
-				"cl": "/filters/classification",
-				"dp": "/filters/devprio",
-				"cs": "/filters/cscope",
-				"co": "/filters/coverage",
-				"ao": "/filters/actualPhysicalProgressPeriod",
-				"php": "/filters/physicalProgressPeriod"			
-			}
-		},
-
-		"CHARTS": {
-			"development": "/charts",				
-			"production": "/charts"		
-		},
-
-		"PROJECT_POPUP": {
-			"development": {
-				"fundingAgency": "/charts/fundingAgency",
-				"implementingAgency": "/charts/impAgency",
-				"physicalStatus": "/charts/physicalStatus",
-				"sector": "/charts/sector",
-				"fundingType": "/charts/fundingType",
-				"projectList": "/projects"				
-			},				
-			"production": {
-				"fundingAgency": "/charts/fundingAgency",
-				"implementingAgency": "/charts/impAgency",
-				"physicalStatus": "/charts/physicalStatus",
-				"sector": "/charts/sector",
-				"fundingType": "/charts/fundingType",
-				"projectList": "/projects"			
-			}		
-		},
-
-		"PROJECT_LIST": {
-			"development": "/projects/all",				
-			"production": "/projects/all"		
-		},
-
-		"PROJECT_INFO": {
-			"development": "/projects/${id}",				
-			"production": "/projects/${id}"		
-		},
-
-		"STATS": {
-			"development": "/projects/stats",				
-			"production": "/projects/stats"		
-		},
-
-		"SAVE": {
-			"development": "/maps/save",				
-			"production": "/maps/save"		
-		},
-
-		"SHARE": {
-			"development": "/maps/share",				
-			"production": "/maps/share"		
-		},
-
-		"RESTORE": {
-			"development": "/maps/key/${mapId}",				
-			"production": "/maps/key/${mapId}"		
-		},
-
-		"EXPORT_DATA": "/export/data/${type}",
-
-		"EXPORT_TEMPLATE": "/export/template/${level}",
-
-		"LOCATION_STATS": "/charts/locations/stats"
-		
-	},
-
-	"I18N": {
-
-		"OPTIONS": {
-			"development": {
-				"lng": "en",
-				"fallbackLng": "en",
-				"ns": ["translations"],
-				"defaultNS": "translations",
-				"fallbackNS": "common",
-				"backend": {
-					"loadPath": "/locales/{{lng}}/{{ns}}.json"
-				}
-			},
-
-			"production": {
-				"lng": "en",
-				"fallbackLng": "en",
-				"ns": ["translations"],
-				"defaultNS": "translations",
-				"fallbackNS": "common",
-				"backend": {
-					"loadPath": "locales/{{lng}}/{{ns}}.json"
-				}
-			}
-		}
-
-	}
+    "SEARCH": {
+        "GEO_NAMES_SERVICE_USER_NAME": "aiddata",
+        "FUZZY_LEVEL": 0
+    },
+    "UI": {
+        "SHARE_URL": {
+            "development": "http://localhost:3000/#/map/",
+            "production": "http://geoph.developmentgateway.org/#/map/"
+        }
+    },
+    "API": {
+        "API_BASE_URL": {
+            "development": "http://localhost:8090",
+            "production": "http://geoph.developmentgateway.org"
+        },
+        "LOGIN": "/login",
+        "PDF": "/export/pdf",
+        "PDF_DOWNLOAD": {
+            "development": "http://localhost:8090/export/download/",
+            "production": "http://geoph.developmentgateway.org/export/download/"
+        },
+        "PROJECT_GEOJSON": "/geodata/${level}/projects",
+        "FUNDING_GEOJSON": "/geodata/${level}/funding/detail/${detail}",
+        "PHYSICAL_GEOJSON": "/geodata/${level}/physicalProgress/detail/${detail}",
+        "GEOPHOTOS_GEOJSON": "/geodata/geophotos",
+        "MAP": "/maps",
+        "REMOVE_MAP": "/maps/key/${key}",
+        "MAP_LIST": "/maps",
+        "INDICATOR_UPLOAD": "/indicators/upload",
+        "INDICATOR_LIST": "/indicators",
+        "INDICATOR": "/geodata/indicators/${indicator_id}",
+        "REMOVE_INDICATOR": "/indicators/${indicator_id}",
+        "GEOPHOTOS_LIST": "/geophotos/list",
+        "GEOPHOTOS": "/geodata/geophotos/id/${geophotos_id}",
+        "FILTER_LIST": {
+            "development": {
+                "st": "/filters/sector",
+                "fa": "/filters/fundingAgency",
+                "ia": "/filters/impAgency",
+                "dt_start": "/filters/impPeriod",
+                "dt_end": "/filters/impPeriod",
+                "pp_start": "/filters/grantPeriod",
+                "pp_end": "/filters/grantPeriod",
+                "sa": "/filters/status",
+                "ft": "/filters/flowType",
+                "gr": "/filters/genderResponsiveness",
+                "cc": "/filters/climateChange",
+                "fs": "/filters/fsource",
+                "ph": "/filters/physicalStatus",
+                "fin_amount": "/filters/financialAmountPeriod",
+                "cl": "/filters/classification",
+                "dp": "/filters/devprio",
+                "cs": "/filters/cscope",
+                "co": "/filters/coverage",
+                "ao": "/filters/actualPhysicalProgressPeriod",
+                "php": "/filters/physicalProgressPeriod"
+            },
+            "production": {
+                "st": "/filters/sector",
+                "fa": "/filters/fundingAgency",
+                "ia": "/filters/impAgency",
+                "dt_start": "/filters/impPeriod",
+                "dt_end": "/filters/impPeriod",
+                "pp_start": "/filters/grantPeriod",
+                "pp_end": "/filters/grantPeriod",
+                "sa": "/filters/status",
+                "ft": "/filters/flowType",
+                "gr": "/filters/genderResponsiveness",
+                "cc": "/filters/climateChange",
+                "fs": "/filters/fsource",
+                "ph": "/filters/physicalStatus",
+                "fin_amount": "/filters/financialAmountPeriod",
+                "cl": "/filters/classification",
+                "dp": "/filters/devprio",
+                "cs": "/filters/cscope",
+                "co": "/filters/coverage",
+                "ao": "/filters/actualPhysicalProgressPeriod",
+                "php": "/filters/physicalProgressPeriod"
+            }
+        },
+        "CHARTS": {
+            "development": "/charts",
+            "production": "/charts"
+        },
+        "PROJECT_POPUP": {
+            "development": {
+                "fundingAgency": "/charts/fundingAgency",
+                "implementingAgency": "/charts/impAgency",
+                "physicalStatus": "/charts/physicalStatus",
+                "sector": "/charts/sector",
+                "fundingType": "/charts/fundingType",
+                "projectList": "/projects"
+            },
+            "production": {
+                "fundingAgency": "/charts/fundingAgency",
+                "implementingAgency": "/charts/impAgency",
+                "physicalStatus": "/charts/physicalStatus",
+                "sector": "/charts/sector",
+                "fundingType": "/charts/fundingType",
+                "projectList": "/projects"
+            }
+        },
+        "PROJECT_LIST": {
+            "development": "/projects/all",
+            "production": "/projects/all"
+        },
+        "PROJECT_INFO": {
+            "development": "/projects/${id}",
+            "production": "/projects/${id}"
+        },
+        "STATS": {
+            "development": "/projects/stats",
+            "production": "/projects/stats"
+        },
+        "SAVE": {
+            "development": "/maps/save",
+            "production": "/maps/save"
+        },
+        "SHARE": {
+            "development": "/maps/share",
+            "production": "/maps/share"
+        },
+        "RESTORE": {
+            "development": "/maps/key/${mapId}",
+            "production": "/maps/key/${mapId}"
+        },
+        "EXPORT_DATA": "/export/data/${type}",
+        "EXPORT_TEMPLATE": "/export/template/${level}",
+        "LOCATION_STATS": "/charts/locations/stats"
+    },
+    "I18N": {
+        "OPTIONS": {
+            "development": {
+                "lng": "en",
+                "fallbackLng": "en",
+                "ns": [
+                    "translations"
+                ],
+                "defaultNS": "translations",
+                "fallbackNS": "common",
+                "backend": {
+                    "loadPath": "/locales/{{lng}}/{{ns}}.json"
+                }
+            },
+            "production": {
+                "lng": "en",
+                "fallbackLng": "en",
+                "ns": [
+                    "translations"
+                ],
+                "defaultNS": "translations",
+                "fallbackNS": "common",
+                "backend": {
+                    "loadPath": "locales/{{lng}}/{{ns}}.json"
+                }
+            }
+        }
+    }
 }
