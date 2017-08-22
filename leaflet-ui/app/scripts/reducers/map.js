@@ -1,6 +1,6 @@
 import {REFRESH_LAYER,TOGGLE_LEGENDS_VIEW, SET_FUNDING_TYPE, SET_BASEMAP, LAYER_LOAD_SUCCESS, LAYER_LOAD_FAILURE,
   TOGGLE_LAYER, SET_LAYER_SETTING, INDICATOR_LIST_LOADED, GEOPHOTOS_LIST_LOADED, STATE_RESTORE, CHANGE_MAP_BOUNDS,
-  LOAD_DEFAULT_MAP_STATE, LAYER_LOAD_REQUEST, COPY_COMPARE_MAP} from '../constants/constants';
+  LAYER_LOAD_REQUEST, COPY_COMPARE_MAP} from '../constants/constants';
 import JenksCssProvider from '../util/jenksUtil.js'
 import {formatValue} from '../util/format.js'
 import Immutable from 'immutable';
@@ -310,9 +310,6 @@ export const copyCompareMap = () => {
 const map = (state = defaultState, action) => {
   let newState;
   switch (action.type) {
-    case LOAD_DEFAULT_MAP_STATE:
-      return defaultState;
-    
     case TOGGLE_LAYER:
       return onToggleLayer(state,action);
     
@@ -347,7 +344,7 @@ const map = (state = defaultState, action) => {
     case CHANGE_MAP_BOUNDS:
       return state
         .set('bounds', Immutable.fromJS({southWest:action.bounds._southWest, northEast:action.bounds._northEast}))
-        .set('center', action.center)
+        .set('center', Immutable.fromJS(action.center))
         .set('zoom', action.zoom);
     
     case INDICATOR_LIST_LOADED:

@@ -7,8 +7,8 @@ import {fetchStats} from './stats';
 import {finishRestoreMap} from './saveAndRestoreMap';
 
 const filterTypes = ['ft', 'fa', 'ia', 'st', 'cc', 'gr', 'dt_start', 'dt_end', 'pp_start', 'pp_end', 'sa', 'fin_amount', 'ao', 'ph', 'cl', 'php'];
-var filtersToLoad = [];
-var loadingAllLists = false;
+let filtersToLoad = [];
+let loadingAllLists = false;
 
 export const applyFilter = (filtersToApply) => {
   return (dispatch, getState) => {
@@ -57,9 +57,11 @@ export const receiveFilterData = (filterType, data) => {
 }
 
 const checkLoadingPending = (dispatch, filterType) => {
-  if (loadingAllLists){
-    filtersToLoad = filtersToLoad.filter(function(i) {return i != filterType});//removes from the list of pendings
-    if (filtersToLoad.length==0){
+  if (loadingAllLists) {
+    filtersToLoad = filtersToLoad.filter(function (i) {
+      return i != filterType
+    });//removes from the list of pendings
+    if (filtersToLoad.length == 0) {
       loadingAllLists = false;
       dispatch(finishRestoreMap());
     }
@@ -99,7 +101,7 @@ export const fetchFilterDataIfNeeded = (filterType) => {
 }
 
 export const loadAllFilterLists = (fromRestore) => {
-  if (fromRestore){
+  if (fromRestore) {
     loadingAllLists = true;
     filtersToLoad = filterTypes;
   }
