@@ -1,6 +1,6 @@
 import {
   REFRESH_LAYER, TOGGLE_LEGENDS_VIEW, SET_BASEMAP, TOGGLE_LAYER, LAYER_LOAD_SUCCESS, LAYER_LOAD_FAILURE,
-  SET_LAYER_SETTING, CHANGE_MAP_BOUNDS, LOAD_LAYER_BY_ID, LOAD_DEFAULT_MAP_STATE, LAYER_LOAD_REQUEST
+  SET_LAYER_SETTING, CHANGE_MAP_BOUNDS, LOAD_LAYER_BY_ID, LAYER_LOAD_REQUEST
 } from '../constants/constants.js';
 import Connector from '../connector/connector.js';
 import {getPath, getDefaults, getVisibles} from '../util/layersUtil.js';
@@ -10,10 +10,6 @@ const getFilters = (getState) => {
   const filters = getState().filters.filterMain;
   const projectSearch = getState().projectSearch;
   return collectValues(filters, projectSearch);
-}
-
-export const loadDefaultMapState = (type, error) => {
-  return {type: LOAD_DEFAULT_MAP_STATE}
 }
 
 const loadLayerCompleted = (results, getState) => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getList } from '../../../actions/indicators.js';
-import { loadDefaultLayer, loadDefaultMapState } from '../../../actions/map.js';
+import { loadDefaultLayer } from '../../../actions/map.js';
 import { loadAllFilterLists } from '../../../actions/filters.js';
 import { fetchStats } from '../../../actions/stats.js';
 import { fetchChartData } from '../../../actions/charts.js';
@@ -15,7 +15,6 @@ require("./mapLayout.scss");
 
 class SingleMapViewLayout extends DefaultMapLayout {
   componentWillMount() {
-    this.props.onLoadDefaultMapState();
     this.props.onLoadAllFilters();
     this.props.onLoadIndicatorList();
     this.props.onLoadDefaultCharts();
@@ -44,7 +43,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     onLoadGeophotosList: () => dispatch(getGeophotosList()),
     onLoadDefaultLayer: () => dispatch(loadDefaultLayer()),
     onLoadDefaultCharts: () => dispatch(fetchChartData()),
-    onLoadDefaultMapState: () => dispatch(loadDefaultMapState()),
     onFetchStats: () => dispatch(fetchStats())
   }
 };
