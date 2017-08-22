@@ -9,26 +9,31 @@
 @media (max-width: 1024px) {
   .panel.unseen {
     display: none !important;
-
   }
+
   .visible {
     opacity: 1;
+    display: block !important;
   }
-
 }
 
 .panel {
-  @include absolute(115px, 0px, 40px, initial);
-
   min-width: 360px;
   z-index: 250;
-
   padding-left: 1vw;
   padding-right: 1vw;
   padding-top: 1vw;
   padding-bottom: 60px;
   @include font(16px, $regular);
   @include col2size();
+
+  &.panel-compare {
+    display: none;
+
+    &.visible {
+      display: block !important;
+    }
+  }
 
   @media (max-width: 1024px) {
     width: 100%;
@@ -53,10 +58,8 @@
       margin-right: 7px;
       overflow: hidden;
       padding-top: 7px;
-      @media (max-width: 1024px) {
-
-      }
     }
+
     .panel-tab.active {
       border: 1px solid #76ba55;
       background-color: #76ba55;

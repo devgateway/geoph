@@ -35,9 +35,7 @@ $border-gray: #ebebeb;
       font-weight: 100;
       float: left;
     }
-
   }
-
 }
 
 ul.options {
@@ -69,26 +67,39 @@ ul.options {
     width: 30px;
 
   }
+
   > li.last {
     width: 40px;
     float: left;
   }
+
   > li.lang-sm {
     width: 62px;
     display: none;
     float: left;
   }
+
+  .last::after {
+    content: "";
+    width: 18px;
+    height: 18px;
+    margin: 7px;
+    float: right;
+    background: url('../../../assets/svg/hamburger.svg');
+    background-size: 16px 16px;
+    background-repeat: no-repeat;
+    display: none;
+  }
+
+  .last.compare::after {
+    display: block;
+  }
+
   @media (max-width: 1024px) {
     .last::after {
-      content: "";
-      width: 18px;
-      height: 18px;
-      margin: 7px;
-      float: right;
-      background: url('../../../assets/svg/hamburger.svg');
-      background-size: 16px 16px;
-      background-repeat: no-repeat;
+      display: block;
     }
+
     .lang-sm {
       display: block !important;
       padding-top: 7px;
