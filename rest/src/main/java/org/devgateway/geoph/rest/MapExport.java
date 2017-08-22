@@ -6,6 +6,7 @@ import com.google.common.collect.ImmutableMap;
 import org.apache.commons.lang3.StringUtils;
 import org.devgateway.geoph.core.request.JsonRequestParams;
 import org.devgateway.geoph.core.request.Parameters;
+import org.devgateway.geoph.core.request.PrintData;
 import org.devgateway.geoph.core.request.PrintParams;
 import org.devgateway.geoph.core.response.ChartResponse;
 import org.devgateway.geoph.core.services.*;
@@ -27,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLConnection;
 import java.util.*;
@@ -63,22 +65,18 @@ public class MapExport {
 
 
     @RequestMapping(value = "/pdf", produces = "application/json")
-    public Map<String, String> toPdf(@RequestBody PrintParams params, HttpServletResponse response) throws Exception {
-        LOGGER.debug("shareMap");
-        fillParams(params);
+    public Map<String, String> toPdf(@RequestBody PrintParams paramsFromUI, HttpServletResponse response) throws Exception {
+        LOGGER.debug("get Pdf map");
+        AppMap map = saveMap(paramsFromUI);
 
-        AppMap map = saveMap(params);
-        String name;
-        if (StringUtils.isBlank(params.getCompareMapKey())) {
-            name = screenCaptureService.createPdfFromHtmlString(null, params, map.getKey());
-        } else {
-            AppMap compareMap = appMapService.findByKey(params.getCompareMapKey());
-            ObjectMapper mapper = new ObjectMapper();
-            PrintParams compareMapParams = new PrintParams();
-            compareMapParams.setData(mapper.readValue(compareMap.getJsonAppMap(), Map.class));
-            fillParams(compareMapParams);
-            name = screenCaptureService.createPdfFromHtmlString(compareMapParams, params, map.getKey());
-        }
+        List dataList = paramsFromUI.getData();
+        List<PrintData> printDataList = new ArrayList<>();
+        dataList.forEach(data -> {
+            printDataList.add(getPrintData((Map) data));
+        });
+
+        String name = screenCaptureService.createPdfFromHtmlString(paramsFromUI, printDataList, map.getKey());
+
         return ImmutableMap.of("file", name);
     }
 
@@ -108,45 +106,50 @@ public class MapExport {
         String mapJson = new ObjectMapper().writeValueAsString(params.getData());
         String md5 = MD5Generator.getMD5(mapJson);
         AppMap map = appMapService.findByMD5(md5);
-        if(map==null){
+        if (map == null) {
             map = appMapService.save(new AppMap(params.getName(),
                     params.getDescription(),
                     mapJson,
                     UUID.randomUUID().toString(),
-                    params.getCompareMapKey(),
                     md5,
                     AppMapTypeEnum.PRINT.getName(),null));
         }
         return map;
     }
 
-    private void fillParams(PrintParams params) throws java.io.IOException {
-        Map data = (Map) params.getData();
-        Map filterMap = (Map) data.get("filters");
+    private PrintData getPrintData(Map dataMap)  {
+        PrintData printData = new PrintData();
+        Map filterMap = (Map) dataMap.get("filters");
         if (filterMap != null) {
-            params.setFilters(printService.getFilterNamesFromJson(filterMap));
+            printData.setFilters(printService.getFilterNamesFromJson(filterMap));
         }
-        List jsonLayers = (List) data.get("visibleLayers");
+        List jsonLayers = (List) dataMap.get("visibleLayers");
         if (jsonLayers != null && jsonLayers.size()>0) {
-            params.setVisibleLayers(printService.getLayerNamesFromJson(jsonLayers));
+            printData.setVisibleLayers(printService.getLayerNamesFromJson(jsonLayers));
         }
-        Map settings = (Map) data.get("settings");
+        Map settings = (Map) dataMap.get("settings");
         if(settings!=null && settings.size()>0){
             Map fundingVars = (Map) settings.get("fundingType");
             if(fundingVars!=null){
-                params.setTrxType(fundingVars.get("measure").toString());
-                params.setTrxStatus(fundingVars.get("type").toString());
+                printData.setTrxType(fundingVars.get("measure").toString());
+                printData.setTrxStatus(fundingVars.get("type").toString());
             }
         }
-        JsonRequestParams jsonFilters = new ObjectMapper().readValue(new ObjectMapper().writeValueAsString(filterMap), JsonRequestParams.class);
-        Parameters chartParams = Parameters.getParameters(jsonFilters);
-        if(StringUtils.isNotBlank(params.getTrxType())){
-            chartParams.setTrxType(TransactionTypeEnum.valueOf(params.getTrxType().toUpperCase()).getId());
-            chartParams.setTrxTypeSort(TransactionTypeEnum.valueOf(params.getTrxType().toUpperCase()).getId());
+        JsonRequestParams jsonFilters = null;
+        try {
+            jsonFilters = new ObjectMapper().readValue(new ObjectMapper().writeValueAsString(filterMap),
+                    JsonRequestParams.class);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        if(StringUtils.isNotBlank(params.getTrxStatus())){
-            chartParams.setTrxStatus(TransactionStatusEnum.valueOf(params.getTrxStatus().toUpperCase()).getId());
-            chartParams.setTrxStatusSort(TransactionStatusEnum.valueOf(params.getTrxStatus().toUpperCase()).getId());
+        Parameters chartParams = Parameters.getParameters(jsonFilters);
+        if(StringUtils.isNotBlank(printData.getTrxType())){
+            chartParams.setTrxType(TransactionTypeEnum.valueOf(printData.getTrxType().toUpperCase()).getId());
+            chartParams.setTrxTypeSort(TransactionTypeEnum.valueOf(printData.getTrxType().toUpperCase()).getId());
+        }
+        if(StringUtils.isNotBlank(printData.getTrxStatus())){
+            chartParams.setTrxStatus(TransactionStatusEnum.valueOf(printData.getTrxStatus().toUpperCase()).getId());
+            chartParams.setTrxStatusSort(TransactionStatusEnum.valueOf(printData.getTrxStatus().toUpperCase()).getId());
         }
 
         Map<String, Collection<ChartResponse>> chartData = new HashMap<>();
@@ -154,9 +157,10 @@ public class MapExport {
         chartData.put("Implementing Agency", chartService.getFundingByImplementingAgency(chartParams));
         chartData.put("Sector", chartService.getFundingBySector(chartParams));
         chartData.put("Physical Status", chartService.getFundingByPhysicalStatus(chartParams));
-        params.setAllChartsData(chartData);
+        printData.setAllChartsData(chartData);
 
-        params.setStats(projectService.getStats(chartParams));
+        printData.setStats(projectService.getStats(chartParams));
+        return printData;
     }
 
 }
