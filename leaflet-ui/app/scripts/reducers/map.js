@@ -344,7 +344,7 @@ const map = (state = defaultState, action) => {
     case CHANGE_MAP_BOUNDS:
       return state
         .set('bounds', Immutable.fromJS({southWest:action.bounds._southWest, northEast:action.bounds._northEast}))
-        .set('center', action.center)
+        .set('center', Immutable.fromJS(action.center))
         .set('zoom', action.zoom);
     
     case INDICATOR_LIST_LOADED:

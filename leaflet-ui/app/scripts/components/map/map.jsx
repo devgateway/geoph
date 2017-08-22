@@ -71,8 +71,8 @@ const MapView = React.createClass({
   render() {
     const { map, mapId } = this.props;
     const { southWest, northEast } = map.get('defaultBounds').toJS();
+    const center = map.get('center') !== undefined ? map.get('center').toJS() : undefined;
     const zoom = map.get('zoom');
-    const center = map.get('center');
     
     // don't use the bounds if we have a zoom level and a center
     const bounds = center === undefined ? L.latLngBounds(L.latLng(southWest.lat, southWest.lng), L.latLng(northEast.lat, northEast.lng)) : undefined;
