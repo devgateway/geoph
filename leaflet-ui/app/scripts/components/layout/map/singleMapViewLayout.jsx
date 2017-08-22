@@ -23,7 +23,7 @@ class SingleMapViewLayout extends DefaultMapLayout {
   }
   
   render() {
-    return (<div>
+    return (<div className="map-layout">
         <div className="main">
           <Map mapId="main"/>
         </div>

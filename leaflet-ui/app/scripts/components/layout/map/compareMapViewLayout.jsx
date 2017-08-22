@@ -11,7 +11,7 @@ import DefaultMapLayout from './defaultMapLayout';
 import Map from '../../map/map';
 import Panel from '../panel';
 
-import './compare.scss';
+require("./mapLayout.scss");
 
 class CompareMapViewLayout extends DefaultMapLayout {
   componentWillMount() {
@@ -35,20 +35,18 @@ class CompareMapViewLayout extends DefaultMapLayout {
   }
   
   render() {
-    return (<div>
-        <div className="compare-layout">
-          <div className="main">
-            <Map mapId="left"/>
-            <div className="close-map" onClick={this.closeCompareView.bind(this)}></div>
-          </div>
-          
-          <div className="main right-map">
-            <Map mapId="main"/>
-            <div className="close-map" onClick={this.closeCompareView.bind(this, true)}></div>
-          </div>
+    return (<div className="map-layout compare-layout">
+        <div className="main">
+          <Map mapId="left"/>
+          <div className="close-map" onClick={this.closeCompareView.bind(this)}></div>
         </div>
         
-        <Panel showHelp={this.showHelp}>
+        <div className="main right-map">
+          <Map mapId="main"/>
+          <div className="close-map" onClick={this.closeCompareView.bind(this, true)}></div>
+        </div>
+        
+        <Panel showHelp={this.showHelp} compareClass={"panel-compare"}>
           {this.props.children}
         </Panel>
       </div>

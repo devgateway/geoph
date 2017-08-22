@@ -1,15 +1,19 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import * as Constants from '../../constants/constants';
-import { LangSwitcher } from '../lan/'
-import { showSaveMap } from '../../actions/saveAndRestoreMap';
-import { markApplied } from '../../util/filterUtil';
-import { hashHistory } from 'react-router';
+import {LangSwitcher} from '../lan/'
+import {showSaveMap} from '../../actions/saveAndRestoreMap';
+import {markApplied} from '../../util/filterUtil';
+import {hashHistory} from 'react-router';
 import MenuItem from './item.jsx';
 
 class MenuBar extends React.Component {
+  static propTypes = {
+    isCompare:   React.PropTypes.bool,
+  };
+  
   componentWillUpdate(nextProps) {
-    const { compare } = nextProps;
+    const {compare} = nextProps;
     
     // we need to be sure that the *compare* field has changes in order to launch the compare view
     if (compare !== this.props.compare) {
@@ -24,7 +28,7 @@ class MenuBar extends React.Component {
   }
   
   render() {
-    const { loggedin, items = [], title, onTogglePanel, filtersMain } = this.props;
+    const {loggedin, items = [], title, onTogglePanel, filtersMain, isCompare} = this.props;
     
     return (
       <div className="title">
@@ -37,12 +41,11 @@ class MenuBar extends React.Component {
             if (item.id === 'filters') {
               item.label = 'Filters' + (markApplied(filtersMain));//add the mark for filters applied
             }
-            return (visible) ? <MenuItem {...this.props} {...item}>{Component !== undefined ? <Component/> : null}</MenuItem> : null;
+            return (visible) ?
+              <MenuItem {...this.props} {...item}>{Component !== undefined ? <Component/> : null}</MenuItem> : null;
           })}
           <li className="lang-sm"><LangSwitcher/></li>
-          <li className="last" onClick={() => {
-            onTogglePanel()
-          }}></li>
+          <li className={"last " + (isCompare ? "compare" : "")} onClick={() => onTogglePanel()}></li>
         </ul>
         {this.props.children}
       </div>
@@ -67,7 +70,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 const mapStateToProps = (state, props) => {
   const {accountNonExpired, accountNonLocked, enabled, credentialsNonExpired} = state.security.toJS();
   const loggedin = (accountNonExpired && accountNonLocked && enabled && credentialsNonExpired);
-  return {...state.header.toJS(), loggedin, filtersMain: state.filters.filterMain, language: state.language}
+  const isCompare = state.compare.size !== 0;
+  
+  return {...state.header.toJS(), loggedin, filtersMain: state.filters.filterMain, language: state.language, isCompare}
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuBar);

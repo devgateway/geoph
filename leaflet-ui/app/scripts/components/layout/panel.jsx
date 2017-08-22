@@ -37,12 +37,12 @@ class Panel extends React.Component {
   }
   
   render() {
-    const { expanded, visible, currentView } = this.props;
+    const { expanded, visible, compareClass } = this.props;
     const expandedClass = expanded ? 'panel-expanded' : '';
     const visibleClass = visible === true ? 'visible' : 'unseen';
     
     return (
-      <div className={`panel ${expandedClass} ${visibleClass}`}>
+      <div className={`panel ${compareClass} ${expandedClass} ${visibleClass}`}>
         <ul>
           <Link to={this.buildPath("/tools")}>
             <OverlayTrigger delayShow={1000} placement="top" overlay={(
