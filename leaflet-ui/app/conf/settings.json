@@ -46,13 +46,9 @@
                 "ft": "/filters/flowType",
                 "gr": "/filters/genderResponsiveness",
                 "cc": "/filters/climateChange",
-                "fs": "/filters/fsource",
                 "ph": "/filters/physicalStatus",
                 "fin_amount": "/filters/financialAmountPeriod",
                 "cl": "/filters/classification",
-                "dp": "/filters/devprio",
-                "cs": "/filters/cscope",
-                "co": "/filters/coverage",
                 "ao": "/filters/actualPhysicalProgressPeriod",
                 "php": "/filters/physicalProgressPeriod"
             },
@@ -68,13 +64,9 @@
                 "ft": "/filters/flowType",
                 "gr": "/filters/genderResponsiveness",
                 "cc": "/filters/climateChange",
-                "fs": "/filters/fsource",
                 "ph": "/filters/physicalStatus",
                 "fin_amount": "/filters/financialAmountPeriod",
                 "cl": "/filters/classification",
-                "dp": "/filters/devprio",
-                "cs": "/filters/cscope",
-                "co": "/filters/coverage",
                 "ao": "/filters/actualPhysicalProgressPeriod",
                 "php": "/filters/physicalProgressPeriod"
             }

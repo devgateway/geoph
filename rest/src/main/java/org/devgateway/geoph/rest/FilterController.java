@@ -3,7 +3,15 @@ package org.devgateway.geoph.rest;
 import org.devgateway.geoph.core.response.GenericResponse;
 import org.devgateway.geoph.core.services.FilterService;
 import org.devgateway.geoph.enums.LocationAdmLevelEnum;
-import org.devgateway.geoph.model.*;
+import org.devgateway.geoph.model.Classification;
+import org.devgateway.geoph.model.ClimateChange;
+import org.devgateway.geoph.model.FundingAgency;
+import org.devgateway.geoph.model.GenderResponsiveness;
+import org.devgateway.geoph.model.ImplementingAgency;
+import org.devgateway.geoph.model.Location;
+import org.devgateway.geoph.model.PhysicalStatus;
+import org.devgateway.geoph.model.Sector;
+import org.devgateway.geoph.model.Status;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -243,13 +251,6 @@ public class FilterController extends BaseController {
         return resp;
     }
 
-    private void sortSectorTree(List<Sector> sectors) {
-        for (Sector sector : sectors) {
-            sortSectorTree(sector.getItems());
-        }
-        Collections.sort(sectors);
-    }
-
     @RequestMapping(value = "/status", method = GET)
     public GenericResponse findAllStatuses() {
         LOGGER.debug("findAllStatuses");
@@ -285,5 +286,12 @@ public class FilterController extends BaseController {
         );
 
         return resp;
+    }
+
+    private void sortSectorTree(List<Sector> sectors) {
+        for (Sector sector : sectors) {
+            sortSectorTree(sector.getItems());
+        }
+        Collections.sort(sectors);
     }
 }
