@@ -11,13 +11,13 @@ class Tools extends React.Component {
   render() {
     return (
       <div className="tools-view">
-        <ExpandableControl title={translate('toolview.projectsearch.title')} iconClass="search-icon"
-                           tooltipText="help.toolview.projectsearch">
-          <div><ProjectFilter/></div>
+        <ExpandableControl title={translate('toolview.projectsearch.title')} tooltipText="help.toolview.projectsearch">
+          <ProjectFilter/>
         </ExpandableControl>
-        <ExpandableControl title={translate('toolview.layers.title')} defaultExpanded={true} iconClass="layers-icon"
-                           tooltipText="help.toolview.layerscontrol">
-          <div><LayerControl/></div>
+        
+        <ExpandableControl title={translate('toolview.layers.title')} tooltipText="help.toolview.layerscontrol"
+                           defaultExpanded={true}>
+          <LayerControl/>
         </ExpandableControl>
       </div>
     )
