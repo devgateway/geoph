@@ -38,7 +38,7 @@
 		},
 		"mapForPrint": "Map generated from print"
 	},
-
+	
 	"filters":{
 		"funding": {
 			"funding": "Funding",
@@ -102,7 +102,7 @@
 		"noResults": "No Results",
 		"noResultsMessage": "There are not projects that match with filter criteria."
 	},
-
+	
 	"toolview": {
 		"title": "Tool View",
 		"projectsearch": {
@@ -125,7 +125,7 @@
 			"detail": "Details",
 			"low": "Low",
 			"medium": "Medium",
-			"high": "High", 
+			"high": "High",
 			"projects": "Projects",
 			"project": "Projects points",
 			"stats": "Statistical",
@@ -142,10 +142,13 @@
 			"progress":"Progress",
 			"label": "Label",
 			"on": "On",
-			"off": "Off"			
+			"off": "Off"
+		},
+		"savedmaps": {
+			"title": "Saved Maps"
 		}
 	},
-
+	
 	"chartview": {
 		"title": "Chart View",
 		"fundingagency": "Financing Institution",
@@ -165,7 +168,7 @@
 		"projects": "Projects",
 		"others": "Others"
 	},
-
+	
 	"infowindow": {
 		"tab": {
 			"financinginstitution": "Financing Institution",
@@ -183,14 +186,14 @@
 			"actualdisbursements": "Actual Disbursements"
 		}
 	},
-
+	
 	"stats": {
 		"projects": "projects",
 		"commitments": "commitments",
 		"totalNational": "Total National",
 		"totalSubNational": "Total Sub-National"
 	},
-
+	
 	"help": {
 		"header": {
 			"compare": "Click here to compare 2 maps",
@@ -232,7 +235,7 @@
 			"physicaltab": {
 				"physicalprogress": "Move from left to right or right to left to select the Percentage of Target Reached range",
 				"physicalstatus": "Select one or more physical status from the list (OR conditional between them)"
-			},			
+			},
 			"reset": "Click reset to change or search for new information.",
 			"cancel": "Click cancel if you wish not to continue searching for an information",
 			"apply": "Hit the apply button if all desired information are displayed",
@@ -243,7 +246,8 @@
 			"toolviewtab": "Click here to search for projects or change the map layers",
 			"projectsearch": "Search for a project title here",
 			"layerscontrol": "Select Region, Province, or Municipality level to view in map",
-			"geophotos": "This layer includes photos of implementation progress at project locations"
+			"geophotos": "This layer includes photos of implementation progress at project locations",
+			"savedmapscontrol": "Load one the following saved maps"
 		},
 		"chartview": {
 			"chartviewtab": "Click here to view charts showing overall data",
@@ -278,7 +282,7 @@
 			"clearall": "Deselect all projects from the project list"
 		}
 	},
-
+	
 	"project": {
 		"projectdetails": "Project Details",
 		"projectcost": "Project Cost",
@@ -293,20 +297,20 @@
 		"physicalstatus": "Physical Status",
 		"notavailable": "Not Available"
 	},
-
+	
 	"legends": {
 		"morethan100": "more than 100",
 		"lessthan100": "less than 100",
 		"lessthan10": "less than 10",
 		"singlephoto": "single photo"
 	},
-
+	
 	"about": {
 		"phrase1": "This beta version of the Project and Programs Information Exchange System (PPIES) Open Map website is the output of a USAID technical assistance to NEDA called the Higher Education Solutions Network with Development Gateway as implementing partner under the AidData Center for Development Policy. The Project aimed to develop an online mapping tool which displays the distribution and impact of donor assistance to government programs and projects. It allows mapping or visualization of gaps that need to be addressed in future programming, particularly on how and where to focus future development interventions in the country.",
 		"phrase2": "The Project started implementation in April 2016, and the beta version of the website was launched in September 2016. Parallel to this, in January 2016, the NEDA engaged the services of a consulting firm for the enhancement of the PPIES, which is the central online database system of NEDA on monitoring proposed and ongoing major projects and programs of the Philippine Government. The final version of this website is envisioned to be linked with the enhanced PPIES to serve as the latter system’s mapping tool.",
 		"phrase3": "The beta version of the website shows information on proposed and ongoing major ODA- and locally-funded programs and projects of the Philippine Government as of year-end 2015, including those completed in 2015. The source of information were the government implementing agencies and bilateral and multilateral development partners of the Philippine Government. The information were gathered from the regular monitoring activities of the NEDA Monitoring and Evaluation Staff (for ongoing projects and programs) and the NEDA Public Investment Staff (for proposed projects and programs)."
 	},
-
+	
 	"admin": {
 		"indicators": {
 			"indicators": "Indicators",
@@ -324,7 +328,7 @@
 			"dropfile": "Drop a file or click this area",
 			"back": "Back",
 			"save": "Save",
-			"typeName": "Type Name"		
+			"typeName": "Type Name"
 		},
 		"dashboards": {
 			"dashboards": "Dashboards",
