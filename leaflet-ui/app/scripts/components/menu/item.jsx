@@ -6,7 +6,10 @@ import translate from '../../util/translate';
 const MenuItem = onClickOutside(React.createClass({
   
   handleClickOutside(evt) {
-    if (this.props.id !== "compare") { // don't deactivate the compare when clicking somewhere else.
+    const { id } = this.props;
+    const active = this.props[id];
+    
+    if (active && id !== "compare") { // don't deactivate the compare when clicking somewhere else.
       this.props.onDeactivate(this.props.id);
     }
   },
@@ -14,6 +17,7 @@ const MenuItem = onClickOutside(React.createClass({
   handleClick() {
     const { id } = this.props;
     const active = this.props[id];
+    
     if (!active) {
       this.props.onActivate(this.props.id);
     } else {
