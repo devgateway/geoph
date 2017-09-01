@@ -8,31 +8,31 @@ import {getVisiblesFromObjects} from '../util/layersUtil';
 
 export const changeProperty = (property, value) => {
   return {type: Constants.CHANGE_SAVE_PROPERTY, property, value}
-}
+};
 
 export const updateErrors = (errors) => {
   return {type: Constants.UPDATE_SAVE_ERRORS, errors}
-}
+};
 
 export const saveMapRequested = () => {
   return {
     type: Constants.REQUEST_SAVE_MAP
   }
-}
+};
 
 export const saveOK = (data) => {
   return (dispatch, getState) => {
     dispatch({type: Constants.REQUEST_SAVE_MAP_OK, data: data});
     dispatch({type: Constants.DEACTIVATE_COMPONENT, key: 'save'});
   }
-}
+};
 
 export const saveError = (err) => {
   return {
     type: Constants.REQUEST_SAVE_MAP_ERROR,
     httpError: err
   }
-}
+};
 
 export const shareOK = (data) => {
   return (dispatch, getState) => {
@@ -41,14 +41,14 @@ export const shareOK = (data) => {
       data: data
     });
   }
-}
+};
 
 export const shareError = (err) => {
   return {
     type: Constants.REQUEST_SHARE_MAP_ERROR,
     httpError: err
   }
-}
+};
 
 export const shareMap = () => {
   return (dispatch, getState) => {
@@ -56,7 +56,7 @@ export const shareMap = () => {
     dispatch(requestShareMap({data}));
   }
   
-}
+};
 
 const requestShareMap = (dataToShare) => {
   return (dispatch, getState) => {
@@ -66,8 +66,7 @@ const requestShareMap = (dataToShare) => {
       dispatch(shareError(results));
     });
   }
-  
-}
+};
 
 export const saveMap = () => {
   return (dispatch, getState) => {
@@ -77,7 +76,7 @@ export const saveMap = () => {
     const {name, description, id, type} = getState().saveMap.toJS();
     dispatch(requestSaveMap({id, name, description, type, data, html, width, height, scaleWidth}));
   }
-}
+};
 
 const requestSaveMap = (dataToSave) => {
   return (dispatch, getState) => {
@@ -88,22 +87,22 @@ const requestSaveMap = (dataToSave) => {
       dispatch(saveError(results));
     });
   }
-}
+};
 
 export const restoreError = (message) => {
   return {
     type: Constants.STATE_RESTORE_ERROR,
     message: message
   }
-}
+};
 
 const loadIndicatorList = () => {
   return Connector.getIndicatorList();
-}
+};
 
 const loadMap = (mapKey) => {
   return Connector.restoreMap(mapKey);
-}
+};
 
 export const requestRestoreMap = (mapKey) => {
   return (dispatch, getState) => {
@@ -115,10 +114,9 @@ export const requestRestoreMap = (mapKey) => {
       dispatch(makeAction(Constants.INDICATOR_FAILED, {err}));
     });
   }
-  
-}
+};
 
-export const finishRestoreMap = (mapKey) => {//resume map restore after all filters are loaded
+export const finishRestoreMap = () => {//resume map restore after all filters are loaded
   return (dispatch, getState) => {
     loadMap(getState().saveMap.get('mapKey')).then((storedMap) => {
       if (storedMap) {
@@ -141,8 +139,8 @@ export const finishRestoreMap = (mapKey) => {//resume map restore after all filt
       dispatch(makeAction(Constants.STATE_RESTORE_ERROR, {err}));
     });
   }
-}
+};
 
 const makeAction = (name, data) => {
   return {type: name, ...data}
-}
+};
