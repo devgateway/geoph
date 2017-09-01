@@ -1,5 +1,6 @@
 import * as Constants from '../constants/constants';
 import Connector from '../connector/connector';
+import { requestRestoreMap } from './saveAndRestoreMap';
 
 const redirect = (url, messages, errors, httpError) => {
   return {
@@ -38,7 +39,7 @@ export const remove = (key) => {
 
 export const savedMapsChange  = (index, key) => {
   return (dispatch, getState) => {
-    console.log(">>> key: " + key);
+    dispatch(requestRestoreMap(key));
     dispatch({type: Constants.ACTIVATE_SAVED_MAP, index });
   }
 };

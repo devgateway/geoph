@@ -33,22 +33,22 @@ const filters = (state = {filterMain: {}}, action) => {
     case Constants.STATE_RESTORE:
       let copyState = cloneDeep(state.filterMain);
       copyState = resetAllFilters(copyState);
-      if(action.storedMap.data.filters){
-        let storedFilters =  action.storedMap.data.filters;
-        Object.keys(storedFilters).map(k=>{
-          if (k.indexOf("_min")!=-1 || k.indexOf("_max")!=-1){
-            let param = k.indexOf("_min")!=-1? k.substring(0, k.search("_min")) : k.substring(0, k.search("_max"));
-            let value = k.indexOf("_min")!=-1? {'minSelected': storedFilters[k]} : {'maxSelected': storedFilters[k]};
+      if (action.storedMap.data.filters) {
+        let storedFilters = action.storedMap.data.filters;
+        Object.keys(storedFilters).map(k => {
+          if (k.indexOf("_min") != -1 || k.indexOf("_max") != -1) {
+            let param = k.indexOf("_min") != -1 ? k.substring(0, k.search("_min")) : k.substring(0, k.search("_max"));
+            let value = k.indexOf("_min") != -1 ? {'minSelected': storedFilters[k]} : {'maxSelected': storedFilters[k]};
             Object.assign(copyState[param], value, {'isRange': true});
           } else {
-            storedFilters[k].forEach(e=>{
+            storedFilters[k].forEach(e => {
               updateFilterSelection(copyState[k], e, true);
               updateFilterCounters(copyState[k]);
             });
           }
         });
       }
-      return Object.assign({}, state, { filterMain: copyState})
+      return Object.assign({}, state, {filterMain: copyState})
     case Constants.RESET_FILTER:
       filterMain = cloneDeep(state.filterMain);
       filterMain = resetAllFilters(filterMain);
@@ -72,28 +72,33 @@ const filter = (state = {
       return Object.assign({}, state, {
         isFetching: true,
       })
+    
     case Constants.RECEIVE_FILTER_DATA:
       return Object.assign({}, state, action.data, {
         isFetching: false,
         isLoaded: true,
         lastUpdated: action.receivedAt
       })
+    
     case Constants.FILTER_SET_RANGE:
       return Object.assign({}, state, {
         isRange: true,
         minSelected: action.filter.minSelected,
         maxSelected: action.filter.maxSelected
       })
+    
     case Constants.SELECT_ALL_FILTER_LIST:
       return Object.assign({}, state, {
         selected: action.item.selected,
         items: state.items.map(i => filterItem(i, action))
       })
+    
     case Constants.SELECT_FILTER_ITEM:
     case Constants.SEARCH_FILTER_LIST_BY_TEXT:
       return Object.assign({}, state, {
         items: state.items.map(i => filterItem(i, action))
       })
+    
     default:
       return state
   }
@@ -120,12 +125,14 @@ const filterItem = (state = {
 
 //This function iterates over all children items and select the given one
 const updateFilterSelection = (item, id, selection) => {
-  if (item.id === id || 'all' === id){
+  if (item.id === id || 'all' === id) {
     updateItemAndChildren(item, selection);
-  } else if (item.items && item.items.length>0){
+  } else if (item.items && item.items.length > 0) {
     item.items.forEach(it => updateFilterSelection(it, id, selection));
-    let selectionLength = item.items.filter((it) => {return it.selected}).length;
-    if (item.items.length == selectionLength){
+    let selectionLength = item.items.filter((it) => {
+      return it.selected
+    }).length;
+    if (item.items.length == selectionLength) {
       Object.assign(item, {'selected': true});
     } else {
       Object.assign(item, {'selected': false});
@@ -135,7 +142,7 @@ const updateFilterSelection = (item, id, selection) => {
 
 const updateItemAndChildren = (item, selection) => {
   Object.assign(item, {'selected': selection});
-  if (item.items && item.items.length>0){
+  if (item.items && item.items.length > 0) {
     item.items.forEach(it => updateItemAndChildren(it, selection));
   }
 }
@@ -144,9 +151,11 @@ const updateItemAndChildren = (item, selection) => {
 const updateFilterCounters = (filterObject) => {
   let count = 0;
   let countSel = 0;
-  if (filterObject.items && filterObject.items.length>0){
+  if (filterObject.items && filterObject.items.length > 0) {
     count = filterObject.items.length;
-    countSel = filterObject.items.filter((it) => {return it.selected}).length;
+    countSel = filterObject.items.filter((it) => {
+      return it.selected
+    }).length;
     filterObject.items.forEach((item) => {
       let cnts = updateFilterCounters(item);
       count = count + cnts.count;
@@ -161,14 +170,14 @@ const updateFilterCounters = (filterObject) => {
 const searchByTextIntoChildren = (item, keyword) => {
   let itemMatch = itemMatchs(item, keyword);
   let childrenMatch = false;
-  if (item.items && item.items.length>0){
+  if (item.items && item.items.length > 0) {
     item.items.forEach((it) => {
-      if (searchByTextIntoChildren(it, keyword)){
+      if (searchByTextIntoChildren(it, keyword)) {
         childrenMatch = true;
       }
     });
   }
-  if (itemMatch || childrenMatch){
+  if (itemMatch || childrenMatch) {
     Object.assign(item, {'hide': false});
     return true;
   } else {
@@ -188,8 +197,8 @@ const itemMatchs = (item, keyword) => {
 
 const makeAllOptionsVisible = (filters) => {
   for (var fltr in filters) {
-    if (!filters[fltr].isRange){
-      if (filters[fltr].items && filters[fltr].items.length>0){
+    if (!filters[fltr].isRange) {
+      if (filters[fltr].items && filters[fltr].items.length > 0) {
         filters[fltr].items.forEach((it) => {
           makeVisibleIntoChildren(it);
         });
@@ -200,7 +209,7 @@ const makeAllOptionsVisible = (filters) => {
 
 const makeVisibleIntoChildren = (item) => {
   Object.assign(item, {'hide': false});
-  if (item.items && item.items.length>0){
+  if (item.items && item.items.length > 0) {
     item.items.forEach((it) => {
       makeVisibleIntoChildren(it);
     });
@@ -211,7 +220,7 @@ const resetAllFilters = (filterMain) => {
   let actionDummy = {type: Constants.SELECT_ALL_FILTER_LIST, item: {selected: false}};
   for (var filterKey in filterMain) {
     let filterClean;
-    if (!filterMain[filterKey].isRange){
+    if (!filterMain[filterKey].isRange) {
       filterClean = filter(filterMain[filterKey], actionDummy);
       updateFilterCounters(filterClean);
     } else {

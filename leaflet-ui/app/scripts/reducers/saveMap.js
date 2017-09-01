@@ -2,12 +2,10 @@ import * as Constants from '../constants/constants';
 import Immutable from 'immutable';
 
 const defaultState = Immutable.fromJS(
-  {id:'', name:'', description:'', type: 'dashboard', saving: false}
+  {id: '', name: '', description: '', type: 'dashboard', saving: false}
 );
 
-const saveMap =(state = defaultState, action) => {
-  
-  //console.log("--- saveMap reducer ---" + action);
+const saveMap = (state = defaultState, action) => {
   switch (action.type) {
     
     case Constants.LOAD_DEFAULT_MAP_STATE:
@@ -23,7 +21,7 @@ const saveMap =(state = defaultState, action) => {
       return state.set('id', action.storedMap.id);
     
     case Constants.CHANGE_SAVE_PROPERTY:
-      return state.set(action.property,action.value);
+      return state.set(action.property, action.value);
     
     case Constants.UPDATE_SAVE_ERRORS:
       return state.set('errors', action.errors);
@@ -42,6 +40,6 @@ const saveMap =(state = defaultState, action) => {
     default:
       return state
   }
-}
+};
 
 export default saveMap
