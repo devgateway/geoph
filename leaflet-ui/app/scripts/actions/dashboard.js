@@ -35,3 +35,10 @@ export const remove = (key) => {
     });
   }
 };
+
+export const savedMapsChange  = (index, key) => {
+  return (dispatch, getState) => {
+    console.log(">>> key: " + key);
+    dispatch({type: Constants.ACTIVATE_SAVED_MAP, index });
+  }
+};

@@ -76,7 +76,7 @@ class Dashboard extends React.Component {
   }
   
   render() {
-    const {content = [], first, last, number, numberOfElements, size, sort, totalElements, totalPages, loggedIn} = this.props;
+    const {results = [], first, last, totalPages, loggedIn} = this.props;
     const {activePage} = this.state;
     return (
       <div className="dashboard-main">
@@ -103,7 +103,7 @@ class Dashboard extends React.Component {
             </div>
             : null}
         </div>
-        {content.map(d => {
+        {results.map(d => {
           return (
             <Item {...d} loggedIn={loggedIn} mapKey={d.key}>
               {loggedIn ? <AdminActions {...this.props} mapKey={d.key}/> : null}
@@ -140,7 +140,7 @@ const mapStateToProps = (state, props) => {
   const {results} = state.dashboard.toJS();
   return {
     language: state.language,
-    ...results
+    results
   }
 };
 

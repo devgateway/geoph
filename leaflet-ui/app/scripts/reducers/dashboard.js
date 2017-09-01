@@ -1,22 +1,28 @@
-
 import * as Constants from '../constants/constants';
-import {cloneDeep} from '../util/filterUtil';
-import {Map} from 'immutable'
+import {Map} from 'immutable';
 
 const stats = (state = new Map({}), action) => {
-  	switch (action.type) {
-     	case Constants.REQUEST_MAP_LIST_OK:
-     		return state.setIn(['results'],action.data);
-		case Constants.REQUEST_DELETE_MAP_OK:
-     		action.key
-     		let results = state.get('results');
-     		let content = results.content.filter((dash)=>{			
-				return (dash.key!=action.key)
-			});
-    		return state.setIn(['results'], Object.assign(results, {content}));
-		default:
-	  		return state
-  	}
-}
+  switch (action.type) {
+    case Constants.REQUEST_MAP_LIST_OK:
+      return state.setIn(['results'], action.data.content);
+    
+    case Constants.REQUEST_DELETE_MAP_OK:
+      const results = state.get('results').filter((dash)=>{
+        return (dash.key !== action.key)
+      });
+      return state.setIn(['results'], Object.assign(results, results));
+    
+    case Constants.ACTIVATE_SAVED_MAP:
+      const { index } = action;
+      
+      return state.set('results', state.get('results').map((map, idx)=>{
+        map.selected = (index === idx);
+        return map;
+      }));
+    
+    default:
+      return state;
+  }
+};
 
-export default stats
+export default stats;
