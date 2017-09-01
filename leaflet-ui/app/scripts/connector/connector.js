@@ -17,17 +17,16 @@ class Connector {
     return {'X-Security-token': this.token};
   }
   
-  get(url, params = {}) {
+  get(url, params = {}, headers = {}) {
     return new Promise(
-      function (resolve, reject) { // (A)
-        
+      function (resolve, reject) {
         Axios.get(url, {
           responseType: 'json',
           params: params,
           paramsSerializer: function (params) {
             return Qs.stringify(params, {arrayFormat: 'repeat'})
           },
-          
+          headers: headers
         })
           .then(function (response) {
             resolve(response);
@@ -190,7 +189,7 @@ class Connector {
   
   
   getMapList(params) {
-    return this.call(GET, Settings.get('API', 'MAP_LIST'), params);
+    return this.call(GET, Settings.get('API', 'MAP_LIST'), params, this.getSecurityHeader());
   }
   
   
