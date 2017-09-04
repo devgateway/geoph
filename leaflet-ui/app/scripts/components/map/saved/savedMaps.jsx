@@ -63,10 +63,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 const stateToProps = (state, props) => {
   const { results } = state.dashboard.toJS();
-  const savedMaps = results !== undefined ? results : [];
   
   return {
-    savedMaps
+    savedMaps: results
   }
 };
 

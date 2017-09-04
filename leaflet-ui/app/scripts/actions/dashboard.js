@@ -43,3 +43,7 @@ export const savedMapsChange  = (index, key) => {
     dispatch({type: Constants.ACTIVATE_SAVED_MAP, index });
   }
 };
+
+export const resetFeaturedMaps = () => {
+  return { type: Constants.RESET_FEATURED_MAP }
+};
