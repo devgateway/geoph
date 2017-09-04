@@ -37,14 +37,42 @@ const getBgColorFromCssName = (cls) => {
   return null;
 };
 
-
+/**
+ * Functions that collects the necessary data in order to restore a map that was saved.
+ */
 export const collectValuesToSave = (state) => {
-  let filters = state.filters.filterMain;
-  let projectSearch = state.projectSearch;
-  let map = state.map;
-  let settings = state.settings;
-  let params = {};
-  let filterParams = {};
+  // easy way to detect if we want to save a comparison.
+  const isCompare = state.compare.size !== 0;
+  
+  // the main map state
+  const map = state.map;
+  const filters = state.filters.filterMain;
+  const projectSearch = state.projectSearch;
+  const settings = state.settings;
+  
+  // if we don't have a comparison the the *data* field is just an object
+  if (!isCompare) {
+    return createDataObjectToSave(map, filters, projectSearch, settings);
+  } else {
+    // if we have a comparison then the *data* field is an array of objects - each map with it's on data.
+    const mapCompare = state.compare.get("map");
+    const filtersCompare = state.compare.get("filters").filterMain;
+    const projectSearchCompare = state.compare.get("projectSearch");
+    const settingsCompare = state.compare.get("settings");
+    
+    return [
+      createDataObjectToSave(map, filters, projectSearch, settings),
+      createDataObjectToSave(mapCompare, filtersCompare, projectSearchCompare, settingsCompare)
+    ];
+  }
+};
+
+/**
+ * Functions that builds the *data* object that will be send to the server.
+ */
+const createDataObjectToSave = (map, filters, projectSearch, settings) => {
+  const params = {};
+  const filterParams = {};
   let selection;
   
   for (let param in filters) {
@@ -82,7 +110,7 @@ export const collectValuesToSave = (state) => {
       
       const coloredLegend = legends.map((l) => {
         const {cls} = l;
-        const color = getBgColorFromCssName(cls)
+        const color = getBgColorFromCssName(cls);
         return {...l, color}
       });
       visibleLayers.push({id, name: nameLabel, legends: coloredLegend});
