@@ -18,6 +18,7 @@ const filters = (state = {filterMain: {}}, action) => {
       return Object.assign({}, state, {
         filterMain: filterMain
       })
+    
     case Constants.OPEN_FILTER:
       filterMain = cloneDeep(state.filterMain);
       makeAllOptionsVisible(filterMain);
@@ -25,11 +26,13 @@ const filters = (state = {filterMain: {}}, action) => {
         filterBackup: filterMain,
         filterMain: filterMain
       })
+    
     case Constants.CANCEL_FILTER:
       let filterBackup = cloneDeep(state.filterBackup);
       return Object.assign({}, state, {
         filterMain: filterBackup
       })
+    
     case Constants.STATE_RESTORE:
       let copyState = cloneDeep(state.filterMain);
       copyState = resetAllFilters(copyState);
@@ -49,6 +52,7 @@ const filters = (state = {filterMain: {}}, action) => {
         });
       }
       return Object.assign({}, state, {filterMain: copyState})
+    
     case Constants.RESET_FILTER:
       filterMain = cloneDeep(state.filterMain);
       filterMain = resetAllFilters(filterMain);
@@ -102,7 +106,7 @@ const filter = (state = {
     default:
       return state
   }
-}
+};
 
 const filterItem = (state = {
   selected: false
@@ -121,7 +125,7 @@ const filterItem = (state = {
     default:
       return state
   }
-}
+};
 
 //This function iterates over all children items and select the given one
 const updateFilterSelection = (item, id, selection) => {
@@ -138,14 +142,14 @@ const updateFilterSelection = (item, id, selection) => {
       Object.assign(item, {'selected': false});
     }
   }
-}
+};
 
 const updateItemAndChildren = (item, selection) => {
   Object.assign(item, {'selected': selection});
   if (item.items && item.items.length > 0) {
     item.items.forEach(it => updateItemAndChildren(it, selection));
   }
-}
+};
 
 //This function add the total and selected counter fields to each object that has children
 const updateFilterCounters = (filterObject) => {
@@ -164,7 +168,7 @@ const updateFilterCounters = (filterObject) => {
     Object.assign(filterObject, {'totalCounter': count, 'selectedCounter': countSel});
   }
   return {count: count, countSel: countSel}
-}
+};
 
 //This function search by text into the items and its children
 const searchByTextIntoChildren = (item, keyword) => {
@@ -184,16 +188,16 @@ const searchByTextIntoChildren = (item, keyword) => {
     Object.assign(item, {'hide': true});
     return false;
   }
-}
+};
 
 const itemMatchs = (item, keyword) => {
   if (keyword.length > 1) {
-    var pattern = new RegExp(keyword, 'i');
+    const pattern = new RegExp(keyword, 'i');
     return pattern.test(item.name);
   } else {
     return true;
   }
-}
+};
 
 const makeAllOptionsVisible = (filters) => {
   for (var fltr in filters) {
@@ -205,7 +209,7 @@ const makeAllOptionsVisible = (filters) => {
       }
     }
   }
-}
+};
 
 const makeVisibleIntoChildren = (item) => {
   Object.assign(item, {'hide': false});
@@ -214,7 +218,7 @@ const makeVisibleIntoChildren = (item) => {
       makeVisibleIntoChildren(it);
     });
   }
-}
+};
 
 const resetAllFilters = (filterMain) => {
   let actionDummy = {type: Constants.SELECT_ALL_FILTER_LIST, item: {selected: false}};

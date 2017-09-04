@@ -1,18 +1,21 @@
 import Immutable from 'immutable';
 
 // ------------------------------------ Constants ------------------------------------
-const CLONE_MAP_DONE = 'CLONE_MAP_DONE';
+export const CLONE_MAP_DONE = 'CLONE_MAP_DONE';
 const CLONE_MAP_CLEAN = 'CLONE_MAP_CLEAN';
 const TOGGLE_COMPARE_LEGENDS_VIEW = 'TOGGLE_COMPARE_LEGENDS_VIEW';
 
 export const clone = () => {
   return (dispatch, getState) => {
-    const map = getState().map;
-    const filters = getState().filters;
-    const projectSearch = getState().projectSearch;
-    const settings = getState().settings;
-    
-    dispatch({type: CLONE_MAP_DONE, map, filters, projectSearch, settings})
+    // don't clone if we have something in the state - most probably we have a shared map with a comparison
+    if (getState().compare.size === 0) {
+      const map = getState().map;
+      const filters = getState().filters;
+      const projectSearch = getState().projectSearch;
+      const settings = getState().settings;
+      
+      dispatch({type: CLONE_MAP_DONE, map, filters, projectSearch, settings});
+    }
   }
 };
 
