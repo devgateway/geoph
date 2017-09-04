@@ -9,7 +9,10 @@ export const clone = () => {
   return (dispatch, getState) => {
     const map = getState().map;
     const filters = getState().filters;
-    dispatch({type: CLONE_MAP_DONE, map, filters})
+    const projectSearch = getState().projectSearch;
+    const settings = getState().settings;
+    
+    dispatch({type: CLONE_MAP_DONE, map, filters, projectSearch, settings})
   }
 };
 
@@ -21,7 +24,7 @@ export const toggleCompareLegendsView = () => {
   return {
     type: TOGGLE_COMPARE_LEGENDS_VIEW
   }
-}
+};
 
 // ------------------------------------ Action Handlers ------------------------------------
 const ACTION_HANDLERS = {
@@ -32,11 +35,13 @@ const ACTION_HANDLERS = {
   },
   
   [ CLONE_MAP_DONE ]: (state, action) => {
-    const { map, filters } = action;
+    const { map, filters, projectSearch, settings } = action;
     
     return state
       .setIn(['map'], map)
-      .setIn(['filters'], filters);
+      .setIn(['filters'], filters)
+      .setIn(['projectSearch'], projectSearch)
+      .setIn(['settings'], settings);
   },
   
   [ TOGGLE_COMPARE_LEGENDS_VIEW ]: (state, action) => {

@@ -19,18 +19,31 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
-import static org.springframework.web.bind.annotation.RequestMethod.*;
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 /**
  * @author dbianco
- *         created on abr 20 2016.
+ * created on abr 20 2016.
  */
 @RestController
 @RequestMapping(value = "/maps")
@@ -55,7 +68,7 @@ public class MapController {
 
     @RequestMapping(method = GET)
     public Page<AppMapDao> findMaps(@PageableDefault(page = 0, size = 20, sort = "id") final Pageable pageable,
-                                    @RequestParam(required = false)  String type) {
+                                    @RequestParam(required = false) String type) {
         LOGGER.debug("findMaps");
         List<String> typeList = new ArrayList<>();
         if (StringUtils.isBlank(type) || type.equals("all") || type.equals(AppMapTypeEnum.DASHBOARD.getName())) {
@@ -81,16 +94,16 @@ public class MapController {
         String mapName = (String) mapVariables.get(NAME_STR);
         String base64 = null;
         Long id = null;
-        if (StringUtils.isNotBlank(mapVariables.get("id").toString())){
+        if (StringUtils.isNotBlank(mapVariables.get("id").toString())) {
             id = new Long((Integer) mapVariables.get("id"));
         }
-        if (checkIfMapNameIsValid(mapName) || id!=null) {
+        if (checkIfMapNameIsValid(mapName) || id != null) {
             String html = (String) mapVariables.get("html");
             Integer width = (Integer) mapVariables.get("width");
             Integer height = (Integer) mapVariables.get("height");
             Integer scaleWidth = (Integer) mapVariables.get("scaleWidth");
             Integer scaleHeight = (Integer) mapVariables.get("scaleHeight");
-            if (mapVariables.get("id")!=null && !mapVariables.get("id").equals("")){
+            if (mapVariables.get("id") != null && !mapVariables.get("id").equals("")) {
                 id = new Long((Integer) mapVariables.get("id"));
             }
 
@@ -111,7 +124,7 @@ public class MapController {
             String mapType = (String) mapVariables.get(TYPE_STR);
             AppMap appMap = new AppMap(mapName, mapDesc, mapJson, UUID.randomUUID().toString(),
                     MD5Generator.getMD5(mapJson), mapType, base64);
-            if(id==null){
+            if (id == null) {
                 return appMapService.save(appMap);
             } else {
                 return appMapService.update(id, appMap);
@@ -127,21 +140,21 @@ public class MapController {
         String mapJson = new ObjectMapper().writeValueAsString(mapVariables.get(DATA_TO_SAVE_STR));
         String md5 = MD5Generator.getMD5(mapJson);
         AppMap map = appMapService.findByMD5(md5);
-        if(map==null){
+        if (map == null) {
             String mapName = UUID.randomUUID().toString();
             String mapDesc = SHARED_MAP_DESC;
             map = appMapService.save(new AppMap(mapName, mapDesc, mapJson, mapName, md5,
-                    AppMapTypeEnum.SHARE.getName(),null));
+                    AppMapTypeEnum.SHARE.getName(), null));
         }
 
         return map;
     }
 
-    private boolean checkIfMapNameIsValid(String mapName){
+    private boolean checkIfMapNameIsValid(String mapName) {
         boolean ret = false;
-        if(StringUtils.isNotBlank(mapName)) {
+        if (StringUtils.isNotBlank(mapName)) {
             List<AppMap> maps = appMapService.findByName(mapName);
-            if(maps==null || maps.size()==0){
+            if (maps == null || maps.size() == 0) {
                 ret = true;
             }
         }
@@ -196,7 +209,7 @@ public class MapController {
     @ExceptionHandler(BadRequestException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    public Map<String,Object> handleBadRequestException(BadRequestException exception) {
+    public Map<String, Object> handleBadRequestException(BadRequestException exception) {
         Map<String, Object> result = new HashMap<>();
         result.put("error", "Bad Request");
         result.put("message", exception.getMessage());

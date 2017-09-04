@@ -276,7 +276,7 @@ const mapStateToProps = (state, props) => {
     filters = state.filters.filterMain;
   } else {
     // here id should be 'left'
-    filters = state.compare.getIn(["filters", "filterMain"]);
+    filters = state.compare.get("filters").filterMain;
   }
   
   return {
