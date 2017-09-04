@@ -1,26 +1,22 @@
 import React from 'react';
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 import translate from '../../util/translate.js';
-import {shareMap} from '../../actions/saveAndRestoreMap';
+import { shareMap } from '../../actions/saveAndRestoreMap';
 import CopyToClipboard from 'react-copy-to-clipboard';
-import {
-  ShareButtons,
-  ShareCounts,
-  generateShareIcon
-} from 'react-share';
+import { ShareButtons, generateShareIcon } from 'react-share';
 
 require('./share.scss');
 
 const Share = React.createClass({
-
+  
   shareMap() {
-    this.props.onShareMap();    
+    this.props.onShareMap();
   },
-
+  
   render() {
-    const {isShareNeeded, shareUrl, errors={},httpError,status,visible}=this.props;
+    const { isShareNeeded, shareUrl, visible } = this.props;
     
-    if(isShareNeeded){
+    if (isShareNeeded) {
       this.shareMap();
     }
     const {
@@ -30,63 +26,65 @@ const Share = React.createClass({
       TwitterShareButton,
       VKShareButton
     } = ShareButtons;
-
+    
     const FacebookIcon = generateShareIcon('facebook');
     const TwitterIcon = generateShareIcon('twitter');
     const GooglePlusIcon = generateShareIcon('google');
     const LinkedinIcon = generateShareIcon('linkedin');
     const VKIcon = generateShareIcon('vk');
-
-
+    
+    
     return (
       <div>
-        {visible?
+        {visible ?
           <div className="share-container">
-            {isShareNeeded?
-              <div className="loading-css"><div></div></div>
-            :
+            {isShareNeeded ?
+              <div className="loading-css">
+                <div></div>
+              </div>
+              :
               <div>
                 <h2>{translate('header.settings.share')}</h2>
                 <div>
                   <ul className="share">
                     <li>
-                    <FacebookShareButton url={shareUrl} title={translate('header.share.title')}>
-                      <FacebookIcon size={32} round />
-                    </FacebookShareButton>
+                      <FacebookShareButton url={shareUrl} title={translate('header.share.title')}>
+                        <FacebookIcon size={32} round/>
+                      </FacebookShareButton>
                     </li>
                     <li>
-                    <TwitterShareButton url={shareUrl} title={translate('header.share.title')}>
-                      <TwitterIcon size={32} round />
-                    </TwitterShareButton>
+                      <TwitterShareButton url={shareUrl} title={translate('header.share.title')}>
+                        <TwitterIcon size={32} round/>
+                      </TwitterShareButton>
                     </li>
                     <li>
-                    <GooglePlusShareButton url={shareUrl} title={translate('header.share.title')}>
-                      <GooglePlusIcon size={32} round />
-                    </GooglePlusShareButton>
+                      <GooglePlusShareButton url={shareUrl} title={translate('header.share.title')}>
+                        <GooglePlusIcon size={32} round/>
+                      </GooglePlusShareButton>
                     </li>
                     <li>
-                    <LinkedinShareButton url={shareUrl} title={translate('header.share.title')}>
-                      <LinkedinIcon size={32} round />
-                    </LinkedinShareButton>
+                      <LinkedinShareButton url={shareUrl} title={translate('header.share.title')}>
+                        <LinkedinIcon size={32} round/>
+                      </LinkedinShareButton>
                     </li>
                     <li>
-                    <VKShareButton url={shareUrl} title={translate('header.share.title')}>
-                      <VKIcon size={32} round />
-                    </VKShareButton>
+                      <VKShareButton url={shareUrl} title={translate('header.share.title')}>
+                        <VKIcon size={32} round/>
+                      </VKShareButton>
                     </li>
                   </ul>
                 </div>
                 <div className="share-link">
-                  <input className="form-control" type="text" value={isShareNeeded?'':shareUrl} />
-                  <CopyToClipboard text={shareUrl} >
-                    <button className="btn btn-sm btn-success" disabled={isShareNeeded?true:false}>Copy URL</button>
+                  <input className="form-control" type="text" value={isShareNeeded ? '' : shareUrl}/>
+                  <CopyToClipboard text={shareUrl}>
+                    <button className="btn btn-sm btn-success" disabled={isShareNeeded ? true : false}>Copy URL</button>
                   </CopyToClipboard>
                 </div>
               </div>
             }
           </div>
-
-        : null}
+          
+          : null}
       </div>
     );
   }
@@ -98,10 +96,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(shareMap());
     },
   }
-}
+};
 
 const mapStateToProps = (state, props) => {
   return state.share.toJS();
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Share);

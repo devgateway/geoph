@@ -1,5 +1,5 @@
 import * as Constants from '../constants/constants';
-import {Map} from 'immutable';
+import { Map } from 'immutable';
 
 const share = (state = new Map({shareUrl: '', isShareNeeded: false}), action) => {
   
