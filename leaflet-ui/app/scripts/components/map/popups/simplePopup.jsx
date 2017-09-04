@@ -42,7 +42,7 @@ const mapStateToProps = (state, props) => {
     filters = state.filters.filterMain;
   } else {
     // here id should be 'left'
-    filters = state.compare.get("filters").filterMain;
+    filters = state.compare.get("filters") !== undefined ? state.compare.get("filters").filterMain : undefined;
   }
   
   return {
