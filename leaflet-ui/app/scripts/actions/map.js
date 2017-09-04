@@ -3,26 +3,27 @@ import {
   SET_LAYER_SETTING, CHANGE_MAP_BOUNDS, LOAD_LAYER_BY_ID, LAYER_LOAD_REQUEST
 } from '../constants/constants.js';
 import Connector from '../connector/connector.js';
-import {getPath, getDefaults, getVisibles} from '../util/layersUtil.js';
-import {collectValues} from '../util/filterUtil';
+import { getPath, getDefaults, getVisibles } from '../util/layersUtil.js';
+import { collectValues } from '../util/filterUtil';
+import { resetFeaturedMaps } from './dashboard';
 
 const getFilters = (getState) => {
   const filters = getState().filters.filterMain;
   const projectSearch = getState().projectSearch;
   return collectValues(filters, projectSearch);
-}
+};
 
 const loadLayerCompleted = (results, getState) => {
   return {type: LAYER_LOAD_SUCCESS, ...results, fundingType: getState().settings.fundingType}
-}
+};
 
 const loadLayerRequest = () => {
   return {type: LAYER_LOAD_REQUEST}
-}
+};
 
 const loadLayerFailed = (type, error) => {
   return {type: LAYER_LOAD_FAILURE, error}
-}
+};
 
 export const loadDefaultLayer = () => {
   return (dispatch, getState) => {
@@ -30,7 +31,7 @@ export const loadDefaultLayer = () => {
       dispatch(toggleVisibility(l.get("id")));
     });
   }
-}
+};
 
 export const applyFiltersToLayers = (filters) => {
   return (dispatch, getState) => {
@@ -38,7 +39,7 @@ export const applyFiltersToLayers = (filters) => {
       loadLayerById(dispatch, getState, l.get("id"));
     });
   }
-}
+};
 
 export const setSetting = (id, name, value) => {
   return (dispatch, getState) => {
@@ -48,7 +49,7 @@ export const setSetting = (id, name, value) => {
       name,
       value
     });
-    if (name == 'level' || name == 'detail') {
+    if (name === 'level' || name === 'detail') {
       //reaload layer if level was changed
       dispatch(loadLayerById(dispatch, getState, id));
     } else {
@@ -56,16 +57,20 @@ export const setSetting = (id, name, value) => {
       dispatch({type: REFRESH_LAYER, id, fundingType: getState().settings.fundingType});
     }
   }
-}
+};
 
 export const toggleVisibility = (id, visibility) => {
   return (dispatch, getState) => {
     dispatch({type: TOGGLE_LAYER, visible: visibility, id});
+    
     if (!visibility) {
       loadLayerById(dispatch, getState, id);
     }
+    
+    // deselect all featured maps
+    dispatch(resetFeaturedMaps());
   }
-}
+};
 
 export const setVisibilityOnByIdAndName = (id, name) => {
   return (dispatch, getState) => {
@@ -75,7 +80,7 @@ export const setVisibilityOnByIdAndName = (id, name) => {
       loadLayerById(dispatch, getState, id);
     }
   }
-}
+};
 
 export const updateBounds = (newBounds, newCenter, newZoom) => {
   return (dispatch, getState) => {
@@ -87,7 +92,7 @@ export const updateBounds = (newBounds, newCenter, newZoom) => {
       }
     );
   }
-}
+};
 
 
 const loadLayerById = (dispatch, getState, id) => {
@@ -102,9 +107,9 @@ const loadLayerById = (dispatch, getState, id) => {
   
   dispatch(loadLayer(options, getState));
   return {'type': LOAD_LAYER_BY_ID};
-}
-/*Get data of an specif layer passing layer options and getstate in order to take current filters*/
+};
 
+/*Get data of an specif layer passing layer options and getstate in order to take current filters*/
 const loadLayer = (options, getState) => {
   
   return (dispatch, getState) => {
@@ -117,17 +122,17 @@ const loadLayer = (options, getState) => {
       dispatch(loadLayerFailed(err));
     });
   }
-}
+};
 
 export const setBaseMap = (basemap) => {
   return {
     type: SET_BASEMAP,
     basemap: basemap
   }
-}
+};
 
 export const toggleLegendsView = () => {
   return {
     type: TOGGLE_LEGENDS_VIEW
   }
-}
+};

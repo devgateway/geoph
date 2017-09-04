@@ -1,7 +1,11 @@
 import * as Constants from '../constants/constants';
-import {Map} from 'immutable';
+import Immutable from "immutable";
 
-const stats = (state = new Map({}), action) => {
+const initialState = Immutable.fromJS({
+  results: []
+});
+
+const stats = (state = initialState, action) => {
   switch (action.type) {
     case Constants.REQUEST_MAP_LIST_OK:
       return state.setIn(['results'], action.data.content);
@@ -18,6 +22,12 @@ const stats = (state = new Map({}), action) => {
       return state.set('results', state.get('results').map((map, idx)=>{
         map.selected = (index === idx);
         return map;
+      }));
+    
+    case Constants.RESET_FEATURED_MAP:
+      return state.setIn(['results'], state.getIn(['results']).map(item => {
+        item.selected = false;
+        return item;
       }));
     
     default:
