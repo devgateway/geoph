@@ -17,7 +17,7 @@ const filters = (state = {filterMain: {}}, action) => {
       Object.assign(filterMain, {[action.filterType]: fl});
       return Object.assign({}, state, {
         filterMain: filterMain
-      })
+      });
     
     case Constants.OPEN_FILTER:
       filterMain = cloneDeep(state.filterMain);
@@ -25,13 +25,13 @@ const filters = (state = {filterMain: {}}, action) => {
       return Object.assign({}, state, {
         filterBackup: filterMain,
         filterMain: filterMain
-      })
+      });
     
     case Constants.CANCEL_FILTER:
       let filterBackup = cloneDeep(state.filterBackup);
       return Object.assign({}, state, {
         filterMain: filterBackup
-      })
+      });
     
     case Constants.STATE_RESTORE:
       let copyState = cloneDeep(state.filterMain);
@@ -51,7 +51,7 @@ const filters = (state = {filterMain: {}}, action) => {
           }
         });
       }
-      return Object.assign({}, state, {filterMain: copyState})
+      return Object.assign({}, state, {filterMain: copyState});
     
     case Constants.RESET_FILTER:
       filterMain = cloneDeep(state.filterMain);
@@ -64,7 +64,7 @@ const filters = (state = {filterMain: {}}, action) => {
     default:
       return state
   }
-}
+};
 
 const filter = (state = {
   isLoaded: false,
@@ -75,33 +75,33 @@ const filter = (state = {
     case Constants.REQUEST_FILTER_DATA:
       return Object.assign({}, state, {
         isFetching: true,
-      })
+      });
     
     case Constants.RECEIVE_FILTER_DATA:
       return Object.assign({}, state, action.data, {
         isFetching: false,
         isLoaded: true,
         lastUpdated: action.receivedAt
-      })
+      });
     
     case Constants.FILTER_SET_RANGE:
       return Object.assign({}, state, {
         isRange: true,
         minSelected: action.filter.minSelected,
         maxSelected: action.filter.maxSelected
-      })
+      });
     
     case Constants.SELECT_ALL_FILTER_LIST:
       return Object.assign({}, state, {
         selected: action.item.selected,
         items: state.items.map(i => filterItem(i, action))
-      })
+      });
     
     case Constants.SELECT_FILTER_ITEM:
     case Constants.SEARCH_FILTER_LIST_BY_TEXT:
       return Object.assign({}, state, {
         items: state.items.map(i => filterItem(i, action))
-      })
+      });
     
     default:
       return state
@@ -118,10 +118,10 @@ const filterItem = (state = {
       return Object.assign({}, copyState);
     case Constants.SELECT_ALL_FILTER_LIST:
       updateFilterSelection(copyState, 'all', action.item.selected);
-      return copyState
+      return copyState;
     case Constants.SEARCH_FILTER_LIST_BY_TEXT:
       searchByTextIntoChildren(copyState, action.text);
-      return copyState
+      return copyState;
     default:
       return state
   }
@@ -200,7 +200,7 @@ const itemMatchs = (item, keyword) => {
 };
 
 const makeAllOptionsVisible = (filters) => {
-  for (var fltr in filters) {
+  for (let fltr in filters) {
     if (!filters[fltr].isRange) {
       if (filters[fltr].items && filters[fltr].items.length > 0) {
         filters[fltr].items.forEach((it) => {
@@ -222,7 +222,7 @@ const makeVisibleIntoChildren = (item) => {
 
 const resetAllFilters = (filterMain) => {
   let actionDummy = {type: Constants.SELECT_ALL_FILTER_LIST, item: {selected: false}};
-  for (var filterKey in filterMain) {
+  for (let filterKey in filterMain) {
     let filterClean;
     if (!filterMain[filterKey].isRange) {
       filterClean = filter(filterMain[filterKey], actionDummy);
@@ -235,7 +235,7 @@ const resetAllFilters = (filterMain) => {
     Object.assign(filterMain, {[filterKey]: filterClean});
   }
   return filterMain;
-}
+};
 
 // copy the compare map over the main map
 export const copyCompareFilters = () => {
