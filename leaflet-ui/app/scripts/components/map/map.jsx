@@ -70,6 +70,7 @@ const MapView = React.createClass({
   
   render() {
     const { map, mapId } = this.props;
+    
     const { southWest, northEast } = map.get('defaultBounds').toJS();
     const center = map.get('center') !== undefined ? map.get('center').toJS() : undefined;
     const zoom = map.get('zoom');

@@ -13,39 +13,40 @@ let loadingAllLists = false;
 export const applyFilter = (filtersToApply) => {
   return (dispatch, getState) => {
     let filters = filtersToApply || collectValues(getState().filters.filterMain);
-    dispatch(applyFiltersToLayers(filters));
+    
+    dispatch(applyFiltersToLayers());
     dispatch(fetchChartData(filters));
     dispatch(fetchStats(filters));
   }
-}
+};
 
 export const cancelFilter = (filterType) => {
   return {
     type: Constants.CANCEL_FILTER,
     filterType
   }
-}
+};
 
 export const openFilter = (filterType) => {
   return {
     type: Constants.OPEN_FILTER,
     filterType
   }
-}
+};
 
 export const resetFilter = (filterType) => {
   return {
     type: Constants.RESET_FILTER,
     filterType
   }
-}
+};
 
 export const requestFilterData = (filterType) => {
   return {
     type: Constants.REQUEST_FILTER_DATA,
     filterType
   }
-}
+};
 
 export const receiveFilterData = (filterType, data) => {
   return {
@@ -54,7 +55,7 @@ export const receiveFilterData = (filterType, data) => {
     data: data,
     receivedAt: Date.now()
   }
-}
+};
 
 const checkLoadingPending = (dispatch, filterType) => {
   if (loadingAllLists) {
@@ -66,7 +67,7 @@ const checkLoadingPending = (dispatch, filterType) => {
       dispatch(finishRestoreMap());
     }
   }
-}
+};
 
 export const fetchFilterData = (filterType) => {
   return dispatch => {
@@ -77,7 +78,7 @@ export const fetchFilterData = (filterType) => {
         dispatch(receiveFilterData(filterType, req));
       })
   }
-}
+};
 
 export const shouldFetchFilterData = (state, filterType) => {
   const list = state.filters.filterMain[filterType];
@@ -88,7 +89,7 @@ export const shouldFetchFilterData = (state, filterType) => {
   } else {
     return false
   }
-}
+};
 
 export const fetchFilterDataIfNeeded = (filterType) => {
   return (dispatch, getState) => {
@@ -98,7 +99,7 @@ export const fetchFilterDataIfNeeded = (filterType) => {
       checkLoadingPending(dispatch, filterType);
     }
   }
-}
+};
 
 export const loadAllFilterLists = (fromRestore) => {
   if (fromRestore) {
@@ -108,7 +109,7 @@ export const loadAllFilterLists = (fromRestore) => {
   return (dispatch, getState) => {
     filterTypes.forEach(filterType => dispatch(fetchFilterDataIfNeeded(filterType)));
   }
-}
+};
 
 export const selectFilterItem = (filterItem) => {
   return {
@@ -116,7 +117,7 @@ export const selectFilterItem = (filterItem) => {
     filterType: filterItem.filterType,
     item: filterItem
   }
-}
+};
 
 export const selectAllFilterList = (filterItem) => {
   return {
@@ -124,7 +125,7 @@ export const selectAllFilterList = (filterItem) => {
     filterType: filterItem.filterType,
     item: filterItem
   }
-}
+};
 
 export const searchItemByText = (filterSearch) => {
   return {
@@ -132,7 +133,7 @@ export const searchItemByText = (filterSearch) => {
     filterType: filterSearch.filterType,
     text: filterSearch.text
   }
-}
+};
 
 export const setFilterRange = (filter) => {
   return {
@@ -140,5 +141,4 @@ export const setFilterRange = (filter) => {
     filterType: filter.filterType,
     filter: filter
   }
-}
-
+};

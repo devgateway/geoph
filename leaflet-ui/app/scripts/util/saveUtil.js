@@ -60,6 +60,7 @@ export const collectValuesToSave = (state) => {
     const projectSearchCompare = state.compare.get("projectSearch");
     const settingsCompare = state.compare.get("settings");
     
+    // put the comparison map as the second element.
     return [
       createDataObjectToSave(map, filters, projectSearch, settings),
       createDataObjectToSave(mapCompare, filtersCompare, projectSearchCompare, settingsCompare)
