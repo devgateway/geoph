@@ -50,7 +50,8 @@
                 "fin_amount": "/filters/financialAmountPeriod",
                 "cl": "/filters/classification",
                 "ao": "/filters/actualPhysicalProgressPeriod",
-                "php": "/filters/physicalProgressPeriod"
+                "php": "/filters/physicalProgressPeriod",
+                "pr": "/filters/project"
             },
             "production": {
                 "st": "/filters/sector",
@@ -68,7 +69,8 @@
                 "fin_amount": "/filters/financialAmountPeriod",
                 "cl": "/filters/classification",
                 "ao": "/filters/actualPhysicalProgressPeriod",
-                "php": "/filters/physicalProgressPeriod"
+                "php": "/filters/physicalProgressPeriod",
+                "pr": "/filters/project"
             }
         },
         "CHARTS": {
