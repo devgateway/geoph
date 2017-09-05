@@ -34,24 +34,7 @@ const filters = (state = {filterMain: {}}, action) => {
       });
     
     case Constants.STATE_RESTORE:
-      let copyState = cloneDeep(state.filterMain);
-      copyState = resetAllFilters(copyState);
-      if (action.storedMap.data.filters) {
-        let storedFilters = action.storedMap.data.filters;
-        Object.keys(storedFilters).map(k => {
-          if (k.indexOf("_min") != -1 || k.indexOf("_max") != -1) {
-            let param = k.indexOf("_min") != -1 ? k.substring(0, k.search("_min")) : k.substring(0, k.search("_max"));
-            let value = k.indexOf("_min") != -1 ? {'minSelected': storedFilters[k]} : {'maxSelected': storedFilters[k]};
-            Object.assign(copyState[param], value, {'isRange': true});
-          } else {
-            storedFilters[k].forEach(e => {
-              updateFilterSelection(copyState[k], e, true);
-              updateFilterCounters(copyState[k]);
-            });
-          }
-        });
-      }
-      return Object.assign({}, state, {filterMain: copyState});
+      return Object.assign({}, state, {filterMain: restoreFilters(state, action.storedMap.data.filters)});
     
     case Constants.RESET_FILTER:
       filterMain = cloneDeep(state.filterMain);
@@ -64,6 +47,31 @@ const filters = (state = {filterMain: {}}, action) => {
     default:
       return state
   }
+};
+
+/**
+ * Legacy code that should take the object *filterMain* and update it with the values of  *filters*.
+ */
+export const restoreFilters = (state, filters) => {
+  let copyState = cloneDeep(state.filterMain);
+  copyState = resetAllFilters(copyState);
+  
+  if (filters) {
+    Object.keys(filters).map(k => {
+      if (k.indexOf("_min") != -1 || k.indexOf("_max") != -1) {
+        let param = k.indexOf("_min") != -1 ? k.substring(0, k.search("_min")) : k.substring(0, k.search("_max"));
+        let value = k.indexOf("_min") != -1 ? {'minSelected': filters[k]} : {'maxSelected': filters[k]};
+        Object.assign(copyState[param], value, {'isRange': true});
+      } else {
+        filters[k].forEach(e => {
+          updateFilterSelection(copyState[k], e, true);
+          updateFilterCounters(copyState[k]);
+        });
+      }
+    });
+  }
+  
+  return copyState;
 };
 
 const filter = (state = {

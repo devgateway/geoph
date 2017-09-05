@@ -20,8 +20,6 @@ function mapUpdateListener(evt) {
 
 export default class D3Layer extends MapLayer {
   componentDidUpdate(nextProps, nextState) {
-    const {data, ...props} = this.props;
-    
     this.mapUpdate();
   }
   
@@ -85,16 +83,16 @@ export default class D3Layer extends MapLayer {
       radio = Math.ceil(markersize / 2);
     }
     
-    var bounds = path.bounds(data), //get path area
+    const bounds = path.bounds(data), //get path area
       topLeft = bounds[0],
       bottomRight = bounds[1];
-    var width = (bottomRight[0] - topLeft[0]) + markersize; //add 1 marker size to cover the full size of the marker located in the borders;
-    var height = (bottomRight[1] - topLeft[1]) + markersize; //add 1 marker size to cover the full size of the marker located in the borders;
-    var left = topLeft[0] - radio; //move  left positon half marker size to make room for makers on borders
-    var top = topLeft[1] - radio //move  top  positon half marker size to make  room for makers on borders
+    const width = (bottomRight[0] - topLeft[0]) + markersize; //add 1 marker size to cover the full size of the marker located in the borders;
+    const height = (bottomRight[1] - topLeft[1]) + markersize; //add 1 marker size to cover the full size of the marker located in the borders;
+    const left = topLeft[0] - radio; //move  left positon half marker size to make room for makers on borders
+    const top = topLeft[1] - radio //move  top  positon half marker size to make  room for makers on borders
     
-    var translateX = -(left);
-    var translateY = -(top);
+    const translateX = -(left);
+    const translateY = -(top);
     //set SVG size and position
     this.svg.attr("width", width + "px").attr("height", height + "px").style("left", left).style("top", top);
     //
@@ -117,7 +115,7 @@ export default class D3Layer extends MapLayer {
     
     // Use Leaflet to implement a D3 geometric transformation.
     function projectPoint(x, y) {
-      var point = map.latLngToLayerPoint(new L.LatLng(y, x));
+      const point = map.latLngToLayerPoint(new L.LatLng(y, x));
       this.stream.point(point.x, point.y);
     }
     
@@ -133,7 +131,7 @@ export default class D3Layer extends MapLayer {
       return (d.properties.size / 2 * map.getZoom());
     });
     
-    var shapes = this.g.selectAll("path").data(features);
+    const shapes = this.g.selectAll("path").data(features);
     shapes.enter().append("path");
     shapes.exit().remove();
     shapes.attr("class", function (f) {
@@ -154,12 +152,12 @@ export default class D3Layer extends MapLayer {
     const element = this.g;
     element.selectAll(".label").remove();
     
-    if (this.props.showLabels == true) {
+    if (this.props.showLabels === true) {
       features.forEach((f) => {
         const {id} = f.properties;
         element.insert("text", "#path_" + id + " +*") //add label text before path in order to get the rigth order
           .text(function (d) {
-            return f.properties.label;
+            return (f.properties.label !== undefined && f.properties.label !== null) ? f.properties.label : f.properties.value;
           })
           .attr("x", function (d) {
             return path.centroid(f)[0];
@@ -180,7 +178,7 @@ export default class D3Layer extends MapLayer {
       return null;
     }
     let latLong;
-    if (feature.geometry.type == "MultiPolygon") {
+    if (feature.geometry.type === "MultiPolygon") {
       latLong = feature.latlng;
     } else {
       latLong = L.latLng(feature.geometry.coordinates[1], feature.geometry.coordinates[0])
@@ -199,7 +197,7 @@ export default class D3Layer extends MapLayer {
         popupMaxWidth
       }), popup._contentNode);
       popup._updateLayout();
-      popup._updatePosition()
+      popup._updatePosition();
       popup._adjustPan();
     }
   }
@@ -215,12 +213,12 @@ const storeShape = PropTypes.shape({
   subscribe: PropTypes.func.isRequired,
   dispatch: PropTypes.func.isRequired,
   getState: PropTypes.func.isRequired
-})
+});
 
 D3Layer.contextTypes = {
   store: storeShape
-}
+};
 
 D3Layer.propTypes = {
   store: storeShape
-}
+};

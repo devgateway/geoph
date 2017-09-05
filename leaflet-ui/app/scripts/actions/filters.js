@@ -13,7 +13,8 @@ let loadingAllLists = false;
 export const applyFilter = (filtersToApply) => {
   return (dispatch, getState) => {
     let filters = filtersToApply || collectValues(getState().filters.filterMain);
-    dispatch(applyFiltersToLayers(filters));
+    
+    dispatch(applyFiltersToLayers());
     dispatch(fetchChartData(filters));
     dispatch(fetchStats(filters));
   }

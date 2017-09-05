@@ -1,9 +1,11 @@
 import Immutable from 'immutable';
+import { onLoadLayer } from './map';
 
 // ------------------------------------ Constants ------------------------------------
 export const CLONE_MAP_DONE = 'CLONE_MAP_DONE';
 const CLONE_MAP_CLEAN = 'CLONE_MAP_CLEAN';
 const TOGGLE_COMPARE_LEGENDS_VIEW = 'TOGGLE_COMPARE_LEGENDS_VIEW';
+const LAYER_COMPARE_LOAD_SUCCESS = 'LAYER_COMPARE_LOAD_SUCCESS';
 
 export const clone = () => {
   return (dispatch, getState) => {
@@ -29,6 +31,13 @@ export const toggleCompareLegendsView = () => {
   }
 };
 
+export const loadComparisonLayerCompleted = (results) => {
+  return {
+    type: LAYER_COMPARE_LOAD_SUCCESS,
+    results
+  }
+};
+
 // ------------------------------------ Action Handlers ------------------------------------
 const ACTION_HANDLERS = {
   [ CLONE_MAP_CLEAN ]: (state, action) => {
@@ -49,7 +58,14 @@ const ACTION_HANDLERS = {
   
   [ TOGGLE_COMPARE_LEGENDS_VIEW ]: (state, action) => {
     return state.setIn(['map', 'legends', 'visible'], !state.getIn(['map', 'legends', 'visible']));
-  }
+  },
+  
+  [ LAYER_COMPARE_LOAD_SUCCESS ]: (state, action) => {
+    const { results } = action;
+    const newCompareMap = onLoadLayer(state.get("map"), {...results, fundingType: state.get("settings").fundingType});
+  
+    return state.set("map", newCompareMap);
+  },
 };
 
 // ------------------------------------ Reducer ------------------------------------

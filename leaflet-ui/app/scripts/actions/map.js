@@ -1,15 +1,24 @@
 import {
-  REFRESH_LAYER, TOGGLE_LEGENDS_VIEW, SET_BASEMAP, TOGGLE_LAYER, LAYER_LOAD_SUCCESS, LAYER_LOAD_FAILURE,
-  SET_LAYER_SETTING, CHANGE_MAP_BOUNDS, LOAD_LAYER_BY_ID, LAYER_LOAD_REQUEST
+  CHANGE_MAP_BOUNDS,
+  LAYER_LOAD_FAILURE,
+  LAYER_LOAD_REQUEST,
+  LAYER_LOAD_SUCCESS,
+  LOAD_LAYER_BY_ID,
+  REFRESH_LAYER,
+  SET_BASEMAP,
+  SET_LAYER_SETTING,
+  TOGGLE_LAYER,
+  TOGGLE_LEGENDS_VIEW
 } from '../constants/constants.js';
 import Connector from '../connector/connector.js';
-import { getPath, getDefaults, getVisibles } from '../util/layersUtil.js';
+import { getDefaults, getPath, getVisibles } from '../util/layersUtil.js';
 import { collectValues } from '../util/filterUtil';
 import { resetFeaturedMaps } from './dashboard';
+import { loadComparisonLayerCompleted } from '../reducers/compare';
 
-const getFilters = (getState) => {
-  const filters = getState().filters.filterMain;
-  const projectSearch = getState().projectSearch;
+const getFilters = (state) => {
+  const filters = state.filters.filterMain;
+  const projectSearch = state.projectSearch;
   return collectValues(filters, projectSearch);
 };
 
@@ -33,10 +42,10 @@ export const loadDefaultLayer = () => {
   }
 };
 
-export const applyFiltersToLayers = (filters) => {
+export const applyFiltersToLayers = () => {
   return (dispatch, getState) => {
     getVisibles(getState().map.get('layers')).forEach(l => {
-      loadLayerById(dispatch, getState, l.get("id"));
+      loadLayerById(dispatch, getState(), l.get("id"));
     });
   }
 };
@@ -51,7 +60,7 @@ export const setSetting = (id, name, value) => {
     });
     if (name === 'level' || name === 'detail') {
       //reaload layer if level was changed
-      dispatch(loadLayerById(dispatch, getState, id));
+      dispatch(loadLayerById(dispatch, getState(), id));
     } else {
       //regenerate layer if a setting was changed
       dispatch({type: REFRESH_LAYER, id, fundingType: getState().settings.fundingType});
@@ -64,7 +73,7 @@ export const toggleVisibility = (id, visibility) => {
     dispatch({type: TOGGLE_LAYER, visible: visibility, id});
     
     if (!visibility) {
-      loadLayerById(dispatch, getState, id);
+      loadLayerById(dispatch, getState(), id);
     }
     
     // deselect all featured maps
@@ -77,7 +86,7 @@ export const setVisibilityOnByIdAndName = (id, name) => {
     const layer = getState().map.getIn(getPath(id));
     if (layer.get('name') === name) {
       dispatch({type: TOGGLE_LAYER, visible: false, id});
-      loadLayerById(dispatch, getState, id);
+      loadLayerById(dispatch, getState(), id);
     }
   }
 };
@@ -94,30 +103,40 @@ export const updateBounds = (newBounds, newCenter, newZoom) => {
   }
 };
 
-
-const loadLayerById = (dispatch, getState, id) => {
-  const layer = getState().map.getIn(getPath(id));
+/**
+ * Functions that gathers information about a layers and tries to fetch it's data.
+ * The parameters {@link isCompare} indicates if this layers is for the main map or for a comparison map.
+ */
+export const loadLayerById = (dispatch, state, id, isCompare) => {
+  const layer = state.map.getIn(getPath(id));
+  
   const options = {
     id: layer.get('id'),
     indicator_id: layer.get("indicator_id"),
     geophotos_id: layer.get("geophotos_id"),
     ep: layer.get('ep'), settings: layer.get('settings') ? layer.get('settings').toObject() : {},
-    filters: getFilters(getState)
+    filters: getFilters(state)
   };
   
-  dispatch(loadLayer(options, getState));
+  dispatch(loadLayer(options, isCompare));
   return {'type': LOAD_LAYER_BY_ID};
 };
 
-/*Get data of an specif layer passing layer options and getstate in order to take current filters*/
-const loadLayer = (options, getState) => {
-  
+/**
+ * Get data of an specif layer passing layer options.
+ * The parameters {@link isCompare} indicates if this layers is for the main map or for a comparison map.
+ */
+const loadLayer = (options, isCompare) => {
   return (dispatch, getState) => {
     dispatch(loadLayerRequest());
-    Connector.loadLayerByOptions(options).then(
-      (results) => {
+    Connector.loadLayerByOptions(options).then(results => {
+      // for a comparison we need to save the state of a layer in another object
+      if (isCompare) {
+        dispatch(loadComparisonLayerCompleted(results));
+      } else {
         dispatch(loadLayerCompleted(results, getState))
-      }).catch((err) => {
+      }
+    }).catch((err) => {
       console.log(err);
       dispatch(loadLayerFailed(err));
     });

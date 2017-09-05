@@ -39,7 +39,7 @@ export const collectValues = (filters, projectSearch)=>{
       }
     }
   }
-  ////console.log(params)
+  
   if (projectSearch){
     let idsSelected = [];
     projectSearch.applied.map(it => idsSelected.push(it.id));
