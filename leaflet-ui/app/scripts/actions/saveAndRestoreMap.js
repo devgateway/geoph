@@ -1,11 +1,14 @@
+import { hashHistory } from 'react-router';
 import * as Constants from '../constants/constants';
 import Connector from '../connector/connector';
-import {applyFilter, loadAllFilterLists} from './filters';
-import {setVisibilityOnByIdAndName} from './map';
-import {collectValuesToSave} from '../util/saveUtil';
+import { applyFilter, loadAllFilterLists } from './filters';
+import { setVisibilityOnByIdAndName, loadLayerById } from './map';
+import { collectValuesToSave } from '../util/saveUtil';
 import * as HtmlUtil from '../util/htmlUtil';
-import {getVisiblesFromObjects} from '../util/layersUtil';
-
+import { getVisiblesFromObjects } from '../util/layersUtil';
+import { CLONE_MAP_DONE } from '../reducers/compare';
+import { restoreFilters } from '../reducers/filters';
+import Immutable from 'immutable';
 export const changeProperty = (property, value) => {
   return {type: Constants.CHANGE_SAVE_PROPERTY, property, value}
 };
@@ -89,13 +92,6 @@ const requestSaveMap = (dataToSave) => {
   }
 };
 
-export const restoreError = (message) => {
-  return {
-    type: Constants.STATE_RESTORE_ERROR,
-    message: message
-  }
-};
-
 const loadIndicatorList = () => {
   return Connector.getIndicatorList();
 };
@@ -120,17 +116,44 @@ export const finishRestoreMap = () => {//resume map restore after all filters ar
   return (dispatch, getState) => {
     loadMap(getState().saveMap.get('mapKey')).then((storedMap) => {
       if (storedMap) {
+        let compareData;
+        
+        // Check if we have a comparison. If yes, then the first element is the main map.
+        if (storedMap.data instanceof Array && storedMap.data.length > 1) {
+          compareData =  storedMap.data[1];
+          storedMap.data = storedMap.data[0];
+        }
+        
         dispatch(makeAction(Constants.STATE_RESTORE, {storedMap}));
         dispatch(applyFilter(storedMap.data.filters));
         let visibleLayers = getVisiblesFromObjects(storedMap.data.map.layers);
         Connector.getIndicatorList().then((data) => {
           dispatch(makeAction(Constants.INDICATOR_LIST_LOADED, {data}));
-          visibleLayers.forEach(l => {
-            dispatch(setVisibilityOnByIdAndName(l.id, l.name));
+          visibleLayers.forEach(layer => {
+            dispatch(setVisibilityOnByIdAndName(layer.id, layer.name));
           });
         }).catch((error) => {
           dispatch(makeAction(Constants.INDICATOR_FAILED, {error}));
         });
+        
+        // if we have a comparison then we can use the same action *CLONE_MAP_DONE* to copy the second map properties
+        if (compareData !== undefined) {
+          const compareVisibleLayers = getVisiblesFromObjects(compareData.map.layers);
+  
+          // restore the compare map filters with the main filter object *filterMain*
+          compareData.filters.filterMain = restoreFilters(getState().filters, compareData.filters);
+  
+          // we are using 2 methods to keep the application state: 1. plain objects, 2. immutable objects (don't ask me why...)
+          // so we try to convert the map object to a immutable Map object
+          compareData.map = Immutable.fromJS(compareData.map);
+          
+          compareVisibleLayers.forEach(layer => {
+            dispatch(loadLayerById(dispatch, compareData, layer.id, true));
+          });
+          
+          dispatch({type: CLONE_MAP_DONE, ...compareData});
+          hashHistory.push('/map/compare');
+        }
       } else {
         dispatch(makeAction(Constants.STATE_RESTORE_ERROR, 'No map!'));
       }

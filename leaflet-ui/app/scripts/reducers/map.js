@@ -184,43 +184,42 @@ const setIndicators = (state, indicators) => {
   });
   
   return state.setIn(["layers", indicatorsIndex, "layers"], Immutable.fromJS(layers));
-}
+};
 
 const getType = (state, id) => {
   return state.getIn(getPath(id, ["type"]));
-}
+};
 
 const resize = (state, id) => {
-  var level = state.getIn(getPath(id, ['settings', 'level']));
+  const level = state.getIn(getPath(id, ['settings', 'level']));
   let newSize = size;
-  if (level == 'province') {
+  
+  if (level === 'province') {
     newSize = size / 2;
-  } else if (level == 'municipality') {
+  } else if (level === 'municipality') {
     newSize = size / 3;
   }
-  return state.setIn(getPath(id, ['size']), newSize)
-}
+  return state.setIn(getPath(id, ['size']), newSize);
+};
 
 //get current layer configuration by path
 const getLayer = (state, id) => {
   return state.getIn(getPath(id))
-}
-
+};
 
 /*Extract layer properties and create legends*/
 const getLegends = (settings, classProviderInstance) => {
   const {cssPrefix, css} = settings;
   return createLegendsByDomain(classProviderInstance.getDomain(), cssPrefix, css);
-}
+};
 
 /*Extract layer properties and set feature styles*/
 const makeStyledGeoJson = (settings, data, fundingType, classProviderInstance) => {
   return getStyledGeoJson(data, {fundingType, ...settings}, classProviderInstance);
-  
-}
+};
 
 const getLayerSettings = (layer) => {
-  const thresholds = layer.get('thresholds')
+  const thresholds = layer.get('thresholds');
   const cssProvider = layer.get('cssProvider');
   const valueProperty = layer.get('valueProperty') || layer.getIn(['settings', 'valueProperty']);
   const cssPrefix = layer.get('cssPrefix');
@@ -231,44 +230,43 @@ const getLayerSettings = (layer) => {
   const size = layer.get('size');
   const labelFunc = layer.get('labelFunc');
   return {thresholds, cssProvider, valueProperty, cssPrefix, css, layerName, popupId, border, size, labelFunc}
-}
+};
 
 /*Extract layer properties and create class provider */
 const getClassProvider = (settings, features, fundingType) => {
-  const {thresholds, cssProvider, valueProperty} = settings;
-  const values = getValues(features, valueProperty, fundingType); //extract values from features 
-  return createCSSProviderInstance(thresholds, values, (cssProvider ? JenksCssProvider : null));
-}
-
-
-const onLoadLayer = (state, action) => {
-  var {id, data, fundingType} = action;
+  const { thresholds, cssProvider, valueProperty } = settings;
+  const values = getValues(features, valueProperty, fundingType); //extract values from features
   
-  if (state.getIn(getPath(id, ["keyName"])) == "projects") {
+  return createCSSProviderInstance(thresholds, values, (cssProvider ? JenksCssProvider : null));
+};
+
+export const onLoadLayer = (state, action) => {
+  const { id } = action;
+  
+  if (state.getIn(getPath(id, ["keyName"])) === "projects") {
     state = resize(state, id);
   }
   
-  return updateLayer(state, action)
-  
-}
+  return updateLayer(state, action);
+};
 
 const onToggleLayer = (state, action) => {
-  var {id, visible} = action;
-  if (getType(state, id) == "shapes") {
+  const {id, visible} = action;
+  if (getType(state, id) === "shapes") {
     getShapeLayers(state.get('layers')).forEach(l => {
       state = state.setIn(getPath(l.get('id'), ['visible']), false)
     });
   }
   return state.setIn(getPath(id, ['visible']), !visible)
-}
+};
 
 const onSetSetting = (state, action) => {
-  var {id, name, value} = action;
+  const {id, name, value} = action;
   return state.setIn(getPath(id, ["settings", name]), value);
-}
+};
 
 const updateLayer = (state, action, id) => {
-  var {fundingType, data} = action;
+  let {fundingType, data} = action;
   id = id || action.id;
   if (state.getIn(getPath(id, ["computeOnload"])) == false) {
     return state.setIn(getPath(id, ["data"]), action.data);
@@ -284,27 +282,27 @@ const updateLayer = (state, action, id) => {
   
   const legendPath = getPath(id, ["legends"]);
   const dataPath = getPath(id, ["data"]);
+  
   return state.setIn(dataPath, newData).setIn(legendPath, newLegends);
-}
+};
 
 const onChangeFundingType = (state, action) => {
-  var {fundingType} = action;
   let layers = getVisibles(state.get('layers'));
   
   layers.forEach((layer) => {
     state = updateLayer(state, action, layer.get('id')) //update this layer
     
-  })
+  });
   return state;
-}
+};
 
 const reloadLabelFuncToLayers = (state) => {
   let layersPlain = plainList(defaultState.get('layers'));
   layersPlain.forEach(function (l) {
     state = state.setIn(getPath(l.get('id'), ['labelFunc']), l.get('labelFunc'));
-  })
+  });
   return state;
-}
+};
 
 // copy the compare map over the main map
 export const copyCompareMap = () => {
@@ -372,6 +370,6 @@ const map = (state = defaultState, action) => {
     default:
       return state
   }
-}
+};
 
 export default map;
