@@ -43,7 +43,9 @@ const ACTION_HANDLERS = {
   [ CLONE_MAP_CLEAN ]: (state, action) => {
     return state
       .deleteIn(['map'])
-      .deleteIn(['filters']);
+      .deleteIn(['filters'])
+      .deleteIn(['projectSearch'])
+      .deleteIn(['settings']);
   },
   
   [ CLONE_MAP_DONE ]: (state, action) => {
@@ -63,7 +65,7 @@ const ACTION_HANDLERS = {
   [ LAYER_COMPARE_LOAD_SUCCESS ]: (state, action) => {
     const { results } = action;
     const newCompareMap = onLoadLayer(state.get("map"), {...results, fundingType: state.get("settings").fundingType});
-  
+    
     return state.set("map", newCompareMap);
   },
 };

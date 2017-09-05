@@ -52,7 +52,7 @@ const MapView = React.createClass({
   getLayer(l) {
     const {data, type, popupId, id, zIndex, settings} = l;
     const {showLabels} = settings || {};
-  
+    
     if (type === 'clustered') {
       return (
         <ClusteredLayer key={id} data={data}>
@@ -70,6 +70,7 @@ const MapView = React.createClass({
   
   render() {
     const { map, mapId } = this.props;
+    
     const { southWest, northEast } = map.get('defaultBounds').toJS();
     const center = map.get('center') !== undefined ? map.get('center').toJS() : undefined;
     const zoom = map.get('zoom');
