@@ -64,7 +64,7 @@ export const restoreFilters = (state, filters) => {
         Object.assign(copyState[param], value, {'isRange': true});
       }  else if (k === 'pr') {
             let param = k;
-            let value = {'id': storedFilters[k], };
+            let value = {'id': filters[k], };
             Object.assign(copyState[param], value);
       } else {
         filters[k].forEach(e => {
