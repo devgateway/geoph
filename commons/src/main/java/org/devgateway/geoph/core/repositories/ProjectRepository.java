@@ -24,6 +24,8 @@ public interface ProjectRepository {
 
     List<ProjectMiniDao> findProjectsByParams(Parameters params);
 
+    List<ProjectMiniDao> findProjectsByIds(List<Long> ids);
+
     Page<ProjectMiniDao> findProjectMiniByParams(Parameters params);
 
     Map<String, List<ProjectStatsResultsDao>> getStats(Parameters params);

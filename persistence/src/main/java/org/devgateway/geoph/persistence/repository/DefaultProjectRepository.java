@@ -159,6 +159,23 @@ public class DefaultProjectRepository implements ProjectRepository {
         return  query.getResultList();
     }
 
+    public List<ProjectMiniDao> findProjectsByIds(final List<Long> ids) {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<ProjectMiniDao> criteriaQuery = criteriaBuilder.createQuery(ProjectMiniDao.class);
+        Root<Project> projectRoot = criteriaQuery.from(Project.class);
+
+        List<Selection<?>> multiSelect = new ArrayList<>();
+
+        multiSelect.add(projectRoot.get(Project_.id));
+        multiSelect.add(projectRoot.get(Project_.title));
+
+        Predicate where = projectRoot.get(Project_.id).in(ids);
+        criteriaQuery.where(where);
+
+        TypedQuery<ProjectMiniDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
+        return  query.getResultList();
+    }
+
     @Override
     @Cacheable("getProjectStats")
     public Map<String, List<ProjectStatsResultsDao>> getStats(Parameters params) {
