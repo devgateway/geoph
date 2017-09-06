@@ -9,7 +9,7 @@ export const capture = (options) => {
   const { outerHTML, clientWidth, clientHeight } = getMapElementProperties(options);
   
   return (dispatch, getState) => {
-    const data = collectValuesToSave(getState());
+    const data = collectValuesToSave(getState(), options);
     dispatch(export2Pdf(outerHTML, clientWidth, clientHeight, mapName, data));
   }
 };

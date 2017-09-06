@@ -5,9 +5,11 @@
 export const getMapElementProperties = (options) => {
   let maps = document.getElementsByClassName("map");
   if (options !== undefined) {
+    // only print the main map
     if (options.right === true) {
       maps = [maps[1]];
     }
+    // only print the comparison map
     if (options.left === true && maps.length === 2) {
       maps = [maps[0]];
     }

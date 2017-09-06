@@ -9,7 +9,12 @@ import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.core.request.PrintData;
 import org.devgateway.geoph.core.request.PrintParams;
 import org.devgateway.geoph.core.response.ChartResponse;
-import org.devgateway.geoph.core.services.*;
+import org.devgateway.geoph.core.services.AppMapService;
+import org.devgateway.geoph.core.services.ChartService;
+import org.devgateway.geoph.core.services.FileService;
+import org.devgateway.geoph.core.services.PrintService;
+import org.devgateway.geoph.core.services.ProjectService;
+import org.devgateway.geoph.core.services.ScreenCaptureService;
 import org.devgateway.geoph.core.util.MD5Generator;
 import org.devgateway.geoph.enums.AppMapTypeEnum;
 import org.devgateway.geoph.enums.TransactionStatusEnum;
@@ -18,7 +23,10 @@ import org.devgateway.geoph.model.AppMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +39,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLConnection;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
@@ -41,6 +54,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
 @RequestMapping(value = "/export")
+@CrossOrigin
+@CacheConfig(keyGenerator = "genericFilterKeyGenerator", cacheNames = "mapExportControllerCache")
 public class MapExport {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MapExport.class);
@@ -65,7 +80,8 @@ public class MapExport {
 
 
     @RequestMapping(value = "/pdf", produces = "application/json")
-    public Map<String, String> toPdf(@RequestBody PrintParams paramsFromUI, HttpServletResponse response) throws Exception {
+    @Cacheable
+    public Map<String, String> toPdf(@RequestBody PrintParams paramsFromUI) throws Exception {
         LOGGER.debug("get Pdf map");
         AppMap map = saveMap(paramsFromUI);
 
@@ -80,11 +96,11 @@ public class MapExport {
         return ImmutableMap.of("file", name);
     }
 
-    @RequestMapping(value = "/download/{name:.+}   ",method = GET)
+    @RequestMapping(value = "/download/{name:.+}   ", method = GET)
     public void download(HttpServletResponse response, @PathVariable String name) throws Exception {
         File file = fileService.getFile(name);
-        String mimeType= URLConnection.guessContentTypeFromName(file.getName());
-        if(mimeType==null){
+        String mimeType = URLConnection.guessContentTypeFromName(file.getName());
+        if (mimeType == null) {
             mimeType = "application/octet-stream";
         }
 
@@ -112,25 +128,25 @@ public class MapExport {
                     mapJson,
                     UUID.randomUUID().toString(),
                     md5,
-                    AppMapTypeEnum.PRINT.getName(),null));
+                    AppMapTypeEnum.PRINT.getName(), null));
         }
         return map;
     }
 
-    private PrintData getPrintData(Map dataMap)  {
+    private PrintData getPrintData(Map dataMap) {
         PrintData printData = new PrintData();
         Map filterMap = (Map) dataMap.get("filters");
         if (filterMap != null) {
             printData.setFilters(printService.getFilterNamesFromJson(filterMap));
         }
         List jsonLayers = (List) dataMap.get("visibleLayers");
-        if (jsonLayers != null && jsonLayers.size()>0) {
+        if (jsonLayers != null && jsonLayers.size() > 0) {
             printData.setVisibleLayers(printService.getLayerNamesFromJson(jsonLayers));
         }
         Map settings = (Map) dataMap.get("settings");
-        if(settings!=null && settings.size()>0){
+        if (settings != null && settings.size() > 0) {
             Map fundingVars = (Map) settings.get("fundingType");
-            if(fundingVars!=null){
+            if (fundingVars != null) {
                 printData.setTrxType(fundingVars.get("measure").toString());
                 printData.setTrxStatus(fundingVars.get("type").toString());
             }
@@ -143,11 +159,11 @@ public class MapExport {
             e.printStackTrace();
         }
         Parameters chartParams = Parameters.getParameters(jsonFilters);
-        if(StringUtils.isNotBlank(printData.getTrxType())){
+        if (StringUtils.isNotBlank(printData.getTrxType())) {
             chartParams.setTrxType(TransactionTypeEnum.valueOf(printData.getTrxType().toUpperCase()).getId());
             chartParams.setTrxTypeSort(TransactionTypeEnum.valueOf(printData.getTrxType().toUpperCase()).getId());
         }
-        if(StringUtils.isNotBlank(printData.getTrxStatus())){
+        if (StringUtils.isNotBlank(printData.getTrxStatus())) {
             chartParams.setTrxStatus(TransactionStatusEnum.valueOf(printData.getTrxStatus().toUpperCase()).getId());
             chartParams.setTrxStatusSort(TransactionStatusEnum.valueOf(printData.getTrxStatus().toUpperCase()).getId());
         }
