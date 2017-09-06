@@ -4,11 +4,12 @@ import Connector from '../connector/connector';
 import { applyFilter, loadAllFilterLists } from './filters';
 import { setVisibilityOnByIdAndName, loadLayerById } from './map';
 import { collectValuesToSave } from '../util/saveUtil';
-import * as HtmlUtil from '../util/htmlUtil';
+import { getMapElementProperties } from '../util/htmlUtil';
 import { getVisiblesFromObjects } from '../util/layersUtil';
 import { CLONE_MAP_DONE } from '../reducers/compare';
 import { restoreFilters } from '../reducers/filters';
 import Immutable from 'immutable';
+
 export const changeProperty = (property, value) => {
   return {type: Constants.CHANGE_SAVE_PROPERTY, property, value}
 };
@@ -74,7 +75,7 @@ const requestShareMap = (dataToShare) => {
 export const saveMap = () => {
   return (dispatch, getState) => {
     const scaleWidth = 800;
-    const {outerHTML: html, clientWidth: width, clientHeight: height} = HtmlUtil.getMapElementProperties();
+    const {outerHTML: html, clientWidth: width, clientHeight: height} = getMapElementProperties();
     const data = collectValuesToSave(getState());
     const {name, description, id, type} = getState().saveMap.toJS();
     dispatch(requestSaveMap({id, name, description, type, data, html, width, height, scaleWidth}));
