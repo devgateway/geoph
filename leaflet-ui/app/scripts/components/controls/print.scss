@@ -5,7 +5,6 @@
   padding: 20px;
   min-height: 100px;
   .new {
-    maring: 10px;
     width: 30px;
     .icon {
       width: 30px;
@@ -14,7 +13,6 @@
       background-size: 30px 30px;
       background-repeat: no-repeat;
     }
-
   }
 
   a {
@@ -31,29 +29,26 @@
       background-size: 30px 30px;
       background-repeat: no-repeat;
       position: relative;
-
     }
   }
 
   span {
     display: block !important;
-    /* border: 1px solid red; */
     font-size: 10px !important;
     line-height: 12px !important;
     color: green !important;
     text-align: center;
-
   }
 
   span.big {
     display: block !important;
-    /* border: 1px solid red; */
     font-size: 12px !important;
     font-weight: bold !important;
     line-height: 11px !important;
     padding-top: 10px;
     text-align: center;
   }
+
   span.small {
     display: none !important;
   }
