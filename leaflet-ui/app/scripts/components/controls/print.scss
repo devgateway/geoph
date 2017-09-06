@@ -2,23 +2,39 @@
 
 .print-container {
   @include controlBox();
-  padding: 20px;
-  min-height: 100px;
+  padding: $base-space;
+  min-height: $base-space * 5;
+
   .new {
-    maring: 10px;
-    width: 30px;
+    width: $base-space * 3;
+
     .icon {
-      width: 30px;
-      height: 30px;
+      width: $base-space * 1.5;
+      height: $base-space * 1.5;
       background: url(../../../assets/svg/new-pdf.svg);
       background-size: 30px 30px;
       background-repeat: no-repeat;
+      margin: auto;
     }
 
+    span {
+      display: block;
+      font-size: 10px;
+      line-height: $base-space / 2;
+      text-align: center;
+      color: green !important;
+    }
+  }
+
+  .new-compare {
+    .new {
+      float: left;
+    }
   }
 
   a {
-    width: 40px;
+    width: $base-space * 2;
+    height: $base-space * 2;
     color: #337ab7 !important;
     text-decoration: none;
     float: left;
@@ -31,29 +47,18 @@
       background-size: 30px 30px;
       background-repeat: no-repeat;
       position: relative;
-
     }
   }
 
-  span {
-    display: block !important;
-    /* border: 1px solid red; */
-    font-size: 10px !important;
-    line-height: 12px !important;
-    color: green !important;
-    text-align: center;
-
-  }
-
   span.big {
-    display: block !important;
-    /* border: 1px solid red; */
-    font-size: 12px !important;
-    font-weight: bold !important;
-    line-height: 11px !important;
-    padding-top: 10px;
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: $base-space / 2;
+    padding-top: $base-space / 2;
     text-align: center;
   }
+
   span.small {
     display: none !important;
   }

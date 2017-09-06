@@ -41,7 +41,7 @@ class CompareMapViewLayout extends DefaultMapLayout {
           <div className="close-map" onClick={this.closeCompareView.bind(this)}></div>
         </div>
         
-        <div className="main right-map">
+        <div className="main">
           <Map mapId="main"/>
           <div className="close-map" onClick={this.closeCompareView.bind(this, true)}></div>
         </div>

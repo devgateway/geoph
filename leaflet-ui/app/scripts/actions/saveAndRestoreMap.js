@@ -4,11 +4,12 @@ import Connector from '../connector/connector';
 import { applyFilter, loadAllFilterLists } from './filters';
 import { setVisibilityOnByIdAndName, loadLayerById } from './map';
 import { collectValuesToSave } from '../util/saveUtil';
-import * as HtmlUtil from '../util/htmlUtil';
+import { getMapElementProperties } from '../util/htmlUtil';
 import { getVisiblesFromObjects } from '../util/layersUtil';
 import { CLONE_MAP_DONE } from '../reducers/compare';
 import { restoreFilters } from '../reducers/filters';
 import Immutable from 'immutable';
+
 export const changeProperty = (property, value) => {
   return {type: Constants.CHANGE_SAVE_PROPERTY, property, value}
 };
@@ -74,7 +75,7 @@ const requestShareMap = (dataToShare) => {
 export const saveMap = () => {
   return (dispatch, getState) => {
     const scaleWidth = 800;
-    const {outerHTML: html, clientWidth: width, clientHeight: height} = HtmlUtil.getMapElementProperties();
+    const {outerHTML: html, clientWidth: width, clientHeight: height} = getMapElementProperties();
     const data = collectValuesToSave(getState());
     const {name, description, id, type} = getState().saveMap.toJS();
     dispatch(requestSaveMap({id, name, description, type, data, html, width, height, scaleWidth}));
@@ -119,9 +120,15 @@ export const finishRestoreMap = () => {//resume map restore after all filters ar
         let compareData;
         
         // Check if we have a comparison. If yes, then the first element is the main map.
-        if (storedMap.data instanceof Array && storedMap.data.length > 1) {
-          compareData =  storedMap.data[1];
-          storedMap.data = storedMap.data[0];
+        if (storedMap.data instanceof Array) {
+          if (storedMap.data.length > 1) {
+            compareData = storedMap.data[1];
+            storedMap.data = storedMap.data[0];
+          } else {
+            if (storedMap.data.length === 1) {
+              storedMap.data = storedMap.data[0];
+            }
+          }
         }
         
         dispatch(makeAction(Constants.STATE_RESTORE, {storedMap}));
@@ -139,10 +146,10 @@ export const finishRestoreMap = () => {//resume map restore after all filters ar
         // if we have a comparison then we can use the same action *CLONE_MAP_DONE* to copy the second map properties
         if (compareData !== undefined) {
           const compareVisibleLayers = getVisiblesFromObjects(compareData.map.layers);
-  
+          
           // restore the compare map filters with the main filter object *filterMain*
           compareData.filters.filterMain = restoreFilters(getState().filters, compareData.filters);
-  
+          
           // we are using 2 methods to keep the application state: 1. plain objects, 2. immutable objects (don't ask me why...)
           // so we try to convert the map object to a immutable Map object
           compareData.map = Immutable.fromJS(compareData.map);

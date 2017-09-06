@@ -52,7 +52,7 @@ export const collectValuesToSave = (state) => {
   
   // if we don't have a comparison the the *data* field is just an object
   if (!isCompare) {
-    return createDataObjectToSave(map, filters, projectSearch, settings);
+    return [createDataObjectToSave(map, filters, projectSearch, settings)];
   } else {
     // if we have a comparison then the *data* field is an array of objects - each map with it's on data.
     const mapCompare = state.compare.get("map");
