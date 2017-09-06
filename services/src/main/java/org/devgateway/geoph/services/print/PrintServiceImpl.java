@@ -2,6 +2,7 @@ package org.devgateway.geoph.services.print;
 
 import org.devgateway.geoph.core.repositories.*;
 import org.devgateway.geoph.core.services.PrintService;
+import org.devgateway.geoph.dao.ProjectMiniDao;
 import org.devgateway.geoph.enums.FlowTypeEnum;
 import org.devgateway.geoph.model.*;
 import org.slf4j.Logger;
@@ -74,6 +75,9 @@ public class PrintServiceImpl implements PrintService {
 
     @Autowired
     GenderResponsivenessRepository genderResponsivenessRepository;
+
+    @Autowired
+    ProjectRepository projectRepository;
 
     @Override
     public Map<String, Set<String>> getFilterNamesFromJson(Map jsonFilters) {
@@ -215,7 +219,11 @@ public class PrintServiceImpl implements PrintService {
                     Set<String> inner = new HashSet<>();
                     inner.add(jsonFilters.get("pt").toString());
                     ret.put(PROJECT_TITLE, inner);
-
+                } else if(filterStr.equals("pr")){
+                    Set<String> inner = new HashSet<>();
+                    List<ProjectMiniDao> projects = projectRepository.findProjectsByIds((List) jsonFilters.get("pr"));
+                    projects.stream().forEach(p -> inner.add(p.getTitle()));
+                    ret.put(PROJECT_TITLE, inner);
                 }
             }
         } catch (Exception e){
