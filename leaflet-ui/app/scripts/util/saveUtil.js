@@ -39,8 +39,9 @@ const getBgColorFromCssName = (cls) => {
 
 /**
  * Functions that collects the necessary data in order to restore a map that was saved.
+ * *options* object is used only if we have a comparison and it should contain information about the map what we want to save
  */
-export const collectValuesToSave = (state) => {
+export const collectValuesToSave = (state, options) => {
   // easy way to detect if we want to save a comparison.
   const isCompare = state.compare.size !== 0;
   
@@ -52,7 +53,7 @@ export const collectValuesToSave = (state) => {
   
   // if we don't have a comparison the the *data* field is just an object
   if (!isCompare) {
-    return createDataObjectToSave(map, filters, projectSearch, settings);
+    return [createDataObjectToSave(map, filters, projectSearch, settings)];
   } else {
     // if we have a comparison then the *data* field is an array of objects - each map with it's on data.
     const mapCompare = state.compare.get("map");
@@ -60,11 +61,26 @@ export const collectValuesToSave = (state) => {
     const projectSearchCompare = state.compare.get("projectSearch");
     const settingsCompare = state.compare.get("settings");
     
-    // put the comparison map as the second element.
-    return [
-      createDataObjectToSave(map, filters, projectSearch, settings),
-      createDataObjectToSave(mapCompare, filtersCompare, projectSearchCompare, settingsCompare)
-    ];
+    if (options !== undefined) {
+      // only export the main map
+      if (options.right === true) {
+        return [
+          createDataObjectToSave(map, filters, projectSearch, settings),
+        ];
+      }
+      // only export the comparison map
+      if (options.left === true) {
+        return [
+          createDataObjectToSave(mapCompare, filtersCompare, projectSearchCompare, settingsCompare)
+        ];
+      }
+    } else {
+      // put the comparison map as the second element.
+      return [
+        createDataObjectToSave(map, filters, projectSearch, settings),
+        createDataObjectToSave(mapCompare, filtersCompare, projectSearchCompare, settingsCompare)
+      ];
+    }
   }
 };
 

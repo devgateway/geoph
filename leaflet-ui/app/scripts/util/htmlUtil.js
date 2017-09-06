@@ -1,34 +1,43 @@
 
-export const encodeImages=(string, length)=>{
+/**
+ * Extract map HTML from the page
+ */
+export const getMapElementProperties = (options) => {
+  let maps = document.getElementsByClassName("map");
+  if (options !== undefined) {
+    // only print the main map
+    if (options.right === true) {
+      maps = [maps[1]];
+    }
+    // only print the comparison map
+    if (options.left === true && maps.length === 2) {
+      maps = [maps[0]];
+    }
+  }
+  
+  let outerHTML = "<div class=\"map-layout\">",
+    clientWidth = 0,
+    clientHeight;
+  
+  if (maps.length === 2) {
+    outerHTML = "<div class=\"map-layout compare-layout\">";
+  }
+  
+  for (let mapElement of maps) {
+    const mapNode = processMapNode(mapElement);
+    
+    outerHTML += mapNode.outerHTML;
+    clientWidth += mapElement.clientWidth;
+    clientHeight = mapElement.clientHeight;   // we don't need addition here, just get one of the map height
+  }
+  outerHTML += "</div>";
+  
+  return { outerHTML, clientWidth, clientHeight };
+};
 
-    /*
-     for(var i=0;i < document.images.length;i++) {
-     
-     var img = new Image();
-     img.setAttribute('crossOrigin', 'anonymous');
-
-     img.onload = function() {
-     var canvas = document.createElement('canvas');
-     var ctx = canvas.getContext('2d');
-     ctx.drawImage(img,0,0, img.target.width, img.target.height);
-     var imgStr = canvas.toDataURL("image/png", "");
-     img.target.src=imgStr;
-
-     }
-
-     img.target=document.images[i]
-     img.src =document.images[i].src;
-     }
-     */
-}
-
-export const getMapElementProperties=()=>{
-   
-    const element=document.getElementsByClassName("map")[0];
-	
-	var node=element.cloneNode(true)
-    	node.getElementsByClassName("leaflet-control-zoom")[0].remove();
-    const {clientWidth,clientHeight,offsetWidth,offsetHeight}=element;
-
-    return {outerHTML:node.outerHTML,clientWidth,clientHeight,offsetWidth,offsetHeight };
-}
+const processMapNode = (mapElement) => {
+  const node = mapElement.cloneNode(true);
+  node.getElementsByClassName("leaflet-control-zoom")[0].remove();
+  
+  return node;
+};

@@ -45,15 +45,21 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * @author dbianco
- *         created on jun 20 2016.
+ * created on jun 20 2016.
  */
 @Service
 public class ScreenCaptureServiceImpl implements ScreenCaptureService {
@@ -70,7 +76,6 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
     private static final int MIN_Y_POS = 30;
     private static final String NEW_ITEM = "- ";
     private static final int TOP_COUNT = 5;
-    private static final int SECOND_COLUMN_MARGIN = 290;
     private static final String BLANK_STRING = " ";
     private static final int FUNDING_TEXT_LIMIT = 100;
     private static final int FIRST_COLUMN_WIDTH = 450;
@@ -221,13 +226,12 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             Document doc = Jsoup.parse(url.openConnection().getInputStream(), "utf-8", url.getPath());
 
             doc.getElementById("content").append(html);
-            doc.getElementsByClass("map").attr("style", "width:" + width + "px;height:" + height + "px");
+            doc.getElementsByClass("map-layout").attr("style", "width:" + width + "px;height:" + height + "px");
 
             //Fix translate3D element
             removeTranslate3dFromDocument(doc);
 
             file = File.createTempFile("map-print", HTML_EXTENSION);
-            //System.out.println(file.getAbsolutePath());
             FileUtils.writeStringToFile(file, doc.outerHtml());
         } catch (Exception e) {
             LOGGER.error("File error: " + e.getMessage());
@@ -262,13 +266,6 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
     }
 
     private File createPdf(BufferedImage image, PrintParams params, List<PrintData> printDataList, String key) {
-                          /* Map<String, Set<String>> filterMap,
-                           Map<String, List<Map<String, String>>> layerList,
-                           Map<String, Collection<ChartResponse>> chartData,
-                           Map<String, List<ProjectStatsResultsDao>> stats,
-                           String trxType,
-                           String trxStatus,
-                           String key) {*/
         LOGGER.debug("CreatePdf");
         File pdfFile = new File(repository, key + PDF_EXTENSION);
 
@@ -329,13 +326,13 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
         addPdfText(pdf, PDType1Font.HELVETICA, 10, BLUE, "Total National");
         checkEndOfPage(pdf, Y_NORMAL_SPACE);
         addPdfText(pdf.xPos + Y_SMALL_SPACE, pdf.yPos, pdf, PDType1Font.HELVETICA, 9, BLACK, "Total Projects: " + printData.getStats().get("national").get(0).getProjectCount());
-        addPdfText(pdf.xPos + 160, pdf.yPos, pdf, PDType1Font.HELVETICA, 9, BLACK,  "Total Amount: " + currency + BLANK_STRING + getFormatedValue(printData.getStats().get("national").get(0).getTrxAmount()));
+        addPdfText(pdf.xPos + 160, pdf.yPos, pdf, PDType1Font.HELVETICA, 9, BLACK, "Total Amount: " + currency + BLANK_STRING + getFormatedValue(printData.getStats().get("national").get(0).getTrxAmount()));
         checkEndOfPage(pdf, Y_LARGE_SPACE);
 
         addPdfText(pdf, PDType1Font.HELVETICA, 10, BLUE, "Total Sub-National");
         checkEndOfPage(pdf, Y_NORMAL_SPACE);
         addPdfText(pdf.xPos + Y_SMALL_SPACE, pdf.yPos, pdf, PDType1Font.HELVETICA, 9, BLACK, "Total Projects: " + printData.getStats().get("regional").get(0).getProjectCount());
-        addPdfText(pdf.xPos + 160, pdf.yPos, pdf, PDType1Font.HELVETICA, 9, BLACK,  "Total Amount: " + currency + BLANK_STRING + getFormatedValue(printData.getStats().get("regional").get(0).getTrxAmount()));
+        addPdfText(pdf.xPos + 160, pdf.yPos, pdf, PDType1Font.HELVETICA, 9, BLACK, "Total Amount: " + currency + BLANK_STRING + getFormatedValue(printData.getStats().get("regional").get(0).getTrxAmount()));
         checkEndOfPage(pdf, Y_LARGE_SPACE);
 
         //Top 5 funding
@@ -347,7 +344,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
         if (printData.getVisibleLayers().size() > 0) {
             addPdfText(pdf, PDType1Font.HELVETICA, 10, BLUE, "Applied Layers");
             for (String layerName : printData.getVisibleLayers().keySet()) {
-                if(pdf.yPos>Y_LEGEND_SPACE) {
+                if (pdf.yPos > Y_LEGEND_SPACE) {
                     checkEndOfPage(pdf, Y_NORMAL_SPACE);
                 } else {
                     checkEndOfPage(pdf, Y_LEGEND_SPACE);
@@ -387,7 +384,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
                 pc.addRect(nextX, nextY, 10, 10);
                 pc.setNonStrokingColor(color);
                 pc.fill();
-            } else if (legendMap.get("label").equals("single photo")){
+            } else if (legendMap.get("label").equals("single photo")) {
                 LOGGER.debug("Reading single photo");
                 BufferedImage image = ImageIO.read(new URL(singlePhotoTemplate).openConnection().getInputStream());
                 LOGGER.debug("Finish reading single photo");
@@ -414,7 +411,7 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             int yPos = pdf.yPos;
             List<ChartResponse> fundingData = new ArrayList<>(chartData.get(fundingType));
             int size = fundingData.size();
-            if(yPos - 30 < (size < TOP_COUNT ? size : TOP_COUNT) * Y_NORMAL_SPACE) {
+            if (yPos - 30 < (size < TOP_COUNT ? size : TOP_COUNT) * Y_NORMAL_SPACE) {
                 checkEndOfPage(pdf, (size < TOP_COUNT ? size : TOP_COUNT) * Y_NORMAL_SPACE);
                 yPos = pdf.yPos;
             }
@@ -446,8 +443,8 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
         StringBuilder sb = new StringBuilder(currency);
         sb.append(BLANK_STRING);
         StringBuilder value = getFormatedValue(fundingValue);
-        for(int i=value.length(); i<9; i++){
-            sb.append(BLANK_STRING+BLANK_STRING);
+        for (int i = value.length(); i < 9; i++) {
+            sb.append(BLANK_STRING + BLANK_STRING);
         }
         sb.append(value);
         return sb.toString();

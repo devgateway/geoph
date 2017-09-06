@@ -1,15 +1,15 @@
 import * as Constants from '../constants/constants';
 import Connector from '../connector/connector';
 import {collectValuesToSave} from '../util/saveUtil';
-import * as HtmlUtil from '../util/htmlUtil';
+import { getMapElementProperties } from '../util/htmlUtil';
 import translate from '../util/translate';
 
-export const capture = () => {
+export const capture = (options) => {
   const mapName = translate('header.mapForPrint');
-  const {outerHTML, clientWidth, clientHeight} = HtmlUtil.getMapElementProperties();
+  const { outerHTML, clientWidth, clientHeight } = getMapElementProperties(options);
   
   return (dispatch, getState) => {
-    const data = collectValuesToSave(getState());
+    const data = collectValuesToSave(getState(), options);
     dispatch(export2Pdf(outerHTML, clientWidth, clientHeight, mapName, data));
   }
 };
