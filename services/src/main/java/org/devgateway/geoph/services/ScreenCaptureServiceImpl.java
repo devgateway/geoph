@@ -298,9 +298,9 @@ public class ScreenCaptureServiceImpl implements ScreenCaptureService {
             checkEndOfPage(pdf, Y_LARGE_SPACE);
 
             if (printDataList.size() > 1) {
-                addStatsAndFilterForParams(printDataList.get(0), pdf, "Left Map Information");
+                addStatsAndFilterForParams(printDataList.get(1), pdf, "Left Map Information");
                 checkEndOfPage(pdf, Y_LARGE_SPACE);
-                addStatsAndFilterForParams(printDataList.get(1), pdf, "Right Map Information");
+                addStatsAndFilterForParams(printDataList.get(0), pdf, "Right Map Information");
             } else {
                 addStatsAndFilterForParams(printDataList.get(0), pdf, null);
             }
