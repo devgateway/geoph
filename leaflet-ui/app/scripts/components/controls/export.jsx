@@ -12,7 +12,7 @@ class Export extends React.Component {
   };
   
   getDownloadURL(type) {
-    const {filters, projectSearch} = this.props;
+    const { filters, projectSearch } = this.props;
     let fc = collectValues(filters, projectSearch);
     
     return Connector.getExportURL(type, fc);
@@ -39,6 +39,7 @@ class Export extends React.Component {
                     </a>
                   </div>
                 </div>
+                
                 : <div>
                   <div className="export-csv compare">
                     <a target="_blank" href={this.getDownloadURL('csv')}>
@@ -50,6 +51,7 @@ class Export extends React.Component {
                       <Button className="btn btn-xs" bsStyle='success'>Download Left Map data in <strong>XLS</strong> format</Button>
                     </a>
                   </div>
+                  
                   <div className="export-csv compare">
                     <a target="_blank" href={this.getDownloadURL('csv')}>
                       <Button className="btn btn-xs" bsStyle='success'>Download Right Map data in <strong>CSV</strong> format</Button>
