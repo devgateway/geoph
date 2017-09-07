@@ -1,24 +1,28 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import translate from '../../util/translate.js';
-import {Button} from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import Connector from '../../connector/connector';
 import { collectValues } from '../../util/filterUtil';
+
 require('./export.scss');
 
-const Export = React.createClass({
-
-  getDownloadURL(type){
+class Export extends React.Component {
+  static propTypes = {
+    isCompare:   React.PropTypes.bool,
+  };
+  
+  getDownloadURL(type) {
     const {filters, projectSearch} = this.props;
     let fc = collectValues(filters, projectSearch);
+    
     return Connector.getExportURL(type, fc);
-  },
-
+  };
+  
   render() {
-    const {visible}=this.props;   
+    const {visible} = this.props;
     return (
       <div>
-        {visible?
+        {visible ?
           <div className="export-container">
             <div className="export-csv">
               <a target="_blank" href={this.getDownloadURL('csv')}>
@@ -30,19 +34,22 @@ const Export = React.createClass({
                 <Button className="btn btn-xs" bsStyle='success'>Download data in <strong>XLS</strong> format</Button>
               </a>
             </div>
-          </div> 
-        : null}
+          </div>
+          : null}
       </div>
     );
   }
-});
+}
 
 const mapStateToProps = (state, props) => {
+  const isCompare = state.compare.size !== 0;
+  
   return {
     lang: state.language.lan,
     filters: state.filters.filterMain,
-    projectSearch: state.projectSearch
+    projectSearch: state.projectSearch,
+    isCompare
   };
-}
+};
 
 export default connect(mapStateToProps)(Export);
