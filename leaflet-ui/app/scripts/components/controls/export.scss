@@ -2,15 +2,34 @@
 
 .export-container {
   @include controlBox();
-  padding: 20px;
+  padding: $base-space;
   min-height: 50px;
 
   .export-csv {
     float: left;
-    margin-left: 50px;
+    margin-left: $base-space * 2;
+
+    &.compare {
+      margin-left: $base-space / 2;
+      padding-top: $base-space / 2;
+
+      button {
+        min-width: $base-space * 11;
+      }
+    }
   }
+
   .export-xls {
     float: right;
-    margin-right: 50px;
+    margin-right: $base-space * 2;
+
+    &.compare {
+      margin-right: $base-space / 2;
+      padding-top: $base-space / 2;
+
+      button {
+        min-width: $base-space * 11;
+      }
+    }
   }
 }

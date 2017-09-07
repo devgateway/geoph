@@ -19,21 +19,49 @@ class Export extends React.Component {
   };
   
   render() {
-    const {visible} = this.props;
+    const { visible, isCompare } = this.props;
+    
     return (
       <div>
         {visible ?
           <div className="export-container">
-            <div className="export-csv">
-              <a target="_blank" href={this.getDownloadURL('csv')}>
-                <Button className="btn btn-xs" bsStyle='success'>Download data in <strong>CSV</strong> format</Button>
-              </a>
-            </div>
-            <div className="export-xls">
-              <a target="_blank" href={this.getDownloadURL('xls')}>
-                <Button className="btn btn-xs" bsStyle='success'>Download data in <strong>XLS</strong> format</Button>
-              </a>
-            </div>
+            {
+              isCompare !== true
+                ? <div>
+                  <div className="export-csv">
+                    <a target="_blank" href={this.getDownloadURL('csv')}>
+                      <Button className="btn btn-xs" bsStyle='success'>Download data in <strong>CSV</strong> format</Button>
+                    </a>
+                  </div>
+                  <div className="export-xls">
+                    <a target="_blank" href={this.getDownloadURL('xls')}>
+                      <Button className="btn btn-xs" bsStyle='success'>Download data in <strong>XLS</strong> format</Button>
+                    </a>
+                  </div>
+                </div>
+                : <div>
+                  <div className="export-csv compare">
+                    <a target="_blank" href={this.getDownloadURL('csv')}>
+                      <Button className="btn btn-xs" bsStyle='success'>Download Left Map data in <strong>CSV</strong> format</Button>
+                    </a>
+                  </div>
+                  <div className="export-xls compare">
+                    <a target="_blank" href={this.getDownloadURL('xls')}>
+                      <Button className="btn btn-xs" bsStyle='success'>Download Left Map data in <strong>XLS</strong> format</Button>
+                    </a>
+                  </div>
+                  <div className="export-csv compare">
+                    <a target="_blank" href={this.getDownloadURL('csv')}>
+                      <Button className="btn btn-xs" bsStyle='success'>Download Right Map data in <strong>CSV</strong> format</Button>
+                    </a>
+                  </div>
+                  <div className="export-xls compare">
+                    <a target="_blank" href={this.getDownloadURL('xls')}>
+                      <Button className="btn btn-xs" bsStyle='success'>Download Right Map data in <strong>XLS</strong> format</Button>
+                    </a>
+                  </div>
+                </div>
+            }
           </div>
           : null}
       </div>
