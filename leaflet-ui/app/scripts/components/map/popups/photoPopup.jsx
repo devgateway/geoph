@@ -4,26 +4,22 @@ import onClickOutside from 'react-onclickoutside'
 
 require('./projectLayerPopup.scss');
 
-const PhotoPopup = onClickOutside(React.createClass({
-  
-  getInitialState() {
-    return {};
-  },
-  
+class PhotoPopup extends React.Component {
   handleClickOutside(evt) {
     if (this.props.onClosePopup) {
       this.props.onClosePopup();
     }
-  },
-  
+  };
   
   render() {
     const {feature} = this.props;
     if (!feature) {
       return null;
     }
-    const {properties} = feature;
-    const {photo_name, urls, project_id, project_title} = properties;
+    
+    const { properties } = feature;
+    const { urls, project_id, project_title } = properties;
+    
     return (
       <div className="photo-popup-container">
         <div className="popup-title">
@@ -38,7 +34,7 @@ const PhotoPopup = onClickOutside(React.createClass({
       </div>
     )
   }
-}));
+}
 
 const mapStateToProps = (state, props) => {
   return {
@@ -46,5 +42,5 @@ const mapStateToProps = (state, props) => {
   }
 };
 
-export default connect(mapStateToProps)(PhotoPopup);
+export default connect(mapStateToProps)(onClickOutside(PhotoPopup));
 

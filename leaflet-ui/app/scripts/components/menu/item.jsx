@@ -3,7 +3,7 @@ import onClickOutside from 'react-onclickoutside';
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 import translate from '../../util/translate';
 
-const MenuItem = onClickOutside(React.createClass({
+class MenuItem extends React.Component {
   
   handleClickOutside(evt) {
     const { id } = this.props;
@@ -12,7 +12,7 @@ const MenuItem = onClickOutside(React.createClass({
     if (active && id !== "compare") { // don't deactivate the compare when clicking somewhere else.
       this.props.onDeactivate(this.props.id);
     }
-  },
+  }
   
   handleClick() {
     const { id } = this.props;
@@ -25,11 +25,12 @@ const MenuItem = onClickOutside(React.createClass({
         this.props.onDeactivate(this.props.id);
       }
     }
-  },
+  }
   
   render() {
     const {id, label, className, onDeactivate, tooltipKey} = this.props;
     const active = this.props[id];
+    
     const tooltip = (
       <Tooltip id={tooltipKey}>{translate(tooltipKey)}</Tooltip>
     );
@@ -37,7 +38,7 @@ const MenuItem = onClickOutside(React.createClass({
     return (
       <li className={active ? `active ${className}` : className}>
         <OverlayTrigger delayShow={1000} placement="bottom" overlay={tooltip}>
-          <div className="link" onClick={this.handleClick}>
+          <div className="link" onClick={this.handleClick.bind(this)}>
             <div className={"options-icons " + className}></div>
             <span>{label}</span>
           </div>
@@ -55,7 +56,6 @@ const MenuItem = onClickOutside(React.createClass({
       </li>
     )
   }
-}));
+}
 
-
-export default MenuItem;
+export default onClickOutside(MenuItem);

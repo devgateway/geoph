@@ -4,15 +4,16 @@ import translate from '../../util/translate.js';
 
 require('./expandableControl.scss');
 
-const Expandable = React.createClass({
-  
-  getInitialState() {
-    return {'expanded': this.props.defaultExpanded || false};
-  },
+class Expandable extends React.Component {
+  constructor(props) {
+    super(props);
+    
+    this.state = {'expanded': this.props.defaultExpanded || false};
+  }
   
   toggleView() {
     this.setState({'expanded': !this.state.expanded});
-  },
+  }
   
   render() {
     const { expanded } = this.state;
@@ -22,7 +23,7 @@ const Expandable = React.createClass({
         
         <OverlayTrigger delayShow={1000} placement="top"
                         overlay={(<Tooltip id={tooltipText}>{translate(tooltipText)}</Tooltip>)}>
-          <div className="title" onClick={this.toggleView}>
+          <div className="title" onClick={this.toggleView.bind(this)}>
             {title}
             <div className="toggle">
               <span>{(expanded == true) ? '–' : '+'}</span>
@@ -38,6 +39,6 @@ const Expandable = React.createClass({
       </div>
     );
   }
-});
+};
 
 export default Expandable;

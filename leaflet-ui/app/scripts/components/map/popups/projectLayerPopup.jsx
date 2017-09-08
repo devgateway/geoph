@@ -12,29 +12,31 @@ import {formatValue} from '../../../util/format';
 
 require('./projectLayerPopup.scss');
 
-const ProjectLayerPopup = onClickOutside(React.createClass({
-  propTypes: {
+class ProjectLayerPopup extends React.Component {
+  static propTypes = {
     mapId: React.PropTypes.string.isRequired,
-  },
-  
-  getInitialState() {
-    return {'tabSelected': 'fundingAgency', 'measureType': 'projectCount'};
-  },
-  
-  changeTab(tabSelected) {
-    this.setState({'tabSelected': tabSelected});
-    this.getTabData(tabSelected);
-  },
-  
-  changeMeasure(chart, measureType) {
-    this.setState({'measureType': measureType});
-  },
+  };
   
   handleClickOutside(evt) {
     if (this.props.onClosePopup) {
       this.props.onClosePopup();
     }
-  },
+  }
+  
+  constructor(props) {
+    super(props);
+    
+    this.state = {'tabSelected': 'fundingAgency', 'measureType': 'projectCount'};
+  }
+  
+  changeTab(tabSelected) {
+    this.setState({'tabSelected': tabSelected});
+    this.getTabData(tabSelected);
+  }
+  
+  changeMeasure(chart, measureType) {
+    this.setState({'measureType': measureType});
+  }
   
   componentWillMount() {
     const { mapId, feature } = this.props;
@@ -45,7 +47,7 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
       Object.assign(filtersCollected, {'lo': [feature.properties.id]});
       this.props.onLoadLocationStats(mapId, filtersCollected);
     }
-  },
+  }
   
   getTabData(tab) {
     const {filters, projectSearch, feature} = this.props;
@@ -57,7 +59,7 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
       }
       this.props.onGetPopupData(this.props.mapId, filtersCollected, tab);
     }
-  },
+  }
   
   render() {
     const {mapId, stats, charts, fundingType, feature, popupMaxHeight, popupMaxWidth} = this.props;
@@ -154,7 +156,7 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
                          width={popupMaxWidth * 1.02}
                          height={popupMaxHeight / 1.6}
                          showTotalHeader={true}
-                         onChangeMeasure={level == 1 ? this.changeMeasure : null}
+                         onChangeMeasure={level == 1 ? this.changeMeasure.bind(this) : null}
                          dimension="name"/>
                 </div>
                 : <div className="loading-css">
@@ -174,7 +176,7 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
                          width={popupMaxWidth * 1.02}
                          height={popupMaxHeight / 1.6}
                          showTotalHeader={true}
-                         onChangeMeasure={level == 1 ? this.changeMeasure : null}
+                         onChangeMeasure={level == 1 ? this.changeMeasure.bind(this) : null}
                          dimension="name"/>
                 </div>
                 : <div className="loading-css">
@@ -194,7 +196,7 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
                          width={popupMaxWidth * 1.02}
                          height={popupMaxHeight / 1.6}
                          showTotalHeader={true}
-                         onChangeMeasure={level == 1 ? this.changeMeasure : null}
+                         onChangeMeasure={level == 1 ? this.changeMeasure.bind(this) : null}
                          dimension="name"/>
                 </div>
                 : <div className="loading-css">
@@ -214,7 +216,7 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
                          width={popupMaxWidth * 1.02}
                          height={popupMaxHeight / 1.6}
                          showTotalHeader={true}
-                         onChangeMeasure={level == 1 ? this.changeMeasure : null}
+                         onChangeMeasure={level == 1 ? this.changeMeasure.bind(this) : null}
                          dimension="name"/>
                 </div>
                 : <div className="loading-css">
@@ -234,7 +236,7 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
                          width={popupMaxWidth * 1.02}
                          height={popupMaxHeight / 1.6}
                          showTotalHeader={true}
-                         onChangeMeasure={level == 1 ? this.changeMeasure : null}
+                         onChangeMeasure={level == 1 ? this.changeMeasure.bind(this) : null}
                          dimension="name"/>
                 </div>
                 : <div className="loading-css">
@@ -255,13 +257,14 @@ const ProjectLayerPopup = onClickOutside(React.createClass({
       </div>
     )
   }
-}));
+}
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onGetPopupData: (mapId, filters, tab) => {
       dispatch(fetchPopupData(mapId, filters, tab));
     },
+    
     onLoadLocationStats: (mapId, filters) => {
       dispatch(fetchLocationStats(mapId, filters));
     }
@@ -290,5 +293,5 @@ const mapStateToProps = (state, props) => {
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProjectLayerPopup);
+export default connect(mapStateToProps, mapDispatchToProps)(onClickOutside(ProjectLayerPopup));
 

@@ -22,18 +22,13 @@ require('./projectFilter.scss');
 
 var typingTimer;                //timer identifier
 var doneTypingInterval = 900;  //time in ms (5 seconds)
-var pageSize = 10
+var pageSize = 10;
 
 class ProjectFilter extends React.Component {
   
   constructor() {
     super();
     this.state = {'keyword': '', 'idsSelected': [], 'showResults': true, 'page': 0};
-  }
-  
-  componentDidMount() {
-    //let filters = collectValues(this.props.filters);
-    //this.props.onGetStats(filters);		
   }
   
   validateState() {
@@ -89,10 +84,6 @@ class ProjectFilter extends React.Component {
     this.props.onClearAll();
   }
   
-  clearResults() {
-    this.props.onClearResults();
-  }
-  
   showSelected() {
     this.setState({'showResults': false, 'page': 0});
   }
@@ -114,7 +105,7 @@ class ProjectFilter extends React.Component {
                    type="text"
                    value={keyword}
                    placeholder={translate('toolview.projectsearch.placeholder')}
-                   bsStyle={this.validateState()}
+                   bsStyle={this.validateState.bind(this)}
                    bsSize="small" ref="keyword"
                    onChange={this.handleChange.bind(this)}/>)
   }
@@ -175,7 +166,7 @@ class ProjectFilter extends React.Component {
     return (
       <div className="row" key={item.id}>
         <div className="col1">
-          <div className={this.validateSelection(item.id)} onClick={this.handleSelection.bind(this, item)}/>
+          <div className={this.validateSelection.bind(this, item.id)} onClick={this.handleSelection.bind(this, item)}/>
         </div>
         <div className="col2">
           <div className="item-text">
@@ -251,7 +242,6 @@ class ProjectFilter extends React.Component {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    
     onSetKeyword: (keyword) => {
       dispatch(setKeyword(keyword));
     },
