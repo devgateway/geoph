@@ -1,21 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
-import { getMapList, savedMapsChange } from '../../../actions/dashboard';
+import { savedMapsChange } from '../../../actions/dashboard';
 
 require("./savedMaps.scss");
 
 class SavedMaps extends React.Component {
   static propTypes = {
     savedMaps:        React.PropTypes.array.isRequired,
-    onGetList:        React.PropTypes.func.isRequired,
     savedMapsChange:  React.PropTypes.func.isRequired
   };
-  
-  componentWillMount() {
-    const { onGetList } = this.props;
-    onGetList();
-  }
   
   render() {
     const { savedMaps, savedMapsChange } = this.props;
@@ -54,9 +48,6 @@ class SavedMaps extends React.Component {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    onGetList: (params = {'type': 'all'}) => {
-      dispatch(getMapList(params));
-    },
     savedMapsChange: (index, key) => dispatch(savedMapsChange(index, key))
   }
 };
