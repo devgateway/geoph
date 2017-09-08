@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.devgateway.geoph</groupId>
         <artifactId>api</artifactId>
-        <version>1.5-SNAPSHOT</version>
+        <version>1.6-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -13,7 +13,7 @@
         <dependency>
             <groupId>org.devgateway.geoph</groupId>
             <artifactId>entity-model</artifactId>
-            <version>1.5-SNAPSHOT</version>
+            <version>1.6-SNAPSHOT</version>
         </dependency>
 
         <dependency>

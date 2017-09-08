@@ -33,14 +33,14 @@
     <parent>
         <groupId>org.devgateway.geoph</groupId>
         <artifactId>api</artifactId>
-        <version>1.5-SNAPSHOT</version>
+        <version>1.6-SNAPSHOT</version>
     </parent>
 
     <dependencies>
         <dependency>
             <groupId>org.devgateway.geoph</groupId>
             <artifactId>commons</artifactId>
-            <version>1.5-SNAPSHOT</version>
+            <version>1.6-SNAPSHOT</version>
         </dependency>
 
         <dependency>
@@ -193,7 +193,7 @@
         <dependency>
             <groupId>org.devgateway.geoph</groupId>
             <artifactId>entity-model</artifactId>
-            <version>1.5-SNAPSHOT</version>
+            <version>1.6-SNAPSHOT</version>
         </dependency>
 
         <dependency>
