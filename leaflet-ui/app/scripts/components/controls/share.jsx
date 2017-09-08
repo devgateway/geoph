@@ -7,11 +7,11 @@ import { ShareButtons, generateShareIcon } from 'react-share';
 
 require('./share.scss');
 
-const Share = React.createClass({
+class Share extends React.Component {
   
   shareMap() {
     this.props.onShareMap();
-  },
+  }
   
   render() {
     const { isShareNeeded, shareUrl, visible } = this.props;
@@ -75,7 +75,7 @@ const Share = React.createClass({
                   </ul>
                 </div>
                 <div className="share-link">
-                  <input className="form-control" type="text" value={isShareNeeded ? '' : shareUrl}/>
+                  <input className="form-control" type="text" value={isShareNeeded ? '' : shareUrl} onChange={() => {}}/>
                   <CopyToClipboard text={shareUrl}>
                     <button className="btn btn-sm btn-success" disabled={isShareNeeded ? true : false}>Copy URL</button>
                   </CopyToClipboard>
@@ -88,7 +88,7 @@ const Share = React.createClass({
       </div>
     );
   }
-});
+}
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {

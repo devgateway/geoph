@@ -14,40 +14,35 @@ import Legends from './legends/legends';
 require('leaflet/dist/leaflet.css');
 require('./map.scss');
 
-const MapView = React.createClass({
-  
-  getInitialState() {
-    return {bounds: {}};
-  },
-  
+class MapView extends React.Component {
   handleChangeBounds(e) {
     this.props.onUpdateBounds(
       e.target.getBounds(),
       [e.target.getCenter().lat, e.target.getCenter().lng],
       e.target.getZoom());
-  },
+  }
   
   closePopup() {
     let map = this.refs.map;
     if (map) {
       map.leafletElement.closePopup();
     }
-  },
+  }
   
   getPopUp(id) {
     const { mapId } = this.props;
     
     if (id === "projectPopup") {
-      return (<ProjectPopup mapId={mapId} onClosePopup={this.closePopup}/>)
+      return (<ProjectPopup mapId={mapId} onClosePopup={this.closePopup.bind(this)}/>)
     }
     if (id = "defaultPopup") {
-      return (<SimplePopup mapId={mapId} onClosePopup={this.closePopup}/>)
+      return (<SimplePopup mapId={mapId} onClosePopup={this.closePopup.bind(this)}/>)
     }
     
     if (id = "photoPopup") {
-      return <PhotoPopup mapId={mapId} onClosePopup={this.closePopup}/>
+      return <PhotoPopup mapId={mapId} onClosePopup={this.closePopup.bind(this)}/>
     }
-  },
+  }
   
   getLayer(l) {
     const {data, type, popupId, id, zIndex, settings} = l;
@@ -56,7 +51,7 @@ const MapView = React.createClass({
     if (type === 'clustered') {
       return (
         <ClusteredLayer key={id} data={data}>
-          <PhotoPopup onClosePopup={this.closePopup}/>
+          <PhotoPopup onClosePopup={this.closePopup.bind(this)}/>
         </ClusteredLayer>
       );
     } else {
@@ -66,7 +61,7 @@ const MapView = React.createClass({
         </SvgLayer>
       )
     }
-  },
+  }
   
   render() {
     const { map, mapId } = this.props;
@@ -83,7 +78,7 @@ const MapView = React.createClass({
     
     return (
       <div className={loading ? "half-opacity" : ""}>
-        <Map ref="map" className="map" center={center} zoom={zoom} bounds={bounds} onMoveEnd={this.handleChangeBounds}>
+        <Map ref="map" className="map" center={center} zoom={zoom} bounds={bounds} onMoveEnd={this.handleChangeBounds.bind(this)}>
           <TileLayer url={this.props.map.get('basemap').get('url')}/>
           {layers.map((l) => {
             const {data, type} = l;
@@ -101,7 +96,7 @@ const MapView = React.createClass({
       </div>
     );
   }
-});
+}
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, IndexRoute ,IndexRedirect} from 'react-router';
+import { Route, IndexRoute, IndexRedirect } from 'react-router';
 
 /* containers */
 import DefaultMapLayout from './components/layout/map/defaultMapLayout';
@@ -16,7 +16,7 @@ import About from './components/layout/aboutPage';
 import DashboardLayout from './components/layout/dashboardLayout.jsx';
 import Dashboard from './components/dashboard/dashboard.jsx';
 
-const NoMatch = React.createClass({
+class NoMatch extends React.Component {
   render() {
     return (
       <div>
@@ -24,17 +24,15 @@ const NoMatch = React.createClass({
       </div>
     )
   }
-});
+}
 
-const Root = React.createClass({
+class Root extends React.Component {
   render() {
     return (<div>{this.props.children}</div>)
   }
-});
-
+};
 
 export default (
-  
   <Route path="/" component={Root}>
     
     <Route path="/" component={DashboardLayout}>

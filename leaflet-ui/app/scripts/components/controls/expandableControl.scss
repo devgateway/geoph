@@ -1,39 +1,38 @@
 @import '../../../stylesheets/base.scss';
 
-.expandable-control{
-  	@include box-sizing(auto,auto);
-	@include font(11px,$regular);
-	overflow: hidden;
-	border:1px solid #edf0f4;
-  	border-radius: 5px;
-	
+.expandable-control {
+  @include box-sizing(auto, auto);
+  @include font(11px, $regular);
+  overflow: hidden;
+  border: 1px solid #edf0f4;
+  border-radius: 5px;
 
-	.title{
-		cursor: pointer;
-		font-size: 15px;
-		font-weight: bold;
-		height: 50px;
-		line-height: 50px;
-		border-radius: 5px;
-		padding: 0px 0px 0px 10px;
-		background-color: #cfe1f0;
-		border: 1px solid #dde6ef;
-		.toggle{
-			float: right;
-			margin-right: 12px;
-			font-size: 17px;
-			>a{
-				text-decoration: none;
-			}
-		}
-	}
-	.content{
-	  	min-height: 160px;
-		background-color:#FFF;
-	 	font-size: 11px;
-	}
+  .title {
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 5px;
+    padding: 0px 0px 0px 10px;
+    background-color: #cfe1f0;
+    border: 1px solid #dde6ef;
+    .toggle {
+      float: right;
+      margin-right: 12px;
+      font-size: 17px;
+      > a {
+        text-decoration: none;
+      }
+    }
+  }
+  .content {
+    min-height: 160px;
+    background-color: #FFF;
+    font-size: 11px;
+  }
 }
 
-.expandable-control.collapsed{
-	overflow: initial;
+.expandable-control.collapsed {
+  overflow: initial;
 }

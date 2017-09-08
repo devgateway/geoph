@@ -4,20 +4,21 @@ import onClickOutside from 'react-onclickoutside'
 
 require('./projectLayerPopup.scss');
 
-const SimplePopup = onClickOutside(React.createClass({
+class SimplePopup extends React.Component {
   handleClickOutside(evt) {
     if (this.props.onClosePopup) {
       this.props.onClosePopup();
     }
-  },
+  }
   
   render() {
-    
     const {feature} = this.props;
     if (!feature) {
       return null;
     }
+    
     const {name, value, physicalProgress, layerName, valueProperty, indicatorName} = feature.properties;
+    
     return (
       <div className="simple-popup-container">
         <div className="popup-title">
@@ -32,7 +33,7 @@ const SimplePopup = onClickOutside(React.createClass({
     
     )
   }
-}));
+}
 
 const mapStateToProps = (state, props) => {
   const { mapId } = props;
@@ -54,5 +55,5 @@ const mapStateToProps = (state, props) => {
   }
 };
 
-export default connect(mapStateToProps)(SimplePopup);
+export default connect(mapStateToProps)(onClickOutside(SimplePopup));
 

@@ -1,14 +1,12 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import {getList,deleteIndicator,editIndicator} from '../../actions/indicators.js'
-import Messages from '../messages/messages.jsx'
+import React from 'react';
+import { connect } from 'react-redux';
+import {getList,deleteIndicator,editIndicator} from '../../actions/indicators.js';
+import Messages from '../messages/messages.jsx';
 import translate from '../../util/translate.js';
 
 require('./admin.scss');
 
 const Indicator = class extends React.Component {
-  
-  
   render() {
     return (
       <li className="item">
@@ -27,10 +25,6 @@ class listIndicator extends React.Component {
   static propTypes = {
     name: React.PropTypes.string,
   };
-  
-  constructor(props) {
-    super(props);
-  }
   
   componentWillMount() {
     this.props.onLoad()
