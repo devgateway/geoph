@@ -252,9 +252,9 @@
     </build>
 
     <scm>
-        
-        <developerConnection>scm:git:https://sdimunzio@github.com/devgateway/geoph.git</developerConnection>
-        <connection>scm:git:https://sdimunzio@github.com/devgateway/geoph.git</connection>
+        <url>git@github.com:devgateway/geoph.git</url>
+        <developerConnection>scm:git:git@github.com:devgateway/geoph.git</developerConnection>
+        <connection>git@github.com:devgateway/geoph.git</connection>
         <tag>HEAD</tag>
     </scm>
 	
