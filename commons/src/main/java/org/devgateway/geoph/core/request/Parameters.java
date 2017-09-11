@@ -20,7 +20,7 @@ import static org.devgateway.geoph.core.constants.Constants.PARAM_SEPARATOR;
 
 /**
  * @author dbianco
- *         created on mar 17 2016.
+ * created on mar 17 2016.
  */
 public class Parameters {
 
@@ -150,7 +150,7 @@ public class Parameters {
         this.setEndDateMax(filters.getDt_end_max());
         this.setEndDateMin(filters.getDt_end_min());
         this.setLocations(filters.getLo());
-        if(filters.getPr().size()>0) {
+        if (filters.getPr() != null && filters.getPr().size() > 0) {
             this.setProjects(filters.getPr());
         }
         this.setClassifications(filters.getCl());
@@ -446,7 +446,7 @@ public class Parameters {
     }
 
     public void setFlowTypes(List<String> flowTypes) {
-        if(flowTypes!=null) {
+        if (flowTypes != null) {
             flowTypes.forEach(this::fillTypes);
         }
     }
