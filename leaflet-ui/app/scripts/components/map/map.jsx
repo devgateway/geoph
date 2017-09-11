@@ -110,16 +110,19 @@ const stateToProps = (state, props) => {
   const { mapId } = props;
   
   let map;
+  let fundingType;
   if (mapId === 'main') {
     map = state.map;
+    fundingType = state.settings.fundingType;
   } else {
     // here id should be 'left'
     map = state.compare.get("map");
+    fundingType = state.compare.get("settings").fundingType;
   }
   
   return {
     map: map,
-    fundingType: state.settings.fundingType
+    fundingType: fundingType
   };
 };
 
