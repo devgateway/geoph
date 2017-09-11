@@ -48,7 +48,7 @@ class Share extends React.Component {
             </div>
             <span className={captures.length > 0 ? "small" : "big"}>Click on create icon to generate a pdf of current map</span>
             {
-              captures.map(file => <a target="_blank" href={Settings.get('API', 'PDF_DOWNLOAD') + file.name}>
+              captures.map(file => <a key={file.name + "-" + file.count} target="_blank" href={Settings.get('API', 'PDF_DOWNLOAD') + file.name}>
                 <div className="icon"></div>
                 <span>{"Pdf# " + (file.count)}</span>
               </a>)
