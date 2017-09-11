@@ -14,11 +14,14 @@ import org.devgateway.geoph.model.AppMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -47,6 +50,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
  */
 @RestController
 @RequestMapping(value = "/maps")
+@CrossOrigin
+@CacheConfig(keyGenerator = "genericFilterKeyGenerator", cacheNames = "mapControllerCache")
 public class MapController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MapController.class);
@@ -67,6 +72,7 @@ public class MapController {
     private ApplicationService applicationService;
 
     @RequestMapping(method = GET)
+    @Cacheable
     public Page<AppMapDao> findMaps(@PageableDefault(page = 0, size = 20, sort = "id") final Pageable pageable,
                                     @RequestParam(required = false) String type) {
         LOGGER.debug("findMaps");
@@ -135,6 +141,7 @@ public class MapController {
     }
 
     @RequestMapping(value = "/share", method = POST)
+    @Cacheable
     public AppMap shareMap(@RequestBody Map<String, Object> mapVariables) throws JsonProcessingException, SQLException {
         LOGGER.debug("shareMap");
         String mapJson = new ObjectMapper().writeValueAsString(mapVariables.get(DATA_TO_SAVE_STR));
@@ -162,6 +169,7 @@ public class MapController {
     }
 
     @RequestMapping(value = "/id/{id}", method = GET)
+    @Cacheable
     public AppMap findMapById(@PathVariable final long id) {
         LOGGER.debug("findMapById");
         AppMap map = appMapService.findById(id);
@@ -187,6 +195,7 @@ public class MapController {
     }
 
     @RequestMapping(value = "/key/{key}", method = GET)
+    @Cacheable
     public AppMap findMapByKey(@PathVariable final String key) {
         LOGGER.debug("findMapByKey");
         return appMapService.findByKey(key);

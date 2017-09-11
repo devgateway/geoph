@@ -71,6 +71,7 @@ public class CacheConfiguration {
         caches.add(new ConcurrentMapCache("indicatorControllerCache"));
         caches.add(new ConcurrentMapCache("projectControllerCache"));
         caches.add(new ConcurrentMapCache("mapExportControllerCache"));
+        caches.add(new ConcurrentMapCache("mapControllerCache"));
         cacheManager.setCaches(caches);
         return cacheManager;
     }
