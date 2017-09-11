@@ -39,15 +39,18 @@ const mapStateToProps = (state, props) => {
   const { mapId } = props;
   
   let filters;
+  let fundingType;
   if (mapId === 'main') {
     filters = state.filters.filterMain;
+    fundingType = state.settings.fundingType;
   } else {
     // here id should be 'left'
     filters = state.compare.get("filters") !== undefined ? state.compare.get("filters").filterMain : undefined;
+    fundingType = state.compare.get("settings").fundingType;
   }
   
   return {
-    fundingType: state.settings.fundingType,
+    fundingType: fundingType,
     charts: state.popup[mapId],
     filters: filters,
     projectSearch: state.projectSearch,
