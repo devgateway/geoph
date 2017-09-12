@@ -46,7 +46,7 @@ const mapStateToProps = (state, props) => {
   } else {
     // here id should be 'left'
     filters = state.compare.get("filters") !== undefined ? state.compare.get("filters").filterMain : undefined;
-    fundingType = state.compare.get("settings").fundingType;
+    fundingType = state.compare.get("settings") !== undefined ? state.compare.get("settings").fundingType : {};
   }
   
   return {

@@ -117,7 +117,7 @@ const stateToProps = (state, props) => {
   } else {
     // here id should be 'left'
     map = state.compare.get("map");
-    fundingType = state.compare.get("settings").fundingType;
+    fundingType = state.compare.get("settings") !== undefined ? state.compare.get("settings").fundingType : {};
   }
   
   return {
