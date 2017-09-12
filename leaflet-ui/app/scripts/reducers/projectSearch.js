@@ -4,6 +4,7 @@ import {cloneDeep} from '../util/filterUtil';
 const projectSearch = (state = {'selected': [], 'applied': [], 'results': {}, 'keyword': ''}, action) => {
   let projectSearchResults;
   let stateCloned;
+  
   switch (action.type) {
     case Constants.TOGGLE_PROJECT_SELECTION:
       stateCloned = cloneDeep(state);
@@ -19,6 +20,7 @@ const projectSearch = (state = {'selected': [], 'applied': [], 'results': {}, 'k
         stateCloned.selected.push(action.project);
       }
       return stateCloned;
+      
     case Constants.SELECT_ALL_MATCHED_PROJECT:
       stateCloned = cloneDeep(state);
       if (stateCloned.results.content !== undefined) {
@@ -33,6 +35,7 @@ const projectSearch = (state = {'selected': [], 'applied': [], 'results': {}, 'k
         });
       }
       return stateCloned;
+      
     case Constants.STATE_RESTORE:
       stateCloned = cloneDeep(state);
       stateCloned.selected = [];
@@ -70,7 +73,6 @@ const projectSearch = (state = {'selected': [], 'applied': [], 'results': {}, 'k
     default:
       return state
   }
-}
+};
 
-
-export default projectSearch
+export default projectSearch;

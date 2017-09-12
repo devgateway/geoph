@@ -15,7 +15,13 @@ require("./mapLayout.scss");
 
 class CompareMapViewLayout extends DefaultMapLayout {
   componentWillMount() {
+    const { isPanelVisible, onTogglePanel } = this.props;
+    
     this.props.onMount();
+  
+    if (isPanelVisible) {
+      onTogglePanel();
+    }
   }
   
   componentWillUnmount() {
@@ -60,12 +66,14 @@ const mapDispatchToProps = (dispatch) => {
     onUnMount:          () => dispatch(clean()),
     copyCompareMap:     () => dispatch(copyCompareMap()),
     copyCompareFilters: () => dispatch(copyCompareFilters()),
-    onDeactivate:    (key) => dispatch({type: Constants.DEACTIVATE_COMPONENT, key})
+    onDeactivate:    (key) => dispatch({type: Constants.DEACTIVATE_COMPONENT, key}),
+    onTogglePanel:      () => dispatch({type: Constants.TOGGLE_PANEL}),
   }
 };
 
 const mapStateToProps = (state, props) => {
   return {
+    isPanelVisible: state.panel.get('visible')
   }
 };
 
