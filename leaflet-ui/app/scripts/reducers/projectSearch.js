@@ -21,15 +21,17 @@ const projectSearch = (state = {'selected': [], 'applied': [], 'results': {}, 'k
       return stateCloned;
     case Constants.SELECT_ALL_MATCHED_PROJECT:
       stateCloned = cloneDeep(state);
-      stateCloned.results.content.forEach((item) => {
-        let isAlreadyAdded = false;
-        stateCloned.selected.forEach((it) => {
-          it.id == item.id ? isAlreadyAdded = true : null;
+      if (stateCloned.results.content !== undefined) {
+        stateCloned.results.content.forEach((item) => {
+          let isAlreadyAdded = false;
+          stateCloned.selected.forEach((it) => {
+            it.id == item.id ? isAlreadyAdded = true : null;
+          });
+          if (!isAlreadyAdded) {
+            stateCloned.selected.push(item);
+          }
         });
-        if (!isAlreadyAdded) {
-          stateCloned.selected.push(item);
-        }
-      })
+      }
       return stateCloned;
     case Constants.STATE_RESTORE:
       stateCloned = cloneDeep(state);
