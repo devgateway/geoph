@@ -33,6 +33,7 @@ const projectSearch = (state = {'selected': [], 'applied': [], 'results': {}, 'k
       return stateCloned;
     case Constants.STATE_RESTORE:
       stateCloned = cloneDeep(state);
+      stateCloned.selected = [];
       action.storedMap.data.filters['pr'].forEach(e => {
         stateCloned.selected.push({id: e});
       });

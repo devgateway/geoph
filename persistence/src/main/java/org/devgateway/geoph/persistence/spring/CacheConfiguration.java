@@ -34,8 +34,9 @@ public class CacheConfiguration {
 
     @Bean
     public CacheManager getCacheManager() {
-        SimpleCacheManager cacheManager = new SimpleCacheManager();
-        List<Cache> caches = new ArrayList<>();
+        final SimpleCacheManager cacheManager = new SimpleCacheManager();
+        final List<Cache> caches = new ArrayList<>();
+
         caches.add(new ConcurrentMapCache("locationsByLevel"));
         caches.add(new ConcurrentMapCache("locationsByCode"));
         caches.add(new ConcurrentMapCache("locationsById"));
@@ -76,4 +77,17 @@ public class CacheConfiguration {
         return cacheManager;
     }
 
+    /**
+     * Remove from cache *mapControllerCache*.
+     */
+    public void clearMapControllerCache() {
+        CacheManager cm = this.getCacheManager();
+
+        // get the reports cache "mapControllerCache"
+        Cache cache = cm.getCache("mapControllerCache");
+
+        if (cache != null) {
+            cache.clear();
+        }
+    }
 }

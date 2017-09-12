@@ -11,6 +11,7 @@ import org.devgateway.geoph.core.util.MD5Generator;
 import org.devgateway.geoph.dao.AppMapDao;
 import org.devgateway.geoph.enums.AppMapTypeEnum;
 import org.devgateway.geoph.model.AppMap;
+import org.devgateway.geoph.persistence.spring.CacheConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +62,9 @@ public class MapController {
     private static final String DATA_TO_SAVE_STR = "data";
     private static final String BAD_REQUEST_NAME_INVALID = "The name used to save the map is not valid or it is already in use";
     private static final String SHARED_MAP_DESC = "Shared map";
+
+    @Autowired
+    private CacheConfiguration conf;
 
     @Autowired
     private AppMapService appMapService;
@@ -130,6 +134,10 @@ public class MapController {
             String mapType = (String) mapVariables.get(TYPE_STR);
             AppMap appMap = new AppMap(mapName, mapDesc, mapJson, UUID.randomUUID().toString(),
                     MD5Generator.getMD5(mapJson), mapType, base64);
+
+            // clear cache
+            conf.clearMapControllerCache();
+
             if (id == null) {
                 return appMapService.save(appMap);
             } else {
@@ -184,6 +192,10 @@ public class MapController {
     @Secured("ROLE_ADMIN")
     public void deleteById(@PathVariable final long id) {
         LOGGER.debug("deleteById: " + id);
+
+        // clear cache
+        conf.clearMapControllerCache();
+
         appMapService.delete(id);
     }
 
@@ -191,6 +203,10 @@ public class MapController {
     @Secured("ROLE_ADMIN")
     public void deleteByKey(@PathVariable final String key) {
         LOGGER.debug("deleteByKey: " + key);
+
+        // clear cache
+        conf.clearMapControllerCache();
+
         appMapService.deleteByKey(key);
     }
 
