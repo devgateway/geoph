@@ -105,7 +105,7 @@ class ProjectFilter extends React.Component {
                    type="text"
                    value={keyword}
                    placeholder={translate('toolview.projectsearch.placeholder')}
-                   bsStyle={this.validateState.bind(this)}
+                   bsStyle={this.validateState()}
                    bsSize="small" ref="keyword"
                    onChange={this.handleChange.bind(this)}/>)
   }
@@ -166,7 +166,7 @@ class ProjectFilter extends React.Component {
     return (
       <div className="row" key={item.id}>
         <div className="col1">
-          <div className={this.validateSelection.bind(this, item.id)} onClick={this.handleSelection.bind(this, item)}/>
+          <div className={this.validateSelection(item.id)} onClick={this.handleSelection.bind(this, item)}/>
         </div>
         <div className="col2">
           <div className="item-text">
