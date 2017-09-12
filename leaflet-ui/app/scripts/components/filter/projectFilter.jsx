@@ -14,7 +14,7 @@ import {Input} from 'react-bootstrap';
 import {collectValues} from '../../util/filterUtil';
 import translate from '../../util/translate';
 import ProjectLink from '../project/projectLink'
-import {Pagination, Grid, Row, Col} from 'react-bootstrap';
+import {Pagination} from 'react-bootstrap';
 import {getActivePage} from '../../util/paginatorUtil';
 import {Tooltip, OverlayTrigger} from 'react-bootstrap';
 
@@ -115,36 +115,36 @@ class ProjectFilter extends React.Component {
       <div className="project-search-actions">
         <OverlayTrigger delayShow={1000} placement="top" overlay={(
           <Tooltip id="help.projectsearch.selectall">{translate('help.projectsearch.selectall')}</Tooltip>)}>
-          <a href="#" onClick={this.selectAllMatched.bind(this)}>
+          <div className="action-item" onClick={this.selectAllMatched.bind(this)}>
             <div className="btn btn-xs btn-all"></div>
-            <span>{translate('toolview.projectsearch.selectall')}</span></a>
+            <span>{translate('toolview.projectsearch.selectall')}</span></div>
         </OverlayTrigger>
         <span>/</span>
         {this.state.showResults ?
           <OverlayTrigger delayShow={1000} placement="top" overlay={(<Tooltip
             id="help.projectsearch.selectedresults">{translate('help.projectsearch.selectedresults')}</Tooltip>)}>
-            <a href="#" onClick={this.showSelected.bind(this)}>{translate('toolview.projectsearch.selectedresults')}
-              ({this.props.projectSearch.selected.length}) </a>
+            <div className="action-item" onClick={this.showSelected.bind(this)}>{translate('toolview.projectsearch.selectedresults')}
+              ({this.props.projectSearch.selected.length}) </div>
           </OverlayTrigger>
           :
           <OverlayTrigger delayShow={1000} placement="top" overlay={(
             <Tooltip id="help.projectsearch.searchresults">{translate('help.projectsearch.searchresults')}</Tooltip>)}>
-            <a href="#" onClick={this.showResults.bind(this)}>{translate('toolview.projectsearch.searchresults')}</a>
+            <div className="action-item" onClick={this.showResults.bind(this)}>{translate('toolview.projectsearch.searchresults')}</div>
           </OverlayTrigger>
         }
         <span>/</span>
         <OverlayTrigger delayShow={1000} placement="top" overlay={(
           <Tooltip id="help.projectsearch.apply">{translate('help.projectsearch.apply')}</Tooltip>)}>
-          <a href="#" onClick={this.applySelection.bind(this)}>
+          <div className="action-item" onClick={this.applySelection.bind(this)}>
             <div className="btn btn-xs btn-apply"></div>
-            <span>{translate('toolview.projectsearch.apply')}</span></a>
+            <span>{translate('toolview.projectsearch.apply')}</span></div>
         </OverlayTrigger>
         <span>/</span>
         <OverlayTrigger delayShow={1000} placement="top" overlay={(
           <Tooltip id="help.projectsearch.clearall">{translate('help.projectsearch.clearall')}</Tooltip>)}>
-          <a href="#" onClick={this.clearAllSelection.bind(this)}>
+          <div className="action-item" onClick={this.clearAllSelection.bind(this)}>
             <div className="btn btn-xs btn-clear"></div>
-            <span>{translate('toolview.projectsearch.clearall')}</span></a>
+            <span>{translate('toolview.projectsearch.clearall')}</span></div>
         </OverlayTrigger>
       </div>
     )
@@ -191,14 +191,13 @@ class ProjectFilter extends React.Component {
     let totalPages = Math.ceil(items.length / pageSize);
     let pg = getActivePage(eventKey, totalPages, this.state.page);
     this.setState({'page': pg});
-    //eventKey.stopPropagation();
   }
   
   render() {
-    const {showResults, page} = this.state;
-    const {projectSearch} = this.props;
-    const {results, selected} = projectSearch;
-    const {content, first, isFetching, last, lastUpdate, number, numberOfElements, size, sort, totalElements, totalPages} = results
+    const { showResults, page } = this.state;
+    const { projectSearch, stats } = this.props;
+    const { results, selected } = projectSearch;
+    const { content, isFetching } = results;
     const items = (showResults ? content : selected) || [];
     const itemsPaginated = this.getContent(items);
     const loading = showResults ? this.getLoading(isFetching) : null;
@@ -207,7 +206,7 @@ class ProjectFilter extends React.Component {
     return (
       <div id="ps-container" className="project-search">
         <div className="project-search-keyword">
-          <h2>Search over {this.props.stats.projectCount} results</h2>
+          <h2>Search over {stats.getIn(["global", "data"]).regional.projectCount} results</h2>
           <div className="">
             {this.getInput()}
           </div>
