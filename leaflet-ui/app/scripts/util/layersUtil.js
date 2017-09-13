@@ -29,7 +29,13 @@ export const plainList = (layers, accumulator) => {
 export const getDefaults = (layers) => {
   const list = plainList(layers);
   return list.filter(function (l) {
-    return l.get('default')
+    // it's possible that we have a list of layers from a closed comparison and the default layers is not visible anymore.
+    // (see: GEOPH-724)
+    if (l.get('visible') === false) {
+      return false;
+    } else {
+      return l.get('default');
+    }
   })
 };
 
