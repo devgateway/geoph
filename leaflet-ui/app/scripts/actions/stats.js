@@ -1,5 +1,6 @@
 import * as Constants from '../constants/constants';
 import Connector from '../connector/connector';
+import {collectValues} from '../util/filterUtil';
 
 export const requestStats = () => {
   return {
@@ -15,9 +16,13 @@ export const receiveStats = (data) => {
   }
 };
 
-export const fetchStats = (filters) => {
-  return dispatch => {
+export const fetchStats = (filtersToApply) => {
+  return (dispatch, getState) => {
     dispatch(requestStats());
+    
+    const projectSearch = getState().projectSearch;
+    let filters = filtersToApply || collectValues(getState().filters.filterMain, projectSearch);
+    
     return Connector.getStats(filters)
       .then(req => dispatch(receiveStats(req)))
   }
