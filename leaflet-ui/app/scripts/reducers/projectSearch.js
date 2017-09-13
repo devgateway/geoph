@@ -20,7 +20,7 @@ const projectSearch = (state = {'selected': [], 'applied': [], 'results': {}, 'k
         stateCloned.selected.push(action.project);
       }
       return stateCloned;
-      
+    
     case Constants.SELECT_ALL_MATCHED_PROJECT:
       stateCloned = cloneDeep(state);
       if (stateCloned.results.content !== undefined) {
@@ -35,7 +35,7 @@ const projectSearch = (state = {'selected': [], 'applied': [], 'results': {}, 'k
         });
       }
       return stateCloned;
-      
+    
     case Constants.STATE_RESTORE:
       stateCloned = cloneDeep(state);
       stateCloned.selected = [];
@@ -64,14 +64,20 @@ const projectSearch = (state = {'selected': [], 'applied': [], 'results': {}, 'k
     case Constants.REQUEST_PROJECT_BY_TEXT:
       projectSearchResults = {isFetching: true};
       return Object.assign({}, state, {'results': projectSearchResults});
+    
     case Constants.SET_KEYWORD:
       return Object.assign({}, state, {'keyword': action.keyword});
+    
     case Constants.RECEIVE_PROJECT_BY_TEXT:
       projectSearchResults = {lastUpdate: action.receivedAt, isFetching: false};
       Object.assign(projectSearchResults, action.data);
       return Object.assign({}, state, {'results': projectSearchResults});
+    
+    case Constants.COPY_COMPARE_PROJECT_SEARCH:
+      return action.projectSearch;
+    
     default:
-      return state
+      return state;
   }
 };
 

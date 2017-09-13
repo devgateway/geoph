@@ -5,6 +5,8 @@ import { hashHistory } from 'react-router';
 import { clone, clean }  from '../../../reducers/compare';
 import { copyCompareMap }  from '../../../reducers/map';
 import { copyCompareFilters } from '../../../reducers/filters';
+import { copyCompareSettings } from '../../../actions/settings';
+import { copyCompareProjectSearch } from '../../../actions/projectSearch';
 import * as Constants from '../../../constants/constants';
 
 import DefaultMapLayout from './defaultMapLayout';
@@ -18,7 +20,7 @@ class CompareMapViewLayout extends DefaultMapLayout {
     const { isPanelVisible, onTogglePanel } = this.props;
     
     this.props.onMount();
-  
+    
     if (isPanelVisible) {
       onTogglePanel();
     }
@@ -34,6 +36,8 @@ class CompareMapViewLayout extends DefaultMapLayout {
       if (copyCompare === true) {
         this.props.copyCompareMap();
         this.props.copyCompareFilters();
+        this.props.copyCompareSettings();
+        this.props.copyCompareProjectSearch();
       }
       this.props.onDeactivate("compare");
       hashHistory.push('/map');
@@ -62,10 +66,12 @@ class CompareMapViewLayout extends DefaultMapLayout {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onMount:            () => dispatch(clone()),
-    onUnMount:          () => dispatch(clean()),
-    copyCompareMap:     () => dispatch(copyCompareMap()),
-    copyCompareFilters: () => dispatch(copyCompareFilters()),
+    onMount:                  () => dispatch(clone()),
+    onUnMount:                () => dispatch(clean()),
+    copyCompareMap:           () => dispatch(copyCompareMap()),
+    copyCompareFilters:       () => dispatch(copyCompareFilters()),
+    copyCompareSettings:      () => dispatch(copyCompareSettings()),
+    copyCompareProjectSearch: () => dispatch(copyCompareProjectSearch()),
     onDeactivate:    (key) => dispatch({type: Constants.DEACTIVATE_COMPONENT, key}),
     onTogglePanel:      () => dispatch({type: Constants.TOGGLE_PANEL}),
   }

@@ -1,7 +1,7 @@
 import * as Constants from '../constants/constants';
 import {Map} from 'immutable';
 
-const project = (state = new Map({projectData:{}, isPopupOpen:false, loadingData:false}), action) => {
+const project = (state = new Map({projectData: {}, isPopupOpen: false, loadingData: false}), action) => {
   
   switch (action.type) {
     case Constants.OPEN_PROJECT_PAGE:
@@ -18,7 +18,7 @@ const project = (state = new Map({projectData:{}, isPopupOpen:false, loadingData
       return state.set('projectData', action.data);
     
     default:
-      return state
+      return state;
   }
 };
 
