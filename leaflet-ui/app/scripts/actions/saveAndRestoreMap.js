@@ -146,7 +146,18 @@ export const finishRestoreMap = () => {//resume map restore after all filters ar
         // if we have a comparison then we can use the same action *CLONE_MAP_DONE* to copy the second map properties
         if (compareData !== undefined) {
           const compareVisibleLayers = getVisiblesFromObjects(compareData.map.layers);
-          
+  
+          // restore project search
+          if (compareData.projectSearch === undefined) {
+            compareData.projectSearch = {
+              selected: [],
+              applied:  []
+            }
+          }
+          compareData.filters['pr'].forEach(e => {
+            compareData.projectSearch.selected.push({id: e});
+          });
+  
           // restore the compare map filters with the main filter object *filterMain*
           compareData.filters.filterMain = restoreFilters(getState().filters, compareData.filters);
           
