@@ -1,14 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { openProjectPage } from '../../actions/project';
+import {connect} from 'react-redux';
+import {openProjectPage} from '../../actions/project';
 
 class ProjectLink extends React.Component {
-  
-  constructor() {
-    super();
-  }
-  
-  openProject(){
+  openProject() {
     const {onOpenProject, id} = this.props;
     onOpenProject(id);
   }
@@ -16,7 +11,7 @@ class ProjectLink extends React.Component {
   render() {
     const {id, title} = this.props;
     return (
-			<a onClick={this.openProject.bind(this)}>{title}</a>
+      <a onClick={this.openProject.bind(this)}>{title}</a>
     )
   }
 }

@@ -31,10 +31,6 @@ class Locations extends React.Component {
 }
 
 class ProjectPage extends React.Component {
-  constructor() {
-    super();
-  }
-  
   close() {
     this.props.onClose();
   }
