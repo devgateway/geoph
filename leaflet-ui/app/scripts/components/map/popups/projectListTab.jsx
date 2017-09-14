@@ -52,7 +52,7 @@ export default class ProjectListTab extends React.Component {
               return (
                 <div className="project-list-item" key={project.id}>
                   <div title={project.title}
-                       className={"project-title" + (level === 1 ? "project-list-item-col5" : "project-list-item-col8")}>
+                       className={"project-title " + (level === 1 ? "project-list-item-col5" : "project-list-item-col8")}>
                     <ProjectLink {...project} store={this.props.store}/>
                   </div>
                   <div
