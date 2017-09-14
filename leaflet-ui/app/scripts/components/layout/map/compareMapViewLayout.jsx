@@ -24,6 +24,8 @@ class CompareMapViewLayout extends DefaultMapLayout {
     if (isPanelVisible) {
       onTogglePanel();
     }
+  
+    this.props.onActivate("compare");    // be sure that the compare component is active
   }
   
   componentWillUnmount() {
@@ -72,8 +74,9 @@ const mapDispatchToProps = (dispatch) => {
     copyCompareFilters:       () => dispatch(copyCompareFilters()),
     copyCompareSettings:      () => dispatch(copyCompareSettings()),
     copyCompareProjectSearch: () => dispatch(copyCompareProjectSearch()),
-    onDeactivate:    (key) => dispatch({type: Constants.DEACTIVATE_COMPONENT, key}),
-    onTogglePanel:      () => dispatch({type: Constants.TOGGLE_PANEL}),
+    onActivate:            (key) => dispatch({type: Constants.ACTIVATE_COMPONENT, key}),
+    onDeactivate:          (key) => dispatch({type: Constants.DEACTIVATE_COMPONENT, key}),
+    onTogglePanel:            () => dispatch({type: Constants.TOGGLE_PANEL}),
   }
 };
 

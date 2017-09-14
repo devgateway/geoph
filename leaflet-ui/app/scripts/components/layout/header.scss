@@ -129,6 +129,20 @@ ul.options {
     background-color: #cfe1f0;
   }
 
+  li.active.compare {
+    opacity: 0.75;
+    cursor: not-allowed;
+    background-color: #cccccc;
+
+    .link {
+      cursor: not-allowed;
+
+      span {
+        cursor: not-allowed;
+      }
+    }
+  }
+
   .options-icons {
     @include box-sizing (14px, 14px);
     float: left;
