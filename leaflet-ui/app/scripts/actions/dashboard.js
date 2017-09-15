@@ -45,5 +45,8 @@ export const savedMapsChange  = (index, key) => {
 };
 
 export const resetFeaturedMaps = () => {
-  return { type: Constants.RESET_FEATURED_MAP }
+  return (dispatch, getState) => {
+    dispatch({ type: Constants.LOAD_DEFAULT_MAP_STATE });
+    dispatch({ type: Constants.RESET_FEATURED_MAP });
+  };
 };
