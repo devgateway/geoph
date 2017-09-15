@@ -14,35 +14,42 @@ class SavedMaps extends React.Component {
   render() {
     const { savedMaps, savedMapsChange } = this.props;
     
-    return (<div className="saved-maps">
-        {
-          savedMaps.map((map, index) => {
-            return (
-              <div className="saved-maps-item control control--radio" key={map.id}>
-                <input checked={map.selected || false} type="radio" id={"radio_" + map.id}
-                       value={map.name}
-                       onChange={() => {
-                         const selected = map.selected;
-                         if (!selected) {
-                           savedMapsChange(index, map.key);
-                         }
-                       }}/>
-                
-                <OverlayTrigger delayShow={1000} placement="bottom" overlay={<Tooltip id={map.id}>{map.description}</Tooltip>}>
-                  <label htmlFor={"radio_" + map.id} className={map.selected ? "selected" : ""}>
-                    <img src={`data:image/png;base64, ${map.base64preview}`}/>
-                    &nbsp;{map.name}
-                  </label>
-                </OverlayTrigger>
-                
-                <div className="control__indicator"></div>
-              </div>
-            
-            )
-          })
-        }
-      </div>
-    )
+    if (savedMaps.length !== 0) {
+      return (
+        <div className="saved-maps">
+          {
+            savedMaps.map((map, index) => {
+              return (
+                <div className="saved-maps-item control control--radio" key={map.id}>
+                  <input checked={map.selected || false} type="radio" id={"radio_" + map.id}
+                         value={map.name}
+                         onChange={() => {
+                           const selected = map.selected;
+                           if (!selected) {
+                             savedMapsChange(index, map.key);
+                           }
+                         }}/>
+                  
+                  <OverlayTrigger delayShow={1000} placement="bottom"
+                                  overlay={<Tooltip id={map.id}>{map.description}</Tooltip>}>
+                    <label htmlFor={"radio_" + map.id} className={map.selected ? "selected" : ""}>
+                      <img src={`data:image/png;base64, ${map.base64preview}`}/>
+                      &nbsp;{map.name}
+                    </label>
+                  </OverlayTrigger>
+                  
+                  <div className="control__indicator"></div>
+                </div>
+              )
+            })
+          }
+        </div>
+      )
+    } else {
+      return (
+        <h2 className="no-saved-maps">There are no saved maps.</h2>
+      )
+    }
   }
 }
 
