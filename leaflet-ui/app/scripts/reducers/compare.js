@@ -6,6 +6,7 @@ export const CLONE_MAP_DONE = 'CLONE_MAP_DONE';
 const CLONE_MAP_CLEAN = 'CLONE_MAP_CLEAN';
 const TOGGLE_COMPARE_LEGENDS_VIEW = 'TOGGLE_COMPARE_LEGENDS_VIEW';
 const LAYER_COMPARE_LOAD_SUCCESS = 'LAYER_COMPARE_LOAD_SUCCESS';
+const CHANGE_COMPARE_MAP_BOUNDS = 'CHANGE_COMPARE_MAP_BOUNDS';
 
 export const clone = () => {
   return (dispatch, getState) => {
@@ -38,6 +39,18 @@ export const loadComparisonLayerCompleted = (results) => {
   }
 };
 
+/**
+ * Update map settings for a comparison map.
+ */
+export const updateCompareBounds = (newBounds, newCenter, newZoom) => {
+  return {
+    type: CHANGE_COMPARE_MAP_BOUNDS,
+    bounds: newBounds,
+    center: newCenter,
+    zoom: newZoom
+  };
+};
+
 // ------------------------------------ Action Handlers ------------------------------------
 const ACTION_HANDLERS = {
   [ CLONE_MAP_CLEAN ]: (state, action) => {
@@ -68,6 +81,13 @@ const ACTION_HANDLERS = {
     
     return state.set("map", newCompareMap);
   },
+  
+  [ CHANGE_COMPARE_MAP_BOUNDS ]: (state, action) => {
+    return state
+      .setIn(['map', 'bounds'], Immutable.fromJS({southWest: action.bounds._southWest, northEast: action.bounds._northEast}))
+      .setIn(['map', 'center'], Immutable.fromJS(action.center))
+      .setIn(['map', 'zoom'], action.zoom);
+  }
 };
 
 // ------------------------------------ Reducer ------------------------------------

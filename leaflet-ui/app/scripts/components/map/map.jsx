@@ -2,6 +2,7 @@ import React from 'react';
 import L from 'leaflet';
 import { connect } from 'react-redux';
 import { loadProjects, updateBounds } from '../../actions/map.js';
+import { updateCompareBounds } from '../../reducers/compare';
 import { Map, TileLayer } from 'react-leaflet';
 import SvgLayer from './layers/svg.jsx';
 import ClusteredLayer from './layers/clusteredLayer.jsx';
@@ -20,6 +21,14 @@ class MapView extends React.Component {
       e.target.getBounds(),
       [e.target.getCenter().lat, e.target.getCenter().lng],
       e.target.getZoom());
+    
+    // we need to update the map settings for the comparison (fixed) map as well - this can be useful when we share a comparison map.
+    if (this.props.mapId !== "main") {
+      this.props.updateCompareBounds(
+        e.target.getBounds(),
+        [e.target.getCenter().lat, e.target.getCenter().lng],
+        e.target.getZoom());
+    }
   }
   
   closePopup() {
@@ -102,6 +111,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onUpdateBounds: (newBounds, newCenter, newZoom) => {
       dispatch(updateBounds(newBounds, newCenter, newZoom));
+    },
+    updateCompareBounds: (newBounds, newCenter, newZoom) => {
+      dispatch(updateCompareBounds(newBounds, newCenter, newZoom));
     }
   }
 };
