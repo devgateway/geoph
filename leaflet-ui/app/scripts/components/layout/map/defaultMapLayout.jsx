@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { connect } from 'react-redux';
 import Header from '../header.jsx';
 import Menu from '../../menu/default.jsx';
 import Footer from '../footer.jsx';
@@ -16,9 +16,11 @@ import translate from '../../../util/translate';
 import Disclaimer from '../disclaimer.jsx';
 import NoResultsPopup from '../../filter/noResultsPopup.jsx';
 
-export default class DefaultMapLayout extends React.Component {
+class DefaultMapLayout extends React.Component {
   
   static propTypes = {
+    type:     React.PropTypes.string,
+    title:    React.PropTypes.string,
     children: React.PropTypes.element
   };
   
@@ -46,6 +48,20 @@ export default class DefaultMapLayout extends React.Component {
     )
   };
 }
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+  }
+};
+
+const mapStateToProps = (state, props) => {
+  return {
+    title: state.saveMap.get("name"),
+    type:  state.saveMap.get("type")
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DefaultMapLayout);
 
 const items = [
   {
