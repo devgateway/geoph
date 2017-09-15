@@ -24,8 +24,20 @@ class CompareMapViewLayout extends DefaultMapLayout {
     if (isPanelVisible) {
       onTogglePanel();
     }
-  
+    
     this.props.onActivate("compare");    // be sure that the compare component is active
+  }
+  
+  componentDidMount() {
+    const { isFiltersEmpty } = this.props;
+    
+    // if we don't have any filters then we should redirect the user to the single map view (see: GEOPH-714)
+    setTimeout(() => {
+      if (isFiltersEmpty) {
+        this.props.onDeactivate("compare");
+        hashHistory.push('/map');
+      }
+    }, 500);
   }
   
   componentWillUnmount() {
@@ -82,7 +94,9 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state, props) => {
   return {
-    isPanelVisible: state.panel.get('visible')
+    isPanelVisible: state.panel.get('visible'),
+    // check if filterMain object is empty
+    isFiltersEmpty: (Object.keys(state.filters.filterMain).length === 0 && state.filters.filterMain.constructor === Object)
   }
 };
 
