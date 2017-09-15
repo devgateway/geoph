@@ -8,7 +8,10 @@ const initialState = Immutable.fromJS({
 const stats = (state = initialState, action) => {
   switch (action.type) {
     case Constants.REQUEST_MAP_LIST_OK:
-      return state.setIn(['results'], action.data.content);
+      return state.setIn(['results'], action.data.content)
+        .setIn(['first'], action.data.first)
+        .setIn(['last'], action.data.last)
+        .setIn(['totalPages'], action.data.totalPages);
     
     case Constants.REQUEST_DELETE_MAP_OK:
       const results = state.get('results').filter((dash)=>{

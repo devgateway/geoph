@@ -78,6 +78,7 @@ class Dashboard extends React.Component {
   render() {
     const {results = [], first, last, totalPages, loggedIn} = this.props;
     const {activePage} = this.state;
+    
     return (
       <div className="dashboard-main">
         <Messages {...this.props}/>
@@ -114,6 +115,7 @@ class Dashboard extends React.Component {
           <button className="btn btn-sm btn-default" disabled={first ? "disabled" : ""}
                   onClick={this.getListData.bind(this, activePage - 1)}>{"<"}</button>
           <div className={"pager-state"}>{"page " + (activePage + 1) + " of " + (totalPages || "1")}</div>
+          
           <button className="btn btn-sm btn-default" disabled={last ? "disabled" : ""}
                   onClick={this.getListData.bind(this, activePage + 1)}>{">"}</button>
         </div>
@@ -137,10 +139,13 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 };
 
 const mapStateToProps = (state, props) => {
-  const {results} = state.dashboard.toJS();
+  const { results, first, last, totalPages } = state.dashboard.toJS();
   return {
     language: state.language,
-    results
+    results,
+    first,
+    last,
+    totalPages
   }
 };
 
