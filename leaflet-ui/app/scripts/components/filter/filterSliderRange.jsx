@@ -1,11 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { setFilterRange, fetchFilterDataIfNeeded } from '../../actions/filters';
-import { formatValue, formatAndRoundValue, roundValue } from '../../util/format.js';
-import { getLogSliderValue, getLogSliderPosition } from '../../util/filterUtil';
+import {connect} from 'react-redux';
+import {setFilterRange, fetchFilterDataIfNeeded} from '../../actions/filters';
+import {formatValue, formatAndRoundValue, roundValue} from '../../util/format.js';
+import {getLogSliderValue, getLogSliderPosition} from '../../util/filterUtil';
 import translate from '../../util/translate.js';
 import Slider from 'rc-slider';
 import HelpIcon from './filterHelpIcon'
+
 require('rc-slider/assets/index.css');
 
 class FilterSliderWithMarks extends React.Component {
@@ -33,26 +34,26 @@ class FilterSliderWithMarks extends React.Component {
   }
   
   currencyFormatter(v) {
-    return '₱ '+formatValue(v);
+    return '₱ ' + formatValue(v);
   }
   
   logslider(position) {
     // position will be between 0 and 100
-    var minp = 0;
-    var maxp = 100;
+    const minp = 0;
+    const maxp = 100;
     
     // The result should be between min and max values
-    var minv = Math.log(this.props.valueMin+1);
-    var maxv = Math.log(this.props.valueMax);
+    const minv = Math.log(this.props.valueMin + 1);
+    const maxv = Math.log(this.props.valueMax);
     
     // calculate adjustment factor
-    var scale = (maxv-minv) / (maxp-minp);
+    const scale = (maxv - minv) / (maxp - minp);
     
-    return Math.exp(minv + scale*(position-minp));
+    return Math.exp(minv + scale * (position - minp));
   }
   
   
-  getLogMarks(){
+  getLogMarks() {
     const {valueMin, valueMax} = this.props;
     return {
       0: formatAndRoundValue(getLogSliderValue(valueMin, valueMax, 0)),
@@ -69,7 +70,7 @@ class FilterSliderWithMarks extends React.Component {
     }
   }
   
-  getMarks(){
+  getMarks() {
     const {valueMin, valueMax} = this.props;
     let ret = {};
     ret[valueMin] = valueMin;
@@ -78,41 +79,41 @@ class FilterSliderWithMarks extends React.Component {
   }
   
   render() {
-    let minSelected = this.props.minSelected!=undefined? this.props.minSelected : this.props.valueMin;
-    let maxSelected = this.props.maxSelected!=undefined? this.props.maxSelected : this.props.valueMax;
+    let minSelected = this.props.minSelected != undefined ? this.props.minSelected : this.props.valueMin;
+    let maxSelected = this.props.maxSelected != undefined ? this.props.maxSelected : this.props.valueMax;
     let values = {'min': minSelected, 'max': maxSelected};
     const {valueMin, valueMax, helpTextKey} = this.props;
     return (
-			<div className="range-filter-container">
-				<HelpIcon helpTextKey={helpTextKey}/>
-				<div className="range-filter">
-          {this.props.logMarks?
-						<Slider
-							range
-							value={[getLogSliderPosition(valueMin, valueMax, minSelected), getLogSliderPosition(valueMin, valueMax, maxSelected)]}
-							step={null}
-							marks={this.getLogMarks()}
-							onChange={this.handleMarksChange.bind(this)} />
+      <div className="range-filter-container">
+        <HelpIcon helpTextKey={helpTextKey}/>
+        <div className="range-filter">
+          {this.props.logMarks ?
+            <Slider
+              range
+              value={[getLogSliderPosition(valueMin, valueMax, minSelected), getLogSliderPosition(valueMin, valueMax, maxSelected)]}
+              step={null}
+              marks={this.getLogMarks()}
+              onChange={this.handleMarksChange.bind(this)}/>
             :
-						<Slider
-							range
-							value={[minSelected, maxSelected]}
-							min={valueMin}
-							max={valueMax}
-							step={1}
-							marks={this.getMarks()}
-							onChange={this.handleValuesChange.bind(this)} />
+            <Slider
+              range
+              value={[minSelected, maxSelected]}
+              min={valueMin}
+              max={valueMax}
+              step={1}
+              marks={this.getMarks()}
+              onChange={this.handleValuesChange.bind(this)}/>
           }
-				</div>
-				<div className="range-filter-selection">
-					<div className="">
-						<span>{translate('filters.physical.minimum')}: <b>{(this.props.valueSymbolPre || "") + formatAndRoundValue(minSelected) + (this.props.valueSymbolPost || "")} </b></span>
-					</div>
-					<div className="">
-						<span>{translate('filters.physical.maximum')}: <b>{(this.props.valueSymbolPre || "") + formatAndRoundValue(maxSelected) + (this.props.valueSymbolPost || "")}</b></span>
-					</div>
-				</div>
-			</div>
+        </div>
+        <div className="range-filter-selection">
+          <div className="">
+            <span>{translate('filters.physical.minimum')}: <b>{(this.props.valueSymbolPre || "") + formatAndRoundValue(minSelected) + (this.props.valueSymbolPost || "")} </b></span>
+          </div>
+          <div className="">
+            <span>{translate('filters.physical.maximum')}: <b>{(this.props.valueSymbolPre || "") + formatAndRoundValue(maxSelected) + (this.props.valueSymbolPost || "")}</b></span>
+          </div>
+        </div>
+      </div>
     );
   }
 }
@@ -129,4 +130,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 };
 
-export default connect(null,mapDispatchToProps)(FilterSliderWithMarks);
+export default connect(null, mapDispatchToProps)(FilterSliderWithMarks);

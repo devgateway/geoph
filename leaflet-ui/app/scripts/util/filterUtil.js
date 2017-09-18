@@ -59,9 +59,9 @@ export const cloneDeep = (objectToBeCloned) => {
   if (!(objectToBeCloned instanceof Object)) {
     return objectToBeCloned;
   }
-  var objectClone;
+  let objectClone;
   // Filter out special objects.
-  var Constructor = objectToBeCloned.constructor;
+  let Constructor = objectToBeCloned.constructor;
   switch (Constructor) {
     // Implement other special objects here.
     case RegExp:
@@ -74,7 +74,7 @@ export const cloneDeep = (objectToBeCloned) => {
       objectClone = new Constructor();
   }
   // Clone each property.
-  for (var prop in objectToBeCloned) {
+  for (let prop in objectToBeCloned) {
     objectClone[prop] = cloneDeep(objectToBeCloned[prop]);
   }
   return objectClone;
