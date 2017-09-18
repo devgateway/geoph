@@ -110,13 +110,13 @@ const filter = (state = {
     case Constants.SELECT_ALL_FILTER_LIST:
       return Object.assign({}, state, {
         selected: action.item.selected,
-        items: state.items.map(i => filterItem(i, action))
+        items: state.items !== undefined ? state.items.map(i => filterItem(i, action)) : undefined
       });
     
     case Constants.SELECT_FILTER_ITEM:
     case Constants.SEARCH_FILTER_LIST_BY_TEXT:
       return Object.assign({}, state, {
-        items: state.items.map(i => filterItem(i, action))
+        items: state.items !== undefined ? state.items.map(i => filterItem(i, action)) : undefined
       });
     
     default:
