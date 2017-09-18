@@ -20,15 +20,24 @@ import {Tooltip, OverlayTrigger} from 'react-bootstrap';
 
 require('./projectFilter.scss');
 
-var typingTimer;                //timer identifier
-var doneTypingInterval = 900;  //time in ms (5 seconds)
-var pageSize = 10;
+let typingTimer;                  //timer identifier
+const doneTypingInterval = 900;  // time in ms
+const pageSize = 10;
 
 class ProjectFilter extends React.Component {
   
   constructor() {
     super();
     this.state = {'keyword': '', 'idsSelected': [], 'showResults': true, 'page': 0};
+  }
+  
+  componentWillMount() {
+    const { projectSearch: { keyword, results } } = this.props;
+    
+    // try to fetch the project list if we already have a keyword - usually this can be the case for a shared map.
+    if (keyword !== undefined && keyword !== "" && results.content === undefined) {
+      this.doneTyping();
+    }
   }
   
   validateState() {
@@ -100,7 +109,8 @@ class ProjectFilter extends React.Component {
   }
   
   getInput() {
-    const {keyword} = this.props.projectSearch;
+    const { keyword } = this.props.projectSearch;
+    
     return (<Input className={keyword.length == 0 ? 'keyword-input-empty' : 'keyword-input-filled'}
                    type="text"
                    value={keyword}

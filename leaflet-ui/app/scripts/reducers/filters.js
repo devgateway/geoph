@@ -64,12 +64,14 @@ export const restoreFilters = (state, filters) => {
         let param = k.indexOf("_min") != -1 ? k.substring(0, k.search("_min")) : k.substring(0, k.search("_max"));
         let value = k.indexOf("_min") != -1 ? {'minSelected': filters[k]} : {'maxSelected': filters[k]};
         Object.assign(copyState[param], value, {'isRange': true});
-      }  else if (k === 'pr') {
-        let value = {'id': filters[k], };
+      } else if (k === 'pr') {
+        let value = {'id': filters[k],};
         if (copyState[k] === undefined) {
           copyState[k] = {};
         }
         Object.assign(copyState[k], value);
+      } else if (k === 'pr_keyword') {
+        copyState[k] = filters[k];
       } else {
         filters[k].forEach(e => {
           updateFilterSelection(copyState[k], e, true);

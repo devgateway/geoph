@@ -117,7 +117,13 @@ const createDataObjectToSave = (map, filters, projectSearch, settings) => {
   if (projectSearch) {
     let idsSelected = [];
     projectSearch.selected.map(it => idsSelected.push(it.id));
-    Object.assign(filterParams, {'pr': idsSelected});
+    
+    let keyword;
+    if (projectSearch.keyword !== undefined && projectSearch.keyword !== "") {
+      keyword = projectSearch.keyword;
+    }
+    
+    Object.assign(filterParams, {'pr': idsSelected}, {'pr_keyword': keyword});
   }
   
   Object.assign(params, {'filters': filterParams});

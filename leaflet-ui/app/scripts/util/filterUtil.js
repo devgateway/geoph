@@ -50,6 +50,7 @@ export const collectValues = (filters, projectSearch) => {
     if (filters.pr && filters.pr.id && filters.pr.id.length > 0 && idsSelected.length === 0) {
       projectSearch.selected.map(it => idsSelected.push(it.id));
     }
+    
     Object.assign(params, {'pr': idsSelected});
   }
   return params;
