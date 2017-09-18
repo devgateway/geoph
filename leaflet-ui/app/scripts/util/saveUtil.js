@@ -3,16 +3,20 @@ import translate from './translate';
 
 const collect = (options) => {
   let values = [];
-  //first level iteration
-  options.forEach((item) => {
-    if (item.selected) {
-      values.push(item.id); //use values.push(item.name);  for debug purpose instead of id
-    }
-    if (item.items) { //next levels iterations
-      let nested = collect(item.items);
-      values = values.concat(nested);
-    }
-  });
+  
+  if (options !== undefined) {
+    //first level iteration
+    options.forEach((item) => {
+      if (item.selected) {
+        values.push(item.id); //use values.push(item.name);  for debug purpose instead of id
+      }
+      if (item.items) { //next levels iterations
+        let nested = collect(item.items);
+        values = values.concat(nested);
+      }
+    });
+  }
+  
   return values;
 };
 
