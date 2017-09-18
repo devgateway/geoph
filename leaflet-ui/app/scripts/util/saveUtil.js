@@ -3,16 +3,20 @@ import translate from './translate';
 
 const collect = (options) => {
   let values = [];
-  //first level iteration
-  options.forEach((item) => {
-    if (item.selected) {
-      values.push(item.id); //use values.push(item.name);  for debug purpose instead of id
-    }
-    if (item.items) { //next levels iterations
-      let nested = collect(item.items);
-      values = values.concat(nested);
-    }
-  });
+  
+  if (options !== undefined) {
+    //first level iteration
+    options.forEach((item) => {
+      if (item.selected) {
+        values.push(item.id); //use values.push(item.name);  for debug purpose instead of id
+      }
+      if (item.items) { //next levels iterations
+        let nested = collect(item.items);
+        values = values.concat(nested);
+      }
+    });
+  }
+  
   return values;
 };
 
@@ -113,7 +117,13 @@ const createDataObjectToSave = (map, filters, projectSearch, settings) => {
   if (projectSearch) {
     let idsSelected = [];
     projectSearch.selected.map(it => idsSelected.push(it.id));
-    Object.assign(filterParams, {'pr': idsSelected});
+    
+    let keyword;
+    if (projectSearch.keyword !== undefined && projectSearch.keyword !== "") {
+      keyword = projectSearch.keyword;
+    }
+    
+    Object.assign(filterParams, {'pr': idsSelected}, {'pr_keyword': keyword});
   }
   
   Object.assign(params, {'filters': filterParams});

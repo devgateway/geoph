@@ -1,6 +1,6 @@
 import * as Constants from '../constants/constants';
+import {COPY_COMPARE_FILTERS} from '../constants/constants';
 import {cloneDeep} from '../util/filterUtil';
-import {COPY_COMPARE_FILTERS} from "../constants/constants";
 
 const filters = (state = {filterMain: {}}, action) => {
   let filterMain;
@@ -42,8 +42,10 @@ const filters = (state = {filterMain: {}}, action) => {
       return Object.assign({}, state, {
         filterMain: filterMain
       });
+    
     case COPY_COMPARE_FILTERS:
       return action.filters;
+    
     default:
       return state
   }
@@ -62,10 +64,14 @@ export const restoreFilters = (state, filters) => {
         let param = k.indexOf("_min") != -1 ? k.substring(0, k.search("_min")) : k.substring(0, k.search("_max"));
         let value = k.indexOf("_min") != -1 ? {'minSelected': filters[k]} : {'maxSelected': filters[k]};
         Object.assign(copyState[param], value, {'isRange': true});
-      }  else if (k === 'pr') {
-            let param = k;
-            let value = {'id': filters[k], };
-            Object.assign(copyState[param], value);
+      } else if (k === 'pr') {
+        let value = {'id': filters[k],};
+        if (copyState[k] === undefined) {
+          copyState[k] = {};
+        }
+        Object.assign(copyState[k], value);
+      } else if (k === 'pr_keyword') {
+        copyState[k] = filters[k];
       } else {
         filters[k].forEach(e => {
           updateFilterSelection(copyState[k], e, true);
@@ -106,13 +112,13 @@ const filter = (state = {
     case Constants.SELECT_ALL_FILTER_LIST:
       return Object.assign({}, state, {
         selected: action.item.selected,
-        items: state.items.map(i => filterItem(i, action))
+        items: state.items !== undefined ? state.items.map(i => filterItem(i, action)) : undefined
       });
     
     case Constants.SELECT_FILTER_ITEM:
     case Constants.SEARCH_FILTER_LIST_BY_TEXT:
       return Object.assign({}, state, {
-        items: state.items.map(i => filterItem(i, action))
+        items: state.items !== undefined ? state.items.map(i => filterItem(i, action)) : undefined
       });
     
     default:
@@ -128,12 +134,15 @@ const filterItem = (state = {
     case Constants.SELECT_FILTER_ITEM:
       updateFilterSelection(copyState, action.item.id, action.item.selected);
       return Object.assign({}, copyState);
+    
     case Constants.SELECT_ALL_FILTER_LIST:
       updateFilterSelection(copyState, 'all', action.item.selected);
       return copyState;
+    
     case Constants.SEARCH_FILTER_LIST_BY_TEXT:
       searchByTextIntoChildren(copyState, action.text);
       return copyState;
+    
     default:
       return state
   }
@@ -142,17 +151,17 @@ const filterItem = (state = {
 //This function iterates over all children items and select the given one
 const updateFilterSelection = (item, id, selection) => {
   if (item.id === id || 'all' === id) {
-	updateItemAndChildren(item, selection);
+    updateItemAndChildren(item, selection);
   } else if (item.items && item.items.length > 0) {
-	item.items.forEach(it => updateFilterSelection(it, id, selection));
-	let selectionLength = item.items.filter((it) => {
-	  return it.selected
-	}).length;
-	if (item.items.length == selectionLength) {
-	  Object.assign(item, {'selected': true});
-	} else {
-	  Object.assign(item, {'selected': false});
-	}
+    item.items.forEach(it => updateFilterSelection(it, id, selection));
+    let selectionLength = item.items.filter((it) => {
+      return it.selected
+    }).length;
+    if (item.items.length == selectionLength) {
+      Object.assign(item, {'selected': true});
+    } else {
+      Object.assign(item, {'selected': false});
+    }
   }
 };
 

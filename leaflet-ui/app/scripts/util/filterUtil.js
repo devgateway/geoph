@@ -2,16 +2,20 @@
 
 const collect = (options) => {
   let values = [];
-  //first level iteration
-  options.forEach((item) => {
-    if (item.selected) {
-      values.push(item.id); //use values.push(item.name);  for debug purpose instead of id
-    }
-    if (item.items) { //next levels iterations
-      let nested = collect(item.items);
-      values = values.concat(nested);
-    }
-  });
+  
+  if (options !== undefined) {
+    // first level iteration
+    options.forEach((item) => {
+      if (item.selected) {
+        values.push(item.id); //use values.push(item.name);  for debug purpose instead of id
+      }
+      if (item.items) { //next levels iterations
+        let nested = collect(item.items);
+        values = values.concat(nested);
+      }
+    });
+  }
+  
   return values;
 };
 
@@ -46,6 +50,7 @@ export const collectValues = (filters, projectSearch) => {
     if (filters.pr && filters.pr.id && filters.pr.id.length > 0 && idsSelected.length === 0) {
       projectSearch.selected.map(it => idsSelected.push(it.id));
     }
+    
     Object.assign(params, {'pr': idsSelected});
   }
   return params;
@@ -55,9 +60,9 @@ export const cloneDeep = (objectToBeCloned) => {
   if (!(objectToBeCloned instanceof Object)) {
     return objectToBeCloned;
   }
-  var objectClone;
+  let objectClone;
   // Filter out special objects.
-  var Constructor = objectToBeCloned.constructor;
+  let Constructor = objectToBeCloned.constructor;
   switch (Constructor) {
     // Implement other special objects here.
     case RegExp:
@@ -70,7 +75,7 @@ export const cloneDeep = (objectToBeCloned) => {
       objectClone = new Constructor();
   }
   // Clone each property.
-  for (var prop in objectToBeCloned) {
+  for (let prop in objectToBeCloned) {
     objectClone[prop] = cloneDeep(objectToBeCloned[prop]);
   }
   return objectClone;

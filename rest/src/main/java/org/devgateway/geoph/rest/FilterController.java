@@ -1,11 +1,7 @@
 package org.devgateway.geoph.rest;
 
-import org.devgateway.geoph.core.request.AppRequestParams;
-import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.core.response.GenericResponse;
 import org.devgateway.geoph.core.services.FilterService;
-import org.devgateway.geoph.core.services.ProjectService;
-import org.devgateway.geoph.dao.ProjectMiniSummaryDao;
 import org.devgateway.geoph.enums.LocationAdmLevelEnum;
 import org.devgateway.geoph.model.Classification;
 import org.devgateway.geoph.model.ClimateChange;
@@ -21,9 +17,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +32,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 /**
  * @author dbianco
- *         created on feb 29 2016.
+ * created on feb 29 2016.
  */
 
 @RestController
@@ -53,29 +46,11 @@ public class FilterController extends BaseController {
 
     private final FilterService service;
 
-    private final ProjectService projectService;
-
     private static final Logger LOGGER = LoggerFactory.getLogger(FilterController.class);
 
     @Autowired
-    public FilterController(FilterService service, ProjectService projectService) {
+    public FilterController(FilterService service) {
         this.service = service;
-        this.projectService = projectService;
-    }
-
-    @RequestMapping(value = "/project", method = GET)
-    public GenericResponse findProjects(AppRequestParams filters,
-                                        @PageableDefault(page = 0, size = 20, sort = "id") final Pageable pageable) {
-        LOGGER.debug("findProjects");
-        Parameters params = filters.getParameters();
-        params.setPageable(pageable);
-        Page<ProjectMiniSummaryDao> projects = projectService.findProjectsByParams(params);
-        GenericResponse resp = new GenericResponse(
-                projects.getContent(),
-                projects != null ? projects.getSize() : 0
-        );
-
-        return resp;
     }
 
     @RequestMapping(value = "/classification", method = GET)
@@ -107,7 +82,7 @@ public class FilterController extends BaseController {
         LOGGER.debug("findPhysicalProgressPeriod");
         List<Double> physicalProgressPeriod = service.getPhysicalProgressPeriod();
         //Round max to the ceil number
-        if(physicalProgressPeriod!=null){
+        if (physicalProgressPeriod != null) {
             Double maxValue = Math.ceil(physicalProgressPeriod.get(0));
             physicalProgressPeriod.remove(0);
             physicalProgressPeriod.add(0, maxValue);
@@ -203,7 +178,6 @@ public class FilterController extends BaseController {
 
         return resp;
     }
-
 
 
     @RequestMapping(value = "/trxFunding", method = GET)
