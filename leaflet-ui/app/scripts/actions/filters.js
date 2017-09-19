@@ -7,8 +7,6 @@ import {fetchStats} from './stats';
 import {finishRestoreMap} from './saveAndRestoreMap';
 
 const filterTypes = ['ft', 'fa', 'ia', 'st', 'cc', 'gr', 'dt_start', 'dt_end', 'pp_start', 'pp_end', 'sa', 'fin_amount', 'ao', 'ph', 'cl', 'php'];
-let filtersToLoad = [];
-let loadingAllLists = false;
 
 export const applyFilter = (filtersToApply) => {
   return (dispatch, getState) => {
@@ -41,73 +39,60 @@ export const resetFilter = (filterType) => {
   }
 };
 
-export const requestFilterData = (filterType) => {
+export const requestFilterData = () => {
   return {
-    type: Constants.REQUEST_FILTER_DATA,
-    filterType
+    type: Constants.REQUEST_FILTER_DATA
   }
 };
 
-export const receiveFilterData = (filterType, data) => {
+export const receiveFilterData = (data, filterTypes) => {
   return {
     type: Constants.RECEIVE_FILTER_DATA,
-    filterType,
-    data: data,
+    data,
+    filterTypes,
     receivedAt: Date.now()
   }
 };
 
-const checkLoadingPending = (dispatch, filterType) => {
-  if (loadingAllLists) {
-    filtersToLoad = filtersToLoad.filter(function (i) {
-      return i != filterType
-    });//removes from the list of pendings
-    if (filtersToLoad.length == 0) {
-      loadingAllLists = false;
-      dispatch(finishRestoreMap());
-    }
-  }
-};
-
-export const fetchFilterData = (filterType) => {
+export const fetchFilterData = (filterTypes, fromRestore) => {
   return dispatch => {
-    dispatch(requestFilterData(filterType))
-    return Connector.getFilterData(filterType)
+    dispatch(requestFilterData());
+    return Connector.getFilterData()
       .then(req => {
-        checkLoadingPending(dispatch, filterType);
-        dispatch(receiveFilterData(filterType, req));
+        dispatch(receiveFilterData(req, filterTypes));
+        
+        // if we have a restore map we continue processing it after we received all the filters
+        if (fromRestore) {
+          dispatch(finishRestoreMap());
+        }
       })
   }
 };
 
-export const shouldFetchFilterData = (state, filterType) => {
-  const list = state.filters.filterMain[filterType];
-  if (!list) {
-    return true
-  } else if (list.isFetching) {
-    return false
-  } else {
-    return false
-  }
+/**
+ * We should know only from checking 1 entry from *filterTypes* array if the filters are already fetched
+ */
+export const shouldFetchFilterData = (state, filterTypes) => {
+  const list = state.filters.filterMain[filterTypes[0]];
+  return !list;
 };
 
-export const fetchFilterDataIfNeeded = (filterType) => {
+export const fetchFilterDataIfNeeded = (filterTypes, fromRestore) => {
   return (dispatch, getState) => {
-    if (shouldFetchFilterData(getState(), filterType)) {
-      return dispatch(fetchFilterData(filterType))
+    if (shouldFetchFilterData(getState(), filterTypes)) {
+      return dispatch(fetchFilterData(filterTypes, fromRestore))
     } else {
-      checkLoadingPending(dispatch, filterType);
+      // if we have a restore map we continue processing it after we received all the filters
+      if (fromRestore) {
+        dispatch(finishRestoreMap());
+      }
     }
   }
 };
 
 export const loadAllFilterLists = (fromRestore) => {
-  if (fromRestore) {
-    loadingAllLists = true;
-    filtersToLoad = filterTypes;
-  }
   return (dispatch, getState) => {
-    filterTypes.forEach(filterType => dispatch(fetchFilterDataIfNeeded(filterType)));
+    dispatch(fetchFilterDataIfNeeded(filterTypes, fromRestore));
   }
 };
 

@@ -7,8 +7,6 @@ const filters = (state = {filterMain: {}}, action) => {
   switch (action.type) {
     case Constants.SELECT_FILTER_ITEM:
     case Constants.SELECT_ALL_FILTER_LIST:
-    case Constants.RECEIVE_FILTER_DATA:
-    case Constants.REQUEST_FILTER_DATA:
     case Constants.FILTER_SET_RANGE:
     case Constants.SEARCH_FILTER_LIST_BY_TEXT:
       let fl = filter(state.filterMain[action.filterType], action);
@@ -17,6 +15,28 @@ const filters = (state = {filterMain: {}}, action) => {
       Object.assign(filterMain, {[action.filterType]: fl});
       return Object.assign({}, state, {
         filterMain: filterMain
+      });
+    
+    case Constants.RECEIVE_FILTER_DATA:
+      let copyState = cloneDeep(state.filterMain);
+      let filters = cloneDeep(state.filterMain);
+      
+      action.filterTypes.forEach(filterType => {
+        Object.assign(filters, {[filterType]: action.data[filterType]});
+      });
+      
+      copyState = Object.assign({}, copyState, {
+        filterMain: filters,
+        isFetching: false,
+        isLoaded: true,
+        lastUpdated: action.receivedAt
+      });
+      
+      return copyState;
+    
+    case Constants.REQUEST_FILTER_DATA:
+      return Object.assign({}, state, {
+        isFetching: true,
       });
     
     case Constants.OPEN_FILTER:
@@ -90,18 +110,6 @@ const filter = (state = {
   items: []
 }, action) => {
   switch (action.type) {
-    case Constants.REQUEST_FILTER_DATA:
-      return Object.assign({}, state, {
-        isFetching: true,
-      });
-    
-    case Constants.RECEIVE_FILTER_DATA:
-      return Object.assign({}, state, action.data, {
-        isFetching: false,
-        isLoaded: true,
-        lastUpdated: action.receivedAt
-      });
-    
     case Constants.FILTER_SET_RANGE:
       return Object.assign({}, state, {
         isRange: true,
