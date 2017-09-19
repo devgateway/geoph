@@ -54,6 +54,7 @@
                 "php": "/filters/physicalProgressPeriod"
             },
             "production": {
+                "all": "/filters/all",
                 "st": "/filters/sector",
                 "fa": "/filters/fundingAgency",
                 "ia": "/filters/impAgency",
