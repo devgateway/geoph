@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux'
 import DatePicker from 'react-date-picker'
 import Moment from 'moment'
-import {setFilterRange, fetchFilterDataIfNeeded} from '../../actions/filters.js'
+import {setFilterRange} from '../../actions/filters.js'
 import translate from '../../util/translate.js';
 import HelpIcon from './filterHelpIcon'
 
@@ -107,10 +107,6 @@ class FilterDate extends React.Component {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    onLoadFilterData: (type) => {
-      dispatch(fetchFilterDataIfNeeded(type));
-    },
-    
     onDateChange: (filterRange) => {
       dispatch(setFilterRange(filterRange));
     }

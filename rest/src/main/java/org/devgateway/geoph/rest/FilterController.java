@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -51,6 +52,31 @@ public class FilterController extends BaseController {
     @Autowired
     public FilterController(FilterService service) {
         this.service = service;
+    }
+
+    @RequestMapping(value = "/all", method = GET)
+    public Map<String, GenericResponse> findAllFilters() {
+        LOGGER.debug("findAllFilters");
+        final Map<String, GenericResponse> response = new HashMap();
+
+        response.put("st", findAllSectors());
+        response.put("fa", findAllFundingAgencies());
+        response.put("ia", findAllImpAgencies());
+        response.put("dt_start", findImpPeriod());
+        response.put("dt_end", findImpPeriod());
+        response.put("pp_start", findGrantPeriod());
+        response.put("pp_end", findGrantPeriod());
+        response.put("sa", findAllStatuses());
+        response.put("ft", findAllFlowTypes());
+        response.put("gr", findAllGenderResponsiveness());
+        response.put("cc", findAllClimateChanges());
+        response.put("ph", findAllPhysicalStatus());
+        response.put("fin_amount", findFinancialAmountPeriod());
+        response.put("cl", findAllClassifications());
+        response.put("ao", findActualPhysicalProgressPeriod());
+        response.put("php", findPhysicalProgressPeriod());
+
+        return response;
     }
 
     @RequestMapping(value = "/classification", method = GET)

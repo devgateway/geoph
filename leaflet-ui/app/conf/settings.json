@@ -35,6 +35,7 @@
         "GEOPHOTOS": "/geodata/geophotos/id/${geophotos_id}",
         "FILTER_LIST": {
             "development": {
+                "all": "/filters/all",
                 "st": "/filters/sector",
                 "fa": "/filters/fundingAgency",
                 "ia": "/filters/impAgency",

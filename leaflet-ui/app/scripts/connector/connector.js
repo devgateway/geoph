@@ -131,33 +131,23 @@ class Connector {
     });
   }
   
-  getFilterData(filterType) {
+  getFilterData() {
     return new Promise((resolve, reject) => {
-      let path = Settings.get('API', 'FILTER_LIST')[filterType];
-      if (path.mock) {
-        this.call(GET, path.path, {}, true).then((data) => {
-          resolve(data); ////resolve with original data or perform any data transformation needed
-        }).catch(reject)
-      } else {
-        this.call(GET, path, {}).then((data) => {
-          resolve(data); ////resolve with original data or perform any data transformation needed
-        }).catch(reject)
-      }
+      let path = Settings.get('API', 'FILTER_LIST')['all'];
+      
+      this.call(GET, path, {}).then((data) => {
+        resolve(data); ////resolve with original data or perform any data transformation needed
+      }).catch(reject)
     });
   }
   
   getChartData(filters) {
     return new Promise((resolve, reject) => {
       let path = Settings.get('API', 'CHARTS');
-      if (path.mock) {
-        this.call(GET, path.path, {}, true).then((data) => {
-          resolve(data);
-        }).catch(reject)
-      } else {
-        this.call(GET, path, filters).then((data) => {
-          resolve(data);
-        }).catch(reject)
-      }
+      
+      this.call(GET, path, filters).then((data) => {
+        resolve(data);
+      }).catch(reject)
     });
   }
   

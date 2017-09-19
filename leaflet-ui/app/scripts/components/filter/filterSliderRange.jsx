@@ -1,7 +1,7 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {setFilterRange, fetchFilterDataIfNeeded} from '../../actions/filters';
-import {formatValue, formatAndRoundValue, roundValue} from '../../util/format.js';
+import { connect } from 'react-redux';
+import { setFilterRange } from '../../actions/filters';
+import { formatValue, formatAndRoundValue, roundValue } from '../../util/format.js';
 import {getLogSliderValue, getLogSliderPosition} from '../../util/filterUtil';
 import translate from '../../util/translate.js';
 import Slider from 'rc-slider';
@@ -120,10 +120,6 @@ class FilterSliderWithMarks extends React.Component {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    onLoadFilterData: (type) => {
-      dispatch(fetchFilterDataIfNeeded(type));
-    },
-    
     onRangeChange: (filterRange) => {
       dispatch(setFilterRange(filterRange));
     }
