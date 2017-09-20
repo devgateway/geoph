@@ -1,6 +1,7 @@
 package org.devgateway.geoph.rest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableMap;
 import org.apache.commons.lang3.StringUtils;
@@ -153,8 +154,9 @@ public class MapExport {
         }
         JsonRequestParams jsonFilters = null;
         try {
-            jsonFilters = new ObjectMapper().readValue(new ObjectMapper().writeValueAsString(filterMap),
-                    JsonRequestParams.class);
+            jsonFilters = new ObjectMapper()
+                    .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                    .readValue(new ObjectMapper().writeValueAsString(filterMap), JsonRequestParams.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
