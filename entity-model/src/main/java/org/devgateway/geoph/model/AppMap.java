@@ -20,7 +20,7 @@ import java.util.Date;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @TypeDefs( {@TypeDef( name= "StringJsonObject", typeClass = StringJsonUserType.class)})
-@Table(indexes = { @Index(columnList = "key"), @Index(columnList = "type") })
+@Table(indexes = { @Index(columnList = "key"), @Index(columnList = "md5"), @Index(columnList = "type") })
 public class AppMap extends GenericPersistable implements Serializable {
 
     private String name;
