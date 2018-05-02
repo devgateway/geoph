@@ -53,6 +53,13 @@ public class DefaultLocationRepository implements LocationRepository {
     }
 
     @Override
+    public List<Location> findByName(String name) {
+        return em.createNamedQuery("findLocationsByName", Location.class)
+                .setParameter("name", name)
+                .getResultList();
+    }
+
+    @Override
     @Cacheable("locationsByLevel")
     public List<Location> findLocationsByLevel(int level) {
         return em.createNamedQuery("findLocationsByLevel", Location.class)
@@ -255,6 +262,16 @@ public class DefaultLocationRepository implements LocationRepository {
 
         TypedQuery<GeometryDao> query = em.createQuery(criteriaQuery.multiselect(multiSelect));
         query.setParameter("detail", detail);
+        return query.getResultList();
+    }
+
+
+    public List<Heatmap> getHeatmapShapes() {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery  criteriaQuery = criteriaBuilder.createQuery(Heatmap.class);
+        Root<Location> root = criteriaQuery.from(Heatmap.class);
+
+        TypedQuery<Heatmap> query = em.createQuery(criteriaQuery.select(root));
         return query.getResultList();
     }
 

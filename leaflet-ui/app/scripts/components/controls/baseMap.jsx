@@ -14,7 +14,7 @@ var basemaps = [
     {id:'oceans',url: '//server.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer/tile/{z}/{y}/{x}'},
     {id:'street',url: '//server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}'},
     {id:'gray',url:'//server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'},
-    {id:'darkgray', url: '//{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png'}
+    {id:'darkgray', url: '//gis.developmentgateway.org/arcgis/rest/services/World/geophHeatMap/MapServer/tile/{z}/{y}/{x}'}
 ]
 
 const BaseMapItem = React.createClass({

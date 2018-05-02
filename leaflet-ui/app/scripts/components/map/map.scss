@@ -111,6 +111,71 @@ text.label {
   @include breakStyle(#5b5400)
 }
 
+.heatmap-none {
+  @include breakStyle(#ffffb2)
+}
+
+.heatmap0-9 {
+  @include breakStyle(#ffe483)
+}
+
+.heatmap1-9 {
+  @include breakStyle(#ffd164)
+}
+
+.heatmap2-9 {
+  @include breakStyle(#febb53)
+}
+
+.heatmap3-9 {
+  @include breakStyle(#fea447)
+}
+
+.heatmap4-9 {
+  @include breakStyle(#fd8d3c)
+}
+
+.heatmap5-9 {
+  @include breakStyle(#f96f32)
+}
+
+.heatmap6-9 {
+  @include breakStyle(#f45127)
+}
+
+.heatmap2-none {
+  @include breakStyle(#ffffb2)
+}
+
+.heatmap20-9 {
+  @include breakStyle(#ffe483)
+}
+
+.heatmap21-9 {
+  @include breakStyle(#febb53)
+}
+
+.heatmap22-9 {
+  @include breakStyle(#fd8d3c)
+}
+
+.heatmap23-9 {
+  @include breakStyle(#f45127)
+}
+
+.heatmap24-9 {
+  @include breakStyle(#f45127)
+}
+
+.heatmap25-9 {
+  @include breakStyle(#f45127)
+}
+
+.heatmap26-9 {
+  @include breakStyle(#f45127)
+}
+
+
 .red-none {
   @include breakStyle(#aeaeae)
 }

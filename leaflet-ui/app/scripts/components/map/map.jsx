@@ -52,7 +52,7 @@ const MapView = React.createClass({
   getLayer(l) {
     const {data, type, popupId, id, zIndex, settings} = l;
     const {showLabels} = settings || {};
-    
+    debugger;
     if (type === 'clustered') {
       return (
         <ClusteredLayer key={id} data={data}>

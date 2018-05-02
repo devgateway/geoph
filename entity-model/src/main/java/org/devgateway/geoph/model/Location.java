@@ -30,6 +30,10 @@ import java.util.Set;
                 query = "from Location l where l.code = :code"
         ),
         @NamedQuery(
+                name = "findLocationsByName",
+                query = "from Location l where lower(l.name) like lower(:name)"
+        ),
+        @NamedQuery(
                 name = "findLocationsByLevel",
                 query = "from Location l where l.level = :level"
         ),
@@ -97,6 +101,11 @@ public class Location extends GenericPersistable implements Serializable {
 
     public String getName() {
         return name;
+    }
+
+    @JsonIgnore
+    public String getNameToLoweCase() {
+        return name.toLowerCase();
     }
 
     public void setName(String name) {

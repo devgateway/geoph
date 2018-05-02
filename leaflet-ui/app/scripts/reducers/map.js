@@ -167,18 +167,18 @@ const setIndicators = (state, indicators) => {
       id: layerId,
       indicator_id: id,
       keyName,
-      border: 2,
+      border: 0,
       ep: "INDICATOR",
       type: 'shapes',
       zIndex: 98,
       cssPrefix: 'indicators',
       cssProvider: true,
-      thresholds: 5,
+      thresholds: 6,
       valueProperty: "value",
       name,
       popupId: "defaultPopup",
       settings: {
-        'css': 'yellow'
+        'css': 'heatmap2'
       }
     }
   });

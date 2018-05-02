@@ -1,5 +1,7 @@
 package org.devgateway.geoph.services;
 
+import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.simplify.TopologyPreservingSimplifier;
 import org.devgateway.geoph.core.repositories.*;
 import org.devgateway.geoph.core.request.Parameters;
 import org.devgateway.geoph.core.services.GeoJsonService;
@@ -8,6 +10,7 @@ import org.devgateway.geoph.enums.GeometryDetail;
 import org.devgateway.geoph.enums.LocationAdmLevelEnum;
 import org.devgateway.geoph.enums.TransactionStatusEnum;
 import org.devgateway.geoph.enums.TransactionTypeEnum;
+import org.devgateway.geoph.model.Heatmap;
 import org.devgateway.geoph.model.Indicator;
 import org.devgateway.geoph.model.IndicatorDetail;
 import org.devgateway.geoph.services.geojson.ConverterFactory;
@@ -18,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -138,22 +142,37 @@ public class GeoJsonServiceImpl implements GeoJsonService {
         Indicator indicator = indicatorRepository.findOne(indicatorId);
         GeoJsonBuilder builder = new GeoJsonBuilder();
         if(indicator!=null) {
-            List<IndicatorDetail> details = indicatorDetailRepository.findByIndicatorId(indicatorId);
+            if (indicator.getId() != 999) {
+                List<IndicatorDetail> details = indicatorDetailRepository.findByIndicatorId(indicatorId);
 
-            Map<Long, IndicatorDetail> detailsMap = details.stream().collect(Collectors.toMap(IndicatorDetail::getLocationId, IndicatorDetail -> IndicatorDetail));
-            LocationAdmLevelEnum level = LocationAdmLevelEnum.getEnumByName(indicator.getAdmLevel());
+                Map<Long, IndicatorDetail> detailsMap = details.stream().collect(Collectors.toMap(IndicatorDetail::getLocationId, IndicatorDetail -> IndicatorDetail));
+                LocationAdmLevelEnum level = LocationAdmLevelEnum.getEnumByName(indicator.getAdmLevel());
 
-            List<GeometryDao> geometriesList = locationRepository.getShapesByLevelAndDetail(level.getLevel(), detail.getValue());
+                List<GeometryDao> geometriesList = locationRepository.getShapesByLevelAndDetail(level.getLevel(), detail.getValue());
 
-            builder.setFeatures(
-                    geometriesList.stream().map(geometryDao -> {
-                        IndicatorDetail indicatorDetail = detailsMap.get(geometryDao.getLocationId());//get indicator detail for this location
-                        String value = indicatorDetail != null ? indicatorDetail.getValue() : null;
-                        IndicatorGeometryDao dao = new IndicatorGeometryDao(geometryDao.getLocationId(),
-                                geometryDao.getName(), geometryDao.getGeometry(), indicator.getId(), indicator.getName(), indicator.getDescription(),
-                                indicator.getColorScheme(), value, level.getLevel(), indicator.getUnit());
-                        return ConverterFactory.indicatorGeometryConverter().convert(dao);
-                    }).collect(Collectors.toList()));
+                builder.setFeatures(
+                        geometriesList.stream().map(geometryDao -> {
+                            IndicatorDetail indicatorDetail = detailsMap.get(geometryDao.getLocationId());//get indicator detail for this location
+                            String value = indicatorDetail != null ? indicatorDetail.getValue() : null;
+                            IndicatorGeometryDao dao = new IndicatorGeometryDao(geometryDao.getLocationId(),
+                                    geometryDao.getName(), geometryDao.getGeometry(), indicator.getId(), indicator.getName(), indicator.getDescription(),
+                                    indicator.getColorScheme(), value, level.getLevel(), indicator.getUnit());
+                            return ConverterFactory.indicatorGeometryConverter().convert(dao);
+                        }).collect(Collectors.toList()));
+            } else {
+                List<Heatmap> heatmapShape = locationRepository.getHeatmapShapes();
+                heatmapShape.stream().forEach(instance -> {
+                    Map<String, Object> props = new HashMap<>();
+                    props.put("id", instance.getId());
+                    props.put("indicatorName", "");
+                    props.put("name", "");
+                    props.put("indicatorId", "");
+                    props.put("value", instance.getDn());
+                    Geometry geom = instance.getGeom();
+                    builder.add(props,
+                            GeoJsonUtils.jtsGeometryToGeoJson(TopologyPreservingSimplifier.simplify(geom, 0.02)));
+                });
+            }
         }
         return builder.getFeatures();
     }

@@ -35,7 +35,7 @@ public class KMLImport {
     @Autowired
     GeoPhotoRepository geoPhotoRepository;
 
-    @Value("${path}")
+    //@Value("${path}")
     private String kmlFolder;
 
 

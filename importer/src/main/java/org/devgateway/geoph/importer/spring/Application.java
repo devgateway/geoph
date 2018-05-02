@@ -36,7 +36,7 @@ import org.springframework.stereotype.Component;
         @PropertySource(value = "file:${CONF_FILE}", ignoreResourceNotFound = true)
 })
 @Component
-public class Application  implements CommandLineRunner {
+public class Application implements CommandLineRunner {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ProjectImport.class);
 
@@ -55,7 +55,6 @@ public class Application  implements CommandLineRunner {
     private String type;
 
 
-    @Override
     public void run(String... strings) throws Exception {
         if ("kml".equalsIgnoreCase(type)){
             LOGGER.info("Starting KML import ");
