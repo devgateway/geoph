@@ -134,6 +134,48 @@ public class Extractors {
         };
     }
 
+    public static Extractor<List<String>> agendaExtractor(final String getter) {
+        return new Extractor<List<String>>() {
+            @Override
+            public List<String> extract(Map<String, Object> properties) {
+                Object value = properties.get(getter);
+                List<String> names = new ArrayList<>();
+                if (value instanceof PersistentSet) {
+                    names = ((Set<Agenda>) value).stream().map(agenda -> agenda.getCode()).collect(Collectors.toList());
+                }
+                return names;
+            }
+        };
+    }
+
+    public static Extractor<List<String>> pdpExtractor(final String getter) {
+        return new Extractor<List<String>>() {
+            @Override
+            public List<String> extract(Map<String, Object> properties) {
+                Object value = properties.get(getter);
+                List<String> names = new ArrayList<>();
+                if (value instanceof PersistentSet) {
+                    names = ((Set<Pdp>) value).stream().map(pdp -> pdp.getCode()).collect(Collectors.toList());
+                }
+                return names;
+            }
+        };
+    }
+
+    public static Extractor<List<String>> sdgExtractor(final String getter) {
+        return new Extractor<List<String>>() {
+            @Override
+            public List<String> extract(Map<String, Object> properties) {
+                Object value = properties.get(getter);
+                List<String> names = new ArrayList<>();
+                if (value instanceof PersistentSet) {
+                    names = ((Set<Sdg>) value).stream().map(sdg -> sdg.getCode()).collect(Collectors.toList());
+                }
+                return names;
+            }
+        };
+    }
+
     public static Extractor<Double> commitmentExtractor(final String getter) {
         return trxExtractor(getter, TransactionTypeEnum.COMMITMENTS);
     }

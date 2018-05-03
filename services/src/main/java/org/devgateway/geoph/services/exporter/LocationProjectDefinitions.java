@@ -83,6 +83,10 @@ public class LocationProjectDefinitions implements DefinitionsProvider {
 
         columnsDef.add(new ColumnDefinitionImp<>("Sectors", regularStylist, Formatters.stringArrayFormatter(), Extractors.sectorExtractor("project.getSectors")));
 
+        columnsDef.add(new ColumnDefinitionImp<>("Socieconomic Agenda", regularStylist, Formatters.stringArrayFormatter(), Extractors.agendaExtractor("project.getAgendas")));
+        columnsDef.add(new ColumnDefinitionImp<>("PDPs", regularStylist, Formatters.stringArrayFormatter(), Extractors.pdpExtractor("project.getPdps")));
+        columnsDef.add(new ColumnDefinitionImp<>("SDGs", regularStylist, Formatters.stringArrayFormatter(), Extractors.sdgExtractor("project.getSdgs")));
+
         columnsDef.add(new ColumnDefinitionImp<>("Status", regularStylist, Formatters.stringFormatter(), Extractors.statusExtractor("project.getStatus")));
         columnsDef.add(new ColumnDefinitionImp<>("Physical Status", regularStylist, Formatters.stringFormatter(), Extractors.physicalStatusExtractor("project.getPhysicalStatus")));
         columnsDef.add(new ColumnDefinitionImp<>("Physical Progress", decimalStylist, Formatters.amountFormatter(), Extractors.doubleExtractor("project.getPhysicalProgress")));
@@ -128,6 +132,9 @@ public class LocationProjectDefinitions implements DefinitionsProvider {
         projectList.add("getEndDate");
         projectList.add("getRevisedClosingDate");
         projectList.add("getSectors");
+        projectList.add("getAgendas");
+        projectList.add("getPdps");
+        projectList.add("getSdgs");
         projectList.add("getPeriodPerformanceStart");
         projectList.add("getPeriodPerformanceEnd");
         projectList.add("getStatus");
