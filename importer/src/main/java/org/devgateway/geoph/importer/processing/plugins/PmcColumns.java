@@ -94,6 +94,15 @@ public class PmcColumns {
     @Value("${pmc.genderClassification}")
     private int genderClassification;
 
+    @Value("${pmc.agenda}")
+    private int agenda;
+
+    @Value("${pmc.pdp}")
+    private int pdp;
+
+    @Value("${pmc.sdg}")
+    private int sdg;
+
     public int getProjectId() {
         return projectId;
     }
@@ -204,5 +213,17 @@ public class PmcColumns {
 
     public int getTotalDisbursements() {
         return totalDisbursements;
+    }
+
+    public int getAgenda() {
+        return agenda;
+    }
+
+    public int getPdp() {
+        return pdp;
+    }
+
+    public int getSdg() {
+        return sdg;
     }
 }

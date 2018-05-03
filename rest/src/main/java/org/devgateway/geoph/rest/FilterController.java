@@ -3,13 +3,16 @@ package org.devgateway.geoph.rest;
 import org.devgateway.geoph.core.response.GenericResponse;
 import org.devgateway.geoph.core.services.FilterService;
 import org.devgateway.geoph.enums.LocationAdmLevelEnum;
+import org.devgateway.geoph.model.Agenda;
 import org.devgateway.geoph.model.Classification;
 import org.devgateway.geoph.model.ClimateChange;
 import org.devgateway.geoph.model.FundingAgency;
 import org.devgateway.geoph.model.GenderResponsiveness;
 import org.devgateway.geoph.model.ImplementingAgency;
 import org.devgateway.geoph.model.Location;
+import org.devgateway.geoph.model.Pdp;
 import org.devgateway.geoph.model.PhysicalStatus;
+import org.devgateway.geoph.model.Sdg;
 import org.devgateway.geoph.model.Sector;
 import org.devgateway.geoph.model.Status;
 import org.slf4j.Logger;
@@ -75,6 +78,9 @@ public class FilterController extends BaseController {
         response.put("cl", findAllClassifications());
         response.put("ao", findActualPhysicalProgressPeriod());
         response.put("php", findPhysicalProgressPeriod());
+        response.put("sdg", findAllSdgs());
+        response.put("pdp", findAllPdps());
+        response.put("age", findAllAgendas());
 
         return response;
     }
@@ -308,6 +314,45 @@ public class FilterController extends BaseController {
         GenericResponse resp = new GenericResponse(
                 grantPeriodList,
                 grantPeriodList != null ? grantPeriodList.size() : 0
+        );
+
+        return resp;
+    }
+
+    @RequestMapping(value = "/pdp", method = GET)
+    public GenericResponse findAllPdps() {
+        LOGGER.debug("findAllPdps");
+        List<Pdp> items = service.findAllPdps();
+        Collections.sort(items);
+        GenericResponse resp = new GenericResponse(
+                items,
+                items != null ? items.size() : 0
+        );
+
+        return resp;
+    }
+
+    @RequestMapping(value = "/agenda", method = GET)
+    public GenericResponse findAllAgendas() {
+        LOGGER.debug("findAllAgendas");
+        List<Agenda> items = service.findAllAgendas();
+        Collections.sort(items);
+        GenericResponse resp = new GenericResponse(
+                items,
+                items != null ? items.size() : 0
+        );
+
+        return resp;
+    }
+
+    @RequestMapping(value = "/sdg", method = GET)
+    public GenericResponse findAllSdgs() {
+        LOGGER.debug("findAllSdgs");
+        List<Sdg> items = service.findAllSdgs();
+        Collections.sort(items);
+        GenericResponse resp = new GenericResponse(
+                items,
+                items != null ? items.size() : 0
         );
 
         return resp;

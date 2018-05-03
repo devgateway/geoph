@@ -97,6 +97,9 @@ public class FilterHelper {
         addFundingAgencyFilter(params, predicates, projectFrom);
         addPhysicalStatusFilter(params, predicates, projectFrom);
         addStatusFilter(params, predicates, projectFrom);
+        addAgendaFilter(params, predicates, projectFrom);
+        addPdpFilter(params, predicates, projectFrom);
+        addSdgFilter(params, predicates, projectFrom);
 
         expression = addSectorsFilter(params, criteriaBuilder, predicates, projectFrom, expression);
         expression = addImpAgenciesFilter(params, criteriaBuilder, predicates, projectFrom, expression);
@@ -170,6 +173,27 @@ public class FilterHelper {
         if (params.getPhysicalStatuses() != null) {
             Join<Project, PhysicalStatus> physicalStatusJoin = projectFrom.join(Project_.physicalStatus);
             predicates.add(physicalStatusJoin.get(PhysicalStatus_.id).in(params.getPhysicalStatuses()));
+        }
+    }
+
+    private static void addAgendaFilter(Parameters params, List<Predicate> predicates, From projectFrom) {
+        if (params.getAgendas() != null) {
+            Join<Project, Agenda> agendaJoin = projectFrom.join(Project_.agendas);
+            predicates.add(agendaJoin.get(Agenda_.id).in(params.getAgendas()));
+        }
+    }
+
+    private static void addPdpFilter(Parameters params, List<Predicate> predicates, From projectFrom) {
+        if (params.getPdps() != null) {
+            Join<Project, Pdp> pdpJoin = projectFrom.join(Project_.pdps);
+            predicates.add(pdpJoin.get(Pdp_.id).in(params.getPdps()));
+        }
+    }
+
+    private static void addSdgFilter(Parameters params, List<Predicate> predicates, From projectFrom) {
+        if (params.getSdgs() != null) {
+            Join<Project, Sdg> sdgJoin = projectFrom.join(Project_.sdgs);
+            predicates.add(sdgJoin.get(Sdg_.id).in(params.getSdgs()));
         }
     }
 

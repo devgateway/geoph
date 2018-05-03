@@ -42,7 +42,10 @@ import java.util.Set;
                 @NamedAttributeNode("sectors"),
                 @NamedAttributeNode("climateChange"),
                 @NamedAttributeNode("genderResponsiveness"),
-                @NamedAttributeNode("physicalStatus")
+                @NamedAttributeNode("physicalStatus"),
+                @NamedAttributeNode("agendas"),
+                @NamedAttributeNode("pdps"),
+                @NamedAttributeNode("sdgs")
         })
 public class Project extends GenericPersistable implements Serializable {
 
@@ -71,6 +74,18 @@ public class Project extends GenericPersistable implements Serializable {
 
     @OneToMany(cascade=CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "pk.project")
     private Set<ProjectGenderResponsiveness> genderResponsiveness;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "project_agendas", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "agendas_id"))
+    private Set<Agenda> agendas;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "project_pdps", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "pdps_id"))
+    private Set<Pdp> pdps;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "project_sdgs", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "sdgs_id"))
+    private Set<Sdg> sdgs;
 
     @Column(name = "implementing_agency_office")
     private String implementingAgencyOffice;
@@ -364,6 +379,30 @@ public class Project extends GenericPersistable implements Serializable {
         } else {
             this.sectors = sectors;
         }
+    }
+
+    public Set<Agenda> getAgendas() {
+        return agendas;
+    }
+
+    public void setAgendas(final Set<Agenda> agendas) {
+        this.agendas = agendas;
+    }
+
+    public Set<Pdp> getPdps() {
+        return pdps;
+    }
+
+    public void setPdps(final Set<Pdp> pdps) {
+        this.pdps = pdps;
+    }
+
+    public Set<Sdg> getSdgs() {
+        return sdgs;
+    }
+
+    public void setSdgs(final Set<Sdg> sdgs) {
+        this.sdgs = sdgs;
     }
 
     public Set<ProjectClimateChange> getClimateChange() {

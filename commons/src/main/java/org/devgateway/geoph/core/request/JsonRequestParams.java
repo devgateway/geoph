@@ -26,6 +26,12 @@ public class JsonRequestParams {
 
     private List<Long> st;
 
+    private List<Long> pdp;
+
+    private List<Long> sdg;
+
+    private List<Long> age;
+
     private List<Long> sa;
 
     private List<Long> ia;
@@ -130,6 +136,30 @@ public class JsonRequestParams {
 
     public void setSt(List<Long> st) {
         this.st = st;
+    }
+
+    public List<Long> getPdp() {
+        return pdp;
+    }
+
+    public void setPdp(final List<Long> pdp) {
+        this.pdp = pdp;
+    }
+
+    public List<Long> getSdg() {
+        return sdg;
+    }
+
+    public void setSdg(final List<Long> sdg) {
+        this.sdg = sdg;
+    }
+
+    public List<Long> getAge() {
+        return age;
+    }
+
+    public void setAge(final List<Long> age) {
+        this.age = age;
     }
 
     public List<Long> getSa() {

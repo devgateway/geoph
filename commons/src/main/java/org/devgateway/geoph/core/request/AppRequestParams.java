@@ -26,6 +26,12 @@ public class AppRequestParams {
 
     private String st;
 
+    private String pdp;
+
+    private String sdg;
+
+    private String age;
+
     private String sa;
 
     private String ia;
@@ -326,6 +332,30 @@ public class AppRequestParams {
 
     public void setCl(String cl) {
         this.cl = cl;
+    }
+
+    public String getPdp() {
+        return pdp;
+    }
+
+    public void setPdp(final String pdp) {
+        this.pdp = pdp;
+    }
+
+    public String getSdg() {
+        return sdg;
+    }
+
+    public void setSdg(final String sdg) {
+        this.sdg = sdg;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(final String age) {
+        this.age = age;
     }
 
     @JsonIgnore
