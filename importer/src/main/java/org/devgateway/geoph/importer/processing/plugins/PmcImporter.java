@@ -29,6 +29,7 @@ public class PmcImporter extends GeophProjectsImporter {
     private static final String UNDEFINED = "undefined";
     private static final String LOCALLY_FUNDED = "locally-funded";
     private static final double UTILIZATION = 1D;
+    public static final String DOUBLE_FIX = ".0";
 
     @Autowired
     private PmcColumns pmcColumns;
@@ -74,8 +75,8 @@ public class PmcImporter extends GeophProjectsImporter {
                     iaSet.add(pa);
                 } else {
                     if(isFirstPA){
-                        addError(p.getPhId(), currentRow, "IA not found at first value, the project won't be imported. IA: " + ia, true);
-                        return;
+                        addWarning(p.getPhId(), currentRow, "IA not found, added as undefined. IA: " + ia);
+                        iaSet.add(new ProjectAgency(p, importBaseData.getImplementingAgencies().get(UNDEFINED), 0D));
                     } else {
                         addWarning(p.getPhId(), currentRow, "IA not found, added as undefined. IA: " + ia);
                         iaSet.add(new ProjectAgency(p, importBaseData.getImplementingAgencies().get(UNDEFINED), 0D));
@@ -166,6 +167,36 @@ public class PmcImporter extends GeophProjectsImporter {
             sectorSet.add(ps);
             p.setSectors(sectorSet);
 
+            String[] agenda = getStringArrayValueFromCell(row.getCell(pmcColumns.getAgenda()), "socioeconomic agenda", rowNumber, onProblem.NOTHING);
+            Set<Agenda> agendaSet = new HashSet<>();
+            Arrays.asList(agenda).stream().forEach(x -> {
+                String v = x.indexOf(DOUBLE_FIX) > 0 ? x.substring(0, x.indexOf(DOUBLE_FIX)).trim() : x.trim();
+                if (importBaseData.getAgendas().get(v) != null) {
+                    agendaSet.add(importBaseData.getAgendas().get(v));
+                }
+            });
+            p.setAgendas(agendaSet);
+
+            String[] pdp = getStringArrayValueFromCell(row.getCell(pmcColumns.getPdp()), "pdp", rowNumber, onProblem.NOTHING);
+            Set<Pdp> pdpSet = new HashSet<>();
+            Arrays.asList(pdp).stream().forEach(x -> {
+                String v = x.indexOf(DOUBLE_FIX) > 0 ? x.substring(0, x.indexOf(DOUBLE_FIX)).trim() : x.trim();
+                if (importBaseData.getPdps().get(v) != null) {
+                    pdpSet.add(importBaseData.getPdps().get(v));
+                }
+            });
+            p.setPdps(pdpSet);
+
+            String[] sdg = getStringArrayValueFromCell(row.getCell(pmcColumns.getSdg()), "sdg", rowNumber, onProblem.NOTHING);
+            Set<Sdg> sdgSet = new HashSet<>();
+            Arrays.asList(sdg).stream().forEach(x -> {
+                String v = x.indexOf(DOUBLE_FIX) > 0 ? x.substring(0, x.indexOf(DOUBLE_FIX)).trim() : x.trim();
+                if (importBaseData.getSdgs().get(v) != null) {
+                    sdgSet.add(importBaseData.getSdgs().get(v));
+                }
+            });
+            p.setSdgs(sdgSet);
+
             String[] locations = getStringArrayValueFromCell(row.getCell(pmcColumns.getMunicipality()), "municipality", rowNumber, onProblem.NOTHING);
             if(locations.length==0){
                 locations = getStringArrayValueFromCell(row.getCell(pmcColumns.getProvince()), "province", rowNumber, onProblem.NOTHING);
@@ -179,8 +210,12 @@ public class PmcImporter extends GeophProjectsImporter {
                 Set<Location> locationProvince = new HashSet<>();
                 Set<Location> locationMunicipality = new HashSet<>();
                 for (String loc : locations) {
-                    String locOk = loc.trim().endsWith(".0")?loc.trim().substring(0,loc.length()-2):loc.trim();
-                    Location l = importBaseData.getLocations().get(locOk);
+                    String locOk = loc.trim().endsWith(DOUBLE_FIX)?loc.trim().substring(0,loc.length()-2):loc.trim();
+                    if (StringUtils.isEmpty(locOk)) {
+                        int a = 0;
+                    }
+                    Long locId = Long.parseLong(locOk);
+                    Location l = importBaseData.getLocationsById().get(locId);
                     if(l!=null) {
                         if(l.getLevel()==LocationAdmLevelEnum.REGION.getLevel()){
                             locationRegion.add(l);

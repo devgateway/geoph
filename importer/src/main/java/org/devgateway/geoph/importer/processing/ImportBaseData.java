@@ -44,6 +44,12 @@ public class ImportBaseData {
 
     protected final Map<String, GenderResponsiveness> genderResponsiveness;
 
+    protected final Map<String, Pdp> pdps;
+
+    protected final Map<String, Sdg> sdgs;
+
+    protected final Map<String, Agenda> agendas;
+
     @Autowired
     public ImportBaseData(FilterService filterService, ProjectService projectService){
         this.projectService = projectService;
@@ -60,6 +66,9 @@ public class ImportBaseData {
         this.executingAgencies = filterService.findAllExecutingAgencies().stream().collect(Collectors.toMap(x -> x.getCode().toLowerCase(), x -> x));
         this.climateChanges = filterService.findAllClimateChanges().stream().collect(Collectors.toMap(x -> x.getCode().toLowerCase(), x -> x));
         this.genderResponsiveness = filterService.findAllGenderResponsiveness().stream().collect(Collectors.toMap(x -> x.getCode().toLowerCase(), x -> x));
+        this.pdps = filterService.findAllPdps().stream().collect(Collectors.toMap(x -> x.getCode().toLowerCase(), x -> x));
+        this.agendas = filterService.findAllAgendas().stream().collect(Collectors.toMap(x -> x.getCode().toLowerCase(), x -> x));
+        this.sdgs = filterService.findAllSdgs().stream().collect(Collectors.toMap(x -> x.getCode().toLowerCase(), x -> x));
     }
 
     public ProjectService getProjectService() {
@@ -116,5 +125,17 @@ public class ImportBaseData {
 
     public Map<String, GenderResponsiveness> getGenderResponsiveness() {
         return genderResponsiveness;
+    }
+
+    public Map<String, Pdp> getPdps() {
+        return pdps;
+    }
+
+    public Map<String, Sdg> getSdgs() {
+        return sdgs;
+    }
+
+    public Map<String, Agenda> getAgendas() {
+        return agendas;
     }
 }

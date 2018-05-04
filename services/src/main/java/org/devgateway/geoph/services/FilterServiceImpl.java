@@ -77,6 +77,15 @@ public class FilterServiceImpl implements FilterService {
     @Autowired
     CurrencyRepository currencyRepository;
 
+    @Autowired
+    PdpRepository pdpRepository;
+
+    @Autowired
+    SdgRepository sdgRepository;
+
+    @Autowired
+    AgendaRepository agendaRepository;
+
     @Override
     public List<ImplementingAgency> findAllImpAgencies() {
         LOGGER.debug("Getting all implementing agencies");
@@ -275,6 +284,21 @@ public class FilterServiceImpl implements FilterService {
     @Override
     public Location findLocationById(Long locId) {
         return locationRepository.findById(locId);
+    }
+
+    @Override
+    public List<Pdp> findAllPdps() {
+        return pdpRepository.findAll();
+    }
+
+    @Override
+    public List<Agenda> findAllAgendas() {
+        return agendaRepository.findAll();
+    }
+
+    @Override
+    public List<Sdg> findAllSdgs() {
+        return sdgRepository.findAll();
     }
 
 }

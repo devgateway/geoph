@@ -67,6 +67,12 @@ public interface FilterService {
 
     Integer countExecutingAgencies();
 
+    List<Pdp> findAllPdps();
+
+    List<Agenda> findAllAgendas();
+
+    List<Sdg> findAllSdgs();
+
     Map findAllTrxFunding();
 
     List<Double> getPhysicalProgressPeriod();

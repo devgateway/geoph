@@ -96,6 +96,12 @@ public class Parameters {
 
     private int trxStatusSort;
 
+    private List<Long> pdps;
+
+    private List<Long> sdgs;
+
+    private List<Long> agendas;
+
 
     private ProjectOrder projectOrder = new ProjectOrder();
 
@@ -121,6 +127,9 @@ public class Parameters {
         this.setPeriodPerformanceEndMax(filters.getPp_end_max());
         this.setPeriodPerformanceEndMin(filters.getPp_end_min());
         this.setSectors(filters.getSt());
+        this.setPdps(filters.getPdp());
+        this.setSdgs(filters.getSdg());
+        this.setAgendas(filters.getAge());
         this.setStatuses(filters.getSa());
         this.setLocations(filters.getLo());
         this.setImpAgencies(filters.getIa());
@@ -159,6 +168,9 @@ public class Parameters {
         this.setPeriodPerformanceEndMax(filters.getPp_end_max());
         this.setPeriodPerformanceEndMin(filters.getPp_end_min());
         this.setSectors(filters.getSt());
+        this.setPdps(filters.getPdp());
+        this.setSdgs(filters.getSdg());
+        this.setAgendas(filters.getAge());
         this.setStatuses(filters.getSa());
         this.setLocations(filters.getLo());
         this.setImpAgencies(filters.getIa());
@@ -337,8 +349,44 @@ public class Parameters {
         return sectors;
     }
 
+    public List<Long> getPdps() {
+        return pdps;
+    }
+
+    public List<Long> getSdgs() {
+        return sdgs;
+    }
+
+    public List<Long> getAgendas() {
+        return agendas;
+    }
+
     public void setSectors(List<Long> sectors) {
         this.sectors = sectors;
+    }
+
+    public void setPdps(List<Long> pdps) {
+        this.pdps = pdps;
+    }
+
+    public void setSdgs(List<Long> sdgs) {
+        this.sdgs = sdgs;
+    }
+
+    public void setAgendas(List<Long> agendas) {
+        this.agendas = agendas;
+    }
+
+    public void setPdps(String pdps) {
+        this.pdps = pdps != null ? convertStringToLongList(pdps) : null;
+    }
+
+    public void setSdgs(String sdgs) {
+        this.sdgs = sdgs != null ? convertStringToLongList(sdgs) : null;
+    }
+
+    public void setAgendas(String agendas) {
+        this.agendas = agendas != null ? convertStringToLongList(agendas) : null;
     }
 
     public void setSectors(String sectors) {

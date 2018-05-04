@@ -331,10 +331,12 @@ public class DefaultProjectRepository implements ProjectRepository {
     public List<String> getImpPeriodBoundaries() {
         List<String> ret = new ArrayList<>();
         Object[] o = (Object[]) em.createNativeQuery("select max(p.start_date) as max_start_date, min(p.start_date) as min_start_date, max(p.end_date) as max_end_date, min(p.end_date) as min_end_date from project p").getSingleResult();
-        ret.add(o[0].toString());
-        ret.add(o[1].toString());
-        ret.add(o[2].toString());
-        ret.add(o[3].toString());
+        if (o[0] != null && o[2] != null) {
+            ret.add(o[0].toString());
+            ret.add(o[1].toString());
+            ret.add(o[2].toString());
+            ret.add(o[3].toString());
+        }
         return ret;
     }
 
@@ -342,10 +344,12 @@ public class DefaultProjectRepository implements ProjectRepository {
     public List<String> getGrantPeriodBoundaries() {
         List<String> ret = new ArrayList<>();
         Object[] o = (Object[]) em.createNativeQuery("select max(p.period_performance_start) as max_start_period, min(p.period_performance_start) as min_start_period, max(p.period_performance_end) as max_end_period, min(p.period_performance_end) as min_end_period from project p").getSingleResult();
-        ret.add(o[0].toString());
-        ret.add(o[1].toString());
-        ret.add(o[2].toString());
-        ret.add(o[3].toString());
+        if (o[0] != null && o[2] != null) {
+            ret.add(o[0].toString());
+            ret.add(o[1].toString());
+            ret.add(o[2].toString());
+            ret.add(o[3].toString());
+        }
         return ret;
     }
 
