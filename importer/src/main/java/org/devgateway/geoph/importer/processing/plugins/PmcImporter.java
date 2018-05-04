@@ -75,8 +75,8 @@ public class PmcImporter extends GeophProjectsImporter {
                     iaSet.add(pa);
                 } else {
                     if(isFirstPA){
-                        addError(p.getPhId(), currentRow, "IA not found at first value, the project won't be imported. IA: " + ia, true);
-                        return;
+                        addWarning(p.getPhId(), currentRow, "IA not found, added as undefined. IA: " + ia);
+                        iaSet.add(new ProjectAgency(p, importBaseData.getImplementingAgencies().get(UNDEFINED), 0D));
                     } else {
                         addWarning(p.getPhId(), currentRow, "IA not found, added as undefined. IA: " + ia);
                         iaSet.add(new ProjectAgency(p, importBaseData.getImplementingAgencies().get(UNDEFINED), 0D));
@@ -211,7 +211,11 @@ public class PmcImporter extends GeophProjectsImporter {
                 Set<Location> locationMunicipality = new HashSet<>();
                 for (String loc : locations) {
                     String locOk = loc.trim().endsWith(DOUBLE_FIX)?loc.trim().substring(0,loc.length()-2):loc.trim();
-                    Location l = importBaseData.getLocations().get(locOk);
+                    if (StringUtils.isEmpty(locOk)) {
+                        int a = 0;
+                    }
+                    Long locId = Long.parseLong(locOk);
+                    Location l = importBaseData.getLocationsById().get(locId);
                     if(l!=null) {
                         if(l.getLevel()==LocationAdmLevelEnum.REGION.getLevel()){
                             locationRegion.add(l);
