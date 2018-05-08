@@ -4,15 +4,24 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.devgateway.geoph.enums.LocationAdmLevelEnum;
 import org.devgateway.geoph.enums.TransactionStatusEnum;
 import org.devgateway.geoph.enums.TransactionTypeEnum;
+import org.devgateway.geoph.model.Agenda;
 import org.devgateway.geoph.model.Location;
+import org.devgateway.geoph.model.Pdp;
 import org.devgateway.geoph.model.Project;
 import org.devgateway.geoph.model.ProjectLocation;
+import org.devgateway.geoph.model.Sdg;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author dbianco
- *         created on sep 12 2016.
+ * created on sep 12 2016.
  */
 public class ProjectPageDao {
 
@@ -29,6 +38,12 @@ public class ProjectPageDao {
     private List<Map<String, Object>> implementingAgencies;
 
     private List<Map<String, Object>> sectors;
+
+    private List<Map<String, Object>> agendas;
+
+    private List<Map<String, Object>> pdps;
+
+    private List<Map<String, Object>> sdgs;
 
     @JsonIgnore
     private Map<Long, LocationTree> locations;
@@ -52,7 +67,7 @@ public class ProjectPageDao {
 
         this.implementingAgencies = new ArrayList<>();
         project.getImplementingAgencies().stream().forEach(ia -> {
-            Map<String, Object> iaMap = new HashMap<>();
+            final Map<String, Object> iaMap = new HashMap<>();
             iaMap.put("name", ia.getAgency().getName());
             iaMap.put("id", ia.getAgency().getId());
             this.implementingAgencies.add(iaMap);
@@ -60,14 +75,38 @@ public class ProjectPageDao {
 
         this.sectors = new ArrayList<>();
         project.getSectors().stream().forEach(ps -> {
-            Map<String, Object> sectorMap = new HashMap<>();
+            final Map<String, Object> sectorMap = new HashMap<>();
             sectorMap.put("name", ps.getSector().getName());
             sectorMap.put("id", ps.getSector().getId());
             this.sectors.add(sectorMap);
         });
 
+        this.agendas = new ArrayList<>();
+        project.getAgendas().stream().forEach(age -> {
+            final Map<String, Object> agendaMap = new HashMap<>();
+            agendaMap.put("name", age.getName());
+            agendaMap.put("id", age.getId());
+            this.agendas.add(agendaMap);
+        });
+
+        this.pdps = new ArrayList<>();
+        project.getPdps().stream().forEach(pdp -> {
+            final Map<String, Object> pdpMap = new HashMap<>();
+            pdpMap.put("name", pdp.getName());
+            pdpMap.put("id", pdp.getId());
+            this.pdps.add(pdpMap);
+        });
+
+        this.sdgs = new ArrayList<>();
+        project.getSdgs().stream().forEach(sdg -> {
+            final Map<String, Object> sdgMap = new HashMap<>();
+            sdgMap.put("name", sdg.getName());
+            sdgMap.put("id", sdg.getId());
+            this.sdgs.add(sdgMap);
+        });
+
         this.locations = new HashMap<>();
-        for(ProjectLocation pl : project.getLocations()) {
+        for (ProjectLocation pl : project.getLocations()) {
             Location region = null;
             Location province = null;
             Location municipality = null;
@@ -75,10 +114,10 @@ public class ProjectPageDao {
                 region = pl.getLocation().getRegion();
                 province = pl.getLocation().getProvince();
                 municipality = pl.getLocation();
-            } else if(pl.getLocation().getLevel() == LocationAdmLevelEnum.PROVINCE.getLevel()){
+            } else if (pl.getLocation().getLevel() == LocationAdmLevelEnum.PROVINCE.getLevel()) {
                 region = pl.getLocation().getRegion();
                 province = pl.getLocation();
-            } else if(pl.getLocation().getLevel() == LocationAdmLevelEnum.REGION.getLevel()){
+            } else if (pl.getLocation().getLevel() == LocationAdmLevelEnum.REGION.getLevel()) {
                 region = pl.getLocation();
             }
             createLocationTree(region, province, municipality);
@@ -86,22 +125,22 @@ public class ProjectPageDao {
 
         this.periodPerformanceStart = project.getPeriodPerformanceStart();
         this.periodPerformanceEnd = project.getPeriodPerformanceEnd();
-        if(project.getStatus()!=null) {
+        if (project.getStatus() != null) {
             this.status = project.getStatus().getName();
         }
-        if(project.getPhysicalStatus()!=null) {
+        if (project.getPhysicalStatus() != null) {
             this.physicalStatus = project.getPhysicalStatus().getName();
         }
 
-        for(TransactionTypeEnum typeEnum:TransactionTypeEnum.values()){
+        for (TransactionTypeEnum typeEnum : TransactionTypeEnum.values()) {
             Map<String, Double> statusMap = new HashMap<>();
-            for(TransactionStatusEnum statusEnum:TransactionStatusEnum.values()){
+            for (TransactionStatusEnum statusEnum : TransactionStatusEnum.values()) {
                 statusMap.put(statusEnum.getName(), 0D);
             }
             trxAmounts.put(typeEnum.getName(), statusMap);
         }
 
-        project.getTransactions().stream().forEach(trx->{
+        project.getTransactions().stream().forEach(trx -> {
             Double oldAmount = trxAmounts.get(trx.getTransactionType().getName().toLowerCase()).get(trx.getTransactionStatus().getName().toLowerCase());
             trxAmounts.get(trx.getTransactionType().getName().toLowerCase()).put(trx.getTransactionStatus().getName(), oldAmount + trx.getAmount());
         });
@@ -110,7 +149,7 @@ public class ProjectPageDao {
     private void createLocationTree(Location region, Location province, Location municipality) {
         if (!locations.containsKey(region.getId())) {
             LocationTree regionTree = new LocationTree(region);
-            if(province!=null){
+            if (province != null) {
                 createProvince(province, municipality, regionTree.getChilds());
             }
             locations.put(region.getId(), regionTree);
@@ -124,7 +163,7 @@ public class ProjectPageDao {
                     if (municipalityMap == null) {
                         createMunicipality(municipality, provinceMap.get(province.getId()).getChilds());
                     } else {
-                        if(municipality!=null) {
+                        if (municipality != null) {
                             municipalityMap.put(municipality.getId(), new LocationTree(municipality));
                         }
                     }
@@ -135,7 +174,7 @@ public class ProjectPageDao {
 
     private void createProvince(Location province, Location municipality, Map<Long, LocationTree> regionChild) {
         LocationTree provinceTree = new LocationTree(province);
-        if(municipality!=null) {
+        if (municipality != null) {
             createMunicipality(municipality, provinceTree.getChilds());
         }
         regionChild.put(province.getId(), provinceTree);
@@ -202,6 +241,30 @@ public class ProjectPageDao {
         this.sectors = sectors;
     }
 
+    public List<Map<String, Object>> getAgendas() {
+        return agendas;
+    }
+
+    public void setAgendas(List<Map<String, Object>> agendas) {
+        this.agendas = agendas;
+    }
+
+    public List<Map<String, Object>> getPdps() {
+        return pdps;
+    }
+
+    public void setPdps(List<Map<String, Object>> pdps) {
+        this.pdps = pdps;
+    }
+
+    public List<Map<String, Object>> getSdgs() {
+        return sdgs;
+    }
+
+    public void setSdgs(List<Map<String, Object>> sdgs) {
+        this.sdgs = sdgs;
+    }
+
     public Map<Long, LocationTree> getLocations() {
         return locations;
     }
@@ -254,7 +317,7 @@ public class ProjectPageDao {
         this.trxAmounts = trxAmounts;
     }
 
-    class LocationTree{
+    class LocationTree {
 
         private Long id;
 
@@ -263,7 +326,7 @@ public class ProjectPageDao {
         @JsonIgnore
         private Map<Long, LocationTree> childs;
 
-        public LocationTree (Location location){
+        public LocationTree(Location location) {
             this.id = location.getId();
             this.name = location.getName();
             this.childs = new HashMap<>();
