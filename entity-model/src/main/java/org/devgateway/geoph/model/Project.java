@@ -14,14 +14,14 @@ import java.util.Set;
  * Created by Sebastian Dimunzio on 2/26/2016.
  */
 @NamedQueries({
-    @NamedQuery(
-            name = "findAllProjects",
-            query = "from Project p"
-    ),
-    @NamedQuery(
-            name = "findProjectsById",
-            query = "from Project p where p.id = :id"
-    ),
+        @NamedQuery(
+                name = "findAllProjects",
+                query = "from Project p"
+        ),
+        @NamedQuery(
+                name = "findProjectsById",
+                query = "from Project p where p.id = :id"
+        ),
         @NamedQuery(
                 name = "findProjectsByPhId",
                 query = "from Project p where p.phId = :phId"
@@ -51,28 +51,28 @@ public class Project extends GenericPersistable implements Serializable {
 
     private String phId;
 
-    @Size(max=500)
+    @Size(max = 500)
     private String title;
 
-    @OneToMany(cascade=CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "project")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "project")
     private Set<GeoPhoto> geoPhotos;
 
-    @OneToMany(cascade=CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "project")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "project")
     private Set<Transaction> transactions;
 
-    @OneToMany(cascade=CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "pk.project")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "pk.project")
     private Set<ProjectAgency> implementingAgencies;
 
-    @OneToMany(cascade=CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "pk.project")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "pk.project")
     private Set<ProjectLocation> locations;
 
-    @OneToMany(cascade=CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "pk.project")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "pk.project")
     private Set<ProjectSector> sectors;
 
-    @OneToMany(cascade=CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "pk.project")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "pk.project")
     private Set<ProjectClimateChange> climateChange;
 
-    @OneToMany(cascade=CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "pk.project")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "pk.project")
     private Set<ProjectGenderResponsiveness> genderResponsiveness;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -90,13 +90,13 @@ public class Project extends GenericPersistable implements Serializable {
     @Column(name = "implementing_agency_office")
     private String implementingAgencyOffice;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade= CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private Agency executingAgency;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade= CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private Agency fundingAgency;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade= CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private Currency originalCurrency;
 
     @Column(name = "total_project_amount")
@@ -117,10 +117,10 @@ public class Project extends GenericPersistable implements Serializable {
     @Column(name = "revised_period_performance_end")
     private Date revisedPeriodPerformanceEndDate;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade= CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private Status status;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade= CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private PhysicalStatus physicalStatus;
 
     @Column(name = "period_performance_start")
@@ -129,7 +129,7 @@ public class Project extends GenericPersistable implements Serializable {
     @Column(name = "period_performance_end")
     private Date periodPerformanceEnd;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private Classification grantClassification;
 
     @Column(name = "actual_owpa")
@@ -168,7 +168,7 @@ public class Project extends GenericPersistable implements Serializable {
     @Column(name = "level_rre")
     private String levelRre;
 
-    @Size(max=500)
+    @Size(max = 500)
     @Column(name = "date_rre")
     private String dateRre;
 
@@ -212,7 +212,7 @@ public class Project extends GenericPersistable implements Serializable {
     }
 
     public void setTransactions(Set<Transaction> transactions) {
-        if(this.transactions!=null) {
+        if (this.transactions != null) {
             this.transactions.clear();
             if (transactions != null) {
                 this.transactions.addAll(transactions);
@@ -347,7 +347,7 @@ public class Project extends GenericPersistable implements Serializable {
     }
 
     public void setLocations(Set<ProjectLocation> locations) {
-        if(this.locations!=null) {
+        if (this.locations != null) {
             this.locations.clear();
             this.locations.addAll(locations);
         } else {
@@ -360,7 +360,7 @@ public class Project extends GenericPersistable implements Serializable {
     }
 
     public void setImplementingAgencies(Set<ProjectAgency> implementingAgencies) {
-        if(this.implementingAgencies != null){
+        if (this.implementingAgencies != null) {
             this.implementingAgencies.clear();
             this.implementingAgencies.addAll(implementingAgencies);
         } else {
@@ -373,7 +373,7 @@ public class Project extends GenericPersistable implements Serializable {
     }
 
     public void setSectors(Set<ProjectSector> sectors) {
-        if(this.sectors!=null) {
+        if (this.sectors != null) {
             this.sectors.clear();
             this.sectors.addAll(sectors);
         } else {
@@ -573,41 +573,41 @@ public class Project extends GenericPersistable implements Serializable {
         this.geoPhotos = geoPhotos;
     }
 
-    public void updateFields(Project project){
+    public void updateFields(Project project) {
         this.title = project.getTitle();
 
-        if(this.transactions!=null) {
+        if (this.transactions != null) {
             this.transactions.clear();
         }
-        if (project.getTransactions()!=null){
-            if(this.transactions==null) {
+        if (project.getTransactions() != null) {
+            if (this.transactions == null) {
                 this.transactions = new HashSet<>();
             }
-            for(Transaction transaction:project.getTransactions()) {
+            for (Transaction transaction : project.getTransactions()) {
                 transaction.setProject(this);
                 this.transactions.add(transaction);
             }
         }
-        if(this.geoPhotos!=null) {
+        if (this.geoPhotos != null) {
             this.geoPhotos.clear();
         }
-        if (project.getGeoPhotos()!=null){
-            if(this.geoPhotos==null) {
+        if (project.getGeoPhotos() != null) {
+            if (this.geoPhotos == null) {
                 this.geoPhotos = new HashSet<>();
             }
-            for(GeoPhoto geoPhoto:project.getGeoPhotos()) {
+            for (GeoPhoto geoPhoto : project.getGeoPhotos()) {
                 geoPhoto.setProject(this);
                 this.geoPhotos.add(geoPhoto);
             }
         }
-        if(this.implementingAgencies!=null) {
+        if (this.implementingAgencies != null) {
             this.implementingAgencies.clear();
         }
-        if (project.getImplementingAgencies()!=null){
-            if(this.implementingAgencies==null) {
+        if (project.getImplementingAgencies() != null) {
+            if (this.implementingAgencies == null) {
                 this.implementingAgencies = new HashSet<>();
             }
-            for(ProjectAgency agency:project.getImplementingAgencies()) {
+            for (ProjectAgency agency : project.getImplementingAgencies()) {
                 agency.setProject(this);
                 this.implementingAgencies.add(agency);
             }
@@ -629,53 +629,53 @@ public class Project extends GenericPersistable implements Serializable {
         this.periodPerformanceEnd = project.getPeriodPerformanceEnd();
         this.grantClassification = project.getGrantClassification();
 
-        if(this.locations!=null) {
+        if (this.locations != null) {
             this.locations.clear();
         }
-        if (project.getLocations()!=null){
-            if(this.locations==null) {
+        if (project.getLocations() != null) {
+            if (this.locations == null) {
                 this.locations = new HashSet<>();
             }
-            for(ProjectLocation location:project.getLocations()) {
+            for (ProjectLocation location : project.getLocations()) {
                 location.setProject(this);
                 this.locations.add(location);
             }
         }
 
-        if(this.sectors!=null) {
+        if (this.sectors != null) {
             this.sectors.clear();
         }
-        if (project.getSectors()!=null){
-            if(this.sectors==null) {
+        if (project.getSectors() != null) {
+            if (this.sectors == null) {
                 this.sectors = new HashSet<>();
             }
-            for(ProjectSector sector:project.getSectors()) {
+            for (ProjectSector sector : project.getSectors()) {
                 sector.setProject(this);
                 this.sectors.add(sector);
             }
         }
 
-        if(this.climateChange!=null) {
+        if (this.climateChange != null) {
             this.climateChange.clear();
         }
-        if (project.getClimateChange()!=null){
-            if(this.climateChange==null) {
+        if (project.getClimateChange() != null) {
+            if (this.climateChange == null) {
                 this.climateChange = new HashSet<>();
             }
-            for(ProjectClimateChange climateChange:project.getClimateChange()) {
+            for (ProjectClimateChange climateChange : project.getClimateChange()) {
                 climateChange.setProject(this);
                 this.climateChange.add(climateChange);
             }
         }
 
-        if(this.genderResponsiveness!=null) {
+        if (this.genderResponsiveness != null) {
             this.genderResponsiveness.clear();
         }
-        if (project.getGenderResponsiveness()!=null){
-            if(this.genderResponsiveness==null) {
+        if (project.getGenderResponsiveness() != null) {
+            if (this.genderResponsiveness == null) {
                 this.genderResponsiveness = new HashSet<>();
             }
-            for(ProjectGenderResponsiveness genderResp:project.getGenderResponsiveness()) {
+            for (ProjectGenderResponsiveness genderResp : project.getGenderResponsiveness()) {
                 genderResp.setProject(this);
                 this.genderResponsiveness.add(genderResp);
             }

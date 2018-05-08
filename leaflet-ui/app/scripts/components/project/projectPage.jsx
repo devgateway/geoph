@@ -38,7 +38,8 @@ class ProjectPage extends React.Component {
   render() {
     const {project} = this.props;
     const {projectData, isPopupOpen, loadingData} = project;
-    const {title, totalProjectAmount, fundingAgency, implementingAgencies, sectors, locationTree, periodPerformanceStart, periodPerformanceEnd, status, physicalStatus, trxAmounts = {}} = projectData;
+    const {title, totalProjectAmount, fundingAgency, implementingAgencies, sectors, sdgs, pdps, agendas, locationTree,
+      periodPerformanceStart, periodPerformanceEnd, status, physicalStatus, trxAmounts = {}} = projectData;
     const {commitments, disbursements, expenditures} = trxAmounts;
     const notAvailable = translate('project.notavailable');
     return (
@@ -115,6 +116,39 @@ class ProjectPage extends React.Component {
                     <ul>
                       {sectors ? sectors.map(sc => {
                         return <li key={sc.id}>{sc.name}</li>
+                      }) : notAvailable}
+                    </ul>
+                  </div>
+                </div>
+                
+                <div className="project-field">
+                  <p>{translate('project.sdg')}</p>
+                  <div>
+                    <ul>
+                      {sdgs ? sdgs.map(sdg => {
+                        return <li key={sdg.id}>{sdg.name}</li>
+                      }) : notAvailable}
+                    </ul>
+                  </div>
+                </div>
+                
+                <div className="project-field">
+                  <p>{translate('project.pdp')}</p>
+                  <div>
+                    <ul>
+                      {pdps ? pdps.map(pdp => {
+                        return <li key={pdp.id}>{pdp.name}</li>
+                      }) : notAvailable}
+                    </ul>
+                  </div>
+                </div>
+                
+                <div className="project-field">
+                  <p>{translate('project.agenda')}</p>
+                  <div>
+                    <ul>
+                      {agendas ? agendas.map(agenda => {
+                        return <li key={agenda.id}>{agenda.name}</li>
                       }) : notAvailable}
                     </ul>
                   </div>

@@ -58,7 +58,10 @@
 			"sector": "Sector",
 			"philippinesdevelopment": "Philippines Development Priority",
 			"relevanceclimate": "Relevance to Climate",
-			"gender": "Gender"
+			"gender": "Gender",
+			"sdg": "SDGs",
+			"pdp": "PDP",
+			"agenda": "0+10"
 		},
 		"locations": {
 			"locations": "Locations",
@@ -218,7 +221,10 @@
 			"sectortab": {
 				"sector": "Select one or more sectors from the list (OR conditional between them)",
 				"relevanceclimate": "Select one or more relevance to climate from the list (OR conditional between them)",
-				"gender": "Select one or more gender from the list (OR conditional between them)"
+				"gender": "Select one or more gender from the list (OR conditional between them)",
+				"sdg": "Select one or more SDGs from the list (OR conditional between them)",
+				"pdp": "Select one or more PDP from the list (OR conditional between them)",
+				"agenda": "Select one or more 0+10 from the list (OR conditional between them)"
 			},
 			"datetab": {
 				"implementperiodstart": "Select a range of dates (from - to) for the implementation start date",
@@ -290,6 +296,9 @@
 		"fundingagency": "Funding Agency",
 		"implementingagencies": "Implementing Agencies",
 		"sectors": "Sectors",
+		"sdg": "Sustainable Development Goals (SDGs)",
+		"pdp": "Philippine Development Plan (PDP) Chapter",
+		"agenda": "0+10 Socioeconomic Agenda of the Duterte Administration",
 		"locations": "Locations",
 		"physicalStartingDate": "Physical Starting Date",
 		"physicalClosingDate": "Physical Closing Date",

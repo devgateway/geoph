@@ -51,7 +51,10 @@
                 "fin_amount": "/filters/financialAmountPeriod",
                 "cl": "/filters/classification",
                 "ao": "/filters/actualPhysicalProgressPeriod",
-                "php": "/filters/physicalProgressPeriod"
+                "php": "/filters/physicalProgressPeriod",
+                "sdg": "/filters/sdg",
+                "pdp": "/filters/pdp",
+                "age": "/filters/agenda"
             },
             "production": {
                 "all": "/filters/all",
@@ -70,7 +73,10 @@
                 "fin_amount": "/filters/financialAmountPeriod",
                 "cl": "/filters/classification",
                 "ao": "/filters/actualPhysicalProgressPeriod",
-                "php": "/filters/physicalProgressPeriod"
+                "php": "/filters/physicalProgressPeriod",
+                "sdg": "/filters/sdg",
+                "pdp": "/filters/pdp",
+                "age": "/filters/agenda"
             }
         },
         "CHARTS": {
