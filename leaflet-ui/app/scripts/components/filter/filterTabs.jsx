@@ -46,7 +46,7 @@ class FilterTabContent extends React.Component {
             </Tabs>
           </Tab>
           <Tab className="filter-tab-content" eventKey={3}
-               title={translate('filters.sectors.sectors') + (markApplied(filters, ["st", "cc", "gr"]))}>
+               title={translate('filters.sectors.sectors') + (markApplied(filters, ["st", "cc", "gr", "sdg", "pdp", "age"]))}>
             <Tabs defaultActiveKey={1} animation={false} position="left" tabWidth={3}>
               <Tab className="filter-list-content" eventKey={1}
                    title={translate('filters.sectors.sector') + (markApplied(filters, "st"))}>
@@ -62,6 +62,24 @@ class FilterTabContent extends React.Component {
                    title={translate('filters.sectors.gender') + (markApplied(filters, "gr"))}>
                 <FilterList helpTextKey="help.filters.sectortab.gender" title="Gender"
                             filterType="gr" {...filters["gr"]} showCode={true}/>
+              </Tab>
+  
+              <Tab className="filter-list-content" eventKey={4}
+                   title={translate('filters.sectors.sdg') + (markApplied(filters, "sdg"))}>
+                <FilterList helpTextKey="help.filters.sectortab.sdg" title="SDG"
+                            filterType="sdg" {...filters["sdg"]} showCode={true}/>
+              </Tab>
+  
+              <Tab className="filter-list-content" eventKey={5}
+                   title={translate('filters.sectors.pdp') + (markApplied(filters, "pdp"))}>
+                <FilterList helpTextKey="help.filters.sectortab.pdp" title="PDP"
+                            filterType="pdp" {...filters["pdp"]} showCode={true}/>
+              </Tab>
+  
+              <Tab className="filter-list-content" eventKey={6}
+                   title={translate('filters.sectors.agenda') + (markApplied(filters, "age"))}>
+                <FilterList helpTextKey="help.filters.sectortab.agenda" title="0+10"
+                            filterType="age" {...filters["age"]} showCode={true}/>
               </Tab>
             </Tabs>
           </Tab>
