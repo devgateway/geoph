@@ -33,6 +33,9 @@ public class PrintServiceImpl implements PrintService {
     private static final String EXECUTING_AGENCIES = "Executing Agencies";
     private static final String SECTORS = "Sectors";
     private static final String STATUSES = "Statuses";
+    private static final String PDP = "PDP 2017-2022 Chapter";
+    private static final String SDG = "SDG Goal";
+    private static final String AGENDA = "0+10-Point Socioeconomic Agenda";
     private static final String PHYSICAL_STATUSES = "Physical Statuses";
     private static final String GENDER_RESPONSIVENESS = "Gender Responsiveness";
     private static final String CLIMATE_CHANGE = "Climate Change";
@@ -75,6 +78,15 @@ public class PrintServiceImpl implements PrintService {
 
     @Autowired
     GenderResponsivenessRepository genderResponsivenessRepository;
+
+    @Autowired
+    PdpRepository pdpRepository;
+
+    @Autowired
+    SdgRepository sdgRepository;
+
+    @Autowired
+    AgendaRepository agendaRepository;
 
     @Autowired
     ProjectRepository projectRepository;
@@ -134,6 +146,36 @@ public class PrintServiceImpl implements PrintService {
                         inner.add(fa.getName());
                     }
                     ret.put(SECTORS, inner);
+
+                } else if(filterStr.equals("pdp")){
+                    Set<String> inner = new HashSet<>();
+                    List list = (List)jsonFilters.get(filterStr);
+                    for(Object idObj:list) {
+                        Integer id = (Integer) idObj;
+                        Pdp fa = pdpRepository.findOne(id.longValue());
+                        inner.add(fa.getName());
+                    }
+                    ret.put(PDP, inner);
+
+                } else if(filterStr.equals("sdg")){
+                    Set<String> inner = new HashSet<>();
+                    List list = (List)jsonFilters.get(filterStr);
+                    for(Object idObj:list) {
+                        Integer id = (Integer) idObj;
+                        Sdg fa = sdgRepository.findOne(id.longValue());
+                        inner.add(fa.getName());
+                    }
+                    ret.put(SDG, inner);
+
+                } else if(filterStr.equals("age")){
+                    Set<String> inner = new HashSet<>();
+                    List list = (List)jsonFilters.get(filterStr);
+                    for(Object idObj:list) {
+                        Integer id = (Integer) idObj;
+                        Agenda fa = agendaRepository.findOne(id.longValue());
+                        inner.add(fa.getName());
+                    }
+                    ret.put(AGENDA, inner);
 
                 } else if(filterStr.equals("sa")){
                     Set<String> inner = new HashSet<>();
