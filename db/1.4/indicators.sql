@@ -1,0 +1,58 @@
+INSERT INTO indicator (id, name, description, unit, adm_level) VALUES (7000, 'Population (Regional - 2017)', 'http://www.census.gov.ph/', 'persons', 'Region');
+INSERT INTO indicator (id, name, description, unit, adm_level) VALUES (7001, 'Distribution (Regional - 2017)', 'http://www.census.gov.ph/', 'percentage', 'Region');
+INSERT INTO indicator (id, name, description, unit, adm_level) VALUES (7002, 'Growth Rate (from 2016 to 2017)', 'http://www.census.gov.ph/', 'percentage', 'Region');
+
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7000, 1292, 12919000);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7000, 1328, 1847000);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7000, 1, 5263000);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7000, 131, 3596000);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7000, 230, 11427000);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7000, 368, 14659000);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7000, 1615, 3216000);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7000, 516, 6267000);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7000, 637, 7920000);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7000, 744, 7690000);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7000, 855, 4705000);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7000, 1005, 3896000);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7000, 1082, 4857000);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7000, 1181, 5153000);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7000, 1236, 4780000);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7000, 1536, 2829000);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7000, 1412, 3897000);
+
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7001, 1292, 12.3);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7001, 1328, 1.8);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7001, 1, 5);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7001, 131, 3.4);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7001, 230, 10.9);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7001, 368, 14);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7001, 1615, 3.1);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7001, 516, 6);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7001, 637, 7.5);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7001, 744, 7.3);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7001, 855, 4.5);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7001, 1005, 3.7);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7001, 1082, 4.6);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7001, 1181, 4.9);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7001, 1236, 4.6);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7001, 1536, 2.7);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7001, 1412, 3.7);
+
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7002, 1292, 1);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7002, 1328, 1.8);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7002, 1, 1.2);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7002, 131, 1.4);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7002, 230, 1.4);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7002, 368, 1.8);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7002, 1615, 2);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7002, 516, 1.9);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7002, 637, 1.4);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7002, 744, 1.6);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7002, 855, 1.8);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7002, 1005, 1.7);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7002, 1082, 1.6);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7002, 1181, 1.9);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7002, 1236, 1.9);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7002, 1536, 2);
+INSERT INTO indicator_detail (indicator_id, location_id, value) VALUES (7002, 1412, 2.5);
+
