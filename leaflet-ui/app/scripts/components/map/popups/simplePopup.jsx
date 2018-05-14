@@ -11,6 +11,13 @@ class SimplePopup extends React.Component {
     }
   }
   
+  /**
+   * Format a number with commas.
+   */
+  numberWithCommas = (x) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+  
   render() {
     const {feature} = this.props;
     if (!feature) {
@@ -24,9 +31,10 @@ class SimplePopup extends React.Component {
         <div className="popup-title">
           <h2>{name}</h2>
           <div className="simple-popup-value">
-            {valueProperty == 'physicalProgress' ?
-              <div>{layerName} : {Number(physicalProgress).toFixed(2)}%</div> : null}
-            {valueProperty == 'value' ? <div>{indicatorName} : {value || "No Data"}</div> : null}
+            {valueProperty === 'physicalProgress'
+              ? <div>{layerName} : {Number(physicalProgress).toFixed(2)}%</div>
+              : null}
+            {valueProperty === 'value' ? <div>{indicatorName} : {this.numberWithCommas(value) || "No Data"}</div> : null}
           </div>
         </div>
       </div>
